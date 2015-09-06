@@ -1,0 +1,62 @@
+
+<div xmlns:jsp="http://java.sun.com/JSP/Page" 
+     xmlns:c="http://java.sun.com/jsp/jstl/core" 
+     version="2.0"
+	 class="draggable-demo-shop jqx-rc-all" id="shop">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>  
+        <div id="catalog" class="draggable-demo-catalog jqx-rc-all"></div>
+		
+
+        <div class="draggable-demo-cart-wrapper jqx-rc-all">
+		   <div class="form-group col-xs2 col-sm-4">
+			  <label for="name">Ban so</label>
+			  <input type="text" class="form-control" id="tableNumber" 
+				 placeholder="so ban"/>
+		   </div>
+		   <div class="form-group col-xs2 col-sm-8">
+			  <label for="name">Ten KH</label>
+			  <input type="text" class="form-control" id="customerName" 
+				 placeholder="ten KH"/>
+		   </div>
+            <div class="table-status jqx-rc-t">
+			<c:choose>
+				<c:when test="${table.status =='PAID'}">
+				Da tinh tien
+				</c:when>
+			</c:choose>
+			<c:choose>
+				<c:when test="${table.status =='DRINKING'}">
+				Dang uong
+				</c:when>
+			</c:choose>			
+	
+				
+			</div>			   
+            <div class="draggable-demo-title jqx-rc-t">Danh sach Thuc Uong
+				<div id='jqxWidget'></div>
+			</div>
+                <div id='cart' class="draggable-demo-cart jqx-rc-all">
+                    <div id="jqxgrid"></div>
+                </div>
+                <div class="draggable-demo-total">Tong: <strong><span id="total">$ 0</span></strong>
+									
+				</div>
+				
+							
+							
+        </div>
+	<c:if test="${table.status ne 'PAID'}">	
+		<button class="btn btn-lg btn-success tap-hoa-done-button"
+						onclick="submitBan('${table.tableID}');">Luu
+		</button>
+		
+		<button class="btn btn-lg btn-info print-button"
+						onclick="submitBan('${table.tableID}','PAID');">Tinh Tien 
+		</button>
+		<button class="btn btn-lg btn-warning print-checkin-button"
+						onclick="submitBan();">In 
+		</button>		
+	</c:if>
+        <div style="clear: both;"></div>
+</div>

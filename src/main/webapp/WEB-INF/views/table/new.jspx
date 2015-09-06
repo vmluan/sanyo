@@ -1,0 +1,105 @@
+
+<div xmlns:jsp="http://java.sun.com/JSP/Page" 
+     xmlns:c="http://java.sun.com/jsp/jstl/core" 
+     version="2.0"
+	 class="draggable-demo-shop jqx-rc-all" id="shop">
+    <jsp:directive.page contentType="text/html;charset=UTF-8" />  
+    <jsp:directive.page pageEncoding="UTF-8" />     
+    <jsp:output omit-xml-declaration="yes"/>
+		
+		<div id="categories" class="categories"><jsp:text />
+			<c:forEach items="${categories }" var="category">
+					<div class="col-xs2 col-sm-3 category-item">
+						<input type="checkbox" class="jqx-checkbox-default table-filter" onchange="reloadProducts();"
+							value="${category.categoryID}"> ${category.categoryName }</input>
+					</div>	
+				<jsp:text />			
+			</c:forEach>
+					<div class="col-xs2 col-sm-3 category-item" style="
+    left: 90%;
+    top: 0px;
+    position: absolute;
+">An/Hien
+					</div>			
+		</div>		
+        <div id="catalog" class="draggable-demo-catalog jqx-rc-all"><jsp:text />
+		</div>
+		
+
+        <div class="draggable-demo-cart-wrapper jqx-rc-all" id = "productcart">
+			<div class="div-customer-info">
+				   <div class="form-group-coffee col-xs2 col-sm-4">
+					  <input type="hidden" class="form-control" id="tableNumber" 
+						 placeholder="so ban" readonly="true"/>
+					<jsp:text />
+					  <input type="text" class="form-control" id="tableName" 
+						 placeholder="So Ban"/>
+					<jsp:text />					
+				   </div>
+				   <div class="form-group-coffee col-xs2 col-sm-8">
+					  <input type="text" class="form-control" id="customerName" 
+						 placeholder="ten KH"/>
+					<jsp:text />	 
+				   </div>
+			</div>	
+		
+            <div class="table-status jqx-rc-t" id = "tableStatus">
+					<c:choose>
+						<c:when test="${table.status =='PAID'}">
+						Đã tính tiền
+						</c:when>
+						<c:otherwise>
+							<c:choose>
+								<c:when test="${table.status =='DRINKING'}">
+								Đang uống
+								</c:when>
+								<c:otherwise>Bàn mới</c:otherwise>
+							</c:choose>			
+						</c:otherwise>	
+					
+					</c:choose>
+	
+			<jsp:text />	
+			</div>			   
+                <div id='cart' class="draggable-demo-cart jqx-rc-all">
+                    <div id="jqxgrid"><jsp:text /></div>
+					<jsp:text />
+                </div>
+                <div class="draggable-demo-total">Tổng: <strong><span id="total">$ 0</span></strong>
+				<jsp:text />					
+				</div>
+				
+							
+							
+        </div>
+		<div id="buttons" class="coffee-table-button-group">
+			<c:if test="${table.status ne 'PAID'}">	
+				<div class="button-div button-div-bottom">
+					<button class="btn btn-lg btn-info print-button"
+						onclick="submitBan(null, null,'PAID');" id = "checkInButton">Tính Tiền (F8)</button>
+				</div>
+			</c:if>
+			<c:if test="${table.status eq 'PAID'}">	
+				<div class="button-div button-div-bottom">
+					<button class="btn btn-lg btn-info print-button"
+						onclick="newTable();" id = "newTableButton">Tạo lượt uống mới</button>
+				</div>
+			</c:if>			
+			<div class="button-div">
+				<button class="btn btn-lg btn-warning print-checkin-button"
+					>In (F10)</button>
+			</div>
+			<div style="clear: both;"></div>
+
+			<jsp:text />
+		</div>
+        <div style="clear: both;"><jsp:text /></div>
+		
+    <div id="messageNotification" style="z-index: 3000; display: none">
+            Đã lưu thành công
+<jsp:text />
+    </div>
+
+    <div id="tableID" style="display: none">${table.tableID}<jsp:text /></div>	
+	
+</div>

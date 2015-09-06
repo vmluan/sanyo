@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+    <definition extends="table" name="tables/new">
+        <put-attribute name="body"
+            value="/WEB-INF/views/table/new.jspx" />
+    </definition>
+   
+    <definition extends="table" name="tables/update">
+        <put-attribute name="body"
+            value="/WEB-INF/views/table/new.jspx" />
+    </definition>
+    <definition name="tables/updateerror" template="/WEB-INF/views/table/error.jspx">
+    </definition>
+</tiles-definitions>

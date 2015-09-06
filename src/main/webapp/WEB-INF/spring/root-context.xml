@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+ 	xmlns:mvc="http://www.springframework.org/schema/mvc"
+ 	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+                        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+                        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+		
+    <import resource="classpath:datasource-tx-jpa.xml" />
+    
+    <import resource="security-context.xml"/>
+    
+    <!-- import resource="persistence.xml"/-->
+    
+<!--     <mvc:resources mapping="/resources/jqwidgets/**" location="/resources/jqwidgets/" cache-period="31556926" /> -->
+    
+<!-- <mvc:interceptors> -->
+<!-- <bean class="org.springframework.web.servlet.mvc.WebContentInterceptor" p:cacheSeconds="0" p:alwaysUseFullPath="true" > -->
+<!--     <property name="cacheMappings"> -->
+<!--         <props> -->
+<!--             cache for one month -->
+<!--             <prop key="/resources/jqwidgets/**">2592000</prop> -->
+<!--             don't set cache headers -->
+<!--             <prop key="/cache/agnostic/**">-1</prop> -->
+<!--         </props> -->
+<!--     </property> -->
+<!-- </bean> -->
+<!-- </mvc:interceptors> -->
+    <context:component-scan base-package="com.sanyo.quote.service.jpa"/>    
+        
+</beans>

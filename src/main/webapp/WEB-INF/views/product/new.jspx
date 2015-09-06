@@ -1,0 +1,59 @@
+<div xmlns:jsp="http://java.sun.com/JSP/Page" 
+     xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:form="http://www.springframework.org/tags/form"	
+     version="2.0"
+     class="draggable-demo-shop jqx-rc-all" id="shop">
+    <jsp:directive.page contentType="text/html;charset=UTF-8" />  
+    <jsp:directive.page pageEncoding="UTF-8" /> 
+    <jsp:output omit-xml-declaration="yes"/>  
+    <div class="tap-hoa-main-div" id="san-pham">
+
+        <form:form modelAttribute="product" id="userUpdateForm" acceptCharset="UTF-8" method="post" enctype="multipart/form-data">
+            <div>
+                <div class="col-xs2 col-sm-3">
+                    <form:label path="productName">
+                        Tên SP* 
+                    </form:label>
+                    <form:input path="productName" />
+                    <div>
+                        <form:errors path="productName" cssClass="error" />
+                    </div>
+                </div>	
+                <p/>
+                <div class="col-xs2 col-sm-3">
+                    <form:label path="productPriceWrapper">
+                        Gia San Pham* 
+                    </form:label>
+                    <form:input path="productPriceWrapper" />
+                    <div>
+                        <form:errors path="productPriceWrapper" cssClass="error" />
+                    </div>
+                    <p/>
+                </div>
+                <div class="col-xs2 col-sm-3">	
+                    Please select a file to upload : <input type="file" name="file" id="imgUpload" />
+					<img id="imgPrev" src="#" alt="your image" />
+
+                </div>
+                <button type="submit" class="btn btn-lg btn-success">
+                    <span class="ui-button-text">Save</span>
+                </button>				
+            </div>
+            <div>
+                <div class="col-sm-10">
+                    <form:label path="categoriesList">
+                        Category 
+                    </form:label>
+                    <c:forEach items="${categories }" var="category">
+                        <form:checkbox path="categoriesList"  value="${category.categoryID }"/>${category.categoryName }
+                    </c:forEach>
+                    <div>
+                        <form:errors path="categoriesList" cssClass="error" />
+                    </div>
+                    <p/>
+                </div>				
+            </div>
+        </form:form>
+    </div> <!-- /San Pham -->
+    <div style="clear: both;"></div>
+</div>
