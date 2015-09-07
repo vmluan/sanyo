@@ -46,7 +46,7 @@ public class User implements java.io.Serializable {
 	@Column(name = "mobile", length = 15)
 	private String mobile;
 	
-	@Column(name = "avatar", length = 45)
+	@Column(name = "avatar", length = 300)
 	private String avatar;
 	
 	@Column(name = "description", length = 1028)

@@ -16,42 +16,6 @@
     <spring:url value="/admin/users/" var="showUserUrl"/>  
     
     <script type="text/javascript">
-//     $(function(){      
-//       $("#list").jqGrid({
-//         url:'${showUserUrl}/listgrid',
-//         datatype: 'json',
-//         mtype: 'GET',
-//         colNames:['${labelUserUserName}', '${labelUserUserCode}', '${labelUserEmail}', '${labelUserActive}'],
-//         colModel :[ 
-//           {name:'username', index:'username', width:200},
-//           {name:'usercode', index:'usercode', width:100},
-//           {name:'email', index:'email', width:150},
-//           {name:'active', index:'active', width:100}
-//         ],
-//         jsonReader : {
-//             root:"entityData",
-//             page: "currentPage",
-//             total: "totalPages",
-//             records: "totalRecords",
-//             repeatitems: false,
-//             id: "userid"
-//         },      
-//         pager: '#pager',
-//         rowNum:10,
-//         rowList:[10,20,30],
-//         sortname: 'username',
-//         sortorder: 'asc',
-//         viewrecords: true,
-//         gridview: true,
-//         height: 250,
-//         width: 700,
-//         caption: '${labelUserList}',
-//         onSelectRow: function(id){ 
-//             document.location.href ="${showUserUrl}/" + id;
-//         }
-//       });
-//     });
-
 var url = "users/getListJson";
 // prepare the data
 var source =
@@ -64,14 +28,6 @@ var source =
             id: 'userid',
             url: url
         };
-var cellsrenderer = function(row, columnfield, value, defaulthtml, columnproperties, rowdata) {
-    if (value < 20) {
-        return '<span style="margin: 4px; float: ' + columnproperties.cellsalign + '; color: #ff0000;">' + value + '</span>';
-    }
-    else {
-        return '<span style="margin: 4px; float: ' + columnproperties.cellsalign + '; color: #008000;">' + value + '</span>';
-    }
-}
 var dataAdapter = new $.jqx.dataAdapter(source, {
     downloadComplete: function(data, status, xhr) {
     },

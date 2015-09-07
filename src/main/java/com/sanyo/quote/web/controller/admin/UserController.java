@@ -1,5 +1,8 @@
 package com.sanyo.quote.web.controller.admin;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
@@ -18,6 +21,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,10 +29,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.common.collect.Lists;
 import com.sanyo.quote.domain.User;
+import com.sanyo.quote.helper.ImageHelper;
 import com.sanyo.quote.helper.Utilities;
 import com.sanyo.quote.service.UserService;
 import com.sanyo.quote.web.form.GenericGrid;
@@ -40,7 +47,7 @@ import com.sanyo.quote.web.util.UrlUtil;
 public class UserController {
 
 	final Logger logger = LoggerFactory.getLogger(UserController.class);
-
+	final String UPLOAD_DIRECTORY = "/images/profile/";
 	@Autowired
 	MessageSource messageSource;
 
@@ -164,6 +171,10 @@ public class UserController {
         user.setPassword(DigestUtils.md5Hex(password));
         logger.info("User id: " + user.getUserid());
         
+      //handle attachments
+        String fileName = "";
+        fileName = ImageHelper.getInstances().saveImages(httpServletRequest,UPLOAD_DIRECTORY);
+        user.setAvatar(fileName);
         userService.save(user);
         return "redirect:/admin/users/" + UrlUtil.encodeUrlPathSegment(user.getUserid().toString(), httpServletRequest);
     }
@@ -180,5 +191,5 @@ public class UserController {
 		String result = Utilities.jSonSerialization(users);
 		//httpServletResponse.setContentType("application/json; charset=UTF-8");
 		return result;
-	}	
+	}
 }

@@ -56,7 +56,7 @@
     <h1>${formTitle}</h1>
 
     <div id="userUpdate">
-    <form:form modelAttribute="user" id="userUpdateForm" method="post">
+    <form:form modelAttribute="user" id="userUpdateForm" method="post" enctype="multipart/form-data">
 
         <c:if test="${not empty message}">
             <div id="message" class="${message.type}">${message.message}</div>
@@ -107,6 +107,11 @@
         </div>        
         <p/>    
            
+           <div class="col-xs2 col-sm-3">	
+               Please select a file to upload : <input type="file" name="file" id="imgUpload" />
+				<img id="imgPrev" src="#" alt="your image" />
+
+           </div>           
         <button type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
             <span class="ui-button-text">Save</span>
         </button> 
