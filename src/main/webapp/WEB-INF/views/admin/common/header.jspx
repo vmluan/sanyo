@@ -8,17 +8,17 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand " href="/">iCoffee</a>
+          <a class="navbar-brand " href="/dashboard">Home</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active" id= "ordersID"><a href="#">Thêm bàn</a></li>
+            <li class="active" id= "ordersID"><a href="#">Admin</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-			<li id="productsID"><a href="/products">QL Giá</a></li>            
-            <li id="summaryID"><a href="/quanlyban/tablelist">Thống Kê</a></li>
-            <li id="accountingID"><a href="#">Thu Chi</a></li>
-            <li id="logoutID"><a href="/j_spring_security_logout">Đăng xuất</a></li>
+			<li id="productsID"><a href="/products">Products</a></li>            
+            <li id="summaryID"><a href="/admin/users">Users</a></li>
+            <li id="accountingID"><a href="#">Admin</a></li>
+            <li id="logoutID"><a href="/j_spring_security_logout">Logout</a></li>
           </ul>	  
         </div><!--/.nav-collapse -->
 

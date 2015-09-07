@@ -16,41 +16,106 @@
     <spring:url value="/admin/users/" var="showUserUrl"/>  
     
     <script type="text/javascript">
-    $(function(){      
-      $("#list").jqGrid({
-        url:'${showUserUrl}/listgrid',
-        datatype: 'json',
-        mtype: 'GET',
-        colNames:['${labelUserUserName}', '${labelUserUserCode}', '${labelUserEmail}', '${labelUserActive}'],
-        colModel :[ 
-          {name:'username', index:'username', width:200},
-          {name:'usercode', index:'usercode', width:100},
-          {name:'email', index:'email', width:150},
-          {name:'active', index:'active', width:100}
-        ],
-        jsonReader : {
-            root:"entityData",
-            page: "currentPage",
-            total: "totalPages",
-            records: "totalRecords",
-            repeatitems: false,
-            id: "userid"
-        },      
-        pager: '#pager',
-        rowNum:10,
-        rowList:[10,20,30],
-        sortname: 'username',
-        sortorder: 'asc',
-        viewrecords: true,
-        gridview: true,
-        height: 250,
-        width: 700,
-        caption: '${labelUserList}',
-        onSelectRow: function(id){ 
-            document.location.href ="${showUserUrl}/" + id;
-        }
-      });
-    });
+//     $(function(){      
+//       $("#list").jqGrid({
+//         url:'${showUserUrl}/listgrid',
+//         datatype: 'json',
+//         mtype: 'GET',
+//         colNames:['${labelUserUserName}', '${labelUserUserCode}', '${labelUserEmail}', '${labelUserActive}'],
+//         colModel :[ 
+//           {name:'username', index:'username', width:200},
+//           {name:'usercode', index:'usercode', width:100},
+//           {name:'email', index:'email', width:150},
+//           {name:'active', index:'active', width:100}
+//         ],
+//         jsonReader : {
+//             root:"entityData",
+//             page: "currentPage",
+//             total: "totalPages",
+//             records: "totalRecords",
+//             repeatitems: false,
+//             id: "userid"
+//         },      
+//         pager: '#pager',
+//         rowNum:10,
+//         rowList:[10,20,30],
+//         sortname: 'username',
+//         sortorder: 'asc',
+//         viewrecords: true,
+//         gridview: true,
+//         height: 250,
+//         width: 700,
+//         caption: '${labelUserList}',
+//         onSelectRow: function(id){ 
+//             document.location.href ="${showUserUrl}/" + id;
+//         }
+//       });
+//     });
+
+var url = "users/getListJson";
+// prepare the data
+var source =
+        {
+            datatype: "json",
+            datafields: [
+                {name: 'username', type: 'string'},
+                {name: 'email', type: 'float'}
+            ],
+            id: 'userid',
+            url: url
+        };
+var cellsrenderer = function(row, columnfield, value, defaulthtml, columnproperties, rowdata) {
+    if (value < 20) {
+        return '<span style="margin: 4px; float: ' + columnproperties.cellsalign + '; color: #ff0000;">' + value + '</span>';
+    }
+    else {
+        return '<span style="margin: 4px; float: ' + columnproperties.cellsalign + '; color: #008000;">' + value + '</span>';
+    }
+}
+var dataAdapter = new $.jqx.dataAdapter(source, {
+    downloadComplete: function(data, status, xhr) {
+    },
+    loadComplete: function(data) {
+    },
+    loadError: function(xhr, status, error) {
+    }
+});
+// initialize jqxGrid
+$("#list").jqxGrid(
+        {
+            width: 1000,
+            height: 1000,
+            source: dataAdapter,
+            sortable: true,
+            pageable: true,
+            autoheight: true,
+            autoloadstate: false,
+            autosavestate: false,
+            columnsresize: true,
+            columnsreorder: true,
+            showfilterrow: true,
+            filterable: true,
+            columnsresize: true,
+                    rowsheight: 140,
+            //	autorowheight: true,
+            columns: [
+                {text: '', datafield: 'Edit', width: '15%',
+                    cellsrenderer: function(row, column, value) {
+                        return '<input type ="button" value="Edit" onClick = "updateProduct(' + row + ')"></input>'
+                                + '<input type ="button" value="Delete" onClick = "deleteProduct(' + row + ')"></input>'
+                                ;
+                    }
+                },
+                {text: '#', datafield: 'stt', width: '5%', columntype: 'number',
+                    cellsrenderer: function(row, column, value) {
+                        return row + 1;
+                    }
+                },
+                {text: 'User Name', datafield: 'username', width: '30%'},
+                {text: 'Email', datafield: 'email', align: 'right', cellsalign: 'right', cellsformat: 'c0', width: '15%'},
+            ]
+        });
+	
     </script>
 
     <c:if test="${not empty message}">

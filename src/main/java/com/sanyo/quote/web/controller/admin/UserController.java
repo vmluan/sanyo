@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.apache.commons.codec.digest.DigestUtils;
@@ -28,6 +29,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.common.collect.Lists;
 import com.sanyo.quote.domain.User;
+import com.sanyo.quote.helper.Utilities;
 import com.sanyo.quote.service.UserService;
 import com.sanyo.quote.web.form.GenericGrid;
 import com.sanyo.quote.web.form.Message;
@@ -164,5 +166,19 @@ public class UserController {
         
         userService.save(user);
         return "redirect:/admin/users/" + UrlUtil.encodeUrlPathSegment(user.getUserid().toString(), httpServletRequest);
-    }	
+    }
+	@RequestMapping(value = "/getListJson", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public String getProductsJson(@RequestParam(value="filterscount", required=false) String filterscount
+			, @RequestParam(value="groupscount", required=false) String groupscount
+			, @RequestParam(value="pagenum", required=false) Integer pagenum
+			, @RequestParam(value="pagesize", required=false) Integer pagesize
+			, @RequestParam(value="recordstartindex", required=false) Integer recordstartindex
+			, @RequestParam(value="recordendindex", required=false) Integer recordendindex
+			, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
+		List<User> users = userService.findAll();
+		String result = Utilities.jSonSerialization(users);
+		//httpServletResponse.setContentType("application/json; charset=UTF-8");
+		return result;
+	}	
 }
