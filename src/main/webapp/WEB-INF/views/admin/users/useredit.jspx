@@ -29,6 +29,20 @@
     
     <spring:eval expression="user.userid == null ? labelUserNew:labelUserUpdate" var="formTitle"/>       
 	<script type="text/javascript">
+	  var loadFile = function(event) {
+		    var imgPrev = document.getElementById('imgPrev');
+		    imgPrev.src = URL.createObjectURL(event.target.files[0]);
+			var imgUpload = document.getElementById('imgUpload');
+			if(imgUpload)
+				imgUpload.style.display='NONE';
+		  };
+		  
+		  function changeFile(){
+			var imgUpload = document.getElementById('imgUpload');
+			imgUpload.click();
+		  }
+		  
+		  
     $(function(){        
         CKEDITOR.replace( 'userDescription',
       		{	
@@ -107,11 +121,12 @@
         </div>        
         <p/>    
            
-           <div class="col-xs2 col-sm-3">	
-               Please select a file to upload : <input type="file" name="file" id="imgUpload" />
-				<img id="imgPrev" src="#" alt="your image" />
+           <div>	
+              Avatar: <input type="file" name="file" id="imgUpload" accept="image/*" onchange="loadFile(event)" style="display:none"/>
+				<img width="96px" height="96px" id="imgPrev" src="#" alt="your image" onClick="changeFile();"/>
 
-           </div>           
+           </div> 
+                    
         <button type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
             <span class="ui-button-text">Save</span>
         </button> 

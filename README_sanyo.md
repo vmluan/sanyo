@@ -4,6 +4,8 @@ http://www.petrikainulainen.net/programming/spring-framework/spring-data-jpa-tut
 
 http://docs.spring.io/spring-data/data-jpa/docs/current/reference/html/#repositories.query-methods.details
 
+html template: http://startbootstrap.com/template-overviews/sb-admin/
+
 
 cau truc project:
  - repository package:
