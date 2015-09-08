@@ -2,6 +2,7 @@ package com.sanyo.quote.web.controller.admin;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -34,6 +35,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.common.collect.Lists;
+import com.mysql.jdbc.Blob;
 import com.sanyo.quote.domain.User;
 import com.sanyo.quote.helper.ImageHelper;
 import com.sanyo.quote.helper.Utilities;
@@ -175,7 +177,14 @@ public class UserController {
         String fileName = "";
         fileName = ImageHelper.getInstances().saveImages(httpServletRequest,UPLOAD_DIRECTORY);
         user.setAvatar(fileName);
+        Blob avatarBlob = ImageHelper.getInstances().saveImagesWithBlobType(httpServletRequest, UPLOAD_DIRECTORY);
+        user.setAvatarBlob(avatarBlob);
         userService.save(user);
+        try {
+			avatarBlob.free();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
         return "redirect:/admin/users/" + UrlUtil.encodeUrlPathSegment(user.getUserid().toString(), httpServletRequest);
     }
 	@RequestMapping(value = "/getListJson", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
