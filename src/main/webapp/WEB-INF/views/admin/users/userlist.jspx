@@ -14,65 +14,6 @@
     <spring:message code="label_user_new" var="labelUserAdd"/>
     
     <spring:url value="/admin/users/" var="showUserUrl"/>  
-    
-    <script type="text/javascript">
-var url = "users/getListJson";
-// prepare the data
-var source =
-        {
-            datatype: "json",
-            datafields: [
-                {name: 'username', type: 'string'},
-                {name: 'email', type: 'float'}
-            ],
-            id: 'userid',
-            url: url
-        };
-var dataAdapter = new $.jqx.dataAdapter(source, {
-    downloadComplete: function(data, status, xhr) {
-    },
-    loadComplete: function(data) {
-    },
-    loadError: function(xhr, status, error) {
-    }
-});
-// initialize jqxGrid
-$("#list").jqxGrid(
-        {
-            width: 1000,
-            height: 1000,
-            source: dataAdapter,
-            sortable: true,
-            pageable: true,
-            autoheight: true,
-            autoloadstate: false,
-            autosavestate: false,
-            columnsresize: true,
-            columnsreorder: true,
-            showfilterrow: true,
-            filterable: true,
-            columnsresize: true,
-                    rowsheight: 140,
-            //	autorowheight: true,
-            columns: [
-                {text: '', datafield: 'Edit', width: '15%',
-                    cellsrenderer: function(row, column, value) {
-                        return '<input type ="button" value="Edit" onClick = "updateProduct(' + row + ')"></input>'
-                                + '<input type ="button" value="Delete" onClick = "deleteProduct(' + row + ')"></input>'
-                                ;
-                    }
-                },
-                {text: '#', datafield: 'stt', width: '5%', columntype: 'number',
-                    cellsrenderer: function(row, column, value) {
-                        return row + 1;
-                    }
-                },
-                {text: 'User Name', datafield: 'username', width: '30%'},
-                {text: 'Email', datafield: 'email', align: 'right', cellsalign: 'right', cellsformat: 'c0', width: '15%'},
-            ]
-        });
-	
-    </script>
 
     <c:if test="${not empty message}">
         <div id="message" class="${message.type}">${message.message}</div>
@@ -80,9 +21,83 @@ $("#list").jqxGrid(
 
     <h2>${labelUserList}</h2>
     
-    <div>
-    <table id="list"><tr><td/></tr></table> 
-    </div>
-    <div id="pager"><jsp:text /></div><P />
-    <a href="?form">${labelUserAdd}</a>     
+   <div id='jqxWidget' style="font-size: 13px; font-family: Verdana; float: left;"><jsp:text />
+        <div id="list"><jsp:text />
+        </div>
+     </div>	
+    
+    <div id="pager"><jsp:text /></div><jsp:text /><P />
+    
+    
+    <a href="?form">${labelUserAdd}</a> 
+   <script src="/resources/plugins/jQuery/jQuery-2.1.4.min.js"><jsp:text/></script>    
+    <script type="text/javascript" src="/resources/jqwidgets/jqxcore.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript" src="/resources/jqwidgets/jqxdata.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript" src="/resources/jqwidgets/jqxbuttons.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript"
+            src="/resources/jqwidgets/jqxscrollbar.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript" src="/resources/jqwidgets/jqxmenu.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript" src="/resources/jqwidgets/jqxgrid.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript"
+            src="/resources/jqwidgets/jqxgrid.edit.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript"
+            src="/resources/jqwidgets/jqxgrid.selection.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript"
+            src="/resources/jqwidgets/jqxgrid.aggregates.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript"
+            src="/resources/jqwidgets/jqxcheckbox.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript"
+            src="/resources/jqwidgets/jqxnumberinput.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript" src="/resources/jqwidgets/jqxinput.js">
+        <jsp:text/>
+    </script>
+
+    <script type="text/javascript" src="/resources/jqwidgets/jqxgrid.pager.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript" src="/resources/jqwidgets/jqxgrid.filter.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript" src="/resources/jqwidgets/jqxgrid.columnsreorder.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript" src="/resources/jqwidgets/jqxgrid.sort.js">
+        <jsp:text/>
+    </script>
+
+    <script type="text/javascript" src="/resources/scripts/demos.js">
+        <jsp:text/>
+    </script>
+
+    <script type="text/javascript" src="/resources/jqwidgets/jqxgrid.columnsresize.js"><jsp:text/></script> 
+    <script type="text/javascript" src="/resources/jqwidgets/jqxlistbox.js"><jsp:text/></script>
+    <script type="text/javascript" src="/resources/jqwidgets/jqxdropdownlist.js"><jsp:text/></script>
+    <script type="text/javascript" src="/resources/jqwidgets/jqxdragdrop.js"><jsp:text/></script>
+    <script type="text/javascript" src="/resources/jqwidgets/jqxcombobox.js"><jsp:text/></script>
+
+    <script type="text/javascript" src="/resources/scripts/userList.js">
+        <jsp:text/>
+    </script>
 </div>

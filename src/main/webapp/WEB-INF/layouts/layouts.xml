@@ -9,6 +9,8 @@
 			value="/WEB-INF/views/admin/common/header.jspx" />
 		<put-attribute name="footer"
 			value="/WEB-INF/views/admin/common/footer.jspx" />
+		<put-attribute name="sideBar"
+			value="/WEB-INF/views/admin/common/control_sidebar.jspx" />			
 	</definition>
 	<definition name="login" template="/WEB-INF/layouts/admin/login.jspx" />
 	<definition name="security/loginfail" extends="login" />

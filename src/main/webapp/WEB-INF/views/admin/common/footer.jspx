@@ -1,16 +1,14 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<div id="footer" xmlns:jsp="http://java.sun.com/JSP/Page"
-	xmlns:spring="http://www.springframework.org/tags" version="2.0">
-	<jsp:directive.page contentType="text/html;charset=UTF-8" />
-	<jsp:output omit-xml-declaration="yes" />
-	
-	<spring:message code="home_text" var="homeText"/>
-	<spring:message code="label_en_US" var="labelEnUs"/>
-    <spring:message code="label_vi" var="labelVN"/>
-	<spring:url value="/admin/users" var="homeUrl"/>
-
-    <a href="${homeUrl}">${homeText}</a> |
-    <a href="${homeUrl}?lang=en_US">${labelEnUs}</a> |
-    <a href="${homeUrl}?lang=vi">${labelVN}</a>
-
-</div>
+<html xmlns:jsp="http://java.sun.com/JSP/Page" 
+      xmlns:c="http://java.sun.com/jsp/jstl/core" 
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+      xmlns:tiles="http://tiles.apache.org/tags-tiles" 
+      xmlns:spring="http://www.springframework.org/tags">
+      <footer class="main-footer">
+        <!-- To the right -->
+        <div class="pull-right hidden-xs">
+          Anything you want
+        </div>
+        <!-- Default to the left -->
+        <strong>Copyright &amp;copy; 2015 <a href="#">Company</a>.</strong> All rights reserved.
+      </footer>
+</html>      
