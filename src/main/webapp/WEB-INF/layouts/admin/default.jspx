@@ -345,11 +345,11 @@
     <!-- REQUIRED JS SCRIPTS -->
 
     <!-- jQuery 2.1.4 -->
-    <script src="/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="/resources/plugins/jQuery/jQuery-2.1.4.min.js"><jsp:text/></script>
     <!-- Bootstrap 3.3.5 -->
-    <script src="/resources/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/resources/bootstrap/js/bootstrap.min.js"><jsp:text/></script>
     <!-- AdminLTE App -->
-    <script src="/resources/dist/js/app.min.js"></script>
+    <script src="/resources/dist/js/app.min.js"><jsp:text/></script>
 
     <!-- Optionally, you can add Slimscroll and FastClick plugins.
          Both of these plugins are recommended to enhance the
