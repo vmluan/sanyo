@@ -4,13 +4,17 @@
        "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
 
 <tiles-definitions>
+<definition name="default_bk" template="/WEB-INF/layouts/admin/default_bk.jspx">
+</definition>
 	<definition name="default" template="/WEB-INF/layouts/admin/default.jspx">
 		<put-attribute name="header"
 			value="/WEB-INF/views/admin/common/header.jspx" />
 		<put-attribute name="footer"
 			value="/WEB-INF/views/admin/common/footer.jspx" />
 		<put-attribute name="sideBar"
-			value="/WEB-INF/views/admin/common/control_sidebar.jspx" />			
+			value="/WEB-INF/views/admin/common/control_sidebar.jspx" />
+		<put-attribute name="sideBarMenu"
+			value="/WEB-INF/views/admin/common/sidebar_menu.jspx" />					
 	</definition>
 	<definition name="login" template="/WEB-INF/layouts/admin/login.jspx" />
 	<definition name="security/loginfail" extends="login" />

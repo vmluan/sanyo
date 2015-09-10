@@ -31,32 +31,39 @@ public class StartupContextListener extends ContextLoaderListener{
 		System.out.println("App context initialized successfully");
 		
 		UserService userService = ctx.getBean("userService", UserService.class);
-		User admin = userService.findByUserName("admin");
-		if(admin == null){
+		for(int i=0; i < 100; i++){
+			String userName = "admin" + i;
+			if(i ==0)
+				userName = "admin";
+			User admin = userService.findByUserName(userName);
+			if(admin == null){
+				
+				
 			
-			
-		
-			
-			User user = new User();
-			user.setUsername("admin");
-			user.setUsercode("01234");
-			user.setPassword("ee10c315eba2c75b403ea99136f5b48d"); // admin in reserve,
-			user.setActive(true);
-			
-			
-			userService.save(user);
-			
-			GroupService groupService = ctx.getBean("groupService", GroupService.class);
-			Group group = new Group();
-			group.setGroupName("ROLE_USER");
-			groupService.save(group);
-			List<Group> groupList = new ArrayList<Group>();
-			groupList.add(group);
-			user.setGrouplist(groupList);
-			
-			userService.save(user);
-			
+				
+				User user = new User();
+				user.setUsername(userName);
+				user.setUsercode("01234");
+				user.setPassword("ee10c315eba2c75b403ea99136f5b48d"); // admin in reserve,
+				user.setActive(true);
+				user.setEmail(userName + "@gmail.com"); 
+				
+				
+				userService.save(user);
+				
+				GroupService groupService = ctx.getBean("groupService", GroupService.class);
+				Group group = new Group();
+				group.setGroupName("ROLE_USER");
+				groupService.save(group);
+				List<Group> groupList = new ArrayList<Group>();
+				groupList.add(group);
+				user.setGrouplist(groupList);
+				
+				userService.save(user);
+				
+			}
 		}
+
 		ctx.destroy();
 	}
 }

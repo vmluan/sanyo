@@ -52,44 +52,49 @@ public class HomeController extends BaseController{
 	@RequestMapping(method = RequestMethod.GET)
 	public String getHomePage(Model ciModel,@RequestParam(value="lang", required=false)String id,
 			HttpServletRequest httpServletRequest) throws ParseException {
-		Locale locale = LocaleContextHolder.getLocale();	
-		if(StringUtils.isNotEmpty(id)){
-			if(id.equalsIgnoreCase(com.sanyo.quote.helper.Constants.VIETNAMESE))
-				locale.setDefault(new Locale(id));
-		}
-		List<TH_Table> tablesOfDay;
-		
-		String tradeDate = httpServletRequest.getParameter("tradeDate");
-		String danguong = httpServletRequest.getParameter("danguong");
-		String datinhtien = httpServletRequest.getParameter("datinhtien");
-		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-		List<TH_TableStatus> statuses = new ArrayList<TH_TableStatus>();
-		if(danguong != null && danguong.equalsIgnoreCase("true"))
-			statuses.add(TH_TableStatus.DRINKING);
-		if (datinhtien != null && datinhtien.equalsIgnoreCase("true"))
-			statuses.add(TH_TableStatus.PAID);
-		Date date = null;
-		if(tradeDate != null){
-			//get the next date
-			
-			date = format.parse(tradeDate);
-			
-
-		}else{
-			Date currentDate = new Date();
-			String dateString = format.format(currentDate);
-			date = format.parse(dateString);
-		}
-		if(statuses.size() == 1)
-			tablesOfDay = tableService.findTableByDate(date, statuses.get(0));
-		else if (statuses.size() > 1)
-			tablesOfDay = tableService.findTableByDate(date, statuses.get(0), statuses.get(1));
-		else
-			tablesOfDay = tableService.findTableByDate(date);
-		ciModel.addAttribute("table", tablesOfDay);
-		return "taphoa";
+		return "default_bk";
 	}
-	
+//	@RequestMapping(method = RequestMethod.GET)
+//	public String getHomePage(Model ciModel,@RequestParam(value="lang", required=false)String id,
+//			HttpServletRequest httpServletRequest) throws ParseException {
+//		Locale locale = LocaleContextHolder.getLocale();	
+//		if(StringUtils.isNotEmpty(id)){
+//			if(id.equalsIgnoreCase(com.sanyo.quote.helper.Constants.VIETNAMESE))
+//				locale.setDefault(new Locale(id));
+//		}
+//		List<TH_Table> tablesOfDay;
+//		
+//		String tradeDate = httpServletRequest.getParameter("tradeDate");
+//		String danguong = httpServletRequest.getParameter("danguong");
+//		String datinhtien = httpServletRequest.getParameter("datinhtien");
+//		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+//		List<TH_TableStatus> statuses = new ArrayList<TH_TableStatus>();
+//		if(danguong != null && danguong.equalsIgnoreCase("true"))
+//			statuses.add(TH_TableStatus.DRINKING);
+//		if (datinhtien != null && datinhtien.equalsIgnoreCase("true"))
+//			statuses.add(TH_TableStatus.PAID);
+//		Date date = null;
+//		if(tradeDate != null){
+//			//get the next date
+//			
+//			date = format.parse(tradeDate);
+//			
+//
+//		}else{
+//			Date currentDate = new Date();
+//			String dateString = format.format(currentDate);
+//			date = format.parse(dateString);
+//		}
+//		if(statuses.size() == 1)
+//			tablesOfDay = tableService.findTableByDate(date, statuses.get(0));
+//		else if (statuses.size() > 1)
+//			tablesOfDay = tableService.findTableByDate(date, statuses.get(0), statuses.get(1));
+//		else
+//			tablesOfDay = tableService.findTableByDate(date);
+//		ciModel.addAttribute("table", tablesOfDay);
+//		return "taphoa";
+//	}
+//	
 	
 	@RequestMapping(value = "/charts", method = RequestMethod.GET)
 	@Transactional

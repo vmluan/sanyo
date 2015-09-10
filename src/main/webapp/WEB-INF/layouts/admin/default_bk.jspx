@@ -235,9 +235,9 @@
             <li class="active"><a href="#"><i class="fa fa-link"><jsp:text/></i> <span>Link</span></a></li>
             <li><a href="#"><i class="fa fa-link"><jsp:text/></i> <span>Another Link</span></a></li>
             <li class="treeview">
-              <a href="#"><i class="fa fa-link"><jsp:text/></i> <span>Multilevel</span> <i class="fa fa-angle-left pull-right"><jsp:text/></i></a>
+              <a href="#"><i class="fa fa-link"><jsp:text/></i> <span>Admin</span> <i class="fa fa-angle-left pull-right"><jsp:text/></i></a>
               <ul class="treeview-menu">
-                <li><a href="#">Link in level 2</a></li>
+                <li><a href="/admin/users">Users Maintenance</a></li>
                 <li><a href="#">Link in level 2</a></li>
               </ul>
             </li>
@@ -264,7 +264,7 @@
         <section class="content"><jsp:text/>
 
           <!-- Your Page Content Here -->
-		<tiles:insertAttribute name="body"/> 
+          
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->
 

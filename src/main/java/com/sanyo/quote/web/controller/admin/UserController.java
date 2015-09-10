@@ -62,7 +62,8 @@ public class UserController {
 
 		List<User> users = userService.findAll();
 		uiModel.addAttribute("users", users);
-
+		uiModel.addAttribute("pageHeader", "User List");
+		uiModel.addAttribute("pageDesc", "All of users");
 		logger.info("No. of users: " + users.size());
 
 		return "users/list";
@@ -196,7 +197,15 @@ public class UserController {
 			, @RequestParam(value="recordstartindex", required=false) Integer recordstartindex
 			, @RequestParam(value="recordendindex", required=false) Integer recordendindex
 			, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
-		List<User> users = userService.findAll();
+		
+		
+		// Constructs page request for current page
+		PageRequest pageRequest = null;
+		pageRequest = new PageRequest(pagenum, pagesize);
+
+		
+//		List<User> users = (List<User>) userService.findAllByPage(pageRequest).getContent();
+		List<User> users  = userService.findAll();
 		String result = Utilities.jSonSerialization(users);
 		//httpServletResponse.setContentType("application/json; charset=UTF-8");
 		return result;
