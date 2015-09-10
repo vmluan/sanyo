@@ -18,18 +18,13 @@
     <c:if test="${not empty message}">
         <div id="message" class="${message.type}">${message.message}</div>
     </c:if>
-
-    <h2>${labelUserList}</h2>
-    
-   <div id='jqxWidget' style="font-size: 13px; font-family: Verdana; float: left;"><jsp:text />
-        <div id="list"><jsp:text />
+    <section class="content">
+		<div id="list" class="row"><jsp:text />
         </div>
-     </div>	
-    
-    <div id="pager"><jsp:text /></div><jsp:text /><P />
-    
-    
-    <a href="?form">${labelUserAdd}</a> 
+		<div id="pager"><jsp:text /></div><jsp:text /><P /><jsp:text />
+		<a href="?form">${labelUserAdd}</a>
+	</section>
+
    <script src="/resources/plugins/jQuery/jQuery-2.1.4.min.js"><jsp:text/></script>    
     <script type="text/javascript" src="/resources/jqwidgets/jqxcore.js">
         <jsp:text/>
