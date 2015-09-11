@@ -62,8 +62,8 @@ public class UserController {
 
 		List<User> users = userService.findAll();
 		uiModel.addAttribute("users", users);
-		uiModel.addAttribute("pageHeader", "User List");
-		uiModel.addAttribute("pageDesc", "All of users");
+		setBreadcrumbLink(uiModel, "/", "");
+		setPageHeader(uiModel, "User List", "All of users");
 		logger.info("No. of users: " + users.size());
 
 		return "users/list";
@@ -152,7 +152,11 @@ public class UserController {
         }
         
         redirectAttributes.addFlashAttribute("message", new Message("success", messageSource.getMessage("user_save_success", new Object[]{}, locale)));        
-
+        String fileName = "";
+        fileName = ImageHelper.getInstances().saveImages(httpServletRequest,UPLOAD_DIRECTORY);
+        user.setAvatar(fileName);
+        setPageHeader(uiModel, "Edit User", "");
+        setBreadcrumbLink(uiModel, "/users", "");
         userService.save(user);
         
         return "redirect:/admin/users/" + UrlUtil.encodeUrlPathSegment(user.getUserid().toString(), httpServletRequest);
@@ -178,14 +182,16 @@ public class UserController {
         String fileName = "";
         fileName = ImageHelper.getInstances().saveImages(httpServletRequest,UPLOAD_DIRECTORY);
         user.setAvatar(fileName);
-        Blob avatarBlob = ImageHelper.getInstances().saveImagesWithBlobType(httpServletRequest, UPLOAD_DIRECTORY);
-        user.setAvatarBlob(avatarBlob);
+//        Blob avatarBlob = ImageHelper.getInstances().saveImagesWithBlobType(httpServletRequest, UPLOAD_DIRECTORY);
+//        user.setAvatarBlob(avatarBlob);
+        setPageHeader(uiModel, "Create new User", "");
+        setBreadcrumbLink(uiModel, "/users", "");
         userService.save(user);
-        try {
-			avatarBlob.free();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+//        try {
+//			avatarBlob.free();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
         return "redirect:/admin/users/" + UrlUtil.encodeUrlPathSegment(user.getUserid().toString(), httpServletRequest);
     }
 	@RequestMapping(value = "/getListJson", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
@@ -209,5 +215,13 @@ public class UserController {
 		String result = Utilities.jSonSerialization(users);
 		//httpServletResponse.setContentType("application/json; charset=UTF-8");
 		return result;
+	}
+	private void setPageHeader(Model uiModel, String pageHeader, String pageDesc){
+		uiModel.addAttribute("pageHeader", pageHeader);
+		uiModel.addAttribute("pageDesc", pageDesc);
+	}
+	private void setBreadcrumbLink(Model uiModel, String homeLink, String currentLink){
+		uiModel.addAttribute("homeLink", homeLink);
+		uiModel.addAttribute("currentLink", currentLink);
 	}
 }

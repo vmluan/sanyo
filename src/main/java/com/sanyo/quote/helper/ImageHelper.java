@@ -54,7 +54,6 @@ public class ImageHelper {
 			String resultFile = filePath +  destFolder + fileName;
 			
 			File multipartFile = new File(resultFile);
-			fileName = resultFile;
 			try {
 				file.transferTo(multipartFile);
 			} catch (IllegalStateException e) {

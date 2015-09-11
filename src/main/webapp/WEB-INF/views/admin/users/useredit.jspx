@@ -41,100 +41,90 @@
 			var imgUpload = document.getElementById('imgUpload');
 			imgUpload.click();
 		  }
-		  
-		  
-    $(function(){        
-        CKEDITOR.replace( 'userDescription',
-      		{	
-      			width:650,
-        		height:250,
-      			toolbar :
-      			[
-					{ name: 'document', items : [ 'NewPage','Preview' ] },
-					{ name: 'clipboard', items : [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ] },
-					{ name: 'editing', items : [ 'Find','Replace','-','SelectAll','-','Scayt' ] },
-					{ name: 'insert', items : [ 'Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak'
-					         ,'Iframe' ] },
-					        '/',
-					{ name: 'styles', items : [ 'Styles','Format' ] },
-					{ name: 'basicstyles', items : [ 'Bold','Italic','Strike','-','RemoveFormat' ] },
-					{ name: 'paragraph', items : [ 'NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote' ] },
-					{ name: 'links', items : [ 'Link','Unlink','Anchor' ] },
-					{ name: 'tools', items : [ 'Maximize','-','About' ] },					
-      				
-      			]
-      			
-      		});
-    });
     </script>
-    <h1>${formTitle}</h1>
+        <!-- Main content -->
+        <section class="content">
+          <div class="row">
+            <!-- left column -->
+            <div class="col-md-6">
+              <!-- general form elements -->
+              <div class="box box-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title">${formTitle}</h3>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                <form:form modelAttribute="user" id="userUpdateForm" method="post" enctype="multipart/form-data">
+                  <div class="box-body">
+					<c:if test="${not empty message}">
+						<div id="message" class="${message.type}">${message.message}</div>
+					</c:if>					
+					<div class="form-group">
+						<form:label path="username">
+							${labelUserUserName}* 
+						</form:label>
+						<form:input path="username" class="form-control"/> 
+					</div>
+					<div>
+						<form:errors path="username" cssClass="error" />
+					</div>					
+					<div class="form-group">
+						<form:label path="password">
+							${labelUserPassword}* 
+						</form:label>
+						<form:input path="password" type="password" value="" class="form-control"/>
+					</div>
+					<div>
+						<form:errors path="password" cssClass="error" />
+					</div>					
+					<div class="form-group">
+						<form:label path="email">
+							${labelUserEmail}* 
+						</form:label>
+						<form:input path="email" class="form-control" />
+					</div>
+					<div>
+						<form:errors path="email" cssClass="error" />
+					</div>						
+					<div class="form-group">
+						<form:label path="mobile">
+							${labelMobile}* 
+						</form:label>
+						<form:input path="mobile" class="form-control" />					
+					</div>
+						<div>
+							<form:errors path="Mobile" cssClass="error" />
+						</div>					
+					<div class="form-group">
+						<form:label path="description">
+							${labelDescription}
+						</form:label>
+						<form:textarea cols="60" rows="8" path="description" id="userDescription" class="form-control"/>
+					</div>
+					<div>
+						<form:errors path="description" cssClass="error" />
+					</div>  					
+					<div class="form-group">
+						<label for="imgUpload">Avatar: </label>
+						<input type="file" name="file" id="imgUpload" accept="image/*" onchange="loadFile(event)" style="display:none" class="form-control" />
+						<img width="96px" height="96px" id="imgPrev" src="#" alt="your image" onClick="changeFile();" class="profile-user-img"/>					
+					</div>
+					
+                  </div><!-- /.box-body -->
 
-    <div id="userUpdate">
-    <form:form modelAttribute="user" id="userUpdateForm" method="post" enctype="multipart/form-data">
+                  <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </div>
+                </form:form>
+              </div><!-- /.box -->
+			</div>
+		</div>
+	</section>
 
-        <c:if test="${not empty message}">
-            <div id="message" class="${message.type}">${message.message}</div>
-        </c:if>
-
-        <form:label path="username">
-            ${labelUserUserName}* 
-        </form:label>
-        <form:input path="username" />
-        <div>
-            <form:errors path="username" cssClass="error" />
-        </div>
-        <p/>
-
-        <form:label path="password">
-            ${labelUserPassword}* 
-        </form:label>
-        <form:input path="password" type="password" value=""/>
-        <div>
-            <form:errors path="password" cssClass="error" />
-        </div>
-        <p/>    
-		
-        <form:label path="email">
-            ${labelUserEmail}* 
-        </form:label>
-        <form:input path="email" />
-        <div>
-            <form:errors path="email" cssClass="error" />
-        </div>
-        <p/>
-        
-        <form:label path="mobile">
-            ${labelMobile}* 
-        </form:label>
-        <form:input path="mobile" />
-        <div>
-            <form:errors path="Mobile" cssClass="error" />
-        </div>
-        <p/>
-        
-        <form:label path="description">
-            ${labelDescription}
-        </form:label>
-        <form:textarea cols="60" rows="8" path="description" id="userDescription"/>
-        <div>
-            <form:errors path="description" cssClass="error" />
-        </div>        
-        <p/>    
-           
-           <div>	
-              Avatar: <input type="file" name="file" id="imgUpload" accept="image/*" onchange="loadFile(event)" style="display:none"/>
-				<img width="96px" height="96px" id="imgPrev" src="#" alt="your image" onClick="changeFile();"/>
-
-           </div> 
-                    
-        <button type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
-            <span class="ui-button-text">Save</span>
-        </button> 
-        <button type="reset" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
-            <span class="ui-button-text">Reset</span>
-        </button>           
-                      
-    </form:form>   
-    </div>
-
+<script type="text/javascript">
+	if("${user.avatar}"){
+		var imgPrev = document.getElementById('imgPrev');
+		imgPrev.src = "../../images/profile/" + "${user.avatar}";
+		alert('test');
+	}
+</script>
 </div>
