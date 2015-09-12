@@ -105,18 +105,18 @@ public class ImageHelper {
 		
 		return blob;
 	}
-	   public void readImage(User user, String photoFilePath) throws IOException, SQLException {
-	        Blob blob = user.getAvatarBlob();
-	        byte[] blobBytes = blob.getBytes(1, (int) blob.length());
-	        saveBytesToFile(photoFilePath, blobBytes);
-	        blob.free();
-	    }
-	     
-	    public void saveBytesToFile(String filePath, byte[] fileBytes) throws IOException {
-	        FileOutputStream outputStream = new FileOutputStream(filePath);
-	        outputStream.write(fileBytes);
-	        outputStream.close();
-	    }
+//	   public void readImage(User user, String photoFilePath) throws IOException, SQLException {
+//	        Blob blob = user.getAvatarBlob();
+//	        byte[] blobBytes = blob.getBytes(1, (int) blob.length());
+//	        saveBytesToFile(photoFilePath, blobBytes);
+//	        blob.free();
+//	    }
+//	     
+//	    public void saveBytesToFile(String filePath, byte[] fileBytes) throws IOException {
+//	        FileOutputStream outputStream = new FileOutputStream(filePath);
+//	        outputStream.write(fileBytes);
+//	        outputStream.close();
+//	    }
 	     
 	
 

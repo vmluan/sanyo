@@ -1,15 +1,17 @@
 package com.sanyo.quote.web.controller.admin;
 
-import java.io.File;
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.Iterator;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.ConstraintViolation;
 import javax.validation.Valid;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
@@ -22,23 +24,22 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.common.collect.Lists;
-import com.mysql.jdbc.Blob;
+import com.sanyo.quote.domain.Group;
 import com.sanyo.quote.domain.User;
 import com.sanyo.quote.helper.ImageHelper;
 import com.sanyo.quote.helper.Utilities;
+import com.sanyo.quote.service.GroupService;
 import com.sanyo.quote.service.UserService;
 import com.sanyo.quote.web.form.GenericGrid;
 import com.sanyo.quote.web.form.Message;
@@ -55,6 +56,16 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private GroupService groupService;
+	
+	
+	private Validator validator;
+	
+	public UserController(){
+		ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
+        validator = validatorFactory.getValidator();
+	}
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String list(Model uiModel) {
@@ -127,16 +138,20 @@ public class UserController {
 	
 	@RequestMapping(value = "/{id}", params = "form", method = RequestMethod.GET)
     public String updateForm(@PathVariable("id") Integer id, Model uiModel) {
-        uiModel.addAttribute("user", userService.findById(id));
+		User user = userService.findById(id);
+        uiModel.addAttribute("user", user);
+        resetGroups(user,uiModel);
         return "users/update";
 	}
 	
 	@RequestMapping(params = "form", method = RequestMethod.GET)
     public String createForm(Model uiModel) {
-        uiModel.addAttribute("user", new User());
+		User user = new User();
+        uiModel.addAttribute("user", user);
+        resetGroups(user,uiModel);
         return "users/create";
 	}
-	
+	//update an existing user, save to database
 	@RequestMapping(value = "/{id}", params = "form", method = RequestMethod.POST)
 	@Transactional
     public String update(@ModelAttribute("user") User user, @PathVariable Integer id, Model uiModel, 
@@ -157,19 +172,22 @@ public class UserController {
         user.setAvatar(fileName);
         setPageHeader(uiModel, "Edit User", "");
         setBreadcrumbLink(uiModel, "/users", "");
+        setGroupList(user);
         userService.save(user);
         
         return "redirect:/admin/users/" + UrlUtil.encodeUrlPathSegment(user.getUserid().toString(), httpServletRequest);
     }
-	
+	//create new user, save to database
 	@RequestMapping(params = "form", method = RequestMethod.POST)
     public String create(@Valid User user, BindingResult bindingResult, Model uiModel, 
     		HttpServletRequest httpServletRequest, RedirectAttributes redirectAttributes, Locale locale,
     		@RequestParam(value="password", required=true) String password) {
 		logger.info("Creating user");
+		httpServletRequest.getParameter("grouplist");
         if (bindingResult.hasErrors()) {
 			uiModel.addAttribute("message", new Message("error", messageSource.getMessage("user_save_fail", new Object[]{}, locale)));
             uiModel.addAttribute("user", user);
+            resetGroups(user, uiModel);
             return "users/create";
         }
         uiModel.asMap().clear();
@@ -182,16 +200,10 @@ public class UserController {
         String fileName = "";
         fileName = ImageHelper.getInstances().saveImages(httpServletRequest,UPLOAD_DIRECTORY);
         user.setAvatar(fileName);
-//        Blob avatarBlob = ImageHelper.getInstances().saveImagesWithBlobType(httpServletRequest, UPLOAD_DIRECTORY);
-//        user.setAvatarBlob(avatarBlob);
         setPageHeader(uiModel, "Create new User", "");
         setBreadcrumbLink(uiModel, "/users", "");
+        setGroupList(user);
         userService.save(user);
-//        try {
-//			avatarBlob.free();
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
         return "redirect:/admin/users/" + UrlUtil.encodeUrlPathSegment(user.getUserid().toString(), httpServletRequest);
     }
 	@RequestMapping(value = "/getListJson", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
@@ -223,5 +235,28 @@ public class UserController {
 	private void setBreadcrumbLink(Model uiModel, String homeLink, String currentLink){
 		uiModel.addAttribute("homeLink", homeLink);
 		uiModel.addAttribute("currentLink", currentLink);
+	}
+	private void resetGroups(User user, Model uiModel){
+		uiModel.addAttribute("allGroups", groupService.findAll());
+		List<Group> groupList = user.getGrouplist();
+		if(groupList != null){
+			 String[] groupIDs = new String[groupList.size()];
+		        for(int i=0; i< groupList.size(); i++){
+		        	groupIDs[i] = groupList.get(i).getGroupid().toString();
+		        }
+			user.setGroupIDs(groupIDs);
+		}
+	}
+	private void setGroupList(User user){
+        String[] groupIDs = user.getGroupIDs();
+        if(groupIDs != null){
+        	List<Group> groupList = new ArrayList<Group>();
+	        for(int i=0; i< groupIDs.length; i++){
+	        	Group group = groupService.findById(Integer.valueOf(groupIDs[i]));
+	        	groupList.add(group);
+	        }
+	        user.setGrouplist(groupList);
+	        
+        }
 	}
 }
