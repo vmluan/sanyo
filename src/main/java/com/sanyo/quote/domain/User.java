@@ -20,6 +20,12 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import com.mysql.jdbc.Blob;
 /**
@@ -37,13 +43,21 @@ public class User implements java.io.Serializable {
 	@Column(name = "usercode", length = 45)
 	private String usercode;
 	
+
+	@NotEmpty
 	@Column(name = "username", length = 30,unique = true, nullable = false)
 	private String username;
 	
+
+	@NotEmpty
+//	 @Size(min = 6, max = 15, message = "Your password must between 6 and 15 characters")
 	@Column(name = "password", length = 45)
 	private String password;
 	
+	@Email
 	@Column(name = "email", length = 30)
+	@NotNull
+	@NotEmpty
 	private String email;
 	
 	@Column(name = "mobile", length = 15)
@@ -52,9 +66,9 @@ public class User implements java.io.Serializable {
 	@Column(name = "avatar", length = 300)
 	private String avatar;
 	
-	@Lob
-	@Column(name = "avatarBlob")
-	private Blob avatarBlob;
+//	@Lob
+//	@Column(name = "avatarBlob")
+//	private Blob avatarBlob;
 	
 	@Column(name = "description", length = 1028)
 	private String description;
@@ -80,6 +94,19 @@ public class User implements java.io.Serializable {
 	@JoinTable(name="user_group", joinColumns={@JoinColumn(name="userid")}
 			, inverseJoinColumns={@JoinColumn(name="groupid")})
 	private List<Group> grouplist;
+	
+	@Transient
+	private String[] groupIDs;
+	
+	
+
+	public String[] getGroupIDs() {
+		return groupIDs;
+	}
+
+	public void setGroupIDs(String[] groupIDs) {
+		this.groupIDs = groupIDs;
+	}
 
 	public List<Group> getGrouplist() {
 		return grouplist;
@@ -228,13 +255,13 @@ public class User implements java.io.Serializable {
 		this.createdby = createdby;
 	}
 
-	public Blob getAvatarBlob() {
-		return avatarBlob;
-	}
-
-	public void setAvatarBlob(Blob avatarBlob) {
-		this.avatarBlob = avatarBlob;
-	}
+//	public Blob getAvatarBlob() {
+//		return avatarBlob;
+//	}
+//
+//	public void setAvatarBlob(Blob avatarBlob) {
+//		this.avatarBlob = avatarBlob;
+//	}
 	
 	
 }
