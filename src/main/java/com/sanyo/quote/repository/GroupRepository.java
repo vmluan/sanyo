@@ -11,4 +11,5 @@ import com.sanyo.quote.domain.Group;
 public interface GroupRepository extends PagingAndSortingRepository<Group, Integer> {
 //	@Query("select c from Group g where g.groupid  =  :userName")
 //	List<Group> findByUserName( @Param("userName") String userName);
+	public Group findByGroupName(String groupName);
 }

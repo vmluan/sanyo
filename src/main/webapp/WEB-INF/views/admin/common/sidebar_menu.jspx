@@ -13,7 +13,7 @@
               <a href="#"><i class="fa fa-link"><jsp:text/></i> <span>Admin</span> <i class="fa fa-angle-left pull-right"><jsp:text/></i></a>
               <ul class="treeview-menu">
                 <li><a href="/admin/users">Users Maintenance</a></li>
-                <li><a href="#">Link in level 2</a></li>
+                <li><a href="/admin/roles">Role Maintenance</a></li>
               </ul>
             </li>
           </ul><!-- /.sidebar-menu -->

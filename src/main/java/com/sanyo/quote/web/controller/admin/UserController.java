@@ -149,6 +149,7 @@ public class UserController {
 		User user = new User();
         uiModel.addAttribute("user", user);
         resetGroups(user,uiModel);
+        setPageHeader(uiModel, "Create User", "");
         return "users/create";
 	}
 	//update an existing user, save to database
@@ -173,9 +174,12 @@ public class UserController {
         setPageHeader(uiModel, "Edit User", "");
         setBreadcrumbLink(uiModel, "/users", "");
         setGroupList(user);
+        uiModel.addAttribute("user", user);
+        resetGroups(user,uiModel);
+        setPageHeader(uiModel, "Update User", "");
         userService.save(user);
-        
-        return "redirect:/admin/users/" + UrlUtil.encodeUrlPathSegment(user.getUserid().toString(), httpServletRequest);
+        return "users/update";
+//        return "redirect:/admin/users/" + UrlUtil.encodeUrlPathSegment(user.getUserid().toString(), httpServletRequest);
     }
 	//create new user, save to database
 	@RequestMapping(params = "form", method = RequestMethod.POST)

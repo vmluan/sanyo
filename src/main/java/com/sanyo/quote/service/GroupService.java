@@ -15,6 +15,7 @@ public interface GroupService {
 	
 	Group save(Group group);
 	
-	Page<Group> findAllByPage(Pageable pageable);	
+	Page<Group> findAllByPage(Pageable pageable);
+	Group findByGroupName(String groupName);
 	
 }

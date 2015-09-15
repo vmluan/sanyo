@@ -48,4 +48,10 @@ public class DefaultGroupService implements GroupService{
 		return groupRepository.findAll(pageable);
 	}
 
+	@Override
+	public Group findByGroupName(String groupName) {
+		// TODO Auto-generated method stub
+		return groupRepository.findByGroupName(groupName);
+	}
+
 }

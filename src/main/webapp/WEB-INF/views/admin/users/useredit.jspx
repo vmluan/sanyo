@@ -68,6 +68,8 @@
 					<div>
 						<form:errors path="username" cssClass="error" />
 					</div>					
+				</div>
+				<div class="col-md-6">
 					<div class="form-group">
 						<form:label path="password">
 							${labelUserPassword}* 
@@ -76,7 +78,9 @@
 					</div>
 					<div>
 						<form:errors path="password" cssClass="error" />
-					</div>		
+					</div>					
+				</div>
+				<div class="col-md-6">
 					<div class="form-group">
 						<form:label path="email">
 							${labelUserEmail}* 
@@ -85,16 +89,39 @@
 					</div>
 					<div>
 						<form:errors path="email" cssClass="error" />
-					</div>						
+					</div>					
+				</div>
+				<div class="col-md-6">
 					<div class="form-group">
 						<form:label path="mobile">
 							${labelMobile}* 
 						</form:label>
 						<form:input path="mobile" class="form-control" />					
 					</div>
-						<div>
-							<form:errors path="Mobile" cssClass="error" />
-						</div>
+					<div>
+						<form:errors path="Mobile" cssClass="error" />
+					</div>				
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<form:label path="description">
+							${labelDescription}
+						</form:label>
+						<form:textarea cols="60" rows="8" path="description" id="userDescription" class="form-control"/>
+					</div>
+					<div>
+						<form:errors path="description" cssClass="error" />
+					</div>  
+				</div>
+				<div class="col-md-6">					
+					
+					<div class="form-group">
+						<label for="imgUpload">Avatar: </label>
+						<input type="file" name="file" id="imgUpload" accept="image/*" onchange="loadFile(event)" style="display:none" class="form-control" />
+						<img width="96px" height="96px" id="imgPrev" src="#" alt="your image" onClick="changeFile();" class="profile-user-img"/>					
+					</div>
+                  </div>				
+				<div class="col-md-6">
 					<div class="form-group">
 						<label>Roles: </label>
 					</div>	
@@ -105,27 +132,15 @@
 							</div>
 	                    </c:forEach>
 						
-					</div>
+					</div>				
+				</div>
+				<div class="col-md-6">
                   <div class="form-group">
                     <button type="submit" class="btn btn-primary">Submit</button>
                   </div>					
-				</div>
-				<div class="col-md-6">					
-					<div class="form-group">
-						<form:label path="description">
-							${labelDescription}
-						</form:label>
-						<form:textarea cols="60" rows="8" path="description" id="userDescription" class="form-control"/>
-					</div>
-					<div>
-						<form:errors path="description" cssClass="error" />
-					</div>  					
-					<div class="form-group">
-						<label for="imgUpload">Avatar: </label>
-						<input type="file" name="file" id="imgUpload" accept="image/*" onchange="loadFile(event)" style="display:none" class="form-control" />
-						<img width="96px" height="96px" id="imgPrev" src="#" alt="your image" onClick="changeFile();" class="profile-user-img"/>					
-					</div>
-                  </div><!-- /.box-body -->
+				</div>				
+
+			<!-- /.box-body -->
 
 
                 </form:form>

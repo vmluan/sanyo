@@ -22,7 +22,7 @@ public class Group implements Serializable {
 	@Column(name = "groupid", nullable = false)
 	private Integer groupid;
 	
-	@Column(name = "groupname")
+	@Column(name = "groupname",unique = true)
 	private String groupName;
 	
 	@Column(name = "description")
