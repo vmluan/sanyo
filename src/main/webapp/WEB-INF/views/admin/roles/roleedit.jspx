@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" 
+     xmlns:c="http://java.sun.com/jsp/jstl/core" 
+     xmlns:spring="http://www.springframework.org/tags"
+     xmlns:form="http://www.springframework.org/tags/form"
+     version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+
+    <spring:message code="label_role_new" var="labelRoleNew"/>
+    <spring:message code="label_role_update" var="labelRoleUpdate"/>
+    <spring:message code="label_role_role_name" var="labelRoleName"/>
+    <spring:message code="label_role_desc" var="labelRoleDesc"/>
+    <spring:message code="label_role_is_admin" var="labelRoleAdmin"/>
+    <spring:message code="label_role_is_edit_user" var="labelRoleEditUser"/>
+    <spring:message code="label_role_is_view_user" var="labelRoleViewUser"/>
+    <spring:message code="label_role_is_add_user" var="labelRoleAddUser"/>
+    <spring:message code="label_role_is_view_group" var="labelRoleViewGroup"/>
+    <spring:message code="label_role_is_edit_group" var="labelRoleEditGroup"/>
+    <spring:message code="lable_role_is_add_group" var="labelRoleAddGroup"/>
+    
+    <spring:eval expression="group.groupid == null ? labelRoleNew:labelRoleUpdate" var="formTitle"/>       
+        <!-- Main content -->
+        <section class="content">
+          <div class="box box-default">
+            <!-- left column -->
+            <div class="box-body">
+              <!-- general form elements -->
+			  
+              <div class="row">
+                <div class="box-header with-border">
+                  <h3 class="box-title">${formTitle}</h3>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                <form:form modelAttribute="group" id="groupUpdateForm" method="post">
+                  <div class="col-md-6">
+					<c:if test="${not empty message}">
+						<div id="message" class="${message.type}">${message.message}</div>
+					</c:if>					
+					<div class="form-group">
+						<form:label path="groupName">
+							${labelRoleName}* 
+						</form:label>
+						<form:input path="groupName" class="form-control"/> 
+					</div>
+					<div>
+						<form:errors path="groupName" cssClass="error" />
+					</div>					
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<form:label path="description">
+							${labelRoleDesc}
+						</form:label>
+						<form:input path="description" class="form-control"/>
+					</div>
+					<div>
+						<form:errors path="description" cssClass="error" />
+					</div>					
+				</div>
+				<div class="col-md-12">
+					<div class="form-group">
+						<label>Roles: </label>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<div class="checkbox">
+							<form:checkbox path="edituser" class="control-label"/>${labelRoleEditUser}
+						</div>	
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<div class="checkbox">
+							<form:checkbox path="viewuser" class="control-label"/>${labelRoleViewUser}
+						</div>	
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<div class="checkbox">
+							<form:checkbox path="adduser" class="control-label"/>${labelRoleAddUser}
+						</div>	
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<div class="checkbox">
+							<form:checkbox path="viewgroup" class="control-label"/>${labelRoleViewGroup}
+						</div>	
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<div class="checkbox">
+							<form:checkbox path="editgroup" class="control-label"/>${labelRoleEditGroup}
+						</div>	
+					</div>
+				</div>	
+				<div class="col-md-4">
+					<div class="form-group">
+						<div class="checkbox">
+							<form:checkbox path="addgroup" class="control-label"/>${labelRoleAddGroup}
+						</div>	
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="form-group">
+						<div class="checkbox">
+							<form:checkbox path="loginadministrator" class="control-label"/>${labelRoleAdmin}
+						</div>
+					</div>
+				</div>				
+				<div class="col-md-12">
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </div>					
+				</div>				
+
+			<!-- /.box-body -->
+
+
+                </form:form>
+              </div><!-- /.box -->
+			</div>
+		</div>
+	</section>
+</div>

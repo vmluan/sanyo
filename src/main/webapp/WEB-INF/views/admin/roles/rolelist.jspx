@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" 
+     xmlns:c="http://java.sun.com/jsp/jstl/core" 
+     xmlns:spring="http://www.springframework.org/tags"
+     version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>  
+    
+    <spring:message code="label_user_list" var="labelUserList"/>
+    <spring:message code="label_user_usercode" var="labelUserUserCode"/>
+    <spring:message code="label_user_username" var="labelUserUserName"/>
+    <spring:message code="label_user_email" var="labelUserEmail"/>
+    <spring:message code="label_user_active" var="labelUserActive"/>
+    <spring:message code="label_user_new" var="labelUserAdd"/>
+    
+    <spring:url value="/admin/users/" var="showUserUrl"/>  
+
+    <c:if test="${not empty message}">
+        <div id="message" class="${message.type}">${message.message}</div>
+    </c:if>
+    <section class="content">
+		<a href="?form" class="btn btn-primary btn-xs">${labelUserAdd}</a>
+		<p/>
+		<div id="list" class="row"><jsp:text />
+        </div>
+		<div id="pager"><jsp:text /></div><jsp:text /><P /><jsp:text />
+		<p/>
+		<a href="?form" class="btn btn-primary btn-xs">${labelUserAdd}</a>
+	</section>
+
+   <script src="/resources/plugins/jQuery/jQuery-2.1.4.min.js"><jsp:text/></script>    
+    <script type="text/javascript" src="/resources/jqwidgets/jqxcore.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript" src="/resources/jqwidgets/jqxdata.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript" src="/resources/jqwidgets/jqxbuttons.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript"
+            src="/resources/jqwidgets/jqxscrollbar.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript" src="/resources/jqwidgets/jqxmenu.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript" src="/resources/jqwidgets/jqxgrid.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript"
+            src="/resources/jqwidgets/jqxgrid.edit.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript"
+            src="/resources/jqwidgets/jqxgrid.selection.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript"
+            src="/resources/jqwidgets/jqxgrid.aggregates.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript"
+            src="/resources/jqwidgets/jqxcheckbox.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript"
+            src="/resources/jqwidgets/jqxnumberinput.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript" src="/resources/jqwidgets/jqxinput.js">
+        <jsp:text/>
+    </script>
+
+    <script type="text/javascript" src="/resources/jqwidgets/jqxgrid.pager.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript" src="/resources/jqwidgets/jqxgrid.filter.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript" src="/resources/jqwidgets/jqxgrid.columnsreorder.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript" src="/resources/jqwidgets/jqxgrid.sort.js">
+        <jsp:text/>
+    </script>
+
+    <script type="text/javascript" src="/resources/scripts/demos.js">
+        <jsp:text/>
+    </script>
+
+    <script type="text/javascript" src="/resources/jqwidgets/jqxgrid.columnsresize.js"><jsp:text/></script> 
+    <script type="text/javascript" src="/resources/jqwidgets/jqxlistbox.js"><jsp:text/></script>
+    <script type="text/javascript" src="/resources/jqwidgets/jqxdropdownlist.js"><jsp:text/></script>
+    <script type="text/javascript" src="/resources/jqwidgets/jqxdragdrop.js"><jsp:text/></script>
+    <script type="text/javascript" src="/resources/jqwidgets/jqxcombobox.js"><jsp:text/></script>
+
+    <script type="text/javascript" src="/resources/scripts/roleList.js">
+        <jsp:text/>
+    </script>
+</div>
