@@ -297,11 +297,16 @@
 			<version>5.4.4</version>
 		</dependency>
 		<!-- luan added -->
-	    <dependency>
-	      <groupId>org.eclipse.persistence</groupId>
-	      <artifactId>eclipselink</artifactId>
-	      <version>2.2.1</version>
-	    </dependency>		
+		<dependency>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>eclipselink</artifactId>
+			<version>2.2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.4-1200-jdbc4</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
