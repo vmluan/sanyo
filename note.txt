@@ -36,4 +36,7 @@ http://stackoverflow.com/questions/5419695/init-method-in-spring-controller-anno
 http://stackoverflow.com/questions/27190178/htaccess-caching-specific-files
 http://stackoverflow.com/questions/7436216/targeting-specific-files-folders-for-browser-caching
 http://betterexplained.com/articles/how-to-optimize-your-site-with-http-caching/
+
+--- form validation---------
+http://howtodoinjava.com/2015/02/12/spring-bean-validation-example-with-jsr-303-annotations/
 http://www.askapache.com/hacking/speed-site-caching-cache-control.html#Apache_Caching

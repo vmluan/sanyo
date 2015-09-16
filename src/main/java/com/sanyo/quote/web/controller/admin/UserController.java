@@ -156,7 +156,26 @@ public class UserController {
 	@RequestMapping(value = "/{id}", params = "form", method = RequestMethod.POST)
 	@Transactional
     public String update(@ModelAttribute("user") User user, @PathVariable Integer id, Model uiModel, 
-    		HttpServletRequest httpServletRequest, RedirectAttributes redirectAttributes, Locale locale, @RequestParam(value="password", required=true) String password ) {
+    		HttpServletRequest httpServletRequest, RedirectAttributes redirectAttributes, Locale locale, @RequestParam(value="password", required=true) String password,BindingResult bindingResult) {
+		 Set<ConstraintViolation<User>> violations = validator.validate(user);
+	     
+		    for (ConstraintViolation<User> violation : violations)
+		    {
+		        String propertyPath = violation.getPropertyPath().toString();
+		        String message = violation.getMessage();
+		        // Add JSR-303 errors to BindingResult
+		        // This allows Spring to display them in view via a FieldError
+		        bindingResult.addError(new FieldError("user",propertyPath,
+		 
+		                               "Invalid "+ propertyPath + "(" + message + ")"));
+		    }
+		    
+		if (bindingResult.hasErrors()) {
+			uiModel.addAttribute("message", new Message("error", messageSource.getMessage("user_save_fail", new Object[]{}, locale)));
+            uiModel.addAttribute("user", user);
+            resetGroups(user, uiModel);
+            return "users/update";
+        }
 		logger.info("Updating user");
         uiModel.asMap().clear();
         user.setUserid(id);
