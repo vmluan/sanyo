@@ -13,6 +13,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "sy_group", catalog = "sanyo")
@@ -22,6 +23,7 @@ public class Group implements Serializable {
 	@Column(name = "groupid", nullable = false)
 	private Integer groupid;
 	
+	@NotEmpty
 	@Column(name = "groupname",unique = true)
 	private String groupName;
 	

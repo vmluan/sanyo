@@ -6,6 +6,9 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
@@ -41,6 +44,12 @@ public class RoleController {
 	MessageSource messageSource;
 	@Autowired
 	GroupService groupService;
+	private Validator validator;
+	
+	public RoleController(){
+		ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
+        validator = validatorFactory.getValidator();
+	}
 	
 	//handle /admin/roles
 	@RequestMapping(method = RequestMethod.GET)

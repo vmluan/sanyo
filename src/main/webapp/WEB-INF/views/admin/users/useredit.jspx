@@ -74,7 +74,7 @@
 						<form:label path="password">
 							${labelUserPassword}* 
 						</form:label>
-						<form:input path="password" type="password" value="" class="form-control"/>
+						<form:input path="password" type="password" class="form-control"/>
 					</div>
 					<div>
 						<form:errors path="password" cssClass="error" />
