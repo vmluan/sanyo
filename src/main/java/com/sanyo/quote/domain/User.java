@@ -98,7 +98,18 @@ public class User implements java.io.Serializable {
 	@Transient
 	private String[] groupIDs;
 	
-	
+	@ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	@JoinTable(name="user_category", joinColumns={@JoinColumn(name="userid")}
+			, inverseJoinColumns={@JoinColumn(name="categoryid")})
+	private List<Category> categories;
+
+	public List<Category> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(List<Category> categories) {
+		this.categories = categories;
+	}
 
 	public String[] getGroupIDs() {
 		return groupIDs;

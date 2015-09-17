@@ -31,6 +31,18 @@ public class Category implements Serializable {
 	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "categories")
 	private List<Product> products;
 	
+	@JsonIgnore
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "categories")
+	private List<User> assignedUsers;
+	
+	public List<User> getAssignedUsers() {
+		return assignedUsers;
+	}
+
+	public void setAssignedUsers(List<User> assignedUsers) {
+		this.assignedUsers = assignedUsers;
+	}
+
 	@Column(name = "parentcategoryid")
 	private Category parentCategory;
 	
