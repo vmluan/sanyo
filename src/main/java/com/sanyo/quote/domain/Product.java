@@ -70,14 +70,14 @@ public class Product implements Serializable {
 	@ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	@JoinTable(name="product_category", joinColumns={@JoinColumn(name="productid")}
 			, inverseJoinColumns={@JoinColumn(name="categoryid")})
-	private List<TH_Category> categories;
+	private List<Category> categories;
 
 
-	public List<TH_Category> getCategories() {
+	public List<Category> getCategories() {
 		return categories;
 	}
 
-	public void setCategories(List<TH_Category> categories) {
+	public void setCategories(List<Category> categories) {
 		this.categories = categories;
 	}
 

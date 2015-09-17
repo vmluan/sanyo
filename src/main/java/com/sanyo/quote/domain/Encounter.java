@@ -16,7 +16,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "sy_encounter", catalog = "sanyo")
-public class TH_Encounter implements Serializable{
+public class Encounter implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,7 +33,7 @@ public class TH_Encounter implements Serializable{
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "tableid", nullable = false)
-	private TH_Table table;
+	private Project table;
 	
 	@Column(name = "productprice")
 	private long productPrice;
@@ -46,11 +46,11 @@ public class TH_Encounter implements Serializable{
 		this.productPrice = productPrice;
 	}
 
-	public TH_Table getTable() {
+	public Project getTable() {
 		return table;
 	}
 
-	public void setTable(TH_Table table) {
+	public void setTable(Project table) {
 		this.table = table;
 	}
 

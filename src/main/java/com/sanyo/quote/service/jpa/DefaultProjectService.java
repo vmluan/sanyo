@@ -16,40 +16,40 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.collect.Lists;
-import com.sanyo.quote.domain.TH_Table;
-import com.sanyo.quote.domain.TH_TableStatus;
-import com.sanyo.quote.repository.TableRepository;
-import com.sanyo.quote.service.TableService;
+import com.sanyo.quote.domain.Project;
+import com.sanyo.quote.domain.ProjectStatus;
+import com.sanyo.quote.repository.ProjectRepository;
+import com.sanyo.quote.service.ProjectService;
 
 @Service("tableService")
 @Repository
 @Transactional
-public class DefaultTableService implements TableService {
+public class DefaultProjectService implements ProjectService {
 
 	@Autowired
-	private TableRepository tableRepository;
+	private ProjectRepository projectRepository;
 
 	@Transactional(readOnly=true)
-	public List<TH_Table> findAll() {
-		return Lists.newArrayList(tableRepository.findAll());
+	public List<Project> findAll() {
+		return Lists.newArrayList(projectRepository.findAll());
 	}
 
 	@Transactional(readOnly=true)
-	public TH_Table findById(Integer id) {
-		return tableRepository.findOne(id);
+	public Project findById(Integer id) {
+		return projectRepository.findOne(id);
 	}
 
-	public TH_Table save(TH_Table th_table) {
-		return tableRepository.save(th_table);
+	public Project save(Project Project) {
+		return projectRepository.save(Project);
 	}
 
 	@Transactional(readOnly=true)
-	public Page<TH_Table> findAllByPage(Pageable pageable) {
-		return tableRepository.findAll(pageable);
+	public Page<Project> findAllByPage(Pageable pageable) {
+		return projectRepository.findAll(pageable);
 	}
 
 	@Override
-	public List<TH_Table> findTableByDate(Date date) {
+	public List<Project> findTableByDate(Date date) {
 		  final SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
 		  final Calendar calendar = Calendar.getInstance();
 		  
@@ -63,10 +63,10 @@ public class DefaultTableService implements TableService {
 		  calendar.setTime(date);
 		  calendar.add(Calendar.DAY_OF_YEAR, 1);
 		  Date nextDate =  calendar.getTime();
-//		  List<TH_Table> tables = new ArrayList<TH_Table>();
-//		  List<Object[]> rawData = tableRepository.findTableByDate(date, nextDate);
+//		  List<Project> tables = new ArrayList<Project>();
+//		  List<Object[]> rawData = projectRepository.findTableByDate(date, nextDate);
 //		  for (Object[]data : rawData){
-//			  TH_Table table = new TH_Table();
+//			  Project table = new Project();
 //			  table.setTableID(Integer.valueOf(String.valueOf(data[0])));
 //			  table.setCustomerName(String.valueOf(data[1]));
 //			  table.setTableAcr(String.valueOf(data[2]));
@@ -74,27 +74,27 @@ public class DefaultTableService implements TableService {
 //			  table.setTotalMoney(Long.valueOf(String.valueOf(data[4])));
 //			  
 //			  String status = String.valueOf(data[6]);
-//			  if(status.equalsIgnoreCase(String.valueOf(TH_TableStatus.DRINKING)))
-//			  	table.setStatus(TH_TableStatus.DRINKING);
-//			  else if(status.equalsIgnoreCase(String.valueOf(TH_TableStatus.PAID)))
-//				  table.setStatus(TH_TableStatus.PAID);
-//			  else if(status.equalsIgnoreCase(String.valueOf(TH_TableStatus.CLOSED)))
-//				  table.setStatus(TH_TableStatus.CLOSED);
-//			  else if(status.equalsIgnoreCase(String.valueOf(TH_TableStatus.DEBT)))
-//				  table.setStatus(TH_TableStatus.DEBT);
+//			  if(status.equalsIgnoreCase(String.valueOf(ProjectStatus.PROCESSING)))
+//			  	table.setStatus(ProjectStatus.PROCESSING);
+//			  else if(status.equalsIgnoreCase(String.valueOf(ProjectStatus.PAID)))
+//				  table.setStatus(ProjectStatus.PAID);
+//			  else if(status.equalsIgnoreCase(String.valueOf(ProjectStatus.CLOSED)))
+//				  table.setStatus(ProjectStatus.CLOSED);
+//			  else if(status.equalsIgnoreCase(String.valueOf(ProjectStatus.DEBT)))
+//				  table.setStatus(ProjectStatus.DEBT);
 //			  		
 //			  
 //			  tables.add(table);
 //			  
 //		  }
 //		return tables;
-		  List<TH_Table> tables = new ArrayList<TH_Table>();
-		  List<Object[]> rawData = tableRepository.findDistinctTableByDate(date, nextDate);
+		  List<Project> tables = new ArrayList<Project>();
+		  List<Object[]> rawData = projectRepository.findDistinctTableByDate(date, nextDate);
 		  System.out.println(rawData);
 		  
 		  for (Object[]data : rawData){
 				 String tableName = String.valueOf(data[0]);
-				 List<TH_Table> temp = tableRepository.findTableByDate(date, nextDate, tableName);
+				 List<Project> temp = projectRepository.findTableByDate(date, nextDate, tableName);
 				 if(temp != null && temp.size() > 0){
 					 tables.add(temp.get(0));
 				 }			  
@@ -103,30 +103,30 @@ public class DefaultTableService implements TableService {
 	}
 
 	@Override
-	public List<TH_Table> findTableByDate(Date date, TH_TableStatus status) {
+	public List<Project> findTableByDate(Date date, ProjectStatus status) {
 		  final SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
 		  final Calendar calendar = Calendar.getInstance();
 		  calendar.setTime(date);
 		  calendar.add(Calendar.DAY_OF_YEAR, 1);
 		  Date nextDate =  calendar.getTime();
 		  
-		return tableRepository.findTableByDate(date, nextDate, status);
+		return projectRepository.findTableByDate(date, nextDate, status);
 	}
 
 	@Override
-	public List<TH_Table> findTableByDate(Date date, TH_TableStatus status1,
-			TH_TableStatus status2) {
+	public List<Project> findTableByDate(Date date, ProjectStatus status1,
+			ProjectStatus status2) {
 		  final SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
 		  final Calendar calendar = Calendar.getInstance();
 		  calendar.setTime(date);
 		  calendar.add(Calendar.DAY_OF_YEAR, 1);
 		  Date nextDate =  calendar.getTime();
 		  
-		return tableRepository.findTableByDate(date, nextDate, status1, status2);
+		return projectRepository.findTableByDate(date, nextDate, status1, status2);
 	}
 
 	@Override
-	public List<TH_Table> findTableBuyTableNumber(String tableNumber) {
+	public List<Project> findTableBuyTableNumber(String tableNumber) {
 		// TODO Auto-generated method stub
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		
@@ -143,11 +143,11 @@ public class DefaultTableService implements TableService {
 		calendar.setTime(date);
 		calendar.add(Calendar.DAY_OF_YEAR, 1);
 		Date nextDate = calendar.getTime();
-		return tableRepository.findTableBuyTableNumber(tableNumber, date,
+		return projectRepository.findTableBuyTableNumber(tableNumber, date,
 				nextDate);
 	}
 	@Override
-	public List<TH_Table> findOpeningTableByTableNumber(String tableNumber) {
+	public List<Project> findOpeningTableByTableNumber(String tableNumber) {
 		// TODO Auto-generated method stub
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		
@@ -164,12 +164,12 @@ public class DefaultTableService implements TableService {
 		calendar.setTime(date);
 		calendar.add(Calendar.DAY_OF_YEAR, 1);
 		Date nextDate = calendar.getTime();
-		return tableRepository.findTableByTableNumberAndStatus(tableNumber, date,
-				nextDate, TH_TableStatus.DRINKING);
+		return projectRepository.findTableByTableNumberAndStatus(tableNumber, date,
+				nextDate, ProjectStatus.PROCESSING);
 	}
 
 	@Override
-	public List<TH_Table> findTableByTableAcr(String tableAcr) {
+	public List<Project> findTableByTableAcr(String tableAcr) {
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		
 		String dateString = format.format(new Date());
@@ -185,14 +185,14 @@ public class DefaultTableService implements TableService {
 		calendar.setTime(date);
 		calendar.add(Calendar.DAY_OF_YEAR, 1);
 		Date nextDate = calendar.getTime();
-		return tableRepository.findTableByTableAcrAndStatus(tableAcr, date,
-				nextDate, TH_TableStatus.DRINKING);
+		return projectRepository.findTableByTableAcrAndStatus(tableAcr, date,
+				nextDate, ProjectStatus.PROCESSING);
 	}
 
 	@Override
-	public List<TH_Table> findTableByDateRange(Date startDate, Date endDate) {
+	public List<Project> findTableByDateRange(Date startDate, Date endDate) {
 		// TODO Auto-generated method stub
-		return tableRepository.findTableByDate(startDate, endDate);
+		return projectRepository.findTableByDate(startDate, endDate);
 	}	
 	
 	

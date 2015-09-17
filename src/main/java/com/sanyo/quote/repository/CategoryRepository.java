@@ -7,11 +7,11 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 
 import com.sanyo.quote.domain.Product;
-import com.sanyo.quote.domain.TH_Category;
+import com.sanyo.quote.domain.Category;
 
 
-public interface CategoryRepository extends PagingAndSortingRepository<TH_Category, Integer> {
-	@Query("select c from TH_Category c where c.categoryID  IN :ids")
-	List<TH_Category> findByIds(@Param("ids") List<Integer> ids);
+public interface CategoryRepository extends PagingAndSortingRepository<Category, Integer> {
+	@Query("select c from Category c where c.categoryID  IN :ids")
+	List<Category> findByIds(@Param("ids") List<Integer> ids);
 
 }

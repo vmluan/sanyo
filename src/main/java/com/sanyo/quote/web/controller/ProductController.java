@@ -35,7 +35,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sanyo.quote.domain.Product;
-import com.sanyo.quote.domain.TH_Category;
+import com.sanyo.quote.domain.Category;
 import com.sanyo.quote.helper.ProductHepler;
 import com.sanyo.quote.helper.Utilities;
 import com.sanyo.quote.service.CategoryService;
@@ -93,7 +93,7 @@ public class ProductController {
 		
 		uiModel.addAttribute("products", products);
 		
-		List<TH_Category> categories = categoryService.findAll();
+		List<Category> categories = categoryService.findAll();
 		uiModel.addAttribute("categories", categories);
 		
 		httpServletRequest.setCharacterEncoding("UTF-8");
@@ -117,9 +117,9 @@ public class ProductController {
 		
 		String []categoriesList = product.getCategoriesList();
 		if(categoriesList != null){
-			ArrayList<TH_Category> categories = new ArrayList<TH_Category>();
+			ArrayList<Category> categories = new ArrayList<Category>();
 			for (int i=0; i< categoriesList.length; i++){
-				TH_Category category = categoryService.findById(Integer.valueOf(categoriesList[i]));
+				Category category = categoryService.findById(Integer.valueOf(categoriesList[i]));
 				categories.add(category);
 			}
 			product.setCategories(categories);
@@ -171,17 +171,17 @@ public class ProductController {
 		product.setProductPriceWrapper(String.valueOf(product.getProductPrice()));
 		uiModel.addAttribute("product", product);
 		
-		List<TH_Category> existingCategories = product.getCategories();
+		List<Category> existingCategories = product.getCategories();
 		String []categoriesList = new String[existingCategories.size()];
 		int i = 0;
-		for(TH_Category category : existingCategories){
+		for(Category category : existingCategories){
 			categoriesList[i] = String.valueOf(category.getCategoryID());
 			i++;
 		}
 		System.out.println("==========  categoriesList = " + categoriesList);
 		product.setCategoriesList(categoriesList);
 		
-		List<TH_Category> categories = categoryService.findAll();
+		List<Category> categories = categoryService.findAll();
 		
 		
 		uiModel.addAttribute("categories", categories);
@@ -211,9 +211,9 @@ public class ProductController {
         
 		String []categoriesList = updatedProduct.getCategoriesList();
 		if(categoriesList != null){
-			ArrayList<TH_Category> categories = new ArrayList<TH_Category>();
+			ArrayList<Category> categories = new ArrayList<Category>();
 			for (int i=0; i< categoriesList.length; i++){
-				TH_Category category = categoryService.findById(Integer.valueOf(categoriesList[i]));
+				Category category = categoryService.findById(Integer.valueOf(categoriesList[i]));
 				categories.add(category);
 				System.out.println("====== categoryname = " + category.getCategoryName());
 			}

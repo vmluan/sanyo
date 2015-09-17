@@ -5,17 +5,17 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import com.sanyo.quote.domain.TH_Category;
+import com.sanyo.quote.domain.Category;
 
 public interface CategoryService {
 
-	List<TH_Category> findAll();
+	List<Category> findAll();
 	
-	TH_Category findById(Integer id);
+	Category findById(Integer id);
 	
-	TH_Category save(TH_Category category);
+	Category save(Category category);
 	
-	Page<TH_Category> findAllByPage(Pageable pageable);
-	List<TH_Category> findByIds(List<Integer > ids);
+	Page<Category> findAllByPage(Pageable pageable);
+	List<Category> findByIds(List<Integer > ids);
 	
 }

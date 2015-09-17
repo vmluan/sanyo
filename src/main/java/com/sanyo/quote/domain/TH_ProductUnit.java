@@ -35,7 +35,7 @@ public class TH_ProductUnit implements Serializable {
     
     @OneToOne(cascade={CascadeType.ALL})
     @JoinColumn(name="category_id", insertable = false, updatable = false)
-    private TH_Category category;
+    private Category category;
     
 	public Integer getUnitID() {
 		return unitID;
@@ -78,12 +78,12 @@ public class TH_ProductUnit implements Serializable {
 
 
 
-	public TH_Category getCategory() {
+	public Category getCategory() {
 		return category;
 	}
 
 
-	public void setCategory(TH_Category category) {
+	public void setCategory(Category category) {
 		this.category = category;
 	}
 	

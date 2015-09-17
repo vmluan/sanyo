@@ -32,9 +32,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.sanyo.quote.domain.TH_Table;
-import com.sanyo.quote.domain.TH_TableStatus;
-import com.sanyo.quote.service.TableService;
+import com.sanyo.quote.domain.Project;
+import com.sanyo.quote.domain.ProjectStatus;
+import com.sanyo.quote.service.ProjectService;
 
 @Controller
 @RequestMapping(value = "/")
@@ -46,7 +46,7 @@ public class HomeController extends BaseController{
 	MessageSource messageSource;
 	
 	@Autowired
-	private TableService tableService;
+	private ProjectService projectService;
 	
 
 	@RequestMapping(method = RequestMethod.GET)
@@ -62,17 +62,17 @@ public class HomeController extends BaseController{
 //			if(id.equalsIgnoreCase(com.sanyo.quote.helper.Constants.VIETNAMESE))
 //				locale.setDefault(new Locale(id));
 //		}
-//		List<TH_Table> tablesOfDay;
+//		List<Project> tablesOfDay;
 //		
 //		String tradeDate = httpServletRequest.getParameter("tradeDate");
 //		String danguong = httpServletRequest.getParameter("danguong");
 //		String datinhtien = httpServletRequest.getParameter("datinhtien");
 //		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-//		List<TH_TableStatus> statuses = new ArrayList<TH_TableStatus>();
+//		List<ProjectStatus> statuses = new ArrayList<ProjectStatus>();
 //		if(danguong != null && danguong.equalsIgnoreCase("true"))
-//			statuses.add(TH_TableStatus.DRINKING);
+//			statuses.add(ProjectStatus.PROCESSING);
 //		if (datinhtien != null && datinhtien.equalsIgnoreCase("true"))
-//			statuses.add(TH_TableStatus.PAID);
+//			statuses.add(ProjectStatus.PAID);
 //		Date date = null;
 //		if(tradeDate != null){
 //			//get the next date
@@ -86,11 +86,11 @@ public class HomeController extends BaseController{
 //			date = format.parse(dateString);
 //		}
 //		if(statuses.size() == 1)
-//			tablesOfDay = tableService.findTableByDate(date, statuses.get(0));
+//			tablesOfDay = projectService.findTableByDate(date, statuses.get(0));
 //		else if (statuses.size() > 1)
-//			tablesOfDay = tableService.findTableByDate(date, statuses.get(0), statuses.get(1));
+//			tablesOfDay = projectService.findTableByDate(date, statuses.get(0), statuses.get(1));
 //		else
-//			tablesOfDay = tableService.findTableByDate(date);
+//			tablesOfDay = projectService.findTableByDate(date);
 //		ciModel.addAttribute("table", tablesOfDay);
 //		return "taphoa";
 //	}

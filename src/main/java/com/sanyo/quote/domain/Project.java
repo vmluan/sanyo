@@ -25,7 +25,7 @@ import org.hibernate.annotations.Synchronize;
 
 @Entity
 @Table(name = "sy_table", catalog = "sanyo")
-public class TH_Table implements Serializable {
+public class Project implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "tableid", nullable = false)
@@ -52,7 +52,7 @@ public class TH_Table implements Serializable {
 	private Date closedTime;
 	
 	@Column(name = "status")
-	private TH_TableStatus status;
+	private ProjectStatus status;
 	
 	//sample value is ban 1, ban 2
 	@Column(name = "tablename")
@@ -87,7 +87,7 @@ public class TH_Table implements Serializable {
 		this.tableAcr = tableAcr;
 	}
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "table")
-	List<TH_Encounter> encounters; //
+	List<Encounter> encounters; //
 
 	public Integer getTableID() {
 		return tableID;
@@ -105,11 +105,11 @@ public class TH_Table implements Serializable {
 		this.customerName = customerName;
 	}
 
-	public List<TH_Encounter> getEncounters() {
+	public List<Encounter> getEncounters() {
 		return encounters;
 	}
 
-	public void setEncounters(List<TH_Encounter> encounters) {
+	public void setEncounters(List<Encounter> encounters) {
 		this.encounters = encounters;
 	}
 
@@ -144,11 +144,11 @@ public class TH_Table implements Serializable {
 		this.closedTime = closedTime;
 	}
 
-	public TH_TableStatus getStatus() {
+	public ProjectStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(TH_TableStatus status) {
+	public void setStatus(ProjectStatus status) {
 		this.status = status;
 	}
 

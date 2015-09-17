@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.collect.Lists;
-import com.sanyo.quote.domain.TH_Category;
+import com.sanyo.quote.domain.Category;
 import com.sanyo.quote.repository.CategoryRepository;
 import com.sanyo.quote.service.CategoryService;
 
@@ -24,26 +24,26 @@ public class DefaultCategoryService implements CategoryService {
 	private CategoryRepository categoryRepository;
 
 	@Transactional(readOnly=true)
-	public List<TH_Category> findAll() {
+	public List<Category> findAll() {
 		return Lists.newArrayList(categoryRepository.findAll());
 	}
 
 	@Transactional(readOnly=true)
-	public TH_Category findById(Integer id) {
+	public Category findById(Integer id) {
 		return categoryRepository.findOne(id);
 	}
 
-	public TH_Category save(TH_Category category) {
+	public Category save(Category category) {
 		return categoryRepository.save(category);
 	}
 
 	@Transactional(readOnly=true)
-	public Page<TH_Category> findAllByPage(Pageable pageable) {
+	public Page<Category> findAllByPage(Pageable pageable) {
 		return categoryRepository.findAll(pageable);
 	}
 
 	@Override
-	public List<TH_Category> findByIds(List<Integer> ids) {
+	public List<Category> findByIds(List<Integer> ids) {
 		return categoryRepository.findByIds(ids);
 	}
 	

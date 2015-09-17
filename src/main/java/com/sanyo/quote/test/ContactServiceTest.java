@@ -15,12 +15,12 @@ import org.springframework.context.support.GenericXmlApplicationContext;
 
 import com.sanyo.quote.domain.Group;
 import com.sanyo.quote.domain.Product;
-import com.sanyo.quote.domain.TH_Category;
+import com.sanyo.quote.domain.Category;
 import com.sanyo.quote.domain.User;
 import com.sanyo.quote.service.CategoryService;
 import com.sanyo.quote.service.GroupService;
 import com.sanyo.quote.service.ProductService;
-import com.sanyo.quote.service.TableService;
+import com.sanyo.quote.service.ProjectService;
 import com.sanyo.quote.service.UserService;
 
 
@@ -31,15 +31,15 @@ public class ContactServiceTest {
 	 * @throws ParseException 
 	 */
 	private void testCategory(CategoryService categoryService, String categoryName){
-		TH_Category category = new TH_Category();
+		Category category = new Category();
 		category.setCategoryName(categoryName);
 		categoryService.save(category);
 		
 	}
 	private void testProductCategory(ProductService productService, CategoryService categoryService){
 		Product product = productService.findById(1);
-		TH_Category category = categoryService.findById(1);
-		ArrayList<TH_Category> categories = new ArrayList<TH_Category>();
+		Category category = categoryService.findById(1);
+		ArrayList<Category> categories = new ArrayList<Category>();
 		categories.add(category);
 		product.setCategories(categories);
 		
@@ -69,7 +69,7 @@ public class ContactServiceTest {
 		
 		System.out.println("App context initialized successfully");
 		ProductService productService = ctx.getBean("productService", ProductService.class);
-		TableService tableService = ctx.getBean("tableService", TableService.class);
+		ProjectService projectService = ctx.getBean("tableService", ProjectService.class);
 		CategoryService categoryService = ctx.getBean("categoryService", CategoryService.class);
 		GroupService groupService = ctx.getBean("groupService", GroupService.class);
 		UserService userService = ctx.getBean("userService", UserService.class);

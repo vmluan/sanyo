@@ -26,15 +26,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sanyo.quote.domain.Product;
-import com.sanyo.quote.domain.TH_Category;
-import com.sanyo.quote.domain.TH_Encounter;
-import com.sanyo.quote.domain.TH_Table;
-import com.sanyo.quote.domain.TH_TableStatus;
+import com.sanyo.quote.domain.Category;
+import com.sanyo.quote.domain.Encounter;
+import com.sanyo.quote.domain.Project;
+import com.sanyo.quote.domain.ProjectStatus;
 import com.sanyo.quote.helper.Utilities;
 import com.sanyo.quote.service.CategoryService;
 import com.sanyo.quote.service.EncounterService;
 import com.sanyo.quote.service.ProductService;
-import com.sanyo.quote.service.TableService;
+import com.sanyo.quote.service.ProjectService;
 
 @Controller
 @RequestMapping(value = "/quanlyban")
@@ -45,7 +45,7 @@ public class TableController {
 	MessageSource messageSource;
 	
 	@Autowired
-	private TableService tableService;
+	private ProjectService projectService;
 	
 	@Autowired
 	private EncounterService encounterService;
@@ -59,32 +59,32 @@ public class TableController {
 	//The method is to save a new table
 	//@Transactional
 	@RequestMapping(params = "form", method = RequestMethod.POST)
-	public String saveNewTable(Model ciModel,@RequestBody final  TH_Table table,
+	public String saveNewTable(Model ciModel,@RequestBody final  Project table,
 			HttpServletRequest httpServletRequest) {
 		Locale locale = LocaleContextHolder.getLocale();
 		System.out.println("===========================================");
-		List<TH_Encounter> encounters = table.getEncounters();
+		List<Encounter> encounters = table.getEncounters();
 		long totalMoney = 0;
 		
 		// because i have changed the GUI to submit every order when user clicks on every drink.
 		// we need to update that encounter to current existing table that is opening.
 		String tableNumber = table.getTableNumber();
-		TH_Table existingTable = null;
-		List<TH_Table> existingTables = tableService.findOpeningTableByTableNumber(tableNumber);
+		Project existingTable = null;
+		List<Project> existingTables = projectService.findOpeningTableByTableNumber(tableNumber);
 		if (existingTables != null && existingTables.size() >0){
 			existingTable = existingTables.get(0);
 			existingTable.setOpenTime(new Date()); // set Open Time when
 													// ordering the first
 													// records
-			existingTable.setStatus(TH_TableStatus.DRINKING);
-			tableService.save(existingTable);
+			existingTable.setStatus(ProjectStatus.PROCESSING);
+			projectService.save(existingTable);
 		}else{
 			table.setEncounters(null);
-			tableService.save(table);
+			projectService.save(table);
 		}
 			
 		if (encounters != null){
-			for (TH_Encounter encounter : encounters){
+			for (Encounter encounter : encounters){
 			
 				System.out.println("===========" + encounter.getQuantity());
 				//Product product = productService.findById(encounter.getProduct().getProductID());
@@ -104,15 +104,15 @@ public class TableController {
 				existingTable.setEncounters(encounters);
 				//existingTable.setTotalMoney(existingTable.getTotalMoney() + totalMoney);
 				existingTable.setTotalMoney(totalMoney + existingTable.getTotalMoney());
-				tableService.save(existingTable);
+				projectService.save(existingTable);
 			} else {
 				table.setEncounters(encounters);
 				table.setOpenTime(new Date());
-				table.setStatus(TH_TableStatus.DRINKING);
+				table.setStatus(ProjectStatus.PROCESSING);
 				table.setTotalMoney(totalMoney);
 				httpServletRequest
 						.setAttribute("sysDate", new Date().getTime());
-				tableService.save(table);
+				projectService.save(table);
 			}
 		}
 		return "tables/new";
@@ -121,7 +121,7 @@ public class TableController {
 	@Transactional
 	@RequestMapping(value = "/{id}", params = "form", method = RequestMethod.POST)
 	public String updateTable(@PathVariable("id") Integer id, Model ciModel
-			,@RequestBody final  TH_Table table
+			,@RequestBody final  Project table
 			, HttpServletRequest httpServletRequest) {
 		System.out.println("====================================== save form");
 
@@ -152,12 +152,12 @@ public class TableController {
 		httpServletRequest.setAttribute("sysDate", new Date().getTime());
 		return "tables/update";
 	}
-	private boolean savingTable(TH_Table table){
-		TH_Table existingTable = tableService.findById(table.getTableID());
-		if(existingTable != null && existingTable.getStatus() != TH_TableStatus.DRINKING ){
+	private boolean savingTable(Project table){
+		Project existingTable = projectService.findById(table.getTableID());
+		if(existingTable != null && existingTable.getStatus() != ProjectStatus.PROCESSING ){
 			return false;
 		}
-		List<TH_Encounter> encounters = table.getEncounters();
+		List<Encounter> encounters = table.getEncounters();
 		//update encounters. Actually, we dont update encounters. we just create new encounters and set them for the table
 		// what happen with old encounter records? it will a garbage. Need to fix it!!!!!
 		
@@ -165,7 +165,7 @@ public class TableController {
 		if (encounters != null && existingTable != null){
 			
 			totalMoney = existingTable.getTotalMoney();
-			for (TH_Encounter encounter : encounters){
+			for (Encounter encounter : encounters){
 			
 				Product product = productService.findByName(encounter.getProduct().getProductName());
 				totalMoney = totalMoney + (encounter.getQuantity() * product.getProductPrice());
@@ -186,14 +186,14 @@ public class TableController {
 			if(existingTable.getTotalMoney() == 0 || existingTable.getStatus() == null){
 				existingTable.setOpenTime(new Date()); // set Open Time when
 				// ordering the first drink
-				existingTable.setStatus(TH_TableStatus.DRINKING);
+				existingTable.setStatus(ProjectStatus.PROCESSING);
 				System.out.println("============ table acr = " + existingTable.getTableAcr() == null);
 				if(existingTable.getTableAcr() == null)
 					existingTable.setTableAcr(table.getTableAcr());
 			}
 			existingTable.setTotalMoney(totalMoney);
 			if (table.getStatus() != null){
-				if(table.getStatus() == TH_TableStatus.PAID)
+				if(table.getStatus() == ProjectStatus.PAID)
 					existingTable.setClosedTime(new Date());
 				existingTable.setStatus(table.getStatus());
 			}
@@ -202,7 +202,7 @@ public class TableController {
 		
 		System.out.println("=========== customer name is " + table.getCustomerName());
 		existingTable.setCustomerName(table.getCustomerName());
-		tableService.save(existingTable);
+		projectService.save(existingTable);
 		return true;
 		
 	}
@@ -210,7 +210,7 @@ public class TableController {
 	@RequestMapping(value = "/{tableacr}", params = "tableacr", method = RequestMethod.GET)
 	public String showTable(@PathVariable("tableacr") String tableNumber, Model uiModel, HttpServletRequest httpServletRequest) {
 		
-		List<TH_Table> tables = null;
+		List<Project> tables = null;
 		httpServletRequest.setAttribute("sysDate", new Date().getTime());
 		
 		String tableAcr = httpServletRequest.getParameter("tableacr") ;
@@ -219,18 +219,18 @@ public class TableController {
 		
 		System.err.println("========= tableAcr = " + tableAcr);
 		
-		List<TH_Category> categories = categoryService.findAll();
+		List<Category> categories = categoryService.findAll();
 		uiModel.addAttribute("categories", categories);
 		
 		if (!isNewTable)
-			tables = tableService.findTableBuyTableNumber(tableNumber);
+			tables = projectService.findTableBuyTableNumber(tableNumber);
 		
 		if (tables != null && tables.size() > 0) {
 
 			System.out.println("==================== new method: table id = "
 					+ tables.get(0).getTableID());
 
-//			List<TH_Encounter> encounters = tables.get(0).getEncounters();
+//			List<Encounter> encounters = tables.get(0).getEncounters();
 
 			uiModel.addAttribute("table", tables.get(0));
 			tableAcr = tables.get(0).getTableAcr();
@@ -245,14 +245,14 @@ public class TableController {
 			httpServletRequest.setAttribute("tableAcr", tableAcr);
 			
 			//create an empty table. It is to avoid creating many tables when user double or triple click on drinks
-			TH_Table newTable = new TH_Table();
+			Project newTable = new Project();
 			newTable.setTableNumber(tableNumber);
 			newTable.setTableAcr(tableAcr);
 			newTable.setOpenTime(new Date());
-			newTable.setStatus(TH_TableStatus.DRINKING);
+			newTable.setStatus(ProjectStatus.PROCESSING);
 			uiModel.addAttribute("table", newTable);
 			
-			tableService.save(newTable);
+			projectService.save(newTable);
 			
 			return "tables/new";
 		}
@@ -280,15 +280,15 @@ public class TableController {
 			endDate = Utilities.parseDate(endDateString);
 			endDate = Utilities.getLastTimeOfDate(endDate);
 		}
-		List<TH_Table> tables;
+		List<Project> tables;
 		if(startDate != null && endDate != null)
-			tables =  tableService.findTableByDateRange(startDate, endDate);
+			tables =  projectService.findTableByDateRange(startDate, endDate);
 		else
-			tables = tableService.findAll();
+			tables = projectService.findAll();
 		//exclude encounters from json serialization
-		Iterator<TH_Table> iter = tables.iterator();
+		Iterator<Project> iter = tables.iterator();
 		while(iter.hasNext()){
-			TH_Table table = iter.next();
+			Project table = iter.next();
 			table.setEncounters(null);
 			if(table.getTotalMoney() ==0)
 				iter.remove();
@@ -308,9 +308,9 @@ public class TableController {
 			, @RequestParam(value="startdate", required=false) String startDateString
 			, @RequestParam(value="enddate", required=false) String endDateString){
 		
-		TH_Table table = tableService.findById(Integer.valueOf(tableID));
-		List<TH_Encounter> encounters = table.getEncounters();
-		for(TH_Encounter encounter : encounters){
+		Project table = projectService.findById(Integer.valueOf(tableID));
+		List<Encounter> encounters = table.getEncounters();
+		for(Encounter encounter : encounters){
 			encounter.setTable(null);
 		}
 		String result = Utilities.jSonSerialization(encounters);
@@ -335,8 +335,8 @@ public class TableController {
 		if(allCates != null && !allCates.equals("")){
 			products = productService.findAll();
 		}else{
-			List<TH_Category> categories = categoryService.findByIds(listIds);
-			for (TH_Category category : categories){
+			List<Category> categories = categoryService.findByIds(listIds);
+			for (Category category : categories){
 				List<Product> list = category.getProducts();
 				for(Product product : list){
 					if(!products.contains(product))
