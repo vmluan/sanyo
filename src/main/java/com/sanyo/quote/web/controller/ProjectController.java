@@ -38,8 +38,8 @@ import com.sanyo.quote.service.ProjectService;
 
 @Controller
 @RequestMapping(value = "/quanlyban")
-public class TableController {
-	final Logger logger = LoggerFactory.getLogger(TableController.class);
+public class ProjectController {
+	final Logger logger = LoggerFactory.getLogger(ProjectController.class);
 
 	@Autowired
 	MessageSource messageSource;
@@ -68,7 +68,7 @@ public class TableController {
 		
 		// because i have changed the GUI to submit every order when user clicks on every drink.
 		// we need to update that encounter to current existing table that is opening.
-		String tableNumber = table.getTableNumber();
+		String tableNumber = table.getProjectName();
 		Project existingTable = null;
 		List<Project> existingTables = projectService.findOpeningTableByTableNumber(tableNumber);
 		if (existingTables != null && existingTables.size() >0){
@@ -94,9 +94,9 @@ public class TableController {
 				encounter.setEncounterTime(new Date());
 				encounter.setProductPrice(product.getProductPrice());
 				if(existingTable != null)
-					encounter.setTable(existingTable);
+					encounter.setProject(existingTable);
 				else
-					encounter.setTable(table);
+					encounter.setProject(table);
 				encounterService.save(encounter);
 				
 			}
@@ -129,7 +129,7 @@ public class TableController {
 		boolean re_update = true;
 		while (re_update) {
 			try {
-				isValid = savingTable( table);
+//				isValid = savingTable( table);
 				re_update = false;
 				;
 			} catch (StaleObjectStateException e) {
@@ -152,60 +152,60 @@ public class TableController {
 		httpServletRequest.setAttribute("sysDate", new Date().getTime());
 		return "tables/update";
 	}
-	private boolean savingTable(Project table){
-		Project existingTable = projectService.findById(table.getTableID());
-		if(existingTable != null && existingTable.getStatus() != ProjectStatus.PROCESSING ){
-			return false;
-		}
-		List<Encounter> encounters = table.getEncounters();
-		//update encounters. Actually, we dont update encounters. we just create new encounters and set them for the table
-		// what happen with old encounter records? it will a garbage. Need to fix it!!!!!
-		
-		long totalMoney = 0;
-		if (encounters != null && existingTable != null){
-			
-			totalMoney = existingTable.getTotalMoney();
-			for (Encounter encounter : encounters){
-			
-				Product product = productService.findByName(encounter.getProduct().getProductName());
-				totalMoney = totalMoney + (encounter.getQuantity() * product.getProductPrice());
-				encounter.setProduct(product);
-				encounter.setEncounterTime(new Date());
-				encounter.setTable(existingTable);
-				encounter.setProductPrice(product.getProductPrice());
-				encounterService.save(encounter);
-				
-			}
-			//update table first
-			
-			
-			
-			existingTable.setTableNumber(table.getTableNumber());
-			existingTable.setEncounters(encounters);
-			existingTable.setTableName(table.getTableName());
-			if(existingTable.getTotalMoney() == 0 || existingTable.getStatus() == null){
-				existingTable.setOpenTime(new Date()); // set Open Time when
-				// ordering the first drink
-				existingTable.setStatus(ProjectStatus.PROCESSING);
-				System.out.println("============ table acr = " + existingTable.getTableAcr() == null);
-				if(existingTable.getTableAcr() == null)
-					existingTable.setTableAcr(table.getTableAcr());
-			}
-			existingTable.setTotalMoney(totalMoney);
-			if (table.getStatus() != null){
-				if(table.getStatus() == ProjectStatus.PAID)
-					existingTable.setClosedTime(new Date());
-				existingTable.setStatus(table.getStatus());
-			}
-
-		}
-		
-		System.out.println("=========== customer name is " + table.getCustomerName());
-		existingTable.setCustomerName(table.getCustomerName());
-		projectService.save(existingTable);
-		return true;
-		
-	}
+//	private boolean savingTable(Project table){
+//		Project existingTable = projectService.findById(table.getProjectId());
+//		if(existingTable != null && existingTable.getStatus() != ProjectStatus.PROCESSING ){
+//			return false;
+//		}
+//		List<Encounter> encounters = table.getEncounters();
+//		//update encounters. Actually, we dont update encounters. we just create new encounters and set them for the table
+//		// what happen with old encounter records? it will a garbage. Need to fix it!!!!!
+//		
+//		long totalMoney = 0;
+//		if (encounters != null && existingTable != null){
+//			
+//			totalMoney = existingTable.getTotalMoney();
+//			for (Encounter encounter : encounters){
+//			
+//				Product product = productService.findByName(encounter.getProduct().getProductName());
+//				totalMoney = totalMoney + (encounter.getQuantity() * product.getProductPrice());
+//				encounter.setProduct(product);
+//				encounter.setEncounterTime(new Date());
+//				encounter.setProject(existingTable);
+//				encounter.setProductPrice(product.getProductPrice());
+//				encounterService.save(encounter);
+//				
+//			}
+//			//update table first
+//			
+//			
+//			
+//			existingTable.setProjectName(table.getProjectName());
+//			existingTable.setEncounters(encounters);
+//			existingTable.setTableName(table.getTableName());
+//			if(existingTable.getTotalMoney() == 0 || existingTable.getStatus() == null){
+//				existingTable.setOpenTime(new Date()); // set Open Time when
+//				// ordering the first drink
+//				existingTable.setStatus(ProjectStatus.PROCESSING);
+//				System.out.println("============ table acr = " + existingTable.getProjectCode() == null);
+//				if(existingTable.getProjectCode() == null)
+//					existingTable.setProjectCode(table.getProjectCode());
+//			}
+//			existingTable.setTotalMoney(totalMoney);
+//			if (table.getStatus() != null){
+//				if(table.getStatus() == ProjectStatus.PAID)
+//					existingTable.setClosedTime(new Date());
+//				existingTable.setStatus(table.getStatus());
+//			}
+//
+//		}
+//		
+//		System.out.println("=========== customer name is " + table.getCustomerName());
+//		existingTable.setCustomerName(table.getCustomerName());
+//		projectService.save(existingTable);
+//		return true;
+//		
+//	}
 	
 	@RequestMapping(value = "/{tableacr}", params = "tableacr", method = RequestMethod.GET)
 	public String showTable(@PathVariable("tableacr") String tableNumber, Model uiModel, HttpServletRequest httpServletRequest) {
@@ -228,12 +228,12 @@ public class TableController {
 		if (tables != null && tables.size() > 0) {
 
 			System.out.println("==================== new method: table id = "
-					+ tables.get(0).getTableID());
+					+ tables.get(0).getProjectId());
 
 //			List<Encounter> encounters = tables.get(0).getEncounters();
 
 			uiModel.addAttribute("table", tables.get(0));
-			tableAcr = tables.get(0).getTableAcr();
+			tableAcr = tables.get(0).getProjectCode();
 			httpServletRequest.setAttribute("tableAcr", tableAcr);
 		}
 		else{ 
@@ -246,8 +246,8 @@ public class TableController {
 			
 			//create an empty table. It is to avoid creating many tables when user double or triple click on drinks
 			Project newTable = new Project();
-			newTable.setTableNumber(tableNumber);
-			newTable.setTableAcr(tableAcr);
+			newTable.setProjectName(tableNumber);
+			newTable.setProjectCode(tableAcr);
 			newTable.setOpenTime(new Date());
 			newTable.setStatus(ProjectStatus.PROCESSING);
 			uiModel.addAttribute("table", newTable);
@@ -311,7 +311,7 @@ public class TableController {
 		Project table = projectService.findById(Integer.valueOf(tableID));
 		List<Encounter> encounters = table.getEncounters();
 		for(Encounter encounter : encounters){
-			encounter.setTable(null);
+			encounter.setProject(null);
 		}
 		String result = Utilities.jSonSerialization(encounters);
 		return result;

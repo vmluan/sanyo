@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -31,21 +32,20 @@ public class Category implements Serializable {
 	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "categories")
 	private List<Product> products;
 	
-	@JsonIgnore
-	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "categories")
-	private List<User> assignedUsers;
-	
-	public List<User> getAssignedUsers() {
-		return assignedUsers;
-	}
-
-	public void setAssignedUsers(List<User> assignedUsers) {
-		this.assignedUsers = assignedUsers;
-	}
-
 	@Column(name = "parentcategoryid")
 	private Category parentCategory;
 	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.category")
+	private List<ProjectCategory> projectCategories;
+	
+	public List<ProjectCategory> getProjectCategories() {
+		return projectCategories;
+	}
+
+	public void setProjectCategories(List<ProjectCategory> projectCategories) {
+		this.projectCategories = projectCategories;
+	}
+
 	public Category getParentCategory() {
 		return parentCategory;
 	}

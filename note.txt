@@ -39,4 +39,8 @@ http://betterexplained.com/articles/how-to-optimize-your-site-with-http-caching/
 
 --- form validation---------
 http://howtodoinjava.com/2015/02/12/spring-bean-validation-example-with-jsr-303-annotations/
+
+----======= many to many with extra columns=====
+http://www.mkyong.com/hibernate/hibernate-many-to-many-example-join-table-extra-column-annotation/
+
 http://www.askapache.com/hacking/speed-site-caching-cache-control.html#Apache_Caching
