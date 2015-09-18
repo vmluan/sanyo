@@ -31,9 +31,9 @@ public class Encounter implements Serializable{
 	
 	private Date encounterTime;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "tableid", nullable = false)
-	private Project project;
+//	@ManyToOne(cascade = CascadeType.ALL)
+//	@JoinColumn(name = "tableid", nullable = false)
+//	private Project project;
 	
 	@Column(name = "productprice")
 	private long productPrice;
@@ -46,27 +46,14 @@ public class Encounter implements Serializable{
 		this.productPrice = productPrice;
 	}
 
-	/**
-	 * @deprecated Use {@link #getProject()} instead
-	 */
-	public Project getTable() {
-		return getProject();
-	}
 
-	public Project getProject() {
-		return project;
-	}
-
-	/**
-	 * @deprecated Use {@link #setProject(Project)} instead
-	 */
-	public void setTable(Project table) {
-		setProject(table);
-	}
-
-	public void setProject(Project table) {
-		this.project = table;
-	}
+//	public Project getProject() {
+//		return project;
+//	}
+//
+//	public void setProject(Project table) {
+//		this.project = table;
+//	}
 
 	public Integer getEncounterID() {
 		return encounterID;

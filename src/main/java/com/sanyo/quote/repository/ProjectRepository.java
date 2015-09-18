@@ -33,34 +33,34 @@ public interface ProjectRepository extends PagingAndSortingRepository<Project, I
 				where c.tableID =: a.id 
  * 
  */
-	
-	@Query("select c"
-			+ " from Project c where c.openTime  between :tradeDate and :nextTradeDate and c.tableNumber =:tableNumber  order by c.status asc, c.openTime desc limit 1")
-	List<Project> findTableByDate(@Param("tradeDate") Date tradeDate, @Param("nextTradeDate") Date nextTradeDate,  @Param("tableNumber") String tableNumber );
-	
-	@Query("select c from Project c where c.openTime  between :tradeDate and :nextTradeDate and c.status = :status order by c.status asc, c.openTime desc")
-	List<Project> findTableByDate(@Param("tradeDate") Date tradeDate, @Param("nextTradeDate") Date nextTradeDate, 
-			@Param("status") ProjectStatus status);
-	@Query("select c from Project c where c.openTime  between :tradeDate and :nextTradeDate and (c.status = :status1 or c.status =:status2) order by c.status asc, c.openTime desc")
-	List<Project> findTableByDate(@Param("tradeDate") Date tradeDate, @Param("nextTradeDate") Date nextTradeDate, 
-			@Param("status1") ProjectStatus status1, @Param("status2") ProjectStatus status2);
-	
-	@Query("select c from Project c where c.openTime  between :tradeDate and :nextTradeDate and c.tableNumber = :tableNumber order by  c.status asc, c.openTime desc")
-	List<Project> findTableBuyTableNumber(@Param("tableNumber") String tableNumber,@Param("tradeDate") Date tradeDate, @Param("nextTradeDate") Date nextTradeDate);
-	
-	@Query("select c from Project c where c.openTime  between :tradeDate and :nextTradeDate and c.tableNumber = :tableNumber and c.status = :status order by c.openTime desc")
-	List<Project> findTableByTableNumberAndStatus(@Param("tableNumber") String tableNumber,@Param("tradeDate") Date tradeDate, @Param("nextTradeDate") Date nextTradeDate
-			, @Param("status") ProjectStatus status);
-		
-	@Query("select c from Project c where c.openTime  between :tradeDate and :nextTradeDate and c.tableAcr = :tableAcr and c.status = :status order by c.openTime desc")
-	List<Project> findTableByTableAcrAndStatus(@Param("tableAcr") String tableAcr,@Param("tradeDate") Date tradeDate, @Param("nextTradeDate") Date nextTradeDate
-			, @Param("status") ProjectStatus status);
-
-	
-	@Query("select c.tableNumber, max(tableID)"
-			+ " from Project c where c.openTime  between :tradeDate and :nextTradeDate  group by c.tableNumber")	
-	List<Object[]>  findDistinctTableByDate(@Param("tradeDate") Date tradeDate, @Param("nextTradeDate") Date nextTradeDate);
-	@Query("select c"
-			+ " from Project c where c.openTime  between :tradeDate and :nextTradeDate  order by c.status asc, c.openTime desc")
-	List<Project> findTableByDate(@Param("tradeDate") Date tradeDate, @Param("nextTradeDate") Date nextTradeDate );	
+//	
+//	@Query("select c"
+//			+ " from Project c where c.openTime  between :tradeDate and :nextTradeDate and c.tableNumber =:tableNumber  order by c.status asc, c.openTime desc limit 1")
+//	List<Project> findTableByDate(@Param("tradeDate") Date tradeDate, @Param("nextTradeDate") Date nextTradeDate,  @Param("tableNumber") String tableNumber );
+//	
+//	@Query("select c from Project c where c.openTime  between :tradeDate and :nextTradeDate and c.status = :status order by c.status asc, c.openTime desc")
+//	List<Project> findTableByDate(@Param("tradeDate") Date tradeDate, @Param("nextTradeDate") Date nextTradeDate, 
+//			@Param("status") ProjectStatus status);
+//	@Query("select c from Project c where c.openTime  between :tradeDate and :nextTradeDate and (c.status = :status1 or c.status =:status2) order by c.status asc, c.openTime desc")
+//	List<Project> findTableByDate(@Param("tradeDate") Date tradeDate, @Param("nextTradeDate") Date nextTradeDate, 
+//			@Param("status1") ProjectStatus status1, @Param("status2") ProjectStatus status2);
+//	
+//	@Query("select c from Project c where c.openTime  between :tradeDate and :nextTradeDate and c.tableNumber = :tableNumber order by  c.status asc, c.openTime desc")
+//	List<Project> findTableBuyTableNumber(@Param("tableNumber") String tableNumber,@Param("tradeDate") Date tradeDate, @Param("nextTradeDate") Date nextTradeDate);
+//	
+//	@Query("select c from Project c where c.openTime  between :tradeDate and :nextTradeDate and c.tableNumber = :tableNumber and c.status = :status order by c.openTime desc")
+//	List<Project> findTableByTableNumberAndStatus(@Param("tableNumber") String tableNumber,@Param("tradeDate") Date tradeDate, @Param("nextTradeDate") Date nextTradeDate
+//			, @Param("status") ProjectStatus status);
+//		
+//	@Query("select c from Project c where c.openTime  between :tradeDate and :nextTradeDate and c.tableAcr = :tableAcr and c.status = :status order by c.openTime desc")
+//	List<Project> findTableByTableAcrAndStatus(@Param("tableAcr") String tableAcr,@Param("tradeDate") Date tradeDate, @Param("nextTradeDate") Date nextTradeDate
+//			, @Param("status") ProjectStatus status);
+//
+//	
+//	@Query("select c.tableNumber, max(tableID)"
+//			+ " from Project c where c.openTime  between :tradeDate and :nextTradeDate  group by c.tableNumber")	
+//	List<Object[]>  findDistinctTableByDate(@Param("tradeDate") Date tradeDate, @Param("nextTradeDate") Date nextTradeDate);
+//	@Query("select c"
+//			+ " from Project c where c.openTime  between :tradeDate and :nextTradeDate  order by c.status asc, c.openTime desc")
+//	List<Project> findTableByDate(@Param("tradeDate") Date tradeDate, @Param("nextTradeDate") Date nextTradeDate );	
 }

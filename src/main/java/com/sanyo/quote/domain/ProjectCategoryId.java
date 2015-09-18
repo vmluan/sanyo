@@ -6,14 +6,10 @@ import javax.persistence.ManyToOne;
 @Embeddable
 public class ProjectCategoryId implements java.io.Serializable {
 
-	private static final long serialVersionUID = 1L;
-	
-	@ManyToOne
 	private Project project;
-	
+    private Category category;
+
 	@ManyToOne
-	private Category category;
-	
 	public Project getProject() {
 		return project;
 	}
@@ -22,6 +18,7 @@ public class ProjectCategoryId implements java.io.Serializable {
 		this.project = project;
 	}
 
+	@ManyToOne
 	public Category getCategory() {
 		return category;
 	}
@@ -30,8 +27,6 @@ public class ProjectCategoryId implements java.io.Serializable {
 		this.category = category;
 	}
 
-
-	
 	public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -51,5 +46,5 @@ public class ProjectCategoryId implements java.io.Serializable {
         result = 31 * result + (category != null ? category.hashCode() : 0);
         return result;
     }
-
+    
 }

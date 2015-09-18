@@ -88,18 +88,19 @@ public class DefaultProjectService implements ProjectService {
 //			  
 //		  }
 //		return tables;
-		  List<Project> tables = new ArrayList<Project>();
-		  List<Object[]> rawData = projectRepository.findDistinctTableByDate(date, nextDate);
-		  System.out.println(rawData);
-		  
-		  for (Object[]data : rawData){
-				 String tableName = String.valueOf(data[0]);
-				 List<Project> temp = projectRepository.findTableByDate(date, nextDate, tableName);
-				 if(temp != null && temp.size() > 0){
-					 tables.add(temp.get(0));
-				 }			  
-		  }
-		  return tables;
+//		  List<Project> tables = new ArrayList<Project>();
+//		  List<Object[]> rawData = projectRepository.findDistinctTableByDate(date, nextDate);
+//		  System.out.println(rawData);
+//		  
+//		  for (Object[]data : rawData){
+//				 String tableName = String.valueOf(data[0]);
+//				 List<Project> temp = projectRepository.findTableByDate(date, nextDate, tableName);
+//				 if(temp != null && temp.size() > 0){
+//					 tables.add(temp.get(0));
+//				 }			  
+//		  }
+//		  return tables;
+		  return null;
 	}
 
 	@Override
@@ -110,7 +111,8 @@ public class DefaultProjectService implements ProjectService {
 		  calendar.add(Calendar.DAY_OF_YEAR, 1);
 		  Date nextDate =  calendar.getTime();
 		  
-		return projectRepository.findTableByDate(date, nextDate, status);
+//		return projectRepository.findTableByDate(date, nextDate, status);
+		  return null;
 	}
 
 	@Override
@@ -122,7 +124,8 @@ public class DefaultProjectService implements ProjectService {
 		  calendar.add(Calendar.DAY_OF_YEAR, 1);
 		  Date nextDate =  calendar.getTime();
 		  
-		return projectRepository.findTableByDate(date, nextDate, status1, status2);
+//		return projectRepository.findTableByDate(date, nextDate, status1, status2);
+		  return null;
 	}
 
 	@Override
@@ -143,8 +146,9 @@ public class DefaultProjectService implements ProjectService {
 		calendar.setTime(date);
 		calendar.add(Calendar.DAY_OF_YEAR, 1);
 		Date nextDate = calendar.getTime();
-		return projectRepository.findTableBuyTableNumber(tableNumber, date,
-				nextDate);
+//		return projectRepository.findTableBuyTableNumber(tableNumber, date,
+//				nextDate);
+		return null;
 	}
 	@Override
 	public List<Project> findOpeningTableByTableNumber(String tableNumber) {
@@ -164,8 +168,9 @@ public class DefaultProjectService implements ProjectService {
 		calendar.setTime(date);
 		calendar.add(Calendar.DAY_OF_YEAR, 1);
 		Date nextDate = calendar.getTime();
-		return projectRepository.findTableByTableNumberAndStatus(tableNumber, date,
-				nextDate, ProjectStatus.PROCESSING);
+//		return projectRepository.findTableByTableNumberAndStatus(tableNumber, date,
+//				nextDate, ProjectStatus.PROCESSING);
+		return null;
 	}
 
 	@Override
@@ -185,14 +190,16 @@ public class DefaultProjectService implements ProjectService {
 		calendar.setTime(date);
 		calendar.add(Calendar.DAY_OF_YEAR, 1);
 		Date nextDate = calendar.getTime();
-		return projectRepository.findTableByTableAcrAndStatus(tableAcr, date,
-				nextDate, ProjectStatus.PROCESSING);
+//		return projectRepository.findTableByTableAcrAndStatus(tableAcr, date,
+//				nextDate, ProjectStatus.PROCESSING);
+		return null;
 	}
 
 	@Override
 	public List<Project> findTableByDateRange(Date startDate, Date endDate) {
 		// TODO Auto-generated method stub
-		return projectRepository.findTableByDate(startDate, endDate);
+//		return projectRepository.findTableByDate(startDate, endDate);
+		return null;
 	}	
 	
 	

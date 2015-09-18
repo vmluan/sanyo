@@ -1,82 +1,80 @@
 package com.sanyo.quote.domain;
 
-import java.io.Serializable;
+import static javax.persistence.GenerationType.IDENTITY;
+
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
-/*
- * it is used to store 'Vung' information
- */
+
 @Entity
-@Table(name = "sy_category", catalog = "sanyo")
-public class Category implements Serializable {
+@Table(name = "category", catalog = "sanyo")
+public class Category implements java.io.Serializable {
+
+	private Integer categoryId;
+	private String name;
+	private String desc;
+	private Set<ProjectCategory> projectCategories = new HashSet<ProjectCategory>(0);
+
+
+	private List<Product> products;
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "categoryid", nullable = false)
-	private Integer categoryID;
-	
-	@Column(name = "categoryname")
-	private String categoryName;
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "CATEGORY_ID", unique = true, nullable = false)
+	public Integer getCategoryId() {
+		return this.categoryId;
+	}
+
+	public void setCategoryId(Integer categoryId) {
+		this.categoryId = categoryId;
+	}
+
+	@Column(name = "NAME", nullable = false, length = 10)
+	public String getName() {
+		return this.name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	@Column(name = "[DESC]", nullable = false)
+	public String getDesc() {
+		return this.desc;
+	}
+
+	public void setDesc(String desc) {
+		this.desc = desc;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.category")
+	public Set<ProjectCategory> getStockCategories() {
+		return this.projectCategories;
+	}
+
+	public void setStockCategories(Set<ProjectCategory> projectCategories) {
+		this.projectCategories = projectCategories;
+	}
 	
 	@JsonIgnore
 	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "categories")
-	private List<Product> products;
-	
-	@Column(name = "parentcategoryid")
-	private Category parentCategory;
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.category")
-	private List<ProjectCategory> projectCategories;
-	
-	public List<ProjectCategory> getProjectCategories() {
-		return projectCategories;
-	}
-
-	public void setProjectCategories(List<ProjectCategory> projectCategories) {
-		this.projectCategories = projectCategories;
-	}
-
-	public Category getParentCategory() {
-		return parentCategory;
-	}
-
-	public void setParentCategory(Category parentCategory) {
-		this.parentCategory = parentCategory;
-	}
-
 	public List<Product> getProducts() {
 		return products;
 	}
-
+	
 	public void setProducts(List<Product> products) {
 		this.products = products;
 	}
 
-	public Integer getCategoryID() {
-		return categoryID;
-	}
-
-	public void setCategoryID(Integer categoryID) {
-		this.categoryID = categoryID;
-	}
-
-	public String getCategoryName() {
-		return categoryName;
-	}
-
-	public void setCategoryName(String categoryName) {
-		this.categoryName = categoryName;
-	}
-	
-	
 }

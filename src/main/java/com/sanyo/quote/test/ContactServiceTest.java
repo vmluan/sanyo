@@ -32,7 +32,7 @@ public class ContactServiceTest {
 	 */
 	private void testCategory(CategoryService categoryService, String categoryName){
 		Category category = new Category();
-		category.setCategoryName(categoryName);
+//		category.setCategoryName(categoryName);
 		categoryService.save(category);
 		
 	}

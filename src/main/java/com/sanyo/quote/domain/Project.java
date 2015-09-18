@@ -1,39 +1,36 @@
 package com.sanyo.quote.domain;
 
-import java.io.Serializable;
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
 
-import org.hibernate.annotations.Index;
-
 @Entity
-@Table(name = "sy_project", catalog = "sanyo")
-public class Project implements Serializable {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "projectId", nullable = false)
+@Table(name = "project", catalog = "sanyo", uniqueConstraints = {
+		@UniqueConstraint(columnNames = "PROJECT_NAME"),
+		@UniqueConstraint(columnNames = "PROJECT_CODE") })
+public class Project implements java.io.Serializable {
+
 	private Integer projectId;
-	
+	private String projectCode;
+	private String projectName;
+	private Set<ProjectCategory> projectCategories = new HashSet<ProjectCategory>(0);
 	@Column(name = "customerName")
 	String customerName;
 	
-	@Index(name = "projectCode")
-	private String projectCode;
-	
-	@Column(name = "projectName")
-	private String projectName;
 	
 	@Column(name = "totalMoney")
 	private long totalMoney;
@@ -57,61 +54,43 @@ public class Project implements Serializable {
 	
 	@Column(name = "description")
 	private String description;
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.project", cascade=CascadeType.ALL)
-	private List<ProjectCategory> projectCategories;
-	
-	
-	
-	public List<ProjectCategory> getProjectCategories() {
-		return projectCategories;
-	}
 
-	public void setProjectCategories(List<ProjectCategory> projectCategories) {
-		this.projectCategories = projectCategories;
-	}
-
-	public String getCreatedBy() {
-		return createdBy;
-	}
-
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public long getVersion() {
-		return version;
-	}
-
-	public void setVersion(long version) {
-		this.version = version;
-	}
-
-
-	public String getProjectCode() {
-		return projectCode;
-	}
-
-	public void setProjectCode(String tableAcr) {
-		this.projectCode = tableAcr;
-	}
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "project")
-	List<Encounter> encounters; //
-
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "PROJECT_ID", unique = true, nullable = false)
 	public Integer getProjectId() {
 		return projectId;
 	}
 
-	public void setProjectId(Integer tableID) {
-		this.projectId = tableID;
+	public void setProjectId(Integer projectId) {
+		this.projectId = projectId;
+	}
+	
+	@Column(name = "PROJECT_CODE", unique = true, nullable = false, length = 10)
+	public String getProjectCode() {
+		return projectCode;
+	}
+
+	public void setProjectCode(String projectCode) {
+		this.projectCode = projectCode;
+	}
+	
+	@Column(name = "PROJECT_NAME", unique = true, nullable = false, length = 20)
+	public String getProjectName() {
+		return projectName;
+	}
+
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.project", cascade=CascadeType.ALL)
+	public Set<ProjectCategory> getProjectCategories() {
+		return projectCategories;
+	}
+
+	public void setProjectCategories(Set<ProjectCategory> projectCategories) {
+		this.projectCategories = projectCategories;
 	}
 
 	public String getCustomerName() {
@@ -122,21 +101,6 @@ public class Project implements Serializable {
 		this.customerName = customerName;
 	}
 
-	public List<Encounter> getEncounters() {
-		return encounters;
-	}
-
-	public void setEncounters(List<Encounter> encounters) {
-		this.encounters = encounters;
-	}
-
-	public String getProjectName() {
-		return projectName;
-	}
-
-	public void setProjectName(String tableNumber) {
-		this.projectName = tableNumber;
-	}
 	public long getTotalMoney() {
 		return totalMoney;
 	}
@@ -168,5 +132,31 @@ public class Project implements Serializable {
 	public void setStatus(ProjectStatus status) {
 		this.status = status;
 	}
+
+	public long getVersion() {
+		return version;
+	}
+
+	public void setVersion(long version) {
+		this.version = version;
+	}
+
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	
 
 }

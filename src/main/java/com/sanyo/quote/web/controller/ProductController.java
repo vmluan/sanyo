@@ -175,7 +175,7 @@ public class ProductController {
 		String []categoriesList = new String[existingCategories.size()];
 		int i = 0;
 		for(Category category : existingCategories){
-			categoriesList[i] = String.valueOf(category.getCategoryID());
+//			categoriesList[i] = String.valueOf(category.getCategoryID());
 			i++;
 		}
 		System.out.println("==========  categoriesList = " + categoriesList);
@@ -215,7 +215,6 @@ public class ProductController {
 			for (int i=0; i< categoriesList.length; i++){
 				Category category = categoryService.findById(Integer.valueOf(categoriesList[i]));
 				categories.add(category);
-				System.out.println("====== categoryname = " + category.getCategoryName());
 			}
 			product.setCategories(categories);
 		}

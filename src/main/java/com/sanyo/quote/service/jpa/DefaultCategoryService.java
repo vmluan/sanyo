@@ -44,7 +44,8 @@ public class DefaultCategoryService implements CategoryService {
 
 	@Override
 	public List<Category> findByIds(List<Integer> ids) {
-		return categoryRepository.findByIds(ids);
+//		return categoryRepository.findByIds(ids);
+		return null;
 	}
 	
 }
