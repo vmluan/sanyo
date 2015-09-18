@@ -26,22 +26,22 @@ import javax.persistence.Transient;
 			joinColumns = @JoinColumn(name = "CATEGORY_ID")) })
 public class ProjectCategory implements java.io.Serializable {
 
-	private Integer id;
+//	private Integer id;
 	private ProjectCategoryId pk = new ProjectCategoryId();
 	private Date createdDate;
 	private String createdBy;
 
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "id", unique = true, nullable = false)
-	public Integer getId() {
-		return id;
-	}
+//	@Id
+//	@GeneratedValue(strategy = IDENTITY)
+//	@Column(name = "id", unique = true, nullable = false)
+//	public Integer getId() {
+//		return id;
+//	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+//	public void setId(Integer id) {
+//		this.id = id;
+//	}
 
 	@EmbeddedId
 	public ProjectCategoryId getPk() {

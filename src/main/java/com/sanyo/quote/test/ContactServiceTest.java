@@ -9,17 +9,20 @@ package com.sanyo.quote.test;
 
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 
 import org.springframework.context.support.GenericXmlApplicationContext;
 
+import com.sanyo.quote.domain.Category;
 import com.sanyo.quote.domain.Group;
 import com.sanyo.quote.domain.Product;
-import com.sanyo.quote.domain.Category;
+import com.sanyo.quote.domain.Project;
+import com.sanyo.quote.domain.ProjectCategory;
 import com.sanyo.quote.domain.User;
 import com.sanyo.quote.service.CategoryService;
 import com.sanyo.quote.service.GroupService;
 import com.sanyo.quote.service.ProductService;
+import com.sanyo.quote.service.ProjectCategoryService;
 import com.sanyo.quote.service.ProjectService;
 import com.sanyo.quote.service.UserService;
 
@@ -69,26 +72,37 @@ public class ContactServiceTest {
 		
 		System.out.println("App context initialized successfully");
 		ProductService productService = ctx.getBean("productService", ProductService.class);
-		ProjectService projectService = ctx.getBean("tableService", ProjectService.class);
+		ProjectService projectService = ctx.getBean("projectService", ProjectService.class);
 		CategoryService categoryService = ctx.getBean("categoryService", CategoryService.class);
 		GroupService groupService = ctx.getBean("groupService", GroupService.class);
 		UserService userService = ctx.getBean("userService", UserService.class);
+		ProjectCategoryService projectCategoryService= ctx.getBean("projectCategoryService", ProjectCategoryService.class);
 //
-//		Product product= new Product();
-//		product.setProductName("cafe den");
-//		product.setProductPrice(10000);
-		
-//		productService.save(product);
 		
 		ContactServiceTest test = new ContactServiceTest();
+		Category category = new Category();
+		category.setName("Dien lanh");
+		category.setDesc("desc");
+		categoryService.save(category);
+		Project project = new Project();
+		project.setProjectCode("3");
+		project.setProjectName("SANYO2");
+		projectService.save(project);
+		
+		ProjectCategory projectCategory = new ProjectCategory();
+		projectCategory.setCategory(category);
+		projectCategory.setProject(project);
+		projectCategory.setCreatedBy("admin");
+		projectCategory.setCreatedDate(new Date());
+		projectCategoryService.save(projectCategory);
 		
 //		test.testCategory(categoryService, "Nuoc giai khat");
-		Group group = test.testGroup(groupService);
-		List<Group> groups = new ArrayList<Group>();
-		groups.add(group);
-		User user = test.addUser(userService);
-		user.setGrouplist(groups);
-		userService.save(user);
+//		Group group = test.testGroup(groupService);
+//		List<Group> groups = new ArrayList<Group>();
+//		groups.add(group);
+//		User user = test.addUser(userService);
+//		user.setGrouplist(groups);
+//		userService.save(user);
 		
 		
 		

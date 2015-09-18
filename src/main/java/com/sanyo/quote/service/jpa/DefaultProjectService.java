@@ -21,7 +21,7 @@ import com.sanyo.quote.domain.ProjectStatus;
 import com.sanyo.quote.repository.ProjectRepository;
 import com.sanyo.quote.service.ProjectService;
 
-@Service("tableService")
+@Service("projectService")
 @Repository
 @Transactional
 public class DefaultProjectService implements ProjectService {
