@@ -2,6 +2,7 @@ package com.sanyo.quote.domain;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -47,9 +48,19 @@ public class Group implements Serializable {
 	
 	@JsonIgnore
 	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "grouplist")
-	private List<User> users;
+	private Set<User> users;
 	
+	@JsonIgnore
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "groupList")
+	private Set<Region> regions;
+	
+	public Set<Region> getRegions() {
+		return regions;
+	}
 
+	public void setRegions(Set<Region> regions) {
+		this.regions = regions;
+	}
 
 	public Integer getGroupid() {
 		return groupid;
@@ -67,11 +78,11 @@ public class Group implements Serializable {
 		this.groupName = groupName;
 	}
 
-	public List<User> getUsers() {
+	public Set<User> getUsers() {
 		return users;
 	}
 
-	public void setUsers(List<User> users) {
+	public void setUsers(Set<User> users) {
 		this.users = users;
 	}
 

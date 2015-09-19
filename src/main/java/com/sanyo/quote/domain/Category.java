@@ -24,10 +24,8 @@ public class Category implements java.io.Serializable {
 	private Integer categoryId;
 	private String name;
 	private String desc;
-	private Set<ProjectCategory> projectCategories = new HashSet<ProjectCategory>(0);
 
-
-	private List<Product> products;
+	private Set<Product> products;
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -49,7 +47,7 @@ public class Category implements java.io.Serializable {
 		this.name = name;
 	}
 
-	@Column(name = "[DESC]", nullable = false)
+	@Column(name = "description", nullable = false)
 	public String getDesc() {
 		return this.desc;
 	}
@@ -58,22 +56,13 @@ public class Category implements java.io.Serializable {
 		this.desc = desc;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.category")
-	public Set<ProjectCategory> getProjectCategories() {
-		return this.projectCategories;
-	}
-
-	public void setProjectCategories(Set<ProjectCategory> projectCategories) {
-		this.projectCategories = projectCategories;
-	}
-	
 	@JsonIgnore
 	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "categories")
-	public List<Product> getProducts() {
+	public Set<Product> getProducts() {
 		return products;
 	}
 	
-	public void setProducts(List<Product> products) {
+	public void setProducts(Set<Product> products) {
 		this.products = products;
 	}
 

@@ -9,8 +9,6 @@ package com.sanyo.quote.test;
 
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Set;
 
 import org.springframework.context.support.GenericXmlApplicationContext;
 
@@ -18,13 +16,10 @@ import com.sanyo.quote.domain.Category;
 import com.sanyo.quote.domain.Group;
 import com.sanyo.quote.domain.Product;
 import com.sanyo.quote.domain.Project;
-import com.sanyo.quote.domain.ProjectCategory;
-import com.sanyo.quote.domain.ProjectCategoryId;
 import com.sanyo.quote.domain.User;
 import com.sanyo.quote.service.CategoryService;
 import com.sanyo.quote.service.GroupService;
 import com.sanyo.quote.service.ProductService;
-import com.sanyo.quote.service.ProjectCategoryService;
 import com.sanyo.quote.service.ProjectService;
 import com.sanyo.quote.service.UserService;
 
@@ -77,14 +72,6 @@ public class ContactServiceTest {
 		project.setProjectName("SANYO2");
 		return projectService.save(project);
 	}
-	private ProjectCategory addProjectCategory(Category category, Project project, ProjectCategoryService projectCategoryService){
-		ProjectCategory projectCategory = new ProjectCategory();
-		projectCategory.setCategory(category);
-		projectCategory.setProject(project);
-		projectCategory.setCreatedBy("admin");
-		projectCategory.setCreatedDate(new Date());
-		return projectCategoryService.save(projectCategory);
-	}
 	
 	public static void main(String[] args) throws ParseException {
 
@@ -98,29 +85,11 @@ public class ContactServiceTest {
 		CategoryService categoryService = ctx.getBean("categoryService", CategoryService.class);
 		GroupService groupService = ctx.getBean("groupService", GroupService.class);
 		UserService userService = ctx.getBean("userService", UserService.class);
-		ProjectCategoryService projectCategoryService= ctx.getBean("projectCategoryService", ProjectCategoryService.class);
 //
 		
 		ContactServiceTest test = new ContactServiceTest();
 //		test.addProject(projectService);
 //		test.addCategory(categoryService);
-		
-		
-		
-		Category category = categoryService.findById(1);
-		Project project = projectService.findById(1);
-//		test.addProjectCategory(category, project, projectCategoryService);
-		Set<ProjectCategory> list = category.getProjectCategories();
-		for(ProjectCategory projectCategory : list){
-			System.out.println(projectCategory.getCreatedBy());
-		}
-		
-		ProjectCategoryId projectCategoryId = new ProjectCategoryId();
-		projectCategoryId.setCategory(category);
-		projectCategoryId.setProject(project);
-//		ProjectCategory projectCategory = projectCategoryService.findById(projectCategoryId);
-//		System.out.println(projectCategory);
-		
 		
 		
 		

@@ -27,7 +27,7 @@ public class Project implements java.io.Serializable {
 	private Integer projectId;
 	private String projectCode;
 	private String projectName;
-	private Set<ProjectCategory> projectCategories = new HashSet<ProjectCategory>(0);
+//	private Set<ProjectCategory> projectCategories = new HashSet<ProjectCategory>(0);
 	@Column(name = "customerName")
 	String customerName;
 	
@@ -84,14 +84,14 @@ public class Project implements java.io.Serializable {
 		this.projectName = projectName;
 	}
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.project", cascade=CascadeType.ALL)
-	public Set<ProjectCategory> getProjectCategories() {
-		return projectCategories;
-	}
-
-	public void setProjectCategories(Set<ProjectCategory> projectCategories) {
-		this.projectCategories = projectCategories;
-	}
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.project", cascade=CascadeType.ALL)
+//	public Set<ProjectCategory> getProjectCategories() {
+//		return projectCategories;
+//	}
+//
+//	public void setProjectCategories(Set<ProjectCategory> projectCategories) {
+//		this.projectCategories = projectCategories;
+//	}
 
 	public String getCustomerName() {
 		return customerName;
