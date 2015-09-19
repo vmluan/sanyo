@@ -33,12 +33,10 @@ public class ProjectCategory implements java.io.Serializable {
 
 
 //	@Id
-//	@GeneratedValue(strategy = IDENTITY)
-//	@Column(name = "id", unique = true, nullable = false)
 //	public Integer getId() {
 //		return id;
 //	}
-
+//
 //	public void setId(Integer id) {
 //		this.id = id;
 //	}

@@ -58,12 +58,12 @@ public class Category implements java.io.Serializable {
 		this.desc = desc;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.category")
-	public Set<ProjectCategory> getStockCategories() {
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.category")
+	public Set<ProjectCategory> getProjectCategories() {
 		return this.projectCategories;
 	}
 
-	public void setStockCategories(Set<ProjectCategory> projectCategories) {
+	public void setProjectCategories(Set<ProjectCategory> projectCategories) {
 		this.projectCategories = projectCategories;
 	}
 	
