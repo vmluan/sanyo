@@ -44,3 +44,7 @@ http://howtodoinjava.com/2015/02/12/spring-bean-validation-example-with-jsr-303-
 http://www.mkyong.com/hibernate/hibernate-many-to-many-example-join-table-extra-column-annotation/
 
 http://www.askapache.com/hacking/speed-site-caching-cache-control.html#Apache_Caching
+http://blog.eyallupu.com/2010/06/hibernate-exception-simultaneously.html
+
+source for form tag
+http://docs.spring.io/spring-framework/docs/2.5.6/api/org/springframework/web/servlet/tags/form/RadioButtonsTag.html

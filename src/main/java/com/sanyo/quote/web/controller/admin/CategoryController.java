@@ -71,6 +71,7 @@ public class CategoryController {
     public String updateForm(@PathVariable("id") Integer id, Model uiModel) {
 		Category category = categoryService.findById(id);
         uiModel.addAttribute("category", category);
+        resetCategories(uiModel, categoryService.findParents());
         return "categories/update";
 	}
 	
@@ -78,6 +79,7 @@ public class CategoryController {
     public String createForm(Model uiModel) {
 		Category category = new Category();
         uiModel.addAttribute("category", category);
+        resetCategories(uiModel, categoryService.findParents());
         return "categories/create";
 	}
 	//create new category, save to database
@@ -88,6 +90,7 @@ public class CategoryController {
         if (bindingResult.hasErrors()) {
 			uiModel.addAttribute("message", new Message("error", messageSource.getMessage("category_save_fail", new Object[]{}, locale)));
             uiModel.addAttribute("category", category);
+            resetCategories(uiModel, categoryService.findParents());
             return "categories/create";
         }
         uiModel.asMap().clear();
@@ -117,12 +120,14 @@ public class CategoryController {
 		if (bindingResult.hasErrors()) {
 			uiModel.addAttribute("message", new Message("error", messageSource.getMessage("category_save_fail", new Object[]{}, locale)));
             uiModel.addAttribute("category", category);
+            resetCategories(uiModel, categoryService.findParents());
             return "categories/update";
 	        }    
         uiModel.asMap().clear();
         category.setCategoryId(id);
         redirectAttributes.addFlashAttribute("message", new Message("success", messageSource.getMessage("category_save_success", new Object[]{}, locale)));        
         uiModel.addAttribute("category", category);
+        resetCategories(uiModel, categoryService.findParents());
         categoryService.save(category);
         return "categories/update";
     }
@@ -146,7 +151,10 @@ public class CategoryController {
 		List<Category> categories  = categoryService.findAll();
 		String result = Utilities.jSonSerialization(categories);
 		return result;
-	}	
+	}
+	private void resetCategories(Model uiModel, List<Category> categories){
+		uiModel.addAttribute("parentCategories", categories);
+	}
 	
 
 }

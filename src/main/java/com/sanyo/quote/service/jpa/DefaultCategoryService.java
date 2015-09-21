@@ -47,5 +47,10 @@ public class DefaultCategoryService implements CategoryService {
 //		return categoryRepository.findByIds(ids);
 		return null;
 	}
+
+	@Override
+	public List<Category> findParents() {
+		return categoryRepository.findParents();
+	}
 	
 }

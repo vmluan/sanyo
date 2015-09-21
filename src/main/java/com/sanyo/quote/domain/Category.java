@@ -11,9 +11,12 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -27,7 +30,10 @@ public class Category implements java.io.Serializable {
 	private String desc;
 
 	private Set<Product> products;
-
+	private Category parentCategory;
+	@Transient
+	private String parentCategoryId;
+	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "CATEGORY_ID", unique = true, nullable = false)
@@ -67,5 +73,24 @@ public class Category implements java.io.Serializable {
 	public void setProducts(Set<Product> products) {
 		this.products = products;
 	}
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="PARENT_CATEGORY_ID")
+	public Category getParentCategory() {
+		return parentCategory;
+	}
+
+	public void setParentCategory(Category parentCategory) {
+		this.parentCategory = parentCategory;
+	}
+
+	public String getParentCategoryId() {
+		return parentCategoryId;
+	}
+
+	public void setParentCategoryId(String parentCategoryId) {
+		this.parentCategoryId = parentCategoryId;
+	}
+
+	
 
 }

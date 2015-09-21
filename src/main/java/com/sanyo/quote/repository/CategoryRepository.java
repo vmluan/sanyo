@@ -13,5 +13,7 @@ import com.sanyo.quote.domain.Category;
 public interface CategoryRepository extends PagingAndSortingRepository<Category, Integer> {
 //	@Query("select c from Category c where c.categoryID  IN :ids")
 //	List<Category> findByIds(@Param("ids") List<Integer> ids);
+	@Query("select c from Category c where c.parentCategory IS NULL")
+	List<Category> findParents();
 
 }

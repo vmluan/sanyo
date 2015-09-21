@@ -17,5 +17,5 @@ public interface CategoryService {
 	
 	Page<Category> findAllByPage(Pageable pageable);
 	List<Category> findByIds(List<Integer > ids);
-	
+	List<Category> findParents();
 }
