@@ -14,13 +14,13 @@
         <div id="message" class="${message.type}">${message.message}</div>
     </c:if>
     <section class="content">
-		<a href="?form" class="btn btn-primary btn-xs">${labelUserAdd}</a>
+		<a href="?form" class="btn btn-primary btn-xs">${labelRoleAdd}</a>
 		<p/>
 		<div id="list" class="row"><jsp:text />
         </div>
 		<div id="pager"><jsp:text /></div><jsp:text /><P /><jsp:text />
 		<p/>
-		<a href="?form" class="btn btn-primary btn-xs">${labelUserAdd}</a>
+		<a href="?form" class="btn btn-primary btn-xs">${labelRoleAdd}</a>
 	</section>
 
    <script src="/resources/plugins/jQuery/jQuery-2.1.4.min.js"><jsp:text/></script>    
