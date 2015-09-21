@@ -14,6 +14,7 @@
               <ul class="treeview-menu">
                 <li><a href="/admin/users">User Maintenance</a></li>
                 <li><a href="/admin/roles">Role Maintenance</a></li>
+                <li><a href="/admin/categories">Category Maintenance</a></li>
               </ul>
             </li>
           </ul><!-- /.sidebar-menu -->
