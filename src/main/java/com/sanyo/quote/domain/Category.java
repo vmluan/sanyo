@@ -47,7 +47,7 @@ public class Category implements java.io.Serializable {
 		this.name = name;
 	}
 
-	@Column(name = "description", nullable = false)
+	@Column(name = "DESCRIPTION")
 	public String getDesc() {
 		return this.desc;
 	}

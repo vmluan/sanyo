@@ -17,23 +17,22 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.web.multipart.MultipartFile;
 @Entity
-@Table(name = "sy_product", catalog = "sanyo")
+@Table(name = "product", catalog = "sanyo")
 public class Product implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "productid", nullable = false)
+	@Column(name = "PRODUCT_ID", nullable = false)
 	private Integer productID;
 	
-	@Column(name = "productname", unique=true)
+	@Column(name = "PRODUCT_NAME", unique=true)
 	private String productName;
 	
-	@Column(name = "price")
-	private long productPrice;
+//	@Column(name = "PRICE")
+//	private long productPrice;
 	
-	@Column(name = "piclocation")
+	@Column(name = "PIC_LOCATION")
 	private String picLocation;
 	
 	@Column(name = "iscommon")
@@ -51,14 +50,115 @@ public class Product implements Serializable {
 	@Column(name="isdeleted")
 	private boolean isDeleted;
 	
-	@Column(name="lastupdated")
+	@Column(name="LAST_UPDATED")
 	private Date lastUpdated;
 	
-	@Column(name ="deleteddate")
+	@Column(name ="DELTED_DATE")
 	private Date deltedDate;
 	
 	
+	@ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	@JoinTable(name="product_category", joinColumns={@JoinColumn(name="productid")}
+			, inverseJoinColumns={@JoinColumn(name="CATEGORY_ID")})
+	private List<Category> categories;
 	
+	@Column(name ="IN_PRICE")
+	private long inPrice;
+	@Column(name ="OUT_WHLSE_PRICE")
+	private long outWholeSalePrice;
+	@Column(name ="OUT_SALE_PRICE")
+	private long outSalePrice;
+	@Column(name ="MIN_DISC_WHSLE_PER")
+	private short minDiscountWholeSalePer;
+	@Column(name ="MAX_DISC_WHSLE_PER")
+	private short maxDiscountWholeSalePer;
+	
+	@Column(name ="MIN_DISC_SALE_PER")
+	private short minDiscountSalePer;
+	
+	@Column(name ="MAX_DISC_SALE_PER")
+	private short maxDiscountSalePer;
+	
+	@Column(name="VAT")
+	private short VAT;
+	
+	@Column(name="LAST_MODIFIED_BY")
+	private String lastModifiedBy;
+	
+	
+
+	public long getInPrice() {
+		return inPrice;
+	}
+
+	public void setInPrice(long inPrice) {
+		this.inPrice = inPrice;
+	}
+
+	public long getOutWholeSalePrice() {
+		return outWholeSalePrice;
+	}
+
+	public void setOutWholeSalePrice(long outWholeSalePrice) {
+		this.outWholeSalePrice = outWholeSalePrice;
+	}
+
+	public long getOutSalePrice() {
+		return outSalePrice;
+	}
+
+	public void setOutSalePrice(long outSalePrice) {
+		this.outSalePrice = outSalePrice;
+	}
+
+	public short getMinDiscountWholeSalePer() {
+		return minDiscountWholeSalePer;
+	}
+
+	public void setMinDiscountWholeSalePer(short minDiscountWholeSalePer) {
+		this.minDiscountWholeSalePer = minDiscountWholeSalePer;
+	}
+
+	public short getMaxDiscountWholeSalePer() {
+		return maxDiscountWholeSalePer;
+	}
+
+	public void setMaxDiscountWholeSalePer(short maxDiscountWholeSalePer) {
+		this.maxDiscountWholeSalePer = maxDiscountWholeSalePer;
+	}
+
+	public short getMinDiscountSalePer() {
+		return minDiscountSalePer;
+	}
+
+	public void setMinDiscountSalePer(short minDiscountSalePer) {
+		this.minDiscountSalePer = minDiscountSalePer;
+	}
+
+	public short getMaxDiscountSalePer() {
+		return maxDiscountSalePer;
+	}
+
+	public void setMaxDiscountSalePer(short maxDiscountSalePer) {
+		this.maxDiscountSalePer = maxDiscountSalePer;
+	}
+
+	public short getVAT() {
+		return VAT;
+	}
+
+	public void setVAT(short vAT) {
+		VAT = vAT;
+	}
+
+	public String getLastModifiedBy() {
+		return lastModifiedBy;
+	}
+
+	public void setLastModifiedBy(String lastModifiedBy) {
+		this.lastModifiedBy = lastModifiedBy;
+	}
+
 	public String[] getCategoriesList() {
 		return categoriesList;
 	}
@@ -67,12 +167,7 @@ public class Product implements Serializable {
 		this.categoriesList = categoriesList;
 	}
 	
-	@ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-	@JoinTable(name="product_category", joinColumns={@JoinColumn(name="productid")}
-			, inverseJoinColumns={@JoinColumn(name="CATEGORY_ID")})
-	private List<Category> categories;
-
-
+	
 	public List<Category> getCategories() {
 		return categories;
 	}
@@ -129,13 +224,13 @@ public class Product implements Serializable {
 		this.productName = productName;
 	}
 
-	public long getProductPrice() {
-		return productPrice;
-	}
-
-	public void setProductPrice(long productPrice) {
-		this.productPrice = productPrice;
-	}
+//	public long getProductPrice() {
+//		return productPrice;
+//	}
+//
+//	public void setProductPrice(long productPrice) {
+//		this.productPrice = productPrice;
+//	}
 
 	public String getPicLocation() {
 		return picLocation;
@@ -168,7 +263,7 @@ public class Product implements Serializable {
 		return "'" + productName + "':" + "{"
 				+ "pic: " +"'" + picLocation + "'"
 				+","
-				+ "price: " + String.valueOf(productPrice)
+				+ "price: " + String.valueOf(this.outSalePrice)
 				+ "}";
 	}
 }

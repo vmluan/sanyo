@@ -131,7 +131,7 @@ public class ProductController {
         productPriceWrapper = productPriceWrapper.replace(",", "").replace(" ", "").replace(".", "");
         
         long price = Long.valueOf(productPriceWrapper);
-        product.setProductPrice(price);
+//        product.setProductPrice(price);
         
         //handle attachments
         String fileName = "";
@@ -168,7 +168,7 @@ public class ProductController {
     public String updateForm(@PathVariable("id") Integer id, Model uiModel) {
        // uiModel.addAttribute("template", templateService.findById(id));
 		Product product = productService.findById(id);
-		product.setProductPriceWrapper(String.valueOf(product.getProductPrice()));
+//		product.setProductPriceWrapper(String.valueOf(product.getProductPrice()));
 		uiModel.addAttribute("product", product);
 		
 		List<Category> existingCategories = product.getCategories();
@@ -206,7 +206,7 @@ public class ProductController {
         long price = Long.valueOf(productPriceWrapper);
         System.out.println("==================== " + price);
         
-        product.setProductPrice(price);
+//        product.setProductPrice(price);
         product.setProductName(updatedProduct.getProductName());
         
 		String []categoriesList = updatedProduct.getCategoriesList();

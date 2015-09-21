@@ -17,7 +17,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(name = "sy_group", catalog = "sanyo")
+@Table(name = "group", catalog = "sanyo")
 public class Group implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

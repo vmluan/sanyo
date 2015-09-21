@@ -1,18 +1,19 @@
 package com.sanyo.quote.domain;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /*
@@ -27,10 +28,12 @@ public class Region implements java.io.Serializable{
 	private String regionDesc;
 	private Category category;
 	private Project project;
-	private List<Group> groupList;
+	private Set<Group> groupList;
+	private Set<Encounter> encounters;
+	private RegionStatus status;
 	
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "REGION_ID", unique = true, nullable = false)
 	public Integer getRegionId() {
 		return regionId;
@@ -73,12 +76,27 @@ public class Region implements java.io.Serializable{
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name="region_group", joinColumns={@JoinColumn(name="REGION_ID")}
 			, inverseJoinColumns={@JoinColumn(name="groupid")})
-	public List<Group> getGroupList() {
+	public Set<Group> getGroupList() {
 		return groupList;
 	}
-	public void setGroupList(List<Group> groupList) {
+	public void setGroupList(Set<Group> groupList) {
 		this.groupList = groupList;
 	}
 	
-
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="region")
+	public Set<Encounter> getEncounters() {
+		return encounters;
+	}
+	public void setEncounters(Set<Encounter> encounters) {
+		this.encounters = encounters;
+	}
+	@Column(name = "STATUS")
+	public RegionStatus getStatus() {
+		return status;
+	}
+	public void setStatus(RegionStatus status) {
+		this.status = status;
+	}
+	
+	
 }

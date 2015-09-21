@@ -3,16 +3,13 @@ package com.sanyo.quote.domain;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -27,34 +24,22 @@ public class Project implements java.io.Serializable {
 	private Integer projectId;
 	private String projectCode;
 	private String projectName;
-//	private Set<ProjectCategory> projectCategories = new HashSet<ProjectCategory>(0);
-	@Column(name = "customerName")
 	String customerName;
 	
-	
-	@Column(name = "totalMoney")
+	private Set<Region> regions;
 	private long totalMoney;
-	
-	@Column(name = "openTime")
 	private Date openTime;
-	
-	@Column(name = "closedTime")
 	private Date closedTime;
-	
-	@Column(name = "status")
 	private ProjectStatus status;
 	
 	//use @Version to implement Optimistic Locking. When 2 or more concurrency update on same records. Exception will be raised
 	// This helps to avoid losing data of previous update.
 	@Version
 	private long version;
-	
-	@JoinColumn(name = "userid")
 	private String createdBy;
-	
-	@Column(name = "description")
 	private String description;
-
+	private String lastModifiedBy;
+	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "PROJECT_ID", unique = true, nullable = false)
@@ -84,15 +69,7 @@ public class Project implements java.io.Serializable {
 		this.projectName = projectName;
 	}
 	
-//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.project", cascade=CascadeType.ALL)
-//	public Set<ProjectCategory> getProjectCategories() {
-//		return projectCategories;
-//	}
-//
-//	public void setProjectCategories(Set<ProjectCategory> projectCategories) {
-//		this.projectCategories = projectCategories;
-//	}
-
+	@Column(name = "CUST_NAME")
 	public String getCustomerName() {
 		return customerName;
 	}
@@ -101,6 +78,7 @@ public class Project implements java.io.Serializable {
 		this.customerName = customerName;
 	}
 
+	@Column(name = "TOTAL_MONEY")
 	public long getTotalMoney() {
 		return totalMoney;
 	}
@@ -109,6 +87,7 @@ public class Project implements java.io.Serializable {
 		this.totalMoney = totalMoney;
 	}
 
+	@Column(name = "OPEN_TIME")
 	public Date getOpenTime() {
 		return openTime;
 	}
@@ -116,7 +95,8 @@ public class Project implements java.io.Serializable {
 	public void setOpenTime(Date openTime) {
 		this.openTime = openTime;
 	}
-
+	
+	@Column(name = "CLOSED_TIME")
 	public Date getClosedTime() {
 		return closedTime;
 	}
@@ -125,6 +105,7 @@ public class Project implements java.io.Serializable {
 		this.closedTime = closedTime;
 	}
 
+	@Column(name = "STATUS")
 	public ProjectStatus getStatus() {
 		return status;
 	}
@@ -141,6 +122,7 @@ public class Project implements java.io.Serializable {
 		this.version = version;
 	}
 
+	@Column(name = "CREATED_BY")
 	public String getCreatedBy() {
 		return createdBy;
 	}
@@ -149,6 +131,7 @@ public class Project implements java.io.Serializable {
 		this.createdBy = createdBy;
 	}
 
+	@Column(name = "DESCRIPTION")
 	public String getDescription() {
 		return description;
 	}
@@ -156,7 +139,22 @@ public class Project implements java.io.Serializable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="project")
+	public Set<Region> getRegions() {
+		return regions;
+	}
 
+	public void setRegions(Set<Region> regions) {
+		this.regions = regions;
+	}
+	
+	@Column(name = "LAST_MODIFIED_BY")
+	public String getLastModifiedBy() {
+		return lastModifiedBy;
+	}
+
+	public void setLastModifiedBy(String lastModifiedBy) {
+		this.lastModifiedBy = lastModifiedBy;
+	}
+	
 }
