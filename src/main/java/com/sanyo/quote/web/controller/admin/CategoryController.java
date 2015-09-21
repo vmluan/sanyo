@@ -2,9 +2,11 @@ package com.sanyo.quote.web.controller.admin;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.ConstraintViolation;
 import javax.validation.Valid;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -20,6 +22,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -97,8 +100,25 @@ public class CategoryController {
 	@RequestMapping(value = "/{id}", params = "form", method = RequestMethod.POST)
 	@Transactional
     public String update(@ModelAttribute("category") Category category, @PathVariable Integer id, Model uiModel, 
-    		HttpServletRequest httpServletRequest, RedirectAttributes redirectAttributes, Locale locale) {
+    		HttpServletRequest httpServletRequest, RedirectAttributes redirectAttributes, Locale locale, BindingResult bindingResult) {
 		logger.info("Updating category");
+		 Set<ConstraintViolation<Category>> violations = validator.validate(category);
+	     
+	    for (ConstraintViolation<Category> violation : violations)
+	    {
+	        String propertyPath = violation.getPropertyPath().toString();
+	        String message = violation.getMessage();
+	        // Add JSR-303 errors to BindingResult
+	        // This allows Spring to display them in view via a FieldError
+	        bindingResult.addError(new FieldError("user",propertyPath,
+	 
+	                               "Invalid "+ propertyPath + "(" + message + ")"));
+	    }
+		if (bindingResult.hasErrors()) {
+			uiModel.addAttribute("message", new Message("error", messageSource.getMessage("category_save_fail", new Object[]{}, locale)));
+            uiModel.addAttribute("category", category);
+            return "categories/update";
+	        }    
         uiModel.asMap().clear();
         category.setCategoryId(id);
         redirectAttributes.addFlashAttribute("message", new Message("success", messageSource.getMessage("category_save_success", new Object[]{}, locale)));        

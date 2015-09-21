@@ -16,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "category", catalog = "sanyo")
@@ -37,7 +38,8 @@ public class Category implements java.io.Serializable {
 	public void setCategoryId(Integer categoryId) {
 		this.categoryId = categoryId;
 	}
-
+	
+	@NotEmpty
 	@Column(name = "NAME", nullable = false, length = 10)
 	public String getName() {
 		return this.name;
