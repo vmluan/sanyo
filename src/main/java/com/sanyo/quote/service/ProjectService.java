@@ -21,7 +21,7 @@ public interface ProjectService {
 	List<Project> findTableByTableAcr(String tableAcr);
 	Project findById(Integer id);
 	
-	Project save(Project TH_Product);
+	Project save(Project project);
 	
 	Page<Project> findAllByPage(Pageable pageable);
 	List<Project> findTableByDateRange(Date startDate, Date endDate);

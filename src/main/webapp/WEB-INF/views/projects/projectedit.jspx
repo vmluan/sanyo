@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" 
+     xmlns:c="http://java.sun.com/jsp/jstl/core" 
+     xmlns:spring="http://www.springframework.org/tags"
+     xmlns:form="http://www.springframework.org/tags/form"
+     version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+
+    <spring:message code="label_project_new" var="labelProjectNew" text="New"/>
+    <spring:message code="label_project_update" var="labelProjectUpdate" text="Update"/>
+    <spring:message code="label_project_code" var="labelProjectCode" text="Code" />
+    <spring:message code="label_project_name" var="labelProjectName" text="Name" />
+    <spring:message code="label_project_desc" var="labelProjectDesc" text="Description" />
+    <spring:message code="label_project_client" var="labelProjectClient" text="Client" />
+    
+    <spring:eval expression="project.projectId == null ? labelProjectNew:labelProjectUpdate" var="formTitle"/>       
+        <!-- Main content -->
+        <section class="content">
+          <div class="box box-default">
+            <!-- left column -->
+            <div class="box-body">
+              <!-- general form elements -->
+			  
+              <div class="row">
+                <div class="box-header with-border">
+                  <h3 class="box-title">${formTitle}</h3>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                <form:form modelAttribute="project" id="projectUpdateForm" method="post">
+                  <div class="col-md-6">
+					<c:if test="${not empty message}">
+						<div id="message" class="${message.type}">${message.message}</div>
+					</c:if>					
+					<div class="form-group">
+						<form:label path="projectCode">
+							${labelProjectCode}* 
+						</form:label>
+						<form:input path="projectCode" class="form-control"/> 
+					</div>
+					<div>
+						<form:errors path="projectCode" cssClass="error" />
+					</div>					
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<form:label path="projectName">
+							${labelProjectName}*
+						</form:label>
+						<form:input path="projectName" class="form-control"/>
+					</div>
+					<div>
+						<form:errors path="projectName" cssClass="error" />
+					</div>					
+				</div>
+                  <div class="col-md-6">
+					<c:if test="${not empty message}">
+						<div id="message" class="${message.type}">${message.message}</div>
+					</c:if>					
+					<div class="form-group">
+						<form:label path="customerName">
+							${labelProjectClient}
+						</form:label>
+						<form:input path="customerName" class="form-control"/> 
+					</div>
+					<div>
+						<form:errors path="customerName" cssClass="error" />
+					</div>					
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<form:label path="description">
+							${labelProjectDesc}
+						</form:label>
+						<form:textarea cols="60" rows="8" path="description" id="projectDescription" class="form-control"/>
+					</div>
+					<div>
+						<form:errors path="description" cssClass="error" />
+					</div>					
+				</div>										
+				<div class="col-md-12">
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </div>					
+				</div>				
+
+			<!-- /.box-body -->
+
+
+                </form:form>
+              </div><!-- /.box -->
+			</div>
+	
+		</div>
+	<c:if test="${project.projectId > 0}">		
+		<!-- for Region section -->
+		<div class="box box-primary">
+            <div class="box-body">
+              <div class="row">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Assigned Regions</h3>
+                </div><!-- /.box-header -->
+			  </div>
+
+			</div>
+			
+			<section class="content">
+				<a href="${project.projectId}?regions" class="btn btn-primary btn-xs">Assign Region</a>
+				<p/>
+				<div id="list" class="row"><jsp:text />
+				</div>
+				<div id="pager"><jsp:text /></div><jsp:text /><P /><jsp:text />
+				<p/>
+				<a href="${project.projectId}?regions" class="btn btn-primary btn-xs">Assign Region</a>
+			</section>			
+		</div>
+   <script src="/resources/plugins/jQuery/jQuery-2.1.4.min.js"><jsp:text/></script>    
+    <script type="text/javascript" src="/resources/jqwidgets/jqxcore.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript" src="/resources/jqwidgets/jqxdata.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript" src="/resources/jqwidgets/jqxbuttons.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript"
+            src="/resources/jqwidgets/jqxscrollbar.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript" src="/resources/jqwidgets/jqxmenu.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript" src="/resources/jqwidgets/jqxgrid.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript"
+            src="/resources/jqwidgets/jqxgrid.edit.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript"
+            src="/resources/jqwidgets/jqxgrid.selection.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript"
+            src="/resources/jqwidgets/jqxgrid.aggregates.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript"
+            src="/resources/jqwidgets/jqxcheckbox.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript"
+            src="/resources/jqwidgets/jqxnumberinput.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript" src="/resources/jqwidgets/jqxinput.js">
+        <jsp:text/>
+    </script>
+
+    <script type="text/javascript" src="/resources/jqwidgets/jqxgrid.pager.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript" src="/resources/jqwidgets/jqxgrid.filter.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript" src="/resources/jqwidgets/jqxgrid.columnsreorder.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript" src="/resources/jqwidgets/jqxgrid.sort.js">
+        <jsp:text/>
+    </script>
+
+    <script type="text/javascript" src="/resources/scripts/demos.js">
+        <jsp:text/>
+    </script>
+
+    <script type="text/javascript" src="/resources/jqwidgets/jqxgrid.columnsresize.js"><jsp:text/></script> 
+    <script type="text/javascript" src="/resources/jqwidgets/jqxlistbox.js"><jsp:text/></script>
+    <script type="text/javascript" src="/resources/jqwidgets/jqxdropdownlist.js"><jsp:text/></script>
+    <script type="text/javascript" src="/resources/jqwidgets/jqxdragdrop.js"><jsp:text/></script>
+    <script type="text/javascript" src="/resources/jqwidgets/jqxcombobox.js"><jsp:text/></script>
+    
+<script type="text/javascript">
+var url = "projectsProject/getAssginedRegionsJson" + '?projectId=' + '${project.projectId}';
+</script>
+    <script type="text/javascript" src="/resources/scripts/projectAssignedRegionList.js">
+        <jsp:text/>
+    </script>		
+	</c:if>	
+	</section>	
+</div>

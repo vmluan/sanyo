@@ -14,6 +14,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "project", catalog = "sanyo", uniqueConstraints = {
@@ -51,6 +54,8 @@ public class Project implements java.io.Serializable {
 		this.projectId = projectId;
 	}
 	
+	@NotEmpty
+	@NotNull
 	@Column(name = "PROJECT_CODE", unique = true, nullable = false, length = 10)
 	public String getProjectCode() {
 		return projectCode;
@@ -60,6 +65,8 @@ public class Project implements java.io.Serializable {
 		this.projectCode = projectCode;
 	}
 	
+	@NotEmpty
+	@NotNull
 	@Column(name = "PROJECT_NAME", unique = true, nullable = false, length = 20)
 	public String getProjectName() {
 		return projectName;

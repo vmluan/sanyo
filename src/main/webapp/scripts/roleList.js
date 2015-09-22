@@ -35,18 +35,21 @@ var source = {
 	}, {
 		name : 'groupid',
 		type : 'string'
-	}
-	],
+	} ],
 	id : 'groupid',
 	url : url
 };
-var cellsrenderer = function(row, columnfield, value, defaulthtml, columnproperties, rowdata) {
-    if (value < 20) {
-        return '<span style="margin: 4px; float: ' + columnproperties.cellsalign + '; color: #ff0000;">' + value + '</span>';
-    }
-    else {
-        return '<span style="margin: 4px; float: ' + columnproperties.cellsalign + '; color: #008000;">' + value + '</span>';
-    }
+var cellsrenderer = function(row, columnfield, value, defaulthtml,
+		columnproperties, rowdata) {
+	if (value < 20) {
+		return '<span style="margin: 4px; float: '
+				+ columnproperties.cellsalign + '; color: #ff0000;">' + value
+				+ '</span>';
+	} else {
+		return '<span style="margin: 4px; float: '
+				+ columnproperties.cellsalign + '; color: #008000;">' + value
+				+ '</span>';
+	}
 }
 var dataAdapter = new $.jqx.dataAdapter(source, {
 	downloadComplete : function(data, status, xhr) {
@@ -71,8 +74,8 @@ $("#list")
 					columnsresize : true,
 					columnsreorder : true,
 					columnsresize : true,
-					//rowsheight : 45,
-					autorowheight: true,
+					// rowsheight : 45,
+					autorowheight : true,
 					columns : [
 							{
 								text : '',
@@ -104,58 +107,57 @@ $("#list")
 								cellsalign : 'right',
 								cellsformat : 'c0',
 								width : '20%'
-							},{
+							}, {
 								text : 'Admin',
 								datafield : 'loginadministrator',
 								align : 'right',
 								cellsalign : 'right',
-								columntype: 'checkbox',
+								columntype : 'checkbox',
 								width : '9%'
-							},{
+							}, {
 								text : 'View User',
 								datafield : 'viewuser',
 								align : 'right',
 								cellsalign : 'right',
-								columntype: 'checkbox',
+								columntype : 'checkbox',
 								width : '9%'
-							},{
+							}, {
 								text : 'Add User',
 								datafield : 'adduser',
 								align : 'right',
 								cellsalign : 'right',
-								columntype: 'checkbox',
+								columntype : 'checkbox',
 								width : '9%'
-							},{
+							}, {
 								text : 'Update User',
 								datafield : 'edituser',
 								align : 'right',
 								cellsalign : 'right',
-								columntype: 'checkbox',
+								columntype : 'checkbox',
 								width : '9%'
-							},{
+							}, {
 								text : 'View Group',
 								datafield : 'viewgroup',
 								align : 'right',
 								cellsalign : 'right',
-								columntype: 'checkbox',
+								columntype : 'checkbox',
 								width : '9%'
-							},{
+							}, {
 								text : 'Add Group',
 								datafield : 'addgroup',
 								align : 'right',
 								cellsalign : 'right',
-								columntype: 'checkbox',
+								columntype : 'checkbox',
 								width : '9%'
-							},{
+							}, {
 								text : 'Update Group',
 								datafield : 'editgroup',
 								align : 'right',
 								cellsalign : 'right',
-								columntype: 'checkbox',
+								columntype : 'checkbox',
 								width : '9%'
-							}
-							]
+							} ]
 				});
-function updateProduct(userid){
-	window.location.href='/admin/roles/' + userid + '?form';
-}				
+function updateProduct(userid) {
+	window.location.href = '/admin/roles/' + userid + '?form';
+}
