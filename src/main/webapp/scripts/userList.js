@@ -92,20 +92,21 @@ $("#list")
 							{
 								text : 'User Name',
 								datafield : 'username',
+								align : 'center',
 								width : '10%'
 							},
 							{
 								text : 'Email',
 								datafield : 'email',
-								align : 'right',
+								align : 'center',
 								cellsalign : 'right',
 								cellsformat : 'c0',
-								width : '40%'
+								width : '30%'
 							},
 							{
 								text : 'Mobile',
 								datafield : 'mobile',
-								align : 'right',
+								align : 'center',
 								cellsalign : 'right',
 								cellsformat : 'c0',
 								width : '20%'
@@ -113,7 +114,8 @@ $("#list")
 							{
 								text : 'Avatar',
 								datafield : 'avatar',
-								width : '10%',
+								align : 'center',
+								width : '20%',
 								cellsrenderer : function(row, column, value) {
 
 									if (value) {

@@ -84,12 +84,13 @@ $("#list")
 							}, {
 								text : 'Name',
 								datafield : 'name',
+								align : 'center',
 								width : '25%'
 							}, {
 								text : 'Description',
 								datafield : 'desc',
-								align : 'right',
-								cellsalign : 'right',
+								align : 'center',
+								cellsalign : 'left',
 								cellsformat : 'c0',
 								width : '40%'
 							} ]
