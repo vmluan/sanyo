@@ -144,8 +144,8 @@ public class CategoryController {
 		
 		
 		// Constructs page request for current page
-		PageRequest pageRequest = null;
-		pageRequest = new PageRequest(pagenum, pagesize);
+//		PageRequest pageRequest = null;
+//		pageRequest = new PageRequest(pagenum, pagesize);
 
 		
 		List<Category> categories  = categoryService.findAll();
