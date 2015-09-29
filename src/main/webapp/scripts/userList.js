@@ -65,7 +65,8 @@ $("#list")
 					// autorowheight: true,
 					columns : [
 							{
-								text : '',
+								text : 'Action',
+								align : 'center',
 								datafield : 'userid',
 								width : '20%',
 								cellsrenderer : function(row, column, value) {
@@ -86,7 +87,8 @@ $("#list")
 								width : '5%',
 								columntype : 'number',
 								cellsrenderer : function(row, column, value) {
-									return row + 1;
+									return "<div style='margin:4px;'>"
+											+ (value + 1) + "</div>";
 								}
 							},
 							{
