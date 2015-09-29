@@ -109,7 +109,7 @@
 				</div>
 				<div id="pager"><jsp:text /></div><jsp:text /><P /><jsp:text />
 				<p/>
-				Want to add assign more region? <a href="${project.projectId}?regions" class="btn btn-primary btn-xs">Assign Region</a>
+				Want to assign more region? select from the following list. <a href="${project.projectId}?regions" class="btn btn-primary btn-xs">Assign Region</a>
 				<p/>
 				<div id='jqxWidget'>
 				
@@ -185,8 +185,8 @@
     <script type="text/javascript" src="/resources/jqwidgets/jqxcombobox.js"><jsp:text/></script>
     
 <script type="text/javascript">
-var url = "projectsProject/getAssginedRegionsJson" + '?projectId=' + '${project.projectId}';
-var url2 = "/admin/categories/getListJson";
+//var url = "/getAssginedRegionsJson" + '?projectId=' + '${project.projectId}';
+var url = "/admin/categories/getListJson";
 var source = {
 	datatype : "json",
 	datafields : [ {
@@ -200,7 +200,7 @@ var source = {
 		type : 'string'
 	} ],
 	id : 'categoryId',
-	url : url2
+	url : url
 };
 
 var dataAdapter = new $.jqx.dataAdapter(source, {

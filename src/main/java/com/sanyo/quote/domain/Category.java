@@ -46,7 +46,7 @@ public class Category implements java.io.Serializable {
 	}
 	
 	@NotEmpty
-	@Column(name = "NAME", nullable = false, length = 10)
+	@Column(name = "NAME", nullable = false, length = 100)
 	public String getName() {
 		return this.name;
 	}

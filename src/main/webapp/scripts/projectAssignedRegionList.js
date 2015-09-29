@@ -9,10 +9,10 @@ var source = {
 		name : 'regionId',
 		type : 'string'
 	}, {
-		name : 'regionName',
+		name : 'name',
 		type : 'string'
 	}, {
-		name : 'regionDesc',
+		name : 'desc',
 		type : 'string'
 	} ],
 	id : 'regionId',
@@ -79,16 +79,17 @@ $("#list")
 								width : '5%',
 								columntype : 'number',
 								cellsrenderer : function(row, column, value) {
-									return row + 1;
+									return "<div style='margin:4px;'>"
+									+ (value + 1) + "</div>";
 								}
 							}, {
 								text : 'Name',
-								datafield : 'regionName',
+								datafield : 'name',
 								align : 'center',
 								width : '25%'
 							}, {
 								text : 'Description',
-								datafield : 'regoinDesc',
+								datafield : 'desc',
 								align : 'center',
 								cellsalign : 'left',
 								cellsformat : 'c0',
