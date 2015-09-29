@@ -74,85 +74,94 @@ $("#list")
 					columnsresize : true,
 					columnsreorder : true,
 					columnsresize : true,
-					// rowsheight : 45,
+					rowsheight : 45,
 					autorowheight : true,
 					columns : [
 							{
-								text : '',
-								datafield : 'groupid',
-								width : '10%',
+								text : 'Action',
+								align : 'center',
+								datafield : 'userid',
+								width : '15%',
 								cellsrenderer : function(row, column, value) {
-									return '<input type ="button" value="Edit" onClick = "updateProduct('
+									return '<div class="col-md-12">'
+											+ '<a class="btn btn-app" onclick="updateProduct('
 											+ value
-											+ ')"></input>'
-											+ '<input type ="button" value="Delete" onClick = "deleteProduct('
-											+ value + ')"></input>';
+											+ ')">'
+											+ '<i class="glyphicon glyphicon-edit"></i>'
+											+ '</a>'
+											+ '<a class="btn btn-app">'
+											+ '<i class="glyphicon glyphicon-remove-circle"></i>'
+											+ '</a>' + '</div>';
 								}
-							}, {
+							},
+							{
 								text : '#',
 								datafield : 'stt',
-								width : '5%',
+								width : '2%',
+								align : 'center',
 								columntype : 'number',
 								cellsrenderer : function(row, column, value) {
-									return row + 1;
+									return "<div style='margin:4px;'>"
+											+ (value + 1) + "</div>";
 								}
 							}, {
 								text : 'Role Name',
 								datafield : 'groupName',
-								width : '10%'
+								width : '7%',
+								align : 'center'
 							}, {
 								text : 'Description',
 								datafield : 'description',
-								align : 'right',
+								align : 'center',
 								cellsalign : 'right',
 								cellsformat : 'c0',
-								width : '20%'
+								width : '25%'
 							}, {
 								text : 'Admin',
 								datafield : 'loginadministrator',
-								align : 'right',
+								align : 'center',
 								cellsalign : 'right',
 								columntype : 'checkbox',
-								width : '9%'
+								width : '7%'
 							}, {
 								text : 'View User',
 								datafield : 'viewuser',
-								align : 'right',
+								align : 'center',
 								cellsalign : 'right',
 								columntype : 'checkbox',
-								width : '9%'
+								width : '7%'
 							}, {
 								text : 'Add User',
 								datafield : 'adduser',
-								align : 'right',
+								align : 'center',
 								cellsalign : 'right',
 								columntype : 'checkbox',
-								width : '9%'
+								width : '7%'
 							}, {
 								text : 'Update User',
 								datafield : 'edituser',
-								align : 'right',
+								align : 'center',
 								cellsalign : 'right',
 								columntype : 'checkbox',
-								width : '9%'
+								width : '7%'
 							}, {
 								text : 'View Group',
 								datafield : 'viewgroup',
-								align : 'right',
+								align : 'center',
 								cellsalign : 'right',
 								columntype : 'checkbox',
-								width : '9%'
+								width : '7%'
 							}, {
 								text : 'Add Group',
 								datafield : 'addgroup',
-								align : 'right',
+								align : 'center',
 								cellsalign : 'right',
 								columntype : 'checkbox',
-								width : '9%'
+								width : '7%'
 							}, {
 								text : 'Update Group',
 								datafield : 'editgroup',
-								align : 'right',
+								align : 'center',
 								cellsalign : 'right',
 								columntype : 'checkbox',
 								width : '9%'

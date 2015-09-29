@@ -59,7 +59,8 @@ $("#list")
 					// autorowheight: true,
 					columns : [
 							{
-								text : '',
+								text : 'Action',
+								align : 'center',
 								datafield : 'categoryId',
 								width : '30%',
 								cellsrenderer : function(row, column, value) {
@@ -73,13 +74,15 @@ $("#list")
 											+ '<i class="glyphicon glyphicon-remove-circle"></i>'
 											+ '</a>' + '</div>';
 								}
-							}, {
+							},
+							{
 								text : '#',
 								datafield : 'stt',
 								width : '5%',
 								columntype : 'number',
 								cellsrenderer : function(row, column, value) {
-									return row + 1;
+									return "<div style='margin:4px;'>"
+											+ (value + 1) + "</div>";
 								}
 							}, {
 								text : 'Name',
