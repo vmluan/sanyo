@@ -109,11 +109,16 @@
 				</div>
 				<div id="pager"><jsp:text /></div><jsp:text /><P /><jsp:text />
 				<p/>
-				Want to assign more region? select from the following list. <a href="${project.projectId}?regions" class="btn btn-primary btn-xs">Assign Region</a>
-				<p/>
-				<div id='jqxWidget'>
 				
+				
+				<div id='assignRegionButton' class="col-md-12">
+				Want to assign more region?
+					<p/>
+					<a href="${project.projectId}?regions" class="btn btn-primary">Assign Region</a>
+					<p/>
 				</div>
+				<div id='treeGrid'><jsp:text />
+				</div>		
 			
 			</section>			
 		</div>
@@ -182,7 +187,11 @@
     <script type="text/javascript" src="/resources/jqwidgets/jqxlistbox.js"><jsp:text/></script>
     <script type="text/javascript" src="/resources/jqwidgets/jqxdropdownlist.js"><jsp:text/></script>
     <script type="text/javascript" src="/resources/jqwidgets/jqxdragdrop.js"><jsp:text/></script>
+	<script type="text/javascript" src="/resources/jqwidgets/jqxdatatable.js"><jsp:text/></script>
+	<script type="text/javascript" src="/resources/jqwidgets/jqxtreegrid.js"><jsp:text/></script>
     <script type="text/javascript" src="/resources/jqwidgets/jqxcombobox.js"><jsp:text/></script>
+	
+	
     
 <script type="text/javascript">
 //var url = "/getAssginedRegionsJson" + '?projectId=' + '${project.projectId}';
@@ -211,13 +220,72 @@ var dataAdapter = new $.jqx.dataAdapter(source, {
 	loadError : function(xhr, status, error) {
 	}
 });
-                // Create a jqxDropDownList
-                $("#jqxWidget").jqxDropDownList({checkboxes: true,
-                    selectedIndex: 0, source: dataAdapter, displayMember: "name", valueMember: "categoryId", width: 200, height: 25
-                });
-                // Create a jqxListBox
-              //  $("#jqxWidget").jqxListBox({ checkboxes: true, source: source, width: 300, height: 350});
-          
+                // Create a treegrid
+				var regions=[
+					{"categoryId": 1, "categoryName": "ELECTRICAL BOQ", "categoryDesc" : "test", "parentCategoryId": null}
+					,{"categoryId": 2, "categoryName": "HIGH VOLTAGE SYSTEM", "categoryDesc" : "HIGH VOLTAGE SYSTEM", "parentCategoryId": 1}
+					,{"categoryId": 3, "categoryName": "LV MAIN SYSTEM", "categoryDesc" : "LV MAIN SYSTEM", "parentCategoryId": 1}
+					,{"categoryId": 4, "categoryName": "SUBMAIN SYSTEM", "categoryDesc" : "SUBMAIN SYSTEM", "parentCategoryId": 1}
+					,{"categoryId": 5, "categoryName": "POWER SUPPLY TO PRODUCTION", "categoryDesc" : "", "parentCategoryId": 1}
+					,{"categoryId": 6, "categoryName": "EMERGENCY POWER BACK-UP GENERATOR", "categoryDesc" : "", "parentCategoryId": 1}
+					,{"categoryId": 7, "categoryName": "LIGHTING SYSTEM &amp; SOCKET OUTLET", "categoryDesc" : "", "parentCategoryId": 1}
+					,{"categoryId": 8, "categoryName": "ELECTRICAL FOR MECHANICAL EQUIPMENT (A.C, FAN, AIR COMP., PUMPS)", "categoryDesc" : "", "parentCategoryId": 1}
+					,{"categoryId": 9, "categoryName": "TELEPHONE SYSTEM EMPTY CONDUIT", "categoryDesc" : "", "parentCategoryId": 1}
+					,{"categoryId": 10, "categoryName": "LAN SYSTEM EMPTY CONDUIT", "categoryDesc" : "", "parentCategoryId": 1}
+					,{"categoryId": 11, "categoryName": "PUBLIC ADDRESS SYSTEM", "categoryDesc" : "", "parentCategoryId": 1}
+					,{"categoryId": 12, "categoryName": "FIRE ALARM SYSTEM", "categoryDesc" : "", "parentCategoryId": 1}
+					,{"categoryId": 13, "categoryName": "LIGHTNING PROTECTION SYSTEM", "categoryDesc" : "", "parentCategoryId": 1}
+					,{"categoryId": 14, "categoryName": "WATER LEAKING ALARM (FOR PLATING AREA)", "categoryDesc" : "", "parentCategoryId": 1}
+					,{"categoryId": 15, "categoryName": "MECHANICAL BOQ", "categoryDesc" : "", "parentCategoryId": null}
+					,{"categoryId": 16, "categoryName": "AIR CONDITIONING SYSTEM", "categoryDesc" : "", "parentCategoryId": 15}
+					,{"categoryId": 17, "categoryName": "VENTILATION SYSTEM", "categoryDesc" : "", "parentCategoryId": 15}
+					,{"categoryId": 18, "categoryName": "COLD WATER SUPPLY", "categoryDesc" : "", "parentCategoryId": 15}
+					,{"categoryId": 19, "categoryName": "SEWAGE DRAINAGE SYSTEM", "categoryDesc" : "", "parentCategoryId": 15}
+					,{"categoryId": 20, "categoryName": "SANITARY WARE", "categoryDesc" : "", "parentCategoryId": 15}
+					,{"categoryId": 21, "categoryName": "FIRE FIGHTING SYSTEM", "categoryDesc" : "", "parentCategoryId": 15}
+					,{"categoryId": 22, "categoryName": "AIR COMPRESSOR SYSTEM", "categoryDesc" : "", "parentCategoryId": 15}
+					,{"categoryId": 23, "categoryName": "STEAM BOILER SYSTEM", "categoryDesc" : "", "parentCategoryId": 15}
+					,{"categoryId": 23, "categoryName": "LOCAL PRODUCTION HEAT EXHAUST SYSTEM (Heat Treatment &amp; Plating Area )", "categoryDesc" : "", "parentCategoryId": 15}
+					];
+
+
+            // prepare the data
+            var source =
+            {
+                dataType: "json",
+                dataFields: [
+                    { name: 'categoryId', type: 'number' },
+                    { name: 'parentCategoryId', type: 'number' },
+                    { name: 'categoryName', type: 'string' },
+                    { name: 'categoryDesc', type: 'string' }
+                ],
+                hierarchy:
+                {
+                    keyDataField: { name: 'categoryId' },
+                    parentDataField: { name: 'parentCategoryId' }
+                },
+                id: 'categoryId',
+                localData: regions
+            };
+            var dataAdapter = new $.jqx.dataAdapter(source);
+            // create Tree Grid
+            $("#treeGrid").jqxTreeGrid(
+            {
+                width: 800,
+				//height: 300,
+                source: dataAdapter,
+                sortable: true,
+				hierarchicalCheckboxes: true,
+				checkboxes: true,
+                ready: function()
+                {
+                   // $("#treeGrid").jqxTreeGrid('expandRow', '2');
+                },
+                columns: [
+                  { text: 'Name', dataField: 'categoryName', width: 400 },
+                  { text: 'Description', dataField: 'categoryDesc', width: 400 }
+                ]
+            });          
 </script>
     <script type="text/javascript" src="/resources/scripts/projectAssignedRegionList.js">
         <jsp:text/>

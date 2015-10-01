@@ -9,8 +9,10 @@ import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.ContextLoaderListener;
 
+import com.sanyo.quote.domain.Category;
 import com.sanyo.quote.domain.Group;
 import com.sanyo.quote.domain.User;
+import com.sanyo.quote.service.CategoryService;
 import com.sanyo.quote.service.GroupService;
 import com.sanyo.quote.service.UserService;
 
@@ -23,6 +25,46 @@ public class StartupContextListener extends ContextLoaderListener{
 		System.out.println("=========================== application is on start up");
 		addSampleData();
 	}
+	private void addCategorySampleData(CategoryService categoryService){
+		String electrical = "ELECTRICAL BOQ";
+		String machanical = "MECHANICAL BOQ";
+		Category electricalCategory = new Category();
+		electricalCategory.setName(electrical);
+		electricalCategory.setDesc(" ");
+		categoryService.save(electricalCategory);
+		
+		
+		String[] elecChildsName = { "HIGH VOLTAGE SYSTEM", "LV MAIN SYSTEM", "SUBMAIN SYSTEM",
+				"POWER SUPPLY TO PRODUCTION", "EMERGENCY POWER BACK-UP GENERATOR", "LIGHTING SYSTEM & SOCKET OUTLET",
+				"ELECTRICAL FOR MECHANICAL EQUIPMENT (A.C, FAN, AIR COMP., PUMPS)", "TELEPHONE SYSTEM EMPTY CONDUIT",
+				"LAN SYSTEM EMPTY CONDUIT", "PUBLIC ADDRESS SYSTEM", "FIRE ALARM SYSTEM", "LIGHTNING PROTECTION SYSTEM",
+				"WATER LEAKING ALARM (FOR PLATING AREA)" };
+		for(int i=0; i< elecChildsName.length; i++){
+			saveCategory(elecChildsName[i], categoryService, electricalCategory);
+		}
+		
+		Category mechCategory = new Category();
+		mechCategory.setName(machanical);
+		mechCategory.setDesc(" ");
+		categoryService.save(mechCategory);
+		
+		String[] mechList = { "AIR CONDITIONING SYSTEM", "VENTILATION SYSTEM", "COLD WATER SUPPLY",
+				"SEWAGE DRAINAGE SYSTEM", "SANITARY WARE", "FIRE FIGHTING SYSTEM", "AIR COMPRESSOR SYSTEM",
+				"STEAM BOILER SYSTEM", "LOCAL PRODUCTION HEAT EXHAUST SYSTEM (Heat Treatment & Plating Area )" };
+		for(int i=0; i< mechList.length; i++){
+			saveCategory(mechList[i], categoryService, mechCategory);
+		}
+
+	}
+	private void saveCategory(String categoryName, CategoryService categoryService, Category parent){
+		Category category = new Category();
+//		category.setCategoryId(id);
+		category.setName(categoryName);
+		category.setDesc(" ");
+		if(parent != null)
+			category.setParentCategory(parent);
+		categoryService.save(category);
+	}
 	private void addSampleData(){
 		GenericXmlApplicationContext ctx = new GenericXmlApplicationContext();
 		ctx.load("classpath:jpa-app-context.xml");
@@ -32,6 +74,7 @@ public class StartupContextListener extends ContextLoaderListener{
 		
 		UserService userService = ctx.getBean("userService", UserService.class);
 		GroupService groupService = ctx.getBean("groupService", GroupService.class);
+		CategoryService categoryService = ctx.getBean("categoryService", CategoryService.class);
 		for(int i=0; i < 100; i++){
 			String userName = "admin" + i;
 			if(i ==0)
@@ -88,7 +131,12 @@ public class StartupContextListener extends ContextLoaderListener{
 			}
 			
 		}
-
+		
+		List<Category> categories = categoryService.findAll();
+		if(categories.size() ==0){
+			addCategorySampleData(categoryService);
+		}
+		
 		ctx.destroy();
 	}
 }
