@@ -9,10 +9,15 @@
 
     <spring:message code="label_project_new" var="labelProjectNew" text="New"/>
     <spring:message code="label_project_update" var="labelProjectUpdate" text="Update"/>
-    <spring:message code="label_project_code" var="labelProjectCode" text="Code" />
-    <spring:message code="label_project_name" var="labelProjectName" text="Name" />
-    <spring:message code="label_project_desc" var="labelProjectDesc" text="Description" />
+    <spring:message code="label_project_code" var="labelProjectCode" text="Ref. No" />
+    <spring:message code="label_project_name" var="labelProjectName" text="Project Name" />
+    <spring:message code="label_project_desc" var="labelProjectDesc" text="Revision" />
     <spring:message code="label_project_client" var="labelProjectClient" text="Client" />
+    <spring:message code="label_project_duration" var="labelProjectDuration" text="Duration" />
+    <spring:message code="label_project_duration" var="labelProjectQuotation" text="Quotation dates" />
+    <spring:message code="label_project_duration" var="labelProjectQuotation" text="Quotation dates" />
+    <spring:message code="label_project_duration" var="labelProjectQuotation" text="Quotation dates" />
+    
     
     <spring:eval expression="project.projectId == null ? labelProjectNew:labelProjectUpdate" var="formTitle"/>       
         <!-- Main content -->
