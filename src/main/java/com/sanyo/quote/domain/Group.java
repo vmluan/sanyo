@@ -50,17 +50,17 @@ public class Group implements Serializable {
 	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "grouplist")
 	private Set<User> users;
 	
-	@JsonIgnore
-	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "groupList")
-	private Set<Region> regions;
+//	@JsonIgnore
+//	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "groupList")
+//	private Set<Region> regions;
 	
-	public Set<Region> getRegions() {
-		return regions;
-	}
-
-	public void setRegions(Set<Region> regions) {
-		this.regions = regions;
-	}
+//	public Set<Region> getRegions() {
+//		return regions;
+//	}
+//
+//	public void setRegions(Set<Region> regions) {
+//		this.regions = regions;
+//	}
 
 	public Integer getGroupid() {
 		return groupid;

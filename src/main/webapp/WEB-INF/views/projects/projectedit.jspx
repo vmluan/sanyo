@@ -278,6 +278,7 @@ var dataAdapter = new $.jqx.dataAdapter(source, {
             {
                 width: 800,
 				//height: 300,
+				theme: 'energyblue',
                 source: dataAdapter,
                 sortable: true,
 				hierarchicalCheckboxes: true,

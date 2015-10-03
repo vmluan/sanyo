@@ -65,6 +65,7 @@ $("#list")
 				{
 					width : 1000,
 					height : 500,
+					theme: 'energyblue',
 					source : dataAdapter,
 					sortable : true,
 					pageable : true,

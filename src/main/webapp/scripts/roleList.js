@@ -65,6 +65,7 @@ $("#list")
 				{
 					width : '100%',
 					height : 500,
+					theme: 'energyblue',
 					source : dataAdapter,
 					sortable : true,
 					pageable : true,
@@ -83,7 +84,7 @@ $("#list")
 								datafield : 'userid',
 								width : '15%',
 								cellsrenderer : function(row, column, value) {
-									return '<div class="col-md-12">'
+									return '<div class="col-md-6">'
 											+ '<a class="btn btn-app" onclick="updateProduct('
 											+ value
 											+ ')">'

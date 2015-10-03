@@ -28,9 +28,10 @@ public class Region implements java.io.Serializable{
 	private String regionDesc;
 	private Category category;
 	private Project project;
-	private Set<Group> groupList;
+//	private Set<Group> groupList;
 	private Set<Encounter> encounters;
 	private RegionStatus status;
+	private Set<User> users;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -73,15 +74,15 @@ public class Region implements java.io.Serializable{
 		this.project = project;
 	}
 	
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name="region_group", joinColumns={@JoinColumn(name="REGION_ID")}
-			, inverseJoinColumns={@JoinColumn(name="groupid")})
-	public Set<Group> getGroupList() {
-		return groupList;
-	}
-	public void setGroupList(Set<Group> groupList) {
-		this.groupList = groupList;
-	}
+//	@ManyToMany(cascade = CascadeType.ALL)
+//	@JoinTable(name="region_group", joinColumns={@JoinColumn(name="REGION_ID")}
+//			, inverseJoinColumns={@JoinColumn(name="groupid")})
+//	public Set<Group> getGroupList() {
+//		return groupList;
+//	}
+//	public void setGroupList(Set<Group> groupList) {
+//		this.groupList = groupList;
+//	}
 	
 	@OneToMany(fetch=FetchType.EAGER, mappedBy="region")
 	public Set<Encounter> getEncounters() {
@@ -97,6 +98,16 @@ public class Region implements java.io.Serializable{
 	public void setStatus(RegionStatus status) {
 		this.status = status;
 	}
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name="region_user", joinColumns={@JoinColumn(name="REGION_ID")}
+			, inverseJoinColumns={@JoinColumn(name="userid")})
+	public Set<User> getUsers() {
+		return users;
+	}
+	public void setUsers(Set<User> users) {
+		this.users = users;
+	}
+	
 	
 	
 }

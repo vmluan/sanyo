@@ -31,7 +31,7 @@ public class Category implements java.io.Serializable {
 
 	private Set<Product> products;
 	private Category parentCategory;
-	@Transient
+	
 	private String parentCategoryId;
 	
 	@Id
@@ -82,7 +82,8 @@ public class Category implements java.io.Serializable {
 	public void setParentCategory(Category parentCategory) {
 		this.parentCategory = parentCategory;
 	}
-
+	
+	@Transient
 	public String getParentCategoryId() {
 		return parentCategoryId;
 	}

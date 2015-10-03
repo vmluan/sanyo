@@ -6,6 +6,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -22,6 +23,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 /**
@@ -94,6 +96,17 @@ public class User implements java.io.Serializable {
 	@Transient
 	private String[] groupIDs;
 	
+	@JsonIgnore
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "users")
+	private Set<Region> regions;
+	
+	public Set<Region> getRegions() {
+		return regions;
+	}
+
+	public void setRegions(Set<Region> regions) {
+		this.regions = regions;
+	}
 
 	public String[] getGroupIDs() {
 		return groupIDs;
