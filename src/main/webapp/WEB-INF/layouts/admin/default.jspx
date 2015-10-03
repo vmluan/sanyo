@@ -132,15 +132,6 @@
     <script src="/resources/bootstrap/js/bootstrap.min.js"><jsp:text/></script>
     <!-- AdminLTE App -->
     <script src="/resources/dist/js/app.min.js"><jsp:text/></script>
-
-
-
-    <!-- Optionally, you can add Slimscroll and FastClick plugins.
-         Both of these plugins are recommended to enhance the
-         user experience. Slimscroll is required when using the
-         fixed layout. -->
-  </body>
-  <script src="/resources/plugins/jQuery/jQuery-2.1.4.min.js"><jsp:text/></script>    
     <script type="text/javascript" src="/resources/jqwidgets/jqxcore.js">
         <jsp:text/>
     </script>
@@ -208,4 +199,12 @@
 	<script type="text/javascript" src="/resources/jqwidgets/jqxdatatable.js"><jsp:text/></script>
 	<script type="text/javascript" src="/resources/jqwidgets/jqxtreegrid.js"><jsp:text/></script>
     <script type="text/javascript" src="/resources/jqwidgets/jqxcombobox.js"><jsp:text/></script>	
+
+
+    <!-- Optionally, you can add Slimscroll and FastClick plugins.
+         Both of these plugins are recommended to enhance the
+         user experience. Slimscroll is required when using the
+         fixed layout. -->
+  </body>
+
 </html>
