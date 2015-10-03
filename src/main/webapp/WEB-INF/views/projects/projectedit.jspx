@@ -116,10 +116,10 @@
 				<p/>
 				
 				
-				<div id='assignRegionButton' class="col-md-12">
+				<div class="col-md-12">
 				Want to assign more region?
 					<p/>
-					<a href="${project.projectId}?regions" class="btn btn-primary">Assign Region</a>
+					<a id="assignRegionButton" href="#assignRegionButton" class="btn btn-primary">Assign Region</a>
 					<p/>
 				</div>
 				<div id='treeGrid'><jsp:text />
@@ -127,76 +127,6 @@
 			
 			</section>			
 		</div>
-   <script src="/resources/plugins/jQuery/jQuery-2.1.4.min.js"><jsp:text/></script>    
-    <script type="text/javascript" src="/resources/jqwidgets/jqxcore.js">
-        <jsp:text/>
-    </script>
-    <script type="text/javascript" src="/resources/jqwidgets/jqxdata.js">
-        <jsp:text/>
-    </script>
-    <script type="text/javascript" src="/resources/jqwidgets/jqxbuttons.js">
-        <jsp:text/>
-    </script>
-    <script type="text/javascript"
-            src="/resources/jqwidgets/jqxscrollbar.js">
-        <jsp:text/>
-    </script>
-    <script type="text/javascript" src="/resources/jqwidgets/jqxmenu.js">
-        <jsp:text/>
-    </script>
-    <script type="text/javascript" src="/resources/jqwidgets/jqxgrid.js">
-        <jsp:text/>
-    </script>
-    <script type="text/javascript"
-            src="/resources/jqwidgets/jqxgrid.edit.js">
-        <jsp:text/>
-    </script>
-    <script type="text/javascript"
-            src="/resources/jqwidgets/jqxgrid.selection.js">
-        <jsp:text/>
-    </script>
-    <script type="text/javascript"
-            src="/resources/jqwidgets/jqxgrid.aggregates.js">
-        <jsp:text/>
-    </script>
-    <script type="text/javascript"
-            src="/resources/jqwidgets/jqxcheckbox.js">
-        <jsp:text/>
-    </script>
-    <script type="text/javascript"
-            src="/resources/jqwidgets/jqxnumberinput.js">
-        <jsp:text/>
-    </script>
-    <script type="text/javascript" src="/resources/jqwidgets/jqxinput.js">
-        <jsp:text/>
-    </script>
-
-    <script type="text/javascript" src="/resources/jqwidgets/jqxgrid.pager.js">
-        <jsp:text/>
-    </script>
-    <script type="text/javascript" src="/resources/jqwidgets/jqxgrid.filter.js">
-        <jsp:text/>
-    </script>
-    <script type="text/javascript" src="/resources/jqwidgets/jqxgrid.columnsreorder.js">
-        <jsp:text/>
-    </script>
-    <script type="text/javascript" src="/resources/jqwidgets/jqxgrid.sort.js">
-        <jsp:text/>
-    </script>
-
-    <script type="text/javascript" src="/resources/scripts/demos.js">
-        <jsp:text/>
-    </script>
-
-    <script type="text/javascript" src="/resources/jqwidgets/jqxgrid.columnsresize.js"><jsp:text/></script> 
-    <script type="text/javascript" src="/resources/jqwidgets/jqxlistbox.js"><jsp:text/></script>
-    <script type="text/javascript" src="/resources/jqwidgets/jqxdropdownlist.js"><jsp:text/></script>
-    <script type="text/javascript" src="/resources/jqwidgets/jqxdragdrop.js"><jsp:text/></script>
-	<script type="text/javascript" src="/resources/jqwidgets/jqxdatatable.js"><jsp:text/></script>
-	<script type="text/javascript" src="/resources/jqwidgets/jqxtreegrid.js"><jsp:text/></script>
-    <script type="text/javascript" src="/resources/jqwidgets/jqxcombobox.js"><jsp:text/></script>
-	
-	
     
 <script type="text/javascript">
 //var url = "/getAssginedRegionsJson" + '?projectId=' + '${project.projectId}';
@@ -291,7 +221,32 @@ var dataAdapter = new $.jqx.dataAdapter(source, {
                   { text: 'Name', dataField: 'categoryName', width: 400 },
                   { text: 'Description', dataField: 'categoryDesc', width: 400 }
                 ]
-            });          
+            });
+//<![CDATA[
+		    
+
+$("#assignRegionButton").click(function(){
+	var result = new Array();
+	var rows = $("#treeGrid").jqxTreeGrid('getRows');
+	for(var i=0; i<rows.length; i++){
+		var temp = getCheckedItems(rows[i]);
+		result = result.concat(temp)
+	}
+	console.log(result);
+});
+
+function getCheckedItems(obj){
+	var result = new Array();
+		//loop and select all children
+		var records = obj.records;
+		for(var i=0; i< records.length; i++){
+			var record = records[i];
+			if(record.leaf && record.checked)
+				result.push(record.categoryId);
+		}
+	return result;	
+}
+//]]>
 </script>
     <script type="text/javascript" src="/resources/scripts/projectAssignedRegionList.js">
         <jsp:text/>

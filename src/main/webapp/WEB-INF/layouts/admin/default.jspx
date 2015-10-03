@@ -47,7 +47,83 @@
 			font-size: 15px !important;
 			font-weight: bold !important;
         }
-    </style>	
+    </style>
+   <!-- REQUIRED JS SCRIPTS -->
+
+    <!-- jQuery 2.1.4 -->
+    <script src="/resources/plugins/jQuery/jQuery-2.1.4.min.js"><jsp:text/></script>
+    <!-- Bootstrap 3.3.5 -->
+    <script src="/resources/bootstrap/js/bootstrap.min.js"><jsp:text/></script>
+    <!-- AdminLTE App -->
+    <script src="/resources/dist/js/app.min.js"><jsp:text/></script>
+    <script type="text/javascript" src="/resources/jqwidgets/jqxcore.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript" src="/resources/jqwidgets/jqxdata.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript" src="/resources/jqwidgets/jqxbuttons.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript"
+            src="/resources/jqwidgets/jqxscrollbar.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript" src="/resources/jqwidgets/jqxmenu.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript" src="/resources/jqwidgets/jqxgrid.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript"
+            src="/resources/jqwidgets/jqxgrid.edit.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript"
+            src="/resources/jqwidgets/jqxgrid.selection.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript"
+            src="/resources/jqwidgets/jqxgrid.aggregates.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript"
+            src="/resources/jqwidgets/jqxcheckbox.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript"
+            src="/resources/jqwidgets/jqxnumberinput.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript" src="/resources/jqwidgets/jqxinput.js">
+        <jsp:text/>
+    </script>
+
+    <script type="text/javascript" src="/resources/jqwidgets/jqxgrid.pager.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript" src="/resources/jqwidgets/jqxgrid.filter.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript" src="/resources/jqwidgets/jqxgrid.columnsreorder.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript" src="/resources/jqwidgets/jqxgrid.sort.js">
+        <jsp:text/>
+    </script>
+
+    <script type="text/javascript" src="/resources/scripts/demos.js">
+        <jsp:text/>
+    </script>
+
+    <script type="text/javascript" src="/resources/jqwidgets/jqxgrid.columnsresize.js"><jsp:text/></script> 
+    <script type="text/javascript" src="/resources/jqwidgets/jqxlistbox.js"><jsp:text/></script>
+    <script type="text/javascript" src="/resources/jqwidgets/jqxdropdownlist.js"><jsp:text/></script>
+    <script type="text/javascript" src="/resources/jqwidgets/jqxdragdrop.js"><jsp:text/></script>
+	<script type="text/javascript" src="/resources/jqwidgets/jqxdatatable.js"><jsp:text/></script>
+	<script type="text/javascript" src="/resources/jqwidgets/jqxtreegrid.js"><jsp:text/></script>
+    <script type="text/javascript" src="/resources/jqwidgets/jqxcombobox.js"><jsp:text/></script>	
+	
   </head>
 
   <body class="hold-transition skin-blue sidebar-mini">
@@ -127,81 +203,6 @@
       <div class="control-sidebar-bg"></div>
     </div><!-- ./wrapper -->
 
-    <!-- REQUIRED JS SCRIPTS -->
-
-    <!-- jQuery 2.1.4 -->
-    <script src="/resources/plugins/jQuery/jQuery-2.1.4.min.js"><jsp:text/></script>
-    <!-- Bootstrap 3.3.5 -->
-    <script src="/resources/bootstrap/js/bootstrap.min.js"><jsp:text/></script>
-    <!-- AdminLTE App -->
-    <script src="/resources/dist/js/app.min.js"><jsp:text/></script>
-    <script type="text/javascript" src="/resources/jqwidgets/jqxcore.js">
-        <jsp:text/>
-    </script>
-    <script type="text/javascript" src="/resources/jqwidgets/jqxdata.js">
-        <jsp:text/>
-    </script>
-    <script type="text/javascript" src="/resources/jqwidgets/jqxbuttons.js">
-        <jsp:text/>
-    </script>
-    <script type="text/javascript"
-            src="/resources/jqwidgets/jqxscrollbar.js">
-        <jsp:text/>
-    </script>
-    <script type="text/javascript" src="/resources/jqwidgets/jqxmenu.js">
-        <jsp:text/>
-    </script>
-    <script type="text/javascript" src="/resources/jqwidgets/jqxgrid.js">
-        <jsp:text/>
-    </script>
-    <script type="text/javascript"
-            src="/resources/jqwidgets/jqxgrid.edit.js">
-        <jsp:text/>
-    </script>
-    <script type="text/javascript"
-            src="/resources/jqwidgets/jqxgrid.selection.js">
-        <jsp:text/>
-    </script>
-    <script type="text/javascript"
-            src="/resources/jqwidgets/jqxgrid.aggregates.js">
-        <jsp:text/>
-    </script>
-    <script type="text/javascript"
-            src="/resources/jqwidgets/jqxcheckbox.js">
-        <jsp:text/>
-    </script>
-    <script type="text/javascript"
-            src="/resources/jqwidgets/jqxnumberinput.js">
-        <jsp:text/>
-    </script>
-    <script type="text/javascript" src="/resources/jqwidgets/jqxinput.js">
-        <jsp:text/>
-    </script>
-
-    <script type="text/javascript" src="/resources/jqwidgets/jqxgrid.pager.js">
-        <jsp:text/>
-    </script>
-    <script type="text/javascript" src="/resources/jqwidgets/jqxgrid.filter.js">
-        <jsp:text/>
-    </script>
-    <script type="text/javascript" src="/resources/jqwidgets/jqxgrid.columnsreorder.js">
-        <jsp:text/>
-    </script>
-    <script type="text/javascript" src="/resources/jqwidgets/jqxgrid.sort.js">
-        <jsp:text/>
-    </script>
-
-    <script type="text/javascript" src="/resources/scripts/demos.js">
-        <jsp:text/>
-    </script>
-
-    <script type="text/javascript" src="/resources/jqwidgets/jqxgrid.columnsresize.js"><jsp:text/></script> 
-    <script type="text/javascript" src="/resources/jqwidgets/jqxlistbox.js"><jsp:text/></script>
-    <script type="text/javascript" src="/resources/jqwidgets/jqxdropdownlist.js"><jsp:text/></script>
-    <script type="text/javascript" src="/resources/jqwidgets/jqxdragdrop.js"><jsp:text/></script>
-	<script type="text/javascript" src="/resources/jqwidgets/jqxdatatable.js"><jsp:text/></script>
-	<script type="text/javascript" src="/resources/jqwidgets/jqxtreegrid.js"><jsp:text/></script>
-    <script type="text/javascript" src="/resources/jqwidgets/jqxcombobox.js"><jsp:text/></script>	
 
 
     <!-- Optionally, you can add Slimscroll and FastClick plugins.
