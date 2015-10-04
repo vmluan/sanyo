@@ -16,5 +16,9 @@
     <definition extends="default" name="projects/create">
         <put-attribute name="body"
             value="/WEB-INF/views/projects/projectedit.jspx" />
-    </definition>                                  
+    </definition>
+    <definition extends="default" name="projects/region/new">
+        <put-attribute name="body"
+            value="/WEB-INF/views/projects/projectregionedit.jspx" />
+    </definition>                                
 </tiles-definitions>

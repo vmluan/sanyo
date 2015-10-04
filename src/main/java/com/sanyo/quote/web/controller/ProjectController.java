@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -29,17 +30,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sanyo.quote.domain.Category;
 import com.sanyo.quote.domain.Project;
 import com.sanyo.quote.domain.Region;
+import com.sanyo.quote.domain.User;
 import com.sanyo.quote.helper.Utilities;
 import com.sanyo.quote.service.CategoryService;
 import com.sanyo.quote.service.EncounterService;
 import com.sanyo.quote.service.ProductService;
 import com.sanyo.quote.service.ProjectService;
 import com.sanyo.quote.service.RegionService;
+import com.sanyo.quote.service.UserService;
 import com.sanyo.quote.web.form.Message;
 import com.sanyo.quote.web.util.UrlUtil;
 
@@ -65,6 +69,9 @@ public class ProjectController {
 	
 	@Autowired
 	private RegionService regionService;
+	
+	@Autowired
+	private UserService userService;
 	
 	private Validator validator;
 	
@@ -215,7 +222,7 @@ public class ProjectController {
 		System.out.println("saving assigned regions");
 		Project existingProject = projectService.findById(Integer.valueOf(id));
 		if(paramValues != null){
-			Set<Region> regions = new HashSet<Region>();
+//			Set<Region> regions = new HashSet<Region>();
 			for(int i=0 ; i<paramValues.length; i++){
 				Region region = new Region();
 				Category category = categoryService.findById(Integer.valueOf(paramValues[i]));
@@ -225,9 +232,35 @@ public class ProjectController {
 				region.setProject(existingProject);
 				
 				regionService.save(region);
-				regions.add(region);
+//				regions.add(region);
 			}
 		}
 		return "projects/update";
 	}
+	@RequestMapping(value = "regions/{id}", params = "form", method = RequestMethod.GET)
+	public String showRegions(@PathVariable("id") Integer id, Model uiModel, HttpServletRequest httpServletRequest){
+		Region region = regionService.findById(Integer.valueOf(id));
+		uiModel.addAttribute("region", region);
+		uiModel.addAttribute("projectId", region.getProject().getProjectId());
+		return "projects/region/new";
+	}
+	@RequestMapping(value = "regions/{id}", params = "form", method = RequestMethod.POST)
+	@ResponseStatus(value = HttpStatus.OK)
+	public void saveUsersForRegion(@PathVariable("id") Integer id, Model uiModel
+			,@RequestParam(value = "param[]") String[] paramValues
+			,HttpServletRequest httpServletRequest){
+		System.out.println("start assigning users to region");
+		Region region = regionService.findById(Integer.valueOf(id));
+		
+		if(paramValues != null){
+			Set<User> users = new HashSet<User>();
+			for(int i=0 ; i<paramValues.length; i++){
+				User user = userService.findById(Integer.valueOf(paramValues[i]));
+				users.add(user);
+			}
+			region.setUsers(users);
+			regionService.save(region);
+		}
+	}	
 }
+

@@ -21,18 +21,6 @@ var source = {
         projectId: projectId
     }	
 };
-var cellsrenderer = function(row, columnfield, value, defaulthtml,
-		columnproperties, rowdata) {
-	if (value < 20) {
-		return '<span style="margin: 4px; float: '
-				+ columnproperties.cellsalign + '; color: #ff0000;">' + value
-				+ '</span>';
-	} else {
-		return '<span style="margin: 4px; float: '
-				+ columnproperties.cellsalign + '; color: #008000;">' + value
-				+ '</span>';
-	}
-}
 var dataAdapter = new $.jqx.dataAdapter(source, {
 	downloadComplete : function(data, status, xhr) {
 	},
@@ -63,9 +51,10 @@ $("#list")
 					// autorowheight: true,
 					columns : [
 							{
-								text : '',
+								text : 'Action',
 								datafield : 'regionId',
-								width : '30%',
+								align : 'center',
+								width : '20%',
 								cellsrenderer : function(row, column, value) {
 									return '<div class="col-md-6">'
 											+ '<a class="btn btn-app" onclick="updateProduct('
@@ -90,7 +79,7 @@ $("#list")
 								text : 'Name',
 								datafield : 'regionName',
 								align : 'center',
-								width : '25%'
+								width : '35%'
 							}, {
 								text : 'Description',
 								datafield : 'regionDesc',
@@ -100,6 +89,6 @@ $("#list")
 								width : '40%'
 							} ]
 				});
-function updateProduct(userid) {
-	window.location.href = '/admin/categories/' + userid + '?form';
+function updateProduct(id) {
+	window.location.href = '/projects/regions/' + id + '?form';
 }

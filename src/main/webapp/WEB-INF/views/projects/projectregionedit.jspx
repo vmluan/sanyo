@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" 
+     xmlns:c="http://java.sun.com/jsp/jstl/core" 
+     xmlns:spring="http://www.springframework.org/tags"
+     xmlns:form="http://www.springframework.org/tags/form"
+     version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+
+    <spring:message code="label_project_region_name" var="labelName" text="Name"/>
+    <spring:message code="label_project_region_user" var="labelUsers" text="Users"/>
+    <spring:message code="label_project_region_title" var="labelTitle" text="Assign users for " />
+    
+    
+        <!-- Main content -->
+        <section class="content">
+          <div class="box box-default">
+            <!-- left column -->
+            <div class="box-body">
+              <!-- general form elements -->
+			  
+              <div class="row">
+                <div class="box-header with-border">
+                  <h3 class="box-title">${labelTitle} <b>${region.regionName} </b></h3>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                <form:form modelAttribute="region" id="projectRegionForm" method="post">
+                  <div class="col-md-6">
+					<c:if test="${not empty message}">
+						<div id="message" class="${message.type}">${message.message}</div>
+					</c:if>					
+					<div class="form-group">
+						<form:label path="regionName">
+							${labelUsers}
+						</form:label>
+						<div id='jqxWidget'><jsp:text /></div> 
+					</div>					
+				</div>
+				<div class="col-md-12">
+                  <div class="form-group">
+                    <button type="button" class="btn btn-primary" id="addUserBtn">Add</button>
+                  </div>					
+				</div>				
+				<div id="messageNotification" style="z-index: 300; display: none">
+						Assign user successfully.
+						<jsp:text />
+				</div>		
+			<!-- /.box-body -->
+
+
+                </form:form>
+              </div><!-- /.box -->
+			</div>
+	
+		</div>
+	</section>
+	<script>
+	$("#messageNotification").jqxNotification({
+		width: 250, position: "top-right", opacity: 0.9,
+		autoOpen: false, animationOpenDelay: 800, autoClose: true, autoCloseDelay: 3000, template: "info"
+	});
+	$("#addUserBtn").click(function(){
+		var result = new Array();
+		var rows = $("#jqxWidget").jqxComboBox('getCheckedItems');
+		//<![CDATA[
+		for(var i=0; i<rows.length; i++){
+			result.push(rows[i].value);
+		}
+		console.log(result);
+		
+		var url = '/projects/regions/' + ${region.regionId} + '?form';
+		$.ajax({
+			   type: "POST",
+			   data: {param:result},
+			   url: url,
+			   success: function(msg){
+					$("#messageNotification").jqxNotification("open");
+					window.location.href='/projects/'+ ${projectId} + '?form';
+			   }
+			});		
+		//]]>
+	});
+	</script>
+    <script type="text/javascript" src="/resources/scripts/projectRegionUsers.js">
+        <jsp:text/>
+    </script>	
+</div>
