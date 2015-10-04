@@ -1,7 +1,7 @@
 /**
  * To display jqxgrid in user list page.
  */
-// var url = "projectsProject/getAssginedRegionsJson";
+ var url = "getAssginedRegionsJson";
 // prepare the data
 var source = {
 	datatype : "json",
@@ -9,14 +9,17 @@ var source = {
 		name : 'regionId',
 		type : 'string'
 	}, {
-		name : 'name',
+		name : 'regionName',
 		type : 'string'
 	}, {
-		name : 'desc',
+		name : 'regionDesc',
 		type : 'string'
 	} ],
 	id : 'regionId',
-	url : url
+	url : url,
+    data: {
+        projectId: projectId
+    }	
 };
 var cellsrenderer = function(row, columnfield, value, defaulthtml,
 		columnproperties, rowdata) {
@@ -85,12 +88,12 @@ $("#list")
 								}
 							}, {
 								text : 'Name',
-								datafield : 'name',
+								datafield : 'regionName',
 								align : 'center',
 								width : '25%'
 							}, {
 								text : 'Description',
-								datafield : 'desc',
+								datafield : 'regionDesc',
 								align : 'center',
 								cellsalign : 'left',
 								cellsformat : 'c0',

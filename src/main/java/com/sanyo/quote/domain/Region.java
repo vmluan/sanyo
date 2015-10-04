@@ -16,6 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 /*
  * it presents the 'Vung' term. 
  * 
@@ -57,6 +59,8 @@ public class Region implements java.io.Serializable{
 	public void setRegionDesc(String regionDesc) {
 		this.regionDesc = regionDesc;
 	}
+	
+	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "CATEGORY_ID", nullable = false)
 	public Category getCategory() {
@@ -65,6 +69,7 @@ public class Region implements java.io.Serializable{
 	public void setCategory(Category category) {
 		this.category = category;
 	}
+	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "PROJECT_ID", nullable = false)
 	public Project getProject() {

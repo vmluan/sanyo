@@ -124,7 +124,10 @@
 				</div>
 				<div id='treeGrid'><jsp:text />
 				</div>		
-			
+				<div id="messageNotification" style="z-index: 30000000; display: none">
+						Assign region successfully.
+						<jsp:text />
+				</div>			
 			</section>			
 		</div>
     
@@ -224,7 +227,10 @@ var dataAdapter = new $.jqx.dataAdapter(source, {
             });
 //<![CDATA[
 		    
-
+$("#messageNotification").jqxNotification({
+	width: 250, position: "top-right", opacity: 0.9,
+	autoOpen: false, animationOpenDelay: 800, autoClose: true, autoCloseDelay: 3000, template: "info"
+});
 $("#assignRegionButton").click(function(){
 	var result = new Array();
 	var rows = $("#treeGrid").jqxTreeGrid('getRows');
@@ -233,6 +239,18 @@ $("#assignRegionButton").click(function(){
 		result = result.concat(temp)
 	}
 	console.log(result);
+	var url = "${project.projectId}?assignRegions";
+	
+	$.ajax({
+		   type: "POST",
+		   data: {param:result},
+		   url: url,
+		   success: function(msg){
+				$("#list").jqxGrid('updatebounddata');
+				$("#treeGrid").jqxTreeGrid('updateBoundData');
+				$("#messageNotification").jqxNotification("open");
+		   }
+		});
 });
 
 function getCheckedItems(obj){
@@ -247,6 +265,7 @@ function getCheckedItems(obj){
 	return result;	
 }
 //]]>
+var projectId=${project.projectId};
 </script>
     <script type="text/javascript" src="/resources/scripts/projectAssignedRegionList.js">
         <jsp:text/>

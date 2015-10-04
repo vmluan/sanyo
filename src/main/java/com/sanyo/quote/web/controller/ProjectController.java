@@ -1,5 +1,6 @@
 package com.sanyo.quote.web.controller;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -30,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.sanyo.quote.domain.Category;
 import com.sanyo.quote.domain.Project;
 import com.sanyo.quote.domain.Region;
 import com.sanyo.quote.helper.Utilities;
@@ -37,6 +39,7 @@ import com.sanyo.quote.service.CategoryService;
 import com.sanyo.quote.service.EncounterService;
 import com.sanyo.quote.service.ProductService;
 import com.sanyo.quote.service.ProjectService;
+import com.sanyo.quote.service.RegionService;
 import com.sanyo.quote.web.form.Message;
 import com.sanyo.quote.web.util.UrlUtil;
 
@@ -59,6 +62,9 @@ public class ProjectController {
 	
 	@Autowired
 	private CategoryService categoryService;
+	
+	@Autowired
+	private RegionService regionService;
 	
 	private Validator validator;
 	
@@ -168,6 +174,7 @@ public class ProjectController {
 			, @RequestParam(value="recordendindex", required=false) Integer recordendindex
 			, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
 		
+		System.out.println("start getting assinged regions");
 		Project project = projectService.findById(Integer.valueOf(projectId));
 		// Constructs page request for current page
 		PageRequest pageRequest = null;
@@ -198,5 +205,29 @@ public class ProjectController {
 	
 	private void setCategories(Model uiModel){
 		uiModel.addAttribute("parentCategories", categoryService.findAll());
+	}
+	
+	//saving assigned regions
+	@RequestMapping(value = "/{id}", params = "assignRegions", method = RequestMethod.POST)
+    public String assignRegions(@ModelAttribute("project") Project project,@PathVariable Integer id, Model uiModel, 
+    		HttpServletRequest httpServletRequest, RedirectAttributes redirectAttributes, Locale locale, BindingResult bindingResult,
+    		@RequestParam(value = "param[]") String[] paramValues) {
+		System.out.println("saving assigned regions");
+		Project existingProject = projectService.findById(Integer.valueOf(id));
+		if(paramValues != null){
+			Set<Region> regions = new HashSet<Region>();
+			for(int i=0 ; i<paramValues.length; i++){
+				Region region = new Region();
+				Category category = categoryService.findById(Integer.valueOf(paramValues[i]));
+				region.setCategory(category);
+				region.setRegionName(category.getName());
+				region.setRegionDesc(category.getDesc());
+				region.setProject(existingProject);
+				
+				regionService.save(region);
+				regions.add(region);
+			}
+		}
+		return "projects/update";
 	}
 }

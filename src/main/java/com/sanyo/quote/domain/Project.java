@@ -16,6 +16,7 @@ import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
@@ -146,6 +147,7 @@ public class Project implements java.io.Serializable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	@JsonIgnore
 	@OneToMany(fetch=FetchType.EAGER, mappedBy="project")
 	public Set<Region> getRegions() {
 		return regions;
