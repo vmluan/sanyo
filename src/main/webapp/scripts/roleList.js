@@ -12,29 +12,8 @@ var source = {
 		name : 'description',
 		type : 'string'
 	}, {
-		name : 'viewuser',
-		type : 'bol'
-	}, {
-		name : 'edituser',
-		type : 'bol'
-	}, {
-		name : 'adduser',
-		type : 'bol'
-	}, {
-		name : 'viewgroup',
-		type : 'bol'
-	}, {
-		name : 'editgroup',
-		type : 'bol'
-	}, {
-		name : 'addgroup',
-		type : 'bol'
-	}, {
 		name : 'loginadministrator',
 		type : 'bol'
-	}, {
-		name : 'groupid',
-		type : 'string'
 	} ],
 	id : 'groupid',
 	url : url
@@ -98,7 +77,7 @@ $("#list")
 							{
 								text : '#',
 								datafield : 'stt',
-								width : '2%',
+								width : '4%',
 								align : 'center',
 								columntype : 'number',
 								cellsrenderer : function(row, column, value) {
@@ -108,7 +87,7 @@ $("#list")
 							}, {
 								text : 'Role Name',
 								datafield : 'groupName',
-								width : '7%',
+								width : '14%',
 								align : 'center'
 							}, {
 								text : 'Description',
@@ -116,57 +95,15 @@ $("#list")
 								align : 'center',
 								cellsalign : 'right',
 								cellsformat : 'c0',
-								width : '25%'
+								width : '53%'
 							}, {
 								text : 'Admin',
 								datafield : 'loginadministrator',
 								align : 'center',
 								cellsalign : 'right',
 								columntype : 'checkbox',
-								width : '7%'
-							}, {
-								text : 'View User',
-								datafield : 'viewuser',
-								align : 'center',
-								cellsalign : 'right',
-								columntype : 'checkbox',
-								width : '7%'
-							}, {
-								text : 'Add User',
-								datafield : 'adduser',
-								align : 'center',
-								cellsalign : 'right',
-								columntype : 'checkbox',
-								width : '7%'
-							}, {
-								text : 'Update User',
-								datafield : 'edituser',
-								align : 'center',
-								cellsalign : 'right',
-								columntype : 'checkbox',
-								width : '7%'
-							}, {
-								text : 'View Group',
-								datafield : 'viewgroup',
-								align : 'center',
-								cellsalign : 'right',
-								columntype : 'checkbox',
-								width : '7%'
-							}, {
-								text : 'Add Group',
-								datafield : 'addgroup',
-								align : 'center',
-								cellsalign : 'right',
-								columntype : 'checkbox',
-								width : '7%'
-							}, {
-								text : 'Update Group',
-								datafield : 'editgroup',
-								align : 'center',
-								cellsalign : 'right',
-								columntype : 'checkbox',
-								width : '9%'
-							} ]
+								width : '14%'
+							}]
 				});
 function updateProduct(userid) {
 	window.location.href = '/admin/roles/' + userid + '?form';
