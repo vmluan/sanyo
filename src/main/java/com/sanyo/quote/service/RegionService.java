@@ -16,4 +16,6 @@ public interface RegionService {
 	Region save(Region Region);
 	
 	Page<Region> findAllByPage(Pageable pageable);
+	
+	Region findByIdAndFetchUsersEagerly(Integer id);
 }

@@ -45,6 +45,11 @@ public class DefaultRegionService implements RegionService {
 	public Page<Region> findAllByPage(Pageable pageable) {
 		return regionRepository.findAll(pageable);
 	}
+
+	@Override
+	public Region findByIdAndFetchUsersEagerly(Integer id) {
+		return regionRepository.findByIdAndFetchUsersEagerly(id);
+	}
 	
 	
 }

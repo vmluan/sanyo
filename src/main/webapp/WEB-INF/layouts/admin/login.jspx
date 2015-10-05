@@ -23,11 +23,11 @@
         
         <form name="loginForm" action="${loginUrl}" method="post">
            <div class="control-group">
-               <label for="inputEmail">Tên Đăng nhập</label>       
+               <label for="inputEmail">User name</label>       
                <input type="text" name="j_username" id="j_username"/>
            </div>
            <div class="control-group">
-                <label for="inputPassword">Mật khẩu</label>                
+                <label for="inputPassword">Password</label>                
                 <input type="password" id="j_password" name="j_password"/>                
             </div>
             
@@ -35,7 +35,7 @@
 		        <div id="message" class="${message.type}">${message.message}</div>
 		    </c:if>
             <div class="form-actions">
-                <button type="submit" class="btn btn-block">Đăng nhập</button>
+                <button type="submit" class="btn btn-block">Login</button>
             </div>
        </form>
     </div> 
