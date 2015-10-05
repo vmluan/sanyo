@@ -1,6 +1,7 @@
 package com.sanyo.quote.web.controller;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -189,7 +190,23 @@ public class ProjectController {
 
 		
 		Set<Region> regions  = project.getRegions();
-		String result = Utilities.jSonSerialization(regions);
+		Iterator<Region> iterator = regions.iterator();
+		Set<Region> assginedRegions = new HashSet<Region>();
+		
+		while(iterator.hasNext()){
+			Region region = iterator.next();
+			Region regionWithUsers = regionService.findByIdAndFetchUsersEagerly(region.getRegionId());
+			if(regionWithUsers != null)
+				assginedRegions.add(regionWithUsers);
+			else{
+				regionWithUsers = regionService.findById(region.getRegionId());
+				Set<User> emptyUsers = new HashSet<User>();
+				regionWithUsers.setUsers(emptyUsers);
+				assginedRegions.add(regionWithUsers);
+			}
+		}
+		
+		String result = Utilities.jSonSerialization(assginedRegions);
 		return result;
 	}
 	// handle screen for create new assigned regions.
