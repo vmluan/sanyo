@@ -404,15 +404,15 @@ function getCheckedItems(obj){
 					for(var k=0; k< arrayUser.length; k++){
 						var user = new Object();
 						user.userName = arrayUser[k];
+						arrayRole = record.role.split(',');
+						if(arrayRole.length >0){
+							user.roleName = arrayRole[0];
+						}
 						users.push(user);
 					}					
 				}
 
 				regionObj.users = users;
-				
-				//arrayRole = record.role.split(',');
-				//regionObj.u = arrayRole;
-				
 				arrayRegion.push(regionObj);
 			}
 		}	

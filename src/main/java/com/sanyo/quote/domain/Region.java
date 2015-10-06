@@ -34,6 +34,7 @@ public class Region implements java.io.Serializable{
 	private Set<Encounter> encounters;
 	private RegionStatus status;
 	private Set<User> users;
+	private Set<UserRegionRole> userRegionRoles;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -111,6 +112,16 @@ public class Region implements java.io.Serializable{
 	}
 	public void setUsers(Set<User> users) {
 		this.users = users;
+	}
+	
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name="region_user_region_role", joinColumns={@JoinColumn(name="REGION_ID")}
+			, inverseJoinColumns={@JoinColumn(name="id")})
+	public Set<UserRegionRole> getUserRegionRoles() {
+		return userRegionRoles;
+	}
+	public void setUserRegionRoles(Set<UserRegionRole> userRegionRoles) {
+		this.userRegionRoles = userRegionRoles;
 	}
 	
 	
