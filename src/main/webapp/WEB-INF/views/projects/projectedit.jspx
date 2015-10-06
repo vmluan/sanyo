@@ -185,16 +185,6 @@ var dataAdapter = new $.jqx.dataAdapter(source, {
 					,{"categoryId": 23, "categoryName": "STEAM BOILER SYSTEM", "categoryDesc" : "", "parentCategoryId": 15}
 					,{"categoryId": 23, "categoryName": "LOCAL PRODUCTION HEAT EXHAUST SYSTEM (Heat Treatment &amp; Plating Area )", "categoryDesc" : "", "parentCategoryId": 15}
 					];
-<<<<<<< HEAD
-=======
-
-var cellRenderer = function (row, columnfield, value, defaulthtml, columnproperties){
-  var result = '<div id="listingridcell' 
-				+ row 
-				+ '"/>';
-  return result;
- }
->>>>>>> branch 'master' of https://github.com/vmluan/sanyo
             // prepare the data
             var source =
             {
@@ -225,18 +215,13 @@ var cellRenderer = function (row, columnfield, value, defaulthtml, columnpropert
                 sortable: true,
 				hierarchicalCheckboxes: true,
 				checkboxes: true,
-<<<<<<< HEAD
 				selectionMode: 'singleRow',
 				editSettings: { saveOnPageChange: true, saveOnBlur: true, saveOnSelectionChange: true, cancelOnEsc: true, saveOnEnter: true, editSingleCell: true, editOnDoubleClick: true, editOnF2: true },
-=======
-				//selectionmode: 'singlecell',
->>>>>>> branch 'master' of https://github.com/vmluan/sanyo
                 ready: function()
                 {
                    // $("#treeGrid").jqxTreeGrid('expandRow', '2');
                 },
                 columns: [
-<<<<<<< HEAD
                   { text: 'Name', dataField: 'categoryName', width: 400 },
 				  {
 
@@ -296,41 +281,6 @@ var cellRenderer = function (row, columnfield, value, defaulthtml, columnpropert
 					   }
 
 				   }				   
-=======
-                  { text: 'Name', dataField: 'categoryName', width: 200 },
-				  { text: 'Description', dataField: 'categoryDesc', width: 200 },
-				  {
-
-					   text: 'Assign User', dataField: 'user', width: 200, columnType: "custom",
-
-					   createEditor: function (row, cellvalue, editor, cellText, width, height) {
-
-						   // construct the editor. 
-
-						   var source = ["admin", "user1", "user2"];
-						   editor.jqxDropDownList({autoDropDownHeight: true, source: source, width: '100%', height: '100%',checkboxes: true });
-
-					   },
-
-					   initEditor: function (row, cellvalue, editor, celltext, width, height) {
-
-						   // set the editor's current value. The callback is called each time the editor is displayed.
-
-						   editor.jqxDropDownList('selectItem', cellvalue);
-
-					   },
-
-					   getEditorValue: function (row, cellvalue, editor) {
-
-						   // return the editor's value.
-
-						   return editor.val();
-
-					   }
-
-				   }
-					,{ text: 'Test', datafield: 'test', width: 200, cellsrenderer: cellRenderer}			   
->>>>>>> branch 'master' of https://github.com/vmluan/sanyo
 				   
                 ]
             });
@@ -338,20 +288,8 @@ var cellRenderer = function (row, columnfield, value, defaulthtml, columnpropert
 $('#treeGrid').on('rowCheck', 
 					function (event)
 	{
-<<<<<<< HEAD
-	
-=======
 		// event args.
-		var args = event.args;
-		// row data.
-		var row = args.row;
-		// row key.
-		var key = args.key;
-		//call click on Users
-	   var source = ["admin", "user1", "user2"];
-	   var divName = '#listingridcell' + row.uid;
-	//   $(divName).jqxDropDownList({autoDropDownHeight: true, source: source, width: '100%', height: '100%',checkboxes: true });		
->>>>>>> branch 'master' of https://github.com/vmluan/sanyo
+		
 	});			
 //<![CDATA[
 		    
