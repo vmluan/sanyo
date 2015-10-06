@@ -119,7 +119,7 @@
 				<div class="col-md-12">
 				Want to assign more region?
 					<p/>
-					<a id="assignRegionButton" href="#assignRegionButton" class="btn btn-primary">Assign Region</a>
+					<button id="assignRegionButton" type="botton" class="btn btn-primary">Assign Region</button>
 					<p/>
 				</div>
 				<div id='treeGrid'><jsp:text />
@@ -133,6 +133,43 @@
     
 <script type="text/javascript">
 //var url = "/getAssginedRegionsJson" + '?projectId=' + '${project.projectId}';
+var urlUserJson = "/admin/users/getListJson";
+// prepare the data
+var sourceUserJson = {
+	datatype : "json",
+	datafields : [ {
+		name : 'username',
+		type : 'string'
+	}, {
+		name : 'email',
+		type : 'string'
+	}, {
+		name : 'avatar',
+		type : 'string'
+	}, {
+		name : 'userid',
+		type : 'string'
+	}, {
+		name : 'mobile',
+		type : 'string'
+	} ],
+	id : 'userid',
+	url : urlUserJson
+};
+
+var dataAdapterUserJson = new $.jqx.dataAdapter(sourceUserJson, {
+	downloadComplete : function(data, status, xhr) {
+	},
+	loadComplete : function(data) {
+	},
+	loadError : function(xhr, status, error) {
+	}
+});
+
+var userData;
+
+
+
 var url = "/admin/categories/getListJson";
 var source = {
 	datatype : "json",
@@ -185,16 +222,6 @@ var dataAdapter = new $.jqx.dataAdapter(source, {
 					,{"categoryId": 23, "categoryName": "STEAM BOILER SYSTEM", "categoryDesc" : "", "parentCategoryId": 15}
 					,{"categoryId": 23, "categoryName": "LOCAL PRODUCTION HEAT EXHAUST SYSTEM (Heat Treatment &amp; Plating Area )", "categoryDesc" : "", "parentCategoryId": 15}
 					];
-<<<<<<< HEAD
-=======
-
-var cellRenderer = function (row, columnfield, value, defaulthtml, columnproperties){
-  var result = '<div id="listingridcell' 
-				+ row 
-				+ '"/>';
-  return result;
- }
->>>>>>> branch 'master' of https://github.com/vmluan/sanyo
             // prepare the data
             var source =
             {
@@ -225,18 +252,13 @@ var cellRenderer = function (row, columnfield, value, defaulthtml, columnpropert
                 sortable: true,
 				hierarchicalCheckboxes: true,
 				checkboxes: true,
-<<<<<<< HEAD
 				selectionMode: 'singleRow',
 				editSettings: { saveOnPageChange: true, saveOnBlur: true, saveOnSelectionChange: true, cancelOnEsc: true, saveOnEnter: true, editSingleCell: true, editOnDoubleClick: true, editOnF2: true },
-=======
-				//selectionmode: 'singlecell',
->>>>>>> branch 'master' of https://github.com/vmluan/sanyo
                 ready: function()
                 {
                    // $("#treeGrid").jqxTreeGrid('expandRow', '2');
                 },
                 columns: [
-<<<<<<< HEAD
                   { text: 'Name', dataField: 'categoryName', width: 400 },
 				  {
 
@@ -246,8 +268,15 @@ var cellRenderer = function (row, columnfield, value, defaulthtml, columnpropert
 
 						   // construct the editor. 
 
-						   var source = ["admin", "user1", "user2"];
-						   editor.jqxDropDownList({autoDropDownHeight: true, source: source, width: '100%', height: '100%',checkboxes: true,autoOpen: true });
+// 						   var source = ["admin", "user1", "user2"];
+//<![CDATA[						   
+						   if(dataAdapterUserJson.records != null && dataAdapterUserJson.records.length > 0){
+							   userData = dataAdapterUserJson.records;
+							   editor.jqxDropDownList({autoDropDownHeight: true, source: userData ,displayMember: "username", valueMember: "username",  width: '100%', height: '100%',checkboxes: true,autoOpen: true });
+						   }
+						   else
+							   editor.jqxDropDownList({autoDropDownHeight: true, source: dataAdapterUserJson ,displayMember: "username", valueMember: "username",  width: '100%', height: '100%',checkboxes: true,autoOpen: true });
+//]]>						   
 
 					   },
 
@@ -296,41 +325,6 @@ var cellRenderer = function (row, columnfield, value, defaulthtml, columnpropert
 					   }
 
 				   }				   
-=======
-                  { text: 'Name', dataField: 'categoryName', width: 200 },
-				  { text: 'Description', dataField: 'categoryDesc', width: 200 },
-				  {
-
-					   text: 'Assign User', dataField: 'user', width: 200, columnType: "custom",
-
-					   createEditor: function (row, cellvalue, editor, cellText, width, height) {
-
-						   // construct the editor. 
-
-						   var source = ["admin", "user1", "user2"];
-						   editor.jqxDropDownList({autoDropDownHeight: true, source: source, width: '100%', height: '100%',checkboxes: true });
-
-					   },
-
-					   initEditor: function (row, cellvalue, editor, celltext, width, height) {
-
-						   // set the editor's current value. The callback is called each time the editor is displayed.
-
-						   editor.jqxDropDownList('selectItem', cellvalue);
-
-					   },
-
-					   getEditorValue: function (row, cellvalue, editor) {
-
-						   // return the editor's value.
-
-						   return editor.val();
-
-					   }
-
-				   }
-					,{ text: 'Test', datafield: 'test', width: 200, cellsrenderer: cellRenderer}			   
->>>>>>> branch 'master' of https://github.com/vmluan/sanyo
 				   
                 ]
             });
@@ -338,20 +332,8 @@ var cellRenderer = function (row, columnfield, value, defaulthtml, columnpropert
 $('#treeGrid').on('rowCheck', 
 					function (event)
 	{
-<<<<<<< HEAD
-	
-=======
 		// event args.
-		var args = event.args;
-		// row data.
-		var row = args.row;
-		// row key.
-		var key = args.key;
-		//call click on Users
-	   var source = ["admin", "user1", "user2"];
-	   var divName = '#listingridcell' + row.uid;
-	//   $(divName).jqxDropDownList({autoDropDownHeight: true, source: source, width: '100%', height: '100%',checkboxes: true });		
->>>>>>> branch 'master' of https://github.com/vmluan/sanyo
+		
 	});			
 //<![CDATA[
 		    
@@ -363,21 +345,24 @@ $("#assignRegionButton").click(function(){
 	var result = new Array();
 	var rows = $("#treeGrid").jqxTreeGrid('getRows');
 	
-	$("#treeGrid").jqxTreeGrid('selectRow', '1'); //a trick to get correct data of user and role	
+	//$("#treeGrid").jqxTreeGrid('selectRow', '1'); //a trick to get correct data of user and role	
 	
 	for(var i=0; i<rows.length; i++){
 		var temp = getCheckedItems(rows[i]);
 		result = result.concat(temp)
 	}
 	console.log(result);
-
 	var url = "${project.projectId}?assignRegions";
 	var jsonData = JSON.stringify(result);
 	console.log(jsonData);
+	
+// 	var testData = '{"regionId":2}';
+	var testData = '[{"regionId":2},{"regionId":3}]';
 	$.ajax({
 		   type: "POST",
 		   contentType : 'application/json',
 		   data: jsonData,
+// 		   data: testData,
 		   url: url,
 		   success: function(msg){
 				$("#list").jqxGrid('updatebounddata');
@@ -398,11 +383,22 @@ function getCheckedItems(obj){
 				var arrayUser = new Array();
 				var arrayRole = new Array();			
 				var regionObj = new Object();
-				regionObj.CategoryId = record.categoryId;
-				arrayUser = record.user.split(',');
-				arrayRole = record.role.split(',');
-				regionObj.users = arrayUser;
-				regionObj.roles = arrayRole;
+				var users = new Array();
+				
+				regionObj.regionId = record.categoryId;
+				if(record.user){
+					arrayUser = record.user.split(',');
+					for(var k=0; k< arrayUser.length; k++){
+						var user = new Object();
+						user.userName = arrayUser[k];
+						users.push(user);
+					}					
+				}
+
+				regionObj.users = users;
+				
+				//arrayRole = record.role.split(',');
+				//regionObj.u = arrayRole;
 				
 				arrayRegion.push(regionObj);
 			}

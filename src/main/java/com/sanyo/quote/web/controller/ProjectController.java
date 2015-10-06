@@ -27,6 +27,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,7 +38,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.sanyo.quote.domain.Category;
 import com.sanyo.quote.domain.Project;
 import com.sanyo.quote.domain.Region;
+import com.sanyo.quote.domain.RegionJson;
 import com.sanyo.quote.domain.User;
+import com.sanyo.quote.domain.UserJson;
 import com.sanyo.quote.helper.Utilities;
 import com.sanyo.quote.service.CategoryService;
 import com.sanyo.quote.service.EncounterService;
@@ -232,27 +235,51 @@ public class ProjectController {
 	}
 	
 	//saving assigned regions
+//	@RequestMapping(value = "/{id}", params = "assignRegions", method = RequestMethod.POST)
+//    public String assignRegions(@ModelAttribute("project") Project project,@PathVariable Integer id, Model uiModel, 
+//    		HttpServletRequest httpServletRequest, RedirectAttributes redirectAttributes, Locale locale, BindingResult bindingResult,
+//    		@RequestParam(value = "param[]") String[] paramValues) {
+//		System.out.println("saving assigned regions");
+//		Project existingProject = projectService.findById(Integer.valueOf(id));
+//		if(paramValues != null){
+//			for(int i=0 ; i<paramValues.length; i++){
+//				Region region = new Region();
+//				Category category = categoryService.findById(Integer.valueOf(paramValues[i]));
+//				region.setCategory(category);
+//				region.setRegionName(category.getName());
+//				region.setRegionDesc(category.getDesc());
+//				region.setProject(existingProject);
+//				
+//				regionService.save(region);
+//			}
+//		}
+//		return "projects/update";
+//	}
 	@RequestMapping(value = "/{id}", params = "assignRegions", method = RequestMethod.POST)
-    public String assignRegions(@ModelAttribute("project") Project project,@PathVariable Integer id, Model uiModel, 
-    		HttpServletRequest httpServletRequest, RedirectAttributes redirectAttributes, Locale locale, BindingResult bindingResult,
-    		@RequestParam(value = "param[]") String[] paramValues) {
-		System.out.println("saving assigned regions");
+	@ResponseStatus(value = HttpStatus.OK)
+    public  void assignRegions(@RequestBody final RegionJson[] regionJsons ,@PathVariable Integer id, Model uiModel, 
+    		HttpServletRequest httpServletRequest) {
+		System.out.println("===================== saving assigned regions");
 		Project existingProject = projectService.findById(Integer.valueOf(id));
-		if(paramValues != null){
-//			Set<Region> regions = new HashSet<Region>();
-			for(int i=0 ; i<paramValues.length; i++){
+		if(regionJsons != null && regionJsons.length >0){
+			for(int i=0; i< regionJsons.length; i++){
+				RegionJson regionJson = regionJsons[i];
 				Region region = new Region();
-				Category category = categoryService.findById(Integer.valueOf(paramValues[i]));
+				Category category = categoryService.findById(regionJson.getRegionId());
 				region.setCategory(category);
 				region.setRegionName(category.getName());
 				region.setRegionDesc(category.getDesc());
 				region.setProject(existingProject);
-				
-				regionService.save(region);
-//				regions.add(region);
+				List<UserJson> userJsons = regionJson.getUsers();
+				Set<User> users = new HashSet<User>();
+				for(UserJson userJson : userJsons){
+					User user = userService.findByUserName(userJson.getUserName());
+					users.add(user);
+				}
+				region.setUsers(users);
+				regionService.save(region);				
 			}
 		}
-		return "projects/update";
 	}
 	@RequestMapping(value = "regions/{id}", params = "form", method = RequestMethod.GET)
 	public String showRegions(@PathVariable("id") Integer id, Model uiModel, HttpServletRequest httpServletRequest){
