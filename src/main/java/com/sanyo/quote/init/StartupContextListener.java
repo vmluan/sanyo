@@ -21,7 +21,12 @@ public class StartupContextListener extends ContextLoaderListener{
 	
 	@Override
 	public void contextInitialized(ServletContextEvent event){
-		super.contextInitialized(event);
+		try{
+			super.contextInitialized(event);
+		}
+		catch(Exception ex){
+			System.out.println("=========================== application is on start with error:" + ex);
+		}
 		System.out.println("=========================== application is on start up");
 		addSampleData();
 	}
