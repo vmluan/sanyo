@@ -217,6 +217,51 @@ public class ProjectController {
 		String result = Utilities.jSonSerialization(assginedRegions);
 		return result;
 	}
+	
+//	@RequestMapping(value = "/getAssginedRegionsJson", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+//	@ResponseBody
+//	public String getAssginedRegionsJson(@RequestParam(value="projectId", required=true) String projectId,
+//			@RequestParam(value="filterscount", required=false) String filterscount
+//			, @RequestParam(value="groupscount", required=false) String groupscount
+//			, @RequestParam(value="pagenum", required=false) Integer pagenum
+//			, @RequestParam(value="pagesize", required=false) Integer pagesize
+//			, @RequestParam(value="recordstartindex", required=false) Integer recordstartindex
+//			, @RequestParam(value="recordendindex", required=false) Integer recordendindex
+//			, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
+//		
+//		System.out.println("start getting assinged regions");
+//		Project project = projectService.findById(Integer.valueOf(projectId));
+//		
+//		Set<Region> regions  = project.getRegions();
+//		Iterator<Region> iterator = regions.iterator();
+//		Set<Region> assginedRegions = new HashSet<Region>();
+//		
+//		while(iterator.hasNext()){
+//			Region region = iterator.next();
+//			Region regionWithUsers = regionService.findByIdAndFetchUserRegionRolesEagerly(region.getRegionId());
+//			if(regionWithUsers != null)
+//				assginedRegions.add(regionWithUsers);
+//			else{
+//				regionWithUsers = regionService.findById(region.getRegionId());
+//				Set<User> emptyUsers = new HashSet<User>();
+//				regionWithUsers.setUsers(emptyUsers);
+//				assginedRegions.add(regionWithUsers);
+//			}
+//		}
+//		//we got final set of regions here. Next is to get set of userRegionRole.
+//		
+//		
+//		Iterator<Region> iterator2 = assginedRegions.iterator();
+//		Set<UserRegionRole> totalUserRegionRoles = new HashSet<UserRegionRole>();
+//		while(iterator2.hasNext()){
+//			Region region = iterator2.next();
+//			Set<UserRegionRole> userRegionRoles =  region.getUserRegionRoles();
+//			totalUserRegionRoles.addAll(userRegionRoles);
+//		}
+//		String result = Utilities.jSonSerialization(totalUserRegionRoles);
+//		return result;
+//	}
+	
 	// handle screen for create new assigned regions.
 	@RequestMapping(value = "/{id}", params = "regions", method = RequestMethod.GET)
     public String createNewAssignedRegions(@PathVariable("id") Integer id, Model uiModel) {
@@ -275,18 +320,24 @@ public class ProjectController {
 				region.setRegionName(category.getName());
 				region.setRegionDesc(category.getDesc());
 				region.setProject(existingProject);
+				region = regionService.save(region);
+				
 				List<UserJson> userJsons = regionJson.getUsers();
-				Set<UserRegionRole> userRegionRoles = new HashSet<UserRegionRole>();
+//				Set<UserRegionRole> userRegionRoles = new HashSet<UserRegionRole>();
 				for(UserJson userJson : userJsons){
 					
 					User user = userService.findByUserName(userJson.getUserName());
 					UserRegionRole userRegionRole = new UserRegionRole();
 					userRegionRole.setUser(user);
 					userRegionRole.setRoleName(userJson.getRoleName()); //get from request
-					userRegionRoles.add(userRegionRole);
+					userRegionRole.setRegion(region);
+					userRegionRole.setUserName(user.getUsername());
+					userRegionRole = userRegionRoleService.save(userRegionRole);
+					
+//					userRegionRoles.add(userRegionRole);
 				}
-				region.setUserRegionRoles(userRegionRoles);
-				regionService.save(region);				
+//				region.setUserRegionRoles(userRegionRoles);
+								
 			}
 		}
 	}

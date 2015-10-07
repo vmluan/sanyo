@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -26,28 +27,31 @@ public class UserRegionRole implements java.io.Serializable{
 	
 	private String roleName;
 	private User user; //one to one
+	private String userName;
 	
 
-	private Set<Region> regions;
+	private Region region;
 	
 	@JsonIgnore
-	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "userRegionRoles")
-	public Set<Region> getRegions() {
-		return regions;
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="REGION_ID", nullable = false)
+	public Region getRegion() {
+		return region;
 	}
-
-	public void setRegions(Set<Region> regions) {
-		this.regions = regions;
+	public void setRegion(Region region) {
+		this.region = region;
 	}
 	
 	@Column(name = "REGION_ROLE_NAME", length = 45)
 	public String getRoleName() {
 		return roleName;
 	}
+
 	public void setRoleName(String roleName) {
 		this.roleName = roleName;
 	}
 	
+	@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "USER_ID", nullable = false)
 	public User getUser() {
@@ -66,6 +70,15 @@ public class UserRegionRole implements java.io.Serializable{
 	public void setId(Integer id) {
 		this.id = id;
 	}
+	
+	@Column(name = "USER_NAME", length = 45, nullable = false)
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	
 	
 	
 	

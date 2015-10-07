@@ -114,9 +114,10 @@ public class Region implements java.io.Serializable{
 		this.users = users;
 	}
 	
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name="region_user_region_role", joinColumns={@JoinColumn(name="REGION_ID")}
-			, inverseJoinColumns={@JoinColumn(name="id")})
+//	@ManyToMany(cascade = CascadeType.ALL)
+//	@JoinTable(name="region_user_region_role", joinColumns={@JoinColumn(name="REGION_ID")}
+//			, inverseJoinColumns={@JoinColumn(name="id")})
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="region")
 	public Set<UserRegionRole> getUserRegionRoles() {
 		return userRegionRoles;
 	}

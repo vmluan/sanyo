@@ -50,6 +50,11 @@ public class DefaultRegionService implements RegionService {
 	public Region findByIdAndFetchUsersEagerly(Integer id) {
 		return regionRepository.findByIdAndFetchUsersEagerly(id);
 	}
+
+	@Override
+	public Region findByIdAndFetchUserRegionRolesEagerly(Integer id) {
+		return regionRepository.findByIdAndFetchUserRegionRolesEagerly(id);
+	}
 	
 	
 }

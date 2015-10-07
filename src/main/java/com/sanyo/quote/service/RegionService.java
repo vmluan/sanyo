@@ -18,4 +18,5 @@ public interface RegionService {
 	Page<Region> findAllByPage(Pageable pageable);
 	
 	Region findByIdAndFetchUsersEagerly(Integer id);
+	Region findByIdAndFetchUserRegionRolesEagerly(Integer id);
 }

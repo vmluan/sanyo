@@ -14,4 +14,7 @@ public interface RegionRepository extends PagingAndSortingRepository<Region, Int
     @Query("SELECT r FROM Region r JOIN FETCH r.users WHERE r.regionId = (:id)")
     public Region findByIdAndFetchUsersEagerly(@Param("id") Integer id);
     
+    @Query("SELECT r FROM Region r JOIN FETCH r.userRegionRoles WHERE r.regionId = (:id)")
+    public Region findByIdAndFetchUserRegionRolesEagerly(@Param("id") Integer id);
+    
 }

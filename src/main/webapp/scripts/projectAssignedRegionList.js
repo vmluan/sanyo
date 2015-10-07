@@ -1,7 +1,7 @@
 /**
  * To display jqxgrid in user list page.
  */
- var url = "getAssginedRegionsJson";
+var url = "getAssginedRegionsJson";
 // prepare the data
 var source = {
 	datatype : "json",
@@ -14,12 +14,18 @@ var source = {
 	}, {
 		name : 'regionDesc',
 		type : 'string'
+	}, {
+		name : 'userName',
+		map : 'userRegionRoles>0>userName'
+	}, {
+		name : 'roleName',
+		map : 'userRegionRoles>0>roleName'
 	} ],
 	id : 'regionId',
 	url : url,
-    data: {
-        projectId: projectId
-    }	
+	data : {
+		projectId : projectId
+	}
 };
 var dataAdapter = new $.jqx.dataAdapter(source, {
 	downloadComplete : function(data, status, xhr) {
@@ -35,7 +41,7 @@ $("#list")
 				{
 					width : 1000,
 					height : 500,
-					theme: 'energyblue',
+					theme : 'energyblue',
 					source : dataAdapter,
 					sortable : true,
 					pageable : true,
@@ -66,14 +72,15 @@ $("#list")
 											+ '<i class="glyphicon glyphicon-remove-circle"></i>'
 											+ '</a>' + '</div>';
 								}
-							}, {
+							},
+							{
 								text : '#',
 								datafield : 'stt',
 								width : '5%',
 								columntype : 'number',
 								cellsrenderer : function(row, column, value) {
 									return "<div style='margin:4px;'>"
-									+ (value + 1) + "</div>";
+											+ (value + 1) + "</div>";
 								}
 							}, {
 								text : 'Name',
@@ -81,12 +88,19 @@ $("#list")
 								align : 'center',
 								width : '35%'
 							}, {
-								text : 'Description',
-								datafield : 'regionDesc',
+								text : 'Assign Users',
+								datafield : 'userName',
 								align : 'center',
 								cellsalign : 'left',
 								cellsformat : 'c0',
-								width : '40%'
+								width : '20%'
+							}, {
+								text : 'Role',
+								datafield : 'roleName',
+								align : 'center',
+								cellsalign : 'left',
+								cellsformat : 'c0',
+								width : '20%'
 							} ]
 				});
 function updateProduct(id) {
