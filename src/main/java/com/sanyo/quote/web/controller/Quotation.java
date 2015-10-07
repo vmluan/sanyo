@@ -26,7 +26,7 @@ import com.sanyo.quote.domain.Product;
 public class Quotation {
 
 	@RequestMapping(method = RequestMethod.GET)
-	public String getQuotationPage(Model ciModel,@RequestParam(value="lang", required=false)String id) {
+	public String getQuotationPage(Model uiModel) {
 		return "quotation/index";
 	}
 
