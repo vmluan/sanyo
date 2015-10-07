@@ -8,6 +8,7 @@ import java.io.Serializable;
 public class UserJson implements Serializable{
 private String userName;
 private String userId;
+private String roleName;
 public String getUserName() {
 	return userName;
 }
@@ -20,5 +21,12 @@ public String getUserId() {
 public void setUserId(String userId) {
 	this.userId = userId;
 }
+public String getRoleName() {
+	return roleName;
+}
+public void setRoleName(String roleName) {
+	this.roleName = roleName;
+}
+
 
 }

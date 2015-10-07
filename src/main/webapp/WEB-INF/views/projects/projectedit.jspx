@@ -156,17 +156,18 @@ var sourceUserJson = {
 	id : 'userid',
 	url : urlUserJson
 };
-
+var userData;
 var dataAdapterUserJson = new $.jqx.dataAdapter(sourceUserJson, {
 	downloadComplete : function(data, status, xhr) {
 	},
 	loadComplete : function(data) {
+		userData = dataAdapterUserJson.records;
 	},
 	loadError : function(xhr, status, error) {
 	}
 });
+dataAdapterUserJson.dataBind();
 
-var userData;
 
 
 
@@ -270,12 +271,11 @@ var dataAdapter = new $.jqx.dataAdapter(source, {
 
 // 						   var source = ["admin", "user1", "user2"];
 //<![CDATA[						   
-						   if(dataAdapterUserJson.records != null && dataAdapterUserJson.records.length > 0){
-							   userData = dataAdapterUserJson.records;
-							   editor.jqxDropDownList({autoDropDownHeight: true, source: userData ,displayMember: "username", valueMember: "username",  width: '100%', height: '100%',checkboxes: true,autoOpen: true });
-						   }
+						   if(userData)
+							   editor.jqxDropDownList({height: '15', source: userData ,displayMember: "username", valueMember: "username",  width: '100%', height: '100%',checkboxes: true,autoOpen: true });
 						   else
-							   editor.jqxDropDownList({autoDropDownHeight: true, source: dataAdapterUserJson ,displayMember: "username", valueMember: "username",  width: '100%', height: '100%',checkboxes: true,autoOpen: true });
+								tempSource = dataAdapterUserJson;
+						   editor.jqxDropDownList({height: '15', source: dataAdapterUserJson ,displayMember: "username", valueMember: "username",  width: '100%', height: '100%',checkboxes: true,autoOpen: true });
 //]]>						   
 
 					   },
@@ -305,7 +305,7 @@ var dataAdapter = new $.jqx.dataAdapter(source, {
 						   // construct the editor. 
 
 						   var sourceRole = ["View", "Edit"];
-						   editor.jqxDropDownList({autoDropDownHeight: true, source: sourceRole, width: '100%', height: '100%',selectedIndex: 0, autoOpen: true });
+						   editor.jqxDropDownList({height: '25', source: sourceRole, width: '100%', height: '100%',selectedIndex: 0, autoOpen: true });
 
 					   },
 
@@ -341,7 +341,11 @@ $("#messageNotification").jqxNotification({
 	width: 250, position: "top-right", opacity: 0.9,
 	autoOpen: false, animationOpenDelay: 800, autoClose: true, autoCloseDelay: 3000, template: "info"
 });
-$("#assignRegionButton").click(function(){
+$("#assignRegionButton").click(function(event){
+	event.preventDefault();
+    //do something
+    $(this).prop('disabled', true);
+		   
 	var result = new Array();
 	var rows = $("#treeGrid").jqxTreeGrid('getRows');
 	
@@ -350,6 +354,10 @@ $("#assignRegionButton").click(function(){
 	for(var i=0; i<rows.length; i++){
 		var temp = getCheckedItems(rows[i]);
 		result = result.concat(temp)
+	}
+	if(result.length ==0){
+		alert('Please select one Region at least.');
+		return;
 	}
 	console.log(result);
 	var url = "${project.projectId}?assignRegions";
@@ -368,8 +376,13 @@ $("#assignRegionButton").click(function(){
 				$("#list").jqxGrid('updatebounddata');
 				$("#treeGrid").jqxTreeGrid('updateBoundData');
 				$("#messageNotification").jqxNotification("open");
+				
 		   }
+			,complete(xhr,status){
+				$("#assignRegionButton").prop('disabled', false);
+		  }		   
 		});
+	
 	
 });
 
@@ -391,15 +404,15 @@ function getCheckedItems(obj){
 					for(var k=0; k< arrayUser.length; k++){
 						var user = new Object();
 						user.userName = arrayUser[k];
+						arrayRole = record.role.split(',');
+						if(arrayRole.length >0){
+							user.roleName = arrayRole[0];
+						}
 						users.push(user);
 					}					
 				}
 
 				regionObj.users = users;
-				
-				//arrayRole = record.role.split(',');
-				//regionObj.u = arrayRole;
-				
 				arrayRegion.push(regionObj);
 			}
 		}	

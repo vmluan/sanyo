@@ -41,12 +41,14 @@ import com.sanyo.quote.domain.Region;
 import com.sanyo.quote.domain.RegionJson;
 import com.sanyo.quote.domain.User;
 import com.sanyo.quote.domain.UserJson;
+import com.sanyo.quote.domain.UserRegionRole;
 import com.sanyo.quote.helper.Utilities;
 import com.sanyo.quote.service.CategoryService;
 import com.sanyo.quote.service.EncounterService;
 import com.sanyo.quote.service.ProductService;
 import com.sanyo.quote.service.ProjectService;
 import com.sanyo.quote.service.RegionService;
+import com.sanyo.quote.service.UserRegionRoleService;
 import com.sanyo.quote.service.UserService;
 import com.sanyo.quote.web.form.Message;
 import com.sanyo.quote.web.util.UrlUtil;
@@ -76,6 +78,9 @@ public class ProjectController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private UserRegionRoleService userRegionRoleService;
 	
 	private Validator validator;
 	
@@ -271,12 +276,16 @@ public class ProjectController {
 				region.setRegionDesc(category.getDesc());
 				region.setProject(existingProject);
 				List<UserJson> userJsons = regionJson.getUsers();
-				Set<User> users = new HashSet<User>();
+				Set<UserRegionRole> userRegionRoles = new HashSet<UserRegionRole>();
 				for(UserJson userJson : userJsons){
+					
 					User user = userService.findByUserName(userJson.getUserName());
-					users.add(user);
+					UserRegionRole userRegionRole = new UserRegionRole();
+					userRegionRole.setUser(user);
+					userRegionRole.setRoleName(userJson.getRoleName()); //get from request
+					userRegionRoles.add(userRegionRole);
 				}
-				region.setUsers(users);
+				region.setUserRegionRoles(userRegionRoles);
 				regionService.save(region);				
 			}
 		}
