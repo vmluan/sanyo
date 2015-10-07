@@ -5,5 +5,10 @@
         <put-attribute name="body"
             value="/WEB-INF/views/quotation/index.jspx" />
     </definition>
-                                      
+
+    <definition extends="default" name="quotation/boq">
+        <put-attribute name="body"
+                       value="/WEB-INF/views/quotation/boq.jspx" />
+    </definition>
+
 </tiles-definitions>
