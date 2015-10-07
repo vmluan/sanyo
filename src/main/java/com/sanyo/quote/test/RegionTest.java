@@ -17,6 +17,7 @@ import org.springframework.context.support.GenericXmlApplicationContext;
 import com.sanyo.quote.domain.Project;
 import com.sanyo.quote.domain.Region;
 import com.sanyo.quote.domain.User;
+import com.sanyo.quote.domain.UserRegionRole;
 import com.sanyo.quote.helper.Utilities;
 import com.sanyo.quote.service.CategoryService;
 import com.sanyo.quote.service.GroupService;
@@ -63,24 +64,31 @@ public class RegionTest {
 		
 		
 		Project project = projectService.findById(1);
+		
 		Set<Region> regions  = project.getRegions();
 		Iterator<Region> iterator = regions.iterator();
 		Set<Region> assginedRegions = new HashSet<Region>();
-		
-		while(iterator.hasNext()){
-			Region region = iterator.next();
-			Region regionWithUsers = regionService.findByIdAndFetchUsersEagerly(region.getRegionId());
-			if(regionWithUsers != null)
-				assginedRegions.add(regionWithUsers);
-			else{
-				regionWithUsers = regionService.findById(region.getRegionId());
-				Set<User> emptyUsers = new HashSet<User>();
-				regionWithUsers.setUsers(emptyUsers);
-				assginedRegions.add(regionWithUsers);
-			}
+//		
+//		while(iterator.hasNext()){
+//			Region region = iterator.next();
+//			System.out.println(region.getCategory().getName());
+//			Set<UserRegionRole> userRegionRoles = region.getUserRegionRoles();
+//			Iterator<UserRegionRole> iterator2 = userRegionRoles.iterator();
+//			while(iterator2.hasNext()){
+//				UserRegionRole userRegionRole = iterator2.next();
+//				System.out.println(userRegionRole.getRoleName());
+//			}
+//		}
+		Region region = regionService.findByIdAndFetchUserRegionRolesEagerly(5);
+		Set<UserRegionRole> userRegionRoles = region.getUserRegionRoles();
+		Iterator<UserRegionRole> iterator2 = userRegionRoles.iterator();
+		while(iterator2.hasNext()){
+			UserRegionRole userRegionRole = iterator2.next();
+			System.out.println(userRegionRole.getUserName());
 		}
-		String result = Utilities.jSonSerialization(assginedRegions);
-		System.out.println("============" + result);
+		
+		//we got final set of regions here. Next is to get set of userRegionRole.
+		
 		
 		
 		

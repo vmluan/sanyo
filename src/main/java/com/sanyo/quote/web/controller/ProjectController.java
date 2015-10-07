@@ -305,6 +305,8 @@ public class ProjectController {
 //		}
 //		return "projects/update";
 //	}
+	
+	//method to save assigned regions to database. it also saves assigned users.
 	@RequestMapping(value = "/{id}", params = "assignRegions", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK)
     public  void assignRegions(@RequestBody final RegionJson[] regionJsons ,@PathVariable Integer id, Model uiModel, 
@@ -314,25 +316,33 @@ public class ProjectController {
 		if(regionJsons != null && regionJsons.length >0){
 			for(int i=0; i< regionJsons.length; i++){
 				RegionJson regionJson = regionJsons[i];
-				Region region = new Region();
-				Category category = categoryService.findById(regionJson.getRegionId());
-				region.setCategory(category);
-				region.setRegionName(category.getName());
-				region.setRegionDesc(category.getDesc());
-				region.setProject(existingProject);
-				region = regionService.save(region);
 				
+				Category category = categoryService.findById(regionJson.getRegionId());
+				
+				Region region = getExistingRegion(existingProject, category.getName());
+				if(region == null){
+					region = new Region();
+					region.setCategory(category);
+					region.setRegionName(category.getName());
+					region.setRegionDesc(category.getDesc());
+					region.setProject(existingProject);
+					region = regionService.save(region);
+				}
+
 				List<UserJson> userJsons = regionJson.getUsers();
 //				Set<UserRegionRole> userRegionRoles = new HashSet<UserRegionRole>();
 				for(UserJson userJson : userJsons){
 					
-					User user = userService.findByUserName(userJson.getUserName());
-					UserRegionRole userRegionRole = new UserRegionRole();
-					userRegionRole.setUser(user);
-					userRegionRole.setRoleName(userJson.getRoleName()); //get from request
-					userRegionRole.setRegion(region);
-					userRegionRole.setUserName(user.getUsername());
-					userRegionRole = userRegionRoleService.save(userRegionRole);
+					UserRegionRole userRegionRole = getExistingUser(region,userJson.getUserName());
+					if(userRegionRole == null){
+						User user = userService.findByUserName(userJson.getUserName());
+						userRegionRole = new UserRegionRole();
+						userRegionRole.setUser(user);
+						userRegionRole.setRoleName(userJson.getRoleName()); //get from request
+						userRegionRole.setRegion(region);
+						userRegionRole.setUserName(user.getUsername());
+						userRegionRole = userRegionRoleService.save(userRegionRole);
+					}
 					
 //					userRegionRoles.add(userRegionRole);
 				}
@@ -365,6 +375,32 @@ public class ProjectController {
 			region.setUsers(users);
 			regionService.save(region);
 		}
-	}	
+	}
+	private Region getExistingRegion(Project project, String regionName){
+		boolean result = false;
+		Set<Region> regions  = project.getRegions();
+		Iterator<Region> iterator = regions.iterator();
+		if(regions != null && regions.size() >0){
+			while(iterator.hasNext()){
+				Region region = iterator.next();
+				if(regionName.equalsIgnoreCase(region.getCategory().getName())){
+					return regionService.findByIdAndFetchUserRegionRolesEagerly(region.getRegionId()); 
+				}
+			}
+		}
+		return null;
+	}
+	private UserRegionRole getExistingUser(Region region, String userName){
+		Set<UserRegionRole> userRegionRoles = region.getUserRegionRoles();
+		if(userRegionRoles != null && userRegionRoles.size() >0){
+			Iterator<UserRegionRole> iterator = userRegionRoles.iterator();
+			while(iterator.hasNext()){
+				UserRegionRole userRegionRole = iterator.next();
+				if(userRegionRole.getUserName().equalsIgnoreCase(userName))
+					return userRegionRole;
+			}
+		}
+		return null;
+	}
 }
 
