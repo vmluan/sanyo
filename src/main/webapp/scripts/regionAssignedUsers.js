@@ -1,30 +1,24 @@
 /**
  * To display jqxgrid in user list page.
  */
-var url = "getAssginedRegionsJson";
+var url = "/regions/getAssginedUsersJson";
 // prepare the data
 var source = {
 	datatype : "json",
 	datafields : [ {
-		name : 'regionId',
+		name : 'id',
 		type : 'string'
 	}, {
-		name : 'regionName',
-		type : 'string'
-	}, {
-		name : 'regionDesc',
+		name : 'roleName',
 		type : 'string'
 	}, {
 		name : 'userName',
-		map : 'userRegionRoles>0>userName'
-	}, {
-		name : 'roleName',
-		map : 'userRegionRoles>0>roleName'
+		type : 'string'
 	} ],
-	id : 'regionId',
+	id : 'id',
 	url : url,
 	data : {
-		projectId : projectId
+		regionId : regionId
 	}
 };
 var dataAdapter = new $.jqx.dataAdapter(source, {
@@ -36,11 +30,11 @@ var dataAdapter = new $.jqx.dataAdapter(source, {
 	}
 });
 // initialize jqxGrid
-$("#list")
+$("#jqxWidgetAssignedUsers")
 		.jqxGrid(
 				{
-					width : 1000,
-					height : 500,
+					width : 500,
+					height : 300,
 					theme : 'energyblue',
 					source : dataAdapter,
 					sortable : true,
@@ -60,14 +54,9 @@ $("#list")
 								text : 'Action',
 								datafield : 'regionId',
 								align : 'center',
-								width : '20%',
+								width : '18%',
 								cellsrenderer : function(row, column, value) {
-									return '<div class="col-md-6">'
-											+ '<a class="btn btn-app" onclick="updateProduct('
-											+ value
-											+ ')">'
-											+ '<i class="glyphicon glyphicon-user"></i>'
-											+ '</a>'
+									return '<div class="col-md-6" style="margin-left: -20px;">'
 											+ '<a class="btn btn-app">'
 											+ '<i class="glyphicon glyphicon-remove-circle"></i>'
 											+ '</a>' + '</div>';
@@ -83,24 +72,19 @@ $("#list")
 											+ (value + 1) + "</div>";
 								}
 							}, {
-								text : 'Name',
-								datafield : 'regionName',
-								align : 'center',
-								width : '35%'
-							}, {
 								text : 'Assign Users',
 								datafield : 'userName',
 								align : 'center',
 								cellsalign : 'left',
 								cellsformat : 'c0',
-								width : '20%'
+								width : '37%'
 							}, {
 								text : 'Role',
 								datafield : 'roleName',
 								align : 'center',
 								cellsalign : 'left',
 								cellsformat : 'c0',
-								width : '20%'
+								width : '40%'
 							} ]
 				});
 function updateProduct(id) {

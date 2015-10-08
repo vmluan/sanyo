@@ -8,7 +8,7 @@
     <jsp:output omit-xml-declaration="yes"/>
 
     <spring:message code="label_project_region_name" var="labelName" text="Name"/>
-    <spring:message code="label_project_region_user" var="labelUsers" text="Users"/>
+    <spring:message code="label_project_region_user" var="labelUsers" text="Add more users"/>
     <spring:message code="label_project_region_title" var="labelTitle" text="Assign users for " />
     
     
@@ -25,22 +25,37 @@
                 </div><!-- /.box-header -->
                 <!-- form start -->
                 <form:form modelAttribute="region" id="projectRegionForm" method="post">
-                  <div class="col-md-6">
+                  <div class="col-md-12">
+					<c:if test="${not empty message}">
+						<div id="message" class="${message.type}">${message.message}</div>
+					</c:if>					
+					<div class="form-group">
+						<form:label path="regionName">
+							Assigned Users
+						</form:label>
+						<div id='jqxWidgetAssignedUsers'><jsp:text /></div> 
+					</div>					
+				</div>				
+                  <div class="col-md-2">
 					<c:if test="${not empty message}">
 						<div id="message" class="${message.type}">${message.message}</div>
 					</c:if>					
 					<div class="form-group">
 						<form:label path="regionName">
 							${labelUsers}
-						</form:label>
+						</form:label>							
 						<div id='jqxWidget'><jsp:text /></div> 
 					</div>					
 				</div>
-				<div class="col-md-12">
-                  <div class="form-group">
-                    <button type="button" class="btn btn-primary" id="addUserBtn">Add</button>
-                  </div>					
-				</div>				
+				  <div class="col-md-2">			
+					<div class="form-group">
+						<form:label path="regionName"><jsp:text />
+						</form:label>
+					  <div class="form-group">
+						<button type="button" class="btn btn-primary" id="addUserBtn">Add</button>
+					  </div>							
+					</div>					
+				</div>					
 				<div id="messageNotification" style="z-index: 300; display: none">
 						Assign user successfully.
 						<jsp:text />
@@ -80,7 +95,12 @@
 			});		
 		//]]>
 	});
+	
+	var regionId = ${region.regionId};
 	</script>
+    <script type="text/javascript" src="/resources/scripts/regionAssignedUsers.js">
+        <jsp:text/>
+    </script>		
     <script type="text/javascript" src="/resources/scripts/projectRegionUsers.js">
         <jsp:text/>
     </script>	
