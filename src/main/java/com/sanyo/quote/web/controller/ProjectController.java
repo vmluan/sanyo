@@ -99,6 +99,7 @@ public class ProjectController extends CommonController {
 		List<Project> projects = projectService.findAll();
 		uiModel.addAttribute("projects", projects);
 		setBreadCrumb(uiModel, "/", "Home", "/projects", "Projects");
+		setHeader(uiModel, "Projects", "List of all projects");
 		
 		return "projects/list";
 	}
@@ -109,6 +110,7 @@ public class ProjectController extends CommonController {
 		Project project = projectService.findById(id);
         uiModel.addAttribute("project", project);
         setBreadCrumb(uiModel, "/projects", "Projects", "", "Project Detail");
+        setHeader(uiModel, "Project Detail", "Contains detail information including regions and assigned users");
         return "projects/update";
 	}
 	
@@ -117,6 +119,7 @@ public class ProjectController extends CommonController {
 		Project project = new Project();
         uiModel.addAttribute("project", project);
         setBreadCrumb(uiModel, "/projects", "Projects", "", "New Project");
+        setHeader(uiModel, "Create new project", "");
         return "projects/create";
 	}
 	//create new project, save to database

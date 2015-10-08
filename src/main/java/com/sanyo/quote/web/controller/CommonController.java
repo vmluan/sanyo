@@ -21,4 +21,8 @@ public class CommonController {
 		
 		uiModel.addAttribute("breadCrumb", breadCrumb);
 	}
+	public void setHeader(Model uiModel, String pageHeader, String pageDesc){
+		uiModel.addAttribute("pageHeader", pageHeader);
+		uiModel.addAttribute("pageDesc", pageDesc);
+	}
 }
