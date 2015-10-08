@@ -165,11 +165,13 @@
             <small>${pageDesc }</small>
           </h1>
           <ol class="breadcrumb">
-			<c:if test="${not empty homeLink }">
-				<li><a href="${homeLink }"><i class="fa fa-dashboard"><jsp:text/></i> Level</a></li>
+			<c:if test="${not empty breadCrumb.parentLink }">
+				<c:set var="parentLink" value="${breadCrumb.parentLink}"/>
+				<li><a href="${parentLink.linkUrl }"><i class="fa fa-dashboard"><jsp:text/></i> ${parentLink.linkName }</a></li>
 			</c:if>
-			<c:if test="${not empty currentLink }">	
-				<li class="active">Here</li>
+			<c:if test="${not empty breadCrumb.currentLink }">
+				<c:set var="link" value="${breadCrumb.currentLink}"/>
+				<li class="active">${link.linkName }</li>
 			</c:if>	
           </ol>
         </section>

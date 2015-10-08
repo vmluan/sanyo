@@ -50,12 +50,14 @@ import com.sanyo.quote.service.ProjectService;
 import com.sanyo.quote.service.RegionService;
 import com.sanyo.quote.service.UserRegionRoleService;
 import com.sanyo.quote.service.UserService;
+import com.sanyo.quote.web.form.BreadCrumb;
+import com.sanyo.quote.web.form.Link;
 import com.sanyo.quote.web.form.Message;
 import com.sanyo.quote.web.util.UrlUtil;
 
 @Controller
 @RequestMapping(value = "/projects")
-public class ProjectController {
+public class ProjectController extends CommonController {
 	final Logger logger = LoggerFactory.getLogger(ProjectController.class);
 
 	@Autowired
@@ -96,6 +98,8 @@ public class ProjectController {
 
 		List<Project> projects = projectService.findAll();
 		uiModel.addAttribute("projects", projects);
+		setBreadCrumb(uiModel, null, null, "/projects", "Projects");
+		
 		return "projects/list";
 	}
 	
@@ -104,6 +108,7 @@ public class ProjectController {
     public String updateForm(@PathVariable("id") Integer id, Model uiModel) {
 		Project project = projectService.findById(id);
         uiModel.addAttribute("project", project);
+        setBreadCrumb(uiModel, "/projects", "Projects", "", "Project Detail");
         return "projects/update";
 	}
 	
@@ -111,6 +116,7 @@ public class ProjectController {
     public String createForm(Model uiModel) {
 		Project project = new Project();
         uiModel.addAttribute("project", project);
+        setBreadCrumb(uiModel, "/projects", "Projects", "", "New Project");
         return "projects/create";
 	}
 	//create new project, save to database
@@ -268,6 +274,7 @@ public class ProjectController {
 		Project project = projectService.findById(id);
         uiModel.addAttribute("project", project);
         setCategories(uiModel);
+        setBreadCrumb(uiModel, "/projects", "Projects", "", "Project Detail");
         return "projects/update";
 	}
 	// handle screen for create new assigned regions.
@@ -356,6 +363,8 @@ public class ProjectController {
 		Region region = regionService.findById(Integer.valueOf(id));
 		uiModel.addAttribute("region", region);
 		uiModel.addAttribute("projectId", region.getProject().getProjectId());
+		String parentLink = "/projects/" + region.getProject().getProjectId() + "?form";
+		setBreadCrumb(uiModel, parentLink, "Project Detail", "", "Assign User");
 		return "projects/region/new";
 	}
 	@RequestMapping(value = "regions/{id}", params = "form", method = RequestMethod.POST)
