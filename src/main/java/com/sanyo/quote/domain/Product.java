@@ -61,90 +61,93 @@ public class Product implements Serializable {
 	@JoinTable(name="product_category", joinColumns={@JoinColumn(name="productid")}
 			, inverseJoinColumns={@JoinColumn(name="CATEGORY_ID")})
 	private List<Category> categories;
-	
-	@Column(name ="IN_PRICE")
-	private long inPrice;
-	@Column(name ="OUT_WHLSE_PRICE")
-	private long outWholeSalePrice;
-	@Column(name ="OUT_SALE_PRICE")
-	private long outSalePrice;
+
 	@Column(name ="MIN_DISC_WHSLE_PER")
-	private short minDiscountWholeSalePer;
+	private float minDiscountWholeSalePer;
 	@Column(name ="MAX_DISC_WHSLE_PER")
-	private short maxDiscountWholeSalePer;
+	private float maxDiscountWholeSalePer;
 	
 	@Column(name ="MIN_DISC_SALE_PER")
-	private short minDiscountSalePer;
+	private float minDiscountSalePer;
 	
 	@Column(name ="MAX_DISC_SALE_PER")
-	private short maxDiscountSalePer;
+	private float maxDiscountSalePer;
 	
 	@Column(name="VAT")
-	private short VAT;
+	private float VAT;
 	
 	@Column(name="LAST_MODIFIED_BY")
 	private String lastModifiedBy;
-	
-	
 
-	public long getInPrice() {
-		return inPrice;
+	/*
+		Chuong added more attributes Oct 8th 2015
+	 */
+	@Column(name="PRODUCT_CODE")
+	private String productCode; //Ma san pham
+
+	@Column(name="UNIT")
+	private String unit; // don vi
+
+	@Column(name="TAX_USD")
+	private float Mat_w_o_Tax_USD; //Mat w/o Tax USD
+
+	@Column(name="TAX_VND")
+	private float Mat_w_o_Tax_VND; //Mat w/o Tax VND
+
+	@Column(name="LABOUR")
+	private float labour; //Nhan cong tung hang muc
+
+	@Column(name="Imp_Tax")
+	private float Imp_Tax; //Imp Tax
+
+	@Column(name="Special_Con_Tax")
+	private float Special_Con_Tax; // Special con. Tax
+
+	@Column(name="Discount_rate")
+	private float Discount_rate; //Discount rate %
+
+	public float getDiscount_rate() {
+		return Discount_rate;
 	}
 
-	public void setInPrice(long inPrice) {
-		this.inPrice = inPrice;
+	public void setDiscount_rate(float discount_rate) {
+		Discount_rate = discount_rate;
 	}
 
-	public long getOutWholeSalePrice() {
-		return outWholeSalePrice;
-	}
-
-	public void setOutWholeSalePrice(long outWholeSalePrice) {
-		this.outWholeSalePrice = outWholeSalePrice;
-	}
-
-	public long getOutSalePrice() {
-		return outSalePrice;
-	}
-
-	public void setOutSalePrice(long outSalePrice) {
-		this.outSalePrice = outSalePrice;
-	}
-
-	public short getMinDiscountWholeSalePer() {
-		return minDiscountWholeSalePer;
-	}
-
-	public void setMinDiscountWholeSalePer(short minDiscountWholeSalePer) {
+	public void setMinDiscountWholeSalePer(float minDiscountWholeSalePer) {
 		this.minDiscountWholeSalePer = minDiscountWholeSalePer;
 	}
 
-	public short getMaxDiscountWholeSalePer() {
-		return maxDiscountWholeSalePer;
-	}
-
-	public void setMaxDiscountWholeSalePer(short maxDiscountWholeSalePer) {
+	public void setMaxDiscountWholeSalePer(float maxDiscountWholeSalePer) {
 		this.maxDiscountWholeSalePer = maxDiscountWholeSalePer;
 	}
 
-	public short getMinDiscountSalePer() {
-		return minDiscountSalePer;
-	}
-
-	public void setMinDiscountSalePer(short minDiscountSalePer) {
+	public void setMinDiscountSalePer(float minDiscountSalePer) {
 		this.minDiscountSalePer = minDiscountSalePer;
 	}
 
-	public short getMaxDiscountSalePer() {
-		return maxDiscountSalePer;
-	}
-
-	public void setMaxDiscountSalePer(short maxDiscountSalePer) {
+	public void setMaxDiscountSalePer(float maxDiscountSalePer) {
 		this.maxDiscountSalePer = maxDiscountSalePer;
 	}
 
-	public short getVAT() {
-		return VAT;
+	public void setVAT(float VAT) {
+		this.VAT = VAT;
+	}
+
+	public float getImp_Tax() {
+		return Imp_Tax;
+	}
+
+	public void setImp_Tax(float imp_Tax) {
+		Imp_Tax = imp_Tax;
+	}
+
+	public float getSpecial_Con_Tax() {
+		return Special_Con_Tax;
+	}
+
+	public void setSpecial_Con_Tax(float special_Con_Tax) {
+		Special_Con_Tax = special_Con_Tax;
 	}
 
 	public void setVAT(short vAT) {
@@ -258,12 +261,52 @@ public class Product implements Serializable {
 		this.productPriceWrapper = productPriceWrapper;
 	}
 
+	public String getProductCode() {
+		return productCode;
+	}
+
+	public void setProductCode(String productCode) {
+		this.productCode = productCode;
+	}
+
+	public String getUnit() {
+		return unit;
+	}
+
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
+
+	public float getMat_w_o_Tax_USD() {
+		return Mat_w_o_Tax_USD;
+	}
+
+	public void setMat_w_o_Tax_USD(float mat_w_o_Tax_USD) {
+		Mat_w_o_Tax_USD = mat_w_o_Tax_USD;
+	}
+
+	public float getMat_w_o_Tax_VND() {
+		return Mat_w_o_Tax_VND;
+	}
+
+	public void setMat_w_o_Tax_VND(float mat_w_o_Tax_VND) {
+		Mat_w_o_Tax_VND = mat_w_o_Tax_VND;
+	}
+
+	public float getLabour() {
+		return labour;
+	}
+
+	public void setLabour(float labour) {
+		this.labour = labour;
+	}
+
 	@Override
 	public String toString(){
 		return "'" + productName + "':" + "{"
 				+ "pic: " +"'" + picLocation + "'"
 				+","
-				+ "price: " + String.valueOf(this.outSalePrice)
+				+ "price: toString() function in Product has not been implemented yet "
 				+ "}";
 	}
 }
