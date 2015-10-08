@@ -33,12 +33,13 @@ import com.sanyo.quote.domain.User;
 import com.sanyo.quote.helper.ImageHelper;
 import com.sanyo.quote.helper.Utilities;
 import com.sanyo.quote.service.GroupService;
+import com.sanyo.quote.web.controller.CommonController;
 import com.sanyo.quote.web.form.Message;
 import com.sanyo.quote.web.util.UrlUtil;
 
 @RequestMapping("/admin/roles")
 @Controller
-public class RoleController {
+public class RoleController extends CommonController{
 	final Logger logger = LoggerFactory.getLogger(RoleController.class);
 	@Autowired
 	MessageSource messageSource;
@@ -58,6 +59,7 @@ public class RoleController {
 
 		List<Group> groups = groupService.findAll();
 		uiModel.addAttribute("groups", groups);
+		setBreadCrumb(uiModel, "/", "Home", "", "Users");
 		return "roles/list";
 	}
 	
@@ -66,6 +68,7 @@ public class RoleController {
     public String updateForm(@PathVariable("id") Integer id, Model uiModel) {
 		Group group = groupService.findById(id);
         uiModel.addAttribute("group", group);
+        setBreadCrumb(uiModel, "/admin/roles", "Roles", "", "Update Role");
         return "roles/update";
 	}
 	
@@ -73,6 +76,7 @@ public class RoleController {
     public String createForm(Model uiModel) {
 		Group group = new Group();
         uiModel.addAttribute("group", group);
+        setBreadCrumb(uiModel, "/admin/roles", "Roles", "", "Create Role");
         return "roles/create";
 	}
 	//create new role, save to database

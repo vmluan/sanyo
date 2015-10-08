@@ -98,7 +98,7 @@ public class ProjectController extends CommonController {
 
 		List<Project> projects = projectService.findAll();
 		uiModel.addAttribute("projects", projects);
-		setBreadCrumb(uiModel, null, null, "/projects", "Projects");
+		setBreadCrumb(uiModel, "/", "Home", "/projects", "Projects");
 		
 		return "projects/list";
 	}

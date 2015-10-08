@@ -41,13 +41,14 @@ import com.sanyo.quote.helper.ImageHelper;
 import com.sanyo.quote.helper.Utilities;
 import com.sanyo.quote.service.GroupService;
 import com.sanyo.quote.service.UserService;
+import com.sanyo.quote.web.controller.CommonController;
 import com.sanyo.quote.web.form.GenericGrid;
 import com.sanyo.quote.web.form.Message;
 import com.sanyo.quote.web.util.UrlUtil;
 
 @RequestMapping("/admin/users")
 @Controller
-public class UserController {
+public class UserController extends CommonController {
 
 	final Logger logger = LoggerFactory.getLogger(UserController.class);
 	final String UPLOAD_DIRECTORY = "/images/profile/";
@@ -76,7 +77,7 @@ public class UserController {
 		setBreadcrumbLink(uiModel, "/", "");
 		setPageHeader(uiModel, "User List", "All of users");
 		logger.info("No. of users: " + users.size());
-
+		setBreadCrumb(uiModel, "/", "Home", "", "Users");
 		return "users/list";
 	}
 
@@ -133,6 +134,7 @@ public class UserController {
     public String show(@PathVariable("id") Integer id, Model uiModel) {
         User user = userService.findById(id);
 		uiModel.addAttribute("user", user);
+		setBreadCrumb(uiModel, "/admin/users", "Users", "", "View User");
         return "users/show";
     }
 	
@@ -141,6 +143,7 @@ public class UserController {
 		User user = userService.findById(id);
         uiModel.addAttribute("user", user);
         resetGroups(user,uiModel);
+        setBreadCrumb(uiModel, "/admin/users", "Users", "", "Update User");
         return "users/update";
 	}
 	
@@ -150,6 +153,7 @@ public class UserController {
         uiModel.addAttribute("user", user);
         resetGroups(user,uiModel);
         setPageHeader(uiModel, "Create User", "");
+        setBreadCrumb(uiModel, "/admin/users", "Users", "", "Create User");
         return "users/create";
 	}
 	//update an existing user, save to database

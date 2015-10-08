@@ -32,12 +32,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.sanyo.quote.domain.Category;
 import com.sanyo.quote.helper.Utilities;
 import com.sanyo.quote.service.CategoryService;
+import com.sanyo.quote.web.controller.CommonController;
 import com.sanyo.quote.web.form.Message;
 import com.sanyo.quote.web.util.UrlUtil;
 
 @RequestMapping("/admin/categories")
 @Controller
-public class CategoryController {
+public class CategoryController extends CommonController {
 	final Logger logger = LoggerFactory.getLogger(CategoryController.class);
 	@Autowired
 	MessageSource messageSource;
@@ -57,6 +58,7 @@ public class CategoryController {
 
 		List<Category> categories = categoryService.findAll();
 		uiModel.addAttribute("categories", categories);
+		setBreadCrumb(uiModel, "/", "Home", "", "Categories");
 		return "categories/list";
 	}
 	
@@ -66,6 +68,7 @@ public class CategoryController {
 		Category category = categoryService.findById(id);
         uiModel.addAttribute("category", category);
         resetCategories(uiModel,category, categoryService.findParents());
+        setBreadCrumb(uiModel, "/admin/categories", "Categories", "", "Update Category");
         return "categories/update";
 	}
 	
@@ -74,6 +77,7 @@ public class CategoryController {
 		Category category = new Category();
         uiModel.addAttribute("category", category);
         resetCategories(uiModel,category, categoryService.findParents());
+        setBreadCrumb(uiModel, "/admin/categories", "Categories", "", "Create Category");
         return "categories/create";
 	}
 	//create new category, save to database
