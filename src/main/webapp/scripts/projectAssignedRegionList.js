@@ -39,7 +39,7 @@ var dataAdapter = new $.jqx.dataAdapter(source, {
 $("#list")
 		.jqxGrid(
 				{
-					width : 1000,
+					width : 700,
 					height : 500,
 					theme : 'energyblue',
 					source : dataAdapter,
@@ -60,10 +60,10 @@ $("#list")
 								text : 'Action',
 								datafield : 'regionId',
 								align : 'center',
-								width : '20%',
+								width : '26%',
 								cellsrenderer : function(row, column, value) {
 									return '<div class="col-md-6">'
-											+ '<a class="btn btn-app" onclick="updateProduct('
+											+ '<a class="btn btn-app" style="margin-left: -10px;" onclick="updateProduct('
 											+ value
 											+ ')">'
 											+ '<i class="glyphicon glyphicon-user"></i>'
@@ -86,21 +86,7 @@ $("#list")
 								text : 'Name',
 								datafield : 'regionName',
 								align : 'center',
-								width : '35%'
-							}, {
-								text : 'Assign Users',
-								datafield : 'userName',
-								align : 'center',
-								cellsalign : 'left',
-								cellsformat : 'c0',
-								width : '20%'
-							}, {
-								text : 'Role',
-								datafield : 'roleName',
-								align : 'center',
-								cellsalign : 'left',
-								cellsformat : 'c0',
-								width : '20%'
+								width : '69%'
 							} ]
 				});
 function updateProduct(id) {

@@ -1,5 +1,5 @@
 var url = "/admin/users/getListJson";
-//prepare the data
+// prepare the data
 var source = {
 	datatype : "json",
 	datafields : [ {
@@ -30,4 +30,21 @@ var dataAdapter = new $.jqx.dataAdapter(source, {
 	}
 });
 // Create a jqxComboBox
-$("#jqxWidget").jqxComboBox({ checkboxes: true, source: dataAdapter, displayMember: "username", valueMember: "userid", width: 200, height: 25});
+$("#jqxWidget").jqxComboBox({
+	checkboxes : true,
+	source : dataAdapter,
+	displayMember : "username",
+	valueMember : "username",
+	width : '100%',
+	height : 25
+});
+
+var sourceRole = [ "View", "Edit" ];
+$("#jqxWidgetRole").jqxDropDownList({
+	height : '25',
+	source : sourceRole,
+	width : '100%',
+	selectedIndex : 0,
+	autoOpen : true,
+	autoDropDownHeight : true
+});

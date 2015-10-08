@@ -47,6 +47,14 @@
 						<div id='jqxWidget'><jsp:text /></div> 
 					</div>					
 				</div>
+                  <div class="col-md-1">				
+					<div class="form-group">
+						<form:label path="regionName">
+							Role
+						</form:label>							
+						<div id='jqxWidgetRole'><jsp:text /></div> 
+					</div>					
+				</div>				
 				  <div class="col-md-2">			
 					<div class="form-group">
 						<form:label path="regionName"><jsp:text />
@@ -76,23 +84,31 @@
 	});
 	$("#addUserBtn").click(function(){
 		var result = new Array();
+		var selectedRole = $("#jqxWidgetRole").jqxDropDownList('getSelectedItem');
+		var roleName = selectedRole.value;
 		var rows = $("#jqxWidget").jqxComboBox('getCheckedItems');
 		//<![CDATA[
 		for(var i=0; i<rows.length; i++){
-			result.push(rows[i].value);
+			var user = new Object();
+			user.userName = rows[i].value;
+			user.roleName = roleName;
+			result.push(user);
 		}
-		console.log(result);
+		var jsonData = JSON.stringify(result);
+		console.log(jsonData);
 		
 		var url = '/projects/regions/' + ${region.regionId} + '?form';
 		$.ajax({
 			   type: "POST",
-			   data: {param:result},
+			   contentType : 'application/json',
+			   data: jsonData,
 			   url: url,
 			   success: function(msg){
 					$("#messageNotification").jqxNotification("open");
-					window.location.href='/projects/'+ ${projectId} + '?form';
+					$("#jqxWidgetAssignedUsers").jqxGrid('updatebounddata');
 			   }
-			});		
+			});
+			
 		//]]>
 	});
 	

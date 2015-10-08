@@ -360,20 +360,26 @@ public class ProjectController {
 	}
 	@RequestMapping(value = "regions/{id}", params = "form", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK)
-	public void saveUsersForRegion(@PathVariable("id") Integer id, Model uiModel
-			,@RequestParam(value = "param[]") String[] paramValues
+	public void saveUsersForRegion(@RequestBody final UserJson[] userJsons ,@PathVariable("id") Integer id, Model uiModel
 			,HttpServletRequest httpServletRequest){
-		System.out.println("start assigning users to region");
-		Region region = regionService.findById(Integer.valueOf(id));
 		
-		if(paramValues != null){
-			Set<User> users = new HashSet<User>();
-			for(int i=0 ; i<paramValues.length; i++){
-				User user = userService.findById(Integer.valueOf(paramValues[i]));
-				users.add(user);
+		Region region = regionService.findById(Integer.valueOf(id));
+		System.out.println("start assigning users to region " + region.getRegionName());
+		
+		if(userJsons != null && userJsons.length >0){
+			for(int i=0; i< userJsons.length; i++){
+				UserJson userJson = userJsons[i];
+				UserRegionRole userRegionRole = getExistingUser(region,userJson.getUserName());
+				if(userRegionRole == null){
+					userRegionRole = new UserRegionRole();
+					userRegionRole.setRegion(region);
+					userRegionRole.setUserName(userJson.getUserName());
+					userRegionRole.setRoleName(userJson.getRoleName());
+					User user = userService.findByUserName(userJson.getUserName());
+					userRegionRole.setUser(user);
+					userRegionRoleService.save(userRegionRole);
+				}
 			}
-			region.setUsers(users);
-			regionService.save(region);
 		}
 	}
 	private Region getExistingRegion(Project project, String regionName){
