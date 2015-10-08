@@ -287,6 +287,7 @@ public class ProjectController extends CommonController {
 		Project project = projectService.findById(id);
         uiModel.addAttribute("project", project);
         setCategories(uiModel);
+        setBreadCrumb(uiModel, "/projects", "Projects", "", "Project Detail");
         return "projects/update";
 	}
 	

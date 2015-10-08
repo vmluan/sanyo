@@ -33,10 +33,12 @@
                 </div><!-- /.box-header -->
                 <!-- form start -->
                 <form:form modelAttribute="project" id="projectUpdateForm" method="post">
-                  <div class="col-md-6">
+                  <div class="col-md-12">
 					<c:if test="${not empty message}">
 						<div id="message" class="${message.type}">${message.message}</div>
-					</c:if>					
+					</c:if>	                  
+                  </div>
+                  <div class="col-md-6">
 					<div class="form-group">
 						<form:label path="projectCode">
 							${labelProjectCode}* 
@@ -59,9 +61,6 @@
 					</div>					
 				</div>
                   <div class="col-md-6">
-					<c:if test="${not empty message}">
-						<div id="message" class="${message.type}">${message.message}</div>
-					</c:if>					
 					<div class="form-group">
 						<form:label path="customerName">
 							${labelProjectClient}
@@ -127,6 +126,7 @@
 						<form:errors path="discountRate" cssClass="error" />
 					</div>					
 				</div>
+				<div class="col-md-6">
 					<div class="form-group">
 						<form:label path="allowance">
 							Allowance
