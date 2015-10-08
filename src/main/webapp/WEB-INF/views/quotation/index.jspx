@@ -3,7 +3,7 @@
 <![CDATA[
 <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs pull-right">
-                  <li class=""><a href="#tab_1-1" my-data="http://localhost:8082/boq" data-toggle="tab" aria-expanded="false">M&E Expenses</a></li>
+                  <li class=""><a href="/boq" data-target="#tab_1-1" data-toggle="tab" aria-expanded="false">M&E Expenses</a></li>
                   <li class="active"><a href="#tab_2-2" data-toggle="tab" aria-expanded="true">Summary</a></li>
                   <li class=""><a href="#tab_3-2" data-toggle="tab" aria-expanded="false">Electrical BOQ</a></li>
 				  <li class=""><a href="#tab_3-2" data-toggle="tab" aria-expanded="false">Electrical Maker</a></li>
@@ -46,18 +46,22 @@
                 </div><!-- /.tab-content -->
               </div>
 
-              <script type="javascript/text">
-              $('[data-toggle="tab"]').click(function(e) {
-    e.preventDefault();
-    var loadurl = $(this).attr('my-data');
-    var targ = $(this).attr('href');
-    $.get(loadurl, function(data) {
-        $(targ).html(data);
-    });
-    $(this).tab('show');
-});
-              </scirpt>
+              <script>
+                  $('[data-toggle="tab"]').click(function(e) {
+                    var $this = $(this),
+                        loadurl = $this.attr('href'),
+                        targ = $this.attr('data-target');
+
+                    $.get(loadurl, function(data) {
+                        $(targ).html(data);
+                    });
+
+                    $this.tab('show');
+                    return false;
+                   });
+              </script>
+
 ]]>
-    
+
 </section><!-- /.content -->
 
