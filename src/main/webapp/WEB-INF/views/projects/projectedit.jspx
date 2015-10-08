@@ -72,6 +72,71 @@
 						<form:errors path="customerName" cssClass="error" />
 					</div>					
 				</div>
+                  <div class="col-md-6">
+					<div class="form-group">
+						<form:label path="duration">
+							${labelProjectDuration}
+						</form:label>
+						<form:input path="duration" class="form-control"/> 
+					</div>
+					<div>
+						<form:errors path="duration" cssClass="error" />
+					</div>					
+				</div>
+                  <div class="col-md-6">
+					<div class="form-group">
+						<form:label path="impTax">
+							Import Tax
+						</form:label>
+						<form:input path="impTax" class="form-control"/> 
+					</div>
+					<div>
+						<form:errors path="impTax" cssClass="error" />
+					</div>					
+				</div>				
+                  <div class="col-md-6">
+					<div class="form-group">
+						<form:label path="specialTax">
+							Special Tax
+						</form:label>
+						<form:input path="specialTax" class="form-control"/> 
+					</div>
+					<div>
+						<form:errors path="specialTax" cssClass="error" />
+					</div>					
+				</div>
+                  <div class="col-md-6">
+					<div class="form-group">
+						<form:label path="VAT">
+							VAT
+						</form:label>
+						<form:input path="VAT" class="form-control"/> 
+					</div>
+					<div>
+						<form:errors path="VAT" cssClass="error" />
+					</div>					
+				</div>
+                  <div class="col-md-6">
+					<div class="form-group">
+						<form:label path="discountRate">
+							Discount Rate
+						</form:label>
+						<form:input path="discountRate" class="form-control"/> 
+					</div>
+					<div>
+						<form:errors path="discountRate" cssClass="error" />
+					</div>					
+				</div>
+					<div class="form-group">
+						<form:label path="allowance">
+							Allowance
+						</form:label>
+						<form:input path="allowance" class="form-control"/> 
+					</div>
+					<div>
+						<form:errors path="allowance" cssClass="error" />
+					</div>					
+				</div>																
 				<div class="col-md-6">
 					<div class="form-group">
 						<form:label path="description">

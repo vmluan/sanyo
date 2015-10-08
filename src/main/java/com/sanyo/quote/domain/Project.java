@@ -44,6 +44,23 @@ public class Project implements java.io.Serializable {
 	private String description;
 	private String lastModifiedBy;
 	
+	private String duration;
+	private String revisionNo;
+	private String quoteStartDate;
+	private String quoteEndDate;
+	private String consStartDate;
+	private String consEndDate;
+	private String consDuration;
+	private String exVnd;
+	private String exJpy;
+	private String exUsd;
+	
+	private String impTax;
+	private String specialTax;
+	private String VAT;
+	private String discountRate;
+	private String allowance;
+	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "PROJECT_ID", unique = true, nullable = false)
@@ -164,6 +181,126 @@ public class Project implements java.io.Serializable {
 
 	public void setLastModifiedBy(String lastModifiedBy) {
 		this.lastModifiedBy = lastModifiedBy;
+	}
+
+	public String getDuration() {
+		return duration;
+	}
+
+	public void setDuration(String duration) {
+		this.duration = duration;
+	}
+
+	public String getRevisionNo() {
+		return revisionNo;
+	}
+
+	public void setRevisionNo(String revisionNo) {
+		this.revisionNo = revisionNo;
+	}
+
+	public String getQuoteStartDate() {
+		return quoteStartDate;
+	}
+
+	public void setQuoteStartDate(String quoteStartDate) {
+		this.quoteStartDate = quoteStartDate;
+	}
+
+	public String getQuoteEndDate() {
+		return quoteEndDate;
+	}
+
+	public void setQuoteEndDate(String quoteEndDate) {
+		this.quoteEndDate = quoteEndDate;
+	}
+
+	public String getConsStartDate() {
+		return consStartDate;
+	}
+
+	public void setConsStartDate(String consStartDate) {
+		this.consStartDate = consStartDate;
+	}
+
+	public String getConsEndDate() {
+		return consEndDate;
+	}
+
+	public void setConsEndDate(String consEndDate) {
+		this.consEndDate = consEndDate;
+	}
+
+	public String getConsDuration() {
+		return consDuration;
+	}
+
+	public void setConsDuration(String consDuration) {
+		this.consDuration = consDuration;
+	}
+
+	public String getExVnd() {
+		return exVnd;
+	}
+
+	public void setExVnd(String exVnd) {
+		this.exVnd = exVnd;
+	}
+
+	public String getExJpy() {
+		return exJpy;
+	}
+
+	public void setExJpy(String exJpy) {
+		this.exJpy = exJpy;
+	}
+
+	public String getExUsd() {
+		return exUsd;
+	}
+
+	public void setExUsd(String exUsd) {
+		this.exUsd = exUsd;
+	}
+
+	public String getImpTax() {
+		return impTax;
+	}
+
+	public void setImpTax(String impTax) {
+		this.impTax = impTax;
+	}
+
+	public String getSpecialTax() {
+		return specialTax;
+	}
+
+	public void setSpecialTax(String specialTax) {
+		this.specialTax = specialTax;
+	}
+
+	public String getVAT() {
+		return VAT;
+	}
+
+	public void setVAT(String vAT) {
+		VAT = vAT;
+	}
+
+	public String getDiscountRate() {
+		return discountRate;
+	}
+
+	public void setDiscountRate(String discountRate) {
+		this.discountRate = discountRate;
+	}
+
+	public String getAllowance() {
+		return allowance;
+	}
+
+	public void setAllowance(String allowance) {
+		this.allowance = allowance;
 	}
 	
 }
