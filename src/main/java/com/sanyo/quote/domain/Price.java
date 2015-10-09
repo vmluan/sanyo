@@ -1,6 +1,9 @@
 package com.sanyo.quote.domain;
 
 import javax.persistence.*;
+
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import java.util.Date;
 
 /**
@@ -14,8 +17,9 @@ public class Price {
     @Column(name = "PRICE_ID", nullable = false)
     private int priceId;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "PRODUCT_ID", nullable = false)
+	@JsonIgnore
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "PRODUCT_ID", nullable = false)
     private Product product;
 
     @Column(name = "ISSUED_DATE", nullable = false)

@@ -3,6 +3,7 @@ package com.sanyo.quote.domain;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,9 +15,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.web.multipart.MultipartFile;
 @Entity
 @Table(name = "product", catalog = "sanyo")
@@ -105,6 +108,10 @@ public class Product implements Serializable {
 
 	@Column(name="Discount_rate")
 	private float Discount_rate; //Discount rate %
+	
+	@JsonIgnore
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="product")
+	private Set<Price> prices;
 
 	public float getDiscount_rate() {
 		return Discount_rate;
@@ -299,6 +306,36 @@ public class Product implements Serializable {
 
 	public void setLabour(float labour) {
 		this.labour = labour;
+	}
+	
+
+	public float getMinDiscountWholeSalePer() {
+		return minDiscountWholeSalePer;
+	}
+
+	public float getMaxDiscountWholeSalePer() {
+		return maxDiscountWholeSalePer;
+	}
+
+	public float getMinDiscountSalePer() {
+		return minDiscountSalePer;
+	}
+
+	public float getMaxDiscountSalePer() {
+		return maxDiscountSalePer;
+	}
+
+	public float getVAT() {
+		return VAT;
+	}
+	
+
+	public Set<Price> getPrices() {
+		return prices;
+	}
+
+	public void setPrices(Set<Price> prices) {
+		this.prices = prices;
 	}
 
 	@Override
