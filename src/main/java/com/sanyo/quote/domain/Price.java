@@ -8,7 +8,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "price", catalog = "sanyo")
-class Price {
+public class Price {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "PRICE_ID", nullable = false)
