@@ -37,6 +37,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sanyo.quote.domain.Category;
 import com.sanyo.quote.domain.Project;
+import com.sanyo.quote.domain.ProjectRevision;
 import com.sanyo.quote.domain.Region;
 import com.sanyo.quote.domain.RegionJson;
 import com.sanyo.quote.domain.User;
@@ -46,6 +47,7 @@ import com.sanyo.quote.helper.Utilities;
 import com.sanyo.quote.service.CategoryService;
 import com.sanyo.quote.service.EncounterService;
 import com.sanyo.quote.service.ProductService;
+import com.sanyo.quote.service.ProjectRevisionService;
 import com.sanyo.quote.service.ProjectService;
 import com.sanyo.quote.service.RegionService;
 import com.sanyo.quote.service.UserRegionRoleService;
@@ -83,6 +85,9 @@ public class ProjectController extends CommonController {
 	
 	@Autowired
 	private UserRegionRoleService userRegionRoleService;
+	
+	@Autowired
+	private ProjectRevisionService projectRevisionService;
 	
 	private Validator validator;
 	
@@ -421,5 +426,81 @@ public class ProjectController extends CommonController {
 		}
 		return null;
 	}
+	//method to show form for creating new revision
+	@RequestMapping(value = "/{id}/revisions", params = "form", method = RequestMethod.GET)
+    public String callCreateProjectRevisions(@PathVariable("id") Integer id, Model uiModel) {
+		ProjectRevision projectRevision = new ProjectRevision();
+		Project project = projectService.findById(id);
+		projectRevision.setProject(project);
+        uiModel.addAttribute("projectRevision", projectRevision);
+        setBreadCrumb(uiModel, "/projects", "Projects", "", "Create Revision");
+        setHeader(uiModel, "Revision", "Create a new revision");
+		return "projects/revisions/create";
+		
+	}
+	//method to save form revision to database.
+	@RequestMapping(value = "/{id}/revisions", params = "form", method = RequestMethod.POST)
+	public String saveProjectRevisions(@ModelAttribute("projectRevision") ProjectRevision projectRevision, @PathVariable Integer id, Model uiModel, 
+    		HttpServletRequest httpServletRequest, RedirectAttributes redirectAttributes, Locale locale, BindingResult bindingResult){
+		logger.info("Saving Revision");
+        if (bindingResult.hasErrors()) {
+			uiModel.addAttribute("message", new Message("error", messageSource.getMessage("revision_save_fail", new Object[]{}, locale)));
+            uiModel.addAttribute("projectRevision", projectRevision);
+            return "projects/revisions/create";
+        }
+		Project project = projectService.findById(id);
+		projectRevision.setProject(project);
+		projectRevision = projectRevisionService.save(projectRevision);
+		uiModel.asMap().clear();
+		setBreadCrumb(uiModel, "/projects/" + id + "?form", "Update Project", "", "Update Revision");
+		setHeader(uiModel, "Revision", "Detail of revision");
+		redirectAttributes.addFlashAttribute("message", new Message("success", messageSource.getMessage("revision_save_success", new Object[]{}, locale)));
+		return "redirect:/projects/revisions/" + UrlUtil.encodeUrlPathSegment(projectRevision.getRevisionId().toString(), httpServletRequest) + "?form";
+//		return "projects/revisions/update";
+	}
+	@RequestMapping(value = "/revisions/{id}", params = "form", method = RequestMethod.GET)
+	public String  callEditProjectRevisions(@PathVariable("id") Integer id, Model uiModel, HttpServletRequest httpServletRequest){
+		ProjectRevision projectRevision = projectRevisionService.findById(id);
+        uiModel.addAttribute("projectRevision", projectRevision);
+        setBreadCrumb(uiModel, "/projects/" + projectRevision.getProject().getProjectId() + "?form", "Update Project", "", "Update Revision");
+        setHeader(uiModel, "Revision", "Update revision");
+		return "projects/revisions/update";
+	}
+	@RequestMapping(value = "/revisions/{id}", params = "form", method = RequestMethod.POST)
+	public String  saveEditProjectRevisions(@ModelAttribute("projectRevision") ProjectRevision projectRevision, @PathVariable Integer id
+			, Model uiModel, HttpServletRequest httpServletRequest,RedirectAttributes redirectAttributes
+			,Locale locale, BindingResult bindingResult){
+		if (bindingResult.hasErrors()) {
+			uiModel.addAttribute("message", new Message("error", messageSource.getMessage("revision_save_fail", new Object[]{}, locale)));
+            uiModel.addAttribute("projectRevision", projectRevision);
+            return "projects/revisions/update";
+	        }  
+		ProjectRevision exisingRevision = projectRevisionService.findById(id);
+		projectRevision.setRevisionId(id);
+		projectRevision.setProject(exisingRevision.getProject());
+		projectRevision = projectRevisionService.save(projectRevision);
+        uiModel.addAttribute("projectRevision", projectRevision);
+        setBreadCrumb(uiModel, "/projects/" + projectRevision.getProject().getProjectId() + "?form", "Update Project", "", "Update Revision");
+        setHeader(uiModel, "Revision", "Update revision");
+        uiModel.addAttribute("message", new Message("success", messageSource.getMessage("revision_save_success", new Object[]{}, locale)));
+		return "projects/revisions/update";
+	}
+	
+	@RequestMapping(value = "/getRevisionsJson", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public String getRevisionJson(@RequestParam(value="projectId", required=true) String projectId,
+			@RequestParam(value="filterscount", required=false) String filterscount
+			, @RequestParam(value="groupscount", required=false) String groupscount
+			, @RequestParam(value="pagenum", required=false) Integer pagenum
+			, @RequestParam(value="pagesize", required=false) Integer pagesize
+			, @RequestParam(value="recordstartindex", required=false) Integer recordstartindex
+			, @RequestParam(value="recordendindex", required=false) Integer recordendindex
+			, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
+		Project project = projectService.findById(Integer.valueOf(projectId));
+		Set<ProjectRevision> projectRevisions = project.getRevisions();
+		String result = Utilities.jSonSerialization(projectRevisions);
+		return result;
+	}
+	
 }
 

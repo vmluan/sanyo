@@ -46,8 +46,6 @@ public class Project implements java.io.Serializable {
 	
 	private String duration;
 	private String revisionNo;
-	private String quoteStartDate;
-	private String quoteEndDate;
 	private String consStartDate;
 	private String consEndDate;
 	private String consDuration;
@@ -60,6 +58,15 @@ public class Project implements java.io.Serializable {
 	private String VAT;
 	private String discountRate;
 	private String allowance;
+	
+	private String vndToUsd;
+	private String usdToVnd;
+	private String jpyToVnd;
+	private String vndToJpy;
+	private String usdToJpy;
+	private String jpyToUsd;
+	
+	private Set<ProjectRevision> revisions;
 	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -199,22 +206,6 @@ public class Project implements java.io.Serializable {
 		this.revisionNo = revisionNo;
 	}
 
-	public String getQuoteStartDate() {
-		return quoteStartDate;
-	}
-
-	public void setQuoteStartDate(String quoteStartDate) {
-		this.quoteStartDate = quoteStartDate;
-	}
-
-	public String getQuoteEndDate() {
-		return quoteEndDate;
-	}
-
-	public void setQuoteEndDate(String quoteEndDate) {
-		this.quoteEndDate = quoteEndDate;
-	}
-
 	public String getConsStartDate() {
 		return consStartDate;
 	}
@@ -302,5 +293,64 @@ public class Project implements java.io.Serializable {
 	public void setAllowance(String allowance) {
 		this.allowance = allowance;
 	}
+
+	@JsonIgnore
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="project")
+	public Set<ProjectRevision> getRevisions() {
+		return revisions;
+	}
+
+	public void setRevisions(Set<ProjectRevision> revisions) {
+		this.revisions = revisions;
+	}
+
+	public String getVndToUsd() {
+		return vndToUsd;
+	}
+
+	public void setVndToUsd(String vndToUsd) {
+		this.vndToUsd = vndToUsd;
+	}
+
+	public String getUsdToVnd() {
+		return usdToVnd;
+	}
+
+	public void setUsdToVnd(String usdToVnd) {
+		this.usdToVnd = usdToVnd;
+	}
+
+	public String getJpyToVnd() {
+		return jpyToVnd;
+	}
+
+	public void setJpyToVnd(String jpyToVnd) {
+		this.jpyToVnd = jpyToVnd;
+	}
+
+	public String getVndToJpy() {
+		return vndToJpy;
+	}
+
+	public void setVndToJpy(String vndToJpy) {
+		this.vndToJpy = vndToJpy;
+	}
+
+	public String getUsdToJpy() {
+		return usdToJpy;
+	}
+
+	public void setUsdToJpy(String usdToJpy) {
+		this.usdToJpy = usdToJpy;
+	}
+
+	public String getJpyToUsd() {
+		return jpyToUsd;
+	}
+
+	public void setJpyToUsd(String jpyToUsd) {
+		this.jpyToUsd = jpyToUsd;
+	}
+	
 	
 }

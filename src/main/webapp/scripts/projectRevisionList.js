@@ -1,27 +1,24 @@
 /**
  * To display jqxgrid in user list page.
  */
-var url = "getAssginedRegionsJson";
+var url = "/projects/getRevisionsJson";
 // prepare the data
 var source = {
 	datatype : "json",
 	datafields : [ {
-		name : 'regionId',
+		name : 'revisionId',
 		type : 'string'
 	}, {
-		name : 'regionName',
+		name : 'date',
 		type : 'string'
 	}, {
-		name : 'regionDesc',
+		name : 'revisionNo',
 		type : 'string'
-	}, {
-		name : 'userName',
-		map : 'userRegionRoles>0>userName'
-	}, {
-		name : 'roleName',
-		map : 'userRegionRoles>0>roleName'
-	} ],
-	id : 'regionId',
+	} , {
+		name : 'revisionDesc',
+		type : 'string'
+	}],
+	id : 'revisionId',
 	url : url,
 	data : {
 		projectId : projectId
@@ -36,11 +33,11 @@ var dataAdapter = new $.jqx.dataAdapter(source, {
 	}
 });
 // initialize jqxGrid
-$("#list")
+$("#listRevision")
 		.jqxGrid(
 				{
 					width : '100%',
-					height : 500,
+					height : 300,
 					theme : 'energyblue',
 					source : dataAdapter,
 					sortable : true,
@@ -58,15 +55,15 @@ $("#list")
 					columns : [
 							{
 								text : 'Action',
-								datafield : 'regionId',
+								datafield : 'revisionId',
 								align : 'center',
-								width : '26%',
+								width : '25%',
 								cellsrenderer : function(row, column, value) {
 									return '<div class="col-md-6">'
-											+ '<a class="btn btn-app" style="margin-left: -10px;" onclick="updateProduct('
+											+ '<a class="btn btn-app" style="margin-left: -10px;" onclick="updateItem('
 											+ value
 											+ ')">'
-											+ '<i class="glyphicon glyphicon-user"></i>'
+											+ '<i class="glyphicon glyphicon-edit"></i>'
 											+ '</a>'
 											+ '<a class="btn btn-app">'
 											+ '<i class="glyphicon glyphicon-remove-circle"></i>'
@@ -83,12 +80,28 @@ $("#list")
 											+ (value + 1) + "</div>";
 								}
 							}, {
-								text : 'Name',
-								datafield : 'regionName',
+								text : 'Revision No',
+								datafield : 'revisionNo',
 								align : 'center',
-								width : '69%'
+								cellsalign : 'left',
+								cellsformat : 'c0',
+								width : '25%'
+							}, {
+								text : 'Date',
+								datafield : 'date',
+								align : 'center',
+								cellsalign : 'left',
+								cellsformat : 'c0',
+								width : '20%'
+							},{
+								text : 'Description',
+								datafield : 'revisionDesc',
+								align : 'center',
+								cellsalign : 'left',
+								cellsformat : 'c0',
+								width : '25%'
 							} ]
 				});
 function updateProduct(id) {
-	window.location.href = '/projects/regions/' + id + '?form';
+	window.location.href = '/projects/revisions/' + id + '?form';
 }
