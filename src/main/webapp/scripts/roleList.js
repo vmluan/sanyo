@@ -55,6 +55,8 @@ $("#list")
 					columnsreorder : true,
 					columnsresize : true,
 					rowsheight : 45,
+					showpinnedcolumnbackground : false,
+					altrows : true,
 					autorowheight : true,
 					columns : [
 							{

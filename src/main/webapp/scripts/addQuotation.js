@@ -1,7 +1,7 @@
 /**
  * To display jqxgrid in user list page.
  */
-var url = "users/getListJson";
+var url = "/users/getListJson";
 // prepare the data
 var source = {
 	datatype : "json",
@@ -22,7 +22,27 @@ var source = {
 		type : 'string'
 	} ],
 	id : 'userid',
-	url : url
+	url : url,
+	addrow: function (rowid, rowdata, position, commit) {
+		// synchronize with the server - send insert command
+		// call commit with parameter true if the synchronization with the server is successful 
+		//and with parameter false if the synchronization failed.
+		// you can pass additional argument to the commit callback which represents the new ID if it is generated from a DB.
+		alert('adding row');
+	   commit(true);
+	},
+	deleterow: function (rowid, commit) {
+		// synchronize with the server - send delete command
+		// call commit with parameter true if the synchronization with the server is successful 
+		//and with parameter false if the synchronization failed.
+		commit(true);
+	},
+	updaterow: function (rowid, newdata, commit) {
+		// synchronize with the server - send update command
+		// call commit with parameter true if the synchronization with the server is successful 
+		// and with parameter false if the synchronization failed.
+		commit(true);
+	}	
 };
 var cellsrenderer = function(row, columnfield, value, defaulthtml,
 		columnproperties, rowdata) {
@@ -63,8 +83,9 @@ $("#list")
 					// filterable : true,
 					columnsresize : true,
 					rowsheight : 45,
-					showpinnedcolumnbackground : false,
-					altrows : true,					
+					showeverpresentrow: true,
+					everpresentrowposition: "bottom",
+					everpresentrowactions: "add delete",					
 					// autorowheight: true,
 					columns : [
 							{
