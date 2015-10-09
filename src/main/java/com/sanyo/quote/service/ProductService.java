@@ -18,6 +18,8 @@ public interface ProductService {
 	Page<Product> findAllByPage(Pageable pageable);
 	
 	Product findByName(String productName);
+
+	Product findByCode (String productCode);
 	
 	void delete(Integer id);
 	void delte(Product product);

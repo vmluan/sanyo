@@ -113,6 +113,8 @@ public class Product implements Serializable {
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="product")
 	private Set<Price> prices;
 
+
+
 	public float getDiscount_rate() {
 		return Discount_rate;
 	}

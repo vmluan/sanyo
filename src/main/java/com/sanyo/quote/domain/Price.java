@@ -37,6 +37,9 @@ public class Price {
     @Column(name ="OUT_SALE_PRICE")
     private long outSalePrice;
 
+    @Column(name ="PRICE_TYPE")
+    private PriceType priceType;
+
     public int getPriceId() {
         return priceId;
     }

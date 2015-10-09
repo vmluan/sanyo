@@ -49,6 +49,9 @@ public class DefaultProductService implements ProductService {
 	}
 
 	@Override
+	public Product findByCode(String productCode) {return productRepository.findProductByCode(productCode);}
+
+	@Override
 	public void delete(Integer id) {
 		productRepository.delete(id);
 		

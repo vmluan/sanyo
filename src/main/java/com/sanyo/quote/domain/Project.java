@@ -58,6 +58,7 @@ public class Project implements java.io.Serializable {
 	private String VAT;
 	private String discountRate;
 	private String allowance;
+	private float Subcon_Profit; //mặc định 105%, lấy từ bản thông số chung của dự án
 	
 	private String vndToUsd;
 	private String usdToVnd;
@@ -292,6 +293,14 @@ public class Project implements java.io.Serializable {
 
 	public void setAllowance(String allowance) {
 		this.allowance = allowance;
+	}
+
+	public float getSubcon_Profit() {
+		return Subcon_Profit;
+	}
+
+	public void setSubcon_Profit(float subcon_Profit) {
+		Subcon_Profit = subcon_Profit;
 	}
 
 	@JsonIgnore

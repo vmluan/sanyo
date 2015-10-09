@@ -17,4 +17,6 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, I
 	@Query("select c from Product c where c.isDeleted = false")
 	List<Product> findValidProduct();
 
+	@Query("select c from Product c where c.productCode = :productCode")
+	Product findProductByCode(@Param("productCode") String productCode);
 }
