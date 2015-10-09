@@ -15,7 +15,7 @@ import com.sanyo.quote.domain.ProjectRevision;
 import com.sanyo.quote.repository.ProjectRevisionRepository;
 import com.sanyo.quote.service.ProjectRevisionService;
 
-@Service("categoryService")
+@Service("projectRevisionService")
 @Repository
 @Transactional
 public class DefaultProjectRevisionService implements ProjectRevisionService {
