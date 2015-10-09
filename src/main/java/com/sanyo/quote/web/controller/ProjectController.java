@@ -167,9 +167,11 @@ public class ProjectController extends CommonController {
 	        }    
         uiModel.asMap().clear();
         project.setProjectId(id);
-        redirectAttributes.addFlashAttribute("message", new Message("success", messageSource.getMessage("project_save_success", new Object[]{}, locale)));        
+        uiModel.addAttribute("message", new Message("success", messageSource.getMessage("project_save_success", new Object[]{}, locale)));        
         uiModel.addAttribute("project", project);
         projectService.save(project);
+        setBreadCrumb(uiModel, "/projects", "Projects", "", "Project Detail");
+        setHeader(uiModel, "Project Detail", "Contains detail information including regions and assigned users");
         return "projects/update";
     }
 	
