@@ -62,6 +62,9 @@ public class Expenses implements Serializable {
     @Column(name="single_String_field")
     private String sing_String_field;//for single String field only
 
+    @Column(name="Expense_Type")
+    private ExpensesType expenseType;//to recognize expenseType
+
 
     public Integer getExpenseID() {
         return expenseID;
