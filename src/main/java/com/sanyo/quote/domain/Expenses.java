@@ -59,7 +59,7 @@ public class Expenses implements Serializable {
 
     @Column(name="single_float_field")
     private float single_float_field;//for single number field only
-    @Column(name="sing_String_field")
+    @Column(name="single_String_field")
     private String sing_String_field;//for single String field only
 
 
