@@ -38,7 +38,7 @@ public class Encounter implements Serializable{
 
 	@Column(name="AMOUNT")
 	private float amount; // = actualQuantity * unitRate. Don vi tinh theo USD
-	//là tổng tiền productPrice trong class Encounter version trước đây
+	
 
 	@Column(name="REMARK")
 	private String remark;

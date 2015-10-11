@@ -48,3 +48,6 @@ http://blog.eyallupu.com/2010/06/hibernate-exception-simultaneously.html
 
 source for form tag
 http://docs.spring.io/spring-framework/docs/2.5.6/api/org/springframework/web/servlet/tags/form/RadioButtonsTag.html
+
+
+https://www.jqwidgets.com/jquery-widgets-demo/demos/jqxgrid/index.htm?(arctic)#demos/jqxgrid/everpresentrowcustomwidgets.htm
