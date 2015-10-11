@@ -17,81 +17,31 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "encounter", catalog = "sanyo")
 public class Encounter implements Serializable{
-
-	@Column(name="ENCOUNTER_ID")
 	private Integer encounterID;
-
-	@Column(name="PRODUCT")
 	private Product product; //"Description", "productCode", "Unit" will be showed on the UI from
-
-	@Column(name="ORDER")
 	private int order; //No. STT dung de sap xep cac hang muc
-
-	@Column(name="UNIT_RATE")
 	private float unitRate; //Gia mac dinh lay theo USD
-
-	@Column(name="QUANTITY")
 	private float quantity; //So luong, khoi luong
-
-	@Column(name="ACTUAL_QUANTITY")
 	private float actualQuantity; //So luong, khoi luong thuc te = quantity * hao hut % ben sheet Summary (mac dinh)
-
-	@Column(name="AMOUNT")
 	private float amount; // = actualQuantity * unitRate. Don vi tinh theo USD
-	
-
-	@Column(name="REMARK")
 	private String remark;
-
-	@Column(name="TAX_USD")
 	private float Mat_w_o_Tax_USD; //Mat w/o Tax USD
-
-	@Column(name="TAX_VND")
 	private float Mat_w_o_Tax_VND; //Mat w/o Tax VND
-
-	@Column(name="LABOUR")
 	private float labour; //lấy giá trị trong database phần nhân công từng hạng mục.
 	//Theo thiết kế thì lấy từ bảng price với PriceType là LABOUR
-
-	@Column(name="Imp_Tax")
 	private float Imp_Tax; //Imp Tax. mặc định ="0%", lấy từ bản thông số chung của dự án
-
-	@Column(name="Special_Con_Tax")
 	private float Special_Con_Tax; // Special con. Tax. mặc định ="0%", lấy từ bản thông số chung của dự án
-
-	@Column(name="Discount_rate")
 	private float Discount_rate; //Discount rate %. mặc định ="100%", lấy từ bản thông số chung của dự án
-
-	@Column(name="ENCOUNTER_TIME")
 	private Date encounterTime;
-
-	@Column(name="VAT")
 	private short VAT; // mặc định ="0%", lấy từ bản thông số chung của dự án
-
-	@Column(name="Unit_Price_After_Discount")
 	private float Unit_Price_After_Discount; // = Mat_w_o_Tax_USD + (Mat_w_o_Tax_VND/Ti_gia_VND_to_USD)
-
-	@Column(name="ALLOWANCE")
 	private float allowance; //mặc định 105%, lấy từ bản thông số chung của dự án
-
-	@Column(name="Unit_Price_W_Tax_Profit")
 	private float Unit_Price_W_Tax_Profit; //Unit_Price_After_Discount * (1+(1+Special_Con_Tax*(1+Imp_Tax))*VAT)*Discount_rate
-
-	@Column(name="Subcon_Profit")
 	private float Subcon_Profit; //mặc định 105%, lấy từ bản thông số chung của dự án
-
-	@Column(name="Unit_Price_W_Tax_Labour")
 	private float Unit_Price_W_Tax_Labour; //=labour*Subcon_Profit
-
-	@Column(name="Cost_Mat_Amount_USD")
 	private float Cost_Mat_Amount_USD; // = Unit_Price_After_Discount * quantity
-
-	@Column(name="Cost_Labour_Amount_USD")
 	private float Cost_Labour_Amount_USD; //=Unit_Price_W_Tax_Labour* quantity
-
-
 	private Region region;
-
 	private EncounterStatus status;
 
 	@Id
@@ -113,7 +63,7 @@ public class Encounter implements Serializable{
 		this.product = product;
 	}
 
-	@Column(name = "CREATED_TIME")
+	@Column(name="ENCOUNTER_TIME")
 	public Date getEncounterTime() {
 		return encounterTime;
 	}
@@ -140,7 +90,7 @@ public class Encounter implements Serializable{
 	public void setStatus(EncounterStatus status) {
 		this.status = status;
 	}
-
+	@Column(name="ORDER_NO")
 	public int getOrder() {
 		return order;
 	}
@@ -148,7 +98,7 @@ public class Encounter implements Serializable{
 	public void setOrder(int order) {
 		this.order = order;
 	}
-
+	@Column(name="UNIT_RATE")
 	public float getUnitRate() {
 		return unitRate;
 	}
@@ -157,6 +107,7 @@ public class Encounter implements Serializable{
 		this.unitRate = unitRate;
 	}
 
+	@Column(name="QUANTITY")
 	public float getQuantity() {
 		return quantity;
 	}
@@ -164,7 +115,8 @@ public class Encounter implements Serializable{
 	public void setQuantity(float quantity) {
 		this.quantity = quantity;
 	}
-
+	
+	@Column(name="ACTUAL_QUANTITY")
 	public float getActualQuantity() {
 		return actualQuantity;
 	}
@@ -172,7 +124,7 @@ public class Encounter implements Serializable{
 	public void setActualQuantity(float actualQuantity) {
 		this.actualQuantity = actualQuantity;
 	}
-
+	@Column(name="AMOUNT")
 	public float getAmount() {
 		return amount;
 	}
@@ -181,6 +133,7 @@ public class Encounter implements Serializable{
 		this.amount = amount;
 	}
 
+	@Column(name="REMARK")
 	public String getRemark() {
 		return remark;
 	}
@@ -189,6 +142,7 @@ public class Encounter implements Serializable{
 		this.remark = remark;
 	}
 
+	@Column(name="TAX_USD")
 	public float getMat_w_o_Tax_USD() {
 		return Mat_w_o_Tax_USD;
 	}
@@ -197,6 +151,7 @@ public class Encounter implements Serializable{
 		Mat_w_o_Tax_USD = mat_w_o_Tax_USD;
 	}
 
+	@Column(name="TAX_VND")
 	public float getMat_w_o_Tax_VND() {
 		return Mat_w_o_Tax_VND;
 	}
@@ -205,6 +160,7 @@ public class Encounter implements Serializable{
 		Mat_w_o_Tax_VND = mat_w_o_Tax_VND;
 	}
 
+	@Column(name="LABOUR")
 	public float getLabour() {
 		return labour;
 	}
@@ -213,6 +169,7 @@ public class Encounter implements Serializable{
 		this.labour = labour;
 	}
 
+	@Column(name="Imp_Tax")
 	public float getImp_Tax() {
 		return Imp_Tax;
 	}
@@ -221,6 +178,7 @@ public class Encounter implements Serializable{
 		Imp_Tax = imp_Tax;
 	}
 
+	@Column(name="Special_Con_Tax")
 	public float getSpecial_Con_Tax() {
 		return Special_Con_Tax;
 	}
@@ -228,7 +186,8 @@ public class Encounter implements Serializable{
 	public void setSpecial_Con_Tax(float special_Con_Tax) {
 		Special_Con_Tax = special_Con_Tax;
 	}
-
+	
+	@Column(name="Discount_rate")
 	public float getDiscount_rate() {
 		return Discount_rate;
 	}
@@ -237,6 +196,7 @@ public class Encounter implements Serializable{
 		Discount_rate = discount_rate;
 	}
 
+	@Column(name="VAT")
 	public short getVAT() {
 		return VAT;
 	}
@@ -245,6 +205,7 @@ public class Encounter implements Serializable{
 		this.VAT = VAT;
 	}
 
+	@Column(name="Unit_Price_After_Discount")
 	public float getUnit_Price_After_Discount() {
 		return Unit_Price_After_Discount;
 	}
@@ -252,7 +213,8 @@ public class Encounter implements Serializable{
 	public void setUnit_Price_After_Discount(float unit_Price_After_Discount) {
 		Unit_Price_After_Discount = unit_Price_After_Discount;
 	}
-
+	
+	@Column(name="ALLOWANCE")
 	public float getAllowance() {
 		return allowance;
 	}
@@ -260,7 +222,8 @@ public class Encounter implements Serializable{
 	public void setAllowance(float allowance) {
 		this.allowance = allowance;
 	}
-
+	
+	@Column(name="Unit_Price_W_Tax_Profit")
 	public float getUnit_Price_W_Tax_Profit() {
 		return Unit_Price_W_Tax_Profit;
 	}
@@ -269,6 +232,7 @@ public class Encounter implements Serializable{
 		Unit_Price_W_Tax_Profit = unit_Price_W_Tax_Profit;
 	}
 
+	@Column(name="Subcon_Profit")
 	public float getSubcon_Profit() {
 		return Subcon_Profit;
 	}
@@ -276,7 +240,8 @@ public class Encounter implements Serializable{
 	public void setSubcon_Profit(float subcon_Profit) {
 		Subcon_Profit = subcon_Profit;
 	}
-
+	
+	@Column(name="Unit_Price_W_Tax_Labour")
 	public float getUnit_Price_W_Tax_Labour() {
 		return Unit_Price_W_Tax_Labour;
 	}
@@ -285,6 +250,7 @@ public class Encounter implements Serializable{
 		Unit_Price_W_Tax_Labour = unit_Price_W_Tax_Labour;
 	}
 
+	@Column(name="Cost_Mat_Amount_USD")
 	public float getCost_Mat_Amount_USD() {
 		return Cost_Mat_Amount_USD;
 	}
@@ -293,6 +259,7 @@ public class Encounter implements Serializable{
 		Cost_Mat_Amount_USD = cost_Mat_Amount_USD;
 	}
 
+	@Column(name="Cost_Labour_Amount_USD")
 	public float getCost_Labour_Amount_USD() {
 		return Cost_Labour_Amount_USD;
 	}

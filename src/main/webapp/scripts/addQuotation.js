@@ -68,6 +68,7 @@ $("#list")
 					width : '100%',
 					height : 500,
 					theme: 'energyblue',
+					rowsheight : 45,
 					source : dataAdapter,
 					ready: function()
 					{
@@ -245,8 +246,29 @@ $("#list")
 								cellsalign : 'right',
 								cellsformat : 'c0',
 								width : '20%'
-							} ]
+							},
+							{
+								text : 'Action',
+								align : 'center',
+								datafield : '',
+								width : '20%',
+								cellsrenderer : function(row, column, value) {
+									return '<div class="col-md-6">'
+											+ '<a class="btn btn-app" onclick="addItem('
+											+ row +',' + column +',' +  value
+											+ ')">'
+											+ '<i class="glyphicon glyphicon-plus"></i>'
+											+ '</a>'
+											+ '<a class="btn btn-app">'
+											+ '<i class="glyphicon glyphicon-remove-circle"></i>'
+											+ '</a>' + '</div>';
+								},
+								  cellbeginedit: function (row) {
+									   return false;
+								  }								
+							}
+							]
 				});
-function updateProduct(userid) {
+function addItem(userid) {
 	window.location.href = '/admin/users/' + userid + '?form';
 }
