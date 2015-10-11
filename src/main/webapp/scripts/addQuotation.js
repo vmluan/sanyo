@@ -1,32 +1,96 @@
 /**
  * To display jqxgrid in user list page.
  */
-var url = "/admin/users/getListJson";
+var url = "/quotation/getAssignedProductOfRegion";
 
 
 var source = {
 	datatype : "json",
 	datafields : [{
-		name : 'username',
+		name : 'order',
 		type : 'string'
 	},{
-		name : 'email',
+		name : 'unitRate',
 		type : 'string'
 	}, {
-		name : 'avatar',
+		name : 'quantity',
 		type : 'string'
 	}, {
-		name : 'userid',
+		name : 'encounterID',
 		type : 'string'
 	}, {
-		name : 'mobile',
+		name : 'actualQuantity',
 		type : 'string'
 	},{
-		name : 'desc',
+		name : 'amount',
 		type : 'string'
 		
-	} ],
-	id : 'userid',
+	},{
+		name : 'remark',
+		type : 'string'
+		
+	},{
+		name : 'Mat_w_o_Tax_USD',
+		type : 'string'
+		
+	},{
+		name : 'Mat_w_o_Tax_VND',
+		type : 'string'
+		
+	},{
+		name : 'labour',
+		type : 'string'
+		
+	},{
+		name : 'Imp_Tax',
+		type : 'string'
+		
+	},{
+		name : 'Special_Con_Tax',
+		type : 'string'
+		
+	},{
+		name : 'Discount_rate',
+		type : 'string'
+		
+	},{
+		name : 'encounterTime',
+		type : 'string'
+		
+	},{
+		name : 'VAT',
+		type : 'string'
+		
+	},{
+		name : 'Unit_Price_After_Discount',
+		type : 'string'
+		
+	},{
+		name : 'allowance',
+		type : 'string'
+		
+	},{
+		name : 'Unit_Price_W_Tax_Profit',
+		type : 'string'
+		
+	},{
+		name : 'Subcon_Profit',
+		type : 'string'
+		
+	},{
+		name : 'Unit_Price_W_Tax_Labour',
+		type : 'string'
+		
+	},{
+		name : 'Cost_Mat_Amount_USD',
+		type : 'string'
+		
+	},{
+		name : 'Cost_Labour_Amount_USD',
+		type : 'string'
+		
+	}],
+	id : 'encounterID',
 	url : url,
 	addrow: function (rowid, rowdata, position, commit) {
 		// synchronize with the server - send insert command
@@ -79,15 +143,15 @@ $("#list")
 					// autorowheight: true,
 					columns : [
 							{
-								text : 'User name',
+								text : 'Sub-Region',
 								//columntype: 'dropdownlist',
-								datafield : 'username',
+								datafield : 'desc',
 								align : 'center',
 								width : '20%',
 								columntype: 'combobox',
 									createeditor: function (row, column, editor) {
 									// assign a new data source to the combobox.
-										var list = ['Product 1', 'Product 2', 'Product 3'];
+										var list = ['Region 1', 'Region 2', 'Region 3'];;
 										editor.jqxComboBox({ autoDropDownHeight: true, source: list, promptText: "Please Choose:" });
 									},
 									// update the editor's value before saving it.
@@ -96,19 +160,46 @@ $("#list")
 										if (newvalue == "") return oldvalue;
 									}
 						
-						},
-							
-							{
-								text : 'Search product name/code',
-								datafield : 'search',
+							},{
+								text : 'Search by Name',
+								datafield : 'searchName',
 								align : 'center',
 								cellsalign : 'right',
-								cellsformat : 'c0',
-								width : '20%'
+								//cellsformat : 'c0',
+								width : '20%',
+								columntype: 'combobox',
+								createeditor: function (row, column, editor) {
+								// assign a new data source to the combobox.
+									var list = ['Product 1', 'Product 2', 'Product 3'];
+									editor.jqxComboBox({ autoDropDownHeight: true, source: list, promptText: "Please Choose:" });
+								},
+								// update the editor's value before saving it.
+								cellvaluechanging: function (row, column, columntype, oldvalue, newvalue) {
+									// return the old value, if the new value is empty.
+									if (newvalue == "") return oldvalue;
+								}								
+							},{
+								text : 'Search by Code',
+								datafield : 'searchCode',
+								align : 'center',
+								cellsalign : 'right',
+								//cellsformat : 'c0',
+								width : '20%',
+								columntype: 'combobox',
+								createeditor: function (row, column, editor) {
+								// assign a new data source to the combobox.
+									var list = ['Code 1', 'Code 2', 'Code 3'];
+									editor.jqxComboBox({ autoDropDownHeight: true, source: list, promptText: "Please Choose:" });
+								},
+								// update the editor's value before saving it.
+								cellvaluechanging: function (row, column, columntype, oldvalue, newvalue) {
+									// return the old value, if the new value is empty.
+									if (newvalue == "") return oldvalue;
+								}								
 							},
 							{
 								text : 'No',
-								datafield : 'no',
+								datafield : 'order',
 								align : 'center',
 								cellsalign : 'right',
 								cellsformat : 'c0',
@@ -118,133 +209,133 @@ $("#list")
 								datafield : 'unit',
 								align : 'center',
 								cellsalign : 'right',
-								cellsformat : 'c0',
+								//cellsformat : 'c0',
 								width : '20%'
 							} ,{
 								text : 'Quantity',
 								datafield : 'quantity',
 								align : 'center',
 								cellsalign : 'right',
-								cellsformat : 'c0',
+								//cellsformat : 'c0',
 								width : '20%'
 							} ,{
 								text : 'Unit Rate',
 								datafield : 'unitRate',
 								align : 'center',
 								cellsalign : 'right',
-								cellsformat : 'c0',
+								//cellsformat : 'c0',
 								width : '20%'
 							} ,{
 								text : 'Amount',
 								datafield : 'amount',
 								align : 'center',
 								cellsalign : 'right',
-								cellsformat : 'c0',
+								//cellsformat : 'c0',
 								width : '20%'
 							} ,{
 								text : 'Remark',
 								datafield : 'remark',
 								align : 'center',
 								cellsalign : 'right',
-								cellsformat : 'c0',
+								//cellsformat : 'c0',
 								width : '20%'
 							} ,{
 								text : 'Labour',
 								datafield : 'labour',
 								align : 'center',
 								cellsalign : 'right',
-								cellsformat : 'c0',
+								//cellsformat : 'c0',
 								width : '20%'
 							} ,{
 								text : 'Mat w/o Tax USD',
-								datafield : 'matWoTaxUsd',
+								datafield : 'Mat_w_o_Tax_USD',
 								align : 'center',
 								cellsalign : 'right',
-								cellsformat : 'c0',
+								//cellsformat : 'c0',
 								width : '20%'
 							} ,{
 								text : 'Mat w/o Tax VND',
-								datafield : 'matWoTaxVnd',
+								datafield : 'Mat_w_o_Tax_VND',
 								align : 'center',
 								cellsalign : 'right',
-								cellsformat : 'c0',
+								//cellsformat : 'c0',
 								width : '20%'
 							} ,{
 								text : 'Imp Tax',
-								datafield : 'impTax',
+								datafield : 'Imp_Tax',
 								align : 'center',
 								cellsalign : 'right',
-								cellsformat : 'c0',
+								//cellsformat : 'c0',
 								width : '20%'
 							} ,{
 								text : 'Special con. Tax',
-								datafield : 'specialConTax',
+								datafield : 'Special_Con_Tax',
 								align : 'center',
 								cellsalign : 'right',
-								cellsformat : 'c0',
+								//cellsformat : 'c0',
 								width : '20%'
 							} ,{
 								text : 'VAT',
 								datafield : 'VAT',
 								align : 'center',
 								cellsalign : 'right',
-								cellsformat : 'c0',
+								//cellsformat : 'c0',
 								width : '20%'
 							} ,{
 								text : 'Discount rate %',
-								datafield : 'discountRatePer',
+								datafield : 'Discount_rate',
 								align : 'center',
 								cellsalign : 'right',
-								cellsformat : 'c0',
+								//cellsformat : 'c0',
 								width : '20%'
 							} ,{
 								text : 'Unit price after discount',
-								datafield : 'unitPriceAfterDiscount',
+								datafield : 'Unit_Price_After_Discount',
 								align : 'center',
 								cellsalign : 'right',
-								cellsformat : 'c0',
+								//cellsformat : 'c0',
 								width : '20%'
 							} ,{
 								text : 'Allowance',
 								datafield : 'allowance',
 								align : 'center',
 								cellsalign : 'right',
-								cellsformat : 'c0',
+								//cellsformat : 'c0',
 								width : '20%'
 							} ,{
 								text : 'Unit price w Tax & profit',
-								datafield : 'unitPriceWTaxProfit',
+								datafield : 'Unit_Price_W_Tax_Profit',
 								align : 'center',
 								cellsalign : 'right',
-								cellsformat : 'c0',
+								//cellsformat : 'c0',
 								width : '20%'
 							} ,{
 								text : 'Subcon profit',
 								datafield : 'subConProfit',
 								align : 'center',
 								cellsalign : 'right',
-								cellsformat : 'c0',
+								//cellsformat : 'c0',
 								width : '20%'
 							} ,{
 								text : 'Unit price w Tax – labour',
-								datafield : 'unitPriceWTaxSubTrLabour',
+								datafield : 'Unit_Price_W_Tax_Labour',
 								align : 'center',
 								cellsalign : 'right',
-								cellsformat : 'c0',
+								//cellsformat : 'c0',
 								width : '20%'
 							} ,{
-								text : 'NoCost - Mat amount USD',
-								datafield : 'noCostSubTrMatAmountUsd',
+								text : 'Cost - Mat amount USD',
+								datafield : 'Cost_Mat_Amount_USD',
 								align : 'center',
 								cellsalign : 'right',
-								cellsformat : 'c0',
+								//cellsformat : 'c0',
 								width : '20%'
 							} ,{
 								text : 'Cost - Labour amount USD',
-								datafield : 'costLabourAmountUsd',
+								datafield : 'Cost_Labour_Amount_USD',
 								align : 'center',
 								cellsalign : 'right',
-								cellsformat : 'c0',
+								//cellsformat : 'c0',
 								width : '20%'
 							},
 							{
@@ -255,13 +346,10 @@ $("#list")
 								cellsrenderer : function(row, column, value) {
 									return '<div class="col-md-6">'
 											+ '<a class="btn btn-app" onclick="addItem('
-											+ row +',' + column +',' +  value
+											+ row
 											+ ')">'
 											+ '<i class="glyphicon glyphicon-plus"></i>'
-											+ '</a>'
-											+ '<a class="btn btn-app">'
-											+ '<i class="glyphicon glyphicon-remove-circle"></i>'
-											+ '</a>' + '</div>';
+											+ '</div>';
 								},
 								  cellbeginedit: function (row) {
 									   return false;
@@ -269,6 +357,8 @@ $("#list")
 							}
 							]
 				});
-function addItem(userid) {
-	window.location.href = '/admin/users/' + userid + '?form';
+function addItem(row) {
+	//call server action to add new row.
+	$('#list').jqxGrid('addrow', null, {}, 'first');
+	$("#list").jqxGrid('begincelledit', 0, "desc");
 }

@@ -19,4 +19,6 @@ public interface RegionService {
 	
 	Region findByIdAndFetchUsersEagerly(Integer id);
 	Region findByIdAndFetchUserRegionRolesEagerly(Integer id);
+	
+	Region findByIdAndFetchEncountersEagerly(Integer id);
 }
