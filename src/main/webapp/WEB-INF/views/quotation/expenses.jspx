@@ -30,6 +30,13 @@ x\:* {behavior:url(#default#VML);}
 <![endif]-->
 <style
  id="Copy of R-1 Cost SPC LT-1 Ph-4 Factory Mechanical (27-Dec-2014)_728_Styles">
+
+ input[type="text"] {
+    width: 60px;
+    /*display: block;
+    margin-bottom: 10px;
+    background-color: yellow;*/
+}
 <!--table
 	{mso-displayed-decimal-separator:"\.";
 	mso-displayed-thousand-separator:"\,";}
