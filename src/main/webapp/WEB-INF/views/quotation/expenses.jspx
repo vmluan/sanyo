@@ -3653,29 +3653,30 @@ AAAAAA==
   <td class=xl434728></td>
   <td class=xl434728></td>
  </tr>
- <tr class=xl434728 height=21 style='height:15.75pt'>
-  <td height=21 class=xl434728 style='height:15.75pt'></td>
-  <td class=xl449728><input type="text" /></td>
-  <td class=xl450728 style='border-left:none'><input type="text" /></td>
-  <td class=xl451728 style='border-left:none'>&nbsp;</td>
-  <td class=xl452728 style='border-left:none'>&nbsp;</td>
-  <td class=xl453728 style='border-left:none'>&nbsp;</td>
-  <td class=xl454728 style='border-left:none'><input type="text" /></td>
-  <td class=xl534728 align=right style='border-left:none'><input type="text" /></td>
-  <td class=xl434728></td>
-  <td class=xl455728><input type="text" /></td>
-  <td class=xl434728></td>
-  <td class=xl434728></td>
-  <td class=xl434728></td>
-  <td class=xl434728></td>
-  <td class=xl434728></td>
-  <td class=xl434728></td>
+ <tr class=3Dxl43620322 height=3D21 style=3D'height:15.75pt'>
+   <td height=3D21 class=3Dxl43620322 style=3D'height:15.75pt'></td>
+  <td class=3Dxl45120322>400</td>
+  <td class=3Dxl45220322 style=3D'border-left:none'>Japanese Cost</td>
+  <td class=3Dxl45320322 style=3D'border-left:none'>&nbsp;</td>
+  <td class=3Dxl45420322 style=3D'border-left:none'>&nbsp;</td>
+  <td class=3Dxl45520322 style=3D'border-left:none'>&nbsp;</td>
+  <td class=3Dxl45620322 style=3D'border-left:none'>c/f to summary</td>
+  <td class=3Dxl53520322 align=3Dright style=3D'border-left:none'>US$0.00</=
+td>
+  <td class=3Dxl43620322></td>
+  <td class=3Dxl45720322>Team 68</td>
+  <td class=3Dxl43620322></td>
+  <td class=3Dxl43620322></td>
+  <td class=3Dxl43620322></td>
+  <td class=3Dxl43620322></td>
+  <td class=3Dxl43620322></td>
+  <td class=3Dxl43620322></td>
  </tr>
  <tr class=xl434728 height=21 style='height:15.75pt'>
   <td height=21 class=xl434728 style='height:15.75pt'></td>
   <td class=xl456728 style='border-top:none'>&nbsp;</td>
   <td class=xl457728 style='border-top:none;border-left:none'><input type="text" /></td>
-  <td class=xl456728 style='border-top:none;border-left:none'>0</td>
+  <td class=xl456728 style='border-top:none;border-left:none'><input type="text" /></td>
   <td class=xl458728 align=right style='border-top:none;border-left:none'><input type="text" /></td>
   <td class=xl459728 style='border-top:none;border-left:none'><span
   style='mso-spacerun:yes'> </span>$<span style='mso-spacerun:yes'>       
@@ -3714,7 +3715,7 @@ AAAAAA==
  <tr class=xl434728 height=21 style='height:15.75pt'>
   <td height=21 class=xl434728 style='height:15.75pt'></td>
   <td class=xl456728 style='border-top:none'>&nbsp;</td>
-  <td class=xl457728 style='border-top:none;border-left:none'>JP Yen <input type="text" />/Day</td>
+  <td class=xl457728 style='border-top:none;border-left:none'> <input type="text" /></td>
   <td class=xl456728 style='border-top:none;border-left:none'>&nbsp;</td>
   <td class=xl458728 style='border-top:none;border-left:none'>&nbsp;</td>
   <td class=xl459728 style='border-top:none;border-left:none'>&nbsp;</td>
@@ -3949,7 +3950,7 @@ AAAAAA==
   <td height=21 class=xl434728 style='height:15.75pt'></td>
   <td class=xl456728 style='border-top:none'>i</td>
   <td class=xl457728 style='border-top:none;border-left:none'>Safety Supervisor</td>
-  <td class=xl456728 style='border-top:none;border-left:none'>1</td>
+  <td class=xl456728 style='border-top:none;border-left:none'><input type="text" /></td>
   <td class=xl532728 align=right style='border-top:none;border-left:none'><input type="text" /></td>
   <td class=xl459728 style='border-top:none;border-left:none'><span
   style='mso-spacerun:yes'> </span>$<span style='mso-spacerun:yes'>          
@@ -4026,7 +4027,7 @@ AAAAAA==
   <td height=21 class=xl434728 style='height:15.75pt'></td>
   <td class=xl451728 style='border-top:none'>a</td>
   <td class=xl457728 style='border-top:none;border-left:none'>Site Office</td>
-  <td class=xl456728 style='border-top:none;border-left:none'>1</td>
+  <td class=xl456728 style='border-top:none;border-left:none'><input type="text" /></td>
   <td class=xl532728 align=right style='border-top:none;border-left:none'><input type="text" /></td>
   <td class=xl459728 style='border-top:none;border-left:none'>&nbsp;</td>
   <td class=xl460728 style='border-top:none;border-left:none'>&nbsp;</td>
@@ -4045,7 +4046,7 @@ AAAAAA==
   <td height=21 class=xl434728 style='height:15.75pt'></td>
   <td class=xl451728 style='border-top:none'>a</td>
   <td class=xl457728 style='border-top:none;border-left:none'>Site Storage</td>
-  <td class=xl456728 style='border-top:none;border-left:none'>1</td>
+  <td class=xl456728 style='border-top:none;border-left:none'><input type="text" /></td>
   <td class=xl532728 align=right style='border-top:none;border-left:none'><input type="text" /></td>
   <td class=xl459728 style='border-top:none;border-left:none'><span
   style='mso-spacerun:yes'> </span>$<span style='mso-spacerun:yes'>          
@@ -4691,10 +4692,10 @@ AAAAAA==
   <td class=xl502728 style='border-top:none'>&nbsp;</td>
   <td class=xl502728 style='border-top:none;border-left:none'>Vietnam</td>
   <td class=xl511728 style='border-top:none;border-left:none'><span
-  style='mso-spacerun:yes'>        </span>-<span style='mso-spacerun:yes'>  
+  style='mso-spacerun:yes'>        </span><input type="text" /><span style='mso-spacerun:yes'>  
   </span></td>
   <td class=xl511728 style='border-top:none;border-left:none'><span
-  style='mso-spacerun:yes'>         </span>-<span style='mso-spacerun:yes'>  
+  style='mso-spacerun:yes'>         </span><input type="text" /><span style='mso-spacerun:yes'>  
   </span></td>
   <td class=xl507728 style='border-top:none;border-left:none'><span
   style='mso-spacerun:yes'> </span>$<span style='mso-spacerun:yes'>          
@@ -4716,10 +4717,10 @@ AAAAAA==
   <td class=xl502728 style='border-top:none'>&nbsp;</td>
   <td class=xl502728 style='border-top:none;border-left:none'>Vietnam</td>
   <td class=xl511728 style='border-top:none;border-left:none'><span
-  style='mso-spacerun:yes'>        </span>-<span style='mso-spacerun:yes'>  
+  style='mso-spacerun:yes'>        </span><input type="text" /><span style='mso-spacerun:yes'>  
   </span></td>
   <td class=xl511728 style='border-top:none;border-left:none'><span
-  style='mso-spacerun:yes'>         </span>-<span style='mso-spacerun:yes'>  
+  style='mso-spacerun:yes'>         </span><input type="text" /><span style='mso-spacerun:yes'>  
   </span></td>
   <td class=xl507728 style='border-top:none;border-left:none'><span
   style='mso-spacerun:yes'> </span>$<span style='mso-spacerun:yes'>          
@@ -4741,9 +4742,9 @@ AAAAAA==
   <td class=xl502728 style='border-top:none'>&nbsp;</td>
   <td class=xl502728 style='border-top:none;border-left:none'>Vietnam</td>
   <td class=xl511728 style='border-top:none;border-left:none'><span
-  style='mso-spacerun:yes'>         </span>1 </td>
+  style='mso-spacerun:yes'>         </span><input type="text" /> </td>
   <td class=xl511728 style='border-top:none;border-left:none'><span
-  style='mso-spacerun:yes'>           </span>6 </td>
+  style='mso-spacerun:yes'>           </span><input type="text" /> </td>
   <td class=xl507728 style='border-top:none;border-left:none'><span
   style='mso-spacerun:yes'> </span>$<span style='mso-spacerun:yes'>          
   </span><input type="text" /> </td>
@@ -4829,9 +4830,9 @@ AAAAAA==
   <td class=xl502728 style='border-top:none'>&nbsp;</td>
   <td class=xl502728 style='border-top:none;border-left:none'>Vietnam</td>
   <td class=xl511728 style='border-top:none;border-left:none'><span
-  style='mso-spacerun:yes'>         </span>1 </td>
+  style='mso-spacerun:yes'>         </span><input type="text" /> </td>
   <td class=xl511728 style='border-top:none;border-left:none'><span
-  style='mso-spacerun:yes'>           </span>5 </td>
+  style='mso-spacerun:yes'>           </span><input type="text" /> </td>
   <td class=xl507728 style='border-top:none;border-left:none'><span
   style='mso-spacerun:yes'> </span>$<span style='mso-spacerun:yes'>            
   </span><input type="text" /> </td>
@@ -4931,10 +4932,10 @@ AAAAAA==
   <td class=xl502728 style='border-top:none'>&nbsp;</td>
   <td class=xl502728 style='border-top:none;border-left:none'>Japanese</td>
   <td class=xl520728 style='border-top:none;border-left:none'><span
-  style='mso-spacerun:yes'>        </span>-<span style='mso-spacerun:yes'>  
+  style='mso-spacerun:yes'>        </span><input type="text" /><span style='mso-spacerun:yes'>  
   </span></td>
   <td class=xl520728 style='border-top:none;border-left:none'><span
-  style='mso-spacerun:yes'>         </span>-<span style='mso-spacerun:yes'>  
+  style='mso-spacerun:yes'>         </span><input type="text" /><span style='mso-spacerun:yes'>  
   </span></td>
   <td class=xl507728 style='border-top:none;border-left:none'>&nbsp;</td>
   <td class=xl484728 align=right style='border-top:none;border-left:none'>$<input type="text" /></td>
@@ -4953,10 +4954,10 @@ AAAAAA==
   <td class=xl502728 style='border-top:none'>&nbsp;</td>
   <td class=xl502728 style='border-top:none;border-left:none'>3rd Country</td>
   <td class=xl520728 style='border-top:none;border-left:none'><span
-  style='mso-spacerun:yes'>        </span>-<span style='mso-spacerun:yes'>  
+  style='mso-spacerun:yes'>        </span><input type="text" /><span style='mso-spacerun:yes'>  
   </span></td>
   <td class=xl520728 style='border-top:none;border-left:none'><span
-  style='mso-spacerun:yes'>         </span>-<span style='mso-spacerun:yes'>  
+  style='mso-spacerun:yes'>         </span><input type="text" /><span style='mso-spacerun:yes'>  
   </span></td>
   <td class=xl507728 style='border-top:none;border-left:none'><span
   style='mso-spacerun:yes'> </span>$<span style='mso-spacerun:yes'>          
@@ -4977,10 +4978,10 @@ AAAAAA==
   <td class=xl502728 style='border-top:none'>&nbsp;</td>
   <td class=xl502728 style='border-top:none;border-left:none'>Vietnam</td>
   <td class=xl520728 style='border-top:none;border-left:none'><span
-  style='mso-spacerun:yes'>        </span>-<span style='mso-spacerun:yes'>  
+  style='mso-spacerun:yes'>        </span><input type="text" /><span style='mso-spacerun:yes'>  
   </span></td>
   <td class=xl520728 style='border-top:none;border-left:none'><span
-  style='mso-spacerun:yes'>         </span>-<span style='mso-spacerun:yes'>  
+  style='mso-spacerun:yes'>         </span><input type="text" /><span style='mso-spacerun:yes'>  
   </span></td>
   <td class=xl507728 style='border-top:none;border-left:none'><span
   style='mso-spacerun:yes'> </span>$<span style='mso-spacerun:yes'>          
@@ -5001,10 +5002,10 @@ AAAAAA==
   <td class=xl502728 style='border-top:none'>&nbsp;</td>
   <td class=xl502728 style='border-top:none;border-left:none'>Vietnam</td>
   <td class=xl520728 style='border-top:none;border-left:none'><span
-  style='mso-spacerun:yes'>        </span>-<span style='mso-spacerun:yes'>  
+  style='mso-spacerun:yes'>        </span><input type="text" /><span style='mso-spacerun:yes'>  
   </span></td>
   <td class=xl520728 style='border-top:none;border-left:none'><span
-  style='mso-spacerun:yes'>         </span>-<span style='mso-spacerun:yes'>  
+  style='mso-spacerun:yes'>         </span><input type="text" /><span style='mso-spacerun:yes'>  
   </span></td>
   <td class=xl507728 style='border-top:none;border-left:none'><span
   style='mso-spacerun:yes'> </span>$<span style='mso-spacerun:yes'>          
@@ -5025,9 +5026,9 @@ AAAAAA==
   <td class=xl502728 style='border-top:none'>&nbsp;</td>
   <td class=xl502728 style='border-top:none;border-left:none'>Vietnam</td>
   <td class=xl520728 style='border-top:none;border-left:none'><span
-  style='mso-spacerun:yes'>         </span>1 </td>
+  style='mso-spacerun:yes'>         </span><input type="text" /></td>
   <td class=xl520728 style='border-top:none;border-left:none'><span
-  style='mso-spacerun:yes'>           </span>6 </td>
+  style='mso-spacerun:yes'>           </span><input type="text" /></td>
   <td class=xl507728 style='border-top:none;border-left:none'><span
   style='mso-spacerun:yes'> </span>$<span style='mso-spacerun:yes'>          
   </span><input type="text" /> </td>
@@ -5047,9 +5048,9 @@ AAAAAA==
   <td class=xl502728 style='border-top:none'>&nbsp;</td>
   <td class=xl502728 style='border-top:none;border-left:none'>Vietnam</td>
   <td class=xl520728 style='border-top:none;border-left:none'><span
-  style='mso-spacerun:yes'>         </span>2 </td>
+  style='mso-spacerun:yes'>         </span><input type="text" /></td>
   <td class=xl520728 style='border-top:none;border-left:none'><span
-  style='mso-spacerun:yes'>           </span>6 </td>
+  style='mso-spacerun:yes'>           </span><input type="text" /></td>
   <td class=xl507728 style='border-top:none;border-left:none'><span
   style='mso-spacerun:yes'> </span>$<span style='mso-spacerun:yes'>          
   </span><input type="text" /> </td>
@@ -5089,10 +5090,10 @@ AAAAAA==
   <td class=xl502728 style='border-top:none'>&nbsp;</td>
   <td class=xl502728 style='border-top:none;border-left:none'>Vietnam</td>
   <td class=xl520728 style='border-top:none;border-left:none'><span
-  style='mso-spacerun:yes'>        </span>-<span style='mso-spacerun:yes'>  
+  style='mso-spacerun:yes'>        </span><input type="text" /><span style='mso-spacerun:yes'>  
   </span></td>
   <td class=xl520728 style='border-top:none;border-left:none'><span
-  style='mso-spacerun:yes'>         </span>-<span style='mso-spacerun:yes'>  
+  style='mso-spacerun:yes'>         </span><input type="text" /><span style='mso-spacerun:yes'>  
   </span></td>
   <td class=xl507728 style='border-top:none;border-left:none'><span
   style='mso-spacerun:yes'> </span>$<span style='mso-spacerun:yes'>          
@@ -5135,10 +5136,10 @@ AAAAAA==
   <td class=xl502728 style='border-top:none'>&nbsp;</td>
   <td class=xl522728 style='border-left:none'>Vietnam</td>
   <td class=xl523728 style='border-left:none'><span
-  style='mso-spacerun:yes'>        </span>-<span style='mso-spacerun:yes'>  
+  style='mso-spacerun:yes'>        </span><input type="text" />-<span style='mso-spacerun:yes'>  
   </span></td>
   <td class=xl523728 style='border-left:none'><span
-  style='mso-spacerun:yes'>         </span>-<span style='mso-spacerun:yes'>  
+  style='mso-spacerun:yes'>         </span><input type="text" /><span style='mso-spacerun:yes'>  
   </span></td>
   <td class=xl507728 style='border-top:none;border-left:none'><span
   style='mso-spacerun:yes'> </span>$<span style='mso-spacerun:yes'>          
@@ -5159,10 +5160,10 @@ AAAAAA==
   <td class=xl502728 style='border-top:none'>&nbsp;</td>
   <td class=xl522728 style='border-left:none'>Vietnam</td>
   <td class=xl523728 style='border-left:none'><span
-  style='mso-spacerun:yes'>        </span>-<span style='mso-spacerun:yes'>  
+  style='mso-spacerun:yes'>        </span><input type="text" /><span style='mso-spacerun:yes'>  
   </span></td>
   <td class=xl523728 style='border-left:none'><span
-  style='mso-spacerun:yes'>         </span>-<span style='mso-spacerun:yes'>  
+  style='mso-spacerun:yes'>         </span><input type="text" /><span style='mso-spacerun:yes'>  
   </span></td>
   <td class=xl507728 style='border-top:none;border-left:none'><span
   style='mso-spacerun:yes'> </span>$<span style='mso-spacerun:yes'>            
@@ -5219,10 +5220,10 @@ AAAAAA==
   <td class=xl502728 style='border-top:none'>&nbsp;</td>
   <td class=xl502728 style='border-top:none;border-left:none'>Japanese</td>
   <td class=xl520728 style='border-top:none;border-left:none'><span
-  style='mso-spacerun:yes'>        </span>-<span style='mso-spacerun:yes'>  
+  style='mso-spacerun:yes'>        </span><input type="text" /><span style='mso-spacerun:yes'>  
   </span></td>
   <td class=xl520728 style='border-top:none;border-left:none'><span
-  style='mso-spacerun:yes'>         </span>-<span style='mso-spacerun:yes'>  
+  style='mso-spacerun:yes'>         </span><input type="text" /><span style='mso-spacerun:yes'>  
   </span></td>
   <td class=xl507728 style='border-top:none;border-left:none'><span
   style='mso-spacerun:yes'> </span>$<span
@@ -5244,9 +5245,9 @@ AAAAAA==
   <td class=xl502728 style='border-top:none'>&nbsp;</td>
   <td class=xl524728 style='border-top:none;border-left:none'>Vietnam</td>
   <td class=xl525728 style='border-top:none;border-left:none'><span
-  style='mso-spacerun:yes'>         </span>1 </td>
+  style='mso-spacerun:yes'>         </span><input type="text" /></td>
   <td class=xl525728 style='border-top:none;border-left:none'><span
-  style='mso-spacerun:yes'>         </span>11 </td>
+  style='mso-spacerun:yes'>         </span><input type="text" /></td>
   <td class=xl526728 style='border-top:none;border-left:none'><span
   style='mso-spacerun:yes'> </span>$<span style='mso-spacerun:yes'>            
   </span><input type="text" /> </td>
