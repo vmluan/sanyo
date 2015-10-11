@@ -3,11 +3,11 @@
 <![CDATA[
 <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs pull-right">
-                  <li class=""><a href="/boq" data-target="#tab_1-1" data-toggle="tab" aria-expanded="false">M&E Expenses</a></li>
+                  <li class=""><a href="/expenses" data-target="#tab_1-1" data-toggle="tab" aria-expanded="false">M&E Expenses</a></li>
                   <li class="active"><a href="#tab_2-2" data-toggle="tab" aria-expanded="true">Summary</a></li>
-                  <li class=""><a href="#tab_3-2" data-toggle="tab" aria-expanded="false">Electrical BOQ</a></li>
+                  <li class=""><a href="/boq" data-toggle="tab" aria-expanded="false">Electrical BOQ</a></li>
 				  <li class=""><a href="#tab_3-2" data-toggle="tab" aria-expanded="false">Electrical Maker</a></li>
-				  <li class=""><a href="#tab_3-2" data-toggle="tab" aria-expanded="false">Mechanical BOQ</a></li>
+				  <li class=""><a href="/boq" data-toggle="tab" aria-expanded="false">Mechanical BOQ</a></li>
 				  <li class=""><a href="#tab_3-2" data-toggle="tab" aria-expanded="false">Mechanical Maker</a></li>
                   
                   <li class="pull-left header"><i class="fa fa-th"></i> Quotation</li>
