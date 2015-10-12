@@ -137,7 +137,73 @@
 					<div>
 						<form:errors path="allowance" cssClass="error" />
 					</div>					
-				</div>																
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<form:label path="startDate">
+							Start Date
+						</form:label>
+						<form:input path="startDate" class="form-control" placeholder="mm/dd/yyyy"/> 
+					</div>
+					<div>
+						<form:errors path="startDate" cssClass="error" />
+					</div>					
+				</div>	
+				<div class="col-md-4">
+					<div class="form-group">
+						<form:label path="endDate">
+							End Date
+						</form:label>
+						<form:input path="endDate" class="form-control" placeholder="mm/dd/yyyy"/> 
+					</div>
+					<div>
+						<form:errors path="endDate" cssClass="error" />
+					</div>					
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<form:label path="subConProfit">
+							Sub-Con Profit
+						</form:label>
+						<form:input path="subConProfit" class="form-control"/> 
+					</div>
+					<div>
+						<form:errors path="subConProfit" cssClass="error" />
+					</div>					
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<form:label path="qtySubMain">
+							Q'ty Sub Main
+						</form:label>
+						<form:input path="qtySubMain" class="form-control"/> 
+					</div>
+					<div>
+						<form:errors path="qtySubMain" cssClass="error" />
+					</div>					
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<form:label path="eQtyOther">
+							E Q'ty Other
+						</form:label>
+						<form:input path="eQtyOther" class="form-control"/> 
+					</div>
+					<div>
+						<form:errors path="eQtyOther" cssClass="error" />
+					</div>					
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<form:label path="mQty">
+							M  Q'ty
+						</form:label>
+						<form:input path="mQty" class="form-control"/> 
+					</div>
+					<div>
+						<form:errors path="mQty" cssClass="error" />
+					</div>					
+				</div>
 				<div class="col-md-4">
 					<div class="form-group">
 						<form:label path="description">

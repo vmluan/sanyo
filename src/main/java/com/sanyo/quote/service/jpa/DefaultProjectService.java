@@ -200,6 +200,11 @@ public class DefaultProjectService implements ProjectService {
 		// TODO Auto-generated method stub
 //		return projectRepository.findTableByDate(startDate, endDate);
 		return null;
+	}
+
+	@Override
+	public Project findByIdAndFetchLocationsEagerly(Integer id) {
+		return projectRepository.findByIdAndFetchLocationsEagerly(id);
 	}	
 	
 	

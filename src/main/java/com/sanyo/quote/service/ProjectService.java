@@ -26,5 +26,6 @@ public interface ProjectService {
 	Page<Project> findAllByPage(Pageable pageable);
 	List<Project> findTableByDateRange(Date startDate, Date endDate);
 	
+	Project findByIdAndFetchLocationsEagerly(Integer id);
 	
 }

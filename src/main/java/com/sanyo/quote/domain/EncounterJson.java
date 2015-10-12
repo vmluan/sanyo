@@ -1,6 +1,6 @@
 package com.sanyo.quote.domain;
 
-import java.util.Date;
+import java.util.Set;
 
 /*
  * it is used to convert json data to java object.
@@ -14,28 +14,29 @@ public class EncounterJson {
 	private String actualQuantity; //So luong, khoi luong thuc te = quantity * hao hut % ben sheet Summary (mac dinh)
 	private String amount; // = actualQuantity * unitRate. Don vi tinh theo USD
 	private String remark;
-	private String Mat_w_o_Tax_USD; //Mat w/o Tax USD
-	private String Mat_w_o_Tax_VND; //Mat w/o Tax VND
+	private String mat_w_o_Tax_USD; //Mat w/o Tax USD
+	private String mat_w_o_Tax_VND; //Mat w/o Tax VND
 	private String labour; //lấy giá trị trong database phần nhân công từng hạng mục.
-	private String Imp_Tax; //Imp Tax. mặc định ="0%", lấy từ bản thông số chung của dự án
-	private String Special_Con_Tax; // Special con. Tax. mặc định ="0%", lấy từ bản thông số chung của dự án
-	private String Discount_rate; //Discount rate %. mặc định ="100%", lấy từ bản thông số chung của dự án
+	private String imp_Tax; //Imp Tax. mặc định ="0%", lấy từ bản thông số chung của dự án
+	private String special_Con_Tax; // Special con. Tax. mặc định ="0%", lấy từ bản thông số chung của dự án
+	private String discount_rate; //Discount rate %. mặc định ="100%", lấy từ bản thông số chung của dự án
 	private String encounterTime;
-	private String VAT; // mặc định ="0%", lấy từ bản thông số chung của dự án
-	private String Unit_Price_After_Discount; // = Mat_w_o_Tax_USD + (Mat_w_o_Tax_VND/Ti_gia_VND_to_USD)
+	private String vAT; // mặc định ="0%", lấy từ bản thông số chung của dự án
+	private String unit_Price_After_Discount; // = Mat_w_o_Tax_USD + (Mat_w_o_Tax_VND/Ti_gia_VND_to_USD)
 	private String allowance; //mặc định 105%, lấy từ bản thông số chung của dự án
-	private String Unit_Price_W_Tax_Profit; //Unit_Price_After_Discount * (1+(1+Special_Con_Tax*(1+Imp_Tax))*VAT)*Discount_rate
-	private String Subcon_Profit; //mặc định 105%, lấy từ bản thông số chung của dự án
-	private String Unit_Price_W_Tax_Labour; //=labour*Subcon_Profit
-	private String Cost_Mat_Amount_USD; // = Unit_Price_After_Discount * quantity
-	private String Cost_Labour_Amount_USD; //=Unit_Price_W_Tax_Labour* quantity
+	private String unit_Price_W_Tax_Profit; //Unit_Price_After_Discount * (1+(1+Special_Con_Tax*(1+Imp_Tax))*VAT)*Discount_rate
+	private String subcon_Profit; //mặc định 105%, lấy từ bản thông số chung của dự án
+	private String unit_Price_W_Tax_Labour; //=labour*Subcon_Profit
+	private String cost_Mat_Amount_USD; // = Unit_Price_After_Discount * quantity
+	private String cost_Labour_Amount_USD; //=Unit_Price_W_Tax_Labour* quantity
 	
 	private String productId;
 	private String productName;
+	private String productCode;
 	private String regionId;
 	private String regionName;
-//	private RegionJson region;
-//	private EncounterStatus status;
+	
+	private Set<LocationJson> locations;
 	public Integer getEncounterID() {
 		return encounterID;
 	}
@@ -79,16 +80,16 @@ public class EncounterJson {
 		this.remark = remark;
 	}
 	public String getMat_w_o_Tax_USD() {
-		return Mat_w_o_Tax_USD;
+		return mat_w_o_Tax_USD;
 	}
 	public void setMat_w_o_Tax_USD(String mat_w_o_Tax_USD) {
-		Mat_w_o_Tax_USD = mat_w_o_Tax_USD;
+		this.mat_w_o_Tax_USD = mat_w_o_Tax_USD;
 	}
 	public String getMat_w_o_Tax_VND() {
-		return Mat_w_o_Tax_VND;
+		return mat_w_o_Tax_VND;
 	}
 	public void setMat_w_o_Tax_VND(String mat_w_o_Tax_VND) {
-		Mat_w_o_Tax_VND = mat_w_o_Tax_VND;
+		this.mat_w_o_Tax_VND = mat_w_o_Tax_VND;
 	}
 	public String getLabour() {
 		return labour;
@@ -97,41 +98,40 @@ public class EncounterJson {
 		this.labour = labour;
 	}
 	public String getImp_Tax() {
-		return Imp_Tax;
+		return imp_Tax;
 	}
 	public void setImp_Tax(String imp_Tax) {
-		Imp_Tax = imp_Tax;
+		this.imp_Tax = imp_Tax;
 	}
 	public String getSpecial_Con_Tax() {
-		return Special_Con_Tax;
+		return special_Con_Tax;
 	}
 	public void setSpecial_Con_Tax(String special_Con_Tax) {
-		Special_Con_Tax = special_Con_Tax;
+		this.special_Con_Tax = special_Con_Tax;
 	}
 	public String getDiscount_rate() {
-		return Discount_rate;
+		return discount_rate;
 	}
 	public void setDiscount_rate(String discount_rate) {
-		Discount_rate = discount_rate;
+		this.discount_rate = discount_rate;
 	}
-
 	public String getEncounterTime() {
 		return encounterTime;
 	}
 	public void setEncounterTime(String encounterTime) {
 		this.encounterTime = encounterTime;
 	}
-	public String getVAT() {
-		return VAT;
+	public String getvAT() {
+		return vAT;
 	}
-	public void setVAT(String vAT) {
-		VAT = vAT;
+	public void setvAT(String vAT) {
+		this.vAT = vAT;
 	}
 	public String getUnit_Price_After_Discount() {
-		return Unit_Price_After_Discount;
+		return unit_Price_After_Discount;
 	}
 	public void setUnit_Price_After_Discount(String unit_Price_After_Discount) {
-		Unit_Price_After_Discount = unit_Price_After_Discount;
+		this.unit_Price_After_Discount = unit_Price_After_Discount;
 	}
 	public String getAllowance() {
 		return allowance;
@@ -140,34 +140,34 @@ public class EncounterJson {
 		this.allowance = allowance;
 	}
 	public String getUnit_Price_W_Tax_Profit() {
-		return Unit_Price_W_Tax_Profit;
+		return unit_Price_W_Tax_Profit;
 	}
 	public void setUnit_Price_W_Tax_Profit(String unit_Price_W_Tax_Profit) {
-		Unit_Price_W_Tax_Profit = unit_Price_W_Tax_Profit;
+		this.unit_Price_W_Tax_Profit = unit_Price_W_Tax_Profit;
 	}
 	public String getSubcon_Profit() {
-		return Subcon_Profit;
+		return subcon_Profit;
 	}
 	public void setSubcon_Profit(String subcon_Profit) {
-		Subcon_Profit = subcon_Profit;
+		this.subcon_Profit = subcon_Profit;
 	}
 	public String getUnit_Price_W_Tax_Labour() {
-		return Unit_Price_W_Tax_Labour;
+		return unit_Price_W_Tax_Labour;
 	}
 	public void setUnit_Price_W_Tax_Labour(String unit_Price_W_Tax_Labour) {
-		Unit_Price_W_Tax_Labour = unit_Price_W_Tax_Labour;
+		this.unit_Price_W_Tax_Labour = unit_Price_W_Tax_Labour;
 	}
 	public String getCost_Mat_Amount_USD() {
-		return Cost_Mat_Amount_USD;
+		return cost_Mat_Amount_USD;
 	}
 	public void setCost_Mat_Amount_USD(String cost_Mat_Amount_USD) {
-		Cost_Mat_Amount_USD = cost_Mat_Amount_USD;
+		this.cost_Mat_Amount_USD = cost_Mat_Amount_USD;
 	}
 	public String getCost_Labour_Amount_USD() {
-		return Cost_Labour_Amount_USD;
+		return cost_Labour_Amount_USD;
 	}
 	public void setCost_Labour_Amount_USD(String cost_Labour_Amount_USD) {
-		Cost_Labour_Amount_USD = cost_Labour_Amount_USD;
+		this.cost_Labour_Amount_USD = cost_Labour_Amount_USD;
 	}
 	public String getProductId() {
 		return productId;
@@ -192,6 +192,18 @@ public class EncounterJson {
 	}
 	public void setRegionName(String regionName) {
 		this.regionName = regionName;
+	}
+	public String getProductCode() {
+		return productCode;
+	}
+	public void setProductCode(String productCode) {
+		this.productCode = productCode;
+	}
+	public Set<LocationJson> getLocations() {
+		return locations;
+	}
+	public void setLocations(Set<LocationJson> locations) {
+		this.locations = locations;
 	}
 	
 	

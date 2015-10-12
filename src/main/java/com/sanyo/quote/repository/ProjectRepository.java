@@ -1,6 +1,8 @@
 package com.sanyo.quote.repository;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.query.Param;
 
 import com.sanyo.quote.domain.Project;
 
@@ -55,5 +57,8 @@ public interface ProjectRepository extends PagingAndSortingRepository<Project, I
 //	List<Object[]>  findDistinctTableByDate(@Param("tradeDate") Date tradeDate, @Param("nextTradeDate") Date nextTradeDate);
 //	@Query("select c"
 //			+ " from Project c where c.openTime  between :tradeDate and :nextTradeDate  order by c.status asc, c.openTime desc")
-//	List<Project> findTableByDate(@Param("tradeDate") Date tradeDate, @Param("nextTradeDate") Date nextTradeDate );	
+//	List<Project> findTableByDate(@Param("tradeDate") Date tradeDate, @Param("nextTradeDate") Date nextTradeDate );
+	
+	@Query("SELECT p FROM Project p JOIN FETCH p.locations WHERE p.projectId = :id")
+	public Project findByIdAndFetchLocationsEagerly(@Param("id") Integer id);
 }

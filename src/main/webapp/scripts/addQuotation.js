@@ -1,15 +1,80 @@
+var urlLocation = "/quotation/getAssignedLocationsJson";
+// prepare the data
+var sourceLocation = {
+	datatype : "json",
+	datafields : [ {
+		name : 'locationId',
+		type : 'string'
+	}, {
+		name : 'locationName',
+		type : 'string'
+	} ],
+	id : 'locationId',
+	url : urlLocation,
+	data : {
+		regionId : regionId
+	}
+};
+var dataAdapterLocation = new $.jqx.dataAdapter(sourceLocation, {
+	autoBind : true,
+	downloadComplete : function(data, status, xhr) {
+	},
+	loadComplete : function(data) {
+	},
+	loadError : function(xhr, status, error) {
+	}
+});
+// Create a jqxComboBox
+$("#jqxWidgetLocation").jqxComboBox({
+	checkboxes : true,
+	source : dataAdapterLocation,
+	displayMember : "locationName",
+	valueMember : "locationId",
+	width : '100%',
+	height : 25
+});
+
+var urlProducts = "/products/getproductsjson";
+// prepare the data
+var sourceProducts = {
+	datatype : "json",
+	datafields : [ {
+		name : 'productName',
+		type : 'string'
+	}, {
+		name : 'productPrice',
+		type : 'float'
+	}, {
+		name : 'picLocation',
+		type : 'string'
+	}, {
+		name : 'productCode',
+		type : 'string'
+	} ],
+	id : 'productID',
+	url : urlProducts
+};
+var dataAdapterProducts = new $.jqx.dataAdapter(sourceProducts, {
+	autoBind : true,
+	downloadComplete : function(data, status, xhr) {
+	},
+	loadComplete : function(data) {
+	},
+	loadError : function(xhr, status, error) {
+	}
+});
+
 /**
  * To display jqxgrid in user list page.
  */
 var url = "/quotation/getAssignedProductOfRegion";
 
-
 var source = {
 	datatype : "json",
-	datafields : [{
+	datafields : [ {
 		name : 'orderNo',
 		type : 'string'
-	},{
+	}, {
 		name : 'unitRate',
 		type : 'string'
 	}, {
@@ -21,99 +86,102 @@ var source = {
 	}, {
 		name : 'actualQuantity',
 		type : 'string'
-	},{
+	}, {
 		name : 'amount',
 		type : 'string'
-		
-	},{
+
+	}, {
 		name : 'remark',
 		type : 'string'
-		
-	},{
-		name : 'Mat_w_o_Tax_USD',
+
+	}, {
+		name : 'mat_w_o_Tax_USD',
 		type : 'string'
-		
-	},{
-		name : 'Mat_w_o_Tax_VND',
+
+	}, {
+		name : 'mat_w_o_Tax_VND',
 		type : 'string'
-		
-	},{
+
+	}, {
 		name : 'labour',
 		type : 'string'
-		
-	},{
-		name : 'Imp_Tax',
+
+	}, {
+		name : 'imp_Tax',
 		type : 'string'
-		
-	},{
-		name : 'Special_Con_Tax',
+
+	}, {
+		name : 'special_Con_Tax',
 		type : 'string'
-		
-	},{
-		name : 'Discount_rate',
+
+	}, {
+		name : 'discount_rate',
 		type : 'string'
-		
-	},{
+
+	}, {
 		name : 'encounterTime',
 		type : 'string'
-		
-	},{
-		name : 'VAT',
+
+	}, {
+		name : 'vAT',
 		type : 'string'
-		
-	},{
-		name : 'Unit_Price_After_Discount',
+
+	}, {
+		name : 'unit_Price_After_Discount',
 		type : 'string'
-		
-	},{
+
+	}, {
 		name : 'allowance',
 		type : 'string'
-		
-	},{
-		name : 'Unit_Price_W_Tax_Profit',
+
+	}, {
+		name : 'unit_Price_W_Tax_Profit',
 		type : 'string'
-		
-	},{
-		name : 'Subcon_Profit',
+
+	}, {
+		name : 'subcon_Profit',
 		type : 'string'
-		
-	},{
-		name : 'Unit_Price_W_Tax_Labour',
+
+	}, {
+		name : 'unit_Price_W_Tax_Labour',
 		type : 'string'
-		
-	},{
-		name : 'Cost_Mat_Amount_USD',
+
+	}, {
+		name : 'cost_Mat_Amount_USD',
 		type : 'string'
-		
-	},{
-		name : 'Cost_Labour_Amount_USD',
+
+	}, {
+		name : 'cost_Labour_Amount_USD',
 		type : 'string'
-		
-	}],
+
+	} ],
 	id : 'encounterID',
 	url : url,
-	addrow: function (rowid, rowdata, position, commit) {
+	addrow : function(rowid, rowdata, position, commit) {
 		// synchronize with the server - send insert command
-		// call commit with parameter true if the synchronization with the server is successful 
-		//and with parameter false if the synchronization failed.
-		// you can pass additional argument to the commit callback which represents the new ID if it is generated from a DB.
-		
-	   commit(true);
-	},
-	deleterow: function (rowid, commit) {
-		// synchronize with the server - send delete command
-		// call commit with parameter true if the synchronization with the server is successful 
-		//and with parameter false if the synchronization failed.
+		// call commit with parameter true if the synchronization with the
+		// server is successful
+		// and with parameter false if the synchronization failed.
+		// you can pass additional argument to the commit callback which
+		// represents the new ID if it is generated from a DB.
+
 		commit(true);
 	},
-	updaterow: function (rowid, newdata, commit) {
-		// synchronize with the server - send update command
-		// call commit with parameter true if the synchronization with the server is successful 
+	deleterow : function(rowid, commit) {
+		// synchronize with the server - send delete command
+		// call commit with parameter true if the synchronization with the
+		// server is successful
 		// and with parameter false if the synchronization failed.
 		commit(true);
-	}	
+	},
+	updaterow : function(rowid, newdata, commit) {
+		// synchronize with the server - send update command
+		// call commit with parameter true if the synchronization with the
+		// server is successful
+		// and with parameter false if the synchronization failed.
+		commit(true);
+	}
 };
-
 
 var dataAdapter = new $.jqx.dataAdapter(source, {
 	downloadComplete : function(data, status, xhr) {
@@ -124,97 +192,79 @@ var dataAdapter = new $.jqx.dataAdapter(source, {
 	}
 });
 
-
 // initialize jqxGrid
 $("#list")
 		.jqxGrid(
 				{
 					width : '100%',
 					height : 100,
-					theme: 'energyblue',
+					theme : 'energyblue',
 					rowsheight : 45,
 					source : dataAdapter,
-					ready: function()
-					{
+					ready : function() {
 						$('#list').jqxGrid('addrow', null, {}, 'first');
-					},					
-					filterable: true,
-					editable: true,					
+					},
+					filterable : true,
+					editable : true,
 					// autorowheight: true,
 					columns : [
 							{
-								text : 'Location',
-								//columntype: 'dropdownlist',
-								datafield : 'location',
-								align : 'center',
-								width : '20%',
-								columntype: 'combobox',
-									createeditor: function (row, column, editor) {
-									// assign a new data source to the combobox.
-										var list = ['Location 1', 'Location 2', 'Location 3'];;
-										editor.jqxComboBox({ autoDropDownHeight: true, source: list, promptText: "Please Choose:" });
-									},
-									// update the editor's value before saving it.
-									cellvaluechanging: function (row, column, columntype, oldvalue, newvalue) {
-										// return the old value, if the new value is empty.
-										if (newvalue == "") return oldvalue;
-									}
-						
-							},
-							{
-								text : 'Sub-Region',
-								//columntype: 'dropdownlist',
-								datafield : 'region',
-								align : 'center',
-								width : '20%',
-								columntype: 'combobox',
-									createeditor: function (row, column, editor) {
-									// assign a new data source to the combobox.
-										var list = ['Region 1', 'Region 2', 'Region 3'];;
-										editor.jqxComboBox({ autoDropDownHeight: true, source: list, promptText: "Please Choose:" });
-									},
-									// update the editor's value before saving it.
-									cellvaluechanging: function (row, column, columntype, oldvalue, newvalue) {
-										// return the old value, if the new value is empty.
-										if (newvalue == "") return oldvalue;
-									}
-						
-							},{
 								text : 'Search by Name',
 								datafield : 'searchName',
 								align : 'center',
 								cellsalign : 'right',
-								//cellsformat : 'c0',
-								width : '20%',
-								columntype: 'combobox',
-								createeditor: function (row, column, editor) {
-								// assign a new data source to the combobox.
-									var list = ['Product 1', 'Product 2', 'Product 3'];
-									editor.jqxComboBox({ autoDropDownHeight: true, source: list, promptText: "Please Choose:" });
+								// cellsformat : 'c0',
+								width : '15%',
+								columntype : 'combobox',
+								createeditor : function(row, column, editor) {
+									// assign a new data source to the combobox.
+									editor.jqxComboBox({
+										autoDropDownHeight : true,
+										source : dataAdapterProducts,
+										displayMember : "productName",
+										valueMember : "productID",
+										promptText : "Please Choose:"
+									});
+
 								},
-								// update the editor's value before saving it.
-								cellvaluechanging: function (row, column, columntype, oldvalue, newvalue) {
-									// return the old value, if the new value is empty.
-									if (newvalue == "") return oldvalue;
-								}								
-							},{
+								geteditorvalue : function(row, cellvalue,
+										editor) {
+									// return the editor's value.
+									var item = editor
+											.jqxComboBox('getSelectedItem');
+									if (item) {
+										return item.label;
+									}
+								}
+							},
+							{
 								text : 'Search by Code',
 								datafield : 'searchCode',
 								align : 'center',
 								cellsalign : 'right',
-								//cellsformat : 'c0',
-								width : '20%',
-								columntype: 'combobox',
-								createeditor: function (row, column, editor) {
-								// assign a new data source to the combobox.
-									var list = ['Code 1', 'Code 2', 'Code 3'];
-									editor.jqxComboBox({ autoDropDownHeight: true, source: list, promptText: "Please Choose:" });
+								// cellsformat : 'c0',
+								width : '15%',
+								columntype : 'combobox',
+								createeditor : function(row, column, editor) {
+									// assign a new data source to the combobox.
+									editor.jqxComboBox({
+										autoDropDownHeight : true,
+										source : dataAdapterProducts,
+										displayMember : "productCode",
+										valueMember : "productID",
+										promptText : "Please Choose:"
+									});
 								},
-								// update the editor's value before saving it.
-								cellvaluechanging: function (row, column, columntype, oldvalue, newvalue) {
-									// return the old value, if the new value is empty.
-									if (newvalue == "") return oldvalue;
-								}								
+								geteditorvalue : function(row, cellvalue,
+										editor) {
+									// return the editor's value.
+									var item = editor
+											.jqxComboBox('getSelectedItem');
+									if (item) {
+										return item.label;
+									}
+								}
+
 							},
 							{
 								text : 'No',
@@ -222,146 +272,165 @@ $("#list")
 								align : 'center',
 								cellsalign : 'right',
 								cellsformat : 'c0',
-								width : '20%'
-							} ,{
+								width : '15%'
+							},
+							{
 								text : 'Unit',
 								datafield : 'unit',
 								align : 'center',
 								cellsalign : 'right',
-								//cellsformat : 'c0',
-								width : '20%'
-							} ,{
+								// cellsformat : 'c0',
+								width : '15%'
+							},
+							{
 								text : 'Quantity',
 								datafield : 'quantity',
 								align : 'center',
 								cellsalign : 'right',
-								//cellsformat : 'c0',
-								width : '20%'
-							} ,{
+								// cellsformat : 'c0',
+								width : '15%'
+							},
+							{
 								text : 'Unit Rate',
 								datafield : 'unitRate',
 								align : 'center',
 								cellsalign : 'right',
-								//cellsformat : 'c0',
-								width : '20%'
-							} ,{
+								// cellsformat : 'c0',
+								width : '15%'
+							},
+							{
 								text : 'Amount',
 								datafield : 'amount',
 								align : 'center',
 								cellsalign : 'right',
-								//cellsformat : 'c0',
-								width : '20%'
-							} ,{
+								// cellsformat : 'c0',
+								width : '15%'
+							},
+							{
 								text : 'Remark',
 								datafield : 'remark',
 								align : 'center',
 								cellsalign : 'right',
-								//cellsformat : 'c0',
-								width : '20%'
-							} ,{
+								// cellsformat : 'c0',
+								width : '15%'
+							},
+							{
 								text : 'Labour',
 								datafield : 'labour',
 								align : 'center',
 								cellsalign : 'right',
-								//cellsformat : 'c0',
-								width : '20%'
-							} ,{
+								// cellsformat : 'c0',
+								width : '15%'
+							},
+							{
 								text : 'Mat w/o Tax USD',
-								datafield : 'Mat_w_o_Tax_USD',
+								datafield : 'mat_w_o_Tax_USD',
 								align : 'center',
 								cellsalign : 'right',
-								//cellsformat : 'c0',
-								width : '20%'
-							} ,{
+								// cellsformat : 'c0',
+								width : '15%'
+							},
+							{
 								text : 'Mat w/o Tax VND',
-								datafield : 'Mat_w_o_Tax_VND',
+								datafield : 'mat_w_o_Tax_VND',
 								align : 'center',
 								cellsalign : 'right',
-								//cellsformat : 'c0',
-								width : '20%'
-							} ,{
+								// cellsformat : 'c0',
+								width : '15%'
+							},
+							{
 								text : 'Imp Tax',
-								datafield : 'Imp_Tax',
+								datafield : 'imp_Tax',
 								align : 'center',
 								cellsalign : 'right',
-								//cellsformat : 'c0',
-								width : '20%'
-							} ,{
+								// cellsformat : 'c0',
+								width : '15%'
+							},
+							{
 								text : 'Special con. Tax',
-								datafield : 'Special_Con_Tax',
+								datafield : 'special_Con_Tax',
 								align : 'center',
 								cellsalign : 'right',
-								//cellsformat : 'c0',
-								width : '20%'
-							} ,{
+								// cellsformat : 'c0',
+								width : '15%'
+							},
+							{
 								text : 'VAT',
-								datafield : 'VAT',
+								datafield : 'vAT',
 								align : 'center',
 								cellsalign : 'right',
-								//cellsformat : 'c0',
-								width : '20%'
-							} ,{
+								// cellsformat : 'c0',
+								width : '15%'
+							},
+							{
 								text : 'Discount rate %',
-								datafield : 'Discount_rate',
+								datafield : 'discount_rate',
 								align : 'center',
 								cellsalign : 'right',
-								//cellsformat : 'c0',
-								width : '20%'
-							} ,{
+								// cellsformat : 'c0',
+								width : '15%'
+							},
+							{
 								text : 'Unit price after discount',
-								datafield : 'Unit_Price_After_Discount',
+								datafield : 'unit_Price_After_Discount',
 								align : 'center',
 								cellsalign : 'right',
-								//cellsformat : 'c0',
-								width : '20%'
-							} ,{
+								// cellsformat : 'c0',
+								width : '15%'
+							},
+							{
 								text : 'Allowance',
 								datafield : 'allowance',
 								align : 'center',
 								cellsalign : 'right',
-								//cellsformat : 'c0',
-								width : '20%'
-							} ,{
+								// cellsformat : 'c0',
+								width : '15%'
+							},
+							{
 								text : 'Unit price w Tax & profit',
-								datafield : 'Unit_Price_W_Tax_Profit',
+								datafield : 'unit_Price_W_Tax_Profit',
 								align : 'center',
 								cellsalign : 'right',
-								//cellsformat : 'c0',
-								width : '20%'
-							} ,{
+								// cellsformat : 'c0',
+								width : '15%'
+							},
+							{
 								text : 'Subcon profit',
 								datafield : 'subConProfit',
 								align : 'center',
 								cellsalign : 'right',
-								//cellsformat : 'c0',
-								width : '20%'
-							} ,{
+								// cellsformat : 'c0',
+								width : '15%'
+							},
+							{
 								text : 'Unit price w Tax – labour',
-								datafield : 'Unit_Price_W_Tax_Labour',
+								datafield : 'unit_Price_W_Tax_Labour',
 								align : 'center',
 								cellsalign : 'right',
-								//cellsformat : 'c0',
-								width : '20%'
-							} ,{
+								// cellsformat : 'c0',
+								width : '15%'
+							},
+							{
 								text : 'Cost - Mat amount USD',
-								datafield : 'Cost_Mat_Amount_USD',
+								datafield : 'cost_Mat_Amount_USD',
 								align : 'center',
 								cellsalign : 'right',
-								//cellsformat : 'c0',
-								width : '20%'
-							} ,{
+								// cellsformat : 'c0',
+								width : '15%'
+							},
+							{
 								text : 'Cost - Labour amount USD',
-								datafield : 'Cost_Labour_Amount_USD',
+								datafield : 'cost_Labour_Amount_USD',
 								align : 'center',
 								cellsalign : 'right',
-								//cellsformat : 'c0',
-								width : '20%'
+								// cellsformat : 'c0',
+								width : '15%'
 							},
 							{
 								text : 'Action',
 								align : 'center',
 								datafield : '',
-								width : '20%',
+								width : '10%',
 								cellsrenderer : function(row, column, value) {
 									return '<div class="col-md-6">'
 											+ '<a class="btn btn-app" onclick="addItem('
@@ -370,72 +439,74 @@ $("#list")
 											+ '<i class="glyphicon glyphicon-plus"></i>'
 											+ '</div>';
 								},
-								  cellbeginedit: function (row) {
-									   return false;
-								  }								
-							}
-							]
+								cellbeginedit : function(row) {
+									return false;
+								}
+							} ]
 				});
 function addItem(row) {
-	//call server action to add new row.
+	// call server action to add new row.
 	saveEncounter(row);
 
-	
 }
-function saveEncounter(row){
+function saveEncounter(row) {
+	var rows = $("#jqxWidgetLocation").jqxComboBox('getCheckedItems');
+	var locations = new Array();
+	// <![CDATA[
+	for (var i = 0; i < rows.length; i++) {
+		var location = new Object();
+		location.locationId = rows[i].value;
+		location.locationName = rows[i].label;
+		locations.push(location);
+	}
+
+	// ]]>
+
 	var data = $('#list').jqxGrid('getrowdata', row);
 	var encounter = new Object();
-//	var regionJson = new Object();
-//	regionJson.regionName = data.region;
-//	encounter.regionJson = regionJson
-//	encounter.orderNo = data.orderNo;
-	encounter.orderNo = '1';
-	encounter.encounterID = '1';
-	encounter.unitRate = '1';
-	encounter.quantity = '1';
-	encounter.actualQuantity = '1';
-	encounter.amount = '1';
-	encounter.remark = '1';
-	encounter.Mat_w_o_Tax_USD = '1';
-	encounter.Mat_w_o_Tax_VND = '1';
-	encounter.labour = '1';
-	encounter.Imp_Tax = '1';
-	encounter.Special_Con_Tax = '1';
-	encounter.Discount_rate = '1';
-	encounter.VAT = '1';
-	encounter.Unit_Price_After_Discount = '1';
-	encounter.allowance = '1';
-	encounter.Unit_Price_W_Tax_Profit = '1';
-	encounter.Cost_Mat_Amount_USD = '1';
-	encounter.Cost_Labour_Amount_USD = '1';
-	
+	encounter.regionId = regionId;
+	encounter.locations = locations;
+	encounter.productCode = data.searchCode;
+	encounter.productName = data.searchName;
+	encounter.orderNo = data.orderNo;
+	encounter.encounterID = data.encounterID;
+	encounter.unitRate = data.unitRate;
+	encounter.quantity = data.quantity;
+	encounter.actualQuantity = data.actualQuantity;
+	encounter.amount = data.amount;
+	encounter.remark = data.remark;
+	encounter.mat_w_o_Tax_USD = data.mat_w_o_Tax_USD;
+	encounter.mat_w_o_Tax_VND = data.mat_w_o_Tax_VND;
+	encounter.labour = data.labour;
+	encounter.imp_Tax = data.imp_Tax;
+	encounter.special_Con_Tax = data.special_Con_Tax;
+	encounter.discount_rate = data.discount_rate;
+	encounter.vAT = data.vAT;
+	encounter.unit_Price_After_Discount = data.unit_Price_After_Discount;
+	encounter.allowance = data.allowance;
+	encounter.unit_Price_W_Tax_Profit = data.unit_Price_W_Tax_Profit;
+	encounter.cost_Mat_Amount_USD = data.cost_Mat_Amount_USD;
+	encounter.cost_Labour_Amount_USD = data.cost_Labour_Amount_USD;
+
 	var jsonData = JSON.stringify(encounter);
 	console.log(jsonData);
-	//var url = '/quotation/' + projectId + '/addquotation?form';
+	// var url = '/quotation/' + projectId + '/addquotation?form';
 	var url = '/quotation/1/addquotation?form';
-	//var url = '/quotation/1/savequotation';
+	// var url = '/quotation/1/savequotation';
 	$.ajax({
-		   type: "POST",
-		   contentType : 'application/json',
-		   data: jsonData,
-		   url: url,
-		   success: function(msg){
-				$("#list").jqxGrid('updatebounddata');
-				
-				$('#list').jqxGrid('addrow', null, {}, 'first');
-				$("#list").jqxGrid('begincelledit', 0, "desc");
-		   }
-			,complete: function(xhr,status){
-//				$("#assignRegionButton").prop('disabled', false);
-		  }		   
-		});
-	
-	
-	
-	
-	
-	
-	
-	
-	
+		type : "POST",
+		contentType : 'application/json',
+		data : jsonData,
+		url : url,
+		success : function(msg) {
+			$("#list").jqxGrid('updatebounddata');
+
+			$('#list').jqxGrid('addrow', null, {}, 'first');
+			$("#list").jqxGrid('begincelledit', 0, "desc");
+		},
+		complete : function(xhr, status) {
+			// $("#assignRegionButton").prop('disabled', false);
+		}
+	});
+
 }

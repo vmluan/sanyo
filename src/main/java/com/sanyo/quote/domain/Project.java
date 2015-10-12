@@ -18,6 +18,7 @@ import javax.validation.constraints.NotNull;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "project", catalog = "sanyo", uniqueConstraints = {
@@ -53,12 +54,12 @@ public class Project implements java.io.Serializable {
 	private String exJpy;
 	private String exUsd;
 	
-	private String impTax;
-	private String specialTax;
-	private String VAT;
-	private String discountRate;
-	private String allowance;
-	private float Subcon_Profit; //mặc định 105%, lấy từ bản thông số chung của dự án
+	private float impTax = 0f;
+	private float specialTax = 0f;
+	private float VAT = 0f;
+	private float discountRate = 100f;
+	private float allowance = 105f;
+	private float subConProfit = 105f; //mặc định 105%, lấy từ bản thông số chung của dự án
 	
 	private String vndToUsd;
 	private String usdToVnd;
@@ -69,6 +70,15 @@ public class Project implements java.io.Serializable {
 	
 	private Set<ProjectRevision> revisions;
 	private Set<Location> locations;
+	
+	private float qtySubMain =105f;
+	private float eQtyOther =105f;
+	private float mQty =105f;
+	
+	@DateTimeFormat(pattern = "MM/dd/yyyy")
+	private Date startDate;
+	@DateTimeFormat(pattern = "MM/dd/yyyy")
+	private Date endDate;
 	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -256,52 +266,53 @@ public class Project implements java.io.Serializable {
 		this.exUsd = exUsd;
 	}
 
-	public String getImpTax() {
+	public float getImpTax() {
 		return impTax;
 	}
 
-	public void setImpTax(String impTax) {
+	public void setImpTax(float impTax) {
 		this.impTax = impTax;
 	}
 
-	public String getSpecialTax() {
+	public float getSpecialTax() {
 		return specialTax;
 	}
 
-	public void setSpecialTax(String specialTax) {
+	public void setSpecialTax(float specialTax) {
 		this.specialTax = specialTax;
 	}
 
-	public String getVAT() {
+	public float getVAT() {
 		return VAT;
 	}
 
-	public void setVAT(String vAT) {
+	public void setVAT(float vAT) {
 		VAT = vAT;
 	}
 
-	public String getDiscountRate() {
+	public float getDiscountRate() {
 		return discountRate;
 	}
 
-	public void setDiscountRate(String discountRate) {
+	public void setDiscountRate(float discountRate) {
 		this.discountRate = discountRate;
 	}
 
-	public String getAllowance() {
+	public float getAllowance() {
 		return allowance;
 	}
 
-	public void setAllowance(String allowance) {
+	public void setAllowance(float allowance) {
 		this.allowance = allowance;
 	}
 
-	public float getSubcon_Profit() {
-		return Subcon_Profit;
+
+	public float getSubConProfit() {
+		return subConProfit;
 	}
 
-	public void setSubcon_Profit(float subcon_Profit) {
-		Subcon_Profit = subcon_Profit;
+	public void setSubConProfit(float subConProfit) {
+		this.subConProfit = subConProfit;
 	}
 
 	@JsonIgnore
@@ -370,6 +381,46 @@ public class Project implements java.io.Serializable {
 
 	public void setLocations(Set<Location> locations) {
 		this.locations = locations;
+	}
+
+	public float getQtySubMain() {
+		return qtySubMain;
+	}
+
+	public void setQtySubMain(float qtySubMain) {
+		this.qtySubMain = qtySubMain;
+	}
+
+	public float geteQtyOther() {
+		return eQtyOther;
+	}
+
+	public void seteQtyOther(float eQtyOther) {
+		this.eQtyOther = eQtyOther;
+	}
+
+	public float getmQty() {
+		return mQty;
+	}
+
+	public void setmQty(float mQty) {
+		this.mQty = mQty;
+	}
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 	
 	
