@@ -68,6 +68,7 @@ public class Project implements java.io.Serializable {
 	private String jpyToUsd;
 	
 	private Set<ProjectRevision> revisions;
+	private Set<Location> locations;
 	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -359,6 +360,16 @@ public class Project implements java.io.Serializable {
 
 	public void setJpyToUsd(String jpyToUsd) {
 		this.jpyToUsd = jpyToUsd;
+	}
+	
+	@JsonIgnore
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="project")
+	public Set<Location> getLocations() {
+		return locations;
+	}
+
+	public void setLocations(Set<Location> locations) {
+		this.locations = locations;
 	}
 	
 	
