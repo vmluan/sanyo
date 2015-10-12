@@ -8,6 +8,8 @@ import java.util.List;
  */
 public class RegionJson implements Serializable{
 	private Integer regionId;
+	private String regionName;
+	
 	private List<UserJson> users;
 
 	public Integer getRegionId() {
@@ -24,6 +26,14 @@ public class RegionJson implements Serializable{
 
 	public void setUsers(List<UserJson> users) {
 		this.users = users;
+	}
+
+	public String getRegionName() {
+		return regionName;
+	}
+
+	public void setRegionName(String regionName) {
+		this.regionName = regionName;
 	}
 	
 	

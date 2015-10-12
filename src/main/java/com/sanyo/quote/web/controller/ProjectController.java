@@ -36,6 +36,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sanyo.quote.domain.Category;
+import com.sanyo.quote.domain.Location;
 import com.sanyo.quote.domain.Project;
 import com.sanyo.quote.domain.ProjectRevision;
 import com.sanyo.quote.domain.Region;
@@ -46,14 +47,13 @@ import com.sanyo.quote.domain.UserRegionRole;
 import com.sanyo.quote.helper.Utilities;
 import com.sanyo.quote.service.CategoryService;
 import com.sanyo.quote.service.EncounterService;
+import com.sanyo.quote.service.LocationService;
 import com.sanyo.quote.service.ProductService;
 import com.sanyo.quote.service.ProjectRevisionService;
 import com.sanyo.quote.service.ProjectService;
 import com.sanyo.quote.service.RegionService;
 import com.sanyo.quote.service.UserRegionRoleService;
 import com.sanyo.quote.service.UserService;
-import com.sanyo.quote.web.form.BreadCrumb;
-import com.sanyo.quote.web.form.Link;
 import com.sanyo.quote.web.form.Message;
 import com.sanyo.quote.web.util.UrlUtil;
 
@@ -88,6 +88,9 @@ public class ProjectController extends CommonController {
 	
 	@Autowired
 	private ProjectRevisionService projectRevisionService;
+	
+	@Autowired
+	private LocationService locationService;
 	
 	private Validator validator;
 	
@@ -503,6 +506,83 @@ public class ProjectController extends CommonController {
 		String result = Utilities.jSonSerialization(projectRevisions);
 		return result;
 	}
+	
+	//method to show form for creating new location
+	@RequestMapping(value = "/{id}/locations", params = "form", method = RequestMethod.GET)
+    public String callCreateLocation(@PathVariable("id") Integer id, Model uiModel) {
+		Location location = new Location();
+		Project project = projectService.findById(id);
+		location.setProject(project);
+        uiModel.addAttribute("location", location);
+        setBreadCrumb(uiModel, "/projects", "Projects", "", "Create Location");
+        setHeader(uiModel, "Location", "Create a new Location");
+		return "projects/locations/create";
+		
+	}
+	//method to save form of new location to database.
+	@RequestMapping(value = "/{id}/locations", params = "form", method = RequestMethod.POST)
+	public String saveLocation(@ModelAttribute("location") Location location, @PathVariable Integer id, Model uiModel, 
+    		HttpServletRequest httpServletRequest, RedirectAttributes redirectAttributes, Locale locale, BindingResult bindingResult){
+		logger.info("Saving new Location");
+        if (bindingResult.hasErrors()) {
+			uiModel.addAttribute("message", new Message("error", messageSource.getMessage("location_save_fail", new Object[]{}, locale)));
+            uiModel.addAttribute("location", location);
+            return "projects/location/create";
+        }
+		Project project = projectService.findById(id);
+		location.setProject(project);
+		location = locationService.save(location);
+		uiModel.asMap().clear();
+		setBreadCrumb(uiModel, "/projects/" + id + "?form", "Update Project", "", "Update Location");
+		setHeader(uiModel, "Location", "Detail of Location");
+		redirectAttributes.addFlashAttribute("message", new Message("success", messageSource.getMessage("location_save_success", new Object[]{}, locale)));
+		return "redirect:/projects/locations/" + UrlUtil.encodeUrlPathSegment(location.getLocationId().toString(), httpServletRequest) + "?form";
+	}
+	
+	@RequestMapping(value = "/locations/{id}", params = "form", method = RequestMethod.GET)
+	public String  callEditLocation(@PathVariable("id") Integer id, Model uiModel, HttpServletRequest httpServletRequest){
+		Location location = locationService.findById(id);
+        uiModel.addAttribute("location", location);
+        setBreadCrumb(uiModel, "/projects/" + location.getProject().getProjectId() + "?form", "Update Project", "", "Update Location");
+        setHeader(uiModel, "Location", "Update location");
+		return "projects/locations/update";
+	}
+	@RequestMapping(value = "/locations/{id}", params = "form", method = RequestMethod.POST)
+	public String  saveEditLocation(@ModelAttribute("location") Location location, @PathVariable Integer id
+			, Model uiModel, HttpServletRequest httpServletRequest,RedirectAttributes redirectAttributes
+			,Locale locale, BindingResult bindingResult){
+		if (bindingResult.hasErrors()) {
+			uiModel.addAttribute("message", new Message("error", messageSource.getMessage("location_save_fail", new Object[]{}, locale)));
+            uiModel.addAttribute("location", location);
+            return "projects/location/update";
+	        }  
+		Location exitingLocation = locationService.findById(id);
+		location.setLocationId(id);
+		location.setProject(exitingLocation.getProject());
+		
+		location = locationService.save(location);
+        uiModel.addAttribute("location", location);
+        setBreadCrumb(uiModel, "/projects/" + location.getProject().getProjectId() + "?form", "Update Project", "", "Update Location");
+        setHeader(uiModel, "Location", "Update Location");
+        uiModel.addAttribute("message", new Message("success", messageSource.getMessage("location_save_success", new Object[]{}, locale)));
+		return "projects/locations/update";
+	}	
+	@RequestMapping(value = "/getLocationsJson", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public String getLocationsJson(@RequestParam(value="projectId", required=true) String projectId,
+			@RequestParam(value="filterscount", required=false) String filterscount
+			, @RequestParam(value="groupscount", required=false) String groupscount
+			, @RequestParam(value="pagenum", required=false) Integer pagenum
+			, @RequestParam(value="pagesize", required=false) Integer pagesize
+			, @RequestParam(value="recordstartindex", required=false) Integer recordstartindex
+			, @RequestParam(value="recordendindex", required=false) Integer recordendindex
+			, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
+		Project project = projectService.findById(Integer.valueOf(projectId));
+		Set<Location> locations = project.getLocations();
+		String result = Utilities.jSonSerialization(locations);
+		return result;
+	}
+	
 	
 }
 

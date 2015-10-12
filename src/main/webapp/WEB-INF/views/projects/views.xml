@@ -28,5 +28,13 @@
     <definition extends="default" name="projects/revisions/update">
         <put-attribute name="body"
             value="/WEB-INF/views/projects/projectrevisionedit.jspx" />
-    </definition>                                      
+    </definition> 
+    <definition extends="default" name="projects/locations/create">
+        <put-attribute name="body"
+            value="/WEB-INF/views/projects/projectlocationedit.jspx" />
+    </definition>  
+    <definition extends="default" name="projects/locations/update">
+        <put-attribute name="body"
+            value="/WEB-INF/views/projects/projectlocationedit.jspx" />
+    </definition>                                         
 </tiles-definitions>

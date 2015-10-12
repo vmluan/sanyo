@@ -1,7 +1,9 @@
 package com.sanyo.quote.init;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.ServletContextEvent;
 
@@ -11,9 +13,11 @@ import org.springframework.web.context.ContextLoaderListener;
 
 import com.sanyo.quote.domain.Category;
 import com.sanyo.quote.domain.Group;
+import com.sanyo.quote.domain.Product;
 import com.sanyo.quote.domain.User;
 import com.sanyo.quote.service.CategoryService;
 import com.sanyo.quote.service.GroupService;
+import com.sanyo.quote.service.ProductService;
 import com.sanyo.quote.service.UserService;
 
 @Component
@@ -80,6 +84,7 @@ public class StartupContextListener extends ContextLoaderListener{
 		UserService userService = ctx.getBean("userService", UserService.class);
 		GroupService groupService = ctx.getBean("groupService", GroupService.class);
 		CategoryService categoryService = ctx.getBean("categoryService", CategoryService.class);
+		ProductService productService = ctx.getBean("productService", ProductService.class);
 		for(int i=0; i < 100; i++){
 			String userName = "admin" + i;
 			if(i ==0)
@@ -141,7 +146,32 @@ public class StartupContextListener extends ContextLoaderListener{
 		if(categories.size() ==0){
 			addCategorySampleData(categoryService);
 		}
+		if(productService.findAll().size() ==0){
+			addProductSample(productService, categoryService);
+		}
 		
 		ctx.destroy();
+	}
+	private void addProductSample(ProductService productService, CategoryService categoryService){
+//		List<Category> categories = new ArrayList<Category>();
+//		categories.add(categoryService.findById(2));
+//		
+		Product product = new Product();
+		product.setProductName("LBS Panel connected to the extising panel in Phase 3");
+//		product.setCategories(categories);
+		product.setDiscount_rate(0);
+		product.setImp_Tax(0);
+		product.setLabour(0);
+		product.setLastModifiedBy("ADMIN");
+		product.setMat_w_o_Tax_USD(0);
+		product.setMat_w_o_Tax_VND(0);
+		product.setMaxDiscountSalePer(0);
+		product.setMat_w_o_Tax_VND(0);
+		product.setMaxDiscountWholeSalePer(0);
+		product.setMinDiscountSalePer(0);
+		product.setProductCode("Code1234");
+		
+		
+		productService.save(product);
 	}
 }

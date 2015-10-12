@@ -7,7 +7,7 @@ var url = "/quotation/getAssignedProductOfRegion";
 var source = {
 	datatype : "json",
 	datafields : [{
-		name : 'order',
+		name : 'orderNo',
 		type : 'string'
 	},{
 		name : 'unitRate',
@@ -130,7 +130,7 @@ $("#list")
 		.jqxGrid(
 				{
 					width : '100%',
-					height : 500,
+					height : 100,
 					theme: 'energyblue',
 					rowsheight : 45,
 					source : dataAdapter,
@@ -143,9 +143,28 @@ $("#list")
 					// autorowheight: true,
 					columns : [
 							{
+								text : 'Location',
+								//columntype: 'dropdownlist',
+								datafield : 'location',
+								align : 'center',
+								width : '20%',
+								columntype: 'combobox',
+									createeditor: function (row, column, editor) {
+									// assign a new data source to the combobox.
+										var list = ['Location 1', 'Location 2', 'Location 3'];;
+										editor.jqxComboBox({ autoDropDownHeight: true, source: list, promptText: "Please Choose:" });
+									},
+									// update the editor's value before saving it.
+									cellvaluechanging: function (row, column, columntype, oldvalue, newvalue) {
+										// return the old value, if the new value is empty.
+										if (newvalue == "") return oldvalue;
+									}
+						
+							},
+							{
 								text : 'Sub-Region',
 								//columntype: 'dropdownlist',
-								datafield : 'desc',
+								datafield : 'region',
 								align : 'center',
 								width : '20%',
 								columntype: 'combobox',
@@ -199,7 +218,7 @@ $("#list")
 							},
 							{
 								text : 'No',
-								datafield : 'order',
+								datafield : 'orderNo',
 								align : 'center',
 								cellsalign : 'right',
 								cellsformat : 'c0',
@@ -359,6 +378,64 @@ $("#list")
 				});
 function addItem(row) {
 	//call server action to add new row.
-	$('#list').jqxGrid('addrow', null, {}, 'first');
-	$("#list").jqxGrid('begincelledit', 0, "desc");
+	saveEncounter(row);
+
+	
+}
+function saveEncounter(row){
+	var data = $('#list').jqxGrid('getrowdata', row);
+	var encounter = new Object();
+//	var regionJson = new Object();
+//	regionJson.regionName = data.region;
+//	encounter.regionJson = regionJson
+//	encounter.orderNo = data.orderNo;
+	encounter.orderNo = '1';
+	encounter.encounterID = '1';
+	encounter.unitRate = '1';
+	encounter.quantity = '1';
+	encounter.actualQuantity = '1';
+	encounter.amount = '1';
+	encounter.remark = '1';
+	encounter.Mat_w_o_Tax_USD = '1';
+	encounter.Mat_w_o_Tax_VND = '1';
+	encounter.labour = '1';
+	encounter.Imp_Tax = '1';
+	encounter.Special_Con_Tax = '1';
+	encounter.Discount_rate = '1';
+	encounter.VAT = '1';
+	encounter.Unit_Price_After_Discount = '1';
+	encounter.allowance = '1';
+	encounter.Unit_Price_W_Tax_Profit = '1';
+	encounter.Cost_Mat_Amount_USD = '1';
+	encounter.Cost_Labour_Amount_USD = '1';
+	
+	var jsonData = JSON.stringify(encounter);
+	console.log(jsonData);
+	//var url = '/quotation/' + projectId + '/addquotation?form';
+	var url = '/quotation/1/addquotation?form';
+	//var url = '/quotation/1/savequotation';
+	$.ajax({
+		   type: "POST",
+		   contentType : 'application/json',
+		   data: jsonData,
+		   url: url,
+		   success: function(msg){
+				$("#list").jqxGrid('updatebounddata');
+				
+				$('#list').jqxGrid('addrow', null, {}, 'first');
+				$("#list").jqxGrid('begincelledit', 0, "desc");
+		   }
+			,complete: function(xhr,status){
+//				$("#assignRegionButton").prop('disabled', false);
+		  }		   
+		});
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

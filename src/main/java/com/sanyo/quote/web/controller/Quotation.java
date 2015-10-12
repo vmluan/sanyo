@@ -69,11 +69,18 @@ public class Quotation {
 		String result = Utilities.jSonSerialization(encounters);
 		return result;
 	}
-	//get all assigned products of a specific region. Based on that we know all items that assigned to a project
+	//save encounter
 	@RequestMapping(value = "/{id}/addquotation", params = "form", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK)
 	public void saveEncounters(@RequestBody final EncounterJson encounterJson, @PathVariable("id") Integer id, Model uiModel, HttpServletRequest httpServletRequest){
 		System.out.println("=================================== saving encounter");;
+	}
+	
+	//save encounter
+	@RequestMapping(value = "/{id}/savequotation", method = RequestMethod.POST)
+	@ResponseStatus(value = HttpStatus.OK)
+	public void saveEncounters2(@PathVariable("id") Integer id, Model uiModel, HttpServletRequest httpServletRequest){
+		System.out.println("=================================== saving encounter 2");
 	}
 
 }

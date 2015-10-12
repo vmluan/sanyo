@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" 
+     xmlns:c="http://java.sun.com/jsp/jstl/core" 
+     xmlns:spring="http://www.springframework.org/tags"
+     xmlns:form="http://www.springframework.org/tags/form"
+     version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+
+    <spring:message code="label_project_location_new" var="labelNew" text="New"/>
+    <spring:message code="label_project_location_update" var="labelUpdate" text = "Update"/>
+    <spring:message code="label_project_location_name" var="labelLocationNam" text="Name" />
+    <spring:message code="label_project_location_date" var="labelDate" text="Date" />
+    <spring:message code="label_project_location_desc" var="labelDesc" text="Description" />
+    
+    <spring:eval expression="location.locationId == null ? labelNew:labelUpdate" var="formTitle"/>       
+        <!-- Main content -->
+        <section class="content">
+          <div class="box box-default">
+            <!-- left column -->
+            <div class="box-body">
+              <!-- general form elements -->
+			  
+              <div class="row">
+                <div class="box-header with-border">
+                  <h3 class="box-title">${formTitle}</h3>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                <form:form modelAttribute="location" id="locationUpdateForm" method="post">
+                  <div class="col-md-12">
+					<c:if test="${not empty message}">
+						<div id="message" class="${message.type}">${message.message}</div>
+					</c:if>	                  
+                  </div>                
+                  <div class="col-md-6">
+					<div class="form-group">
+						<form:label path="locationName">
+							${labelLocationNam}* 
+						</form:label>
+						<form:input path="locationName" class="form-control"/> 
+					</div>
+					<div>
+						<form:errors path="locationName" cssClass="error" />
+					</div>					
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<form:label path="locationDesc">
+							${labelDesc}
+						</form:label>
+						<form:input path="locationDesc" class="form-control"/>
+					</div>
+					<div>
+						<form:errors path="locationDesc" cssClass="error" />
+					</div>					
+				</div>			
+				<div class="col-md-12">
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </div>					
+				</div>				
+
+                </form:form>
+              </div><!-- /.box -->
+			</div>
+		</div>
+	</section>
+</div>
