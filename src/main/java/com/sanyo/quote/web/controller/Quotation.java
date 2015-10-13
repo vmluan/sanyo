@@ -98,10 +98,10 @@ public class Quotation {
 			java.util.Iterator<LocationJson> iterator = locatonJsons.iterator();
 			while(iterator.hasNext()){
 				LocationJson location = iterator.next();
-				
+				saveEncounter(encounterJson, location);
 			}
 		}else{
-			
+			saveEncounter(encounterJson, null);
 		}
 	}
 	private void saveEncounter(EncounterJson encounterJson, LocationJson locationJson){
@@ -110,33 +110,54 @@ public class Quotation {
 			Location location = locationService.findById(locationJson.getLocationId());
 			encounter.setLocation(location);
 		}
-		encounter.setActualQuantity(Float.valueOf(encounterJson.getActualQuantity()));
-		encounter.setAllowance(Float.valueOf(encounterJson.getAllowance()));
-		encounter.setAmount(Float.valueOf(encounterJson.getAmount()));
-		encounter.setCost_Labour_Amount_USD(Float.valueOf(encounterJson.getCost_Labour_Amount_USD()));
-		encounter.setCost_Mat_Amount_USD(Float.valueOf(encounterJson.getCost_Mat_Amount_USD()));
-		encounter.setDiscount_rate(Float.valueOf(encounterJson.getDiscount_rate()));
+		if(encounterJson.getActualQuantity() != null)
+			encounter.setActualQuantity(Float.valueOf(encounterJson.getActualQuantity()));
+		if (encounterJson.getAllowance() != null)
+			encounter.setAllowance(Float.valueOf(encounterJson.getAllowance()));
+		if (encounterJson.getAmount() != null)
+			encounter.setAmount(Float.valueOf(encounterJson.getAmount()));
+		if(encounterJson.getCost_Labour_Amount_USD() != null)
+			encounter.setCost_Labour_Amount_USD(Float.valueOf(encounterJson.getCost_Labour_Amount_USD()));
+		if (encounterJson.getCost_Mat_Amount_USD() != null)
+			encounter.setCost_Mat_Amount_USD(Float.valueOf(encounterJson.getCost_Mat_Amount_USD()));
+		if (encounterJson.getDiscount_rate() != null) 
+			encounter.setDiscount_rate(Float.valueOf(encounterJson.getDiscount_rate()));
 		encounter.setEncounterTime(new Date());
-		encounter.setImp_Tax(Float.valueOf(encounterJson.getImp_Tax()));
-		encounter.setLabour(Float.valueOf(encounterJson.getLabour()));
-		encounter.setMat_w_o_Tax_USD(Float.valueOf(encounterJson.getMat_w_o_Tax_USD()));
-		encounter.setMat_w_o_Tax_VND(Float.valueOf(encounterJson.getMat_w_o_Tax_VND()));
-		encounter.setOrder(Integer.valueOf(encounterJson.getOrderNo()));
+		if(encounterJson.getImp_Tax() != null)
+			encounter.setImp_Tax(Float.valueOf(encounterJson.getImp_Tax()));
+		if (encounterJson.getLabour() != null) 
+			encounter.setLabour(Float.valueOf(encounterJson.getLabour()));
+		if(encounterJson.getMat_w_o_Tax_USD() != null) 
+			encounter.setMat_w_o_Tax_USD(Float.valueOf(encounterJson.getMat_w_o_Tax_USD()));
+		if (encounterJson.getMat_w_o_Tax_VND() != null) 
+			encounter.setMat_w_o_Tax_VND(Float.valueOf(encounterJson.getMat_w_o_Tax_VND()));
+		
+		encounter.setOrder(Integer.valueOf(encounterJson.getOrder()));
 		
 		Product product = productService.findByCode(encounterJson.getProductCode());
 		Region region = regionService.findById(Integer.valueOf(encounterJson.getRegionId()));
 		encounter.setProduct(product); //set product
-		encounter.setQuantity(Float.valueOf(encounterJson.getQuantity()));
+		if(encounterJson.getQuantity() !=null)
+			encounter.setQuantity(Float.valueOf(encounterJson.getQuantity()));
 		encounter.setRegion(region);
 		encounter.setRemark(encounterJson.getRemark());
-		encounter.setSpecial_Con_Tax(Float.valueOf(encounterJson.getSpecial_Con_Tax()));
+		if(encounterJson.getSpecial_Con_Tax() != null)
+			encounter.setSpecial_Con_Tax(Float.valueOf(encounterJson.getSpecial_Con_Tax()));
 		encounter.setStatus(EncounterStatus.PROCESSING);
-		encounter.setSubcon_Profit(Float.valueOf(encounterJson.getSubcon_Profit()));
-		encounter.setUnit_Price_After_Discount(Float.valueOf(encounterJson.getUnit_Price_After_Discount()));
-		encounter.setUnit_Price_W_Tax_Labour(Float.valueOf(encounterJson.getUnit_Price_W_Tax_Labour()));
-		encounter.setUnit_Price_W_Tax_Profit(Float.valueOf(encounterJson.getUnit_Price_W_Tax_Profit()));
-		encounter.setUnitRate(Float.valueOf(encounterJson.getUnitRate()));
-		encounter.setVAT(Short.valueOf(encounterJson.getvAT()));
+		if(encounterJson.getSubcon_Profit() != null)
+			encounter.setSubcon_Profit(Float.valueOf(encounterJson.getSubcon_Profit()));
+		if(encounterJson.getUnit_Price_After_Discount() != null)
+			encounter.setUnit_Price_After_Discount(Float.valueOf(encounterJson.getUnit_Price_After_Discount()));
+		if(encounterJson.getUnit_Price_W_Tax_Labour() != null)
+			encounter.setUnit_Price_W_Tax_Labour(Float.valueOf(encounterJson.getUnit_Price_W_Tax_Labour()));
+		if(encounterJson.getUnit_Price_W_Tax_Profit() != null)
+			encounter.setUnit_Price_W_Tax_Profit(Float.valueOf(encounterJson.getUnit_Price_W_Tax_Profit()));
+		if(encounterJson.getUnitRate() != null)
+			encounter.setUnitRate(Float.valueOf(encounterJson.getUnitRate()));
+		if(encounterJson.getVat() != null)
+			encounter.setVAT(Short.valueOf(encounterJson.getVat()));
+		
+		encounterService.save(encounter);
 		
 	}
 	

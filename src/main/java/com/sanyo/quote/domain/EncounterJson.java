@@ -8,7 +8,7 @@ import java.util.Set;
 public class EncounterJson {
 	private Integer encounterID;
 //	private Product product; //"Description", "productCode", "Unit" will be showed on the UI from
-	private int orderNo; //No. STT dung de sap xep cac hang muc
+	private int order; //No. STT dung de sap xep cac hang muc
 	private String unitRate; //Gia mac dinh lay theo USD
 	private String quantity; //So luong, khoi luong
 	private String actualQuantity; //So luong, khoi luong thuc te = quantity * hao hut % ben sheet Summary (mac dinh)
@@ -21,7 +21,7 @@ public class EncounterJson {
 	private String special_Con_Tax; // Special con. Tax. mặc định ="0%", lấy từ bản thông số chung của dự án
 	private String discount_rate; //Discount rate %. mặc định ="100%", lấy từ bản thông số chung của dự án
 	private String encounterTime;
-	private String vAT; // mặc định ="0%", lấy từ bản thông số chung của dự án
+	private String vat; // mặc định ="0%", lấy từ bản thông số chung của dự án
 	private String unit_Price_After_Discount; // = Mat_w_o_Tax_USD + (Mat_w_o_Tax_VND/Ti_gia_VND_to_USD)
 	private String allowance; //mặc định 105%, lấy từ bản thông số chung của dự án
 	private String unit_Price_W_Tax_Profit; //Unit_Price_After_Discount * (1+(1+Special_Con_Tax*(1+Imp_Tax))*VAT)*Discount_rate
@@ -43,11 +43,12 @@ public class EncounterJson {
 	public void setEncounterID(Integer encounterID) {
 		this.encounterID = encounterID;
 	}
-	public int getOrderNo() {
-		return orderNo;
+
+	public int getOrder() {
+		return order;
 	}
-	public void setOrderNo(int orderNo) {
-		this.orderNo = orderNo;
+	public void setOrder(int order) {
+		this.order = order;
 	}
 	public String getUnitRate() {
 		return unitRate;
@@ -121,12 +122,7 @@ public class EncounterJson {
 	public void setEncounterTime(String encounterTime) {
 		this.encounterTime = encounterTime;
 	}
-	public String getvAT() {
-		return vAT;
-	}
-	public void setvAT(String vAT) {
-		this.vAT = vAT;
-	}
+
 	public String getUnit_Price_After_Discount() {
 		return unit_Price_After_Discount;
 	}
@@ -204,6 +200,12 @@ public class EncounterJson {
 	}
 	public void setLocations(Set<LocationJson> locations) {
 		this.locations = locations;
+	}
+	public String getVat() {
+		return vat;
+	}
+	public void setVat(String vat) {
+		this.vat = vat;
 	}
 	
 	

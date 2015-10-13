@@ -16,6 +16,8 @@
 		<put-attribute name="sideBarMenu"
 			value="/WEB-INF/views/admin/common/sidebar_menu.jspx" />					
 	</definition>
+	<definition name="defaultWithoutHeaderFooter" template="/WEB-INF/layouts/admin/defaultBody.jspx">
+	</definition>	
 	<definition name="login" template="/WEB-INF/layouts/admin/login.jspx" />
 	<definition name="security/loginfail" extends="login" />
 

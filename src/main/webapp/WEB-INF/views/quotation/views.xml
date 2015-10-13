@@ -11,7 +11,7 @@
                        value="/WEB-INF/views/quotation/boq.jspx" />
     </definition>
     
-    <definition extends="default" name="quotation/create">
+    <definition extends="defaultWithoutHeaderFooter" name="quotation/create">
         <put-attribute name="body"
              value="/WEB-INF/views/quotation/quotationcreate.jspx" />
     </definition>

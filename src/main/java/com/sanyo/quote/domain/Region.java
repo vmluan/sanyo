@@ -89,7 +89,7 @@ public class Region implements java.io.Serializable{
 //	public void setGroupList(Set<Group> groupList) {
 //		this.groupList = groupList;
 //	}
-	
+	@JsonIgnore
 	@OneToMany(fetch=FetchType.EAGER, mappedBy="region")
 	public Set<Encounter> getEncounters() {
 		return encounters;
@@ -104,6 +104,7 @@ public class Region implements java.io.Serializable{
 	public void setStatus(RegionStatus status) {
 		this.status = status;
 	}
+	@JsonIgnore
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name="region_user", joinColumns={@JoinColumn(name="REGION_ID")}
 			, inverseJoinColumns={@JoinColumn(name="userid")})
@@ -117,6 +118,7 @@ public class Region implements java.io.Serializable{
 //	@ManyToMany(cascade = CascadeType.ALL)
 //	@JoinTable(name="region_user_region_role", joinColumns={@JoinColumn(name="REGION_ID")}
 //			, inverseJoinColumns={@JoinColumn(name="id")})
+	@JsonIgnore
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="region")
 	public Set<UserRegionRole> getUserRegionRoles() {
 		return userRegionRoles;

@@ -71,7 +71,16 @@ var url = "/quotation/getAssignedProductOfRegion";
 
 var source = {
 	datatype : "json",
-	datafields : [ {
+	datafields : [ 
+	{
+		name : 'productName',
+		map : 'product>productName'
+	},
+	{
+		name : 'productCode',
+		map : 'product>productCode'
+	},	
+	{
 		name : 'orderNo',
 		type : 'string'
 	}, {
@@ -123,7 +132,7 @@ var source = {
 		type : 'string'
 
 	}, {
-		name : 'vAT',
+		name : 'vat',
 		type : 'string'
 
 	}, {
@@ -157,6 +166,9 @@ var source = {
 	} ],
 	id : 'encounterID',
 	url : url,
+	data : {
+		regionId : regionId
+	},
 	addrow : function(rowid, rowdata, position, commit) {
 		// synchronize with the server - send insert command
 		// call commit with parameter true if the synchronization with the
@@ -197,7 +209,7 @@ $("#list")
 		.jqxGrid(
 				{
 					width : '100%',
-					height : 100,
+					height : 300,
 					theme : 'energyblue',
 					rowsheight : 45,
 					source : dataAdapter,
@@ -210,7 +222,7 @@ $("#list")
 					columns : [
 							{
 								text : 'Search by Name',
-								datafield : 'searchName',
+								datafield : 'productName',
 								align : 'center',
 								cellsalign : 'right',
 								// cellsformat : 'c0',
@@ -239,7 +251,7 @@ $("#list")
 							},
 							{
 								text : 'Search by Code',
-								datafield : 'searchCode',
+								datafield : 'productCode',
 								align : 'center',
 								cellsalign : 'right',
 								// cellsformat : 'c0',
@@ -268,7 +280,7 @@ $("#list")
 							},
 							{
 								text : 'No',
-								datafield : 'orderNo',
+								datafield : 'order',
 								align : 'center',
 								cellsalign : 'right',
 								cellsformat : 'c0',
@@ -356,7 +368,7 @@ $("#list")
 							},
 							{
 								text : 'VAT',
-								datafield : 'vAT',
+								datafield : 'vat',
 								align : 'center',
 								cellsalign : 'right',
 								// cellsformat : 'c0',
@@ -416,7 +428,7 @@ $("#list")
 								align : 'center',
 								cellsalign : 'right',
 								// cellsformat : 'c0',
-								width : '15%'
+								width : '10%'
 							},
 							{
 								text : 'Cost - Labour amount USD',
@@ -424,7 +436,7 @@ $("#list")
 								align : 'center',
 								cellsalign : 'right',
 								// cellsformat : 'c0',
-								width : '15%'
+								width : '10%'
 							},
 							{
 								text : 'Action',
@@ -466,9 +478,9 @@ function saveEncounter(row) {
 	var encounter = new Object();
 	encounter.regionId = regionId;
 	encounter.locations = locations;
-	encounter.productCode = data.searchCode;
-	encounter.productName = data.searchName;
-	encounter.orderNo = data.orderNo;
+	encounter.productCode = data.productCode;
+	encounter.productName = data.productName;
+	encounter.order = data.order;
 	encounter.encounterID = data.encounterID;
 	encounter.unitRate = data.unitRate;
 	encounter.quantity = data.quantity;
@@ -481,7 +493,7 @@ function saveEncounter(row) {
 	encounter.imp_Tax = data.imp_Tax;
 	encounter.special_Con_Tax = data.special_Con_Tax;
 	encounter.discount_rate = data.discount_rate;
-	encounter.vAT = data.vAT;
+	encounter.vat = data.vat;
 	encounter.unit_Price_After_Discount = data.unit_Price_After_Discount;
 	encounter.allowance = data.allowance;
 	encounter.unit_Price_W_Tax_Profit = data.unit_Price_W_Tax_Profit;
