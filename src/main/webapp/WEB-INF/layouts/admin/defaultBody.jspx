@@ -121,6 +121,7 @@
     <script type="text/javascript" src="/resources/jqwidgets/jqxdropdownlist.js"><jsp:text/></script>
     <script type="text/javascript" src="/resources/jqwidgets/jqxdragdrop.js"><jsp:text/></script>
 	<script type="text/javascript" src="/resources/jqwidgets/jqxdatatable.js"><jsp:text/></script>
+	<script type="text/javascript" src="/resources/jqwidgets/jqxgrid.grouping.js"><jsp:text/></script>
 	<script type="text/javascript" src="/resources/jqwidgets/jqxtreegrid.js"><jsp:text/></script>
     <script type="text/javascript" src="/resources/jqwidgets/jqxcombobox.js"><jsp:text/></script>
     <script type="text/javascript" src="/resources/jqwidgets/jqxnotification.js"><jsp:text/></script>

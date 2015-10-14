@@ -33,6 +33,15 @@
 							<p />
 						</div>
 					</div>
+					<div class="col-md-12">
+						<div class="form-group">
+							<p />
+							<div id="listResult" class="row"><jsp:text />
+							</div>
+							<div id="pagerResult"><jsp:text /></div><jsp:text /><P /><jsp:text />
+							<p />
+						</div>
+					</div>					
 				</div>
 				<!-- /.box -->
 			</div>
