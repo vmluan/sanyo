@@ -29,12 +29,13 @@ public class Region implements java.io.Serializable{
 	private String regionName;
 	private String regionDesc;
 	private Category category;
-	private Project project;
+//	private Project project;
 //	private Set<Group> groupList;
 	private Set<Encounter> encounters;
 	private RegionStatus status;
 	private Set<User> users;
 	private Set<UserRegionRole> userRegionRoles;
+	private Location location;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -70,25 +71,25 @@ public class Region implements java.io.Serializable{
 	public void setCategory(Category category) {
 		this.category = category;
 	}
+//	@JsonIgnore
+//	@ManyToOne(cascade = CascadeType.ALL)
+//	@JoinColumn(name = "PROJECT_ID", nullable = false)
+//	public Project getProject() {
+//		return project;
+//	}
+//	public void setProject(Project project) {
+//		this.project = project;
+//	}
+	
 	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "PROJECT_ID", nullable = false)
-	public Project getProject() {
-		return project;
+	@JoinColumn(name = "LOCATION_ID", nullable = false)
+	public Location getLocation() {
+		return location;
 	}
-	public void setProject(Project project) {
-		this.project = project;
+	public void setLocation(Location location) {
+		this.location = location;
 	}
-	
-//	@ManyToMany(cascade = CascadeType.ALL)
-//	@JoinTable(name="region_group", joinColumns={@JoinColumn(name="REGION_ID")}
-//			, inverseJoinColumns={@JoinColumn(name="groupid")})
-//	public Set<Group> getGroupList() {
-//		return groupList;
-//	}
-//	public void setGroupList(Set<Group> groupList) {
-//		this.groupList = groupList;
-//	}
 	@JsonIgnore
 	@OneToMany(fetch=FetchType.EAGER, mappedBy="region")
 	public Set<Encounter> getEncounters() {

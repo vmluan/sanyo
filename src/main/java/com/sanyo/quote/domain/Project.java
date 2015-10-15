@@ -10,7 +10,9 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
@@ -31,7 +33,7 @@ public class Project implements java.io.Serializable {
 	private String projectName;
 	String customerName;
 	
-	private Set<Region> regions;
+//	private Set<Region> regions; // TO be removed.
 	private long totalMoney;
 	private Date openTime;
 	private Date closedTime;
@@ -74,6 +76,10 @@ public class Project implements java.io.Serializable {
 	private float qtySubMain =105f;
 	private float eQtyOther =105f;
 	private float mQty =105f;
+	
+	private Currency currency;
+	private Date lmodDate;
+	private Date createdDate;
 	
 	@DateTimeFormat(pattern = "MM/dd/yyyy")
 	private Date startDate;
@@ -183,15 +189,15 @@ public class Project implements java.io.Serializable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	@JsonIgnore
-	@OneToMany(fetch=FetchType.EAGER, mappedBy="project")
-	public Set<Region> getRegions() {
-		return regions;
-	}
-
-	public void setRegions(Set<Region> regions) {
-		this.regions = regions;
-	}
+//	@JsonIgnore
+//	@OneToMany(fetch=FetchType.EAGER, mappedBy="project")
+//	public Set<Region> getRegions() {
+//		return regions;
+//	}
+//
+//	public void setRegions(Set<Region> regions) {
+//		this.regions = regions;
+//	}
 	
 	@Column(name = "LAST_MODIFIED_BY")
 	public String getLastModifiedBy() {
@@ -421,6 +427,33 @@ public class Project implements java.io.Serializable {
 
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
+	}
+
+	@JsonIgnore
+	@OneToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="CURRENCY_ID", nullable = true)
+	public Currency getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(Currency currency) {
+		this.currency = currency;
+	}
+
+	public Date getLmodDate() {
+		return lmodDate;
+	}
+
+	public void setLmodDate(Date lmodDate) {
+		this.lmodDate = lmodDate;
+	}
+
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}
 	
 	

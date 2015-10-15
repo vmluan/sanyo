@@ -35,6 +35,9 @@ var source = {
 	}, {
 		name : 'projectId',
 		type : 'string'
+	}, {
+		name : 'lmodDate',
+		type : 'string'
 	} ],
 	id : 'projectId',
 	url : url
@@ -63,13 +66,12 @@ var dataAdapter = new $.jqx.dataAdapter(source, {
 $("#list")
 		.jqxGrid(
 				{
-					width : 1000,
-					height : 500,
+					width : '100%',
+					height : 400,
 					theme: 'energyblue',
 					source : dataAdapter,
 					sortable : true,
 					pageable : true,
-					autoheight : true,
 					autoloadstate : false,
 					autosavestate : false,
 					columnsresize : true,
@@ -77,26 +79,9 @@ $("#list")
 					// showfilterrow : true,
 					// filterable : true,
 					columnsresize : true,
-					rowsheight : 45,
-					// autorowheight: true,
+					//rowsheight : 200,
+					autorowheight: true,
 					columns : [
-							{
-								text : 'Action',
-								align : 'center',
-								datafield : 'projectId',
-								width : '20%',
-								cellsrenderer : function(row, column, value) {
-									return '<div class="col-md-6">'
-											+ '<a class="btn btn-app" onclick="updateProduct('
-											+ value
-											+ ')">'
-											+ '<i class="glyphicon glyphicon-edit"></i>'
-											+ '</a>'
-											+ '<a class="btn btn-app">'
-											+ '<i class="glyphicon glyphicon-remove-circle"></i>'
-											+ '</a>' + '</div>';
-								}
-							},
 							{
 								text : '#',
 								datafield : 'stt',
@@ -107,31 +92,46 @@ $("#list")
 											+ (value + 1) + "</div>";
 								}
 							}, {
-								text : 'Project Code',
-								datafield : 'projectCode',
-								align : 'center',
-								width : '10%'
-							}, {
 								text : 'Project Name',
 								datafield : 'projectName',
 								align : 'center',
 								cellsalign : 'right',
 								cellsformat : 'c0',
-								width : '30%'
+								width : '15%'
 							}, {
-								text : 'Description',
-								datafield : 'description',
+								text : 'Last Modified',
+								datafield : 'lmodDate',
 								align : 'center',
-								cellsalign : 'right',
-								cellsformat : 'c0',
-								width : '20%'
+								width : '15%'
 							}, {
-								text : 'Client',
-								datafield : 'customerName',
+								text : 'By',
+								datafield : 'lastModifiedBy',
 								align : 'center',
-								width : '20%',
-							} ]
+								width : '15%',
+							},
+							{
+								text : 'Action',
+								align : 'center',
+								datafield : 'projectId',
+								width : '50%',
+								cellsrenderer : function(row, column, value) {
+									return '<div class="col-md-12">'
+												+'<p>'
+													+ '<button class="btn bg-olive margin col-md-2"  onclick="updateProduct('+ value +  ')"' + '>Basic Info</button>'
+													+ '<button class="btn bg-purple margin col-md-2">Pricing</button>'
+													+ '<button class="btn bg-navy margin col-md-2">Marker</button>'
+													+ '<button class="btn bg-orange margin col-md-1">Clone</button>'
+													+ '<button class="btn bg-maroon margin col-md-1">Close</button>'
+													+ '<button class="btn btn-danger margin col-md-1">X</button>'
+												+ '</p>'
+											+ '</div>'
+											;
+								}
+							}
+							]
 				});
+				
+				//
 function updateProduct(id) {
 	window.location.href = '/projects/' + id + '?form';
 }

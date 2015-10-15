@@ -179,7 +179,8 @@ public class Quotation {
 			, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
 		
 		Region region = regionService.findById(Integer.valueOf(regionId));
-		Project project = projectService.findByIdAndFetchLocationsEagerly(region.getProject().getProjectId());
+//		Project project = projectService.findByIdAndFetchLocationsEagerly(region.getProject().getProjectId());
+		Project project = projectService.findByIdAndFetchLocationsEagerly(region.getLocation().getProject().getProjectId());
 		Set<Location> locatoins = project.getLocations();
 		String result = Utilities.jSonSerialization(locatoins);
 		return result;

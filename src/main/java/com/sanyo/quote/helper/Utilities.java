@@ -8,22 +8,17 @@
 
 package com.sanyo.quote.helper;
 
-import java.io.File;
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.type.TypeReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 
 import com.ibm.icu.util.Calendar;
 
@@ -87,6 +82,10 @@ public class Utilities {
 		Date tempDate = calendar.getTime();
 		
 		return tempDate;
+	}
+	public static User getCurrentUser(){
+		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return user;
 	}
 
 }

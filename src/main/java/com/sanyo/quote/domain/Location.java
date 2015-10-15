@@ -2,13 +2,17 @@ package com.sanyo.quote.domain;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -21,6 +25,7 @@ public class Location {
 	private String locationName;
 	private String locationDesc;
 	private Project project;
+	private Set<Region> regions;
 	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -59,5 +64,14 @@ public class Location {
 		this.project = project;
 	}
 
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "location")
+	public Set<Region> getRegions() {
+		return regions;
+	}
+
+	public void setRegions(Set<Region> regions) {
+		this.regions = regions;
+	}
 	
 }

@@ -1,6 +1,6 @@
 package com.sanyo.quote.web.controller;
 
-import java.util.HashSet;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -35,6 +35,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.mysql.jdbc.Util;
 import com.sanyo.quote.domain.Category;
 import com.sanyo.quote.domain.Location;
 import com.sanyo.quote.domain.Project;
@@ -141,6 +142,10 @@ public class ProjectController extends CommonController {
             return "projects/create";
         }
         uiModel.asMap().clear();
+        Date date = new Date();
+        project.setCreatedDate(date);
+        project.setCreatedBy(Utilities.getCurrentUser().getUsername());
+        project.setLmodDate(date);
         projectService.save(project);
         redirectAttributes.addFlashAttribute("message", new Message("success", messageSource.getMessage("project_save_success", new Object[]{}, locale)));
         return "redirect:/projects/" + UrlUtil.encodeUrlPathSegment(project.getProjectId().toString(), httpServletRequest) + "?form";
@@ -172,6 +177,8 @@ public class ProjectController extends CommonController {
         project.setProjectId(id);
         uiModel.addAttribute("message", new Message("success", messageSource.getMessage("project_save_success", new Object[]{}, locale)));        
         uiModel.addAttribute("project", project);
+        project.setLmodDate(new Date());
+        project.setLastModifiedBy(Utilities.getCurrentUser().getUsername());
         projectService.save(project);
         setBreadCrumb(uiModel, "/projects", "Projects", "", "Project Detail");
         setHeader(uiModel, "Project Detail", "Contains detail information including regions and assigned users");
@@ -209,47 +216,12 @@ public class ProjectController extends CommonController {
 			, @RequestParam(value="recordendindex", required=false) Integer recordendindex
 			, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
 		
-		System.out.println("start getting assinged regions");
-		Project project = projectService.findById(Integer.valueOf(projectId));
-		// Constructs page request for current page
-		PageRequest pageRequest = null;
-		pageRequest = new PageRequest(pagenum, pagesize);
-
-		
-		Set<Region> regions  = project.getRegions();
-		Iterator<Region> iterator = regions.iterator();
-		Set<Region> assginedRegions = new HashSet<Region>();
-		
-		while(iterator.hasNext()){
-			Region region = iterator.next();
-			Region regionWithUsers = regionService.findByIdAndFetchUsersEagerly(region.getRegionId());
-			if(regionWithUsers != null)
-				assginedRegions.add(regionWithUsers);
-			else{
-				regionWithUsers = regionService.findById(region.getRegionId());
-				Set<User> emptyUsers = new HashSet<User>();
-				regionWithUsers.setUsers(emptyUsers);
-				assginedRegions.add(regionWithUsers);
-			}
-		}
-		
-		String result = Utilities.jSonSerialization(assginedRegions);
-		return result;
-	}
-	
-//	@RequestMapping(value = "/getAssginedRegionsJson", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
-//	@ResponseBody
-//	public String getAssginedRegionsJson(@RequestParam(value="projectId", required=true) String projectId,
-//			@RequestParam(value="filterscount", required=false) String filterscount
-//			, @RequestParam(value="groupscount", required=false) String groupscount
-//			, @RequestParam(value="pagenum", required=false) Integer pagenum
-//			, @RequestParam(value="pagesize", required=false) Integer pagesize
-//			, @RequestParam(value="recordstartindex", required=false) Integer recordstartindex
-//			, @RequestParam(value="recordendindex", required=false) Integer recordendindex
-//			, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
-//		
 //		System.out.println("start getting assinged regions");
 //		Project project = projectService.findById(Integer.valueOf(projectId));
+//		// Constructs page request for current page
+//		PageRequest pageRequest = null;
+//		pageRequest = new PageRequest(pagenum, pagesize);
+//
 //		
 //		Set<Region> regions  = project.getRegions();
 //		Iterator<Region> iterator = regions.iterator();
@@ -257,7 +229,7 @@ public class ProjectController extends CommonController {
 //		
 //		while(iterator.hasNext()){
 //			Region region = iterator.next();
-//			Region regionWithUsers = regionService.findByIdAndFetchUserRegionRolesEagerly(region.getRegionId());
+//			Region regionWithUsers = regionService.findByIdAndFetchUsersEagerly(region.getRegionId());
 //			if(regionWithUsers != null)
 //				assginedRegions.add(regionWithUsers);
 //			else{
@@ -267,19 +239,11 @@ public class ProjectController extends CommonController {
 //				assginedRegions.add(regionWithUsers);
 //			}
 //		}
-//		//we got final set of regions here. Next is to get set of userRegionRole.
 //		
-//		
-//		Iterator<Region> iterator2 = assginedRegions.iterator();
-//		Set<UserRegionRole> totalUserRegionRoles = new HashSet<UserRegionRole>();
-//		while(iterator2.hasNext()){
-//			Region region = iterator2.next();
-//			Set<UserRegionRole> userRegionRoles =  region.getUserRegionRoles();
-//			totalUserRegionRoles.addAll(userRegionRoles);
-//		}
-//		String result = Utilities.jSonSerialization(totalUserRegionRoles);
+//		String result = Utilities.jSonSerialization(assginedRegions);
 //		return result;
-//	}
+		return "";
+	}
 	
 	// handle screen for create new assigned regions.
 	@RequestMapping(value = "/{id}", params = "regions", method = RequestMethod.GET)
@@ -305,27 +269,6 @@ public class ProjectController extends CommonController {
 		uiModel.addAttribute("parentCategories", categoryService.findAll());
 	}
 	
-	//saving assigned regions
-//	@RequestMapping(value = "/{id}", params = "assignRegions", method = RequestMethod.POST)
-//    public String assignRegions(@ModelAttribute("project") Project project,@PathVariable Integer id, Model uiModel, 
-//    		HttpServletRequest httpServletRequest, RedirectAttributes redirectAttributes, Locale locale, BindingResult bindingResult,
-//    		@RequestParam(value = "param[]") String[] paramValues) {
-//		System.out.println("saving assigned regions");
-//		Project existingProject = projectService.findById(Integer.valueOf(id));
-//		if(paramValues != null){
-//			for(int i=0 ; i<paramValues.length; i++){
-//				Region region = new Region();
-//				Category category = categoryService.findById(Integer.valueOf(paramValues[i]));
-//				region.setCategory(category);
-//				region.setRegionName(category.getName());
-//				region.setRegionDesc(category.getDesc());
-//				region.setProject(existingProject);
-//				
-//				regionService.save(region);
-//			}
-//		}
-//		return "projects/update";
-//	}
 	
 	//method to save assigned regions to database. it also saves assigned users.
 	@RequestMapping(value = "/{id}", params = "assignRegions", method = RequestMethod.POST)
@@ -346,7 +289,7 @@ public class ProjectController extends CommonController {
 					region.setCategory(category);
 					region.setRegionName(category.getName());
 					region.setRegionDesc(category.getDesc());
-					region.setProject(existingProject);
+//					region.setProject(existingProject);
 					region = regionService.save(region);
 				}
 
@@ -376,9 +319,9 @@ public class ProjectController extends CommonController {
 	public String showRegions(@PathVariable("id") Integer id, Model uiModel, HttpServletRequest httpServletRequest){
 		Region region = regionService.findById(Integer.valueOf(id));
 		uiModel.addAttribute("region", region);
-		uiModel.addAttribute("projectId", region.getProject().getProjectId());
-		String parentLink = "/projects/" + region.getProject().getProjectId() + "?form";
-		setBreadCrumb(uiModel, parentLink, "Project Detail", "", "Assign User");
+//		uiModel.addAttribute("projectId", region.getProject().getProjectId());
+//		String parentLink = "/projects/" + region.getProject().getProjectId() + "?form";
+//		setBreadCrumb(uiModel, parentLink, "Project Detail", "", "Assign User");
 		return "projects/region/new";
 	}
 	@RequestMapping(value = "regions/{id}", params = "form", method = RequestMethod.POST)
@@ -407,16 +350,16 @@ public class ProjectController extends CommonController {
 	}
 	private Region getExistingRegion(Project project, String regionName){
 		boolean result = false;
-		Set<Region> regions  = project.getRegions();
-		Iterator<Region> iterator = regions.iterator();
-		if(regions != null && regions.size() >0){
-			while(iterator.hasNext()){
-				Region region = iterator.next();
-				if(regionName.equalsIgnoreCase(region.getCategory().getName())){
-					return regionService.findByIdAndFetchUserRegionRolesEagerly(region.getRegionId()); 
-				}
-			}
-		}
+//		Set<Region> regions  = project.getRegions();
+//		Iterator<Region> iterator = regions.iterator();
+//		if(regions != null && regions.size() >0){
+//			while(iterator.hasNext()){
+//				Region region = iterator.next();
+//				if(regionName.equalsIgnoreCase(region.getCategory().getName())){
+//					return regionService.findByIdAndFetchUserRegionRolesEagerly(region.getRegionId()); 
+//				}
+//			}
+//		}
 		return null;
 	}
 	private UserRegionRole getExistingUser(Region region, String userName){
