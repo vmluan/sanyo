@@ -13,7 +13,7 @@ import javax.persistence.Table;
 public class Currency {
 	private Integer currencyId;
 	private String currencyName; //like USD, VND;
-	private String currecnyCode; //like USD, VND
+	private String currencyCode; //like USD, VND
 	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -30,11 +30,11 @@ public class Currency {
 	public void setCurrencyName(String currencyName) {
 		this.currencyName = currencyName;
 	}
-	public String getCurrecnyCode() {
-		return currecnyCode;
+	public String getCurrencyCode() {
+		return currencyCode;
 	}
-	public void setCurrecnyCode(String currecnyCode) {
-		this.currecnyCode = currecnyCode;
+	public void setCurrencyCode(String currencyCode) {
+		this.currencyCode = currencyCode;
 	}
 
 
