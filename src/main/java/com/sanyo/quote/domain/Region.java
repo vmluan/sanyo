@@ -81,7 +81,6 @@ public class Region implements java.io.Serializable{
 //		this.project = project;
 //	}
 	
-	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "LOCATION_ID", nullable = false)
 	public Location getLocation() {

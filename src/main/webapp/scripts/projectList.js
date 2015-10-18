@@ -37,7 +37,7 @@ var source = {
 		type : 'string'
 	}, {
 		name : 'lmodDate',
-		type : 'string'
+		type : 'date'
 	} ],
 	id : 'projectId',
 	url : url
@@ -87,6 +87,7 @@ $("#list")
 								datafield : 'stt',
 								width : '5%',
 								columntype : 'number',
+								align : 'center',
 								cellsrenderer : function(row, column, value) {
 									return "<div style='margin:4px;'>"
 											+ (value + 1) + "</div>";
@@ -102,7 +103,8 @@ $("#list")
 								text : 'Last Modified',
 								datafield : 'lmodDate',
 								align : 'center',
-								width : '15%'
+								width : '15%',
+								cellsformat: 'MM/dd/yyyy hh:mm:ss'
 							}, {
 								text : 'By',
 								datafield : 'lastModifiedBy',

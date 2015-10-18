@@ -18,7 +18,7 @@
     <spring:message code="label_project_duration" var="labelProjectQuotation" text="Quotation dates" />
     <spring:message code="label_project_duration" var="labelProjectQuotation" text="Quotation dates" />
     <spring:message code="label_project_revision_new" var="labelProjecRevisiontAdd" text="Create Revision"/>
-    
+    <spring:message code="label_project_location_new" var="labelProjecLocationAdd" text="Create Location"/>
     
     <spring:eval expression="project.projectId == null ? labelProjectNew:labelProjectUpdate" var="formTitle"/>       
         <!-- Main content -->
@@ -295,13 +295,13 @@
 						</div>
 
 						<section class="content">
-							<a href="/projects/${project.projectId}/locations/?form" class="btn btn-primary btn-xs">${labelProjecRevisiontAdd}</a>
+							<a href="/projects/${project.projectId}/locations/?form" class="btn btn-primary btn-xs">${labelProjecLocationAdd}</a>
 							<p />
 							<div id="listLocation" class="row"><jsp:text />
 							</div>
 							<div id="pagerLocation"><jsp:text /></div><jsp:text /><P /><jsp:text />
 							<p />
-							<a href="/projects/${project.projectId}/revisions/?form" class="btn btn-primary btn-xs">${labelProjecRevisiontAdd}</a>
+							<a href="/projects/${project.projectId}/revisions/?form" class="btn btn-primary btn-xs">${labelProjecLocationAdd}</a>
 						</section>
 					</div>				
 				
@@ -330,7 +330,7 @@
 					</div>				
 				
 				</div>				
-				<div class="col-md-6">
+				<div class="col-md-8">
 					<div class="box box-primary">
 						<div class="box-body">
 						  <div class="row">
@@ -412,7 +412,36 @@ var dataAdapterUserJson = new $.jqx.dataAdapter(sourceUserJson,  {autoBind: true
 	}
 });
 
+var urlLocation = "/projects/getLocationsJson";
+//prepare the data
+var sourceLocation = {
+	datatype : "json",
+	datafields : [ {
+		name : 'locationId',
+		type : 'string'
+	}, {
+		name : 'locationName',
+		type : 'string'
+	}, {
+		name : 'locationDesc',
+		type : 'string'
+	} ],
+	id : 'locationId',
+	url : urlLocation,
+	data : {
+		projectId : ${project.projectId}
+	}
+};
+var dataAdapterLocationJson = new $.jqx.dataAdapter(sourceLocation, {autoBind: true,
+	downloadComplete : function(data, status, xhr) {
+	},
+	loadComplete : function(data) {
+	},
+	loadError : function(xhr, status, error) {
+	}
+});
 
+	
 var url = "/admin/categories/getListJson";
 var source = {
 	datatype : "json",
@@ -504,10 +533,26 @@ var dataAdapter = new $.jqx.dataAdapter(source, {
 				    $("#treeGrid").jqxTreeGrid('lockRow', 15);
                 },
                 columns: [
-                  { text: 'Name', dataField: 'categoryName', width: '50%' },
+                  { text: 'Name', dataField: 'categoryName', width: '40%' },
+				  {
+					   text: 'Select Location', dataField: 'location', width: '20%', columnType: "custom",
+					   createEditor: function (row, cellvalue, editor, cellText, width, height) {
+						   // construct the editor. 
+						   editor.jqxDropDownList({height: '25', source: dataAdapterLocationJson.records,displayMember: "locationName", valueMember: "locationName"
+							   , width: '100%', height: '100%',selectedIndex: 0, autoOpen: true,autoDropDownHeight : true });
+					   },
+					   initEditor: function (row, cellvalue, editor, celltext, width, height) {
+						   // set the editor's current value. The callback is called each time the editor is displayed.
+						   editor.jqxDropDownList('selectItem', cellvalue);
+					   },
+					   getEditorValue: function (row, cellvalue, editor) {
+						   // return the editor's value.
+						   return editor.val();
+					   }
+				   },                  
 				  {
 
-					   text: 'Select User', dataField: 'user', width: '25%', columnType: "custom",
+					   text: 'Select User', dataField: 'user', width: '20%', columnType: "custom",
 
 					   createEditor: function (row, cellvalue, editor, cellText, width, height) {
 						   editor.jqxDropDownList({height: '15', source: dataAdapterUserJson.records ,displayMember: "username", valueMember: "username",  width: '100%', height: '100%',checkboxes: true,autoOpen: true });
@@ -525,7 +570,7 @@ var dataAdapter = new $.jqx.dataAdapter(source, {
 
 				   },
 				  {
-					   text: 'Select Role', dataField: 'role', width: '25%', columnType: "custom",
+					   text: 'Select Role', dataField: 'role', width: '20%', columnType: "custom",
 					   createEditor: function (row, cellvalue, editor, cellText, width, height) {
 						   // construct the editor. 
 						   var sourceRole = ["View", "Edit"];
@@ -539,7 +584,7 @@ var dataAdapter = new $.jqx.dataAdapter(source, {
 						   // return the editor's value.
 						   return editor.val();
 					   }
-				   }				   
+				   }
                 ]
             });
 //<![CDATA[
@@ -578,7 +623,6 @@ $("#assignRegionButton").click(function(event){
 	var jsonData = JSON.stringify(result);
 	console.log(jsonData);
 	
-// 	var testData = '{"regionId":2}';
 	var testData = '[{"regionId":2},{"regionId":3}]';
 	$.ajax({
 		   type: "POST",
@@ -630,7 +674,15 @@ function getCheckedItems(obj){
 				}else{
 					alert('Please choose a user');
 					isValid = false;
-					return 
+					return;
+				}
+				
+				if(record.location){
+					regionObj.locationName=record.location;
+				}else{
+					alert('Please choose a Location that you want to add new Region to by double click Select Location cell');
+					isValid = false;
+					return;
 				}
 
 				regionObj.users = users;

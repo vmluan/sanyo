@@ -20,6 +20,9 @@ var source = {
 	}, {
 		name : 'roleName',
 		map : 'userRegionRoles>0>roleName'
+	}, {
+		name : 'locationName',
+		map : 'location>locationName'
 	} ],
 	id : 'regionId',
 	url : url,
@@ -62,7 +65,7 @@ $("#list")
 								text : 'Action',
 								datafield : 'regionId',
 								align : 'center',
-								width : '26%',
+								width : '25%',
 								cellsrenderer : function(row, column, value) {
 									return '<div class="col-md-6">'
 											+ '<a class="btn btn-app" style="margin-left: -10px;" onclick="updateProduct('
@@ -85,10 +88,15 @@ $("#list")
 											+ (value + 1) + "</div>";
 								}
 							}, {
-								text : 'Name',
+								text : 'Region',
 								datafield : 'regionName',
 								align : 'center',
-								width : '69%'
+								width : '35%'
+							} , {
+								text : 'Location',
+								datafield : 'locationName',
+								align : 'center',
+								width : '35%'
 							} ]
 				});
 function updateProduct(id) {

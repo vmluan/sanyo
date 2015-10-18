@@ -20,7 +20,7 @@ public class Maker {
 	
 	private Integer id;
 	private String name;
-	private String desc;
+	private String makerDesc;
 	private Set<ProductGroupMaker> productGroupMakers;
 	
 	@Id
@@ -38,12 +38,6 @@ public class Maker {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getDesc() {
-		return desc;
-	}
-	public void setDesc(String desc) {
-		this.desc = desc;
-	}
 	@JsonIgnore
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="maker")
 	public Set<ProductGroupMaker> getProductGroupMakers() {
@@ -52,5 +46,12 @@ public class Maker {
 	public void setProductGroupMakers(Set<ProductGroupMaker> productGroupMakers) {
 		this.productGroupMakers = productGroupMakers;
 	}
+	public String getMakerDesc() {
+		return makerDesc;
+	}
+	public void setMakerDesc(String makerDesc) {
+		this.makerDesc = makerDesc;
+	}
+	
 	
 }

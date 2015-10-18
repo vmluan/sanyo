@@ -1,6 +1,7 @@
 package com.sanyo.quote.web.controller;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -145,6 +146,7 @@ public class ProjectController extends CommonController {
         Date date = new Date();
         project.setCreatedDate(date);
         project.setCreatedBy(Utilities.getCurrentUser().getUsername());
+        project.setLastModifiedBy(Utilities.getCurrentUser().getUsername());
         project.setLmodDate(date);
         projectService.save(project);
         redirectAttributes.addFlashAttribute("message", new Message("success", messageSource.getMessage("project_save_success", new Object[]{}, locale)));
@@ -216,33 +218,33 @@ public class ProjectController extends CommonController {
 			, @RequestParam(value="recordendindex", required=false) Integer recordendindex
 			, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
 		
-//		System.out.println("start getting assinged regions");
-//		Project project = projectService.findById(Integer.valueOf(projectId));
-//		// Constructs page request for current page
-//		PageRequest pageRequest = null;
-//		pageRequest = new PageRequest(pagenum, pagesize);
-//
-//		
-//		Set<Region> regions  = project.getRegions();
-//		Iterator<Region> iterator = regions.iterator();
-//		Set<Region> assginedRegions = new HashSet<Region>();
-//		
-//		while(iterator.hasNext()){
-//			Region region = iterator.next();
-//			Region regionWithUsers = regionService.findByIdAndFetchUsersEagerly(region.getRegionId());
-//			if(regionWithUsers != null)
-//				assginedRegions.add(regionWithUsers);
-//			else{
-//				regionWithUsers = regionService.findById(region.getRegionId());
-//				Set<User> emptyUsers = new HashSet<User>();
-//				regionWithUsers.setUsers(emptyUsers);
-//				assginedRegions.add(regionWithUsers);
-//			}
-//		}
-//		
-//		String result = Utilities.jSonSerialization(assginedRegions);
-//		return result;
-		return "";
+		System.out.println("start getting assinged regions");
+		Project project = projectService.findByIdAndFetchLocationsEagerly(Integer.valueOf(projectId));
+		
+		Set<Location> locations = project.getLocations();
+		Set<Region> totalRegions = new HashSet<Region>();
+		for(Location location : locations){
+			Set<Region> regions  = location.getRegions();
+			totalRegions.addAll(regions);
+		}
+		Iterator<Region> iterator = totalRegions.iterator();
+		Set<Region> assginedRegions = new HashSet<Region>();
+		
+		while(iterator.hasNext()){
+			Region region = iterator.next();
+			Region regionWithUsers = regionService.findByIdAndFetchUsersEagerly(region.getRegionId());
+			if(regionWithUsers != null)
+				assginedRegions.add(regionWithUsers);
+			else{
+				regionWithUsers = regionService.findById(region.getRegionId());
+				Set<User> emptyUsers = new HashSet<User>();
+				regionWithUsers.setUsers(emptyUsers);
+				assginedRegions.add(regionWithUsers);
+			}
+		}
+		
+		String result = Utilities.jSonSerialization(assginedRegions);
+		return result;
 	}
 	
 	// handle screen for create new assigned regions.
@@ -276,10 +278,17 @@ public class ProjectController extends CommonController {
     public  void assignRegions(@RequestBody final RegionJson[] regionJsons ,@PathVariable Integer id, Model uiModel, 
     		HttpServletRequest httpServletRequest) {
 		System.out.println("===================== saving assigned regions");
-		Project existingProject = projectService.findById(Integer.valueOf(id));
+		Project existingProject = projectService.findByIdAndFetchLocationsEagerly(Integer.valueOf(id));
+		Set<Location> locations = existingProject.getLocations();
 		if(regionJsons != null && regionJsons.length >0){
 			for(int i=0; i< regionJsons.length; i++){
 				RegionJson regionJson = regionJsons[i];
+				Location existingLocation = null;
+				for(Location location : locations){
+					if(location.getLocationName().equalsIgnoreCase(regionJson.getLocationName().trim())){
+						existingLocation = location;
+					}
+				}
 				
 				Category category = categoryService.findById(regionJson.getRegionId());
 				
@@ -289,8 +298,12 @@ public class ProjectController extends CommonController {
 					region.setCategory(category);
 					region.setRegionName(category.getName());
 					region.setRegionDesc(category.getDesc());
-//					region.setProject(existingProject);
+					if(existingLocation != null)
+						region.setLocation(existingLocation);
 					region = regionService.save(region);
+				}else{
+					if(existingLocation != null)
+						region.setLocation(existingLocation);
 				}
 
 				List<UserJson> userJsons = regionJson.getUsers();
@@ -350,16 +363,20 @@ public class ProjectController extends CommonController {
 	}
 	private Region getExistingRegion(Project project, String regionName){
 		boolean result = false;
-//		Set<Region> regions  = project.getRegions();
-//		Iterator<Region> iterator = regions.iterator();
-//		if(regions != null && regions.size() >0){
-//			while(iterator.hasNext()){
-//				Region region = iterator.next();
-//				if(regionName.equalsIgnoreCase(region.getCategory().getName())){
-//					return regionService.findByIdAndFetchUserRegionRolesEagerly(region.getRegionId()); 
-//				}
-//			}
-//		}
+		Set<Location> locations = project.getLocations();
+		for(Location location: locations){
+			Set<Region> regions  = location.getRegions();
+			Iterator<Region> iterator = regions.iterator();
+			if(regions != null && regions.size() >0){
+				while(iterator.hasNext()){
+					Region region = iterator.next();
+					if(regionName.equalsIgnoreCase(region.getCategory().getName())){
+						return regionService.findByIdAndFetchUserRegionRolesEagerly(region.getRegionId()); 
+					}
+				}
+			}
+		}
+
 		return null;
 	}
 	private UserRegionRole getExistingUser(Region region, String userName){
