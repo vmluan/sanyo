@@ -1,9 +1,7 @@
 package com.sanyo.quote.init;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.ServletContextEvent;
 
@@ -13,10 +11,14 @@ import org.springframework.web.context.ContextLoaderListener;
 
 import com.sanyo.quote.domain.Category;
 import com.sanyo.quote.domain.Group;
+import com.sanyo.quote.domain.Maker;
 import com.sanyo.quote.domain.Product;
+import com.sanyo.quote.domain.ProductGroup;
 import com.sanyo.quote.domain.User;
 import com.sanyo.quote.service.CategoryService;
 import com.sanyo.quote.service.GroupService;
+import com.sanyo.quote.service.MakerService;
+import com.sanyo.quote.service.ProductGroupService;
 import com.sanyo.quote.service.ProductService;
 import com.sanyo.quote.service.UserService;
 
@@ -85,6 +87,9 @@ public class StartupContextListener extends ContextLoaderListener{
 		GroupService groupService = ctx.getBean("groupService", GroupService.class);
 		CategoryService categoryService = ctx.getBean("categoryService", CategoryService.class);
 		ProductService productService = ctx.getBean("productService", ProductService.class);
+		ProductGroupService productGroupService = ctx.getBean("productGroupService", ProductGroupService.class);
+		MakerService makerService = ctx.getBean("makerService", MakerService.class);
+		
 		for(int i=0; i < 100; i++){
 			String userName = "admin" + i;
 			if(i ==0)
@@ -147,12 +152,14 @@ public class StartupContextListener extends ContextLoaderListener{
 			addCategorySampleData(categoryService);
 		}
 		if(productService.findAll().size() ==0){
-			addProductSample(productService, categoryService);
+			addProductSample(productService, categoryService, productGroupService);
 		}
-		
+		if(makerService.findAll() != null && makerService.findAll().size() ==0 ){
+			addMakerData(makerService);
+		}
 		ctx.destroy();
 	}
-	private void addProductSample(ProductService productService, CategoryService categoryService){
+	private void addProductSample(ProductService productService, CategoryService categoryService, ProductGroupService productGroupService){
 //		List<Category> categories = new ArrayList<Category>();
 //		categories.add(categoryService.findById(2));
 //		
@@ -171,7 +178,22 @@ public class StartupContextListener extends ContextLoaderListener{
 		product.setMinDiscountSalePer(0);
 		product.setProductCode("Code1234");
 		
+		ProductGroup pg = new ProductGroup();
+		pg.setGroupCode("111");
+		pg.setGroupName("Lighting Fixture (Electronic Ballast)");
+		pg = productGroupService.save(pg);
+		product.setProductGroup(pg);
 		
 		productService.save(product);
+	}
+	private void addMakerData(MakerService makerService){
+		String[] makerList = {"ABB or equivalent", "Hai Nam", "Sunlight Electric", "LS / or equivalent"
+				,"LS-Vina", "Taisin cable", "THT", "An thy", "Henikwon", "Paragon", "Formular"
+				, "Maxspid"};
+		Maker maker = new Maker();
+		for(String name: makerList){
+			maker.setName(name);
+		}
+		makerService.save(maker);
 	}
 }
