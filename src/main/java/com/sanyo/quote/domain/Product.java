@@ -15,7 +15,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -113,7 +115,10 @@ public class Product implements Serializable {
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="product")
 	private Set<Price> prices;
 
-
+	@JsonIgnore
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="product_group_id", nullable = false)
+	private ProductGroup productGroup;
 
 	public float getDiscount_rate() {
 		return Discount_rate;
@@ -338,6 +343,14 @@ public class Product implements Serializable {
 
 	public void setPrices(Set<Price> prices) {
 		this.prices = prices;
+	}
+
+	public ProductGroup getProductGroup() {
+		return productGroup;
+	}
+
+	public void setProductGroup(ProductGroup productGroup) {
+		this.productGroup = productGroup;
 	}
 
 	@Override
