@@ -26,6 +26,7 @@ public class ProductGroup {
 	private String groupName;
 	private String groupCode;
 	private Set<ProductGroupMaker> productGroupMakers;
+	private Set<Product> products;
 	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -58,6 +59,14 @@ public class ProductGroup {
 	}
 	public void setProductGroupMakers(Set<ProductGroupMaker> productGroupMakers) {
 		this.productGroupMakers = productGroupMakers;
+	}
+	@JsonIgnore
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="productGroup")
+	public Set<Product> getProducts() {
+		return products;
+	}
+	public void setProducts(Set<Product> products) {
+		this.products = products;
 	}
 	
 }
