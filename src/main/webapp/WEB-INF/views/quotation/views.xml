@@ -6,6 +6,31 @@
             value="/WEB-INF/views/quotation/index.jspx" />
     </definition>
 
+    <definition extends="home" name="quotation/cover">
+        <put-attribute name="body"
+                       value="/WEB-INF/views/quotation/cover.jspx" />
+    </definition>
+
+    <definition extends="home" name="quotation/condition_1">
+        <put-attribute name="body"
+                       value="/WEB-INF/views/quotation/condition_1.jspx" />
+    </definition>
+
+    <definition extends="home" name="quotation/condition_2">
+        <put-attribute name="body"
+                       value="/WEB-INF/views/quotation/condition_2.jspx" />
+    </definition>
+
+    <definition extends="home" name="quotation/parameter">
+        <put-attribute name="body"
+                       value="/WEB-INF/views/quotation/parameter.jspx" />
+    </definition>
+
+    <definition extends="home" name="quotation/summary">
+        <put-attribute name="body"
+                       value="/WEB-INF/views/quotation/summary.jspx" />
+    </definition>
+
     <definition extends="home" name="quotation/boq">
         <put-attribute name="body"
                        value="/WEB-INF/views/quotation/boq.jspx" />
