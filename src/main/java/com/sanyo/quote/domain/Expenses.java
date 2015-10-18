@@ -4,10 +4,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
@@ -28,42 +26,23 @@ public class Expenses implements Serializable {
     @Column(name="PROJECT_ID")
     private Project project;
 
-    @Column(name="CODE")
-    private String code;
+    @Column(name="EXPENSE_ELEMENT")
+    private ExpenseElements expenseElement;
 
-    @Column(name="NAME")
-    private String name;
+    @Column(name="ORDER")
+    private String order;
+
     @Column(name="QUANTITY")
     private  float quantity;
 
     @Column(name="DURATION")
-    private float duration;
+    private float duration; //duration in some records may be null
+
     @Column(name="RATE")
-    private float Rate;
-    @Column(name="AMOUNT")
-    private float amount;
+    private float rate;
 
     @Column(name="remark")
-    private String remark; // will available for TYPE is NORMAL as STRING only
-
-    @Column(name="Total_Session_Remark")
-    private float Total_Session_Remark; //for total of session only. TYPE is SUB_TITLE
-
-
-    @Column(name="Extra_Rate")
-    private float Extra_Rate;//for extra_table calculation only
-    @Column(name="Extra_unit")
-    private String Extra_unit;//for extra_table calculation only
-    @Column(name="Extra_amount")
-    private float Extra_amount;//for extra_table calculation only
-
-    @Column(name="single_float_field")
-    private float single_float_field;//for single number field only
-    @Column(name="single_String_field")
-    private String sing_String_field;//for single String field only
-
-    @Column(name="Expense_Type")
-    private ExpensesType expenseType;//to recognize expenseType
+    private String remark;
 
 
     public Integer getExpenseID() {
@@ -74,13 +53,4 @@ public class Expenses implements Serializable {
         this.expenseID = expenseID;
     }
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "PROJECT_ID", nullable = false)
-    public Project getProject() {
-        return project;
-    }
-
-    public void setProject(Project project) {
-        this.project = project;
-    }
 }

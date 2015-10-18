@@ -1,0 +1,23 @@
+ExpenseELement                               Expenses
+1.expenseElement1                            1. expenseElement1, project 1, value[], order1, rate1  
+2.expenseElement2			     2. expenseElement2, project 1, value[], order2, rate2
+3.expenseElement3                 ---------> 3. expenseElement3, project 1, value[], order3, rate3
+
+->
+Methods:
+
+1. On creating new project, need to call this function
+
+create Expenses (){
+	- Load all expenseElement and create the same namer of expenses records with the order is ordered by Defaul_Order attribute
+	- Default rate will get from defaut_Rate
+}
+
+
+2. On creating display M&E expense Form, need to set the order as name for each field to implement a single saving function?
+Or create only one name, so all the time need to save value as a list?
+
+3. The performance of the record which diffent type (some will have person number, some won't have person number) will be hard code to display well on UI
+
+Notes:
+Some records only have quantity, but don't have duration
