@@ -57,7 +57,9 @@ public class Quotation {
 	private ProductService productService;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public String getQuotationPage(Model uiModel) {
+	public String getQuotationPage(@RequestParam(value="projectId", required=true) String projectId,
+			Model uiModel,HttpServletRequest httpServletRequest) {
+		uiModel.addAttribute("projectId", projectId);
 		return "quotation/index";
 	}
 	

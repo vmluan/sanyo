@@ -33,6 +33,7 @@ public class ProductGroupMaker {
 	private String lmodUser;
 	private ProductGroup productGroup;
 	private Maker maker;
+	private String modelNo;
 	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -109,4 +110,11 @@ public class ProductGroupMaker {
 	public void setMaker(Maker maker) {
 		this.maker = maker;
 	}
+	public String getModelNo() {
+		return modelNo;
+	}
+	public void setModelNo(String modelNo) {
+		this.modelNo = modelNo;
+	}
+	
 }

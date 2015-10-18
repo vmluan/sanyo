@@ -120,7 +120,7 @@ $("#list")
 									return '<div class="col-md-12">'
 												+'<p>'
 													+ '<button class="btn bg-olive margin col-md-2"  onclick="updateProduct('+ value +  ')"' + '>Basic Info</button>'
-													+ '<button class="btn bg-purple margin col-md-2">Pricing</button>'
+													+ '<button class="btn bg-purple margin col-md-2" onclick="addQuotation('+ value +  ')"' + '>Pricing</button>'
 													+ '<button class="btn bg-navy margin col-md-2">Marker</button>'
 													+ '<button class="btn bg-orange margin col-md-1">Clone</button>'
 													+ '<button class="btn bg-maroon margin col-md-1">Close</button>'
@@ -136,4 +136,7 @@ $("#list")
 				//
 function updateProduct(id) {
 	window.location.href = '/projects/' + id + '?form';
+}
+function addQuotation(projectId){
+	window.location.href = '/quotation?projectId=' + projectId;
 }
