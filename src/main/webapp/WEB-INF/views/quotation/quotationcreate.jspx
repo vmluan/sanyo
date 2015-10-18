@@ -27,12 +27,21 @@
 					<div class="col-md-12">
 						<div class="form-group">
 							<p />
+							<div id="listRegion" class="row"><jsp:text />
+							</div>
+							<div id="pagerRegion"><jsp:text /></div><jsp:text /><P /><jsp:text />
+							<p />
+						</div>
+					</div>							
+					<div class="col-md-12">
+						<div class="form-group">
+							<p />
 							<div id="list" class="row"><jsp:text />
 							</div>
 							<div id="pager"><jsp:text /></div><jsp:text /><P /><jsp:text />
 							<p />
 						</div>
-					</div>
+					</div>			
 					<div class="col-md-12">
 						<div class="form-group">
 							<p />
@@ -49,7 +58,7 @@
 		</div>
 	</section>
 <script>
-	var regionId=${regionId};
+	var projectId=${projectId};
 </script>
 	<script type="text/javascript" src="/resources/scripts/addQuotation.js">
 		<jsp:text/>

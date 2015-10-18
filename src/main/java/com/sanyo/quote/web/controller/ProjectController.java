@@ -246,7 +246,24 @@ public class ProjectController extends CommonController {
 		String result = Utilities.jSonSerialization(assginedRegions);
 		return result;
 	}
-	
+	@RequestMapping(value = "/getAssginedRegionsOfLocationJson", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public String getAssginedRegionsOfLocationJson(@RequestParam(value="locationId", required=true) String locationId,
+			@RequestParam(value="filterscount", required=false) String filterscount
+			, @RequestParam(value="groupscount", required=false) String groupscount
+			, @RequestParam(value="pagenum", required=false) Integer pagenum
+			, @RequestParam(value="pagesize", required=false) Integer pagesize
+			, @RequestParam(value="recordstartindex", required=false) Integer recordstartindex
+			, @RequestParam(value="recordendindex", required=false) Integer recordendindex
+			, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
+		
+		System.out.println("start getting assinged regions of location");
+		Location location = locationService.findById(Integer.valueOf(locationId));
+		Set<Region> totalRegions =location.getRegions();
+		
+		String result = Utilities.jSonSerialization(totalRegions);
+		return result;
+	}
 	// handle screen for create new assigned regions.
 	@RequestMapping(value = "/{id}", params = "regions", method = RequestMethod.GET)
     public String createNewAssignedRegions(@PathVariable("id") Integer id, Model uiModel) {

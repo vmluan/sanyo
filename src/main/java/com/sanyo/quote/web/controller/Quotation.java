@@ -63,15 +63,15 @@ public class Quotation {
 		return "quotation/index";
 	}
 	
-	//get all assigned products of a specific region. Based on that we know all items that assigned to a project
+	//get all assigned products of a specific project.
 	@RequestMapping(value = "/{id}/addquotation", params = "form", method = RequestMethod.GET)
 	public String showRegions(@PathVariable("id") Integer id, Model uiModel, HttpServletRequest httpServletRequest){
-		Region region = regionService.findById(id);
-		Encounter encounter = new Encounter();
-		if(region != null){
-			encounter.setRegion(region);
-		}
-		uiModel.addAttribute("regionId", id);
+//		Region region = regionService.findById(id);
+//		Encounter encounter = new Encounter();
+//		if(region != null){
+//			encounter.setRegion(region);
+//		}
+		uiModel.addAttribute("projectId", id);
 		return "quotation/create";
 	}
 	@RequestMapping(value = "/getAssignedProductOfRegion", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
@@ -171,7 +171,7 @@ public class Quotation {
 	}
 	@RequestMapping(value = "/getAssignedLocationsJson", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public String getAssignedLocations(@RequestParam(value="regionId", required=true) String regionId
+	public String getAssignedLocations(@RequestParam(value="projectId", required=true) String projectId
 			, @RequestParam(value="filterscount", required=false) String filterscount
 			, @RequestParam(value="groupscount", required=false) String groupscount
 			, @RequestParam(value="pagenum", required=false) Integer pagenum
@@ -180,9 +180,7 @@ public class Quotation {
 			, @RequestParam(value="recordendindex", required=false) Integer recordendindex
 			, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
 		
-		Region region = regionService.findById(Integer.valueOf(regionId));
-//		Project project = projectService.findByIdAndFetchLocationsEagerly(region.getProject().getProjectId());
-		Project project = projectService.findByIdAndFetchLocationsEagerly(region.getLocation().getProject().getProjectId());
+		Project project = projectService.findByIdAndFetchLocationsEagerly(Integer.valueOf(projectId));
 		Set<Location> locatoins = project.getLocations();
 		String result = Utilities.jSonSerialization(locatoins);
 		return result;

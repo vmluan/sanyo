@@ -12,7 +12,7 @@ var sourceLocation = {
 	id : 'locationId',
 	url : urlLocation,
 	data : {
-		regionId : regionId
+		projectId : projectId
 	}
 };
 var dataAdapterLocation = new $.jqx.dataAdapter(sourceLocation, {
@@ -26,13 +26,68 @@ var dataAdapterLocation = new $.jqx.dataAdapter(sourceLocation, {
 });
 // Create a jqxComboBox
 $("#jqxWidgetLocation").jqxComboBox({
-	checkboxes : true,
+	//checkboxes : true,
 	source : dataAdapterLocation,
 	displayMember : "locationName",
 	valueMember : "locationId",
 	width : '100%',
 	height : 25
 });
+$('#jqxWidgetLocation').on('select', function (event) {
+    //load region section.
+	   var args = event.args;
+    if (args) {
+		// index represents the item's index.                       
+		var index = args.index;
+		var item = args.item;
+		// get item's label and value.
+		var label = item.label;
+		var value = item.value;
+		var urlRegion = "/projects/getAssginedRegionsOfLocationJson";
+		//prepare the data
+		var sourceRegion = {
+			datatype : "json",
+			datafields : [ {
+				name : 'regionId',
+				type : 'string'
+			}, {
+				name : 'regionName',
+				type : 'string'
+			}, {
+				name : 'regionDesc',
+				type : 'string'
+			},{
+				name : 'locationName',
+				map : 'location>locationName'
+			} ],
+			id : 'regionId',
+			url : urlRegion,
+			data : {
+				locationId : value
+			}
+		};
+		var dataAdapterRegion = new $.jqx.dataAdapter(sourceRegion, {
+			downloadComplete : function(data, status, xhr) {
+			},
+			loadComplete : function(data) {
+			},
+			loadError : function(xhr, status, error) {
+			}
+		});
+		$("#listRegion").jqxComboBox({
+			//checkboxes : true,
+			source : dataAdapterRegion,
+			displayMember : "regionName",
+			valueMember : "regionId",
+			width : '100%',
+			height : 25
+		});
+
+	}
+
+	
+});
+
 
 var urlProducts = "/products/getproductsjson";
 // prepare the data
