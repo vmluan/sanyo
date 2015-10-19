@@ -1,5 +1,9 @@
 package com.sanyo.quote.domain;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,9 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import java.io.Serializable;
-
-import static javax.persistence.GenerationType.IDENTITY;
 
 /**
  * Created by User on 10/10/2015.
@@ -26,7 +27,8 @@ public class Expenses implements Serializable {
     @Column(name="PROJECT_ID")
     private Project project;
 
-    @Column(name="EXPENSE_ELEMENT")
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "EXPENSE_ELEMENT_ID", nullable = false)
     private ExpenseElements expenseElement;
 
     @Column(name="ORDER")
@@ -52,5 +54,62 @@ public class Expenses implements Serializable {
     public void setExpenseID(Integer expenseID) {
         this.expenseID = expenseID;
     }
+
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
+	}
+
+	public ExpenseElements getExpenseElement() {
+		return expenseElement;
+	}
+
+	public void setExpenseElement(ExpenseElements expenseElement) {
+		this.expenseElement = expenseElement;
+	}
+
+	public String getOrder() {
+		return order;
+	}
+
+	public void setOrder(String order) {
+		this.order = order;
+	}
+
+	public float getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(float quantity) {
+		this.quantity = quantity;
+	}
+
+	public float getDuration() {
+		return duration;
+	}
+
+	public void setDuration(float duration) {
+		this.duration = duration;
+	}
+
+	public float getRate() {
+		return rate;
+	}
+
+	public void setRate(float rate) {
+		this.rate = rate;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+    
 
 }
