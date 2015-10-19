@@ -18,14 +18,14 @@
 				<div class="row">
 					<!-- /.box-header -->
 					<!-- form start -->
-					<div class="col-md-2">
-						<div class="form-group">
+					<div class="col-md-12">
+						<div class="form-group col-md-2">
 							<label>Select location to add items</label>
 							<div id='jqxWidgetLocation'><jsp:text /></div>
 						</div>
 					</div>
 					<div class="col-md-12">
-						<div class="form-group">
+						<div class="form-group col-md-2">
 							<p />
 							<div id="listRegion" class="row"><jsp:text />
 							</div>
