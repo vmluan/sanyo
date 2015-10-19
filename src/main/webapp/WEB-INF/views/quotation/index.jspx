@@ -1,22 +1,26 @@
-
+<div xmlns:jsp="http://java.sun.com/JSP/Page" 
+     xmlns:c="http://java.sun.com/jsp/jstl/core" 
+     xmlns:spring="http://www.springframework.org/tags"
+     xmlns:form="http://www.springframework.org/tags/form"
+     version="2.0">
 <section class="content">
 
 <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs pull-right">
-				  <li class=""><a href="#tab_3-3" data-toggle="tab" aria-expanded="false">Mechanical Maker</a></li>
-				  <li class=""><a href="/quotation/${projectId }/addquotation?form" data-target="#tab_1-1" data-toggle="tab" aria-expanded="false">Mechanical BOQ</a></li>
-				  <li class=""><a href="#tab_3-3" data-toggle="tab" aria-expanded="false">Electrical Maker</a></li>
-				  <li class=""><a href="/quotation/${projectId }/addquotation?form" data-target="#tab_1-1" data-toggle="tab" aria-expanded="false">Electrical BOQ</a></li>
+				  <li class="abc"><a href="#tab_3-3" data-toggle="tab" aria-expanded="false">Mechanical Maker</a></li>
+				  <li class="abc"><a href="/quotation/${projectId }/addquotation?form" data-target="#tab_1-1" data-toggle="tab" aria-expanded="false">Mechanical BOQ</a></li>
+				  <li class="abc"><a href="#tab_3-3" data-toggle="tab" aria-expanded="false">Electrical Maker</a></li>
+				  <li class="abc"><a href="/quotation/${projectId }/addquotation?form" data-target="#tab_1-1" data-toggle="tab" aria-expanded="false">Electrical BOQ</a></li>
 
 
-                   <li class=""><a href="#tab_4-4" data-toggle="tab" aria-expanded="false">Summary</a></li>
+                   <li class="abc"><a href="#tab_4-4" data-toggle="tab" aria-expanded="false">Summary</a></li>
 
-                  <li class=""><a href="/parameter" data-target="#tab_1-1" data-toggle="tab" aria-expanded="false">Summary-info</a></li>
-                  <li class=""><a href="/expenses" data-target="#tab_1-1" data-toggle="tab" aria-expanded="false"><![CDATA[M&E Expenses]]></a></li>
-                  <li class=""><a href="/condition_2" data-target="#tab_1-1" data-toggle="tab" aria-expanded="false">Condition 2</a></li>
-                  <li class=""><a href="/condition_1" data-target="#tab_1-1" data-toggle="tab" aria-expanded="false">Condition 1</a></li>
-                  <li class=""><a href="/cover" data-target="#tab_1-1" data-toggle="tab" aria-expanded="false">Cover</a></li>
-                  <li class="pull-left header"><i class="fa fa-th"></i>Quotation</li>
+                  <li class="abc"><a href="/parameter" data-target="#tab_1-1" data-toggle="tab" aria-expanded="false">Summary-info</a></li>
+                  <li class="abc"><a href="/expenses" data-target="#tab_1-1" data-toggle="tab" aria-expanded="false"><![CDATA[M&E Expenses]]></a></li>
+                  <li class="abc"><a href="/condition_2" data-target="#tab_1-1" data-toggle="tab" aria-expanded="false">Condition 2</a></li>
+                  <li class="abc"><a href="/condition_1" data-target="#tab_1-1" data-toggle="tab" aria-expanded="false">Condition 1</a></li>
+                  <li class="abc"><a href="/cover" data-target="#tab_1-1" data-toggle="tab" aria-expanded="false">Cover</a></li>
+                  <li class="pull-left header"><i class="fa fa-th"><jsp:text /></i>Quotation</li>
                 </ul>
                 <div class="tab-content">
                   <div class="tab-pane" id="tab_1-1">
@@ -57,3 +61,4 @@
 
 </section><!-- /.content -->
 
+</div>
