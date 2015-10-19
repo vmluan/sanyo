@@ -25,12 +25,19 @@ import com.sanyo.quote.domain.EncounterJson;
 import com.sanyo.quote.domain.EncounterStatus;
 import com.sanyo.quote.domain.Location;
 import com.sanyo.quote.domain.LocationJson;
+import com.sanyo.quote.domain.Maker;
+import com.sanyo.quote.domain.MakerJson;
 import com.sanyo.quote.domain.Product;
+import com.sanyo.quote.domain.ProductGroup;
+import com.sanyo.quote.domain.ProductGroupMaker;
 import com.sanyo.quote.domain.Project;
 import com.sanyo.quote.domain.Region;
 import com.sanyo.quote.helper.Utilities;
 import com.sanyo.quote.service.EncounterService;
 import com.sanyo.quote.service.LocationService;
+import com.sanyo.quote.service.MakerService;
+import com.sanyo.quote.service.ProductGroupMakerService;
+import com.sanyo.quote.service.ProductGroupService;
 import com.sanyo.quote.service.ProductService;
 import com.sanyo.quote.service.ProjectService;
 import com.sanyo.quote.service.RegionService;
@@ -55,7 +62,16 @@ public class Quotation {
 	
 	@Autowired
 	private ProductService productService;
-
+	
+	@Autowired
+	private MakerService makerService;
+	
+	@Autowired
+	private ProductGroupService productGroupService;
+	
+	@Autowired
+	private ProductGroupMakerService productGroupMakerService;
+	
 	@RequestMapping(method = RequestMethod.GET)
 	public String getQuotationPage(@RequestParam(value="projectId", required=true) String projectId,
 			Model uiModel,HttpServletRequest httpServletRequest) {
@@ -63,10 +79,30 @@ public class Quotation {
 		return "quotation/index";
 	}
 	@RequestMapping(value = "/{id}/addmakerlist", params = "form", method = RequestMethod.GET)
-	public String getMakerPage(@RequestParam(value="projectId", required=true) String projectId,
+	public String getMakerPage(@PathVariable("id") String projectId,
 			Model uiModel,HttpServletRequest httpServletRequest) {
 		uiModel.addAttribute("projectId", projectId);
 		return "quotation/makerlist";
+	}
+	//save MakerList
+	@RequestMapping(value = "/{id}/addmakerlist", params = "form", method = RequestMethod.POST)
+	@ResponseStatus(value = HttpStatus.OK)
+	public void saveMakers(@RequestBody final MakerJson makerJson, @PathVariable("id") Integer id, Model uiModel, HttpServletRequest httpServletRequest){
+		System.out.println("=================================== saving Maker list");
+		Maker maker = makerService.findById(Integer.valueOf(makerJson.getMakerId()));
+		ProductGroup productGroup = productGroupService.findById(Integer.valueOf(makerJson.getProductGroupId()));
+		Region region = regionService.findById(Integer.valueOf(makerJson.getRegionId()));
+		ProductGroupMaker productGroupMaker = new ProductGroupMaker();
+		
+		productGroupMaker.setCreatedBy(Utilities.getCurrentUser().getUsername());
+		productGroupMaker.setDelivery(makerJson.getDelivery());
+		productGroupMaker.setMaker(maker);
+		productGroupMaker.setModelNo(makerJson.getModelNo());
+		productGroupMaker.setProductGroup(productGroup);
+		productGroupMaker.setRemark(makerJson.getRemarks());
+		productGroupMaker.setRegion(region);
+		
+		productGroupMakerService.save(productGroupMaker);
 	}
 	
 	//get all assigned products of a specific project.

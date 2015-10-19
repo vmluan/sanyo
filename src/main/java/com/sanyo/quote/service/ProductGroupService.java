@@ -20,4 +20,6 @@ public interface ProductGroupService {
 	ProductGroup findByIdAndFetchProductGroupMakerEagerly(Integer id);
 	
 	ProductGroup findByIdAndFetchProductsEagerly(Integer id);
+	
+	ProductGroup findByGroupName(String groupName);
 }

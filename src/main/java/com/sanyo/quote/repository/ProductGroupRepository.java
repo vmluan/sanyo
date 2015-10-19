@@ -14,5 +14,7 @@ public interface ProductGroupRepository extends PagingAndSortingRepository<Produ
 	
 	@Query("SELECT pg FROM ProductGroup pg JOIN FETCH pg.products WHERE pg.groupId = :id")
 	public ProductGroup findByIdAndFetchProductsEagerly(@Param("id") Integer id);
+	
+	public ProductGroup findByGroupName(String groupName);
 
 }

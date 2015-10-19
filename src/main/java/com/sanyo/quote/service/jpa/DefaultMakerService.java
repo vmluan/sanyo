@@ -50,5 +50,10 @@ public class DefaultMakerService implements MakerService {
 		return makerRepository.findByIdAndFetchProductGroupMakerEagerly(id);
 	}
 
+	@Override
+	public Maker findByName(String name) {
+		return makerRepository.findByName(name);
+	}
+
 
 }

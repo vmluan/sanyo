@@ -54,6 +54,11 @@ public class DefaultProductGroupService implements ProductGroupService {
 		return productGroupRepository.findByIdAndFetchProductsEagerly(id);
 	}
 
+	@Override
+	public ProductGroup findByGroupName(String groupName) {
+		return productGroupRepository.findByGroupName(groupName);
+	}
+
 
 
 }

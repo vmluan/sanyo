@@ -19,4 +19,6 @@ public interface MakerService {
 	
 	Maker findByIdAndFetchProductGroupMakerEagerly(Integer id);
 	
+	Maker findByName(String name);
+	
 }

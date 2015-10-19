@@ -10,5 +10,7 @@ import com.sanyo.quote.domain.Maker;
 public interface MakerRepository extends PagingAndSortingRepository<Maker, Integer> {
 	@Query("SELECT m FROM Maker m JOIN FETCH m.productGroupMakers WHERE m.id = :id")
 	public Maker findByIdAndFetchProductGroupMakerEagerly(@Param("id") Integer id);
+	
+	public Maker findByName(String name);
 
 }

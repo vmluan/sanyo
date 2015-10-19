@@ -190,10 +190,12 @@ public class StartupContextListener extends ContextLoaderListener{
 		String[] makerList = {"ABB or equivalent", "Hai Nam", "Sunlight Electric", "LS / or equivalent"
 				,"LS-Vina", "Taisin cable", "THT", "An thy", "Henikwon", "Paragon", "Formular"
 				, "Maxspid"};
-		Maker maker = new Maker();
+		
 		for(String name: makerList){
+			Maker maker = new Maker();
 			maker.setName(name);
+			makerService.save(maker);
 		}
-		makerService.save(maker);
+		
 	}
 }

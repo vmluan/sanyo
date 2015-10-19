@@ -30,53 +30,77 @@ var dataAdapterRegion = new $.jqx.dataAdapter(sourceRegion, {autoBind : true,
 	}
 });
 
+var urlProductGroup = '/productgroups/getproductGroupJson';
+var sourceProductGroup = {
+		datatype : "json",
+		datafields : [ {
+			name : 'groupId',
+			type : 'string'
+		}, {
+			name : 'groupName',
+			type : 'string'
+		}, {
+			name : 'groupCode',
+			type : 'string'
+		}],
+		id : 'groupId',
+		url : urlProductGroup
+	};
+	var dataAdapterProductGroup = new $.jqx.dataAdapter(sourceProductGroup, {autoBind : true,
+		downloadComplete : function(data, status, xhr) {
+		},
+		loadComplete : function(data) {
+		},
+		loadError : function(xhr, status, error) {
+		}
+	});
+	
+	var urlMaker = '/makers/getMakersJson';
+	var sourceMaker = {
+			datatype : "json",
+			datafields : [ {
+				name : 'id',
+				type : 'string'
+			}, {
+				name : 'name',
+				type : 'string'
+			}, {
+				name : 'makerDesc',
+				type : 'string'
+			}],
+			id : 'id',
+			url : urlMaker
+		};
+		var dataAdapterMaker = new $.jqx.dataAdapter(sourceMaker, {autoBind : true,
+			downloadComplete : function(data, status, xhr) {
+			},
+			loadComplete : function(data) {
+			},
+			loadError : function(xhr, status, error) {
+			}
+		});
+
 loadAddQuotationGrid();
 
 function addItem(row) {
 	// call server action to add new row.
-	saveEncounter(row);
+	saveMakerList(row);
 
 }
-function saveEncounter(row) {
-	var rows = $("#jqxWidgetLocation").jqxComboBox('getCheckedItems');
-	var locations = new Array();
-	// <![CDATA[
-	for (var i = 0; i < rows.length; i++) {
-		var location = new Object();
-		location.locationId = rows[i].value;
-		location.locationName = rows[i].label;
-		locations.push(location);
-	}
-
-	// ]]>
-
+function saveMakerList(row) {
 	var data = $('#list').jqxGrid('getrowdata', row);
-	var encounter = new Object();
-	encounter.regionId = regionId;
-	encounter.locations = locations;
-	encounter.productCode = data.productCode;
-	encounter.productName = data.productName;
-	encounter.order = data.order;
-	encounter.encounterID = data.encounterID;
-	encounter.unitRate = data.unitRate;
-	encounter.quantity = data.quantity;
-	encounter.actualQuantity = data.actualQuantity;
-	encounter.amount = data.amount;
-	encounter.remark = data.remark;
-	encounter.mat_w_o_Tax_USD = data.mat_w_o_Tax_USD;
-	encounter.mat_w_o_Tax_VND = data.mat_w_o_Tax_VND;
-	encounter.labour = data.labour;
-	encounter.imp_Tax = data.imp_Tax;
-	encounter.special_Con_Tax = data.special_Con_Tax;
-	encounter.discount_rate = data.discount_rate;
-	encounter.vat = data.vat;
-	encounter.unit_Price_After_Discount = data.unit_Price_After_Discount;
-	encounter.allowance = data.allowance;
-	encounter.unit_Price_W_Tax_Profit = data.unit_Price_W_Tax_Profit;
-	encounter.cost_Mat_Amount_USD = data.cost_Mat_Amount_USD;
-	encounter.cost_Labour_Amount_USD = data.cost_Labour_Amount_USD;
+	var makerList = new Object();
+	makerList.regionName = data.regionName;
+	makerList.productGroupName = data.productGroupName;
+	makerList.modelNo = data.modelNo;
+	makerList.makerName = data.name;
+	makerList.delivery = data.delivery;
+	makerList.remarks = data.remarks;
+	makerList.makerId =  data.makerId;
+	makerList.regionId = data.regionId;
+	makerList.productGroupId = data.productGroupId;
 
-	var jsonData = JSON.stringify(encounter);
+	var jsonData = JSON.stringify(makerList);
 	console.log(jsonData);
 	var url = '/quotation/1/addmakerlist?form';
 	$.ajax({
@@ -88,7 +112,7 @@ function saveEncounter(row) {
 			$("#list").jqxGrid('updatebounddata');
 
 			$('#list').jqxGrid('addrow', null, {}, 'first');
-			$("#list").jqxGrid('begincelledit', 0, "desc");
+			$("#list").jqxGrid('begincelledit', 0, "regionName");
 		},
 		complete : function(xhr, status) {
 			// $("#assignRegionButton").prop('disabled', false);
@@ -167,7 +191,7 @@ function loadAddQuotationGrid() {
 			type : 'string'
 
 		}],
-		id : 'regionName',
+		
 		url : "/test"
 	};
 	var dataAdapter2 = new $.jqx.dataAdapter(source2, {
@@ -206,9 +230,22 @@ function loadAddQuotationGrid() {
 											autoDropDownHeight : true,
 											source : dataAdapterRegion,
 											displayMember : "regionName",
-											valueMember : "regionName",
+											valueMember : "regionId",
 											promptText : "Please Choose:"
 										});
+										
+										editor.on('select', function(event) {
+											var args = event.args;
+												if (args) {
+													var index = args.index;
+													var item = args.item;
+													// get item's label and value.
+													var label = item.label;
+													var value = item.value;
+													//set value to hidden field
+													$("#list").jqxGrid('setcellvalue', 0, "regionId", value);
+												}
+										});										
 
 									},
 									geteditorvalue : function(row, cellvalue,
@@ -221,6 +258,7 @@ function loadAddQuotationGrid() {
 										}
 									}
 								},
+								{ text: 'Region Id', datafield: 'regionId', width: 0, hidden: true },
 								{
 									text : 'Nhom Vat Tu',
 									datafield : 'productGroupName',
@@ -235,11 +273,23 @@ function loadAddQuotationGrid() {
 										//update to get productgroup list later.
 										editor.jqxComboBox({
 											autoDropDownHeight : true,
-											source : dataAdapterRegion,
-											displayMember : "regionName",
-											valueMember : "regionName",
+											source : dataAdapterProductGroup,
+											displayMember : "groupName",
+											valueMember : "groupId",
 											promptText : "Please Choose:"
 										});
+										editor.on('select', function(event) {
+											var args = event.args;
+												if (args) {
+													var index = args.index;
+													var item = args.item;
+													// get item's label and value.
+													var label = item.label;
+													var value = item.value;
+													//set value to hidden field
+													$("#list").jqxGrid('setcellvalue', 0, "productGroupId", value);
+												}
+										});											
 									},
 									geteditorvalue : function(row, cellvalue,
 											editor) {
@@ -252,6 +302,7 @@ function loadAddQuotationGrid() {
 									}
 
 								},
+								{ text: 'productGroupId', datafield: 'productGroupId', width: 0, hidden: true },
 								{
 									text : 'Model No',
 									datafield : 'modelNo',
@@ -262,7 +313,7 @@ function loadAddQuotationGrid() {
 								},
 								{
 									text : 'Maker',
-									datafield : 'makerName',
+									datafield : 'name',
 									align : 'center',
 									cellsalign : 'right',
 									// cellsformat : 'c0',
@@ -274,11 +325,23 @@ function loadAddQuotationGrid() {
 										//update to get maker list later.
 										editor.jqxComboBox({
 											autoDropDownHeight : true,
-											source : dataAdapterRegion,
-											displayMember : "regionName",
-											valueMember : "regionName",
+											source : dataAdapterMaker,
+											displayMember : "name",
+											valueMember : "id",
 											promptText : "Please Choose:"
 										});
+										editor.on('select', function(event) {
+											var args = event.args;
+												if (args) {
+													var index = args.index;
+													var item = args.item;
+													// get item's label and value.
+													var label = item.label;
+													var value = item.value;
+													//set value to hidden field
+													$("#list").jqxGrid('setcellvalue', 0, "makerId", value);
+												}
+										});											
 									},
 									geteditorvalue : function(row, cellvalue,
 											editor) {
@@ -291,6 +354,7 @@ function loadAddQuotationGrid() {
 									}
 
 								},
+								{ text: 'makerId', datafield: 'makerId', width: 0, hidden: true },
 								{
 									text : 'Delivery',
 									datafield : 'delivery',
@@ -300,7 +364,7 @@ function loadAddQuotationGrid() {
 									width : '15%'
 								},
 								{
-									text : 'remarks',
+									text : 'Remarks',
 									datafield : 'remarks',
 									align : 'center',
 									cellsalign : 'right',
