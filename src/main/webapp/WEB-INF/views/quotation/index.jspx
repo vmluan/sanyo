@@ -9,7 +9,7 @@
                 <ul class="nav nav-tabs pull-right">
 				  <li class="abc"><a href="#tab_3-3" data-toggle="tab" aria-expanded="false">Mechanical Maker</a></li>
 				  <li class="abc"><a href="/quotation/${projectId }/addquotation?form" data-target="#tab_1-1" data-toggle="tab" aria-expanded="false">Mechanical BOQ</a></li>
-				  <li class="abc"><a href="#tab_3-3" data-toggle="tab" aria-expanded="false">Electrical Maker</a></li>
+				  <li class="abc"><a href="/quotation/${projectId }/addmakerlist?form" data-toggle="tab" aria-expanded="false">Electrical Maker</a></li>
 				  <li class="abc"><a href="/quotation/${projectId }/addquotation?form" data-target="#tab_1-1" data-toggle="tab" aria-expanded="false">Electrical BOQ</a></li>
 
 

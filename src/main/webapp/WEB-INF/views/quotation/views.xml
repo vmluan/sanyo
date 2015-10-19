@@ -40,6 +40,10 @@
         <put-attribute name="body"
              value="/WEB-INF/views/quotation/quotationcreate.jspx" />
     </definition>
+    <definition extends="defaultWithoutHeaderFooter" name="quotation/makerlist">
+        <put-attribute name="body"
+             value="/WEB-INF/views/quotation/makerlistcreate.jspx" />
+    </definition>
     <definition extends="home" name="quotation/expenses">
         <put-attribute name="body"
                        value="/WEB-INF/views/quotation/expenses.jspx" />

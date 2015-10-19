@@ -62,6 +62,12 @@ public class Quotation {
 		uiModel.addAttribute("projectId", projectId);
 		return "quotation/index";
 	}
+	@RequestMapping(value = "/{id}/addmakerlist", params = "form", method = RequestMethod.GET)
+	public String getMakerPage(@RequestParam(value="projectId", required=true) String projectId,
+			Model uiModel,HttpServletRequest httpServletRequest) {
+		uiModel.addAttribute("projectId", projectId);
+		return "quotation/makerlist";
+	}
 	
 	//get all assigned products of a specific project.
 	@RequestMapping(value = "/{id}/addquotation", params = "form", method = RequestMethod.GET)

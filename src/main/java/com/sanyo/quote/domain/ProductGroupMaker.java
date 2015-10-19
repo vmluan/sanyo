@@ -34,6 +34,7 @@ public class ProductGroupMaker {
 	private ProductGroup productGroup;
 	private Maker maker;
 	private String modelNo;
+	private Region region;
 	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -115,6 +116,15 @@ public class ProductGroupMaker {
 	}
 	public void setModelNo(String modelNo) {
 		this.modelNo = modelNo;
+	}
+	@JsonIgnore
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="region_id", nullable = false)
+	public Region getRegion() {
+		return region;
+	}
+	public void setRegion(Region region) {
+		this.region = region;
 	}
 	
 }

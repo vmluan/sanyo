@@ -36,6 +36,7 @@ public class Region implements java.io.Serializable{
 	private Set<User> users;
 	private Set<UserRegionRole> userRegionRoles;
 	private Location location;
+	private Set<ProductGroupMaker> productGroupMakers;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -125,6 +126,14 @@ public class Region implements java.io.Serializable{
 	}
 	public void setUserRegionRoles(Set<UserRegionRole> userRegionRoles) {
 		this.userRegionRoles = userRegionRoles;
+	}
+	@JsonIgnore
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="region")
+	public Set<ProductGroupMaker> getProductGroupMakers() {
+		return productGroupMakers;
+	}
+	public void setProductGroupMakers(Set<ProductGroupMaker> productGroupMakers) {
+		this.productGroupMakers = productGroupMakers;
 	}
 	
 	
