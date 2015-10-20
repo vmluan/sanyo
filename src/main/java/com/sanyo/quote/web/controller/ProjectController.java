@@ -309,7 +309,7 @@ public class ProjectController extends CommonController {
 				
 				Category category = categoryService.findById(regionJson.getRegionId());
 				
-				Region region = getExistingRegion(existingProject, category.getName());
+				Region region = getExistingRegion(existingLocation, category.getName());
 				if(region == null){
 					region = new Region();
 					region.setCategory(category);
@@ -378,22 +378,19 @@ public class ProjectController extends CommonController {
 			}
 		}
 	}
-	private Region getExistingRegion(Project project, String regionName){
-		boolean result = false;
-		Set<Location> locations = project.getLocations();
-		for(Location location: locations){
-			Set<Region> regions  = location.getRegions();
-			Iterator<Region> iterator = regions.iterator();
-			if(regions != null && regions.size() >0){
-				while(iterator.hasNext()){
-					Region region = iterator.next();
-					if(regionName.equalsIgnoreCase(region.getCategory().getName())){
-						return regionService.findByIdAndFetchUserRegionRolesEagerly(region.getRegionId()); 
-					}
+	private Region getExistingRegion(Location location, String regionName){
+		if(location==null)
+			return null;
+		Set<Region> regions  = location.getRegions();
+		Iterator<Region> iterator = regions.iterator();
+		if(regions != null && regions.size() >0){
+			while(iterator.hasNext()){
+				Region region = iterator.next();
+				if(regionName.equalsIgnoreCase(region.getCategory().getName())){
+					return regionService.findByIdAndFetchUserRegionRolesEagerly(region.getRegionId()); 
 				}
 			}
 		}
-
 		return null;
 	}
 	private UserRegionRole getExistingUser(Region region, String userName){
