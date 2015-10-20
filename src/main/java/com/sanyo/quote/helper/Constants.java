@@ -19,4 +19,10 @@ public class Constants {
 	 
 	 // Configuration DB
 	 public static final String CHART_BACKGROUND_COLOR = "chart.backgroundcolor";
+	 
+	 // SEC
+	 public static final String ELECT_BOQ = "ELECTRICAL BOQ";
+	 public static final String MECH_BOQ = "MECHANICAL BOQ";
+	 public static final String ELEC_TYPE = "ELEC";
+	 public static final String MECH_TYPE = "MECH";
 }

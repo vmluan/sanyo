@@ -103,29 +103,75 @@ $('#jqxWidgetLocation').on('select', function(event) {
 
 });
 
-var urlProducts = "/products/getproductsjson";
+function getUrlProducts(productGroupId){
+	var urlProducts = "/productgroups/getProductsOfGroupjson";
+	var sourceProducts = {
+			datatype : "json",
+			datafields : [ {
+				name : 'productName',
+				type : 'string'
+			}, {
+				name : 'productPrice',
+				type : 'float'
+			}, {
+				name : 'picLocation',
+				type : 'string'
+			}, {
+				name : 'productCode',
+				type : 'string'
+			} ],
+		    sortcolumn: 'productName',
+		    sortdirection: 'asc',
+			id : 'productID',
+			url : urlProducts,
+			data : {
+				productGroupId : productGroupId
+			}
+		};
+	
+	return sourceProducts;
+}
+function getProductAdapter(sourceProducts){
+	var dataAdapterProducts = new $.jqx.dataAdapter(sourceProducts, {
+		autoBind : true,
+		downloadComplete : function(data, status, xhr) {
+		},
+		loadComplete : function(data) {
+		},
+		loadError : function(xhr, status, error) {
+		}
+	});
+	return dataAdapterProducts;
+}
 // prepare the data
-var sourceProducts = {
+var sourceProducts = getUrlProducts();
+var dataAdapterProducts = getProductAdapter(sourceProducts);
+
+
+var urlProductGroup = "/projects/getProductGroupMakersJson";
+//prepare the data
+var sourceProductGroup = {
 	datatype : "json",
 	datafields : [ {
-		name : 'productName',
+		name : 'groupId',
 		type : 'string'
 	}, {
-		name : 'productPrice',
-		type : 'float'
-	}, {
-		name : 'picLocation',
+		name : 'groupCode',
 		type : 'string'
-	}, {
-		name : 'productCode',
+	} , {
+		name : 'groupName',
 		type : 'string'
-	} ],
-    sortcolumn: 'productName',
-    sortdirection: 'asc',
-	id : 'productID',
-	url : urlProducts
+	}],
+	sortcolumn: 'groupCode',
+	sortdirection: 'asc',
+	id : 'groupId',
+	url : urlProductGroup,
+	data : {
+		projectId : projectId,
+		regionType: regionType
+	}
 };
-var dataAdapterProducts = new $.jqx.dataAdapter(sourceProducts, {
+var dataAdapterProductGroup = new $.jqx.dataAdapter(sourceProductGroup, {
 	autoBind : true,
 	downloadComplete : function(data, status, xhr) {
 	},
@@ -372,7 +418,53 @@ function loadAddQuotationGrid() {
 						editable : true,
 						// autorowheight: true,
 						columns : [
-								{
+									{
+										text : 'Ma nhom vat tu',
+										datafield : 'productGroupCode',
+										align : 'center',
+										cellsalign : 'right',
+										// cellsformat : 'c0',
+										width : '15%',
+										columntype : 'combobox',
+										createeditor : function(row, column, editor) {
+											// assign a new data source to the
+											// combobox.
+											editor.jqxComboBox({
+												autoDropDownHeight : true,
+												source : dataAdapterProductGroup,
+												displayMember : "groupCode",
+												valueMember : "groupId",
+												promptText : "Please Choose:"
+											});
+											editor.on('select', function(event) {
+												var args = event.args;
+													if (args) {
+														var index = args.index;
+														var item = args.item;
+														// get item's label and value.
+														var label = item.label;
+														var value = item.value;
+														//set value to hidden field
+														$("#list").jqxGrid('setcellvalue', index, "groupId", value);
+														//update project combobox.
+														var sourceProducts2 = getUrlProducts(value);
+														dataAdapterProducts = getProductAdapter(sourceProducts2);
+													}
+											});												
+
+										},
+										geteditorvalue : function(row, cellvalue,
+												editor) {
+											// return the editor's value.
+											var item = editor
+													.jqxComboBox('getSelectedItem');
+											if (item) {
+												return item.label;
+											}
+										}
+									},
+									{ text: 'Group Id', datafield: 'groupId', width: 0, hidden: true },									
+						           {
 									text : 'Search by Name',
 									datafield : 'productName',
 									align : 'center',

@@ -122,6 +122,7 @@ public class Quotation {
 //			encounter.setRegion(region);
 //		}
 		uiModel.addAttribute("projectId", id);
+		uiModel.addAttribute("regionType", httpServletRequest.getParameter("type"));
 		return "quotation/create";
 	}
 	@RequestMapping(value = "/getAssignedProductOfRegion", method = RequestMethod.GET, produces = "application/json; charset=utf-8")

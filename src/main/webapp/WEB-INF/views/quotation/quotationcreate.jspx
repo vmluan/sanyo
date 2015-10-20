@@ -59,6 +59,7 @@
 	</section>
 <script>
 	var projectId=${projectId};
+	var regionType="${regionType}";
 </script>
 	<script type="text/javascript" src="/resources/scripts/addQuotation.js">
 		<jsp:text/>

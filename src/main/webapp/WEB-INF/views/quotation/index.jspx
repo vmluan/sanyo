@@ -10,7 +10,7 @@
 				  <li class="abc"><a href="/quotation/${projectId }/addmakerlist?form&amp;type=mech" data-target="#tab_3-2" data-toggle="tab" aria-expanded="false">Mechanical Maker</a></li>
 				  <li class="abc"><a href="/quotation/${projectId }/addquotation?form" data-target="#tab_3_1" data-toggle="tab" aria-expanded="false">Mechanical BOQ</a></li>
 				  <li class="abc"><a href="/quotation/${projectId }/addmakerlist?form&amp;type=elec" data-target="#tab_2-2" data-toggle="tab" aria-expanded="false">Electrical Maker</a></li>
-				  <li class="abc"><a href="/quotation/${projectId }/addquotation?form" data-target="#tab_2-1" data-toggle="tab" aria-expanded="false">Electrical BOQ</a></li>
+				  <li class="abc"><a href="/quotation/${projectId }/addquotation?form&amp;type=elec" data-target="#tab_2-1" data-toggle="tab" aria-expanded="false">Electrical BOQ</a></li>
 
 
                    <li class="abc"><a href="#tab_4-4" data-toggle="tab" aria-expanded="false">Summary</a></li>

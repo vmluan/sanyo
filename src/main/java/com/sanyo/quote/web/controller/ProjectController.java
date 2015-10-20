@@ -38,6 +38,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sanyo.quote.domain.Category;
 import com.sanyo.quote.domain.Location;
+import com.sanyo.quote.domain.ProductGroup;
+import com.sanyo.quote.domain.ProductGroupMaker;
 import com.sanyo.quote.domain.Project;
 import com.sanyo.quote.domain.ProjectRevision;
 import com.sanyo.quote.domain.Region;
@@ -45,6 +47,7 @@ import com.sanyo.quote.domain.RegionJson;
 import com.sanyo.quote.domain.User;
 import com.sanyo.quote.domain.UserJson;
 import com.sanyo.quote.domain.UserRegionRole;
+import com.sanyo.quote.helper.Constants;
 import com.sanyo.quote.helper.Utilities;
 import com.sanyo.quote.service.CategoryService;
 import com.sanyo.quote.service.EncounterService;
@@ -613,7 +616,42 @@ public class ProjectController extends CommonController {
 		String result = Utilities.jSonSerialization(locations);
 		return result;
 	}
-	
+
+	@RequestMapping(value = "/getProductGroupMakersJson", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public String getProductGroupMakersJsGon(@RequestParam(value="projectId", required=true) String projectId,
+			@RequestParam(value="filterscount", required=false) String filterscount
+			, @RequestParam(value="groupscount", required=false) String groupscount
+			, @RequestParam(value="pagenum", required=false) Integer pagenum
+			, @RequestParam(value="pagesize", required=false) Integer pagesize
+			, @RequestParam(value="recordstartindex", required=false) Integer recordstartindex
+			, @RequestParam(value="recordendindex", required=false) Integer recordendindex
+			, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
+		
+		String regionType =  httpServletRequest.getParameter("regionType");
+		System.out.println("============ start getting product group makers ");
+		Project project = projectService.findByIdAndFetchMakers(Integer.valueOf(projectId));
+		Set<ProductGroupMaker> productGroupMakers = project.getProductGroupMakers();
+		Set<ProductGroup> productGroups = new HashSet<ProductGroup>();
+		Iterator<ProductGroupMaker> iterator = productGroupMakers.iterator();
+		while(iterator.hasNext()){
+			ProductGroupMaker productGroupMaker = iterator.next();
+			Category category = productGroupMaker.getCategory().getParentCategory();
+			if(regionType.equalsIgnoreCase(Constants.ELEC_TYPE)){
+				if(category.getName().equalsIgnoreCase(Constants.ELECT_BOQ)){
+					ProductGroup productGroup = productGroupMaker.getProductGroup();
+					productGroups.add(productGroup);
+				}
+			}else if(regionType.equalsIgnoreCase(Constants.MECH_TYPE)){
+				if(category.getName().equalsIgnoreCase(Constants.MECH_BOQ)){
+					ProductGroup productGroup = productGroupMaker.getProductGroup();
+					productGroups.add(productGroup);
+				}				
+			}
+		}
+		String result = Utilities.jSonSerialization(productGroups);
+		return result;
+	}
 	
 }
 
