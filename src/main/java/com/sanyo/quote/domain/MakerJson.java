@@ -1,23 +1,16 @@
 package com.sanyo.quote.domain;
 
 public class MakerJson {
-	private String regionName;
 	private String productGroupName;
 	private String modelNo;
 	private String makerName;
 	private String delivery;
 	private String remarks;
 	private String makerId;
-	private String regionId;
 	private String productGroupId;
-
+	private String categoryId;
+	private String categoryName;
 	
-	public String getRegionName() {
-		return regionName;
-	}
-	public void setRegionName(String regionName) {
-		this.regionName = regionName;
-	}
 	public String getProductGroupName() {
 		return productGroupName;
 	}
@@ -54,17 +47,24 @@ public class MakerJson {
 	public void setMakerId(String makerId) {
 		this.makerId = makerId;
 	}
-	public String getRegionId() {
-		return regionId;
-	}
-	public void setRegionId(String regionId) {
-		this.regionId = regionId;
-	}
 	public String getProductGroupId() {
 		return productGroupId;
 	}
 	public void setProductGroupId(String productGroupId) {
 		this.productGroupId = productGroupId;
 	}
+	public String getCategoryId() {
+		return categoryId;
+	}
+	public void setCategoryId(String categoryId) {
+		this.categoryId = categoryId;
+	}
+	public String getCategoryName() {
+		return categoryName;
+	}
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+	
 	
 }

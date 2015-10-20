@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.sanyo.quote.domain.Category;
 import com.sanyo.quote.domain.Encounter;
 import com.sanyo.quote.domain.EncounterJson;
 import com.sanyo.quote.domain.EncounterStatus;
@@ -33,6 +34,7 @@ import com.sanyo.quote.domain.ProductGroupMaker;
 import com.sanyo.quote.domain.Project;
 import com.sanyo.quote.domain.Region;
 import com.sanyo.quote.helper.Utilities;
+import com.sanyo.quote.service.CategoryService;
 import com.sanyo.quote.service.EncounterService;
 import com.sanyo.quote.service.LocationService;
 import com.sanyo.quote.service.MakerService;
@@ -72,6 +74,9 @@ public class Quotation {
 	@Autowired
 	private ProductGroupMakerService productGroupMakerService;
 	
+	@Autowired
+	private CategoryService categoryService;
+	
 	@RequestMapping(method = RequestMethod.GET)
 	public String getQuotationPage(@RequestParam(value="projectId", required=true) String projectId,
 			Model uiModel,HttpServletRequest httpServletRequest) {
@@ -91,8 +96,9 @@ public class Quotation {
 		System.out.println("=================================== saving Maker list");
 		Maker maker = makerService.findById(Integer.valueOf(makerJson.getMakerId()));
 		ProductGroup productGroup = productGroupService.findById(Integer.valueOf(makerJson.getProductGroupId()));
-		Region region = regionService.findById(Integer.valueOf(makerJson.getRegionId()));
+		Category category = categoryService.findById(Integer.valueOf(makerJson.getCategoryId()));
 		ProductGroupMaker productGroupMaker = new ProductGroupMaker();
+		Project project = projectService.findById(id);
 		
 		productGroupMaker.setCreatedBy(Utilities.getCurrentUser().getUsername());
 		productGroupMaker.setDelivery(makerJson.getDelivery());
@@ -100,7 +106,8 @@ public class Quotation {
 		productGroupMaker.setModelNo(makerJson.getModelNo());
 		productGroupMaker.setProductGroup(productGroup);
 		productGroupMaker.setRemark(makerJson.getRemarks());
-		productGroupMaker.setRegion(region);
+		productGroupMaker.setCategory(category);
+		productGroupMaker.setProject(project);
 		
 		productGroupMakerService.save(productGroupMaker);
 	}

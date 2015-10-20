@@ -28,4 +28,6 @@ public interface ProjectService {
 	
 	Project findByIdAndFetchLocationsEagerly(Integer id);
 	
+	Project findByIdAndFetchMakers(Integer id);
+	
 }

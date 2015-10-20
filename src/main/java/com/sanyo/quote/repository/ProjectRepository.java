@@ -61,4 +61,7 @@ public interface ProjectRepository extends PagingAndSortingRepository<Project, I
 	
 	@Query("SELECT p FROM Project p JOIN FETCH p.locations WHERE p.projectId = :id")
 	public Project findByIdAndFetchLocationsEagerly(@Param("id") Integer id);
+	
+	@Query("SELECT p FROM Project p JOIN FETCH p.productGroupMakers WHERE p.projectId = :id")
+	public Project findByIdAndFetchMakers(@Param("id") Integer id);
 }

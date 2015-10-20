@@ -86,6 +86,8 @@ public class Project implements java.io.Serializable {
 	@DateTimeFormat(pattern = "MM/dd/yyyy")
 	private Date endDate;
 	
+	private Set<ProductGroupMaker> productGroupMakers;
+	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "PROJECT_ID", unique = true, nullable = false)
@@ -456,5 +458,13 @@ public class Project implements java.io.Serializable {
 		this.createdDate = createdDate;
 	}
 	
+	@JsonIgnore
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="project")
+	public Set<ProductGroupMaker> getProductGroupMakers() {
+		return productGroupMakers;
+	}
+	public void setProductGroupMakers(Set<ProductGroupMaker> productGroupMakers) {
+		this.productGroupMakers = productGroupMakers;
+	}
 	
 }

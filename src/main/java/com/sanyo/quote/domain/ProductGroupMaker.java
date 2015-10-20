@@ -34,7 +34,9 @@ public class ProductGroupMaker {
 	private ProductGroup productGroup;
 	private Maker maker;
 	private String modelNo;
-	private Region region;
+//	private Region region; // will be removed later.
+	private Category category;
+	private Project project;
 	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -93,8 +95,7 @@ public class ProductGroupMaker {
 	public void setLmodUser(String lmodUser) {
 		this.lmodUser = lmodUser;
 	}
-	@JsonIgnore
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="ProductGroup_id", nullable = false)
 	public ProductGroup getProductGroup() {
 		return productGroup;
@@ -102,8 +103,7 @@ public class ProductGroupMaker {
 	public void setProductGroup(ProductGroup productGroup) {
 		this.productGroup = productGroup;
 	}
-	@JsonIgnore
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="Maker_id", nullable = false)
 	public Maker getMaker() {
 		return maker;
@@ -117,14 +117,31 @@ public class ProductGroupMaker {
 	public void setModelNo(String modelNo) {
 		this.modelNo = modelNo;
 	}
-	@JsonIgnore
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="region_id", nullable = false)
-	public Region getRegion() {
-		return region;
+//	@JsonIgnore
+//	@ManyToOne(fetch=FetchType.LAZY)
+//	@JoinColumn(name="region_id", nullable = false)
+//	public Region getRegion() {
+//		return region;
+//	}
+//	public void setRegion(Region region) {
+//		this.region = region;
+//	}
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="category_id", nullable = false)
+	public Category getCategory() {
+		return category;
 	}
-	public void setRegion(Region region) {
-		this.region = region;
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="project_id", nullable = false)
+	public Project getProject() {
+		return project;
+	}
+	public void setProject(Project project) {
+		this.project = project;
 	}
 	
 }

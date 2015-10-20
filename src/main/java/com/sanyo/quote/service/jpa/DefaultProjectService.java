@@ -205,6 +205,11 @@ public class DefaultProjectService implements ProjectService {
 	@Override
 	public Project findByIdAndFetchLocationsEagerly(Integer id) {
 		return projectRepository.findByIdAndFetchLocationsEagerly(id);
+	}
+
+	@Override
+	public Project findByIdAndFetchMakers(Integer id) {
+		return projectRepository.findByIdAndFetchMakers(id);
 	}	
 	
 	

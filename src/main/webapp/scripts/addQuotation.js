@@ -9,6 +9,8 @@ var sourceLocation = {
 		name : 'locationName',
 		type : 'string'
 	} ],
+    sortcolumn: 'locationName',
+    sortdirection: 'asc',
 	id : 'locationId',
 	url : urlLocation,
 	data : {
@@ -60,6 +62,8 @@ $('#jqxWidgetLocation').on('select', function(event) {
 				name : 'locationName',
 				map : 'location>locationName'
 			} ],
+		    sortcolumn: 'regionName',
+		    sortdirection: 'asc',
 			id : 'regionId',
 			url : urlRegion,
 			data : {
@@ -116,6 +120,8 @@ var sourceProducts = {
 		name : 'productCode',
 		type : 'string'
 	} ],
+    sortcolumn: 'productName',
+    sortdirection: 'asc',
 	id : 'productID',
 	url : urlProducts
 };
@@ -710,6 +716,8 @@ function showResultGrid(regionId) {
 			type : 'string'
 
 		} ],
+	    sortcolumn: 'orderNo',
+	    sortdirection: 'asc',
 		id : 'encounterID',
 		url : url,
 		data : {

@@ -36,7 +36,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.mysql.jdbc.Util;
 import com.sanyo.quote.domain.Category;
 import com.sanyo.quote.domain.Location;
 import com.sanyo.quote.domain.Project;
@@ -245,6 +244,46 @@ public class ProjectController extends CommonController {
 		
 		String result = Utilities.jSonSerialization(assginedRegions);
 		return result;
+	}
+	@RequestMapping(value = "/getAssginedCategoriesJson", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public String getAssginedCategoriesJson(@RequestParam(value="projectId", required=true) String projectId,
+			@RequestParam(value="filterscount", required=false) String filterscount
+			, @RequestParam(value="groupscount", required=false) String groupscount
+			, @RequestParam(value="pagenum", required=false) Integer pagenum
+			, @RequestParam(value="pagesize", required=false) Integer pagesize
+			, @RequestParam(value="recordstartindex", required=false) Integer recordstartindex
+			, @RequestParam(value="recordendindex", required=false) Integer recordendindex
+			, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
+		
+		System.out.println("start getting assinged categories");
+		Project project = projectService.findByIdAndFetchLocationsEagerly(Integer.valueOf(projectId));
+		
+		Set<Location> locations = project.getLocations();
+		Set<Region> totalRegions = new HashSet<Region>();
+		for(Location location : locations){
+			Set<Region> regions  = location.getRegions();
+			totalRegions.addAll(regions);
+		}
+		Iterator<Region> iterator = totalRegions.iterator();
+		Set<Category> categories = new HashSet<Category>();
+		while(iterator.hasNext()){
+			Region region = iterator.next();
+			if(!isExisingCategory(categories, region))
+				categories.add(region.getCategory());
+		}
+		
+		String result = Utilities.jSonSerialization(categories);
+		return result;
+	}
+	private boolean isExisingCategory(Set<Category> categories, Region region){
+		Iterator<Category> iterator = categories.iterator();
+		while(iterator.hasNext()){
+			Category category = iterator.next();
+			if(category.getName().equalsIgnoreCase(region.getCategory().getName()))
+				return true;
+		}
+		return false;
 	}
 	@RequestMapping(value = "/getAssginedRegionsOfLocationJson", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	@ResponseBody

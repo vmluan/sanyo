@@ -34,6 +34,8 @@ public class Category implements java.io.Serializable {
 	
 	private String parentCategoryId;
 	
+	private Set<ProductGroupMaker> productGroupMakers;
+	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "CATEGORY_ID", unique = true, nullable = false)
@@ -92,6 +94,13 @@ public class Category implements java.io.Serializable {
 		this.parentCategoryId = parentCategoryId;
 	}
 
-	
+	@JsonIgnore
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="category")
+	public Set<ProductGroupMaker> getProductGroupMakers() {
+		return productGroupMakers;
+	}
+	public void setProductGroupMakers(Set<ProductGroupMaker> productGroupMakers) {
+		this.productGroupMakers = productGroupMakers;
+	}
 
 }
