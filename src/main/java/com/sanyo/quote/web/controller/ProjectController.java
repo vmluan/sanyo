@@ -258,6 +258,7 @@ public class ProjectController extends CommonController {
 		
 		System.out.println("start getting assinged categories");
 		Project project = projectService.findByIdAndFetchLocationsEagerly(Integer.valueOf(projectId));
+		String regionType = httpServletRequest.getParameter("regionType");
 		
 		Set<Location> locations = project.getLocations();
 		Set<Region> totalRegions = new HashSet<Region>();
@@ -269,8 +270,25 @@ public class ProjectController extends CommonController {
 		Set<Category> categories = new HashSet<Category>();
 		while(iterator.hasNext()){
 			Region region = iterator.next();
-			if(!isExisingCategory(categories, region))
-				categories.add(region.getCategory());
+			if(regionType != null && regionType.equalsIgnoreCase("ELEC")){ //get ELECTRICAL only
+				Category category = region.getCategory().getParentCategory();
+				if(category != null && category.getName().contains("ELECTRICAL BOQ")){
+					if(!isExisingCategory(categories, region))
+						categories.add(region.getCategory());
+				}
+			}
+			else if(regionType != null && regionType.equalsIgnoreCase("MECH")){ //get MECHANICAL only
+				Category category = region.getCategory().getParentCategory();
+				if(category != null && category.getName().contains("MECHANICAL BOQ")){
+					if(!isExisingCategory(categories, region))
+						categories.add(region.getCategory());
+				}
+			}else
+			{ //get all
+				if(!isExisingCategory(categories, region))
+					categories.add(region.getCategory());
+			}
+
 		}
 		
 		String result = Utilities.jSonSerialization(categories);

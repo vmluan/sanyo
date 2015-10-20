@@ -1,5 +1,7 @@
 package com.sanyo.quote.web.controller;
 
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.sanyo.quote.domain.Category;
 import com.sanyo.quote.domain.Maker;
 import com.sanyo.quote.domain.ProductGroupMaker;
 import com.sanyo.quote.domain.Project;
@@ -61,9 +64,31 @@ public final class MakerController {
 			, @RequestParam(value="recordendindex", required=false) Integer recordendindex
 			, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
 		
+		String regionType =  httpServletRequest.getParameter("regionType");
 		Project project = projectService.findByIdAndFetchMakers(Integer.valueOf(projectId));
-		Set<ProductGroupMaker> makers = project.getProductGroupMakers();
+		Set<ProductGroupMaker> makers = getCollection(project.getProductGroupMakers(), regionType);
+		
 		String result = Utilities.jSonSerialization(makers);
 		return result;
+	}
+	private Set<ProductGroupMaker> getCollection(Set<ProductGroupMaker> makers, String regionType){
+		Set<ProductGroupMaker> results = new HashSet<ProductGroupMaker>();
+		Iterator<ProductGroupMaker> iterator = makers.iterator();
+		while(iterator.hasNext()){
+			ProductGroupMaker productGroupMaker = iterator.next();
+			if(regionType != null && regionType.equalsIgnoreCase("ELEC")){ //get ELECTRICAL only
+				Category category = productGroupMaker.getCategory().getParentCategory();
+				if(category != null && category.getName().contains("ELECTRICAL BOQ")){
+					results.add(productGroupMaker);
+				}
+				
+			}else if(regionType != null && regionType.equalsIgnoreCase("MECH")){ //get ELECTRICAL only
+				Category category = productGroupMaker.getCategory().getParentCategory();
+				if(category != null && category.getName().contains("MECHANICAL BOQ")){
+					results.add(productGroupMaker);
+				}
+			}
+		}
+		return results;
 	}
 }

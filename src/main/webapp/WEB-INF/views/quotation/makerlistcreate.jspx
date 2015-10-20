@@ -44,6 +44,7 @@
 	</section>
 <script>
 	var projectId=${projectId};
+	var regionType="${regionType}";
 </script>
 	<script type="text/javascript" src="/resources/scripts/addMakerList.js">
 		<jsp:text/>

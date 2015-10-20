@@ -14,7 +14,8 @@ var sourceRegion = {
 	id : 'categoryId',
 	url : urlRegion,
 	data : {
-		projectId : projectId
+		projectId : projectId,
+		regionType: regionType
 	}
 };
 var dataAdapterRegion = new $.jqx.dataAdapter(sourceRegion, {autoBind : true,
@@ -432,7 +433,8 @@ function showResultGrid(categoryId) {
 		id : 'id',
 		url : url,
 		data : {
-			projectId : projectId
+			projectId : projectId,
+			regionType: regionType
 		},
 		addrow : function(rowid, rowdata, position, commit) {
 			commit(true);

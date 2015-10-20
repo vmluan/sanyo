@@ -87,6 +87,7 @@ public class Quotation {
 	public String getMakerPage(@PathVariable("id") String projectId,
 			Model uiModel,HttpServletRequest httpServletRequest) {
 		uiModel.addAttribute("projectId", projectId);
+		uiModel.addAttribute("regionType", httpServletRequest.getParameter("type"));
 		return "quotation/makerlist";
 	}
 	//save MakerList

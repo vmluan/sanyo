@@ -7,34 +7,50 @@
 
 <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs pull-right">
-				  <li class="abc"><a href="#tab_3-3" data-toggle="tab" aria-expanded="false">Mechanical Maker</a></li>
-				  <li class="abc"><a href="/quotation/${projectId }/addquotation?form" data-target="#tab_1-1" data-toggle="tab" aria-expanded="false">Mechanical BOQ</a></li>
-				  <li class="abc"><a href="/quotation/${projectId }/addmakerlist?form" data-toggle="tab" aria-expanded="false">Electrical Maker</a></li>
-				  <li class="abc"><a href="/quotation/${projectId }/addquotation?form" data-target="#tab_1-1" data-toggle="tab" aria-expanded="false">Electrical BOQ</a></li>
+				  <li class="abc"><a href="/quotation/${projectId }/addmakerlist?form&amp;type=mech" data-target="#tab_3-2" data-toggle="tab" aria-expanded="false">Mechanical Maker</a></li>
+				  <li class="abc"><a href="/quotation/${projectId }/addquotation?form" data-target="#tab_3_1" data-toggle="tab" aria-expanded="false">Mechanical BOQ</a></li>
+				  <li class="abc"><a href="/quotation/${projectId }/addmakerlist?form&amp;type=elec" data-target="#tab_2-2" data-toggle="tab" aria-expanded="false">Electrical Maker</a></li>
+				  <li class="abc"><a href="/quotation/${projectId }/addquotation?form" data-target="#tab_2-1" data-toggle="tab" aria-expanded="false">Electrical BOQ</a></li>
 
 
                    <li class="abc"><a href="#tab_4-4" data-toggle="tab" aria-expanded="false">Summary</a></li>
 
                   <li class="abc"><a href="/parameter" data-target="#tab_1-1" data-toggle="tab" aria-expanded="false">Summary-info</a></li>
-                  <li class="abc"><a href="/expenses" data-target="#tab_1-1" data-toggle="tab" aria-expanded="false"><![CDATA[M&E Expenses]]></a></li>
-                  <li class="abc"><a href="/condition_2" data-target="#tab_1-1" data-toggle="tab" aria-expanded="false">Condition 2</a></li>
-                  <li class="abc"><a href="/condition_1" data-target="#tab_1-1" data-toggle="tab" aria-expanded="false">Condition 1</a></li>
-                  <li class="abc"><a href="/cover" data-target="#tab_1-1" data-toggle="tab" aria-expanded="false">Cover</a></li>
+                  <li class="abc"><a href="/expenses" data-target="#tab_1-2" data-toggle="tab" aria-expanded="false"><![CDATA[M&E Expenses]]></a></li>
+                  <li class="abc"><a href="/condition_2" data-target="#tab_1-3" data-toggle="tab" aria-expanded="false">Condition 2</a></li>
+                  <li class="abc"><a href="/condition_1" data-target="#tab_1-4" data-toggle="tab" aria-expanded="false">Condition 1</a></li>
+                  <li class="abc"><a href="/cover" data-target="#tab_1-5" data-toggle="tab" aria-expanded="false">Cover</a></li>
                   <li class="pull-left header"><i class="fa fa-th"><jsp:text /></i>Quotation</li>
                 </ul>
                 <div class="tab-content">
                   <div class="tab-pane" id="tab_1-1">
                     <b>Please wait...</b>
                   </div><!-- /.tab-pane -->
-                  
-                  <div class="tab-pane active" id="tab_2-2">
-                    Under-construction
+				  
+                   <div class="tab-pane" id="tab_1-2">
+                    <b>Loading...</b>
+                  </div><!-- /.tab-pane -->                 
+                   <div class="tab-pane" id="tab_1-3">
+                    <b>Loading...</b>
+                  </div><!-- /.tab-pane -->  
+                   <div class="tab-pane" id="tab_1-4">
+                    <b>Loading...</b>
+                  </div><!-- /.tab-pane -->  
+                   <div class="tab-pane" id="tab_1-5">
+                    <b>Loading...</b>
+                  </div><!-- /.tab-pane -->  
+                  <div class="tab-pane" id="tab_2-1">
+                    <b>Loading...</b>
                   </div><!-- /.tab-pane -->
-
-                  <div class="tab-pane active" id="tab_3-3">
-                    <img src="/images/MarkerList.png"/>
+                  <div class="tab-pane" id="tab_2-2">
+                    <b>Loading...</b>
+                  </div><!-- /.tab-pane -->
+                  <div class="tab-pane active" id="tab_3-1">
+                    <b>Loading...</b>
                   </div>
-
+                  <div class="tab-pane" id="tab_3-2">
+                    <b>Loading...</b>
+                  </div>				  
                   <div class="tab-pane active" id="tab_4-4">
                     <img src="/images/summary.png"/>
                   </div>
