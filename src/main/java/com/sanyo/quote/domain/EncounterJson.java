@@ -36,7 +36,7 @@ public class EncounterJson {
 	private String regionId;
 	private String regionName;
 	
-	private Set<LocationJson> locations;
+//	private Set<LocationJson> locations;
 	public Integer getEncounterID() {
 		return encounterID;
 	}
@@ -195,12 +195,12 @@ public class EncounterJson {
 	public void setProductCode(String productCode) {
 		this.productCode = productCode;
 	}
-	public Set<LocationJson> getLocations() {
-		return locations;
-	}
-	public void setLocations(Set<LocationJson> locations) {
-		this.locations = locations;
-	}
+//	public Set<LocationJson> getLocations() {
+//		return locations;
+//	}
+//	public void setLocations(Set<LocationJson> locations) {
+//		this.locations = locations;
+//	}
 	public String getVat() {
 		return vat;
 	}

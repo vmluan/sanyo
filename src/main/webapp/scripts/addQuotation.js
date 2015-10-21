@@ -119,7 +119,21 @@ function getUrlProducts(productGroupId){
 			}, {
 				name : 'productCode',
 				type : 'string'
-			} ],
+			}, {
+				name : 'productID',
+				type : 'string'
+			} 
+			, {
+				name : 'mat_w_o_Tax_USD',
+				type : 'string'
+			}, {
+				name : 'mat_w_o_Tax_VND',
+				type : 'string'
+			}, {
+				name : 'unit',
+				type : 'string'
+			}	
+			],
 		    sortcolumn: 'productName',
 		    sortdirection: 'asc',
 			id : 'productID',
@@ -187,29 +201,20 @@ function addItem(row) {
 
 }
 function saveEncounter(row) {
-	var rows = $("#jqxWidgetLocation").jqxComboBox('getCheckedItems');
-	var locations = new Array();
-	// <![CDATA[
-	for (var i = 0; i < rows.length; i++) {
-		var location = new Object();
-		location.locationId = rows[i].value;
-		location.locationName = rows[i].label;
-		locations.push(location);
-	}
-
-	// ]]>
+	var item = $("#listRegion").jqxComboBox('getSelectedItem'); 
 
 	var data = $('#list').jqxGrid('getrowdata', row);
 	var encounter = new Object();
-	encounter.regionId = regionId;
-	encounter.locations = locations;
+	encounter.regionId = item.value;
+	encounter.regionName = item.label;
 	encounter.productCode = data.productCode;
-	encounter.productName = data.productName;
+//	encounter.productName = data.productName;
+	encounter.productId = data.productId;
 	encounter.order = data.order;
 	encounter.encounterID = data.encounterID;
 	encounter.unitRate = data.unitRate;
-	encounter.quantity = data.quantity;
-	encounter.actualQuantity = data.actualQuantity;
+	encounter.quantity = data.qtyManual;
+	encounter.actualQuantity = data.quantity;
 	encounter.amount = data.amount;
 	encounter.remark = data.remark;
 	encounter.mat_w_o_Tax_USD = data.mat_w_o_Tax_USD;
@@ -238,8 +243,9 @@ function saveEncounter(row) {
 		success : function(msg) {
 			$("#list").jqxGrid('updatebounddata');
 
-			$('#list').jqxGrid('addrow', null, {}, 'first');
-			$("#list").jqxGrid('begincelledit', 0, "desc");
+			//$('#list').jqxGrid('addrow', null, {}, 'first');
+			//$("#list").jqxGrid('begincelledit', 0, "desc");
+			showResultGrid(item.value);
 		},
 		complete : function(xhr, status) {
 			// $("#assignRegionButton").prop('disabled', false);
@@ -417,6 +423,12 @@ function loadAddQuotationGrid() {
 						filterable : true,
 						editable : true,
 						// autorowheight: true,
+						ready: function()
+						{
+							setDefaultCellValues();
+							$("#list").jqxGrid('sortby', 'order', 'asc');
+							
+						},						
 						columns : [
 									{
 										text : 'Ma nhom vat tu',
@@ -445,7 +457,7 @@ function loadAddQuotationGrid() {
 														var label = item.label;
 														var value = item.value;
 														//set value to hidden field
-														$("#list").jqxGrid('setcellvalue', index, "groupId", value);
+														$("#list").jqxGrid('setcellvalue', 0, "groupId", value);
 														//update project combobox.
 														var sourceProducts2 = getUrlProducts(value);
 														dataAdapterProducts = getProductAdapter(sourceProducts2);
@@ -463,36 +475,14 @@ function loadAddQuotationGrid() {
 											}
 										}
 									},
-									{ text: 'Group Id', datafield: 'groupId', width: 0, hidden: true },									
-						           {
-									text : 'Search by Name',
-									datafield : 'productName',
+								{ text: 'Group Id', datafield: 'groupId', width: 0, hidden: true },
+								{
+									text : 'No',
+									datafield : 'order',
 									align : 'center',
 									cellsalign : 'right',
-									// cellsformat : 'c0',
-									width : '15%',
-									columntype : 'combobox',
-									createeditor : function(row, column, editor) {
-										// assign a new data source to the
-										// combobox.
-										editor.jqxComboBox({
-											autoDropDownHeight : true,
-											source : dataAdapterProducts,
-											displayMember : "productName",
-											valueMember : "productID",
-											promptText : "Please Choose:"
-										});
-
-									},
-									geteditorvalue : function(row, cellvalue,
-											editor) {
-										// return the editor's value.
-										var item = editor
-												.jqxComboBox('getSelectedItem');
-										if (item) {
-											return item.label;
-										}
-									}
+									cellsformat : 'c0',
+									width : '15%'
 								},
 								{
 									text : 'Search by Code',
@@ -512,6 +502,20 @@ function loadAddQuotationGrid() {
 											valueMember : "productID",
 											promptText : "Please Choose:"
 										});
+										editor.on('select', function(event) {
+											var args = event.args;
+												if (args) {
+													var index = args.index;
+													var item = args.item;
+													// get item's label and value.
+													var label = item.label;
+													var value = item.value;
+													//set value to hidden field
+													$("#list").jqxGrid('setcellvalue', 0, "productId", value);
+													//update Description field
+													updateProductFields(value);
+												}
+										});											
 									},
 									geteditorvalue : function(row, cellvalue,
 											editor) {
@@ -524,20 +528,21 @@ function loadAddQuotationGrid() {
 									}
 
 								},
-								{
-									text : 'No',
-									datafield : 'order',
+								{ text: 'Product Id', datafield: 'productId', width: 0, hidden: true },
+						        {
+									text : 'Description',
+									datafield : 'productName',
 									align : 'center',
 									cellsalign : 'right',
-									cellsformat : 'c0',
+									editable: false,
 									width : '15%'
-								},
+								},								
 								{
 									text : 'Unit',
 									datafield : 'unit',
 									align : 'center',
 									cellsalign : 'right',
-									// cellsformat : 'c0',
+									editable: false,
 									width : '15%'
 								},
 								{
@@ -545,7 +550,7 @@ function loadAddQuotationGrid() {
 									datafield : 'quantity',
 									align : 'center',
 									cellsalign : 'right',
-									// cellsformat : 'c0',
+									editable: false,
 									width : '15%'
 								},
 								{
@@ -553,7 +558,7 @@ function loadAddQuotationGrid() {
 									datafield : 'unitRate',
 									align : 'center',
 									cellsalign : 'right',
-									// cellsformat : 'c0',
+									editable: false,
 									width : '15%'
 								},
 								{
@@ -561,7 +566,7 @@ function loadAddQuotationGrid() {
 									datafield : 'amount',
 									align : 'center',
 									cellsalign : 'right',
-									// cellsformat : 'c0',
+									editable: false,
 									width : '15%'
 								},
 								{
@@ -573,11 +578,20 @@ function loadAddQuotationGrid() {
 									width : '15%'
 								},
 								{
+									text : 'Qty',
+									datafield : 'qtyManual',
+									align : 'center',
+									cellsalign : 'right',
+									cellsformat : 'c0',
+									width : '15%'
+								},								
+								{
 									text : 'Labour',
 									datafield : 'labour',
 									align : 'center',
 									cellsalign : 'right',
 									// cellsformat : 'c0',
+									editable: false,
 									width : '15%'
 								},
 								{
@@ -586,6 +600,7 @@ function loadAddQuotationGrid() {
 									align : 'center',
 									cellsalign : 'right',
 									// cellsformat : 'c0',
+									editable: false,
 									width : '15%'
 								},
 								{
@@ -594,14 +609,25 @@ function loadAddQuotationGrid() {
 									align : 'center',
 									cellsalign : 'right',
 									// cellsformat : 'c0',
+									editable: false,
 									width : '15%'
 								},
+								{
+									text : 'Labour 2',
+									datafield : 'labourDatabase',
+									align : 'center',
+									cellsalign : 'right',
+									// cellsformat : 'c0',
+									editable: false,
+									width : '15%'
+								},								
 								{
 									text : 'Imp Tax',
 									datafield : 'imp_Tax',
 									align : 'center',
 									cellsalign : 'right',
 									// cellsformat : 'c0',
+									editable: false,
 									width : '15%'
 								},
 								{
@@ -610,6 +636,7 @@ function loadAddQuotationGrid() {
 									align : 'center',
 									cellsalign : 'right',
 									// cellsformat : 'c0',
+									editable: false,
 									width : '15%'
 								},
 								{
@@ -618,6 +645,7 @@ function loadAddQuotationGrid() {
 									align : 'center',
 									cellsalign : 'right',
 									// cellsformat : 'c0',
+									editable: false,
 									width : '15%'
 								},
 								{
@@ -626,6 +654,7 @@ function loadAddQuotationGrid() {
 									align : 'center',
 									cellsalign : 'right',
 									// cellsformat : 'c0',
+									editable: false,
 									width : '15%'
 								},
 								{
@@ -634,6 +663,7 @@ function loadAddQuotationGrid() {
 									align : 'center',
 									cellsalign : 'right',
 									// cellsformat : 'c0',
+									editable: false,
 									width : '15%'
 								},
 								{
@@ -642,6 +672,7 @@ function loadAddQuotationGrid() {
 									align : 'center',
 									cellsalign : 'right',
 									// cellsformat : 'c0',
+									editable: false,
 									width : '15%'
 								},
 								{
@@ -650,6 +681,7 @@ function loadAddQuotationGrid() {
 									align : 'center',
 									cellsalign : 'right',
 									// cellsformat : 'c0',
+									editable: false,
 									width : '15%'
 								},
 								{
@@ -658,6 +690,7 @@ function loadAddQuotationGrid() {
 									align : 'center',
 									cellsalign : 'right',
 									// cellsformat : 'c0',
+									editable: false,
 									width : '15%'
 								},
 								{
@@ -666,6 +699,7 @@ function loadAddQuotationGrid() {
 									align : 'center',
 									cellsalign : 'right',
 									// cellsformat : 'c0',
+									editable: false,
 									width : '15%'
 								},
 								{
@@ -674,6 +708,7 @@ function loadAddQuotationGrid() {
 									align : 'center',
 									cellsalign : 'right',
 									// cellsformat : 'c0',
+									editable: false,
 									width : '10%'
 								},
 								{
@@ -682,6 +717,7 @@ function loadAddQuotationGrid() {
 									align : 'center',
 									cellsalign : 'right',
 									// cellsformat : 'c0',
+									editable: false,
 									width : '10%'
 								},
 								{
@@ -719,13 +755,10 @@ function showResultGrid(regionId) {
 			name : 'productCode',
 			map : 'product>productCode'
 		}, {
-			name : 'locationId',
-			map : 'location>locationId'
+			name : 'regionName',
+			map : 'region>regionName'
 		}, {
-			name : 'locationName',
-			map : 'location>locationName'
-		}, {
-			name : 'orderNo',
+			name : 'order',
 			type : 'string'
 		}, {
 			name : 'unitRate',
@@ -865,8 +898,8 @@ function showResultGrid(regionId) {
 						// autorowheight: true,
 						columns : [
 								{
-									text : 'Location',
-									datafield : 'locationName',
+									text : 'Region',
+									datafield : 'regionName',
 									align : 'center',
 									cellsalign : 'right',
 									width : '15%'
@@ -934,7 +967,7 @@ function showResultGrid(regionId) {
 									datafield : 'order',
 									align : 'center',
 									cellsalign : 'right',
-									cellsformat : 'c0',
+									//cellsformat : 'c0',
 									width : '15%'
 								},
 								{
@@ -1106,6 +1139,27 @@ function showResultGrid(regionId) {
 										return false;
 									}
 								} ],
-						groups : [ 'locationName' ]
+						groups : [ 'regionName' ]
 					});
+}
+function updateProductFields(productId){
+	var records = dataAdapterProducts.records;
+	for(var i=0; i< records.length; i++){
+		var record = records[i];
+		if(record.productID == productId){
+			$("#list").jqxGrid('setcellvalue', 0, "productName", record.productName); //update name
+			$("#list").jqxGrid('setcellvalue', 0, "unit", record.unit); //update unit
+			$("#list").jqxGrid('setcellvalue', 0, "mat_w_o_Tax_USD", record.mat_w_o_Tax_USD); //update mat_w_o_Tax_USD
+			$("#list").jqxGrid('setcellvalue', 0, "mat_w_o_Tax_VND", record.mat_w_o_Tax_VND); //update mat_w_o_Tax_VND
+			return;
+			}
+	}
+}
+function setDefaultCellValues(){
+	$("#list").jqxGrid('setcellvalue', 0, "imp_Tax", impTax); 
+	$("#list").jqxGrid('setcellvalue', 0, "special_Con_Tax", specialCon);
+	$("#list").jqxGrid('setcellvalue', 0, "vat", vat);
+	$("#list").jqxGrid('setcellvalue', 0, "discount_rate", discountRate);
+	$("#list").jqxGrid('setcellvalue', 0, "allowance", allowance);
+	$("#list").jqxGrid('setcellvalue', 0, "subConProfit", subConProfit);
 }

@@ -15,6 +15,7 @@ import com.sanyo.quote.domain.Maker;
 import com.sanyo.quote.domain.Product;
 import com.sanyo.quote.domain.ProductGroup;
 import com.sanyo.quote.domain.User;
+import com.sanyo.quote.helper.Constants;
 import com.sanyo.quote.service.CategoryService;
 import com.sanyo.quote.service.GroupService;
 import com.sanyo.quote.service.MakerService;
@@ -37,8 +38,8 @@ public class StartupContextListener extends ContextLoaderListener{
 		addSampleData();
 	}
 	private void addCategorySampleData(CategoryService categoryService){
-		String electrical = "ELECTRICAL BOQ";
-		String machanical = "MECHANICAL BOQ";
+		String electrical = Constants.ELECT_BOQ;
+		String machanical = Constants.MECH_BOQ;
 		Category electricalCategory = new Category();
 		electricalCategory.setName(electrical);
 		electricalCategory.setDesc(" ");
@@ -165,7 +166,6 @@ public class StartupContextListener extends ContextLoaderListener{
 //		
 		Product product = new Product();
 		product.setProductName("LBS Panel connected to the extising panel in Phase 3");
-//		product.setCategories(categories);
 		product.setDiscount_rate(0);
 		product.setImp_Tax(0);
 		product.setLabour(0);
@@ -178,13 +178,35 @@ public class StartupContextListener extends ContextLoaderListener{
 		product.setMinDiscountSalePer(0);
 		product.setProductCode("Code1234");
 		
+		Product product2 = new Product();
+		product2.setProductName("Concrete Pole");
+		product2.setDiscount_rate(100);
+		product2.setImp_Tax(15);
+		product2.setLabour(10);
+		product2.setLastModifiedBy("ADMIN");
+		product2.setMat_w_o_Tax_USD(105);
+		product2.setMat_w_o_Tax_VND(50);
+		product2.setMaxDiscountSalePer(10);
+		product2.setMat_w_o_Tax_VND(5);
+		product2.setMaxDiscountWholeSalePer(15);
+		product2.setMinDiscountSalePer(10);
+		product2.setProductCode("Code111");
+		
 		ProductGroup pg = new ProductGroup();
 		pg.setGroupCode("111");
 		pg.setGroupName("Lighting Fixture (Electronic Ballast)");
 		pg = productGroupService.save(pg);
+		
+		ProductGroup pg2 = new ProductGroup();
+		pg2.setGroupCode("151-HV");
+		pg2.setGroupName("HV Switchgear");
+		pg2 = productGroupService.save(pg2);
+		
 		product.setProductGroup(pg);
+		product2.setProductGroup(pg2);
 		
 		productService.save(product);
+		productService.save(product2);
 	}
 	private void addMakerData(MakerService makerService){
 		String[] makerList = {"ABB or equivalent", "Hai Nam", "Sunlight Electric", "LS / or equivalent"

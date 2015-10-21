@@ -43,7 +43,7 @@ public class Encounter implements Serializable{
 	private float Cost_Labour_Amount_USD; //=Unit_Price_W_Tax_Labour* quantity
 	private Region region;
 	private EncounterStatus status;
-	private Location location;
+//	private Location location;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -269,13 +269,13 @@ public class Encounter implements Serializable{
 		Cost_Labour_Amount_USD = cost_Labour_Amount_USD;
 	}
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "LOCATION_ID", nullable = true)
-	public Location getLocation() {
-		return location;
-	}
-	public void setLocation(Location location) {
-		this.location = location;
-	}
+//	@OneToOne(cascade = CascadeType.ALL)
+//	@JoinColumn(name = "LOCATION_ID", nullable = true)
+//	public Location getLocation() {
+//		return location;
+//	}
+//	public void setLocation(Location location) {
+//		this.location = location;
+//	}
 	
 }
