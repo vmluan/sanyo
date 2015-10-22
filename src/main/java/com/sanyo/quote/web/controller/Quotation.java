@@ -109,6 +109,7 @@ public class Quotation {
 		productGroupMaker.setRemark(makerJson.getRemarks());
 		productGroupMaker.setCategory(category);
 		productGroupMaker.setProject(project);
+		productGroupMaker.setEquivalent(makerJson.getEquivalent());
 		
 		productGroupMakerService.save(productGroupMaker);
 	}
@@ -146,23 +147,10 @@ public class Quotation {
 	@ResponseStatus(value = HttpStatus.OK)
 	public void saveEncounters(@RequestBody final EncounterJson encounterJson, @PathVariable("id") Integer id, Model uiModel, HttpServletRequest httpServletRequest){
 		System.out.println("=================================== saving encounter");
-		Set<LocationJson> locatonJsons = encounterJson.getLocations();
-		if (locatonJsons.size() >0){
-			java.util.Iterator<LocationJson> iterator = locatonJsons.iterator();
-			while(iterator.hasNext()){
-				LocationJson location = iterator.next();
-				saveEncounter(encounterJson, location);
-			}
-		}else{
-			saveEncounter(encounterJson, null);
-		}
+		saveEncounter(encounterJson);
 	}
-	private void saveEncounter(EncounterJson encounterJson, LocationJson locationJson){
+	private void saveEncounter(EncounterJson encounterJson){
 		Encounter encounter = new Encounter();
-		if(locationJson != null){
-			Location location = locationService.findById(locationJson.getLocationId());
-			encounter.setLocation(location);
-		}
 		if(encounterJson.getActualQuantity() != null)
 			encounter.setActualQuantity(Float.valueOf(encounterJson.getActualQuantity()));
 		if (encounterJson.getAllowance() != null)
@@ -187,7 +175,7 @@ public class Quotation {
 		
 		encounter.setOrder(Integer.valueOf(encounterJson.getOrder()));
 		
-		Product product = productService.findByCode(encounterJson.getProductCode());
+		Product product = productService.findById(Integer.valueOf(encounterJson.getProductId()));
 		Region region = regionService.findById(Integer.valueOf(encounterJson.getRegionId()));
 		encounter.setProduct(product); //set product
 		if(encounterJson.getQuantity() !=null)
