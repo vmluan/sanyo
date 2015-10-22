@@ -65,8 +65,8 @@ public class RegionTest {
 		
 		Project project = projectService.findById(1);
 		
-		Set<Region> regions  = project.getRegions();
-		Iterator<Region> iterator = regions.iterator();
+		//Set<Region> regions  = project.getRegions();
+		//Iterator<Region> iterator = regions.iterator();
 		Set<Region> assginedRegions = new HashSet<Region>();
 //		
 //		while(iterator.hasNext()){
