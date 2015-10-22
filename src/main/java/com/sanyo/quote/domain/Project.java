@@ -87,6 +87,7 @@ public class Project implements java.io.Serializable {
 	private Date endDate;
 	
 	private Set<ProductGroupMaker> productGroupMakers;
+	private Set<Expenses> expenses;
 	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -466,5 +467,15 @@ public class Project implements java.io.Serializable {
 	public void setProductGroupMakers(Set<ProductGroupMaker> productGroupMakers) {
 		this.productGroupMakers = productGroupMakers;
 	}
-	
+
+
+	@JsonIgnore
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="project")
+	public Set<Expenses> getExpenses() {
+		return expenses;
+	}
+
+	public void setExpenses(Set<Expenses> expenses) {
+		this.expenses = expenses;
+	}
 }

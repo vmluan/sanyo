@@ -17,7 +17,7 @@ public class ExpenseElements {
     //REFERENCE //for fields that reference from other data in the system
 
     private Integer expenseElementID;
-    private float elementName;
+    private String elementName;
     private Integer defaultOrder;
 
     @Id
@@ -32,11 +32,11 @@ public class ExpenseElements {
     }
 
     @Column(name="ELEMENT_NAME")
-    public float getElementName() {
+    public String getElementName() {
         return elementName;
     }
 
-    public void setElementName(float elementName) {
+    public void setElementName(String elementName) {
         this.elementName = elementName;
     }
 

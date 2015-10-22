@@ -1,4 +1,4 @@
-package com.sanyo.quote.repository;
+	package com.sanyo.quote.repository;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -64,4 +64,7 @@ public interface ProjectRepository extends PagingAndSortingRepository<Project, I
 	
 	@Query("SELECT p FROM Project p JOIN FETCH p.productGroupMakers WHERE p.projectId = :id")
 	public Project findByIdAndFetchMakers(@Param("id") Integer id);
+
+	@Query("SELECT p FROM Project p JOIN FETCH p.expenses WHERE p.projectId = :id")
+	public Project findByIdAndFetchExpenses(@Param("id") Integer id);
 }

@@ -1,17 +1,12 @@
 package com.sanyo.quote.domain;
 
+import org.hibernate.annotations.ManyToAny;
+
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by User on 10/10/2015.
@@ -19,42 +14,41 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "expenses", catalog = "sanyo")
 public class Expenses implements Serializable {
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Column(name="EXPENSE_ID")
-    private Integer expenseID;
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name="EXPENSE_ID")
+	private Integer expenseID;
 
-    @Column(name="PROJECT_ID")
-    private Project project;
+	private Project project;
+
+	private ExpenseElements expenseElement;
+
+	@Column(name="ORDER")
+	private String order;
+
+	@Column(name="QUANTITY")
+	private  float quantity;
+
+	@Column(name="DURATION")
+	private float duration; //duration in some records may be null
+
+	@Column(name="RATE")
+	private float rate;
+
+	@Column(name="remark")
+	private String remark;
+
+
+	public Integer getExpenseID() {
+		return expenseID;
+	}
+
+	public void setExpenseID(Integer expenseID) {
+		this.expenseID = expenseID;
+	}
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "EXPENSE_ELEMENT_ID", nullable = false)
-    private ExpenseElements expenseElement;
-
-    @Column(name="ORDER")
-    private String order;
-
-    @Column(name="QUANTITY")
-    private  float quantity;
-
-    @Column(name="DURATION")
-    private float duration; //duration in some records may be null
-
-    @Column(name="RATE")
-    private float rate;
-
-    @Column(name="remark")
-    private String remark;
-
-
-    public Integer getExpenseID() {
-        return expenseID;
-    }
-
-    public void setExpenseID(Integer expenseID) {
-        this.expenseID = expenseID;
-    }
-
+	@JoinColumn(name = "PROJECT_ID", nullable = false)
 	public Project getProject() {
 		return project;
 	}
@@ -63,6 +57,8 @@ public class Expenses implements Serializable {
 		this.project = project;
 	}
 
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "EXPENSE_ELEMENT_ID", nullable = false)
 	public ExpenseElements getExpenseElement() {
 		return expenseElement;
 	}
@@ -110,6 +106,6 @@ public class Expenses implements Serializable {
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
-    
+
 
 }
