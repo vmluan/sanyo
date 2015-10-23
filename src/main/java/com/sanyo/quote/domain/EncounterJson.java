@@ -35,6 +35,7 @@ public class EncounterJson {
 	private String productCode;
 	private String regionId;
 	private String regionName;
+	private String labourAfterTax;
 	
 //	private Set<LocationJson> locations;
 	public Integer getEncounterID() {
@@ -206,6 +207,12 @@ public class EncounterJson {
 	}
 	public void setVat(String vat) {
 		this.vat = vat;
+	}
+	public String getLabourAfterTax() {
+		return labourAfterTax;
+	}
+	public void setLabourAfterTax(String labourAfterTax) {
+		this.labourAfterTax = labourAfterTax;
 	}
 	
 	

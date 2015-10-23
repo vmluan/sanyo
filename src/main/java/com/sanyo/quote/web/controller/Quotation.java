@@ -196,8 +196,9 @@ public class Quotation {
 		if(encounterJson.getUnitRate() != null)
 			encounter.setUnitRate(Float.valueOf(encounterJson.getUnitRate()));
 		if(encounterJson.getVat() != null)
-			encounter.setVAT(Short.valueOf(encounterJson.getVat()));
-		
+			encounter.setVAT(Float.valueOf(encounterJson.getVat()));
+		if(encounterJson.getLabourAfterTax() != null)
+			encounter.setLabourAfterTax(Float.valueOf(encounterJson.getLabourAfterTax()));
 		encounterService.save(encounter);
 		
 	}

@@ -33,7 +33,7 @@ public class Encounter implements Serializable{
 	private float Special_Con_Tax; // Special con. Tax. mặc định ="0%", lấy từ bản thông số chung của dự án
 	private float Discount_rate; //Discount rate %. mặc định ="100%", lấy từ bản thông số chung của dự án
 	private Date encounterTime;
-	private short VAT; // mặc định ="0%", lấy từ bản thông số chung của dự án
+	private float VAT; // mặc định ="0%", lấy từ bản thông số chung của dự án
 	private float Unit_Price_After_Discount; // = Mat_w_o_Tax_USD + (Mat_w_o_Tax_VND/Ti_gia_VND_to_USD)
 	private float allowance; //mặc định 105%, lấy từ bản thông số chung của dự án
 	private float Unit_Price_W_Tax_Profit; //Unit_Price_After_Discount * (1+(1+Special_Con_Tax*(1+Imp_Tax))*VAT)*Discount_rate
@@ -44,6 +44,7 @@ public class Encounter implements Serializable{
 	private Region region;
 	private EncounterStatus status;
 //	private Location location;
+	private float labourAfterTax;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -198,11 +199,11 @@ public class Encounter implements Serializable{
 	}
 
 	@Column(name="VAT")
-	public short getVAT() {
+	public float getVAT() {
 		return VAT;
 	}
 
-	public void setVAT(short VAT) {
+	public void setVAT(float VAT) {
 		this.VAT = VAT;
 	}
 
@@ -267,6 +268,12 @@ public class Encounter implements Serializable{
 
 	public void setCost_Labour_Amount_USD(float cost_Labour_Amount_USD) {
 		Cost_Labour_Amount_USD = cost_Labour_Amount_USD;
+	}
+	public float getLabourAfterTax() {
+		return labourAfterTax;
+	}
+	public void setLabourAfterTax(float labourAfterTax) {
+		this.labourAfterTax = labourAfterTax;
 	}
 	
 //	@OneToOne(cascade = CascadeType.ALL)
