@@ -37,6 +37,7 @@ public class ProductGroupMaker {
 //	private Region region; // will be removed later.
 	private Category category;
 	private Project project;
+	private String equivalent;
 	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -142,6 +143,12 @@ public class ProductGroupMaker {
 	}
 	public void setProject(Project project) {
 		this.project = project;
+	}
+	public String getEquivalent() {
+		return equivalent;
+	}
+	public void setEquivalent(String equivalent) {
+		this.equivalent = equivalent;
 	}
 	
 }

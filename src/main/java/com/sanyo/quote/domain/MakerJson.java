@@ -10,6 +10,7 @@ public class MakerJson {
 	private String productGroupId;
 	private String categoryId;
 	private String categoryName;
+	private String equivalent;
 	
 	public String getProductGroupName() {
 		return productGroupName;
@@ -64,6 +65,12 @@ public class MakerJson {
 	}
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
+	}
+	public String getEquivalent() {
+		return equivalent;
+	}
+	public void setEquivalent(String equivalent) {
+		this.equivalent = equivalent;
 	}
 	
 	

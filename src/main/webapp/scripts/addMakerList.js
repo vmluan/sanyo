@@ -8,17 +8,18 @@ var sourceRegion = {
 	}, {
 		name : 'name',
 		type : 'string'
-	}],
-    sortcolumn: 'name',
-    sortdirection: 'asc',
+	} ],
+	sortcolumn : 'name',
+	sortdirection : 'asc',
 	id : 'categoryId',
 	url : urlRegion,
 	data : {
 		projectId : projectId,
-		regionType: regionType
+		regionType : regionType
 	}
 };
-var dataAdapterRegion = new $.jqx.dataAdapter(sourceRegion, {autoBind : true,
+var dataAdapterRegion = new $.jqx.dataAdapter(sourceRegion, {
+	autoBind : true,
 	downloadComplete : function(data, status, xhr) {
 	},
 	loadComplete : function(data) {
@@ -29,57 +30,59 @@ var dataAdapterRegion = new $.jqx.dataAdapter(sourceRegion, {autoBind : true,
 
 var urlProductGroup = '/productgroups/getproductGroupJson';
 var sourceProductGroup = {
-		datatype : "json",
-		datafields : [ {
-			name : 'groupId',
-			type : 'string'
-		}, {
-			name : 'groupName',
-			type : 'string'
-		}, {
-			name : 'groupCode',
-			type : 'string'
-		}],
-	    sortcolumn: 'groupName',
-	    sortdirection: 'asc',
-		id : 'groupId',
-		url : urlProductGroup
-	};
-	var dataAdapterProductGroup = new $.jqx.dataAdapter(sourceProductGroup, {autoBind : true,
-		downloadComplete : function(data, status, xhr) {
-		},
-		loadComplete : function(data) {
-		},
-		loadError : function(xhr, status, error) {
-		}
-	});
-	
-	var urlMaker = '/makers/getMakersJson';
-	var sourceMaker = {
-			datatype : "json",
-			datafields : [ {
-				name : 'id',
-				type : 'string'
-			}, {
-				name : 'name',
-				type : 'string'
-			}, {
-				name : 'makerDesc',
-				type : 'string'
-			}],
-		    sortcolumn: 'name',
-		    sortdirection: 'asc',
-			id : 'id',
-			url : urlMaker
-		};
-		var dataAdapterMaker = new $.jqx.dataAdapter(sourceMaker, {autoBind : true,
-			downloadComplete : function(data, status, xhr) {
-			},
-			loadComplete : function(data) {
-			},
-			loadError : function(xhr, status, error) {
-			}
-		});
+	datatype : "json",
+	datafields : [ {
+		name : 'groupId',
+		type : 'string'
+	}, {
+		name : 'groupName',
+		type : 'string'
+	}, {
+		name : 'groupCode',
+		type : 'string'
+	} ],
+	sortcolumn : 'groupName',
+	sortdirection : 'asc',
+	id : 'groupId',
+	url : urlProductGroup
+};
+var dataAdapterProductGroup = new $.jqx.dataAdapter(sourceProductGroup, {
+	autoBind : true,
+	downloadComplete : function(data, status, xhr) {
+	},
+	loadComplete : function(data) {
+	},
+	loadError : function(xhr, status, error) {
+	}
+});
+
+var urlMaker = '/makers/getMakersJson';
+var sourceMaker = {
+	datatype : "json",
+	datafields : [ {
+		name : 'id',
+		type : 'string'
+	}, {
+		name : 'name',
+		type : 'string'
+	}, {
+		name : 'makerDesc',
+		type : 'string'
+	} ],
+	sortcolumn : 'name',
+	sortdirection : 'asc',
+	id : 'id',
+	url : urlMaker
+};
+var dataAdapterMaker = new $.jqx.dataAdapter(sourceMaker, {
+	autoBind : true,
+	downloadComplete : function(data, status, xhr) {
+	},
+	loadComplete : function(data) {
+	},
+	loadError : function(xhr, status, error) {
+	}
+});
 
 loadAddQuotationGrid();
 showResultGrid();
@@ -97,9 +100,10 @@ function saveMakerList(row) {
 	makerList.makerName = data.makerName;
 	makerList.delivery = data.delivery;
 	makerList.remarks = data.remarks;
-	makerList.makerId =  data.makerId;
+	makerList.makerId = data.makerId;
 	makerList.categoryId = data.categoryId;
 	makerList.productGroupId = data.productGroupId;
+	makerList.equivalent = data.equivalent;
 
 	var jsonData = JSON.stringify(makerList);
 	console.log(jsonData);
@@ -112,7 +116,8 @@ function saveMakerList(row) {
 		success : function(msg) {
 			$("#list").jqxGrid('updatebounddata');
 			$("#listResult").jqxGrid('updatebounddata');
-		//	$('#list').jqxGrid('addrow', null, {}, 'first');
+			// $('#list').jqxGrid('addrow', null, {}, 'first');
+			
 			$("#list").jqxGrid('begincelledit', 0, "categoryName");
 		},
 		complete : function(xhr, status) {
@@ -163,16 +168,16 @@ var groupsrenderer = function(text, group, expanded, data) {
 	}
 }
 
-	 $('#list').on('bindingcomplete', function (event) {
-		 $('#list').jqxGrid('addrow', null, {}, 'first');
-	 });
-	 
-function loadAddQuotationGrid() {
+$('#list').on('bindingcomplete', function(event) {
+	$('#list').jqxGrid('addrow', null, {}, 'first');
+	$("#list").jqxGrid('setcellvalue', 0, "equivalent"," / or equivalent");
+});
 
+function loadAddQuotationGrid() {
 
 	var source2 = {
 		datatype : "json",
-		datafields : [  {
+		datafields : [ {
 			name : 'name',
 			type : 'string'
 		}, {
@@ -191,8 +196,8 @@ function loadAddQuotationGrid() {
 			name : 'remarks',
 			type : 'string'
 
-		}],
-		
+		} ],
+
 		url : "/test"
 	};
 	var dataAdapter2 = new $.jqx.dataAdapter(source2, {
@@ -214,6 +219,11 @@ function loadAddQuotationGrid() {
 						source : dataAdapter2,
 						filterable : true,
 						editable : true,
+						ready : function() {
+							$("#list").jqxGrid('setcellvalue', 0, "equivalent",
+									" / or equivalent");
+
+						},
 						// autorowheight: true,
 						columns : [
 								{
@@ -234,19 +244,21 @@ function loadAddQuotationGrid() {
 											valueMember : "categoryId",
 											promptText : "Please Choose:"
 										});
-										
+
 										editor.on('select', function(event) {
 											var args = event.args;
-												if (args) {
-													var index = args.index;
-													var item = args.item;
-													// get item's label and value.
-													var label = item.label;
-													var value = item.value;
-													//set value to hidden field
-													$("#list").jqxGrid('setcellvalue', 0, "categoryId", value);
-												}
-										});										
+											if (args) {
+												var index = args.index;
+												var item = args.item;
+												// get item's label and value.
+												var label = item.label;
+												var value = item.value;
+												// set value to hidden field
+												$("#list").jqxGrid(
+														'setcellvalue', 0,
+														"categoryId", value);
+											}
+										});
 
 									},
 									geteditorvalue : function(row, cellvalue,
@@ -259,7 +271,12 @@ function loadAddQuotationGrid() {
 										}
 									}
 								},
-								{ text: 'Region Id', datafield: 'categoryId', width: 0, hidden: true },
+								{
+									text : 'Region Id',
+									datafield : 'categoryId',
+									width : 0,
+									hidden : true
+								},
 								{
 									text : 'Nhom Vat Tu',
 									datafield : 'productGroupName',
@@ -271,7 +288,8 @@ function loadAddQuotationGrid() {
 									createeditor : function(row, column, editor) {
 										// assign a new data source to the
 										// combobox.
-										//update to get productgroup list later.
+										// update to get productgroup list
+										// later.
 										editor.jqxComboBox({
 											autoDropDownHeight : true,
 											source : dataAdapterProductGroup,
@@ -279,18 +297,29 @@ function loadAddQuotationGrid() {
 											valueMember : "groupId",
 											promptText : "Please Choose:"
 										});
-										editor.on('select', function(event) {
-											var args = event.args;
-												if (args) {
-													var index = args.index;
-													var item = args.item;
-													// get item's label and value.
-													var label = item.label;
-													var value = item.value;
-													//set value to hidden field
-													$("#list").jqxGrid('setcellvalue', 0, "productGroupId", value);
-												}
-										});											
+										editor
+												.on(
+														'select',
+														function(event) {
+															var args = event.args;
+															if (args) {
+																var index = args.index;
+																var item = args.item;
+																// get item's
+																// label and
+																// value.
+																var label = item.label;
+																var value = item.value;
+																// set value to
+																// hidden field
+																$("#list")
+																		.jqxGrid(
+																				'setcellvalue',
+																				0,
+																				"productGroupId",
+																				value);
+															}
+														});
 									},
 									geteditorvalue : function(row, cellvalue,
 											editor) {
@@ -303,7 +332,12 @@ function loadAddQuotationGrid() {
 									}
 
 								},
-								{ text: 'productGroupId', datafield: 'productGroupId', width: 0, hidden: true },
+								{
+									text : 'productGroupId',
+									datafield : 'productGroupId',
+									width : 0,
+									hidden : true
+								},
 								{
 									text : 'Model No',
 									datafield : 'modelNo',
@@ -323,7 +357,7 @@ function loadAddQuotationGrid() {
 									createeditor : function(row, column, editor) {
 										// assign a new data source to the
 										// combobox.
-										//update to get maker list later.
+										// update to get maker list later.
 										editor.jqxComboBox({
 											autoDropDownHeight : true,
 											source : dataAdapterMaker,
@@ -333,16 +367,18 @@ function loadAddQuotationGrid() {
 										});
 										editor.on('select', function(event) {
 											var args = event.args;
-												if (args) {
-													var index = args.index;
-													var item = args.item;
-													// get item's label and value.
-													var label = item.label;
-													var value = item.value;
-													//set value to hidden field
-													$("#list").jqxGrid('setcellvalue', 0, "makerId", value);
-												}
-										});											
+											if (args) {
+												var index = args.index;
+												var item = args.item;
+												// get item's label and value.
+												var label = item.label;
+												var value = item.value;
+												// set value to hidden field
+												$("#list").jqxGrid(
+														'setcellvalue', 0,
+														"makerId", value);
+											}
+										});
 									},
 									geteditorvalue : function(row, cellvalue,
 											editor) {
@@ -355,7 +391,18 @@ function loadAddQuotationGrid() {
 									}
 
 								},
-								{ text: 'makerId', datafield: 'makerId', width: 0, hidden: true },
+								{
+									text : 'makerId',
+									datafield : 'makerId',
+									width : 0,
+									hidden : true
+								},
+								{
+									text : '',
+									datafield : 'equivalent',
+									width : '15%',
+									cellsalign : 'left',
+								},
 								{
 									text : 'Delivery',
 									datafield : 'delivery',
@@ -366,12 +413,41 @@ function loadAddQuotationGrid() {
 								},
 								{
 									text : 'Remarks',
-									datafield : 'remarks',
+									dataField : 'remarks',
 									align : 'center',
 									cellsalign : 'right',
 									// cellsformat : 'c0',
-									width : '15%'
-								},
+									width : '15%',
+									columnType : "custom",
+									createEditor : function(row, cellvalue,
+											editor, cellText, width, height) {
+										// construct the editor.
+										var remarkList = [ "Import", "By Other", "Local manufacture", "Local / Import", "Import main component"];
+										 
+										editor.jqxDropDownList({
+											height : '25',
+											source : remarkList,
+											width : '100%',
+											height : '45',
+											selectedIndex : 0,
+											autoOpen : true,
+											autoDropDownHeight : true
+										});
+									},
+									initEditor : function(row, cellvalue,
+											editor, celltext, width, height) {
+										// set the editor's current value.
+										// The callback is called each time
+										// the editor is displayed.
+										editor.jqxDropDownList('selectItem',
+												cellvalue);
+									},
+									getEditorValue : function(row, cellvalue,
+											editor) {
+										// return the editor's value.
+										return editor.val();
+									}
+								},							
 								{
 									text : 'Action',
 									align : 'center',
@@ -390,7 +466,14 @@ function loadAddQuotationGrid() {
 									}
 								} ]
 					});
-					
+
+}
+var toThemeProperty = function(className) {
+	return className + " " + className + "-" + theme;
+}
+var groupsrenderer = function(text, group, expanded, data) {
+		return '<div class="' + toThemeProperty('jqx-grid-groups-row')
+				+ '" style="position: absolute;"><span>' + text + '</span>';
 }
 function showResultGrid(categoryId) {
 	/**
@@ -427,14 +510,18 @@ function showResultGrid(categoryId) {
 		}, {
 			name : 'createdDate',
 			type : 'string'
-		}],
-	    sortcolumn: 'id',
-	    sortdirection: 'asc',
+		}, {
+			name : 'equivalent',
+			type : 'string'
+		} 
+		],
+		sortcolumn : 'id',
+		sortdirection : 'asc',
 		id : 'id',
 		url : url,
 		data : {
 			projectId : projectId,
-			regionType: regionType
+			regionType : regionType
 		},
 		addrow : function(rowid, rowdata, position, commit) {
 			commit(true);
@@ -456,190 +543,234 @@ function showResultGrid(categoryId) {
 		}
 	});
 
-	$("#listResult").jqxGrid(
-			{
-				width : '100%',
-				height : 500,
-				theme : 'energyblue',
-				rowsheight : 45,
-				source : dataAdapter,
-				filterable : true,
-				editable : true,
-				pageable : true,
-				// autorowheight: true,
-				columns : [
-						{
-							text : 'System',
-							datafield : 'categoryName',
-							align : 'center',
-							cellsalign : 'right',
-							// cellsformat : 'c0',
-							width : '15%',
-							columntype : 'combobox',
-							createeditor : function(row, column, editor) {
-								// assign a new data source to the
-								// combobox.
-								editor.jqxComboBox({
-									autoDropDownHeight : true,
-									source : dataAdapterRegion,
-									displayMember : "name",
-									valueMember : "categoryId",
-									promptText : "Please Choose:"
-								});
-								
-								editor.on('select', function(event) {
-									var args = event.args;
-										if (args) {
-											var index = args.index;
-											var item = args.item;
-											// get item's label and value.
-											var label = item.label;
-											var value = item.value;
-											//set value to hidden field
-											$("#list").jqxGrid('setcellvalue', index, "categoryId", value);
-										}
-								});										
+	$("#listResult")
+			.jqxGrid(
+					{
+						width : '100%',
+						height : 500,
+						theme : 'energyblue',
+						rowsheight : 45,
+						source : dataAdapter,
+						filterable : true,
+						editable : true,
+						pageable : true,
+						// autorowheight: true,
+						groupable: true,
+						ready: function(){
+							$("#listResult").jqxGrid('expandallgroups');
+						},
+						columns : [
+								{
+									text : 'System',
+									datafield : 'categoryName',
+									align : 'center',
+									cellsalign : 'right',
+									// cellsformat : 'c0',
+									width : '15%',
+									columntype : 'combobox',
+									createeditor : function(row, column, editor) {
+										// assign a new data source to the
+										// combobox.
+										editor.jqxComboBox({
+											autoDropDownHeight : true,
+											source : dataAdapterRegion,
+											displayMember : "name",
+											valueMember : "categoryId",
+											promptText : "Please Choose:"
+										});
 
-							},
-							geteditorvalue : function(row, cellvalue,
-									editor) {
-								// return the editor's value.
-								var item = editor
-										.jqxComboBox('getSelectedItem');
-								if (item) {
-									return item.label;
-								}
-							}
-						},
-						{ text: 'Category Id', datafield: 'categoryId', width: 0, hidden: true },
-						{
-							text : 'Nhom Vat Tu',
-							datafield : 'productGroupName',
-							align : 'center',
-							cellsalign : 'right',
-							// cellsformat : 'c0',
-							width : '15%',
-							columntype : 'combobox',
-							createeditor : function(row, column, editor) {
-								// assign a new data source to the
-								// combobox.
-								//update to get productgroup list later.
-								editor.jqxComboBox({
-									autoDropDownHeight : true,
-									source : dataAdapterProductGroup,
-									displayMember : "groupName",
-									valueMember : "groupId",
-									promptText : "Please Choose:"
-								});
-								editor.on('select', function(event) {
-									var args = event.args;
-										if (args) {
-											var index = args.index;
-											var item = args.item;
-											// get item's label and value.
-											var label = item.label;
-											var value = item.value;
-											//set value to hidden field
-											$("#list").jqxGrid('setcellvalue', index, "productGroupId", value);
-										}
-								});											
-							},
-							geteditorvalue : function(row, cellvalue,
-									editor) {
-								// return the editor's value.
-								var item = editor
-										.jqxComboBox('getSelectedItem');
-								if (item) {
-									return item.label;
-								}
-							}
+										editor.on('select', function(event) {
+											var args = event.args;
+											if (args) {
+												var index = args.index;
+												var item = args.item;
+												// get item's label and value.
+												var label = item.label;
+												var value = item.value;
+												// set value to hidden field
+												$("#list").jqxGrid(
+														'setcellvalue', index,
+														"categoryId", value);
+											}
+										});
 
-						},
-						{ text: 'productGroupId', datafield: 'productGroupId', width: 0, hidden: true },
-						{
-							text : 'Model No',
-							datafield : 'modelNo',
-							align : 'center',
-							cellsalign : 'right',
-							cellsformat : 'c0',
-							width : '15%'
-						},
-						{
-							text : 'Maker',
-							datafield : 'makerName',
-							align : 'center',
-							cellsalign : 'right',
-							// cellsformat : 'c0',
-							width : '15%',
-							columntype : 'combobox',
-							createeditor : function(row, column, editor) {
-								// assign a new data source to the
-								// combobox.
-								//update to get maker list later.
-								editor.jqxComboBox({
-									autoDropDownHeight : true,
-									source : dataAdapterMaker,
-									displayMember : "name",
-									valueMember : "id",
-									promptText : "Please Choose:"
-								});
-								editor.on('select', function(event) {
-									var args = event.args;
-										if (args) {
-											var index = args.index;
-											var item = args.item;
-											// get item's label and value.
-											var label = item.label;
-											var value = item.value;
-											//set value to hidden field
-											$("#list").jqxGrid('setcellvalue', index, "makerId", value);
+									},
+									geteditorvalue : function(row, cellvalue,
+											editor) {
+										// return the editor's value.
+										var item = editor
+												.jqxComboBox('getSelectedItem');
+										if (item) {
+											return item.label;
 										}
-								});											
-							},
-							geteditorvalue : function(row, cellvalue,
-									editor) {
-								// return the editor's value.
-								var item = editor
-										.jqxComboBox('getSelectedItem');
-								if (item) {
-									return item.label;
-								}
-							}
+									}
+								},
+								{
+									text : 'Category Id',
+									datafield : 'categoryId',
+									width : 0,
+									hidden : true
+								},
+								{
+									text : 'Nhom Vat Tu',
+									datafield : 'productGroupName',
+									align : 'center',
+									cellsalign : 'right',
+									// cellsformat : 'c0',
+									width : '15%',
+									columntype : 'combobox',
+									createeditor : function(row, column, editor) {
+										// assign a new data source to the
+										// combobox.
+										// update to get productgroup list
+										// later.
+										editor.jqxComboBox({
+											autoDropDownHeight : true,
+											source : dataAdapterProductGroup,
+											displayMember : "groupName",
+											valueMember : "groupId",
+											promptText : "Please Choose:"
+										});
+										editor
+												.on(
+														'select',
+														function(event) {
+															var args = event.args;
+															if (args) {
+																var index = args.index;
+																var item = args.item;
+																// get item's
+																// label and
+																// value.
+																var label = item.label;
+																var value = item.value;
+																// set value to
+																// hidden field
+																$("#list")
+																		.jqxGrid(
+																				'setcellvalue',
+																				index,
+																				"productGroupId",
+																				value);
+															}
+														});
+									},
+									geteditorvalue : function(row, cellvalue,
+											editor) {
+										// return the editor's value.
+										var item = editor
+												.jqxComboBox('getSelectedItem');
+										if (item) {
+											return item.label;
+										}
+									}
 
-						},
-						{ text: 'makerId', datafield: 'makerId', width: 0, hidden: true },
-						{
-							text : 'Delivery',
-							datafield : 'delivery',
-							align : 'center',
-							cellsalign : 'right',
-							// cellsformat : 'c0',
-							width : '15%'
-						},
-						{
-							text : 'Remarks',
-							datafield : 'remark',
-							align : 'center',
-							cellsalign : 'right',
-							// cellsformat : 'c0',
-							width : '15%'
-						},
-						{
-							text : 'Action',
-							align : 'center',
-							datafield : '',
-							width : '10%',
-							cellsrenderer : function(row, column, value) {
-								return '<div class="col-md-6">'
-										+ '<a class="btn btn-app" onclick="updateItem('
-										+ row
-										+ ')">'
-										+ '<i class="glyphicon glyphicon-edit"></i>'
-										+ '</div>';
-							},
-							cellbeginedit : function(row) {
-								return false;
-							}
-						} ]
-			});
+								},
+								{
+									text : 'productGroupId',
+									datafield : 'productGroupId',
+									width : 0,
+									hidden : true
+								},
+								{
+									text : 'Model No',
+									datafield : 'modelNo',
+									align : 'center',
+									cellsalign : 'right',
+									cellsformat : 'c0',
+									width : '15%'
+								},
+								{
+									text : 'Maker',
+									datafield : 'makerName',
+									align : 'center',
+									cellsalign : 'right',
+									// cellsformat : 'c0',
+									width : '15%',
+									columntype : 'combobox',
+									createeditor : function(row, column, editor) {
+										// assign a new data source to the
+										// combobox.
+										// update to get maker list later.
+										editor.jqxComboBox({
+											autoDropDownHeight : true,
+											source : dataAdapterMaker,
+											displayMember : "name",
+											valueMember : "id",
+											promptText : "Please Choose:"
+										});
+										editor.on('select', function(event) {
+											var args = event.args;
+											if (args) {
+												var index = args.index;
+												var item = args.item;
+												// get item's label and value.
+												var label = item.label;
+												var value = item.value;
+												// set value to hidden field
+												$("#list").jqxGrid(
+														'setcellvalue', index,
+														"makerId", value);
+											}
+										});
+									},
+									geteditorvalue : function(row, cellvalue,
+											editor) {
+										// return the editor's value.
+										var item = editor
+												.jqxComboBox('getSelectedItem');
+										if (item) {
+											return item.label;
+										}
+									}
+
+								},
+								{
+									text : 'makerId',
+									datafield : 'makerId',
+									width : 0,
+									hidden : true
+								},
+								{
+									text : '',
+									datafield : 'equivalent',
+									align : 'center',
+									cellsalign : 'left',
+									width : '10%'
+								},								
+								{
+									text : 'Delivery',
+									datafield : 'delivery',
+									align : 'center',
+									cellsalign : 'right',
+									// cellsformat : 'c0',
+									width : '15%'
+								},
+								{
+									text : 'Remarks',
+									datafield : 'remark',
+									align : 'center',
+									cellsalign : 'right',
+									// cellsformat : 'c0',
+									width : '15%'
+								},
+								{
+									text : 'Action',
+									align : 'center',
+									datafield : '',
+									width : '10%',
+									cellsrenderer : function(row, column, value) {
+										return '<div class="col-md-6">'
+												+ '<a class="btn btn-app" onclick="updateItem('
+												+ row
+												+ ')">'
+												+ '<i class="glyphicon glyphicon-edit"></i>'
+												+ '</div>';
+									},
+									cellbeginedit : function(row) {
+										return false;
+									}
+								} ],
+								groups: ['categoryName']
+					});
 }
