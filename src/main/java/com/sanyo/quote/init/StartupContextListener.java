@@ -5,23 +5,13 @@ import java.util.List;
 
 import javax.servlet.ServletContextEvent;
 
+import com.sanyo.quote.domain.*;
+import com.sanyo.quote.service.*;
 import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.ContextLoaderListener;
 
-import com.sanyo.quote.domain.Category;
-import com.sanyo.quote.domain.Group;
-import com.sanyo.quote.domain.Maker;
-import com.sanyo.quote.domain.Product;
-import com.sanyo.quote.domain.ProductGroup;
-import com.sanyo.quote.domain.User;
 import com.sanyo.quote.helper.Constants;
-import com.sanyo.quote.service.CategoryService;
-import com.sanyo.quote.service.GroupService;
-import com.sanyo.quote.service.MakerService;
-import com.sanyo.quote.service.ProductGroupService;
-import com.sanyo.quote.service.ProductService;
-import com.sanyo.quote.service.UserService;
 
 @Component
 public class StartupContextListener extends ContextLoaderListener{
@@ -90,6 +80,7 @@ public class StartupContextListener extends ContextLoaderListener{
 		ProductService productService = ctx.getBean("productService", ProductService.class);
 		ProductGroupService productGroupService = ctx.getBean("productGroupService", ProductGroupService.class);
 		MakerService makerService = ctx.getBean("makerService", MakerService.class);
+		ExpenseElementsService expenseElementsService = ctx.getBean("expenseElementsService", ExpenseElementsService.class);
 		
 		for(int i=0; i < 100; i++){
 			String userName = "admin" + i;
@@ -158,6 +149,9 @@ public class StartupContextListener extends ContextLoaderListener{
 		if(makerService.findAll() != null && makerService.findAll().size() ==0 ){
 			addMakerData(makerService);
 		}
+		if(expenseElementsService.findAll() != null && expenseElementsService.findAll().size() == 0) {
+			addExpenseElements(expenseElementsService);
+		}
 		ctx.destroy();
 	}
 	private String getNumberValue(String input){
@@ -224,5 +218,30 @@ public class StartupContextListener extends ContextLoaderListener{
 			makerService.save(maker);
 		}
 		
+	}
+
+	private void addExpenseElements (ExpenseElementsService expenseElementsService){
+		String [] expenseElements = {
+				"JP Yen 29,000/Day", "JP Yen 35,000/Day", "JP Yen 40,000/Day"
+				,"Japanese Site correction","3rd Country Engineer", "Local Site Manager", "Local Engineer 1","Local Engineer 2"
+				, "Local Engineer 3", "Local Engineer 4", "Cad Operator", "Safety Supervisor"
+				, "Site Office", "Site Storage", "Drawing & Documents", "Site Goods", "Transportation (MAT)", "Transportation (Engineer)", "Safety Goods"
+				, "Accomodation", "others", "Import Tax", "Computer, etc,", "3rd Party Insurance", "Performance Bond", "Tender Fees"
+				, "Prosonal Income Tax", "Personal Social Insurance", "Bank Loan Intarest"
+				, "Japanese, 3rd country", "Air Ticket", "Telephone", "Electric & Water fee", "Administration", "Misce", "Entertainmant"
+				, "Application cost", "Japanese", "3rd Country", "Vietnam", "Vietnam", "Vietnam", "Vietnam", "Vietnam", "Vietnam", "Vietnam", "Vietnam", "Vietnam"
+				, "Japanese", "3rd Country", "Vietnam", "Vietnam", "Vietnam", "Vietnam", "Vietnam", "Vietnam", "Vietnam", "Vietnam", "Vietnam"
+				, "Japanese", "Vietnam"
+
+		};
+		int i = 0;
+		for (String name: expenseElements){
+			i ++;
+
+			ExpenseElements element = new ExpenseElements();
+			element.setElementName(name);
+			element.setDefaultOrder(i);
+			expenseElementsService.save(element);
+		}
 	}
 }
