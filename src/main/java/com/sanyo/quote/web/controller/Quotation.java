@@ -150,7 +150,11 @@ public class Quotation {
 		saveEncounter(encounterJson);
 	}
 	private void saveEncounter(EncounterJson encounterJson){
-		Encounter encounter = new Encounter();
+		Encounter encounter;
+		if(encounterJson.getEncounterID() != null){
+			encounter = encounterService.findById(encounterJson.getEncounterID());
+		}
+		encounter = new Encounter();
 		if(encounterJson.getActualQuantity() != null)
 			encounter.setActualQuantity(Float.valueOf(encounterJson.getActualQuantity()));
 		if (encounterJson.getAllowance() != null)
@@ -199,6 +203,10 @@ public class Quotation {
 			encounter.setVAT(Float.valueOf(encounterJson.getVat()));
 		if(encounterJson.getLabourAfterTax() != null)
 			encounter.setLabourAfterTax(Float.valueOf(encounterJson.getLabourAfterTax()));
+		if(encounterJson.getNonamePercent() != null)
+			encounter.setNonamePercent(Float.valueOf(encounterJson.getNonamePercent()));
+		if(encounterJson.getNonameRange() != null)
+			encounter.setNonameRange(encounterJson.getNonameRange());
 		encounterService.save(encounter);
 		
 	}
@@ -224,5 +232,13 @@ public class Quotation {
 		Set<Location> locatoins = project.getLocations();
 		String result = Utilities.jSonSerialization(locatoins);
 		return result;
+	}
+	
+	//function to delete encounter.
+	@ResponseBody
+	@RequestMapping(value = "/{id}", params = "delete", method = RequestMethod.POST)
+    public void deleteEncounter(@PathVariable("id") String id, Model uiModel, HttpServletRequest httpServletRequest) {
+		encounterService.delete(Integer.valueOf(id));
+       
 	}
 }

@@ -45,6 +45,8 @@ public class Encounter implements Serializable{
 	private EncounterStatus status;
 //	private Location location;
 	private float labourAfterTax;
+	private Float nonamePercent;
+	private String nonameRange;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,7 +58,7 @@ public class Encounter implements Serializable{
 		this.encounterID = encounterID;
 	}
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "PRODUCT_ID", nullable = false)
 	public Product getProduct() {
 		return product;
@@ -74,7 +76,7 @@ public class Encounter implements Serializable{
 		this.encounterTime = encounterTime;
 	}
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "REGION_ID", nullable = false)
 	public Region getRegion() {
 		return region;
@@ -274,6 +276,18 @@ public class Encounter implements Serializable{
 	}
 	public void setLabourAfterTax(float labourAfterTax) {
 		this.labourAfterTax = labourAfterTax;
+	}
+	public Float getNonamePercent() {
+		return nonamePercent;
+	}
+	public void setNonamePercent(Float nonamePercent) {
+		this.nonamePercent = nonamePercent;
+	}
+	public String getNonameRange() {
+		return nonameRange;
+	}
+	public void setNonameRange(String nonameRange) {
+		this.nonameRange = nonameRange;
 	}
 	
 //	@OneToOne(cascade = CascadeType.ALL)

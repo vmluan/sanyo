@@ -111,6 +111,8 @@ public class Product implements Serializable {
 	@Column(name="Discount_rate")
 	private float Discount_rate; //Discount rate %
 	
+	private String specification;
+	
 	@JsonIgnore
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="product")
 	private Set<Price> prices;
@@ -351,6 +353,14 @@ public class Product implements Serializable {
 
 	public void setProductGroup(ProductGroup productGroup) {
 		this.productGroup = productGroup;
+	}
+
+	public String getSpecification() {
+		return specification;
+	}
+
+	public void setSpecification(String specification) {
+		this.specification = specification;
 	}
 
 	@Override

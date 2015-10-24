@@ -13,8 +13,12 @@ public interface EncounterService {
 	
 	Encounter findById(Integer id);
 	
-	Encounter save(Encounter th_encounter);
+	Encounter save(Encounter encounter);
 	
-	Page<Encounter> findAllByPage(Pageable pageable);	
+	Page<Encounter> findAllByPage(Pageable pageable);
+	
+	void delete(Integer id);
+	
+	void delte(Encounter encounter);
 	
 }

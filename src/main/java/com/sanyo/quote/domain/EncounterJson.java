@@ -36,6 +36,8 @@ public class EncounterJson {
 	private String regionId;
 	private String regionName;
 	private String labourAfterTax;
+	private String nonamePercent;
+	private String nonameRange;
 	
 //	private Set<LocationJson> locations;
 	public Integer getEncounterID() {
@@ -213,6 +215,18 @@ public class EncounterJson {
 	}
 	public void setLabourAfterTax(String labourAfterTax) {
 		this.labourAfterTax = labourAfterTax;
+	}
+	public String getNonamePercent() {
+		return nonamePercent;
+	}
+	public void setNonamePercent(String nonamePercent) {
+		this.nonamePercent = nonamePercent;
+	}
+	public String getNonameRange() {
+		return nonameRange;
+	}
+	public void setNonameRange(String nonameRange) {
+		this.nonameRange = nonameRange;
 	}
 	
 	

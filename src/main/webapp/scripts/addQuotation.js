@@ -203,11 +203,17 @@ function addItem(row) {
 	saveEncounter(row);
 
 }
-function saveEncounter(row) {
+function saveEncounter(row,isUpdate) {
 	var item = $("#listRegion").jqxComboBox('getSelectedItem'); 
-
-	var data = $('#list').jqxGrid('getrowdata', row);
+	
 	var encounter = new Object();
+	var data;
+	if(isUpdate){
+		data = $('#listResult').jqxGrid('getrowdata', row);
+		}
+	else
+		data = $('#list').jqxGrid('getrowdata', row);
+	
 	encounter.regionId = item.value;
 	encounter.regionName = item.label;
 	encounter.productCode = data.productCode;
@@ -234,6 +240,8 @@ function saveEncounter(row) {
 	encounter.cost_Mat_Amount_USD = data.cost_Mat_Amount_USD;
 	encounter.cost_Labour_Amount_USD = data.cost_Labour_Amount_USD;
 	encounter.subcon_Profit = data.subConProfit;
+	encounter.nonamePercent = data.nonamePercent;
+	encounter.nonameRange = data.nonameRange;
 
 	var jsonData = JSON.stringify(encounter);
 	console.log(jsonData);
@@ -311,6 +319,9 @@ var groupsrenderer = function(text, group, expanded, data) {
 			//update Quantity field.
 			var value = args.value.toString();
 			updateQuantity(value);
+		 }else if(datafield == 'nonamePercent' ||
+				 datafield == 'nonameRange'){
+			 updateMat_w_o_Tax_USD();
 		 }
 	 });
 	 
@@ -585,6 +596,20 @@ function loadAddQuotationGrid() {
 									width : '15%'
 								},
 								{
+									text : 'Percent',
+									datafield : 'nonamePercent',
+									align : 'center',
+									cellsalign : 'right',
+									width : '15%'
+								},
+								{
+									text : 'Range',
+									datafield : 'nonameRange',
+									align : 'center',
+									cellsalign : 'right',
+									width : '15%'
+								},								
+								{
 									text : 'Remark',
 									datafield : 'remark',
 									align : 'center',
@@ -855,8 +880,17 @@ function showResultGrid(regionId) {
 			name : 'cost_Labour_Amount_USD',
 			type : 'string'
 
-		} ],
-	    sortcolumn: 'orderNo',
+		}, {
+			name : 'nonamePercent',
+			type : 'string'
+
+		}, {
+			name : 'nonameRange',
+			type : 'string'
+
+		} 
+		],
+	    sortcolumn: 'order',
 	    sortdirection: 'asc',
 		id : 'encounterID',
 		url : url,
@@ -904,13 +938,15 @@ function showResultGrid(regionId) {
 						width : '100%',
 						height : 300,
 						theme : 'energyblue',
-						rowsheight : 45,
+						//rowsheight : 45,
 						source : dataAdapter,
 						filterable : true,
 						editable : true,
 						groupable : true,
 						groupsrenderer : groupsrenderer,
-						// autorowheight: true,
+						pageable : true,
+						columnsresize : true,
+						autorowheight: true,
 						columns : [
 								{
 									text : 'Region',
@@ -1017,6 +1053,20 @@ function showResultGrid(regionId) {
 									// cellsformat : 'c0',
 									width : '15%'
 								},
+								{
+									text : 'Percent',
+									datafield : 'nonamePercent',
+									align : 'center',
+									cellsalign : 'right',
+									width : '15%'
+								},
+								{
+									text : 'Range',
+									datafield : 'nonameRange',
+									align : 'center',
+									cellsalign : 'right',
+									width : '15%'
+								},									
 								{
 									text : 'Remark',
 									datafield : 'remark',
@@ -1140,16 +1190,17 @@ function showResultGrid(regionId) {
 								{
 									text : 'Action',
 									align : 'center',
-									datafield : '',
-									width : '10%',
-									cellsrenderer : function(row, column, value) {
-										return '<div class="col-md-6">'
-												+ '<a class="btn btn-app" onclick="addItem('
-												+ row
-												+ ')">'
-												+ '<i class="glyphicon glyphicon-plus"></i>'
-												+ '</div>';
-									},
+									datafield : 'encounterID',
+									width : '30%',
+								cellsrenderer : function(row, column, value) {
+									return '<div class="col-md-12">'
+												+'<p>'
+													+ '<button class="btn bg-olive margin col-md-4"  onclick="updateItem('+ row +  ')"' + '>Update</button>'
+													+ '<button class="btn btn-danger margin col-md-4" onclick="deleteItem('+ value +  ')"' +'>Delete</button>'
+												+ '</p>'
+											+ '</div>'
+											;
+								},
 									cellbeginedit : function(row) {
 										return false;
 									}
@@ -1210,7 +1261,7 @@ function updatePriceAfterDiscount(){
 	//Unit price after discount bằng cot 11+ cot 12/tỉ giá) 
 	var exchangeRate = 22000; //update to get from database later.
 	var mat_w_o_Tax_USD = $("#list").jqxGrid('getcellvalue', 0, "mat_w_o_Tax_USD"); //cot 11
-	var mat_w_o_Tax_VND = $("#list").jqxGrid('setcellvalue', 0, "mat_w_o_Tax_VND"); //cot 12
+	var mat_w_o_Tax_VND = $("#list").jqxGrid('getcellvalue', 0, "mat_w_o_Tax_VND"); //cot 12
 	var result = mat_w_o_Tax_USD + mat_w_o_Tax_VND/exchangeRate;
 	$("#list").jqxGrid('setcellvalue', 0, "unit_Price_After_Discount", result);
 	
@@ -1277,3 +1328,45 @@ function updateAmount(){
 	$("#list").jqxGrid('setcellvalue', 0, "amount", result);
 }
 
+function updateMat_w_o_Tax_USD(){
+	//it is invoked for some special product group code.
+	//var result = sum(AE1 : AEn) * percent;
+	var percent = $("#list").jqxGrid('getcellvalue', 0, "nonamePercent"); //cot 5
+	var range = $("#list").jqxGrid('getcellvalue', 0, "nonameRange"); //cot 5
+	var total = 0;
+	if(range && percent){
+		var arrs = range.split('-');
+		var start = arrs[0];
+		var end = arrs[1];
+		
+		for(var i=start; i<= end; i++){
+			var aEValue = $("#listResult").jqxGrid('getcellvalue', i, "cost_Mat_Amount_USD"); //cot 5
+			total = total + aEValue;
+		}
+	}
+	var result = total * percent/100;
+	$("#list").jqxGrid('setcellvalue', 0, "mat_w_o_Tax_USD", result);
+	
+}
+function updateItem(row){
+	 var encounterId = $('#listResult').jqxGrid('getcellvalue', row, "uid");
+	 saveEncounter(row, true);
+
+}
+function deleteItem(encounterId){
+     var result = confirm('Do you want to delete this record?');
+    if (result == false)
+		return;
+	var url = '/quotation/1?delete';
+	$.ajax({
+		type : "POST",
+		contentType : 'application/json',
+		url : url,
+		success : function(msg) {
+			$("#listResult").jqxGrid('updatebounddata');
+		},
+		complete : function(xhr, status) {
+			// $("#assignRegionButton").prop('disabled', false);
+		}
+	});
+}

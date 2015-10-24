@@ -41,4 +41,16 @@ public class DefaultEncounterService implements EncounterService {
 	public Page<Encounter> findAllByPage(Pageable pageable) {
 		return encounterRepository.findAll(pageable);
 	}
+
+	@Override
+	public void delete(Integer id) {
+		encounterRepository.delete(id);
+		
+	}
+
+	@Override
+	public void delte(Encounter encounter) {
+		encounterRepository.delete(encounter);
+		
+	}
 }

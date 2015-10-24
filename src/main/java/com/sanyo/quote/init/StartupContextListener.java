@@ -160,53 +160,58 @@ public class StartupContextListener extends ContextLoaderListener{
 		}
 		ctx.destroy();
 	}
+	private String getNumberValue(String input){
+		if(input == null)
+			return null;
+		else{
+			return input.replace(",", "").replace(" ", "");
+		}
+	}
 	private void addProductSample(ProductService productService, CategoryService categoryService, ProductGroupService productGroupService){
 //		List<Category> categories = new ArrayList<Category>();
 //		categories.add(categoryService.findById(2));
+		// {name, specification, productGroup, unit, labour, max_w_o_tax_usd, max_w_o_tax_vnd, }
+		String[][] sampleProducts = {
+					 {"Concrete Pole", "12m", "151-HV", "set", "105.00",null, "4,500,000"}
+					,{"Concrete casting for foundation", null, "151-HV", "set", "105.00",null, "2,500,000"}
+					,{"Crossarm", "L75x75x8 2.4m c/w support HDG - VN", "151-HV", "set", "6.56",null, "650,000"}
+		};
 //		
-		Product product = new Product();
-		product.setProductName("LBS Panel connected to the extising panel in Phase 3");
-		product.setDiscount_rate(0);
-		product.setImp_Tax(0);
-		product.setLabour(0);
-		product.setLastModifiedBy("ADMIN");
-		product.setMat_w_o_Tax_USD(0);
-		product.setMat_w_o_Tax_VND(0);
-		product.setMaxDiscountSalePer(0);
-		product.setMat_w_o_Tax_VND(0);
-		product.setMaxDiscountWholeSalePer(0);
-		product.setMinDiscountSalePer(0);
-		product.setProductCode("Code1234");
+		for(int i =0; i< sampleProducts.length; i++){
+			String[] temp = sampleProducts[i];
+			String productName = temp[0];
+			String productCode =  temp[0];
+			String specification = temp[1];
+			String productGroupCode = temp[2];
+			String unit = temp[3];
+			String labour = getNumberValue(temp[4]);
+			String max_wo_tax_usd = getNumberValue(temp[5]);
+			String max_wo_tax_vnd = getNumberValue(temp[6]);
+			
+			ProductGroup productGroup = productGroupService.findByGroupName(productGroupCode);
+			if(productGroup == null){
+				productGroup = new ProductGroup();
+				productGroup.setGroupCode(productGroupCode);
+				productGroup.setGroupName(productGroupCode);
+				productGroup = productGroupService.save(productGroup);
+			}
+			Product product = new Product();
+			product.setProductCode(productCode);
+			product.setProductName(productName);
+			product.setLastModifiedBy("ADMIN");
+			if(max_wo_tax_usd != null)
+				product.setMat_w_o_Tax_USD(Float.valueOf(max_wo_tax_usd));
+			if(max_wo_tax_vnd != null)
+				product.setMat_w_o_Tax_VND(Float.valueOf(max_wo_tax_vnd));
+			product.setUnit(unit);
+			if(labour != null)
+				product.setLabour(Float.valueOf(labour));
+			product.setSpecification(specification);
+			product.setProductGroup(productGroup);
+			productService.save(product);
+		}
 		
-		Product product2 = new Product();
-		product2.setProductName("Concrete Pole");
-		product2.setDiscount_rate(100);
-		product2.setImp_Tax(15);
-		product2.setLabour(10);
-		product2.setLastModifiedBy("ADMIN");
-		product2.setMat_w_o_Tax_USD(105);
-		product2.setMat_w_o_Tax_VND(50);
-		product2.setMaxDiscountSalePer(10);
-		product2.setMat_w_o_Tax_VND(5);
-		product2.setMaxDiscountWholeSalePer(15);
-		product2.setMinDiscountSalePer(10);
-		product2.setProductCode("Code111");
 		
-		ProductGroup pg = new ProductGroup();
-		pg.setGroupCode("111");
-		pg.setGroupName("Lighting Fixture (Electronic Ballast)");
-		pg = productGroupService.save(pg);
-		
-		ProductGroup pg2 = new ProductGroup();
-		pg2.setGroupCode("151-HV");
-		pg2.setGroupName("HV Switchgear");
-		pg2 = productGroupService.save(pg2);
-		
-		product.setProductGroup(pg);
-		product2.setProductGroup(pg2);
-		
-		productService.save(product);
-		productService.save(product2);
 	}
 	private void addMakerData(MakerService makerService){
 		String[] makerList = {"ABB or equivalent", "Hai Nam", "Sunlight Electric", "LS / or equivalent"
