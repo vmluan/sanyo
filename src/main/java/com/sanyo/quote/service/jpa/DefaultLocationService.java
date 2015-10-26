@@ -43,4 +43,9 @@ public class DefaultLocationService implements LocationService {
 		return locationRepository.findAll(pageable);
 	}
 
+	@Override
+	public Location findByIdAndFetchRegionsEagerly(Integer id) {
+		return locationRepository.findByIdAndFetchRegionsEagerly(id);
+	}
+
 }

@@ -23,6 +23,12 @@
 							<label>Select location to add items</label>
 							<div id='jqxWidgetLocation'><jsp:text /></div>
 						</div>
+						<div class="form-group col-md-2">
+							<label>Sum</label>
+							<!--input name="locationSum" class="form-control" id="locationSum" type="text" value="${locationSum}"></input-->
+							<div id="locationSum" class="row"><jsp:text />
+							</div>
+						</div>						
 					</div>
 					<div class="col-md-12">
 						<div class="form-group col-md-2">
@@ -64,7 +70,7 @@
 	var vat = "${project.VAT}";
 	var discountRate = "${project.discountRate}";
 	var allowance = "${project.allowance}";
-	var subConProfit = "${project.subConProfit}";
+	var subcon_Profit = "${project.subConProfit}";
 	var regionType="${regionType}";
 	var qtySubMain = "${project.qtySubMain}";
 	var eQtyOther = "${project.eQtyOther}";

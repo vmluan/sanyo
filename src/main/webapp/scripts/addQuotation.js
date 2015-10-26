@@ -1,3 +1,5 @@
+$("#locationSum").jqxNumberInput({ width: '250px', height: '25px', symbol: '$', disabled: true, max: 99999999});
+
 var urlLocation = "/quotation/getAssignedLocationsJson";
 // prepare the data
 var sourceLocation = {
@@ -98,10 +100,27 @@ $('#jqxWidgetLocation').on('select', function(event) {
 					showResultGrid(value);
 				}
 		});
-
+	//update locationSum
+	if(value)
+		updateLocationSum(value);
 	}
 
 });
+
+function updateLocationSum(locationId){
+	var urlLocationSum = '/quotation/' + locationId +'/getLocationSum';
+		$.ajax({
+			type : "POST",
+			contentType : 'application/json',
+			url : urlLocationSum,
+			success : function(msg) {
+				$("#locationSum").val(msg);
+			},
+			complete : function(xhr, status) {
+
+			}
+	});
+}
 
 function getUrlProducts(productGroupId){
 	var urlProducts = "/productgroups/getProductsOfGroupjson";
@@ -211,19 +230,21 @@ function saveEncounter(row,isUpdate) {
 	if(isUpdate){
 		data = $('#listResult').jqxGrid('getrowdata', row);
 		}
-	else
+	else{
 		data = $('#list').jqxGrid('getrowdata', row);
+		encounter.productCode = data.productCode;
+		encounter.productId = data.productId;
+	}
 	
 	encounter.regionId = item.value;
 	encounter.regionName = item.label;
-	encounter.productCode = data.productCode;
+	
 //	encounter.productName = data.productName;
-	encounter.productId = data.productId;
 	encounter.order = data.order;
 	encounter.encounterID = data.encounterID;
 	encounter.unitRate = data.unitRate;
-	encounter.actualQuantity = data.quantity;
-	encounter.quantity = data.qtyManual;
+	encounter.actualQuantity = data.actualQuantity;
+	encounter.quantity = data.quantity;
 	encounter.amount = data.amount;
 	encounter.remark = data.remark;
 	encounter.mat_w_o_Tax_USD = data.mat_w_o_Tax_USD;
@@ -239,7 +260,7 @@ function saveEncounter(row,isUpdate) {
 	encounter.unit_Price_W_Tax_Profit = data.unit_Price_W_Tax_Profit;
 	encounter.cost_Mat_Amount_USD = data.cost_Mat_Amount_USD;
 	encounter.cost_Labour_Amount_USD = data.cost_Labour_Amount_USD;
-	encounter.subcon_Profit = data.subConProfit;
+	encounter.subcon_Profit = data.subcon_Profit;
 	encounter.nonamePercent = data.nonamePercent;
 	encounter.nonameRange = data.nonameRange;
 
@@ -259,6 +280,8 @@ function saveEncounter(row,isUpdate) {
 			//$('#list').jqxGrid('addrow', null, {}, 'first');
 			//$("#list").jqxGrid('begincelledit', 0, "desc");
 			showResultGrid(item.value);
+			var itemLocation = $("#jqxWidgetLocation").jqxComboBox('getSelectedItem');
+			updateLocationSum(itemLocation.value);
 		},
 		complete : function(xhr, status) {
 			// $("#assignRegionButton").prop('disabled', false);
@@ -271,41 +294,8 @@ var toThemeProperty = function(className) {
 }
 
 var groupsrenderer = function(text, group, expanded, data) {
-	if ((data.groupcolumn.datafield == 'price')
-			|| (data.groupcolumn.datafield == 'quantity')) {
-		var number = dataAdapter.formatNumber(group,
-				data.groupcolumn.cellsformat);
-		var text = data.groupcolumn.text + ': ' + number;
-		if (data.subItems.length > 0) {
-			var aggregate = this.getcolumnaggregateddata(
-					data.groupcolumn.datafield, [ 'sum' ], true, data.subItems);
-		} else {
-			var rows = new Array();
-			var getRows = function(group, rows) {
-				if (group.subGroups.length > 0) {
-					for (var i = 0; i < group.subGroups.length; i++) {
-						getRows(group.subGroups[i], rows);
-					}
-				} else {
-					for (var i = 0; i < group.subItems.length; i++) {
-						rows.push(group.subItems[i]);
-					}
-				}
-			}
-			getRows(data, rows);
-			var aggregate = this.getcolumnaggregateddata(
-					data.groupcolumn.datafield, [ 'sum' ], true, rows);
-		}
-
-		return '<div class="' + toThemeProperty('jqx-grid-groups-row')
-				+ '" style="position: absolute;"><span>' + text + ', </span>'
-				+ '<span class="'
-				+ toThemeProperty('jqx-grid-groups-row-details') + '">'
-				+ "Total" + ' (' + aggregate.sum + ')' + '</span></div>';
-	} else {
-		return '<div class="' + toThemeProperty('jqx-grid-groups-row')
-				+ '" style="position: absolute;"><span>' + text + '</span>';
-	}
+	return '<div class="' + toThemeProperty('jqx-grid-groups-row')
+			+ '" style="position: absolute;"><span>' + text + '</span>';
 }
 
 	 $('#list').on('bindingcomplete', function (event) {
@@ -315,7 +305,7 @@ var groupsrenderer = function(text, group, expanded, data) {
 	 $('#list').on('cellvaluechanged', function (event) {
 		 var args = event.args;
 		 var datafield = args.datafield;
-		 if(datafield == 'qtyManual'){
+		 if(datafield == 'quantity'){
 			//update Quantity field.
 			var value = args.value.toString();
 			updateQuantity(value);
@@ -327,107 +317,12 @@ var groupsrenderer = function(text, group, expanded, data) {
 	 
 function loadAddQuotationGrid() {
 
-
+	var emptyData =[];
 	var source2 = {
 		datatype : "json",
-		datafields : [ {
-			name : 'productName',
-			map : 'product>productName'
-		}, {
-			name : 'productCode',
-			map : 'product>productCode'
-		}, {
-			name : 'locationId',
-			map : 'location>locationId'
-		}, {
-			name : 'locationName',
-			map : 'location>locationName'
-		}, {
-			name : 'orderNo',
-			type : 'string'
-		}, {
-			name : 'unitRate',
-			type : 'string'
-		}, {
-			name : 'quantity',
-			type : 'string'
-		}, {
-			name : 'encounterID',
-			type : 'string'
-		}, {
-			name : 'actualQuantity',
-			type : 'string'
-		}, {
-			name : 'amount',
-			type : 'string'
-
-		}, {
-			name : 'remark',
-			type : 'string'
-
-		}, {
-			name : 'mat_w_o_Tax_USD',
-			type : 'string'
-
-		}, {
-			name : 'mat_w_o_Tax_VND',
-			type : 'string'
-
-		}, {
-			name : 'labour',
-			type : 'string'
-
-		}, {
-			name : 'imp_Tax',
-			type : 'string'
-
-		}, {
-			name : 'special_Con_Tax',
-			type : 'string'
-
-		}, {
-			name : 'discount_rate',
-			type : 'string'
-
-		}, {
-			name : 'encounterTime',
-			type : 'string'
-
-		}, {
-			name : 'vat',
-			type : 'string'
-
-		}, {
-			name : 'unit_Price_After_Discount',
-			type : 'string'
-
-		}, {
-			name : 'allowance',
-			type : 'string'
-
-		}, {
-			name : 'unit_Price_W_Tax_Profit',
-			type : 'string'
-
-		}, {
-			name : 'subcon_Profit',
-			type : 'string'
-
-		}, {
-			name : 'unit_Price_W_Tax_Labour',
-			type : 'string'
-
-		}, {
-			name : 'cost_Mat_Amount_USD',
-			type : 'string'
-
-		}, {
-			name : 'cost_Labour_Amount_USD',
-			type : 'string'
-
-		} ],
+		datafields : [],
 		id : 'encounterID',
-		url : "/test"
+		localdata: emptyData
 	};
 	var dataAdapter2 = new $.jqx.dataAdapter(source2, {
 		downloadComplete : function(data, status, xhr) {
@@ -507,7 +402,7 @@ function loadAddQuotationGrid() {
 									datafield : 'order',
 									align : 'center',
 									cellsalign : 'right',
-									cellsformat : 'c0',
+									cellsformat : 'n',
 									width : '15%'
 								},
 								{
@@ -573,10 +468,11 @@ function loadAddQuotationGrid() {
 								},
 								{
 									text : 'Quantity',
-									datafield : 'quantity',
+									datafield : 'actualQuantity',
 									align : 'center',
 									cellsalign : 'right',
 									editable: false,
+									cellsformat : 'n',
 									width : '15%'
 								},
 								{
@@ -593,6 +489,7 @@ function loadAddQuotationGrid() {
 									align : 'center',
 									cellsalign : 'right',
 									editable: false,
+									cellsformat : 'c2',
 									width : '15%'
 								},
 								{
@@ -600,6 +497,7 @@ function loadAddQuotationGrid() {
 									datafield : 'nonamePercent',
 									align : 'center',
 									cellsalign : 'right',
+									cellsformat : 'p2',
 									width : '15%'
 								},
 								{
@@ -619,10 +517,10 @@ function loadAddQuotationGrid() {
 								},
 								{
 									text : 'Qty',
-									datafield : 'qtyManual',
+									datafield : 'quantity',
 									align : 'center',
 									cellsalign : 'right',
-									cellsformat : 'c0',
+									cellsformat : 'n',
 									width : '15%'
 								},								
 								{
@@ -630,7 +528,7 @@ function loadAddQuotationGrid() {
 									datafield : 'labour',
 									align : 'center',
 									cellsalign : 'right',
-									// cellsformat : 'c0',
+									cellsformat : 'c2',
 									editable: false,
 									width : '15%'
 								},
@@ -639,7 +537,7 @@ function loadAddQuotationGrid() {
 									datafield : 'mat_w_o_Tax_USD',
 									align : 'center',
 									cellsalign : 'right',
-									// cellsformat : 'c0',
+									cellsformat : 'c2',
 									editable: false,
 									width : '15%'
 								},
@@ -648,16 +546,16 @@ function loadAddQuotationGrid() {
 									datafield : 'mat_w_o_Tax_VND',
 									align : 'center',
 									cellsalign : 'right',
-									// cellsformat : 'c0',
+									cellsformat : 'c2',
 									editable: false,
 									width : '15%'
 								},
 								{
-									text : 'Labour 2',
+									text : 'Labour (database)',
 									datafield : 'labourProduct',
 									align : 'center',
 									cellsalign : 'right',
-									// cellsformat : 'c0',
+									cellsformat : 'c2',
 									editable: false,
 									width : '15%'
 								},								
@@ -666,7 +564,7 @@ function loadAddQuotationGrid() {
 									datafield : 'imp_Tax',
 									align : 'center',
 									cellsalign : 'right',
-									// cellsformat : 'c0',
+									cellsformat : 'p2',
 									editable: false,
 									width : '15%'
 								},
@@ -675,7 +573,7 @@ function loadAddQuotationGrid() {
 									datafield : 'special_Con_Tax',
 									align : 'center',
 									cellsalign : 'right',
-									// cellsformat : 'c0',
+									cellsformat : 'p2',
 									editable: false,
 									width : '15%'
 								},
@@ -684,7 +582,7 @@ function loadAddQuotationGrid() {
 									datafield : 'vat',
 									align : 'center',
 									cellsalign : 'right',
-									// cellsformat : 'c0',
+									cellsformat : 'p2',
 									editable: false,
 									width : '15%'
 								},
@@ -693,7 +591,7 @@ function loadAddQuotationGrid() {
 									datafield : 'discount_rate',
 									align : 'center',
 									cellsalign : 'right',
-									// cellsformat : 'c0',
+									cellsformat : 'p',
 									editable: false,
 									width : '15%'
 								},
@@ -702,7 +600,7 @@ function loadAddQuotationGrid() {
 									datafield : 'unit_Price_After_Discount',
 									align : 'center',
 									cellsalign : 'right',
-									// cellsformat : 'c0',
+									cellsformat : 'c0',
 									editable: false,
 									width : '15%'
 								},
@@ -711,7 +609,7 @@ function loadAddQuotationGrid() {
 									datafield : 'allowance',
 									align : 'center',
 									cellsalign : 'right',
-									// cellsformat : 'c0',
+									cellsformat : 'p2',
 									editable: false,
 									width : '15%'
 								},
@@ -720,16 +618,16 @@ function loadAddQuotationGrid() {
 									datafield : 'unit_Price_W_Tax_Profit',
 									align : 'center',
 									cellsalign : 'right',
-									// cellsformat : 'c0',
+									cellsformat : 'c2',
 									editable: false,
 									width : '15%'
 								},
 								{
 									text : 'Subcon profit',
-									datafield : 'subConProfit',
+									datafield : 'subcon_Profit',
 									align : 'center',
 									cellsalign : 'right',
-									// cellsformat : 'c0',
+									cellsformat : 'p2',
 									editable: false,
 									width : '15%'
 								},
@@ -738,7 +636,7 @@ function loadAddQuotationGrid() {
 									datafield : 'unit_Price_W_Tax_Labour',
 									align : 'center',
 									cellsalign : 'right',
-									// cellsformat : 'c0',
+									cellsformat : 'c2',
 									editable: false,
 									width : '15%'
 								},
@@ -747,7 +645,7 @@ function loadAddQuotationGrid() {
 									datafield : 'cost_Mat_Amount_USD',
 									align : 'center',
 									cellsalign : 'right',
-									// cellsformat : 'c0',
+									cellsformat : 'c2',
 									editable: false,
 									width : '10%'
 								},
@@ -756,7 +654,7 @@ function loadAddQuotationGrid() {
 									datafield : 'cost_Labour_Amount_USD',
 									align : 'center',
 									cellsalign : 'right',
-									// cellsformat : 'c0',
+									cellsformat : 'c2',
 									editable: false,
 									width : '10%'
 								},
@@ -888,7 +786,14 @@ function showResultGrid(regionId) {
 			name : 'nonameRange',
 			type : 'string'
 
-		} 
+		} , {
+			name : 'unit',
+			map : 'product>unit'
+
+		}, {
+			name: 'labourProduct',
+			map: 'product>labour'
+		}
 		],
 	    sortcolumn: 'order',
 	    sortdirection: 'asc',
@@ -936,17 +841,21 @@ function showResultGrid(regionId) {
 			.jqxGrid(
 					{
 						width : '100%',
-						height : 300,
+						height : '100%',
 						theme : 'energyblue',
-						//rowsheight : 45,
+						rowsheight : 45,
 						source : dataAdapter,
 						filterable : true,
 						editable : true,
 						groupable : true,
-						groupsrenderer : groupsrenderer,
+					//	groupsrenderer : groupsrenderer,
 						pageable : true,
 						columnsresize : true,
-						autorowheight: true,
+						//autorowheight: true,
+						showstatusbar: true,
+						statusbarheight: 45,
+						altrows: true,						
+						showaggregates: true,
 						columns : [
 								{
 									text : 'Region',
@@ -956,85 +865,36 @@ function showResultGrid(regionId) {
 									width : '15%'
 								},
 								{
-									text : 'Search by Name',
-									datafield : 'productName',
-									align : 'center',
-									cellsalign : 'right',
-									// cellsformat : 'c0',
-									width : '15%',
-									columntype : 'combobox',
-									createeditor : function(row, column, editor) {
-										// assign a new data source to the combobox.
-										editor.jqxComboBox({
-											autoDropDownHeight : true,
-											source : dataAdapterProducts,
-											displayMember : "productName",
-											valueMember : "productID",
-											promptText : "Please Choose:"
-										});
-
-									},
-									geteditorvalue : function(row, cellvalue,
-											editor) {
-										// return the editor's value.
-										var item = editor
-												.jqxComboBox('getSelectedItem');
-										if (item) {
-											return item.label;
-										}
-									}
-								},
-								{
-									text : 'Search by Code',
-									datafield : 'productCode',
-									align : 'center',
-									cellsalign : 'right',
-									// cellsformat : 'c0',
-									width : '15%',
-									columntype : 'combobox',
-									createeditor : function(row, column, editor) {
-										// assign a new data source to the combobox.
-										editor.jqxComboBox({
-											autoDropDownHeight : true,
-											source : dataAdapterProducts,
-											displayMember : "productCode",
-											valueMember : "productID",
-											promptText : "Please Choose:"
-										});
-									},
-									geteditorvalue : function(row, cellvalue,
-											editor) {
-										// return the editor's value.
-										var item = editor
-												.jqxComboBox('getSelectedItem');
-										if (item) {
-											return item.label;
-										}
-									}
-
-								},
-								{
 									text : 'No',
 									datafield : 'order',
 									align : 'center',
 									cellsalign : 'right',
-									//cellsformat : 'c0',
+									cellsformat : 'n',
 									width : '15%'
 								},
+						        {
+									text : 'Description',
+									datafield : 'productName',
+									align : 'center',
+									cellsalign : 'right',
+									editable: false,
+									width : '15%'
+								},								
 								{
 									text : 'Unit',
 									datafield : 'unit',
 									align : 'center',
 									cellsalign : 'right',
-									// cellsformat : 'c0',
+									editable: false,
 									width : '15%'
 								},
 								{
 									text : 'Quantity',
-									datafield : 'quantity',
+									datafield : 'actualQuantity',
 									align : 'center',
 									cellsalign : 'right',
-									// cellsformat : 'c0',
+									editable: false,
+									cellsformat : 'n',
 									width : '15%'
 								},
 								{
@@ -1042,7 +902,8 @@ function showResultGrid(regionId) {
 									datafield : 'unitRate',
 									align : 'center',
 									cellsalign : 'right',
-									// cellsformat : 'c0',
+									editable: false,
+									cellsformat : 'c2',
 									width : '15%'
 								},
 								{
@@ -1050,14 +911,17 @@ function showResultGrid(regionId) {
 									datafield : 'amount',
 									align : 'center',
 									cellsalign : 'right',
-									// cellsformat : 'c0',
-									width : '15%'
+									editable: false,
+									cellsformat : 'c2',
+									width : '15%',
+									aggregates: ['sum']
 								},
 								{
 									text : 'Percent',
 									datafield : 'nonamePercent',
 									align : 'center',
 									cellsalign : 'right',
+									cellsformat : 'p2',
 									width : '15%'
 								},
 								{
@@ -1066,7 +930,7 @@ function showResultGrid(regionId) {
 									align : 'center',
 									cellsalign : 'right',
 									width : '15%'
-								},									
+								},								
 								{
 									text : 'Remark',
 									datafield : 'remark',
@@ -1076,11 +940,20 @@ function showResultGrid(regionId) {
 									width : '15%'
 								},
 								{
+									text : 'Qty',
+									datafield : 'quantity',
+									align : 'center',
+									cellsalign : 'right',
+									cellsformat : 'n',
+									width : '15%'
+								},								
+								{
 									text : 'Labour',
 									datafield : 'labour',
 									align : 'center',
 									cellsalign : 'right',
-									// cellsformat : 'c0',
+									cellsformat : 'c2',
+									editable: false,
 									width : '15%'
 								},
 								{
@@ -1088,7 +961,8 @@ function showResultGrid(regionId) {
 									datafield : 'mat_w_o_Tax_USD',
 									align : 'center',
 									cellsalign : 'right',
-									// cellsformat : 'c0',
+									cellsformat : 'c2',
+									editable: false,
 									width : '15%'
 								},
 								{
@@ -1096,15 +970,26 @@ function showResultGrid(regionId) {
 									datafield : 'mat_w_o_Tax_VND',
 									align : 'center',
 									cellsalign : 'right',
-									// cellsformat : 'c0',
+									cellsformat : 'c2',
+									editable: false,
 									width : '15%'
 								},
+								{
+									text : 'Labour (database)',
+									datafield : 'labourProduct',
+									align : 'center',
+									cellsalign : 'right',
+									cellsformat : 'c2',
+									editable: false,
+									width : '15%'
+								},								
 								{
 									text : 'Imp Tax',
 									datafield : 'imp_Tax',
 									align : 'center',
 									cellsalign : 'right',
-									// cellsformat : 'c0',
+									cellsformat : 'p2',
+									editable: false,
 									width : '15%'
 								},
 								{
@@ -1112,7 +997,8 @@ function showResultGrid(regionId) {
 									datafield : 'special_Con_Tax',
 									align : 'center',
 									cellsalign : 'right',
-									// cellsformat : 'c0',
+									cellsformat : 'p2',
+									editable: false,
 									width : '15%'
 								},
 								{
@@ -1120,7 +1006,8 @@ function showResultGrid(regionId) {
 									datafield : 'vat',
 									align : 'center',
 									cellsalign : 'right',
-									// cellsformat : 'c0',
+									cellsformat : 'p2',
+									editable: false,
 									width : '15%'
 								},
 								{
@@ -1128,7 +1015,8 @@ function showResultGrid(regionId) {
 									datafield : 'discount_rate',
 									align : 'center',
 									cellsalign : 'right',
-									// cellsformat : 'c0',
+									cellsformat : 'p2',
+									editable: false,
 									width : '15%'
 								},
 								{
@@ -1136,7 +1024,8 @@ function showResultGrid(regionId) {
 									datafield : 'unit_Price_After_Discount',
 									align : 'center',
 									cellsalign : 'right',
-									// cellsformat : 'c0',
+									cellsformat : 'p2',
+									editable: false,
 									width : '15%'
 								},
 								{
@@ -1144,7 +1033,8 @@ function showResultGrid(regionId) {
 									datafield : 'allowance',
 									align : 'center',
 									cellsalign : 'right',
-									// cellsformat : 'c0',
+									cellsformat : 'p2',
+									editable: false,
 									width : '15%'
 								},
 								{
@@ -1152,7 +1042,8 @@ function showResultGrid(regionId) {
 									datafield : 'unit_Price_W_Tax_Profit',
 									align : 'center',
 									cellsalign : 'right',
-									// cellsformat : 'c0',
+									cellsformat : 'c2',
+									editable: false,
 									width : '15%'
 								},
 								{
@@ -1160,7 +1051,8 @@ function showResultGrid(regionId) {
 									datafield : 'subcon_Profit',
 									align : 'center',
 									cellsalign : 'right',
-									// cellsformat : 'c0',
+									cellsformat : 'p2',
+									editable: false,
 									width : '15%'
 								},
 								{
@@ -1169,6 +1061,7 @@ function showResultGrid(regionId) {
 									align : 'center',
 									cellsalign : 'right',
 									// cellsformat : 'c0',
+									editable: false,
 									width : '15%'
 								},
 								{
@@ -1177,6 +1070,7 @@ function showResultGrid(regionId) {
 									align : 'center',
 									cellsalign : 'right',
 									// cellsformat : 'c0',
+									editable: false,
 									width : '10%'
 								},
 								{
@@ -1184,7 +1078,8 @@ function showResultGrid(regionId) {
 									datafield : 'cost_Labour_Amount_USD',
 									align : 'center',
 									cellsalign : 'right',
-									// cellsformat : 'c0',
+									cellsformat : 'c2',
+									editable: false,
 									width : '10%'
 								},
 								{
@@ -1228,7 +1123,7 @@ function setDefaultCellValues(){
 	$("#list").jqxGrid('setcellvalue', 0, "vat", vat);
 	$("#list").jqxGrid('setcellvalue', 0, "discount_rate", discountRate);
 	$("#list").jqxGrid('setcellvalue', 0, "allowance", allowance);
-	$("#list").jqxGrid('setcellvalue', 0, "subConProfit", subConProfit);
+	$("#list").jqxGrid('setcellvalue', 0, "subcon_Profit", subcon_Profit);
 }
 function updateQuantity(qtyManual){
 	//Q'ty = Q'ty(nhập) * hao hut% bênsheet Summary(Q'ty sub-main, E-Q'ty other ,M-Q'ty)
@@ -1254,7 +1149,7 @@ function updateQuantity(qtyManual){
 	}
 	var result = (qtyManual * indicator)/100;
 	//update quantity field.
-	$("#list").jqxGrid('setcellvalue', 0, "quantity", result);
+	$("#list").jqxGrid('setcellvalue', 0, "actualQuantity", result);
 	updatePriceAfterDiscount();
 }
 function updatePriceAfterDiscount(){
@@ -1291,15 +1186,15 @@ function updateUnitPriceWTaxProfit() {
 function updateUnitPriceWTaxLabour(){
 // Unit price w Tax - labour =cot 13 * cot 21 
 	var labour = $("#list").jqxGrid('getcellvalue', 0, "labourProduct"); //cot 13
-	var subConProfit = $("#list").jqxGrid('getcellvalue', 0, "subConProfit") /100;//cot 21
-	var result = labour * subConProfit;
+	var subcon_Profit = $("#list").jqxGrid('getcellvalue', 0, "subcon_Profit") /100;//cot 21
+	var result = labour * subcon_Profit;
 	$("#list").jqxGrid('setcellvalue', 0, "unit_Price_W_Tax_Labour", result);
 	updateCostMatAmountUsd();
 }
 function updateCostMatAmountUsd(){
 // Cost - Mat amount USD =cot 18* cot 9 
 	var unit_Price_After_Discount = $("#list").jqxGrid('getcellvalue', 0, "unit_Price_After_Discount"); //cot 18 
-	var qtyManual = $("#list").jqxGrid('getcellvalue', 0, "qtyManual"); //cot 9
+	var qtyManual = $("#list").jqxGrid('getcellvalue', 0, "quantity"); //cot 9
 	var result = unit_Price_After_Discount * qtyManual;
 	$("#list").jqxGrid('setcellvalue', 0, "cost_Mat_Amount_USD", result);
 	updateCostMatAmountVnd();
@@ -1307,7 +1202,7 @@ function updateCostMatAmountUsd(){
 function updateCostMatAmountVnd(){
 // Cost - Labour amount USD =cot 22* cot 9
 	var unit_Price_W_Tax_Labour = $("#list").jqxGrid('getcellvalue', 0, "unit_Price_W_Tax_Labour"); //cot 22
-	var qtyManual = $("#list").jqxGrid('getcellvalue', 0, "qtyManual"); //cot 9
+	var qtyManual = $("#list").jqxGrid('getcellvalue', 0, "quantity"); //cot 9
 	var result = unit_Price_W_Tax_Labour * qtyManual;
 	$("#list").jqxGrid('setcellvalue', 0, "cost_Labour_Amount_USD", result);
 	updateLabour();
@@ -1315,14 +1210,14 @@ function updateCostMatAmountVnd(){
 function updateLabour(){
 //labour sau thue = cot 5 * cot 22
 	var unit_Price_W_Tax_Labour = $("#list").jqxGrid('getcellvalue', 0, "unit_Price_W_Tax_Labour"); //cot 22
-	var quantity = $("#list").jqxGrid('getcellvalue', 0, "quantity"); //cot 5
+	var quantity = $("#list").jqxGrid('getcellvalue', 0, "actualQuantity"); //cot 5
 	var result = unit_Price_W_Tax_Labour * quantity;
 	$("#list").jqxGrid('setcellvalue', 0, "labour", result);
 	updateAmount();
 }
 function updateAmount(){
 	//assume that amout = qty * unitRate
-	var quantity = $("#list").jqxGrid('getcellvalue', 0, "quantity"); //cot 5
+	var quantity = $("#list").jqxGrid('getcellvalue', 0, "actualQuantity"); //cot 5
 	var unitRate = $("#list").jqxGrid('getcellvalue', 0, "unitRate");
 	var result = quantity * unitRate;
 	$("#list").jqxGrid('setcellvalue', 0, "amount", result);

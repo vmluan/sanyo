@@ -87,5 +87,12 @@ public class Utilities {
 		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		return user;
 	}
+	public static boolean isValidInputNumber(String input){
+		if(input != null && !input.trim().equalsIgnoreCase(""))
+			return true;
+		else
+			return false;
+			
+	}
 
 }

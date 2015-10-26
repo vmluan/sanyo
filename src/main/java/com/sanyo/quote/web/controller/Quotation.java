@@ -1,6 +1,7 @@
 package com.sanyo.quote.web.controller;
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -151,59 +152,63 @@ public class Quotation {
 	}
 	private void saveEncounter(EncounterJson encounterJson){
 		Encounter encounter;
-		if(encounterJson.getEncounterID() != null){
+		if(encounterJson.getEncounterID() != null && encounterJson.getEncounterID() >0){
 			encounter = encounterService.findById(encounterJson.getEncounterID());
+		}else{
+			encounter = new Encounter();
+			Product product = productService.findById(Integer.valueOf(encounterJson.getProductId()));
+			encounter.setProduct(product); //set product
+			Region region = regionService.findById(Integer.valueOf(encounterJson.getRegionId()));
+			encounter.setRegion(region);
 		}
-		encounter = new Encounter();
-		if(encounterJson.getActualQuantity() != null)
+		if(Utilities.isValidInputNumber(encounterJson.getActualQuantity()))
 			encounter.setActualQuantity(Float.valueOf(encounterJson.getActualQuantity()));
-		if (encounterJson.getAllowance() != null)
+		if (Utilities.isValidInputNumber(encounterJson.getAllowance()))
 			encounter.setAllowance(Float.valueOf(encounterJson.getAllowance()));
-		if (encounterJson.getAmount() != null)
+		if (Utilities.isValidInputNumber(encounterJson.getAmount()))
 			encounter.setAmount(Float.valueOf(encounterJson.getAmount()));
-		if(encounterJson.getCost_Labour_Amount_USD() != null)
+		if(Utilities.isValidInputNumber(encounterJson.getCost_Labour_Amount_USD()))
 			encounter.setCost_Labour_Amount_USD(Float.valueOf(encounterJson.getCost_Labour_Amount_USD()));
-		if (encounterJson.getCost_Mat_Amount_USD() != null)
+		if (Utilities.isValidInputNumber(encounterJson.getCost_Mat_Amount_USD()))
 			encounter.setCost_Mat_Amount_USD(Float.valueOf(encounterJson.getCost_Mat_Amount_USD()));
-		if (encounterJson.getDiscount_rate() != null) 
+		if (Utilities.isValidInputNumber(encounterJson.getDiscount_rate())) 
 			encounter.setDiscount_rate(Float.valueOf(encounterJson.getDiscount_rate()));
 		encounter.setEncounterTime(new Date());
-		if(encounterJson.getImp_Tax() != null)
+		if(Utilities.isValidInputNumber(encounterJson.getImp_Tax()))
 			encounter.setImp_Tax(Float.valueOf(encounterJson.getImp_Tax()));
-		if (encounterJson.getLabour() != null) 
+		if (Utilities.isValidInputNumber(encounterJson.getLabour())) 
 			encounter.setLabour(Float.valueOf(encounterJson.getLabour()));
-		if(encounterJson.getMat_w_o_Tax_USD() != null) 
+		if(Utilities.isValidInputNumber(encounterJson.getMat_w_o_Tax_USD())) 
 			encounter.setMat_w_o_Tax_USD(Float.valueOf(encounterJson.getMat_w_o_Tax_USD()));
-		if (encounterJson.getMat_w_o_Tax_VND() != null) 
+		if (Utilities.isValidInputNumber(encounterJson.getMat_w_o_Tax_VND())) 
 			encounter.setMat_w_o_Tax_VND(Float.valueOf(encounterJson.getMat_w_o_Tax_VND()));
-		
 		encounter.setOrder(Integer.valueOf(encounterJson.getOrder()));
 		
-		Product product = productService.findById(Integer.valueOf(encounterJson.getProductId()));
-		Region region = regionService.findById(Integer.valueOf(encounterJson.getRegionId()));
-		encounter.setProduct(product); //set product
-		if(encounterJson.getQuantity() !=null)
+		
+		
+		
+		if(Utilities.isValidInputNumber(encounterJson.getQuantity()))
 			encounter.setQuantity(Float.valueOf(encounterJson.getQuantity()));
-		encounter.setRegion(region);
+		
 		encounter.setRemark(encounterJson.getRemark());
-		if(encounterJson.getSpecial_Con_Tax() != null)
+		if(Utilities.isValidInputNumber(encounterJson.getSpecial_Con_Tax()))
 			encounter.setSpecial_Con_Tax(Float.valueOf(encounterJson.getSpecial_Con_Tax()));
 		encounter.setStatus(EncounterStatus.PROCESSING);
-		if(encounterJson.getSubcon_Profit() != null)
+		if(Utilities.isValidInputNumber(encounterJson.getSubcon_Profit()))
 			encounter.setSubcon_Profit(Float.valueOf(encounterJson.getSubcon_Profit()));
-		if(encounterJson.getUnit_Price_After_Discount() != null)
+		if(Utilities.isValidInputNumber(encounterJson.getUnit_Price_After_Discount()))
 			encounter.setUnit_Price_After_Discount(Float.valueOf(encounterJson.getUnit_Price_After_Discount()));
-		if(encounterJson.getUnit_Price_W_Tax_Labour() != null)
+		if(Utilities.isValidInputNumber(encounterJson.getUnit_Price_W_Tax_Labour()))
 			encounter.setUnit_Price_W_Tax_Labour(Float.valueOf(encounterJson.getUnit_Price_W_Tax_Labour()));
-		if(encounterJson.getUnit_Price_W_Tax_Profit() != null)
+		if(Utilities.isValidInputNumber(encounterJson.getUnit_Price_W_Tax_Profit()))
 			encounter.setUnit_Price_W_Tax_Profit(Float.valueOf(encounterJson.getUnit_Price_W_Tax_Profit()));
-		if(encounterJson.getUnitRate() != null)
+		if(Utilities.isValidInputNumber(encounterJson.getUnitRate()))
 			encounter.setUnitRate(Float.valueOf(encounterJson.getUnitRate()));
-		if(encounterJson.getVat() != null)
+		if(Utilities.isValidInputNumber(encounterJson.getVat()))
 			encounter.setVAT(Float.valueOf(encounterJson.getVat()));
-		if(encounterJson.getLabourAfterTax() != null)
+		if(Utilities.isValidInputNumber(encounterJson.getLabourAfterTax()))
 			encounter.setLabourAfterTax(Float.valueOf(encounterJson.getLabourAfterTax()));
-		if(encounterJson.getNonamePercent() != null)
+		if(Utilities.isValidInputNumber(encounterJson.getNonamePercent()))
 			encounter.setNonamePercent(Float.valueOf(encounterJson.getNonamePercent()));
 		if(encounterJson.getNonameRange() != null)
 			encounter.setNonameRange(encounterJson.getNonameRange());
@@ -240,5 +245,30 @@ public class Quotation {
     public void deleteEncounter(@PathVariable("id") String id, Model uiModel, HttpServletRequest httpServletRequest) {
 		encounterService.delete(Integer.valueOf(id));
        
+	}
+	@RequestMapping(value = "/{id}/getLocationSum", method = RequestMethod.POST)
+	@ResponseBody
+	public String getLocationSum(@PathVariable("id") Integer id, Model uiModel, HttpServletRequest httpServletRequest){
+		Float total = 0f;
+		Location location = locationService.findByIdAndFetchRegionsEagerly(id);
+		if(location != null){
+			Set<Region> regions = location.getRegions();
+			Iterator<Region> iterator = regions.iterator();
+			while(iterator.hasNext()){
+				Region region = iterator.next();
+				Region region2 = regionService.findByIdAndFetchEncountersEagerly(region.getRegionId());
+				if(region2 != null){
+					Set<Encounter> encounters = region2.getEncounters();
+					Iterator<Encounter> iter2 = encounters.iterator();
+					
+					while(iter2.hasNext()){
+						Encounter encounter = iter2.next();
+						total += encounter.getAmount();
+					}
+				}
+
+			}
+		}
+	return total.toString();
 	}
 }

@@ -15,6 +15,8 @@ public interface LocationService {
 	
 	Location save(Location Location);
 	
-	Page<Location> findAllByPage(Pageable pageable);	
+	Page<Location> findAllByPage(Pageable pageable);
+	
+	Location findByIdAndFetchRegionsEagerly(Integer id);
 	
 }
