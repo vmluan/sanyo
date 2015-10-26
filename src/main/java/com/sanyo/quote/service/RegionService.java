@@ -4,8 +4,11 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 
+import com.sanyo.quote.domain.Encounter;
 import com.sanyo.quote.domain.Region;
+import com.sanyo.quote.domain.UserRegionRole;
 
 public interface RegionService {
 
@@ -21,4 +24,7 @@ public interface RegionService {
 	Region findByIdAndFetchUserRegionRolesEagerly(Integer id);
 	
 	Region findByIdAndFetchEncountersEagerly(Integer id);
+	
+	List<Encounter> getEncounters(Integer id);
+	List<UserRegionRole> getUserRegionRoles( Integer id);
 }

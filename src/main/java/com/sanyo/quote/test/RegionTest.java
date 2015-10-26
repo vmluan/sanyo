@@ -9,18 +9,20 @@ package com.sanyo.quote.test;
 
 import java.text.ParseException;
 import java.util.HashSet;
-import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.context.support.GenericXmlApplicationContext;
 
+import com.sanyo.quote.domain.Encounter;
+import com.sanyo.quote.domain.Location;
 import com.sanyo.quote.domain.Project;
 import com.sanyo.quote.domain.Region;
-import com.sanyo.quote.domain.User;
-import com.sanyo.quote.domain.UserRegionRole;
 import com.sanyo.quote.helper.Utilities;
 import com.sanyo.quote.service.CategoryService;
+import com.sanyo.quote.service.EncounterService;
 import com.sanyo.quote.service.GroupService;
+import com.sanyo.quote.service.LocationService;
 import com.sanyo.quote.service.ProductService;
 import com.sanyo.quote.service.ProjectService;
 import com.sanyo.quote.service.RegionService;
@@ -32,9 +34,10 @@ public class RegionTest {
 	/**
 	 * @param args
 	 * @throws ParseException 
+	 * @throws CloneNotSupportedException 
 	 */
 	
-	public static void main(String[] args) throws ParseException {
+	public static void main(String[] args) throws ParseException, CloneNotSupportedException {
 
 		GenericXmlApplicationContext ctx = new GenericXmlApplicationContext();
 		ctx.load("classpath:jpa-app-context.xml");
@@ -47,6 +50,8 @@ public class RegionTest {
 		GroupService groupService = ctx.getBean("groupService", GroupService.class);
 		UserService userService = ctx.getBean("userService", UserService.class);
 		RegionService regionService = ctx.getBean("regionService", RegionService.class);
+		EncounterService encounterService = ctx.getBean("encounterService", EncounterService.class);
+		LocationService locationService = ctx.getBean("locationService", LocationService.class);
 //
 		
 		ContactServiceTest test = new ContactServiceTest();
@@ -79,18 +84,18 @@ public class RegionTest {
 //				System.out.println(userRegionRole.getRoleName());
 //			}
 //		}
-		Region region = regionService.findByIdAndFetchUserRegionRolesEagerly(5);
-		Set<UserRegionRole> userRegionRoles = region.getUserRegionRoles();
-		Iterator<UserRegionRole> iterator2 = userRegionRoles.iterator();
-		while(iterator2.hasNext()){
-			UserRegionRole userRegionRole = iterator2.next();
-			System.out.println(userRegionRole.getUserName());
+		Location location = locationService.findByIdAndFetchRegionsEagerly(1);
+		Location location2 = locationService.findById(2);
+		List<Region> regions = Utilities.cloneRegions(location.getRegions());
+		for(Region region : regions){
+			region.setLocation(location2);
+			Set<Encounter> encounters = region.getEncounters();
+			region = regionService.save(region);
+			for(Encounter encounter : encounters){
+				encounterService.save(encounter);
+			}
+			
 		}
-		
-		//we got final set of regions here. Next is to get set of userRegionRole.
-		
-		
-		
 		
 	}
 

@@ -74,9 +74,12 @@ public class Location implements java.io.Serializable, Cloneable {
 		this.regions = regions;
 	}
 	@Override
-	protected Object clone() throws CloneNotSupportedException {
-		// TODO Auto-generated method stub
-		return super.clone();
+	public Location clone() throws CloneNotSupportedException {
+		Location clonedLocation = (Location) super.clone();
+		clonedLocation.setProject(null);
+		clonedLocation.setLocationId(0);
+		
+		return clonedLocation;
 	}
 	
 }

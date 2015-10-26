@@ -16,7 +16,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "encounter", catalog = "sanyo")
-public class Encounter implements Serializable{
+public class Encounter implements Serializable, Cloneable{
 	private Integer encounterID;
 	private Product product; //"Description", "productCode", "Unit" will be showed on the UI from
 	private int order; //No. STT dung de sap xep cac hang muc
@@ -298,5 +298,12 @@ public class Encounter implements Serializable{
 //	public void setLocation(Location location) {
 //		this.location = location;
 //	}
+	@Override
+	public Encounter clone() throws CloneNotSupportedException {
+		Encounter clonedEncounter = (Encounter) super.clone();
+		clonedEncounter.setEncounterID(null);
+		clonedEncounter.setRegion(null);
+		return clonedEncounter;
+	}
 	
 }

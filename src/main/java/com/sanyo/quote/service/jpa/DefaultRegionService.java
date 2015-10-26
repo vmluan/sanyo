@@ -12,7 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.collect.Lists;
 import com.sanyo.quote.domain.Category;
+import com.sanyo.quote.domain.Encounter;
 import com.sanyo.quote.domain.Region;
+import com.sanyo.quote.domain.UserRegionRole;
 import com.sanyo.quote.repository.CategoryRepository;
 import com.sanyo.quote.repository.RegionRepository;
 import com.sanyo.quote.service.CategoryService;
@@ -60,6 +62,16 @@ public class DefaultRegionService implements RegionService {
 	public Region findByIdAndFetchEncountersEagerly(Integer id) {
 		// TODO Auto-generated method stub
 		return regionRepository.findByIdAndFetchEncountersEagerly(id);
+	}
+
+	@Override
+	public List<Encounter> getEncounters(Integer id) {
+		return regionRepository.getEncounters(id);
+	}
+
+	@Override
+	public List<UserRegionRole> getUserRegionRoles(Integer id) {
+		return regionRepository.getUserRegionRoles(id);
 	}
 	
 	

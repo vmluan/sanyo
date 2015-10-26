@@ -11,22 +11,35 @@ package com.sanyo.quote.helper;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 
 import com.ibm.icu.util.Calendar;
+import com.sanyo.quote.domain.Encounter;
 import com.sanyo.quote.domain.Location;
 import com.sanyo.quote.domain.Region;
+import com.sanyo.quote.service.EncounterService;
+import com.sanyo.quote.service.RegionService;
 
 public class Utilities {
+	
+	@Autowired
+	private static RegionService regionService;
+	
+	@Autowired
+	private static EncounterService encounterService;
 	
 	public static final String datePattern = "dd/MM/yyyy";
 	
@@ -98,7 +111,7 @@ public class Utilities {
 			return false;
 			
 	}
-	public List<Location> cloneLocations(List<Location> locations) throws CloneNotSupportedException{
+	public static List<Location> cloneLocations(List<Location> locations) throws CloneNotSupportedException{
 		List<Location> clonedLocations = new ArrayList<Location>();
 		for(Location location : locations){
 			Location clonedLocation = (Location) location.clone();
@@ -106,10 +119,32 @@ public class Utilities {
 		}
 		return clonedLocations;
 	}
-	public List<Region> cloneRegions(List<Region> regions){
-		List<Region> clonedRegion = new ArrayList<Region>();
-		
-		return clonedRegion;
+	public static List<Region> cloneRegions(Collection<Region> regions) throws CloneNotSupportedException{
+		List<Region> clonedRegions = new ArrayList<Region>();
+		for(Region region: regions){
+			Region clonedRegion = region.clone();
+			
+			Set<Encounter> encounters = region.getEncounters();
+			if(encounters.size() >0){
+				Set<Encounter> clonedEncounters = cloneEncounters(encounters);
+				for(Encounter en : clonedEncounters){
+					en.setRegion(clonedRegion);
+//					en = encounterService.save(en);
+				}
+				clonedRegion.setEncounters(clonedEncounters);
+				
+			}
+			clonedRegions.add(clonedRegion);
+		}
+		return clonedRegions;
+	}
+	public static Set<Encounter> cloneEncounters(Collection<Encounter> encounters) throws CloneNotSupportedException{
+		Set<Encounter> clonedEncounters = new HashSet<Encounter>();
+		for(Encounter encounter: encounters){
+			Encounter clonedEncounter = encounter.clone();
+			clonedEncounters.add(clonedEncounter);
+		}
+		return clonedEncounters;
 	}
 
 }

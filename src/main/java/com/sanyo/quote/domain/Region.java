@@ -135,7 +135,14 @@ public class Region implements java.io.Serializable, Cloneable{
 //	public void setProductGroupMakers(Set<ProductGroupMaker> productGroupMakers) {
 //		this.productGroupMakers = productGroupMakers;
 //	}
-	
+	@Override
+	public Region clone() throws CloneNotSupportedException {
+		// TODO Auto-generated method stub
+		Region clonedRegion = (Region) super.clone();
+		clonedRegion.setLocation(null);
+		clonedRegion.setRegionId(0);
+		return clonedRegion;
+	}
 	
 	
 }
