@@ -10,7 +10,9 @@ package com.sanyo.quote.helper;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,6 +23,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 
 import com.ibm.icu.util.Calendar;
+import com.sanyo.quote.domain.Location;
+import com.sanyo.quote.domain.Region;
 
 public class Utilities {
 	
@@ -93,6 +97,19 @@ public class Utilities {
 		else
 			return false;
 			
+	}
+	public List<Location> cloneLocations(List<Location> locations) throws CloneNotSupportedException{
+		List<Location> clonedLocations = new ArrayList<Location>();
+		for(Location location : locations){
+			Location clonedLocation = (Location) location.clone();
+			clonedLocations.add(clonedLocation);
+		}
+		return clonedLocations;
+	}
+	public List<Region> cloneRegions(List<Region> regions){
+		List<Region> clonedRegion = new ArrayList<Region>();
+		
+		return clonedRegion;
 	}
 
 }

@@ -20,7 +20,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "location", catalog = "sanyo")
-public class Location {
+public class Location implements java.io.Serializable, Cloneable {
 	private Integer locationId;
 	private String locationName;
 	private String locationDesc;
@@ -72,6 +72,11 @@ public class Location {
 
 	public void setRegions(Set<Region> regions) {
 		this.regions = regions;
+	}
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		// TODO Auto-generated method stub
+		return super.clone();
 	}
 	
 }

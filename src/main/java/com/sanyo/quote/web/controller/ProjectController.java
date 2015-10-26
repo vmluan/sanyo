@@ -1,5 +1,6 @@
 package com.sanyo.quote.web.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -37,6 +38,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sanyo.quote.domain.Category;
+import com.sanyo.quote.domain.Expenses;
 import com.sanyo.quote.domain.Location;
 import com.sanyo.quote.domain.ProductGroup;
 import com.sanyo.quote.domain.ProductGroupMaker;
@@ -652,6 +654,19 @@ public class ProjectController extends CommonController {
 		String result = Utilities.jSonSerialization(productGroups);
 		return result;
 	}
-	
+	@RequestMapping(value = "/{id}", params = "clone", method = RequestMethod.GET)
+	@ResponseStatus(value = HttpStatus.OK)
+	public void cloneProject(@PathVariable("id") Integer id, Model uiModel
+			,HttpServletRequest httpServletRequest) throws CloneNotSupportedException{
+		Project project = projectService.findById(id);
+		Project clonedProject = (Project) project.clone();
+		List<Location> locations = projectService.findLocations(id);
+		List<ProductGroupMaker> productGroupMakers = projectService.findProductGroupMakers(id);
+		List<Expenses> expenses = projectService.findExpenses(id);
+		
+		List<Location> clonedLocations = new ArrayList<Location>();
+		List<ProductGroupMaker> clonedProductGroupMakers = new ArrayList<ProductGroupMaker>();
+		List<Expenses> clonedExpenses = new ArrayList<Expenses>();
+	}
 }
 

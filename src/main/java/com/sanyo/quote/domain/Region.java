@@ -24,7 +24,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
  */
 @Entity
 @Table(name = "region", catalog = "sanyo")
-public class Region implements java.io.Serializable{
+public class Region implements java.io.Serializable, Cloneable{
 	private Integer regionId;
 	private String regionName;
 	private String regionDesc;

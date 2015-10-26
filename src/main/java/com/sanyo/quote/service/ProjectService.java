@@ -6,6 +6,9 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import com.sanyo.quote.domain.Expenses;
+import com.sanyo.quote.domain.Location;
+import com.sanyo.quote.domain.ProductGroupMaker;
 import com.sanyo.quote.domain.Project;
 import com.sanyo.quote.domain.ProjectStatus;
 
@@ -29,5 +32,13 @@ public interface ProjectService {
 	Project findByIdAndFetchLocationsEagerly(Integer id);
 	
 	Project findByIdAndFetchMakers(Integer id);
+	
+	List<Project> findProjectsWithStatus(ProjectStatus projectStatus);
+	
+	List<Location> findLocations(Integer id);
+	
+	List<ProductGroupMaker> findProductGroupMakers(Integer id);
+	
+	List<Expenses> findExpenses(Integer id);
 	
 }

@@ -20,7 +20,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 
 @Entity
 @Table(name = "user_region_role", catalog = "sanyo")
-public class UserRegionRole implements java.io.Serializable{
+public class UserRegionRole implements java.io.Serializable, Cloneable{
 	
 
 	private Integer id;

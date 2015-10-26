@@ -16,6 +16,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.collect.Lists;
+import com.sanyo.quote.domain.Expenses;
+import com.sanyo.quote.domain.Location;
+import com.sanyo.quote.domain.ProductGroupMaker;
 import com.sanyo.quote.domain.Project;
 import com.sanyo.quote.domain.ProjectStatus;
 import com.sanyo.quote.repository.ProjectRepository;
@@ -210,6 +213,27 @@ public class DefaultProjectService implements ProjectService {
 	@Override
 	public Project findByIdAndFetchMakers(Integer id) {
 		return projectRepository.findByIdAndFetchMakers(id);
+	}
+
+	@Override
+	public List<Project> findProjectsWithStatus(ProjectStatus projectStatus) {
+		return projectRepository.findProjectsWithStatus(projectStatus);
+	}
+
+	@Override
+	public List<Location> findLocations(Integer id) {
+		return projectRepository.findLocations(id);
+	}
+
+	@Override
+	public List<ProductGroupMaker> findProductGroupMakers(Integer id) {
+		return projectRepository.findProductGroupMakers(id);
+	}
+
+	@Override
+	public List<Expenses> findExpenses(Integer id) {
+		// TODO Auto-generated method stub
+		return projectRepository.findExpenses(id);
 	}	
 	
 	

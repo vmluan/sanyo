@@ -1,10 +1,16 @@
 	package com.sanyo.quote.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 
+import com.sanyo.quote.domain.Expenses;
+import com.sanyo.quote.domain.Location;
+import com.sanyo.quote.domain.ProductGroupMaker;
 import com.sanyo.quote.domain.Project;
+import com.sanyo.quote.domain.ProjectStatus;
 
 
 public interface ProjectRepository extends PagingAndSortingRepository<Project, Integer> {
@@ -67,4 +73,18 @@ public interface ProjectRepository extends PagingAndSortingRepository<Project, I
 
 	@Query("SELECT p FROM Project p JOIN FETCH p.expenses WHERE p.projectId = :id")
 	public Project findByIdAndFetchExpenses(@Param("id") Integer id);
+	
+	@Query("SELECT p FROM Project p WHERE p.status = :status")
+	public List<Project> findProjectsWithStatus(@Param("status") ProjectStatus status);
+	
+	@Query("SELECT distinct  p.locations FROM Project p JOIN p.locations WHERE p.projectId = :id")
+	public List<Location> findLocations(@Param("id") Integer id);
+	
+	@Query("SELECT distinct  p.productGroupMakers FROM Project p JOIN p.productGroupMakers WHERE p.projectId = :id")
+	public List<ProductGroupMaker> findProductGroupMakers(@Param("id") Integer id);
+	
+	@Query("SELECT distinct  p.expenses FROM Project p JOIN p.expenses WHERE p.projectId = :id")
+	public List<Expenses> findExpenses(@Param("id") Integer id);
+	
+	
 }

@@ -26,7 +26,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name = "project", catalog = "sanyo", uniqueConstraints = {
 		@UniqueConstraint(columnNames = "PROJECT_NAME"),
 		@UniqueConstraint(columnNames = "PROJECT_CODE") })
-public class Project implements java.io.Serializable {
+public class Project implements java.io.Serializable, Cloneable {
 
 	private Integer projectId;
 	private String projectCode;
@@ -477,5 +477,10 @@ public class Project implements java.io.Serializable {
 
 	public void setExpenses(Set<Expenses> expenses) {
 		this.expenses = expenses;
+	}
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		// TODO Auto-generated method stub
+		return super.clone();
 	}
 }

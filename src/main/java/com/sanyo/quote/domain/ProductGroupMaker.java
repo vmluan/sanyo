@@ -21,7 +21,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
  */
 @Entity
 @Table(name = "productgroup_Maker", catalog = "sanyo")
-public class ProductGroupMaker {
+public class ProductGroupMaker implements java.io.Serializable, Cloneable {
 	private Integer id;
 	private String delivery;
 	private String remark;
