@@ -12,13 +12,13 @@
     <jsp:directive.page contentType="text/html;charset=UTF-8" />  
     <jsp:directive.page pageEncoding="UTF-8" /> 
     <head>
-		<link href="/resources/styles/aquarius-theme/stylesheets.css" rel="stylesheet" type="text/css"/>
+		<link href="${pageContext.request.contextPath}/resources/styles/aquarius-theme/stylesheets.css" rel="stylesheet" type="text/css"/>
     </head>
 	
   	<body>
   	<div class="loginBox">  
   		<div class="loginHead">
-            <img src="/resources/styles/aquarius-theme/img/logo.png" alt="iCoffee" title="Aquarius -  responsive admin panel"/>
+            <img src="${pageContext.request.contextPath}/resources/styles/aquarius-theme/img/logo.png" alt="iCoffee" title="Aquarius -  responsive admin panel"/>
         </div>
         
         <form name="loginForm" action="${loginUrl}" method="post">
