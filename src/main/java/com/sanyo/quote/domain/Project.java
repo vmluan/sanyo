@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.Random;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -326,7 +327,7 @@ public class Project implements java.io.Serializable, Cloneable {
 	}
 
 	@JsonIgnore
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="project")
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="project", cascade=CascadeType.REMOVE)
 	public Set<ProjectRevision> getRevisions() {
 		return revisions;
 	}
@@ -384,7 +385,7 @@ public class Project implements java.io.Serializable, Cloneable {
 	}
 	
 	@JsonIgnore
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="project")
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="project", cascade=CascadeType.REMOVE)
 	public Set<Location> getLocations() {
 		return locations;
 	}
@@ -461,7 +462,7 @@ public class Project implements java.io.Serializable, Cloneable {
 	}
 	
 	@JsonIgnore
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="project")
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="project", cascade=CascadeType.REMOVE)
 	public Set<ProductGroupMaker> getProductGroupMakers() {
 		return productGroupMakers;
 	}
@@ -471,7 +472,7 @@ public class Project implements java.io.Serializable, Cloneable {
 
 
 	@JsonIgnore
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="project")
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="project", cascade=CascadeType.REMOVE)
 	public Set<Expenses> getExpenses() {
 		return expenses;
 	}

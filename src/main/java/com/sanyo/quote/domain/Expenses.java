@@ -23,7 +23,7 @@ public class Expenses implements Serializable {
 
 	private ExpenseElements expenseElement;
 
-	@Column(name="ORDER")
+	@Column(name="ORDER_NO")
 	private String order;
 
 	@Column(name="QUANTITY")

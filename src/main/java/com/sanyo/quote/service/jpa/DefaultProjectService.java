@@ -234,6 +234,17 @@ public class DefaultProjectService implements ProjectService {
 	public List<Expenses> findExpenses(Integer id) {
 		// TODO Auto-generated method stub
 		return projectRepository.findExpenses(id);
+	}
+
+	@Override
+	public void delete(Integer id) {
+		projectRepository.delete(id);
+	}
+
+	@Override
+	public void delte(Project project) {
+		projectRepository.delete(project);
+		
 	}	
 	
 	

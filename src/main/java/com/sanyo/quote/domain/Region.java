@@ -91,7 +91,7 @@ public class Region implements java.io.Serializable, Cloneable{
 		this.location = location;
 	}
 	@JsonIgnore
-	@OneToMany(fetch=FetchType.EAGER, mappedBy="region")
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="region", cascade=CascadeType.REMOVE)
 	public Set<Encounter> getEncounters() {
 		return encounters;
 	}
@@ -120,7 +120,7 @@ public class Region implements java.io.Serializable, Cloneable{
 //	@JoinTable(name="region_user_region_role", joinColumns={@JoinColumn(name="REGION_ID")}
 //			, inverseJoinColumns={@JoinColumn(name="id")})
 	@JsonIgnore
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="region")
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="region", cascade=CascadeType.REMOVE)
 	public Set<UserRegionRole> getUserRegionRoles() {
 		return userRegionRoles;
 	}

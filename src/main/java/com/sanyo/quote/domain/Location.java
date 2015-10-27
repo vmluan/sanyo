@@ -65,7 +65,7 @@ public class Location implements java.io.Serializable, Cloneable {
 	}
 
 	@JsonIgnore
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "location")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "location", cascade=CascadeType.REMOVE)
 	public Set<Region> getRegions() {
 		return regions;
 	}

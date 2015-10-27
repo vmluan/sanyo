@@ -49,7 +49,7 @@ public class ProjectRevision implements java.io.Serializable{
 	}
 	
 	@JsonIgnore
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "PROJECT_ID", nullable = false)
 	public Project getProject() {
 		return project;
