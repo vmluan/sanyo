@@ -124,7 +124,7 @@ $("#list")
 													+ '<button class="btn bg-navy margin col-md-2">Marker</button>'
 													+ '<button class="btn bg-orange margin col-md-1" onclick="cloneProject('+ value +  ')"' + '>Clone</button>'
 													+ '<button class="btn bg-maroon margin col-md-1">Close</button>'
-													+ '<button class="btn btn-danger margin col-md-1">X</button>'
+													+ '<button class="btn btn-danger margin col-md-1" onclick="deleteProject('+ value +  ')"' + '>X</button>'
 												+ '</p>'
 											+ '</div>'
 											;
@@ -148,6 +148,25 @@ function cloneProject(projectId){
 		url : url,
 		success : function(msg) {
 			alert('clone successfully.');
+			$("#list").jqxGrid('updatebounddata');
+		},
+		complete : function(xhr, status) {
+
+		}
+});
+	
+}
+function deleteProject(projectId){
+    var result = confirm('Do you want to delete this record?');
+    if (result == false)
+		return;
+	var url = '/projects/' + projectId + '?delete';
+	$.ajax({
+		type : "POST",
+		contentType : 'application/json',
+		url : url,
+		success : function(msg) {
+			alert('delete successfully.');
 			$("#list").jqxGrid('updatebounddata');
 		},
 		complete : function(xhr, status) {

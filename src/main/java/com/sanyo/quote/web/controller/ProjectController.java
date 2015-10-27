@@ -726,5 +726,13 @@ public class ProjectController extends CommonController {
 			userRegionRoleService.save(role);
 		}
 	}
+	@Transactional
+	@RequestMapping(value = "/{id}", params = "delete", method = RequestMethod.POST)
+	@ResponseStatus(value = HttpStatus.OK)
+	public void deleteProject(@PathVariable("id") Integer id, Model uiModel
+			,HttpServletRequest httpServletRequest) throws CloneNotSupportedException{
+		projectService.delete(id);
+
+	}
 }
 
