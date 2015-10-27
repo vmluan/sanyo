@@ -282,6 +282,7 @@
                     <button type="submit" class="btn btn-primary">Submit</button>
                   </div>					
 				</div>
+			<c:if test="${project.projectId > 0}">		
 				<div class="col-md-6">				
 					<div class="box box-primary">
 						<div class="box-body">
@@ -301,7 +302,7 @@
 							</div>
 							<div id="pagerLocation"><jsp:text /></div><jsp:text /><P /><jsp:text />
 							<p />
-							<a href="/projects/${project.projectId}/revisions/?form" class="btn btn-primary btn-xs">${labelProjecLocationAdd}</a>
+							<a href="/projects/${project.projectId}/locations/?form" class="btn btn-primary btn-xs">${labelProjecLocationAdd}</a>
 						</section>
 					</div>				
 				
@@ -362,7 +363,8 @@
 							</div>			
 						</section>			
 					</div>				
-				</div>						
+				</div>	
+			</c:if>						
 			<!-- /.box-body -->
 
 

@@ -16,4 +16,7 @@ public interface ProjectRevisionService {
 	ProjectRevision save(ProjectRevision revision);
 	
 	Page<ProjectRevision> findAllByPage(Pageable pageable);
+	
+	void delete(Integer id);
+	void delete(ProjectRevision projectRevision);
 }

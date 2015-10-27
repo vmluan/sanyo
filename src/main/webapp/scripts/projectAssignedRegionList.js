@@ -67,15 +67,12 @@ $("#list")
 								align : 'center',
 								width : '25%',
 								cellsrenderer : function(row, column, value) {
-									return '<div class="col-md-6">'
-											+ '<a class="btn btn-app" style="margin-left: -10px;" onclick="updateProduct('
-											+ value
-											+ ')">'
-											+ '<i class="glyphicon glyphicon-user"></i>'
-											+ '</a>'
-											+ '<a class="btn btn-app">'
-											+ '<i class="glyphicon glyphicon-remove-circle"></i>'
-											+ '</a>' + '</div>';
+									return '<div class="col-md-12">'
+									+'<p>'
+										+ '<button class="btn bg-olive margin col-md-12"  onclick="updateItem('+ value +  ')"' + '>Update</button>'
+										+ '<button class="btn btn-danger margin col-md-12" onclick="deleteItem('+ value +  ')"' + '>X</button>'
+									+ '</p>'
+									+ '</div>';
 								}
 							},
 							{
@@ -92,6 +89,7 @@ $("#list")
 								datafield : 'regionName',
 								align : 'center',
 								width : '35%'
+									
 							} , {
 								text : 'Location',
 								datafield : 'locationName',
@@ -99,6 +97,25 @@ $("#list")
 								width : '35%'
 							} ]
 				});
-function updateProduct(id) {
+function updateItem(id) {
 	window.location.href = '/projects/regions/' + id + '?form';
+}
+
+function deleteItem(id){
+    var result = confirm('Do you want to delete this record?');
+    if (result == false)
+		return;
+	var url = '/regions/' + id + '?delete';
+	$.ajax({''
+		type : "POST",
+		contentType : 'application/json',
+		url : url,
+		success : function(msg) {
+			alert('delete successfully.');
+			$("#list").jqxGrid('updatebounddata');
+		},
+		complete : function(xhr, status) {
+
+		}
+});
 }

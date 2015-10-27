@@ -54,4 +54,14 @@ public class DefaultLocationService implements LocationService {
 		return locationRepository.findRegions(id);
 	}
 
+	@Override
+	public void delete(Integer id) {
+		locationRepository.delete(id);
+	}
+
+	@Override
+	public void delete(Location location) {
+		locationRepository.delete(location);
+	}
+
 }

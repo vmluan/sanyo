@@ -734,5 +734,20 @@ public class ProjectController extends CommonController {
 		projectService.delete(id);
 
 	}
+	@Transactional
+	@RequestMapping(value = "/{id}/revisions", params = "delete", method = RequestMethod.POST)
+	@ResponseStatus(value = HttpStatus.OK)
+    public void deleteProjectRevisions(@PathVariable("id") Integer id, Model uiModel) {
+		projectRevisionService.delete(id);
+		
+	}
+	
+	@Transactional
+	@RequestMapping(value = "/{id}/locations", params = "delete", method = RequestMethod.POST)
+	@ResponseStatus(value = HttpStatus.OK)
+    public void deleteLocation(@PathVariable("id") Integer id, Model uiModel) {
+		locationService.delete(id);
+		
+	}
 }
 

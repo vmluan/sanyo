@@ -73,6 +73,18 @@ public class DefaultRegionService implements RegionService {
 	public List<UserRegionRole> getUserRegionRoles(Integer id) {
 		return regionRepository.getUserRegionRoles(id);
 	}
+
+	@Override
+	public void delete(Integer id) {
+		regionRepository.delete(id);
+		
+	}
+
+	@Override
+	public void delete(Region region) {
+		regionRepository.delete(region);
+		
+	}
 	
 	
 }

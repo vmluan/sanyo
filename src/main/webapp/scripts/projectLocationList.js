@@ -47,10 +47,10 @@ $("#listLocation")
 					// showfilterrow : true,
 					// filterable : true,
 					columnsresize : true,
-					rowsheight : 45,
+					//rowsheight : 45,
 					showpinnedcolumnbackground : false,
 					altrows : true,
-					// autorowheight: true,
+					autorowheight: true,
 					columns : [
 							{
 								text : 'Action',
@@ -58,15 +58,12 @@ $("#listLocation")
 								align : 'center',
 								width : '25%',
 								cellsrenderer : function(row, column, value) {
-									return '<div class="col-md-6">'
-											+ '<a class="btn btn-app" style="margin-left: -10px;" onclick="updateItem('
-											+ value
-											+ ')">'
-											+ '<i class="glyphicon glyphicon-edit"></i>'
-											+ '</a>'
-											+ '<a class="btn btn-app">'
-											+ '<i class="glyphicon glyphicon-remove-circle"></i>'
-											+ '</a>' + '</div>';
+									return '<div class="col-md-12">'
+									+'<p>'
+										+ '<button class="btn bg-olive margin col-md-12"  onclick="updateItem('+ value +  ')"' + '>Update</button>'
+										+ '<button class="btn btn-danger margin col-md-12" onclick="deleteItem('+ value +  ')"' + '>X</button>'
+									+ '</p>'
+									+ '</div>';
 								}
 							},
 							{
@@ -96,4 +93,22 @@ $("#listLocation")
 				});
 function updateItem(id) {
 	window.location.href = '/projects/locations/' + id + '?form';
+}
+function deleteItem(id){
+    var result = confirm('Do you want to delete this record?');
+    if (result == false)
+		return;
+	var url = '/projects/' + id + '/locations?delete';
+	$.ajax({''
+		type : "POST",
+		contentType : 'application/json',
+		url : url,
+		success : function(msg) {
+			alert('delete successfully.');
+			$("#listLocation").jqxGrid('updatebounddata');
+		},
+		complete : function(xhr, status) {
+
+		}
+});
 }

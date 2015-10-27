@@ -22,4 +22,7 @@ public interface LocationService {
 	
 	List<Region> findRegions(Integer id);
 	
+	void delete(Integer id);
+	void delete(Location location);
+	
 }

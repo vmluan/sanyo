@@ -43,5 +43,15 @@ public class DefaultProjectRevisionService implements ProjectRevisionService {
 		return ProjectRevisionRepository.findAll(pageable);
 	}
 
+	@Override
+	public void delete(Integer id) {
+		ProjectRevisionRepository.delete(id);
+	}
+
+	@Override
+	public void delete(ProjectRevision projectRevision) {
+		ProjectRevisionRepository.delete(projectRevision);
+	}
+
 	
 }

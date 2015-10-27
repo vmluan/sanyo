@@ -53,7 +53,7 @@ $("#listRevision")
 					rowsheight : 45,
 					showpinnedcolumnbackground : false,
 					altrows : true,
-					// autorowheight: true,
+					autorowheight: true,
 					columns : [
 							{
 								text : 'Action',
@@ -61,15 +61,12 @@ $("#listRevision")
 								align : 'center',
 								width : '25%',
 								cellsrenderer : function(row, column, value) {
-									return '<div class="col-md-6">'
-											+ '<a class="btn btn-app" style="margin-left: -10px;" onclick="updateItem('
-											+ value
-											+ ')">'
-											+ '<i class="glyphicon glyphicon-edit"></i>'
-											+ '</a>'
-											+ '<a class="btn btn-app">'
-											+ '<i class="glyphicon glyphicon-remove-circle"></i>'
-											+ '</a>' + '</div>';
+									return '<div class="col-md-12">'
+									+'<p>'
+										+ '<button class="btn bg-olive margin col-md-12"  onclick="updateItem('+ value +  ')"' + '>Update</button>'
+										+ '<button class="btn btn-danger margin col-md-12" onclick="deleteItem('+ value +  ')"' + '>X</button>'
+									+ '</p>'
+									+ '</div>';
 								}
 							},
 							{
@@ -106,4 +103,22 @@ $("#listRevision")
 				});
 function updateProduct(id) {
 	window.location.href = '/projects/revisions/' + id + '?form';
+}
+function deleteItem(id){
+    var result = confirm('Do you want to delete this record?');
+    if (result == false)
+		return;
+	var url = '/projects/revisions//' + id + '?delete';
+	$.ajax({
+		type : "POST",
+		contentType : 'application/json',
+		url : url,
+		success : function(msg) {
+			alert('delete successfully.');
+			$("#listRevision").jqxGrid('updatebounddata');
+		},
+		complete : function(xhr, status) {
+
+		}
+});
 }
