@@ -122,7 +122,7 @@ $("#list")
 													+ '<button class="btn bg-olive margin col-md-2"  onclick="updateProduct('+ value +  ')"' + '>Basic Info</button>'
 													+ '<button class="btn bg-purple margin col-md-2" onclick="addQuotation('+ value +  ')"' + '>Pricing</button>'
 													+ '<button class="btn bg-navy margin col-md-2">Marker</button>'
-													+ '<button class="btn bg-orange margin col-md-1">Clone</button>'
+													+ '<button class="btn bg-orange margin col-md-1" onclick="cloneProject('+ value +  ')"' + '>Clone</button>'
 													+ '<button class="btn bg-maroon margin col-md-1">Close</button>'
 													+ '<button class="btn btn-danger margin col-md-1">X</button>'
 												+ '</p>'
@@ -139,4 +139,20 @@ function updateProduct(id) {
 }
 function addQuotation(projectId){
 	window.location.href = '/quotation?projectId=' + projectId;
+}
+function cloneProject(projectId){
+	var url = '/projects/' + projectId + '?clone';
+	$.ajax({
+		type : "POST",
+		contentType : 'application/json',
+		url : url,
+		success : function(msg) {
+			alert('clone successfully.');
+			$("#list").jqxGrid('updatebounddata');
+		},
+		complete : function(xhr, status) {
+
+		}
+});
+	
 }

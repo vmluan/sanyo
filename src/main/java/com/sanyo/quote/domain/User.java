@@ -96,17 +96,17 @@ public class User implements java.io.Serializable {
 	@Transient
 	private String[] groupIDs;
 	
-	@JsonIgnore
-	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "users")
-	private Set<Region> regions;
+//	@JsonIgnore
+//	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "users")
+//	private Set<Region> regions;
 	
-	public Set<Region> getRegions() {
-		return regions;
-	}
-
-	public void setRegions(Set<Region> regions) {
-		this.regions = regions;
-	}
+//	public Set<Region> getRegions() {
+//		return regions;
+//	}
+//
+//	public void setRegions(Set<Region> regions) {
+//		this.regions = regions;
+//	}
 
 	public String[] getGroupIDs() {
 		return groupIDs;

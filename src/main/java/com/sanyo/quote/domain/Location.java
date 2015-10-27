@@ -55,7 +55,7 @@ public class Location implements java.io.Serializable, Cloneable {
 	}
 	
 	@JsonIgnore
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "PROJECT_ID", nullable = false)
 	public Project getProject() {
 		return project;
@@ -76,8 +76,9 @@ public class Location implements java.io.Serializable, Cloneable {
 	@Override
 	public Location clone() throws CloneNotSupportedException {
 		Location clonedLocation = (Location) super.clone();
-		clonedLocation.setProject(null);
-		clonedLocation.setLocationId(0);
+//		clonedLocation.setProject(null);
+//		clonedLocation.setLocationId(null);
+		clonedLocation.setRegions(null);
 		
 		return clonedLocation;
 	}

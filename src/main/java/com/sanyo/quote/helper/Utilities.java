@@ -17,6 +17,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.jws.soap.SOAPBinding.Use;
 import javax.servlet.http.HttpServletRequest;
 
 import org.codehaus.jackson.map.ObjectMapper;
@@ -29,7 +30,10 @@ import org.springframework.security.core.userdetails.User;
 import com.ibm.icu.util.Calendar;
 import com.sanyo.quote.domain.Encounter;
 import com.sanyo.quote.domain.Location;
+import com.sanyo.quote.domain.ProductGroupMaker;
+import com.sanyo.quote.domain.Project;
 import com.sanyo.quote.domain.Region;
+import com.sanyo.quote.domain.UserRegionRole;
 import com.sanyo.quote.service.EncounterService;
 import com.sanyo.quote.service.RegionService;
 
@@ -111,29 +115,22 @@ public class Utilities {
 			return false;
 			
 	}
-	public static List<Location> cloneLocations(List<Location> locations) throws CloneNotSupportedException{
-		List<Location> clonedLocations = new ArrayList<Location>();
+	public static Project cloneProject(Project project) throws CloneNotSupportedException{
+		Project clonedProject = project.clone();
+		return clonedProject;
+	}
+	public static Set<Location> cloneLocations(Collection<Location> locations) throws CloneNotSupportedException{
+		HashSet<Location> clonedLocations = new HashSet<Location>();
 		for(Location location : locations){
 			Location clonedLocation = (Location) location.clone();
 			clonedLocations.add(clonedLocation);
 		}
 		return clonedLocations;
 	}
-	public static List<Region> cloneRegions(Collection<Region> regions) throws CloneNotSupportedException{
-		List<Region> clonedRegions = new ArrayList<Region>();
+	public static Set<Region> cloneRegions(Collection<Region> regions) throws CloneNotSupportedException{
+		HashSet<Region> clonedRegions = new HashSet<Region>();
 		for(Region region: regions){
 			Region clonedRegion = region.clone();
-			
-			Set<Encounter> encounters = region.getEncounters();
-			if(encounters.size() >0){
-				Set<Encounter> clonedEncounters = cloneEncounters(encounters);
-				for(Encounter en : clonedEncounters){
-					en.setRegion(clonedRegion);
-//					en = encounterService.save(en);
-				}
-				clonedRegion.setEncounters(clonedEncounters);
-				
-			}
 			clonedRegions.add(clonedRegion);
 		}
 		return clonedRegions;
@@ -145,6 +142,31 @@ public class Utilities {
 			clonedEncounters.add(clonedEncounter);
 		}
 		return clonedEncounters;
+	}
+	
+	public static Set<UserRegionRole> cloneUserRegionRoles(Collection<UserRegionRole> userRegionRoles) throws CloneNotSupportedException{
+		Set<UserRegionRole> clonedList = new HashSet<UserRegionRole>();
+		for(UserRegionRole role : userRegionRoles){
+			UserRegionRole clonedRole = role.clone();
+			clonedList.add(clonedRole);
+		}
+		return clonedList;
+	}
+	public static Set<ProductGroupMaker> cloneProductGroupMaker(Collection<ProductGroupMaker> productGroupMakers) throws CloneNotSupportedException{
+		Set<ProductGroupMaker> clonedList = new HashSet<ProductGroupMaker>();
+		for(ProductGroupMaker pg : productGroupMakers){
+			ProductGroupMaker clonedPg = pg.clone();
+			clonedList.add(clonedPg);
+		}
+		return clonedList;
+	}
+	public static Set<UserRegionRole> cloneUserRegionRole(Collection<UserRegionRole> userRegionRoles) throws CloneNotSupportedException{
+		Set<UserRegionRole> clonedList = new HashSet<UserRegionRole>();
+		for(UserRegionRole role : userRegionRoles){
+			UserRegionRole clonedObj = role.clone();
+			clonedList.add(clonedObj);
+		}
+		return clonedList;
 	}
 
 }

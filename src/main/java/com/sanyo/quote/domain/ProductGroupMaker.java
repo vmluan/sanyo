@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.eclipse.persistence.sessions.factories.ProjectClassGenerator;
 
 /*
  * it represent an instance of the many to many relationship between ProductGroup and Marker
@@ -149,6 +150,13 @@ public class ProductGroupMaker implements java.io.Serializable, Cloneable {
 	}
 	public void setEquivalent(String equivalent) {
 		this.equivalent = equivalent;
+	}
+	
+	@Override
+	public ProductGroupMaker clone() throws CloneNotSupportedException {
+		ProductGroupMaker clonedObject = new ProductGroupMaker();
+		clonedObject = (ProductGroupMaker) super.clone();
+		return clonedObject;
 	}
 	
 }

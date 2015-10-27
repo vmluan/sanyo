@@ -58,7 +58,7 @@ public class Encounter implements Serializable, Cloneable{
 		this.encounterID = encounterID;
 	}
 	
-	@OneToOne(cascade = CascadeType.PERSIST)
+	@OneToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "PRODUCT_ID", nullable = false)
 	public Product getProduct() {
 		return product;
@@ -76,7 +76,7 @@ public class Encounter implements Serializable, Cloneable{
 		this.encounterTime = encounterTime;
 	}
 	
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "REGION_ID", nullable = false)
 	public Region getRegion() {
 		return region;
@@ -301,8 +301,8 @@ public class Encounter implements Serializable, Cloneable{
 	@Override
 	public Encounter clone() throws CloneNotSupportedException {
 		Encounter clonedEncounter = (Encounter) super.clone();
-		clonedEncounter.setEncounterID(null);
-		clonedEncounter.setRegion(null);
+//		clonedEncounter.setEncounterID(null);
+//		clonedEncounter.setRegion(null);
 		return clonedEncounter;
 	}
 	

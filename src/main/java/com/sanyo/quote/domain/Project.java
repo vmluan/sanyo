@@ -3,6 +3,7 @@ package com.sanyo.quote.domain;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.Date;
+import java.util.Random;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -479,8 +480,17 @@ public class Project implements java.io.Serializable, Cloneable {
 		this.expenses = expenses;
 	}
 	@Override
-	public Object clone() throws CloneNotSupportedException {
-		// TODO Auto-generated method stub
-		return super.clone();
+	public Project clone() throws CloneNotSupportedException {
+		Project clonedProject = (Project) super.clone();
+		clonedProject.setExpenses(null);
+		clonedProject.setLocations(null);
+		clonedProject.setRevisions(null);
+		clonedProject.setProductGroupMakers(null);
+		clonedProject.setCreatedDate(new Date());
+		clonedProject.setStatus(ProjectStatus.ONGOING);
+		clonedProject.setProjectCode(clonedProject.getProjectCode() + "_" + new Random().nextInt()%11);
+		clonedProject.setProjectName(clonedProject.getProjectName() + "_" + new Random().nextInt()%11);
+		clonedProject.setProjectId(null);
+		return clonedProject;
 	}
 }

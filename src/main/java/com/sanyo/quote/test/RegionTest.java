@@ -37,6 +37,26 @@ public class RegionTest {
 	 * @throws CloneNotSupportedException 
 	 */
 	
+	public void cloneRegion(Integer locationId, Location clonedLocation, RegionService regionService, LocationService locationService) throws CloneNotSupportedException{
+		List<Region> regions = locationService.findRegions(locationId);
+		Set<Region> clonedRegions = Utilities.cloneRegions(regions);
+		for(Region region : clonedRegions){
+			Integer regionId = region.getRegionId();
+			
+			region.setRegionId(null);
+			region.setLocation(clonedLocation);
+			region = regionService.save(region);
+		}
+		
+	}
+	public void cloneEncounters(Integer regionId, Region clonedRegion, RegionService regionService, EncounterService encounterService) throws CloneNotSupportedException{
+		List<Encounter> encounters = regionService.getEncounters(regionId);
+		Set<Encounter> clonedEncounters = Utilities.cloneEncounters(encounters);
+		for(Encounter encounter : clonedEncounters){
+			encounter.setEncounterID(null);
+			encounterService.save(encounter);
+		}
+	}
 	public static void main(String[] args) throws ParseException, CloneNotSupportedException {
 
 		GenericXmlApplicationContext ctx = new GenericXmlApplicationContext();
@@ -52,49 +72,25 @@ public class RegionTest {
 		RegionService regionService = ctx.getBean("regionService", RegionService.class);
 		EncounterService encounterService = ctx.getBean("encounterService", EncounterService.class);
 		LocationService locationService = ctx.getBean("locationService", LocationService.class);
+		
 //
 		
-		ContactServiceTest test = new ContactServiceTest();
-//		test.addProject(projectService);
-//		test.addCategory(categoryService);
-//		Region region = regionService.findById(2);
-//		Region region = regionService.findByIdAndFetchUsersEagerly(2);
-//		Set<User> users= region.getUsers();
-//		Iterator<User> iterator = users.iterator();
-//		while(iterator.hasNext()){
-//			System.out.println("======== next");
-//			User user = iterator.next();
-//			System.out.println("user name = " + user.getUsername());
-//		}
-		
+		RegionTest test = new RegionTest();
 		
 		Project project = projectService.findById(1);
 		
-		//Set<Region> regions  = project.getRegions();
-		//Iterator<Region> iterator = regions.iterator();
-		Set<Region> assginedRegions = new HashSet<Region>();
-//		
-//		while(iterator.hasNext()){
-//			Region region = iterator.next();
-//			System.out.println(region.getCategory().getName());
-//			Set<UserRegionRole> userRegionRoles = region.getUserRegionRoles();
-//			Iterator<UserRegionRole> iterator2 = userRegionRoles.iterator();
-//			while(iterator2.hasNext()){
-//				UserRegionRole userRegionRole = iterator2.next();
-//				System.out.println(userRegionRole.getRoleName());
-//			}
-//		}
-		Location location = locationService.findByIdAndFetchRegionsEagerly(1);
-		Location location2 = locationService.findById(2);
-		List<Region> regions = Utilities.cloneRegions(location.getRegions());
-		for(Region region : regions){
-			region.setLocation(location2);
-			Set<Encounter> encounters = region.getEncounters();
-			region = regionService.save(region);
-			for(Encounter encounter : encounters){
-				encounterService.save(encounter);
-			}
-			
+		Project clonedProject = project.clone();
+		clonedProject.setProjectId(null);
+		clonedProject = projectService.save(clonedProject);
+		
+		List<Location> locations = projectService.findLocations(project.getProjectId());
+		Set<Location> clonedLocations = Utilities.cloneLocations(locations);
+		for(Location location : clonedLocations){
+			location.setProject(clonedProject);
+			Integer locationId = location.getLocationId();
+			location.setLocationId(null);
+			location = locationService.save(location);
+			test.cloneRegion(locationId, location, regionService, locationService);
 		}
 		
 	}

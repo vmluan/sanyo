@@ -33,7 +33,7 @@ public class Region implements java.io.Serializable, Cloneable{
 //	private Set<Group> groupList;
 	private Set<Encounter> encounters;
 	private RegionStatus status;
-	private Set<User> users;
+//	private Set<User> users;
 	private Set<UserRegionRole> userRegionRoles;
 	private Location location;
 //	private Set<ProductGroupMaker> productGroupMakers;
@@ -64,7 +64,7 @@ public class Region implements java.io.Serializable, Cloneable{
 	}
 	
 	@JsonIgnore
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "CATEGORY_ID", nullable = false)
 	public Category getCategory() {
 		return category;
@@ -82,7 +82,7 @@ public class Region implements java.io.Serializable, Cloneable{
 //		this.project = project;
 //	}
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "LOCATION_ID", nullable = false)
 	public Location getLocation() {
 		return location;
@@ -105,16 +105,16 @@ public class Region implements java.io.Serializable, Cloneable{
 	public void setStatus(RegionStatus status) {
 		this.status = status;
 	}
-	@JsonIgnore
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name="region_user", joinColumns={@JoinColumn(name="REGION_ID")}
-			, inverseJoinColumns={@JoinColumn(name="userid")})
-	public Set<User> getUsers() {
-		return users;
-	}
-	public void setUsers(Set<User> users) {
-		this.users = users;
-	}
+//	@JsonIgnore
+//	@ManyToMany(cascade = CascadeType.MERGE)
+//	@JoinTable(name="region_user", joinColumns={@JoinColumn(name="REGION_ID")}
+//			, inverseJoinColumns={@JoinColumn(name="userid")})
+//	public Set<User> getUsers() {
+//		return users;
+//	}
+//	public void setUsers(Set<User> users) {
+//		this.users = users;
+//	}
 	
 //	@ManyToMany(cascade = CascadeType.ALL)
 //	@JoinTable(name="region_user_region_role", joinColumns={@JoinColumn(name="REGION_ID")}
@@ -139,8 +139,10 @@ public class Region implements java.io.Serializable, Cloneable{
 	public Region clone() throws CloneNotSupportedException {
 		// TODO Auto-generated method stub
 		Region clonedRegion = (Region) super.clone();
-		clonedRegion.setLocation(null);
-		clonedRegion.setRegionId(0);
+//		clonedRegion.setLocation(null);
+//		clonedRegion.setRegionId(null);
+		clonedRegion.setEncounters(null);
+		clonedRegion.setUserRegionRoles(null);
 		return clonedRegion;
 	}
 	

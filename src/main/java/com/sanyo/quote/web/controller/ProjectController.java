@@ -16,6 +16,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+import org.eclipse.persistence.sessions.factories.ProjectClassGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sanyo.quote.domain.Category;
+import com.sanyo.quote.domain.Encounter;
 import com.sanyo.quote.domain.Expenses;
 import com.sanyo.quote.domain.Location;
 import com.sanyo.quote.domain.ProductGroup;
@@ -54,6 +56,8 @@ import com.sanyo.quote.helper.Utilities;
 import com.sanyo.quote.service.CategoryService;
 import com.sanyo.quote.service.EncounterService;
 import com.sanyo.quote.service.LocationService;
+import com.sanyo.quote.service.ProductGroupMakerService;
+import com.sanyo.quote.service.ProductGroupService;
 import com.sanyo.quote.service.ProductService;
 import com.sanyo.quote.service.ProjectRevisionService;
 import com.sanyo.quote.service.ProjectService;
@@ -97,6 +101,9 @@ public class ProjectController extends CommonController {
 	
 	@Autowired
 	private LocationService locationService;
+	
+	@Autowired
+	private ProductGroupMakerService productGroupMakerService;
 	
 	private Validator validator;
 	
@@ -236,13 +243,13 @@ public class ProjectController extends CommonController {
 		
 		while(iterator.hasNext()){
 			Region region = iterator.next();
-			Region regionWithUsers = regionService.findByIdAndFetchUsersEagerly(region.getRegionId());
+			Region regionWithUsers = regionService.findByIdAndFetchUserRegionRolesEagerly(region.getRegionId());
 			if(regionWithUsers != null)
 				assginedRegions.add(regionWithUsers);
 			else{
 				regionWithUsers = regionService.findById(region.getRegionId());
-				Set<User> emptyUsers = new HashSet<User>();
-				regionWithUsers.setUsers(emptyUsers);
+				Set<UserRegionRole> emptyUsers = new HashSet<UserRegionRole>();
+				regionWithUsers.setUserRegionRoles(emptyUsers);
 				assginedRegions.add(regionWithUsers);
 			}
 		}
@@ -654,19 +661,70 @@ public class ProjectController extends CommonController {
 		String result = Utilities.jSonSerialization(productGroups);
 		return result;
 	}
-	@RequestMapping(value = "/{id}", params = "clone", method = RequestMethod.GET)
+	@RequestMapping(value = "/{id}", params = "clone", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK)
 	public void cloneProject(@PathVariable("id") Integer id, Model uiModel
 			,HttpServletRequest httpServletRequest) throws CloneNotSupportedException{
 		Project project = projectService.findById(id);
-		Project clonedProject = (Project) project.clone();
-		List<Location> locations = projectService.findLocations(id);
-		List<ProductGroupMaker> productGroupMakers = projectService.findProductGroupMakers(id);
-		List<Expenses> expenses = projectService.findExpenses(id);
 		
-		List<Location> clonedLocations = new ArrayList<Location>();
-		List<ProductGroupMaker> clonedProductGroupMakers = new ArrayList<ProductGroupMaker>();
-		List<Expenses> clonedExpenses = new ArrayList<Expenses>();
+		Project clonedProject = project.clone();
+		clonedProject.setProjectId(null);
+		clonedProject = projectService.save(clonedProject);
+		cloneProductGroupMakers(project.getProjectId(), clonedProject);
+		this.cloneLocation(project.getProjectId(), clonedProject);
+
+	}
+	public void cloneLocation(Integer projectId, Project clonedProject) throws CloneNotSupportedException{
+		List<Location> locations = projectService.findLocations(projectId);
+		Set<Location> clonedLocations = Utilities.cloneLocations(locations);
+		for(Location location : clonedLocations){
+			location.setProject(clonedProject);
+			Integer locationId = location.getLocationId();
+			location.setLocationId(null);
+			location = locationService.save(location);
+			this.cloneRegion(locationId, location);
+		}
+	}
+	public void cloneRegion(Integer locationId, Location clonedLocation) throws CloneNotSupportedException{
+		List<Region> regions = locationService.findRegions(locationId);
+		Set<Region> clonedRegions = Utilities.cloneRegions(regions);
+		for(Region region : clonedRegions){
+			Integer regionId = region.getRegionId();
+			
+			region.setRegionId(null);
+			region.setLocation(clonedLocation);
+			region = regionService.save(region);
+			this.cloneUserRegionRole(regionId, region);
+			this.cloneEncounters(regionId, region);
+		}
+		
+	}
+	public void cloneEncounters(Integer regionId, Region clonedRegion) throws CloneNotSupportedException{
+		List<Encounter> encounters = regionService.getEncounters(regionId);
+		Set<Encounter> clonedEncounters = Utilities.cloneEncounters(encounters);
+		for(Encounter encounter : clonedEncounters){
+			encounter.setEncounterID(null);
+			encounter.setRegion(clonedRegion);
+			encounterService.save(encounter);
+		}
+	}
+	public void cloneProductGroupMakers(Integer sourceProjectId, Project clonedObj) throws CloneNotSupportedException{
+		List<ProductGroupMaker> productGroupMakers = projectService.findProductGroupMakers(sourceProjectId);
+		Set<ProductGroupMaker> clonedList = Utilities.cloneProductGroupMaker(productGroupMakers);
+		for(ProductGroupMaker pg : clonedList){
+			pg.setId(null);
+			pg.setProject(clonedObj);
+			productGroupMakerService.save(pg);
+		}
+	}
+	public void cloneUserRegionRole(Integer sourceRegionId, Region clonedRegion) throws CloneNotSupportedException{
+		List<UserRegionRole> userRegionRoles = regionService.getUserRegionRoles(sourceRegionId);
+		Set<UserRegionRole> clonedList = Utilities.cloneUserRegionRole(userRegionRoles);
+		for(UserRegionRole role : clonedList){
+			role.setId(null);
+			role.setRegion(clonedRegion);
+			userRegionRoleService.save(role);
+		}
 	}
 }
 

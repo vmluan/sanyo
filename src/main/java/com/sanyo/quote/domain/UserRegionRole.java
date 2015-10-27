@@ -79,7 +79,13 @@ public class UserRegionRole implements java.io.Serializable, Cloneable{
 		this.userName = userName;
 	}
 	
-	
+	@Override
+	public UserRegionRole clone() throws CloneNotSupportedException {
+		UserRegionRole clonedRole = new UserRegionRole();
+		clonedRole = (UserRegionRole) super.clone();
+//		clonedRole.setId(null);
+		return clonedRole;
+	}
 	
 	
 

@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.sanyo.quote.domain.Location;
+import com.sanyo.quote.domain.Region;
 
 public interface LocationService {
 
@@ -18,5 +19,7 @@ public interface LocationService {
 	Page<Location> findAllByPage(Pageable pageable);
 	
 	Location findByIdAndFetchRegionsEagerly(Integer id);
+	
+	List<Region> findRegions(Integer id);
 	
 }

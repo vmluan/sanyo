@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.collect.Lists;
 import com.sanyo.quote.domain.Location;
+import com.sanyo.quote.domain.Region;
 import com.sanyo.quote.repository.LocationRepository;
 import com.sanyo.quote.service.LocationService;
 
@@ -46,6 +47,11 @@ public class DefaultLocationService implements LocationService {
 	@Override
 	public Location findByIdAndFetchRegionsEagerly(Integer id) {
 		return locationRepository.findByIdAndFetchRegionsEagerly(id);
+	}
+
+	@Override
+	public List<Region> findRegions(Integer id) {
+		return locationRepository.findRegions(id);
 	}
 
 }

@@ -1252,7 +1252,7 @@ function deleteItem(encounterId){
      var result = confirm('Do you want to delete this record?');
     if (result == false)
 		return;
-	var url = '/quotation/1?delete';
+	var url = '/quotation/'+ encounterId + '?delete';
 	$.ajax({
 		type : "POST",
 		contentType : 'application/json',
