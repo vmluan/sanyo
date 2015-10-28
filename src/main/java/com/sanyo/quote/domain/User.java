@@ -88,7 +88,7 @@ public class User implements java.io.Serializable {
 	@Column(name = "createdby")
 	private Integer createdby;
 	
-	@ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	@ManyToMany(cascade = CascadeType.MERGE,fetch = FetchType.EAGER)
 	@JoinTable(name="user_group", joinColumns={@JoinColumn(name="userid")}
 			, inverseJoinColumns={@JoinColumn(name="groupid")})
 	private List<Group> grouplist;

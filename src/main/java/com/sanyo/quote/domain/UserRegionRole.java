@@ -52,7 +52,7 @@ public class UserRegionRole implements java.io.Serializable, Cloneable{
 	}
 	
 	@JsonIgnore
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "USER_ID", nullable = false)
 	public User getUser() {
 		return user;
