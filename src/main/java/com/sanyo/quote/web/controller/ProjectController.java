@@ -735,7 +735,7 @@ public class ProjectController extends CommonController {
 
 	}
 	@Transactional
-	@RequestMapping(value = "/{id}/revisions", params = "delete", method = RequestMethod.POST)
+	@RequestMapping(value = "/revisions/{id}", params = "delete", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK)
     public void deleteProjectRevisions(@PathVariable("id") Integer id, Model uiModel) {
 		projectRevisionService.delete(id);
@@ -743,7 +743,7 @@ public class ProjectController extends CommonController {
 	}
 	
 	@Transactional
-	@RequestMapping(value = "/{id}/locations", params = "delete", method = RequestMethod.POST)
+	@RequestMapping(value = "/locations/{id}", params = "delete", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK)
     public void deleteLocation(@PathVariable("id") Integer id, Model uiModel) {
 		locationService.delete(id);

@@ -58,12 +58,14 @@ $("#listLocation")
 								align : 'center',
 								width : '25%',
 								cellsrenderer : function(row, column, value) {
-									return '<div class="col-md-12">'
-									+'<p>'
-										+ '<button class="btn bg-olive margin col-md-12"  onclick="updateItem('+ value +  ')"' + '>Update</button>'
-										+ '<button class="btn btn-danger margin col-md-12" onclick="deleteItem('+ value +  ')"' + '>X</button>'
-									+ '</p>'
-									+ '</div>';
+									return '<div class="col-md-6">'
+										+ '<a class="btn btn-app col-md-2" onclick="updateLocation('+ value + ')">'
+										+ '<i class="glyphicon glyphicon-edit"></i>'
+										+ '</a>'
+										+ '<a class="btn btn-app col-md-2">'
+										+ '<i class="glyphicon glyphicon-remove-circle" onclick="deleteLocation('+ value +  ')"' + '></i>'
+										+ '</a>' 
+										+ '</div>';										
 								}
 							},
 							{
@@ -91,14 +93,14 @@ $("#listLocation")
 								width : '35%'
 							} ]
 				});
-function updateItem(id) {
+function updateLocation(id) {
 	window.location.href = '/projects/locations/' + id + '?form';
 }
-function deleteItem(id){
+function deleteLocation(id){
     var result = confirm('Do you want to delete this record?');
     if (result == false)
 		return;
-	var url = '/projects/' + id + '/locations?delete';
+	var url = '/projects/locations/' + id + '?delete';
 	$.ajax({
 		type : "POST",
 		contentType : 'application/json',
