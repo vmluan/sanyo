@@ -1,7 +1,7 @@
 /**
  * To display jqxgrid in user list page.
  */
-var url = "/projects/getRevisionsJson";
+var url = pageContext + "/projects/getRevisionsJson";
 // prepare the data
 var source = {
 	datatype : "json",
@@ -104,13 +104,13 @@ $("#listRevision")
 							} ]
 				});
 function updateRevison(id) {
-	window.location.href = '/projects/revisions/' + id + '?form';
+	window.location.href = pageContext + '/projects/revisions/' + id + '?form';
 }
 function deleteRevison(id){
     var result = confirm('Do you want to delete this record?');
     if (result == false)
 		return;
-	var url = '/projects/revisions/' + id + '?delete';
+	var url = pageContext + '/projects/revisions/' + id + '?delete';
 	$.ajax({
 		type : "POST",
 		contentType : 'application/json',

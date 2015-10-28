@@ -1,7 +1,7 @@
 /**
  * To display jqxgrid in user list page.
  */
-var url = "/regions/getAssginedUsersJson";
+var url = pageContext + "/regions/getAssginedUsersJson";
 // prepare the data
 var source = {
 	datatype : "json",
@@ -88,5 +88,5 @@ $("#jqxWidgetAssignedUsers")
 							} ]
 				});
 function updateProduct(id) {
-	window.location.href = '/projects/regions/' + id + '?form';
+	window.location.href = pageContext + '/projects/regions/' + id + '?form';
 }

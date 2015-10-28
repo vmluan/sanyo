@@ -695,6 +695,7 @@ function getCheckedItems(obj){
 }
 //]]>
 var projectId=${project.projectId};
+var pageContext = "${pageContext.request.contextPath}";
 </script>
     <script type="text/javascript" src="/resources/scripts/projectRevisionList.js">
         <jsp:text/>

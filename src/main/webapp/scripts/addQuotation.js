@@ -1,6 +1,6 @@
 $("#locationSum").jqxNumberInput({ width: '250px', height: '25px', symbol: '$', disabled: true, max: 99999999});
 
-var urlLocation = "/quotation/getAssignedLocationsJson";
+var urlLocation = "${pageContext.request.contextPath}/quotation/getAssignedLocationsJson";
 // prepare the data
 var sourceLocation = {
 	datatype : "json",
@@ -47,7 +47,7 @@ $('#jqxWidgetLocation').on('select', function(event) {
 		// get item's label and value.
 		var label = item.label;
 		var value = item.value;
-		var urlRegion = "/projects/getAssginedRegionsOfLocationJson";
+		var urlRegion = "${pageContext.request.contextPath}/projects/getAssginedRegionsOfLocationJson";
 		// prepare the data
 		var sourceRegion = {
 			datatype : "json",
@@ -108,7 +108,7 @@ $('#jqxWidgetLocation').on('select', function(event) {
 });
 
 function updateLocationSum(locationId){
-	var urlLocationSum = '/quotation/' + locationId +'/getLocationSum';
+	var urlLocationSum = '${pageContext.request.contextPath}/quotation/' + locationId +'/getLocationSum';
 		$.ajax({
 			type : "POST",
 			contentType : 'application/json',
@@ -123,7 +123,7 @@ function updateLocationSum(locationId){
 }
 
 function getUrlProducts(productGroupId){
-	var urlProducts = "/productgroups/getProductsOfGroupjson";
+	var urlProducts = "${pageContext.request.contextPath}/productgroups/getProductsOfGroupjson";
 	var sourceProducts = {
 			datatype : "json",
 			datafields : [ {
@@ -184,7 +184,7 @@ var sourceProducts = getUrlProducts();
 var dataAdapterProducts = getProductAdapter(sourceProducts);
 
 
-var urlProductGroup = "/projects/getProductGroupMakersJson";
+var urlProductGroup = "${pageContext.request.contextPath}/projects/getProductGroupMakersJson";
 //prepare the data
 var sourceProductGroup = {
 	datatype : "json",
@@ -682,7 +682,7 @@ function showResultGrid(regionId) {
 	/**
 	 * To display jqxgrid in user list page.
 	 */
-	var url = "/quotation/getAssignedProductOfRegion";
+	var url = "${pageContext.request.contextPath}/quotation/getAssignedProductOfRegion";
 
 	var source = {
 		datatype : "json",
@@ -1252,7 +1252,7 @@ function deleteItem(encounterId){
      var result = confirm('Do you want to delete this record?');
     if (result == false)
 		return;
-	var url = '/quotation/'+ encounterId + '?delete';
+	var url = '${pageContext.request.contextPath}/quotation/'+ encounterId + '?delete';
 	$.ajax({
 		type : "POST",
 		contentType : 'application/json',

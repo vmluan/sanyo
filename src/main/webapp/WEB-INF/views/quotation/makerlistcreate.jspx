@@ -45,6 +45,8 @@
 <script>
 	var projectId=${projectId};
 	var regionType="${regionType}";
+	var pageContext = "${pageContext.request.contextPath}";
+	
 </script>
 	<script type="text/javascript" src="/resources/scripts/addMakerList.js">
 		<jsp:text/>

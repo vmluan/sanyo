@@ -1,4 +1,4 @@
-var url = "/admin/users/getListJson";
+var url = pageContext + "/admin/users/getListJson";
 // prepare the data
 var source = {
 	datatype : "json",

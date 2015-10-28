@@ -27,7 +27,9 @@
 		<p/>
 		<a href="?form" class="btn btn-primary btn-xs">${labelUserAdd}</a>
 	</section>
-
+	<script>
+	var pageContext = "${pageContext.request.contextPath}";
+	</script>
     <script type="text/javascript" src="/resources/scripts/userList.js">
         <jsp:text/>
     </script>

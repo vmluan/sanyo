@@ -50,7 +50,9 @@
 			 </div>
 			</div>
 		</section>	
-				
+	<script>
+	var pageContext = "${pageContext.request.contextPath}";
+	</script>			
     <script type="text/javascript" src="/resources/scripts/projectList.js">
         <jsp:text/>
     </script>

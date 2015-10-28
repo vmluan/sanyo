@@ -1,7 +1,7 @@
 /**
  * To display jqxgrid in user list page.
  */
-var url = "projects/getListJson";
+var url = pageContext + "/projects/getListJson";
 // prepare the data
 var source = {
 	datatype : "json",
@@ -135,13 +135,13 @@ $("#list")
 				
 				//
 function updateProduct(id) {
-	window.location.href = '/projects/' + id + '?form';
+	window.location.href = pageContext + '/projects/' + id + '?form';
 }
 function addQuotation(projectId){
-	window.location.href = '/quotation?projectId=' + projectId;
+	window.location.href = pageContext + '/quotation?projectId=' + projectId;
 }
 function cloneProject(projectId){
-	var url = '/projects/' + projectId + '?clone';
+	var url = pageContext + '/projects/' + projectId + '?clone';
 	$.ajax({
 		type : "POST",
 		contentType : 'application/json',
@@ -160,7 +160,7 @@ function deleteProject(projectId){
     var result = confirm('Do you want to delete this record?');
     if (result == false)
 		return;
-	var url = '/projects/' + projectId + '?delete';
+	var url = pageContext + '/projects/' + projectId + '?delete';
 	$.ajax({
 		type : "POST",
 		contentType : 'application/json',

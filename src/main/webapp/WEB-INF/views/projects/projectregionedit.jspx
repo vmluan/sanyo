@@ -113,6 +113,7 @@
 	});
 	
 	var regionId = ${region.regionId};
+	var pageContext = "${pageContext.request.contextPath}";
 	</script>
     <script type="text/javascript" src="/resources/scripts/regionAssignedUsers.js">
         <jsp:text/>

@@ -1,7 +1,7 @@
 /**
  * To display jqxgrid in user list page.
  */
-var url = "getAssginedRegionsJson";
+var url = pageContext + "/projects/getAssginedRegionsJson";
 // prepare the data
 var source = {
 	datatype : "json",
@@ -99,14 +99,14 @@ $("#list")
 							} ]
 				});
 function updateRegion(id) {
-	window.location.href = '/projects/regions/' + id + '?form';
+	window.location.href = pageContext + '/projects/regions/' + id + '?form';
 }
 
 function deleteRegion(id){
     var result = confirm('Do you want to delete this record?');
     if (result == false)
 		return;
-	var url = '/regions/' + id + '?delete';
+	var url = pageContext + '/regions/' + id + '?delete';
 	$.ajax({
 		type : "POST",
 		contentType : 'application/json',

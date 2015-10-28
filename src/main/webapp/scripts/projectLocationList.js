@@ -1,7 +1,7 @@
 /**
  * To display jqxgrid in user list page.
  */
-var url = "/projects/getLocationsJson";
+var url = pageContext + "/projects/getLocationsJson";
 // prepare the data
 var source = {
 	datatype : "json",
@@ -94,13 +94,13 @@ $("#listLocation")
 							} ]
 				});
 function updateLocation(id) {
-	window.location.href = '/projects/locations/' + id + '?form';
+	window.location.href = pageContext + '/projects/locations/' + id + '?form';
 }
 function deleteLocation(id){
     var result = confirm('Do you want to delete this record?');
     if (result == false)
 		return;
-	var url = '/projects/locations/' + id + '?delete';
+	var url = pageContext + '/projects/locations/' + id + '?delete';
 	$.ajax({
 		type : "POST",
 		contentType : 'application/json',

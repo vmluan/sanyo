@@ -1,7 +1,7 @@
 /**
  * To display jqxgrid in user list page.
  */
-var url = "roles/getListJson";
+var url = pageContext + "/admin/roles/getListJson";
 // prepare the data
 var source = {
 	datatype : "json",
@@ -110,5 +110,5 @@ $("#list")
 							}]
 				});
 function updateRole(groupid) {
-	window.location.href = '/admin/roles/' + groupid + '?form';
+	window.location.href = pageContext + '/admin/roles/' + groupid + '?form';
 }

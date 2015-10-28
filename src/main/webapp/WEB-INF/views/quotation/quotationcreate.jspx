@@ -75,6 +75,7 @@
 	var qtySubMain = "${project.qtySubMain}";
 	var eQtyOther = "${project.eQtyOther}";
 	var mQtymQty = "${project.mQty}";
+	var pageContext = "${pageContext.request.contextPath}";
 </script>
 	<script type="text/javascript" src="/resources/scripts/addQuotation.js">
 		<jsp:text/>
