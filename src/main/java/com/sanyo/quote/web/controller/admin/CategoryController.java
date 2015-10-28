@@ -59,6 +59,7 @@ public class CategoryController extends CommonController {
 		List<Category> categories = categoryService.findAll();
 		uiModel.addAttribute("categories", categories);
 		setBreadCrumb(uiModel, "/", "Home", "", "Categories");
+		setUser(uiModel);
 		return "categories/list";
 	}
 	
@@ -69,6 +70,7 @@ public class CategoryController extends CommonController {
         uiModel.addAttribute("category", category);
         resetCategories(uiModel,category, categoryService.findParents());
         setBreadCrumb(uiModel, "/admin/categories", "Categories", "", "Update Category");
+        setUser(uiModel);
         return "categories/update";
 	}
 	
@@ -78,6 +80,7 @@ public class CategoryController extends CommonController {
         uiModel.addAttribute("category", category);
         resetCategories(uiModel,category, categoryService.findParents());
         setBreadCrumb(uiModel, "/admin/categories", "Categories", "", "Create Category");
+        setUser(uiModel);
         return "categories/create";
 	}
 	//create new category, save to database

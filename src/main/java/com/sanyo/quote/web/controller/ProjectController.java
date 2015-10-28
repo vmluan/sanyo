@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -116,12 +118,9 @@ public class ProjectController extends CommonController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String list(Model uiModel) {
 		logger.info("Listing projects");
-
-		List<Project> projects = projectService.findAll();
-		uiModel.addAttribute("projects", projects);
 		setBreadCrumb(uiModel, "/", "Home", "/projects", "Projects");
 		setHeader(uiModel, "Projects", "List of all projects");
-		
+		setUser(uiModel);
 		return "projects/list";
 	}
 	
@@ -132,6 +131,7 @@ public class ProjectController extends CommonController {
         uiModel.addAttribute("project", project);
         setBreadCrumb(uiModel, "/projects", "Projects", "", "Project Detail");
         setHeader(uiModel, "Project Detail", "Contains detail information including regions and assigned users");
+        setUser(uiModel);
         return "projects/update";
 	}
 	
@@ -141,6 +141,7 @@ public class ProjectController extends CommonController {
         uiModel.addAttribute("project", project);
         setBreadCrumb(uiModel, "/projects", "Projects", "", "New Project");
         setHeader(uiModel, "Create new project", "");
+        setUser(uiModel);
         return "projects/create";
 	}
 	//create new project, save to database
@@ -213,8 +214,29 @@ public class ProjectController extends CommonController {
 		PageRequest pageRequest = null;
 		pageRequest = new PageRequest(pagenum, pagesize);
 
+		//if user has ROLE_ADMIN, he can see all projects
+		//otherwise, he can see assigned project only
+		org.springframework.security.core.userdetails.User user = Utilities.getCurrentUser();
+		for( GrantedAuthority a : user.getAuthorities()){
+			logger.info(" ========== GrantedAuthority =" + a.getAuthority());
+		}
+		List<Project> projects;
+		if(!Utilities.hasAdminRole()){
+			List<UserRegionRole> userRegionRoles = userRegionRoleService.findAssignedRegionsByUserName(user.getUsername());
+			TreeMap<Integer, Project> projectTree = new TreeMap<Integer, Project>();
+			for(UserRegionRole role : userRegionRoles){
+				Region region = role.getRegion();
+				Location location = region.getLocation();
+				Project project = location.getProject();
+				logger.info(" ========== project name =" + project.getProjectName());
+				projectTree.put(project.getProjectId(), project);
+			}
+			
+			projects = new ArrayList<Project>(projectTree.values());
+		}else{
+			projects = projectService.findAll();
+		}
 		
-		List<Project> projects  = projectService.findAll();
 		String result = Utilities.jSonSerialization(projects);
 		return result;
 	}
@@ -418,6 +440,7 @@ public class ProjectController extends CommonController {
 	public String showRegions(@PathVariable("id") Integer id, Model uiModel, HttpServletRequest httpServletRequest){
 		Region region = regionService.findById(Integer.valueOf(id));
 		uiModel.addAttribute("region", region);
+		setUser(uiModel);
 //		uiModel.addAttribute("projectId", region.getProject().getProjectId());
 //		String parentLink = "/projects/" + region.getProject().getProjectId() + "?form";
 //		setBreadCrumb(uiModel, parentLink, "Project Detail", "", "Assign User");
@@ -483,6 +506,7 @@ public class ProjectController extends CommonController {
         uiModel.addAttribute("projectRevision", projectRevision);
         setBreadCrumb(uiModel, "/projects", "Projects", "", "Create Revision");
         setHeader(uiModel, "Revision", "Create a new revision");
+        setUser(uiModel);
 		return "projects/revisions/create";
 		
 	}
@@ -512,6 +536,7 @@ public class ProjectController extends CommonController {
         uiModel.addAttribute("projectRevision", projectRevision);
         setBreadCrumb(uiModel, "/projects/" + projectRevision.getProject().getProjectId() + "?form", "Update Project", "", "Update Revision");
         setHeader(uiModel, "Revision", "Update revision");
+        setUser(uiModel);
 		return "projects/revisions/update";
 	}
 	@RequestMapping(value = "/revisions/{id}", params = "form", method = RequestMethod.POST)
@@ -559,6 +584,7 @@ public class ProjectController extends CommonController {
         uiModel.addAttribute("location", location);
         setBreadCrumb(uiModel, "/projects", "Projects", "", "Create Location");
         setHeader(uiModel, "Location", "Create a new Location");
+        setUser(uiModel);
 		return "projects/locations/create";
 		
 	}
@@ -588,6 +614,7 @@ public class ProjectController extends CommonController {
         uiModel.addAttribute("location", location);
         setBreadCrumb(uiModel, "/projects/" + location.getProject().getProjectId() + "?form", "Update Project", "", "Update Location");
         setHeader(uiModel, "Location", "Update location");
+        setUser(uiModel);
 		return "projects/locations/update";
 	}
 	@RequestMapping(value = "/locations/{id}", params = "form", method = RequestMethod.POST)

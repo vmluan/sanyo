@@ -49,7 +49,7 @@ import com.sanyo.quote.service.RegionService;
  */
 @Controller
 @RequestMapping(value = "/quotation")
-public class Quotation {
+public class Quotation extends CommonController {
 	final Logger logger = LoggerFactory.getLogger(Quotation.class);
 	@Autowired
 	private EncounterService encounterService;
@@ -82,6 +82,7 @@ public class Quotation {
 	public String getQuotationPage(@RequestParam(value="projectId", required=true) String projectId,
 			Model uiModel,HttpServletRequest httpServletRequest) {
 		uiModel.addAttribute("projectId", projectId);
+		setUser(uiModel);
 		return "quotation/index";
 	}
 	@RequestMapping(value = "/{id}/addmakerlist", params = "form", method = RequestMethod.GET)
@@ -89,6 +90,7 @@ public class Quotation {
 			Model uiModel,HttpServletRequest httpServletRequest) {
 		uiModel.addAttribute("projectId", projectId);
 		uiModel.addAttribute("regionType", httpServletRequest.getParameter("type"));
+		setUser(uiModel);
 		return "quotation/makerlist";
 	}
 	//save MakerList
@@ -125,6 +127,7 @@ public class Quotation {
 //		}
 		uiModel.addAttribute("regionType", httpServletRequest.getParameter("type"));
 		uiModel.addAttribute("project", projectService.findById(id));
+		setUser(uiModel);
 		return "quotation/create";
 	}
 	@RequestMapping(value = "/getAssignedProductOfRegion", method = RequestMethod.GET, produces = "application/json; charset=utf-8")

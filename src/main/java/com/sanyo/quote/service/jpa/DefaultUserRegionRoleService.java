@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.collect.Lists;
 import com.sanyo.quote.domain.Encounter;
+import com.sanyo.quote.domain.Project;
+import com.sanyo.quote.domain.Region;
 import com.sanyo.quote.domain.UserRegionRole;
 import com.sanyo.quote.repository.EncounterRepository;
 import com.sanyo.quote.repository.UserRegionRoleRepository;
@@ -43,6 +45,21 @@ public class DefaultUserRegionRoleService implements UserRegionRoleService {
 	@Override
 	public Page<UserRegionRole> findAllByPage(Pageable pageable) {
 		return userRegionRoleRepository.findAll(pageable);
+	}
+
+	@Override
+	public List<UserRegionRole> findAssignedRegionsByUserId(Integer userid) {
+		return userRegionRoleRepository.findAssignedRegionsByUserId(userid);
+	}
+
+	@Override
+	public List<UserRegionRole> findAssignedRegionsByUserName(String username) {
+		return userRegionRoleRepository.findAssignedRegionsByUserName(username);
+	}
+
+	@Override
+	public List<Project> findAssignedProjectsByUserName(String username) {
+		return userRegionRoleRepository.findAssignedProjectsByUserName(username);
 	}
 
 }

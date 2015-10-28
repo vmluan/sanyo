@@ -78,6 +78,7 @@ public class UserController extends CommonController {
 		setPageHeader(uiModel, "User List", "All of users");
 		logger.info("No. of users: " + users.size());
 		setBreadCrumb(uiModel, "/", "Home", "", "Users");
+		setUser(uiModel);
 		return "users/list";
 	}
 
@@ -135,6 +136,7 @@ public class UserController extends CommonController {
         User user = userService.findById(id);
 		uiModel.addAttribute("user", user);
 		setBreadCrumb(uiModel, "/admin/users", "Users", "", "View User");
+		setUser(uiModel);
         return "users/show";
     }
 	
@@ -144,6 +146,7 @@ public class UserController extends CommonController {
         uiModel.addAttribute("user", user);
         resetGroups(user,uiModel);
         setBreadCrumb(uiModel, "/admin/users", "Users", "", "Update User");
+        setUser(uiModel);
         return "users/update";
 	}
 	
@@ -154,6 +157,7 @@ public class UserController extends CommonController {
         resetGroups(user,uiModel);
         setPageHeader(uiModel, "Create User", "");
         setBreadCrumb(uiModel, "/admin/users", "Users", "", "Create User");
+        setUser(uiModel);
         return "users/create";
 	}
 	//update an existing user, save to database

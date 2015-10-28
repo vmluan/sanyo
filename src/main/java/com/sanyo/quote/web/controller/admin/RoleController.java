@@ -60,6 +60,7 @@ public class RoleController extends CommonController{
 		List<Group> groups = groupService.findAll();
 		uiModel.addAttribute("groups", groups);
 		setBreadCrumb(uiModel, "/", "Home", "", "Users");
+		setUser(uiModel);
 		return "roles/list";
 	}
 	
@@ -69,6 +70,7 @@ public class RoleController extends CommonController{
 		Group group = groupService.findById(id);
         uiModel.addAttribute("group", group);
         setBreadCrumb(uiModel, "/admin/roles", "Roles", "", "Update Role");
+        setUser(uiModel);
         return "roles/update";
 	}
 	
@@ -77,6 +79,7 @@ public class RoleController extends CommonController{
 		Group group = new Group();
         uiModel.addAttribute("group", group);
         setBreadCrumb(uiModel, "/admin/roles", "Roles", "", "Create Role");
+        setUser(uiModel);
         return "roles/create";
 	}
 	//create new role, save to database

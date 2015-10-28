@@ -24,6 +24,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 
@@ -107,6 +108,14 @@ public class Utilities {
 	public static User getCurrentUser(){
 		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		return user;
+	}
+	public static boolean hasAdminRole(){
+		User user = getCurrentUser();
+		for(GrantedAuthority grantedAuthority : user.getAuthorities()){
+			if(grantedAuthority.getAuthority().equalsIgnoreCase("ROLE_ADMIN"))
+				return true;
+		}
+		return false;
 	}
 	public static boolean isValidInputNumber(String input){
 		if(input != null && !input.trim().equalsIgnoreCase(""))
