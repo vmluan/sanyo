@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: User
+  Date: 10/29/2015
+  Time: 12:46 AM
+  To change this template use File | Settings | File Templates.
+-->
+
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:spring="http://www.springframework.org/tags"
+     xmlns:form="http://www.springframework.org/tags/form"
+     version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+
+    <spring:message code="expenseElement_1" var="expenseElement_1" text="JP Yen 29,000/Day"/>
+    <spring:message code="expenseElement_2" var="expenseElement_2" text="JP Yen 35,000/Day"/>
+    <spring:message code="expenseElement_3" var="expenseElement_3" text="JP Yen 40,000/Day"/>
+    <spring:message code="expenseElement_4" var="expenseElement_4" text="Japanese Site correction"/>
+    <spring:message code="expenseElement_5" var="expenseElement_5" text="3rd Country Engineer"/>
+    <spring:message code="expenseElement_6" var="expenseElement_6" text="Local Site Manager"/>
+    <spring:message code="expenseElement_7" var="expenseElement_7" text="Local Engineer 1"/>
+    <spring:message code="expenseElement_8" var="expenseElement_8" text="Local Engineer 2"/>
+    <spring:message code="expenseElement_9" var="expenseElement_9" text="Local Engineer 3"/>
+    <spring:message code="expenseElement_10" var="expenseElement_10" text="Local Engineer 4"/>
+    <spring:message code="expenseElement_11" var="expenseElement_11" text="Cad Operator"/>
+    <spring:message code="expenseElement_12" var="expenseElement_12" text="Safety Supervisor"/>
+    <spring:message code="expenseElement_13" var="expenseElement_13" text="Site Office"/>
+    <spring:message code="expenseElement_14" var="expenseElement_14" text="Site Storage"/>
+    <spring:message code="expenseElement_15" var="expenseElement_15" text="Drawing &amp; Documents"/>
+    <spring:message code="expenseElement_16" var="expenseElement_16" text="Site Goods"/>
+    <spring:message code="expenseElement_17" var="expenseElement_17" text="Transportation (MAT)"/>
+    <spring:message code="expenseElement_18" var="expenseElement_18" text="Transportation (Engineer)"/>
+    <spring:message code="expenseElement_19" var="expenseElement_19" text="Safety Goods"/>
+    <spring:message code="expenseElement_20" var="expenseElement_20" text="Accomodation"/>
+    <spring:message code="expenseElement_21" var="expenseElement_21" text="others"/>
+    <spring:message code="expenseElement_22" var="expenseElement_22" text="Import Tax"/>
+    <spring:message code="expenseElement_23" var="expenseElement_23" text="Computer, etc,"/>
+    <spring:message code="expenseElement_24" var="expenseElement_24" text="3rd Party Insurance"/>
+    <spring:message code="expenseElement_25" var="expenseElement_25" text="Performance Bond"/>
+    <spring:message code="expenseElement_26" var="expenseElement_26" text="Tender Fees"/>
+    <spring:message code="expenseElement_27" var="expenseElement_27" text="Prosonal Income Tax"/>
+    <spring:message code="expenseElement_28" var="expenseElement_28" text="Personal Social Insurance"/>
+    <spring:message code="expenseElement_29" var="expenseElement_29" text="Bank Loan Intarest"/>
+    <spring:message code="expenseElement_30" var="expenseElement_30" text="Japanese, 3rd country"/>
+    <spring:message code="expenseElement_31" var="expenseElement_31" text="Air Ticket"/>
+    <spring:message code="expenseElement_32" var="expenseElement_32" text="Telephone"/>
+    <spring:message code="expenseElement_33" var="expenseElement_33" text="Electric &amp; Water fee"/>
+    <spring:message code="expenseElement_34" var="expenseElement_34" text="Administration"/>
+    <spring:message code="expenseElement_35" var="expenseElement_35" text="Misce"/>
+    <spring:message code="expenseElement_36" var="expenseElement_36" text="Entertainmant"/>
+    <spring:message code="expenseElement_37" var="expenseElement_37" text="Application cost"/>
+    <spring:message code="expenseElement_38" var="expenseElement_38" text="Japanese"/>
+    <spring:message code="expenseElement_39" var="expenseElement_39" text="3rd Country"/>
+    <spring:message code="expenseElement_40" var="expenseElement_40" text="Vietnam"/>
+    <spring:message code="expenseElement_41" var="expenseElement_41" text="Vietnam"/>
+    <spring:message code="expenseElement_42" var="expenseElement_42" text="Vietnam"/>
+    <spring:message code="expenseElement_43" var="expenseElement_43" text="Vietnam"/>
+    <spring:message code="expenseElement_44" var="expenseElement_44" text="Vietnam"/>
+    <spring:message code="expenseElement_45" var="expenseElement_45" text="Vietnam"/>
+    <spring:message code="expenseElement_46" var="expenseElement_46" text="Vietnam"/>
+    <spring:message code="expenseElement_47" var="expenseElement_47" text="Vietnam"/>
+    <spring:message code="expenseElement_48" var="expenseElement_48" text="Vietnam"/>
+    <spring:message code="expenseElement_49" var="expenseElement_49" text="Japanese"/>
+    <spring:message code="expenseElement_50" var="expenseElement_50" text="3rd Country"/>
+    <spring:message code="expenseElement_51" var="expenseElement_51" text="Vietnam"/>
+    <spring:message code="expenseElement_52" var="expenseElement_52" text="Vietnam"/>
+    <spring:message code="expenseElement_53" var="expenseElement_53" text="Vietnam"/>
+    <spring:message code="expenseElement_54" var="expenseElement_54" text="Vietnam"/>
+    <spring:message code="expenseElement_55" var="expenseElement_55" text="Vietnam"/>
+    <spring:message code="expenseElement_56" var="expenseElement_56" text="Vietnam"/>
+    <spring:message code="expenseElement_57" var="expenseElement_57" text="Vietnam"/>
+    <spring:message code="expenseElement_58" var="expenseElement_58" text="Vietnam"/>
+    <spring:message code="expenseElement_59" var="expenseElement_59" text="Vietnam"/>
+    <spring:message code="expenseElement_60" var="expenseElement_60" text="Japanese"/>
+    <spring:message code="expenseElement_61" var="expenseElement_61" text="Japanese"/>
+
+<section class="content">
+    <form:form modelAttribute="expensesJson" id="projectUpdateForm" method="post">
+        <div class="form-group">
+            <form:label path="expenseElement_1">
+                ${expenseElement_1}*
+            </form:label>
+            <form:input path="expenseElement_1" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_2">
+                ${expenseElement_2}*
+            </form:label>
+            <form:input path="expenseElement_2" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_3">
+                ${expenseElement_3}*
+            </form:label>
+            <form:input path="expenseElement_3" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_4">
+                ${expenseElement_4}*
+            </form:label>
+            <form:input path="expenseElement_4" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_5">
+                ${expenseElement_5}*
+            </form:label>
+            <form:input path="expenseElement_5" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_6">
+                ${expenseElement_6}*
+            </form:label>
+            <form:input path="expenseElement_6" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_7">
+                ${expenseElement_7}*
+            </form:label>
+            <form:input path="expenseElement_7" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_8">
+                ${expenseElement_8}*
+            </form:label>
+            <form:input path="expenseElement_8" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_9">
+                ${expenseElement_9}*
+            </form:label>
+            <form:input path="expenseElement_9" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_10">
+                ${expenseElement_10}*
+            </form:label>
+            <form:input path="expenseElement_10" class="form-control"/>
+        </div>
+
+        <div class="form-group">
+            <form:label path="expenseElement_11">
+                ${expenseElement_11}*
+            </form:label>
+            <form:input path="expenseElement_11" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_12">
+                ${expenseElement_12}*
+            </form:label>
+            <form:input path="expenseElement_12" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_13">
+                ${expenseElement_13}*
+            </form:label>
+            <form:input path="expenseElement_13" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_14">
+                ${expenseElement_14}*
+            </form:label>
+            <form:input path="expenseElement_14" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_15">
+                ${expenseElement_15}*
+            </form:label>
+            <form:input path="expenseElement_15" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_16">
+                ${expenseElement_16}*
+            </form:label>
+            <form:input path="expenseElement_16" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_17">
+                ${expenseElement_17}*
+            </form:label>
+            <form:input path="expenseElement_17" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_18">
+                ${expenseElement_18}*
+            </form:label>
+            <form:input path="expenseElement_18" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_19">
+                ${expenseElement_19}*
+            </form:label>
+            <form:input path="expenseElement_19" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_20">
+                ${expenseElement_20}*
+            </form:label>
+            <form:input path="expenseElement_20" class="form-control"/>
+        </div>
+
+        <div class="form-group">
+            <form:label path="expenseElement_21">
+                ${expenseElement_21}*
+            </form:label>
+            <form:input path="expenseElement_21" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_22">
+                ${expenseElement_22}*
+            </form:label>
+            <form:input path="expenseElement_22" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_23">
+                ${expenseElement_23}*
+            </form:label>
+            <form:input path="expenseElement_23" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_24">
+                ${expenseElement_24}*
+            </form:label>
+            <form:input path="expenseElement_24" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_25">
+                ${expenseElement_25}*
+            </form:label>
+            <form:input path="expenseElement_25" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_26">
+                ${expenseElement_26}*
+            </form:label>
+            <form:input path="expenseElement_26" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_27">
+                ${expenseElement_27}*
+            </form:label>
+            <form:input path="expenseElement_27" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_28">
+                ${expenseElement_28}*
+            </form:label>
+            <form:input path="expenseElement_28" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_29">
+                ${expenseElement_29}*
+            </form:label>
+            <form:input path="expenseElement_29" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_30">
+                ${expenseElement_30}*
+            </form:label>
+            <form:input path="expenseElement_30" class="form-control"/>
+        </div>
+
+        <div class="form-group">
+            <form:label path="expenseElement_31">
+                ${expenseElement_31}*
+            </form:label>
+            <form:input path="expenseElement_31" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_32">
+                ${expenseElement_32}*
+            </form:label>
+            <form:input path="expenseElement_32" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_33">
+                ${expenseElement_33}*
+            </form:label>
+            <form:input path="expenseElement_33" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_34">
+                ${expenseElement_34}*
+            </form:label>
+            <form:input path="expenseElement_34" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_35">
+                ${expenseElement_35}*
+            </form:label>
+            <form:input path="expenseElement_35" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_36">
+                ${expenseElement_36}*
+            </form:label>
+            <form:input path="expenseElement_36" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_37">
+                ${expenseElement_37}*
+            </form:label>
+            <form:input path="expenseElement_37" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_38">
+                ${expenseElement_38}*
+            </form:label>
+            <form:input path="expenseElement_38" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_39">
+                ${expenseElement_39}*
+            </form:label>
+            <form:input path="expenseElement_39" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_40">
+                ${expenseElement_40}*
+            </form:label>
+            <form:input path="expenseElement_40" class="form-control"/>
+        </div>
+
+        <div class="form-group">
+            <form:label path="expenseElement_41">
+                ${expenseElement_41}*
+            </form:label>
+            <form:input path="expenseElement_41" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_42">
+                ${expenseElement_42}*
+            </form:label>
+            <form:input path="expenseElement_42" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_43">
+                ${expenseElement_43}*
+            </form:label>
+            <form:input path="expenseElement_43" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_44">
+                ${expenseElement_44}*
+            </form:label>
+            <form:input path="expenseElement_44" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_45">
+                ${expenseElement_45}*
+            </form:label>
+            <form:input path="expenseElement_45" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_46">
+                ${expenseElement_46}*
+            </form:label>
+            <form:input path="expenseElement_46" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_47">
+                ${expenseElement_47}*
+            </form:label>
+            <form:input path="expenseElement_47" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_48">
+                ${expenseElement_48}*
+            </form:label>
+            <form:input path="expenseElement_48" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_49">
+                ${expenseElement_49}*
+            </form:label>
+            <form:input path="expenseElement_49" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_50">
+                ${expenseElement_50}*
+            </form:label>
+            <form:input path="expenseElement_50" class="form-control"/>
+        </div>
+
+        <div class="form-group">
+            <form:label path="expenseElement_51">
+                ${expenseElement_51}*
+            </form:label>
+            <form:input path="expenseElement_51" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_52">
+                ${expenseElement_52}*
+            </form:label>
+            <form:input path="expenseElement_52" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_53">
+                ${expenseElement_53}*
+            </form:label>
+            <form:input path="expenseElement_53" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_54">
+                ${expenseElement_54}*
+            </form:label>
+            <form:input path="expenseElement_54" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_55">
+                ${expenseElement_55}*
+            </form:label>
+            <form:input path="expenseElement_55" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_56">
+                ${expenseElement_56}*
+            </form:label>
+            <form:input path="expenseElement_56" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_57">
+                ${expenseElement_57}*
+            </form:label>
+            <form:input path="expenseElement_57" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_58">
+                ${expenseElement_58}*
+            </form:label>
+            <form:input path="expenseElement_58" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_59">
+                ${expenseElement_59}*
+            </form:label>
+            <form:input path="expenseElement_59" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <form:label path="expenseElement_60">
+                ${expenseElement_60}*
+            </form:label>
+            <form:input path="expenseElement_60" class="form-control"/>
+        </div>
+
+        <div class="form-group">
+            <form:label path="expenseElement_61">
+                ${expenseElement_61}*
+            </form:label>
+            <form:input path="expenseElement_61" class="form-control"/>
+        </div>
+
+    </form:form>
+</section>
+</div>
