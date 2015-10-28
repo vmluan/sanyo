@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 
 import com.sanyo.quote.domain.Encounter;
 import com.sanyo.quote.domain.Expenses;
@@ -44,5 +45,5 @@ public interface ProjectService {
 	
 	void delete(Integer id);
 	void delte(Project project);
-	
+	List<Project> findByStatus(ProjectStatus status);
 }

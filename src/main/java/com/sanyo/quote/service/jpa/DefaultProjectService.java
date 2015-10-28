@@ -245,6 +245,11 @@ public class DefaultProjectService implements ProjectService {
 	public void delte(Project project) {
 		projectRepository.delete(project);
 		
+	}
+
+	@Override
+	public List<Project> findByStatus(ProjectStatus status) {
+		return projectRepository.findByStatus(status);
 	}	
 	
 	

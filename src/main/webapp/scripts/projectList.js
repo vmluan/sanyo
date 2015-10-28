@@ -1,7 +1,7 @@
 /**
  * To display jqxgrid in user list page.
  */
-var url = pageContext + "/projects/getListJson";
+var url = pageContext + "/projects/getListJson?status=" + projectStatus;
 // prepare the data
 var source = {
 	datatype : "json",
@@ -123,7 +123,7 @@ $("#list")
 													+ '<button class="btn bg-purple margin col-md-2" onclick="addQuotation('+ value +  ')"' + '>Pricing</button>'
 													+ '<button class="btn bg-navy margin col-md-2">Marker</button>'
 													+ '<button class="btn bg-orange margin col-md-1" onclick="cloneProject('+ value +  ')"' + '>Clone</button>'
-													+ '<button class="btn bg-maroon margin col-md-1">Close</button>'
+													+ '<button class="btn bg-maroon margin col-md-1" onclick="closeProject('+ value +  ')"' + '>Close</button>'
 													+ '<button class="btn btn-danger margin col-md-1" onclick="deleteProject('+ value +  ')"' + '>X</button>'
 												+ '</p>'
 											+ '</div>'
@@ -167,6 +167,24 @@ function deleteProject(projectId){
 		url : url,
 		success : function(msg) {
 			alert('delete successfully.');
+			$("#list").jqxGrid('updatebounddata');
+		},
+		complete : function(xhr, status) {
+
+		}
+});
+	
+}
+function closeProject(projectId){
+    var result = confirm('Do you want to close project?');
+    if (result == false)
+		return;
+	var url = pageContext + '/projects/' + projectId + '?close';
+	$.ajax({
+		type : "POST",
+		contentType : 'application/json',
+		url : url,
+		success : function(msg) {
 			$("#list").jqxGrid('updatebounddata');
 		},
 		complete : function(xhr, status) {

@@ -86,5 +86,8 @@ public interface ProjectRepository extends PagingAndSortingRepository<Project, I
 	@Query("SELECT distinct  p.expenses FROM Project p JOIN p.expenses WHERE p.projectId = :id")
 	public List<Expenses> findExpenses(@Param("id") Integer id);
 	
+	@Query("SELECT p FROM Project p WHERE p.status = :status")
+	public List<Project> findByStatus(@Param("status") ProjectStatus status);
+	
 	
 }

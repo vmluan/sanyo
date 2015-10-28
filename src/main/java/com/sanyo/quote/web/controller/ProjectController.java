@@ -48,6 +48,7 @@ import com.sanyo.quote.domain.ProductGroup;
 import com.sanyo.quote.domain.ProductGroupMaker;
 import com.sanyo.quote.domain.Project;
 import com.sanyo.quote.domain.ProjectRevision;
+import com.sanyo.quote.domain.ProjectStatus;
 import com.sanyo.quote.domain.Region;
 import com.sanyo.quote.domain.RegionJson;
 import com.sanyo.quote.domain.User;
@@ -116,11 +117,13 @@ public class ProjectController extends CommonController {
 	
 	//handle /projects
 	@RequestMapping(method = RequestMethod.GET)
-	public String list(Model uiModel) {
+	public String list(Model uiModel, HttpServletRequest request) {
 		logger.info("Listing projects");
 		setBreadCrumb(uiModel, "/", "Home", "/projects", "Projects");
 		setHeader(uiModel, "Projects", "List of all projects");
 		setUser(uiModel);
+		String status = request.getParameter("status");
+		uiModel.addAttribute("projectStatus", status);
 		return "projects/list";
 	}
 	
@@ -160,6 +163,7 @@ public class ProjectController extends CommonController {
         project.setCreatedBy(Utilities.getCurrentUser().getUsername());
         project.setLastModifiedBy(Utilities.getCurrentUser().getUsername());
         project.setLmodDate(date);
+        project.setStatus(ProjectStatus.ONGOING);
         projectService.save(project);
         redirectAttributes.addFlashAttribute("message", new Message("success", messageSource.getMessage("project_save_success", new Object[]{}, locale)));
         return "redirect:/projects/" + UrlUtil.encodeUrlPathSegment(project.getProjectId().toString(), httpServletRequest) + "?form";
@@ -213,6 +217,8 @@ public class ProjectController extends CommonController {
 		// Constructs page request for current page
 		PageRequest pageRequest = null;
 		pageRequest = new PageRequest(pagenum, pagesize);
+		
+		String status = httpServletRequest.getParameter("status");
 
 		//if user has ROLE_ADMIN, he can see all projects
 		//otherwise, he can see assigned project only
@@ -228,13 +234,25 @@ public class ProjectController extends CommonController {
 				Region region = role.getRegion();
 				Location location = region.getLocation();
 				Project project = location.getProject();
+				if(status != null && status.equalsIgnoreCase("ongoing")){
+					if(project.getStatus().toString().equals(ProjectStatus.ONGOING))
+						projectTree.put(project.getProjectId(), project);
+				}else if(status != null && status.equalsIgnoreCase("closed")){
+					if(project.getStatus().toString().equals(ProjectStatus.FINISH))
+						projectTree.put(project.getProjectId(), project);
+				}
 				logger.info(" ========== project name =" + project.getProjectName());
-				projectTree.put(project.getProjectId(), project);
+				
 			}
 			
 			projects = new ArrayList<Project>(projectTree.values());
 		}else{
-			projects = projectService.findAll();
+			if(status != null && status.equalsIgnoreCase("ongoing"))
+				projects = projectService.findByStatus(ProjectStatus.ONGOING);
+			else if(status != null && status.equalsIgnoreCase("closed"))
+				projects = projectService.findByStatus(ProjectStatus.FINISH);
+			else
+				projects = null;
 		}
 		
 		String result = Utilities.jSonSerialization(projects);
@@ -759,6 +777,19 @@ public class ProjectController extends CommonController {
 	public void deleteProject(@PathVariable("id") Integer id, Model uiModel
 			,HttpServletRequest httpServletRequest) throws CloneNotSupportedException{
 		projectService.delete(id);
+
+	}
+	@Transactional
+	@RequestMapping(value = "/{id}", params = "close", method = RequestMethod.POST)
+	@ResponseStatus(value = HttpStatus.OK)
+	public void closeProject(@PathVariable("id") Integer id, Model uiModel
+			,HttpServletRequest httpServletRequest) throws CloneNotSupportedException{
+		Project project = projectService.findById(id);
+		project.setLmodDate(new Date());
+		project.setLastModifiedBy(Utilities.getCurrentUser().getUsername());
+		project.setStatus(ProjectStatus.FINISH);
+		projectService.save(project);
+		
 
 	}
 	@Transactional

@@ -42,7 +42,7 @@ public class HomeController extends BaseController{
 	@RequestMapping(method = RequestMethod.GET)
 	public String getHomePage(Model ciModel,@RequestParam(value="lang", required=false)String id,
 			HttpServletRequest httpServletRequest) throws ParseException {
-		return "redirect:/projects";
+		return "redirect:/projects?status=ongoing";
 //		return "default_bk";
 	}
 //	@RequestMapping(method = RequestMethod.GET)
