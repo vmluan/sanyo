@@ -14,7 +14,11 @@ var source = {
 	}, {
 		name : 'loginadministrator',
 		type : 'bol'
-	} ],
+	}, {
+		name : 'groupid',
+		type : 'string'
+	}
+	],
 	id : 'groupid',
 	url : url
 };
@@ -62,18 +66,16 @@ $("#list")
 							{
 								text : 'Action',
 								align : 'center',
-								datafield : 'userid',
+								datafield : 'groupid',
 								width : '15%',
 								cellsrenderer : function(row, column, value) {
-									return '<div class="col-md-6">'
-											+ '<a class="btn btn-app" onclick="updateProduct('
-											+ value
-											+ ')">'
+										return '<div class="col-md-12">'
+											+ '<a class="btn btn-app col-md-5" onclick="updateRole('+ value + ')">'
 											+ '<i class="glyphicon glyphicon-edit"></i>'
 											+ '</a>'
-											+ '<a class="btn btn-app">'
-											+ '<i class="glyphicon glyphicon-remove-circle"></i>'
-											+ '</a>' + '</div>';
+											+ '<a class="btn btn-app col-md-5">'
+											+ '<i class="glyphicon glyphicon-remove-circle" onclick="deleteRole('+ value +  ')"' + '></i>'
+											+ '</a>' + '</div>';											
 								}
 							},
 							{
@@ -107,6 +109,6 @@ $("#list")
 								width : '14%'
 							}]
 				});
-function updateProduct(userid) {
-	window.location.href = '/admin/roles/' + userid + '?form';
+function updateRole(groupid) {
+	window.location.href = '/admin/roles/' + groupid + '?form';
 }
