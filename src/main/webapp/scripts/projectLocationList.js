@@ -99,7 +99,7 @@ function deleteItem(id){
     if (result == false)
 		return;
 	var url = '/projects/' + id + '/locations?delete';
-	$.ajax({''
+	$.ajax({
 		type : "POST",
 		contentType : 'application/json',
 		url : url,

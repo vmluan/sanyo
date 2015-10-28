@@ -106,7 +106,7 @@ function deleteItem(id){
     if (result == false)
 		return;
 	var url = '/regions/' + id + '?delete';
-	$.ajax({''
+	$.ajax({
 		type : "POST",
 		contentType : 'application/json',
 		url : url,
