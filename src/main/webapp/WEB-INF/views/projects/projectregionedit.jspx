@@ -78,6 +78,7 @@
 		</div>
 	</section>
 	<script>
+	var pageContext = "${pageContext.request.contextPath}";
 	$("#messageNotification").jqxNotification({
 		width: 250, position: "top-right", opacity: 0.9,
 		autoOpen: false, animationOpenDelay: 800, autoClose: true, autoCloseDelay: 3000, template: "info"
@@ -97,7 +98,7 @@
 		var jsonData = JSON.stringify(result);
 		console.log(jsonData);
 		
-		var url = '/projects/regions/' + ${region.regionId} + '?form';
+		var url = pageContext + '/projects/regions/' + ${region.regionId} + '?form';
 		$.ajax({
 			   type: "POST",
 			   contentType : 'application/json',
@@ -113,7 +114,7 @@
 	});
 	
 	var regionId = ${region.regionId};
-	var pageContext = "${pageContext.request.contextPath}";
+	
 	</script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/regionAssignedUsers.js">
         <jsp:text/>
