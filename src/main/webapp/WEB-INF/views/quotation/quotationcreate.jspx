@@ -77,7 +77,7 @@
 	var mQtymQty = "${project.mQty}";
 	var pageContext = "${pageContext.request.contextPath}";
 </script>
-	<script type="text/javascript" src="/resources/scripts/addQuotation.js">
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/addQuotation.js">
 		<jsp:text/>
 	</script>
 </div>

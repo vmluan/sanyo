@@ -23,7 +23,7 @@
 		<a href="?form" class="btn btn-primary btn-xs">${labelRoleAdd}</a>
 	</section>
 
-    <script type="text/javascript" src="/resources/scripts/roleList.js">
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/roleList.js">
         <jsp:text/>
     </script>
 </div>

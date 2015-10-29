@@ -7,19 +7,19 @@
 
 <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs pull-right">
-				  <li class="abc"><a href="/quotation/${projectId }/addmakerlist?form&amp;type=mech" data-target="#tab_3-2" data-toggle="tab" aria-expanded="false">Mechanical Maker</a></li>
-				  <li class="abc"><a href="/quotation/${projectId }/addquotation?form" data-target="#tab_3_1" data-toggle="tab" aria-expanded="false">Mechanical BOQ</a></li>
-				  <li class="abc"><a href="/quotation/${projectId }/addmakerlist?form&amp;type=elec" data-target="#tab_2-2" data-toggle="tab" aria-expanded="false">Electrical Maker</a></li>
-				  <li class="abc"><a href="/quotation/${projectId }/addquotation?form&amp;type=elec" data-target="#tab_2-1" data-toggle="tab" aria-expanded="false">Electrical BOQ</a></li>
+				  <li class="abc"><a href="${pageContext.request.contextPath}/quotation/${projectId }/addmakerlist?form&amp;type=mech" data-target="#tab_3-2" data-toggle="tab" aria-expanded="false">Mechanical Maker</a></li>
+				  <li class="abc"><a href="${pageContext.request.contextPath}/quotation/${projectId }/addquotation?form" data-target="#tab_3_1" data-toggle="tab" aria-expanded="false">Mechanical BOQ</a></li>
+				  <li class="abc"><a href="${pageContext.request.contextPath}/quotation/${projectId }/addmakerlist?form&amp;type=elec" data-target="#tab_2-2" data-toggle="tab" aria-expanded="false">Electrical Maker</a></li>
+				  <li class="abc"><a href="${pageContext.request.contextPath}/quotation/${projectId }/addquotation?form&amp;type=elec" data-target="#tab_2-1" data-toggle="tab" aria-expanded="false">Electrical BOQ</a></li>
 
 
                    <li class="abc"><a href="#tab_4-4" data-toggle="tab" aria-expanded="false">Summary</a></li>
 
-                  <li class="abc"><a href="/parameter" data-target="#tab_1-1" data-toggle="tab" aria-expanded="false">Summary-info</a></li>
-                  <li class="abc"><a href="/expenses" data-target="#tab_1-2" data-toggle="tab" aria-expanded="false"><![CDATA[M&E Expenses]]></a></li>
-                  <li class="abc"><a href="/condition_2" data-target="#tab_1-3" data-toggle="tab" aria-expanded="false">Condition 2</a></li>
-                  <li class="abc"><a href="/condition_1" data-target="#tab_1-4" data-toggle="tab" aria-expanded="false">Condition 1</a></li>
-                  <li class="abc"><a href="/cover" data-target="#tab_1-5" data-toggle="tab" aria-expanded="false">Cover</a></li>
+                  <li class="abc"><a href="${pageContext.request.contextPath}/parameter" data-target="#tab_1-1" data-toggle="tab" aria-expanded="false">Summary-info</a></li>
+                  <li class="abc"><a href="${pageContext.request.contextPath}/expenses" data-target="#tab_1-2" data-toggle="tab" aria-expanded="false"><![CDATA[M&E Expenses]]></a></li>
+                  <li class="abc"><a href="${pageContext.request.contextPath}/condition_2" data-target="#tab_1-3" data-toggle="tab" aria-expanded="false">Condition 2</a></li>
+                  <li class="abc"><a href="${pageContext.request.contextPath}/condition_1" data-target="#tab_1-4" data-toggle="tab" aria-expanded="false">Condition 1</a></li>
+                  <li class="abc"><a href="${pageContext.request.contextPath}/cover" data-target="#tab_1-5" data-toggle="tab" aria-expanded="false">Cover</a></li>
                   <li class="pull-left header"><i class="fa fa-th"><jsp:text /></i>Quotation</li>
                 </ul>
                 <div class="tab-content">

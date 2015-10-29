@@ -115,10 +115,10 @@
 	var regionId = ${region.regionId};
 	var pageContext = "${pageContext.request.contextPath}";
 	</script>
-    <script type="text/javascript" src="/resources/scripts/regionAssignedUsers.js">
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/regionAssignedUsers.js">
         <jsp:text/>
     </script>		
-    <script type="text/javascript" src="/resources/scripts/projectRegionUsers.js">
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/projectRegionUsers.js">
         <jsp:text/>
     </script>	
 </div>

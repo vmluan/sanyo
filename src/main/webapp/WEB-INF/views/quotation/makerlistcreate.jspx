@@ -48,7 +48,7 @@
 	var pageContext = "${pageContext.request.contextPath}";
 	
 </script>
-	<script type="text/javascript" src="/resources/scripts/addMakerList.js">
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/addMakerList.js">
 		<jsp:text/>
 	</script>
 </div>

@@ -697,13 +697,13 @@ function getCheckedItems(obj){
 var projectId=${project.projectId};
 var pageContext = "${pageContext.request.contextPath}";
 </script>
-    <script type="text/javascript" src="/resources/scripts/projectRevisionList.js">
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/projectRevisionList.js">
         <jsp:text/>
     </script>
-    <script type="text/javascript" src="/resources/scripts/projectAssignedRegionList.js">
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/projectAssignedRegionList.js">
         <jsp:text/>
     </script>
-    <script type="text/javascript" src="/resources/scripts/projectLocationList.js">
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/projectLocationList.js">
         <jsp:text/>
     </script>		
 	</c:if>	
