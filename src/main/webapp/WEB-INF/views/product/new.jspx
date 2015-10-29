@@ -72,7 +72,7 @@
 						</div>						
 						<div class="col-md-12">
 							<div class="form-group">
-								<button type="submit" class="btn btn-primary" id="sbmBtn">Submit</button>
+								<button type="button" class="btn btn-primary" id="sbmBtn">Submit</button>
 							</div>
 						</div>
 
@@ -84,37 +84,67 @@
 	</section>
     <div style="clear: both;"></div>
     <script>
-    
+    var pageContext = "${pageContext.request.contextPath}";
 	$("#sbmBtn").click(function(){
-		var result = new Array();
-		var selectedRole = $("#jqxWidgetRole").jqxDropDownList('getSelectedItem');
-		var roleName = selectedRole.value;
-		var rows = $("#jqxWidget").jqxComboBox('getCheckedItems');
+		var result = new Object();
+		var productID = "${product.productID}";
 		//<![CDATA[
+		var rows = $("#jqxWidgetCategory").jqxTreeGrid('getRows');
+		var categories = new Array();
 		for(var i=0; i<rows.length; i++){
-			var user = new Object();
-			user.userName = rows[i].value;
-			user.roleName = roleName;
-			result.push(user);
+			var temp = getCheckedItems(rows[i]);
+			categories = categories.concat(temp)
 		}
+		result.categories = categories;
+		
+		var rows = $("#jqxWidgetPG").jqxComboBox('getCheckedItems');
+		var pgs = new Array();
+		for(var i=0; i<rows.length; i++){
+			var pg = new Object();
+			pg.groupId = rows[i].originalItem.groupId;
+			pg.groupName = rows[i].originalItem.groupName;
+			pgs.push(pg);
+		}
+		result.productGroups = pgs;
 		var jsonData = JSON.stringify(result);
 		console.log(jsonData);
 		
-		var url = '/projects/regions/' + ${region.regionId} + '?form';
+		var url='';
+		if(productID)
+			url = pageContext + '/products/' + productID + '?form';
+		else
+			url = pageContext + '/products?form';
+			/*
 		$.ajax({
 			   type: "POST",
 			   contentType : 'application/json',
 			   data: jsonData,
 			   url: url,
 			   success: function(msg){
-					$("#messageNotification").jqxNotification("open");
-					$("#jqxWidgetAssignedUsers").jqxGrid('updatebounddata');
+// 					$("#messageNotification").jqxNotification("open");
+// 					$("#jqxWidgetAssignedUsers").jqxGrid('updatebounddata');
 			   }
 			});
-			
-		//]]>
+			*/
+		
 	});
-	var pageContext = "${pageContext.request.contextPath}";
+	function getCheckedItems(obj){
+		var array = new Array();
+			//loop and select all children
+			var records = obj.records;
+			for(var i=0; i< records.length; i++){
+				var record = records[i];
+				if(record.leaf && record.checked){
+					var obj = new Object();
+					obj.categoryId = record.categoryId;
+					obj.categoryName = record.categoryName;
+					array.push(obj);
+				}
+			}	
+		return array;	
+	}
+	//]]>
+		
     </script>
     
    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/productCategory.js">
