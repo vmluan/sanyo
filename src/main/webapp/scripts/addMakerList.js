@@ -1,4 +1,4 @@
-var urlRegion = "${pageContext.request.contextPath}/projects/getAssginedCategoriesJson";
+var urlRegion = pageContext + "/projects/getAssginedCategoriesJson";
 // prepare the data
 var sourceRegion = {
 	datatype : "json",
@@ -28,7 +28,7 @@ var dataAdapterRegion = new $.jqx.dataAdapter(sourceRegion, {
 	}
 });
 
-var urlProductGroup = '${pageContext.request.contextPath}/productgroups/getproductGroupJson';
+var urlProductGroup = pageContext + '/productgroups/getproductGroupJson';
 var sourceProductGroup = {
 	datatype : "json",
 	datafields : [ {
@@ -56,7 +56,7 @@ var dataAdapterProductGroup = new $.jqx.dataAdapter(sourceProductGroup, {
 	}
 });
 
-var urlMaker = '${pageContext.request.contextPath}/makers/getMakersJson';
+var urlMaker = pageContext + '/makers/getMakersJson';
 var sourceMaker = {
 	datatype : "json",
 	datafields : [ {
@@ -107,7 +107,7 @@ function saveMakerList(row) {
 
 	var jsonData = JSON.stringify(makerList);
 	console.log(jsonData);
-	var url = '${pageContext.request.contextPath}/quotation/1/addmakerlist?form';
+	var url = pageContext + '/quotation/1/addmakerlist?form';
 	$.ajax({
 		type : "POST",
 		contentType : 'application/json',
@@ -479,7 +479,7 @@ function showResultGrid(categoryId) {
 	/**
 	 * To display jqxgrid in user list page.
 	 */
-	var url = "${pageContext.request.contextPath}/makers/getAssignedMakersJson";
+	var url = pageContext + "/makers/getAssignedMakersJson";
 
 	var source = {
 		datatype : "json",

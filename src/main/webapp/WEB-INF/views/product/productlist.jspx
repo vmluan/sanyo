@@ -15,7 +15,7 @@
     <spring:message code="label_user_new" var="labelUserAdd"/>
     
 	
-	<h3> <a href="/products?form">Them moi SP</a></h3>
+	<h3> <a href="/products?form">New Product</a></h3>
     
     
 	

@@ -1,6 +1,6 @@
 $("#locationSum").jqxNumberInput({ width: '250px', height: '25px', symbol: '$', disabled: true, max: 99999999});
 
-var urlLocation = "${pageContext.request.contextPath}/quotation/getAssignedLocationsJson";
+var urlLocation = pageContext + "/quotation/getAssignedLocationsJson";
 // prepare the data
 var sourceLocation = {
 	datatype : "json",
@@ -47,7 +47,7 @@ $('#jqxWidgetLocation').on('select', function(event) {
 		// get item's label and value.
 		var label = item.label;
 		var value = item.value;
-		var urlRegion = "${pageContext.request.contextPath}/projects/getAssginedRegionsOfLocationJson";
+		var urlRegion = pageContext + "/projects/getAssginedRegionsOfLocationJson";
 		// prepare the data
 		var sourceRegion = {
 			datatype : "json",
@@ -108,7 +108,7 @@ $('#jqxWidgetLocation').on('select', function(event) {
 });
 
 function updateLocationSum(locationId){
-	var urlLocationSum = '${pageContext.request.contextPath}/quotation/' + locationId +'/getLocationSum';
+	var urlLocationSum = pageContext + '/quotation/' + locationId +'/getLocationSum';
 		$.ajax({
 			type : "POST",
 			contentType : 'application/json',
@@ -123,7 +123,7 @@ function updateLocationSum(locationId){
 }
 
 function getUrlProducts(productGroupId){
-	var urlProducts = "${pageContext.request.contextPath}/productgroups/getProductsOfGroupjson";
+	var urlProducts = pageContext + "/productgroups/getProductsOfGroupjson";
 	var sourceProducts = {
 			datatype : "json",
 			datafields : [ {
@@ -184,7 +184,7 @@ var sourceProducts = getUrlProducts();
 var dataAdapterProducts = getProductAdapter(sourceProducts);
 
 
-var urlProductGroup = "${pageContext.request.contextPath}/projects/getProductGroupMakersJson";
+var urlProductGroup = pageContext + "/projects/getProductGroupMakersJson";
 //prepare the data
 var sourceProductGroup = {
 	datatype : "json",
@@ -266,8 +266,8 @@ function saveEncounter(row,isUpdate) {
 
 	var jsonData = JSON.stringify(encounter);
 	console.log(jsonData);
-	// var url = '/quotation/' + projectId + '/addquotation?form';
-	var url = '/quotation/1/addquotation?form';
+	 var url = '/quotation/' + projectId + '/addquotation?form';
+//	var url = '/quotation/1/addquotation?form';
 	// var url = '/quotation/1/savequotation';
 	$.ajax({
 		type : "POST",
@@ -682,7 +682,7 @@ function showResultGrid(regionId) {
 	/**
 	 * To display jqxgrid in user list page.
 	 */
-	var url = "${pageContext.request.contextPath}/quotation/getAssignedProductOfRegion";
+	var url = pageContext + "/quotation/getAssignedProductOfRegion";
 
 	var source = {
 		datatype : "json",
@@ -1252,7 +1252,7 @@ function deleteItem(encounterId){
      var result = confirm('Do you want to delete this record?');
     if (result == false)
 		return;
-	var url = '${pageContext.request.contextPath}/quotation/'+ encounterId + '?delete';
+	var url = pageContext + '/quotation/'+ encounterId + '?delete';
 	$.ajax({
 		type : "POST",
 		contentType : 'application/json',

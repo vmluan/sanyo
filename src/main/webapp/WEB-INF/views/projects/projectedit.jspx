@@ -380,7 +380,7 @@
     
 <script type="text/javascript">
 //var url = "/getAssginedRegionsJson" + '?projectId=' + '${project.projectId}';
-var urlUserJson = "/admin/users/getListJson";
+var urlUserJson = "${pageContext.request.contextPath}/admin/users/getListJson";
 // prepare the data
 var sourceUserJson = {
 	datatype : "json",
@@ -414,7 +414,7 @@ var dataAdapterUserJson = new $.jqx.dataAdapter(sourceUserJson,  {autoBind: true
 	}
 });
 
-var urlLocation = "/projects/getLocationsJson";
+var urlLocation = "${pageContext.request.contextPath}/projects/getLocationsJson";
 //prepare the data
 var sourceLocation = {
 	datatype : "json",
@@ -444,7 +444,7 @@ var dataAdapterLocationJson = new $.jqx.dataAdapter(sourceLocation, {autoBind: t
 });
 
 	
-var url = "/admin/categories/getListJson";
+var url = "${pageContext.request.contextPath}/admin/categories/getListJson";
 var source = {
 	datatype : "json",
 	datafields : [ {
