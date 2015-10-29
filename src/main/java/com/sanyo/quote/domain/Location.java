@@ -38,7 +38,7 @@ public class Location implements java.io.Serializable, Cloneable {
 	}
 	
 	@NotEmpty
-	@Column(name = "LOCATION_NAME", nullable = false, length = 100)
+	@Column(name = "LOCATION_NAME", nullable = false, length = 200)
 	public String getLocationName() {
 		return locationName;
 	}
@@ -46,7 +46,7 @@ public class Location implements java.io.Serializable, Cloneable {
 		this.locationName = locationName;
 	}
 	
-	@Column(name = "LOCATION_DESC", nullable = false, length = 100)
+	@Column(name = "LOCATION_DESC", nullable = false, length = 1000)
 	public String getLocationDesc() {
 		return locationDesc;
 	}

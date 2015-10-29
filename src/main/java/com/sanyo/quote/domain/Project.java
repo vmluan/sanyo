@@ -104,7 +104,7 @@ public class Project implements java.io.Serializable, Cloneable {
 	
 	@NotEmpty
 	@NotNull
-	@Column(name = "PROJECT_CODE", unique = true, nullable = false, length = 10)
+	@Column(name = "PROJECT_CODE", unique = true, nullable = false, length = 200)
 	public String getProjectCode() {
 		return projectCode;
 	}
@@ -115,7 +115,7 @@ public class Project implements java.io.Serializable, Cloneable {
 	
 	@NotEmpty
 	@NotNull
-	@Column(name = "PROJECT_NAME", unique = true, nullable = false, length = 20)
+	@Column(name = "PROJECT_NAME", unique = true, nullable = false, length = 200)
 	public String getProjectName() {
 		return projectName;
 	}
@@ -124,7 +124,7 @@ public class Project implements java.io.Serializable, Cloneable {
 		this.projectName = projectName;
 	}
 	
-	@Column(name = "CUST_NAME")
+	@Column(name = "CUST_NAME", length = 200)
 	public String getCustomerName() {
 		return customerName;
 	}
