@@ -96,8 +96,16 @@ $('#jqxWidgetLocation').on('select', function(event) {
 					// get item's label and value.
 					var label = item.label;
 					var value = item.value;
-					loadAddQuotationGrid();
-					showResultGrid(value);
+					var rows1 = $('#list').jqxGrid('getrows');
+					if(rows1)
+						$('#list').jqxGrid('updatebounddata');
+					else
+						loadAddQuotationGrid();
+					var rows2 = $('#listResult').jqxGrid('getrows');
+					if(rows2)
+						$('#listResult').jqxGrid('updatebounddata');
+					else
+						showResultGrid(value);
 				}
 		});
 	//update locationSum
