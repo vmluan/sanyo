@@ -4,11 +4,10 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,8 +23,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,13 +33,16 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.sanyo.quote.domain.Product;
 import com.sanyo.quote.domain.Category;
+import com.sanyo.quote.domain.CategoryJson;
+import com.sanyo.quote.domain.Product;
+import com.sanyo.quote.domain.ProductGroup;
+import com.sanyo.quote.domain.ProductJson;
 import com.sanyo.quote.helper.ProductHepler;
 import com.sanyo.quote.helper.Utilities;
 import com.sanyo.quote.service.CategoryService;
+import com.sanyo.quote.service.ProductGroupService;
 import com.sanyo.quote.service.ProductService;
-import com.sanyo.quote.web.util.UrlUtil;
 
 @Controller
 @RequestMapping(value = "/products")
@@ -55,6 +57,9 @@ public class ProductController {
 	
 	@Autowired
 	private CategoryService categoryService;
+	
+	@Autowired
+	private ProductGroupService productGroupService;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String getProductPage(Model ciModel,@RequestParam(value="lang", required=false)String id) {
@@ -100,55 +105,96 @@ public class ProductController {
 		return "products/new";
 	}
 	
+//	@RequestMapping(params = "form", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+//	public String saveNewProduct(@Valid Product product, BindingResult bindingResult,
+//			Model uiModel, HttpServletRequest httpServletRequest,
+//			RedirectAttributes redirectAttributes, Locale locale){
+//		try {
+//			httpServletRequest.setCharacterEncoding("UTF-8");
+//		} catch (UnsupportedEncodingException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		if (bindingResult.hasErrors()) {
+//			uiModel.addAttribute("product", product);
+//			return "products/new";
+//		}
+//		
+//		String []categoriesList = product.getCategoriesList();
+//		if(categoriesList != null){
+//			ArrayList<Category> categories = new ArrayList<Category>();
+//			for (int i=0; i< categoriesList.length; i++){
+//				Category category = categoryService.findById(Integer.valueOf(categoriesList[i]));
+//				categories.add(category);
+//			}
+//			product.setCategories(categories);
+//		}
+//		
+//        String productPriceWrapper = product.getProductPriceWrapper();
+//        if(productPriceWrapper == null || productPriceWrapper.equals(""))
+//        	productPriceWrapper = httpServletRequest.getParameter("productPriceWrapper");
+//        productPriceWrapper = productPriceWrapper.replace(",", "").replace(" ", "").replace(".", "");
+//        
+//        long price = Long.valueOf(productPriceWrapper);
+////        product.setProductPrice(price);
+//        
+//        //handle attachments
+//        String fileName = "";
+//        fileName = saveImages(httpServletRequest);
+//		
+//		product.setPicLocation(fileName);
+//		redirectAttributes.addFlashAttribute(
+//				"message","Them SP thanh cong");
+//		
+//		
+//		
+//		
+//		productService.save(product);
+//		generateProductFiles(httpServletRequest);
+//		uiModel.asMap().clear();
+//		return "redirect:products?form";
+//	}
+	
 	@RequestMapping(params = "form", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
-	public String saveNewProduct(@Valid Product product, BindingResult bindingResult,
-			Model uiModel, HttpServletRequest httpServletRequest,
-			RedirectAttributes redirectAttributes, Locale locale){
-		try {
-			httpServletRequest.setCharacterEncoding("UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		if (bindingResult.hasErrors()) {
-			uiModel.addAttribute("product", product);
-			return "products/new";
-		}
+	public String saveNewProduct(@RequestBody final ProductJson productJson, Model uiModel, HttpServletRequest httpServletRequest){
+		logger.info("========== saving new product");
+//		if (bindingResult.hasErrors()) {
+//			uiModel.addAttribute("product", product);
+//			return "products/new";
+//		}
+		saveProduct(productJson);
+		return "redirect:products?form";
+	}
+	private void saveProduct(ProductJson json){
+		Product product;
+		if(json != null && json.getProductID() != null && json.getProductID() > 0){
+			product = productService.findById(json.getProductID());
+		}else
+			product = new Product();
 		
-		String []categoriesList = product.getCategoriesList();
-		if(categoriesList != null){
-			ArrayList<Category> categories = new ArrayList<Category>();
-			for (int i=0; i< categoriesList.length; i++){
-				Category category = categoryService.findById(Integer.valueOf(categoriesList[i]));
+		product.setDiscount_rate(json.getDiscount_rate());
+		product.setImp_Tax(json.getImp_Tax());
+		product.setLabour(json.getLabour());
+		product.setLastModifiedBy(Utilities.getCurrentUser().getUsername());
+		product.setLastUpdated(new Date());
+		product.setProductCode(json.getProductCode());
+		if(json.getProductGroup() != null){
+			ProductGroup pg = productGroupService.findById(json.getProductGroup().getGroupId());
+			product.setProductGroup(pg);
+		}
+		if(json.getCategories() != null && json.getCategories().size() >0){
+			List<Category> categories = new ArrayList<Category>();
+			for(CategoryJson cate : json.getCategories()){
+				Category category = categoryService.findById(cate.getCategoryId());
 				categories.add(category);
 			}
 			product.setCategories(categories);
 		}
-		
-        String productPriceWrapper = product.getProductPriceWrapper();
-        if(productPriceWrapper == null || productPriceWrapper.equals(""))
-        	productPriceWrapper = httpServletRequest.getParameter("productPriceWrapper");
-        productPriceWrapper = productPriceWrapper.replace(",", "").replace(" ", "").replace(".", "");
-        
-        long price = Long.valueOf(productPriceWrapper);
-//        product.setProductPrice(price);
-        
-        //handle attachments
-        String fileName = "";
-        fileName = saveImages(httpServletRequest);
-		
-		product.setPicLocation(fileName);
-		redirectAttributes.addFlashAttribute(
-				"message","Them SP thanh cong");
-		
-		
-		
+		product.setProductName(json.getProductName());
 		
 		productService.save(product);
-		generateProductFiles(httpServletRequest);
-		uiModel.asMap().clear();
-		return "redirect:products?form";
 	}
+	
 	@RequestMapping(value = "/getproductsjson", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String getProductsJson(@RequestParam(value="filterscount", required=false) String filterscount

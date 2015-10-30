@@ -1,11 +1,47 @@
 package com.sanyo.quote.domain;
 
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.Column;
+
 /*
  * it is used to convert json data to java object.
  */
 public class ProductJson {
 	private Integer productID;
 	private String productName;
+	
+	private String picLocation;
+	
+	private boolean common = false;
+	
+	String productPriceWrapper;
+	
+	private boolean isDeleted;
+	private Date lastUpdated;
+	private Date deltedDate;
+	private List<CategoryJson> categories;
+
+	private float minDiscountWholeSalePer;
+	private float maxDiscountWholeSalePer;
+	private float minDiscountSalePer;
+	private float maxDiscountSalePer;
+	private float vat;
+	private String lastModifiedBy;
+	private String productCode; //Ma san pham
+	private String unit; // don vi
+	private float mat_w_o_Tax_USD; //Mat w/o Tax USD
+	private float mat_w_o_Tax_VND; //Mat w/o Tax VND
+	@Column(name="LABOUR")
+	private float labour; //Nhan cong tung hang muc
+	private float imp_Tax; //Imp Tax
+	private float special_Con_Tax; // Special con. Tax
+	private float discount_rate; //Discount rate %
+	private String specification;
+	
+	private ProductGroupJson productGroup;
+	
 	
 	public Integer getProductID() {
 		return productID;
@@ -18,6 +54,144 @@ public class ProductJson {
 	}
 	public void setProductName(String productName) {
 		this.productName = productName;
+	}
+	public String getPicLocation() {
+		return picLocation;
+	}
+	public void setPicLocation(String picLocation) {
+		this.picLocation = picLocation;
+	}
+	public boolean isCommon() {
+		return common;
+	}
+	public void setCommon(boolean common) {
+		this.common = common;
+	}
+	public String getProductPriceWrapper() {
+		return productPriceWrapper;
+	}
+	public void setProductPriceWrapper(String productPriceWrapper) {
+		this.productPriceWrapper = productPriceWrapper;
+	}
+	public boolean isDeleted() {
+		return isDeleted;
+	}
+	public void setDeleted(boolean isDeleted) {
+		this.isDeleted = isDeleted;
+	}
+	public Date getLastUpdated() {
+		return lastUpdated;
+	}
+	public void setLastUpdated(Date lastUpdated) {
+		this.lastUpdated = lastUpdated;
+	}
+	public Date getDeltedDate() {
+		return deltedDate;
+	}
+	public void setDeltedDate(Date deltedDate) {
+		this.deltedDate = deltedDate;
+	}
+	public List<CategoryJson> getCategories() {
+		return categories;
+	}
+	public void setCategories(List<CategoryJson> categories) {
+		this.categories = categories;
+	}
+	public float getMinDiscountWholeSalePer() {
+		return minDiscountWholeSalePer;
+	}
+	public void setMinDiscountWholeSalePer(float minDiscountWholeSalePer) {
+		this.minDiscountWholeSalePer = minDiscountWholeSalePer;
+	}
+	public float getMaxDiscountWholeSalePer() {
+		return maxDiscountWholeSalePer;
+	}
+	public void setMaxDiscountWholeSalePer(float maxDiscountWholeSalePer) {
+		this.maxDiscountWholeSalePer = maxDiscountWholeSalePer;
+	}
+	public float getMinDiscountSalePer() {
+		return minDiscountSalePer;
+	}
+	public void setMinDiscountSalePer(float minDiscountSalePer) {
+		this.minDiscountSalePer = minDiscountSalePer;
+	}
+	public float getMaxDiscountSalePer() {
+		return maxDiscountSalePer;
+	}
+	public void setMaxDiscountSalePer(float maxDiscountSalePer) {
+		this.maxDiscountSalePer = maxDiscountSalePer;
+	}
+	public float getVat() {
+		return vat;
+	}
+	public void setVat(float vat) {
+		this.vat = vat;
+	}
+	public String getLastModifiedBy() {
+		return lastModifiedBy;
+	}
+	public void setLastModifiedBy(String lastModifiedBy) {
+		this.lastModifiedBy = lastModifiedBy;
+	}
+	public String getProductCode() {
+		return productCode;
+	}
+	public void setProductCode(String productCode) {
+		this.productCode = productCode;
+	}
+	public String getUnit() {
+		return unit;
+	}
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
+	public float getMat_w_o_Tax_USD() {
+		return mat_w_o_Tax_USD;
+	}
+	public void setMat_w_o_Tax_USD(float mat_w_o_Tax_USD) {
+		this.mat_w_o_Tax_USD = mat_w_o_Tax_USD;
+	}
+	public float getMat_w_o_Tax_VND() {
+		return mat_w_o_Tax_VND;
+	}
+	public void setMat_w_o_Tax_VND(float mat_w_o_Tax_VND) {
+		this.mat_w_o_Tax_VND = mat_w_o_Tax_VND;
+	}
+	public float getLabour() {
+		return labour;
+	}
+	public void setLabour(float labour) {
+		this.labour = labour;
+	}
+	public float getImp_Tax() {
+		return imp_Tax;
+	}
+	public void setImp_Tax(float imp_Tax) {
+		this.imp_Tax = imp_Tax;
+	}
+	public float getSpecial_Con_Tax() {
+		return special_Con_Tax;
+	}
+	public void setSpecial_Con_Tax(float special_Con_Tax) {
+		this.special_Con_Tax = special_Con_Tax;
+	}
+	public float getDiscount_rate() {
+		return discount_rate;
+	}
+	public void setDiscount_rate(float discount_rate) {
+		this.discount_rate = discount_rate;
+	}
+	public String getSpecification() {
+		return specification;
+	}
+	public void setSpecification(String specification) {
+		this.specification = specification;
+	}
+	public ProductGroupJson getProductGroup() {
+		return productGroup;
+	}
+	public void setProductGroup(ProductGroupJson productGroup) {
+		this.productGroup = productGroup;
 	}
 	
 	

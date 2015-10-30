@@ -24,7 +24,7 @@
 					</div>
 					<!-- /.box-header -->
 					<!-- form start -->
-					<form:form modelAttribute="product" id="userUpdateForm" acceptCharset="UTF-8" method="post" enctype="multipart/form-data">
+					<form:form modelAttribute="product" id="newUpdateProductForm" acceptCharset="UTF-8" method="post" enctype="multipart/form-data">
 						<div class="col-md-12">
 							<c:if test="${not empty message}">
 								<div id="message" class="${message.type}">${message.message}</div>
@@ -86,7 +86,17 @@
     <script>
     var pageContext = "${pageContext.request.contextPath}";
 	$("#sbmBtn").click(function(){
-		var result = new Object();
+		var form = document.getElementById('newUpdateProductForm');
+		var productCode = form.productCode.value;
+		var productName = form.productName.value;
+		var specification = form.specification.value;
+		var productPriceWrapper = form.productPriceWrapper.value;
+		
+		var product = new Object();
+		product.productCode = productCode;
+		product.productName = productName;
+		product.specification = specification;
+		product.productPriceWrapper = productPriceWrapper;
 		var productID = "${product.productID}";
 		//<![CDATA[
 		var rows = $("#jqxWidgetCategory").jqxTreeGrid('getRows');
@@ -95,26 +105,27 @@
 			var temp = getCheckedItems(rows[i]);
 			categories = categories.concat(temp)
 		}
-		result.categories = categories;
+		product.categories = categories;
 		
-		var rows = $("#jqxWidgetPG").jqxComboBox('getCheckedItems');
-		var pgs = new Array();
-		for(var i=0; i<rows.length; i++){
+		var row = $("#jqxWidgetPG").jqxComboBox('getSelectedItem');
+		if(row){
 			var pg = new Object();
-			pg.groupId = rows[i].originalItem.groupId;
-			pg.groupName = rows[i].originalItem.groupName;
-			pgs.push(pg);
+			pg.groupId = row.originalItem.groupId;
+			pg.groupName = row.originalItem.groupName;
+			product.productGroup = pg;
 		}
-		result.productGroups = pgs;
-		var jsonData = JSON.stringify(result);
+		
+		var jsonData = JSON.stringify(product);
 		console.log(jsonData);
 		
 		var url='';
-		if(productID)
+		if(productID){
 			url = pageContext + '/products/' + productID + '?form';
+			product.productID = productID;
+		}
 		else
 			url = pageContext + '/products?form';
-			/*
+			
 		$.ajax({
 			   type: "POST",
 			   contentType : 'application/json',
@@ -125,7 +136,7 @@
 // 					$("#jqxWidgetAssignedUsers").jqxGrid('updatebounddata');
 			   }
 			});
-			*/
+		
 		
 	});
 	function getCheckedItems(obj){

@@ -30,6 +30,6 @@ $("#jqxWidgetPG").jqxComboBox({
 	source : dataAdapterProductGroup,
 	displayMember : "groupName",
 	valueMember : "groupId",
-	checkboxes: true,
+	//checkboxes: true,
 	promptText : "Please Choose:"
 });
