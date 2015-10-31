@@ -50,14 +50,35 @@
 								</form:label>
 								<form:input path="specification" class="form-control" />
 							</div>
-						</div>	
+						</div>
 						<div class="col-md-6">
 							<div class="form-group">
-								<form:label path="productPriceWrapper">Price (VND)
+								<form:label path="labour">Labour
 								</form:label>
-								<form:input path="productPriceWrapper" class="form-control" />
+								<form:input path="labour" class="form-control" />
 							</div>
 						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<form:label path="mat_w_o_Tax_USD">Tax USD
+								</form:label>
+								<form:input path="mat_w_o_Tax_USD" class="form-control" />
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<form:label path="mat_w_o_Tax_VND">Tax VND
+								</form:label>
+								<form:input path="mat_w_o_Tax_VND" class="form-control" />
+							</div>
+						</div>																		
+<!-- 						<div class="col-md-6"> -->
+<!-- 							<div class="form-group"> -->
+<!-- 								<form:label path="productPriceWrapper">Price (VND) -->
+<!-- 								</form:label> -->
+<!-- 								<form:input path="productPriceWrapper" class="form-control" /> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
 						<div class="col-md-6">
 							<div class="form-group">
 								<form:label path="productPriceWrapper">Category</form:label>
@@ -97,6 +118,9 @@
 		product.productName = productName;
 		product.specification = specification;
 		product.productPriceWrapper = productPriceWrapper;
+		product.labour = form.labour.value;
+		product.mat_w_o_Tax_USD = form.mat_w_o_Tax_USD.value;
+		product.mat_w_o_Tax_VND = form.mat_w_o_Tax_VND.value;
 		var productID = "${product.productID}";
 		//<![CDATA[
 		var rows = $("#jqxWidgetCategory").jqxTreeGrid('getRows');
@@ -104,6 +128,9 @@
 		for(var i=0; i<rows.length; i++){
 			var temp = getCheckedItems(rows[i]);
 			categories = categories.concat(temp)
+		}
+		if(categories.length <1){
+			alert('Please select 1 Region at least')
 		}
 		product.categories = categories;
 		
@@ -113,6 +140,8 @@
 			pg.groupId = row.originalItem.groupId;
 			pg.groupName = row.originalItem.groupName;
 			product.productGroup = pg;
+		}else{
+			alert('Please select Group that product belongs to.')
 		}
 		
 		var jsonData = JSON.stringify(product);
@@ -148,7 +177,7 @@
 				if(record.leaf && record.checked){
 					var obj = new Object();
 					obj.categoryId = record.categoryId;
-					obj.categoryName = record.categoryName;
+					obj.name = record.name;
 					array.push(obj);
 				}
 			}	

@@ -15,15 +15,67 @@
     <spring:message code="label_user_new" var="labelUserAdd"/>
     
 	
-	<h3> <a href="/products?form">New Product</a></h3>
+	<h3> <a href="${pageContext.request.contextPath}/products?form">Add Product</a></h3>
     
-    
-	
-    <div id='jqxWidget' style="font-size: 13px; font-family: Verdana; float: left;">
-        <div id="jqxgridProducts">
-        </div>
-     </div>	
-    
-    <div id="pager"><jsp:text /></div><P />
-     
+        <section class="content">
+          <div class="box box-default">
+            <!-- left column -->
+            <div class="box-body">
+              <!-- general form elements -->
+			  
+              <div class="row">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Products list</h3>
+                </div><!-- /.box-header -->
+                  <div class="col-md-12">
+					<div class="form-group">
+						<div id="jqxgridProducts" class="row"><jsp:text />
+						</div>
+						<div id="pager"><jsp:text /></div><jsp:text /><P /><jsp:text />
+					</div>				
+				</div>
+			  </div>
+			 </div>
+			</div>
+		</section>	
+		
+
+    <script type="text/javascript">
+    var pageContext = "${pageContext.request.contextPath}";
+        <![CDATA[
+			
+                $('#productPriceWrapper').keyup(function(event) {
+        //	alert(event.which);
+        // skip for arrow keys, ctrl + skipKeys
+
+        var skipKeys = new Array('a', 'n', 'c', 'x', 'v', 'j');
+                var isCtrl;
+                var key = event.which;
+                if (event.ctrlKey) {
+        isCtrl = true;
+        } else {
+        isCtrl = false;
+        }
+        if (isCtrl){
+        for (i = 0; i < skipKeys.length; i++)
+        {
+        //case-insensitive comparation
+        if (skipKeys[i].toLowerCase() == String.fromCharCode(key).toLowerCase())
+                return;
+        }
+        }
+        if (key >= 37 && key <= 40) return;
+                if (key == 17) return;
+                // format number
+                $(this).val(function(index, value) {
+        return  value
+                .replace(/\D/g, "")
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        });
+        });
+        ]]>
+    </script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/QLproducts.js">
+        <jsp:text/>
+    </script>	
 </div>

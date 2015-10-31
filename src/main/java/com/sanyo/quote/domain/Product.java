@@ -62,7 +62,7 @@ public class Product implements Serializable {
 	private Date deltedDate;
 	
 	
-	@ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	@ManyToMany(cascade = CascadeType.MERGE,fetch = FetchType.EAGER)
 	@JoinTable(name="product_category", joinColumns={@JoinColumn(name="PRODUCT_ID")}
 			, inverseJoinColumns={@JoinColumn(name="CATEGORY_ID")})
 	private List<Category> categories;
@@ -79,7 +79,7 @@ public class Product implements Serializable {
 	private float maxDiscountSalePer;
 	
 	@Column(name="VAT")
-	private float VAT;
+	private float vat;
 	
 	@Column(name="LAST_MODIFIED_BY")
 	private String lastModifiedBy;
@@ -94,22 +94,22 @@ public class Product implements Serializable {
 	private String unit; // don vi
 
 	@Column(name="TAX_USD")
-	private float Mat_w_o_Tax_USD; //Mat w/o Tax USD
+	private float mat_w_o_Tax_USD; //Mat w/o Tax USD
 
 	@Column(name="TAX_VND")
-	private float Mat_w_o_Tax_VND; //Mat w/o Tax VND
+	private float mat_w_o_Tax_VND; //Mat w/o Tax VND
 
 	@Column(name="LABOUR")
 	private float labour; //Nhan cong tung hang muc
 
 	@Column(name="Imp_Tax")
-	private float Imp_Tax; //Imp Tax
+	private float imp_Tax; //Imp Tax
 
 	@Column(name="Special_Con_Tax")
-	private float Special_Con_Tax; // Special con. Tax
+	private float special_Con_Tax; // Special con. Tax
 
 	@Column(name="Discount_rate")
-	private float Discount_rate; //Discount rate %
+	private float discount_rate; //Discount rate %
 	
 	private String specification;
 	
@@ -121,14 +121,6 @@ public class Product implements Serializable {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="product_group_id", nullable = false)
 	private ProductGroup productGroup;
-
-	public float getDiscount_rate() {
-		return Discount_rate;
-	}
-
-	public void setDiscount_rate(float discount_rate) {
-		Discount_rate = discount_rate;
-	}
 
 	public void setMinDiscountWholeSalePer(float minDiscountWholeSalePer) {
 		this.minDiscountWholeSalePer = minDiscountWholeSalePer;
@@ -146,29 +138,6 @@ public class Product implements Serializable {
 		this.maxDiscountSalePer = maxDiscountSalePer;
 	}
 
-	public void setVAT(float VAT) {
-		this.VAT = VAT;
-	}
-
-	public float getImp_Tax() {
-		return Imp_Tax;
-	}
-
-	public void setImp_Tax(float imp_Tax) {
-		Imp_Tax = imp_Tax;
-	}
-
-	public float getSpecial_Con_Tax() {
-		return Special_Con_Tax;
-	}
-
-	public void setSpecial_Con_Tax(float special_Con_Tax) {
-		Special_Con_Tax = special_Con_Tax;
-	}
-
-	public void setVAT(short vAT) {
-		VAT = vAT;
-	}
 
 	public String getLastModifiedBy() {
 		return lastModifiedBy;
@@ -293,22 +262,6 @@ public class Product implements Serializable {
 		this.unit = unit;
 	}
 
-	public float getMat_w_o_Tax_USD() {
-		return Mat_w_o_Tax_USD;
-	}
-
-	public void setMat_w_o_Tax_USD(float mat_w_o_Tax_USD) {
-		Mat_w_o_Tax_USD = mat_w_o_Tax_USD;
-	}
-
-	public float getMat_w_o_Tax_VND() {
-		return Mat_w_o_Tax_VND;
-	}
-
-	public void setMat_w_o_Tax_VND(float mat_w_o_Tax_VND) {
-		Mat_w_o_Tax_VND = mat_w_o_Tax_VND;
-	}
-
 	public float getLabour() {
 		return labour;
 	}
@@ -334,11 +287,6 @@ public class Product implements Serializable {
 		return maxDiscountSalePer;
 	}
 
-	public float getVAT() {
-		return VAT;
-	}
-	
-
 	public Set<Price> getPrices() {
 		return prices;
 	}
@@ -361,6 +309,54 @@ public class Product implements Serializable {
 
 	public void setSpecification(String specification) {
 		this.specification = specification;
+	}
+
+	public float getVat() {
+		return vat;
+	}
+
+	public void setVat(float vat) {
+		this.vat = vat;
+	}
+
+	public float getMat_w_o_Tax_USD() {
+		return mat_w_o_Tax_USD;
+	}
+
+	public void setMat_w_o_Tax_USD(float mat_w_o_Tax_USD) {
+		this.mat_w_o_Tax_USD = mat_w_o_Tax_USD;
+	}
+
+	public float getMat_w_o_Tax_VND() {
+		return mat_w_o_Tax_VND;
+	}
+
+	public void setMat_w_o_Tax_VND(float mat_w_o_Tax_VND) {
+		this.mat_w_o_Tax_VND = mat_w_o_Tax_VND;
+	}
+
+	public float getImp_Tax() {
+		return imp_Tax;
+	}
+
+	public void setImp_Tax(float imp_Tax) {
+		this.imp_Tax = imp_Tax;
+	}
+
+	public float getSpecial_Con_Tax() {
+		return special_Con_Tax;
+	}
+
+	public void setSpecial_Con_Tax(float special_Con_Tax) {
+		this.special_Con_Tax = special_Con_Tax;
+	}
+
+	public float getDiscount_rate() {
+		return discount_rate;
+	}
+
+	public void setDiscount_rate(float discount_rate) {
+		this.discount_rate = discount_rate;
 	}
 
 	@Override

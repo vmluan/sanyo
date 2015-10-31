@@ -178,6 +178,8 @@ public class ProductController {
 		product.setLastModifiedBy(Utilities.getCurrentUser().getUsername());
 		product.setLastUpdated(new Date());
 		product.setProductCode(json.getProductCode());
+		product.setMat_w_o_Tax_USD(json.getMat_w_o_Tax_USD());
+		product.setMat_w_o_Tax_VND(json.getMat_w_o_Tax_VND());
 		if(json.getProductGroup() != null){
 			ProductGroup pg = productGroupService.findById(json.getProductGroup().getGroupId());
 			product.setProductGroup(pg);

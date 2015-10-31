@@ -3,8 +3,6 @@ package com.sanyo.quote.domain;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Column;
-
 /*
  * it is used to convert json data to java object.
  */
@@ -33,7 +31,6 @@ public class ProductJson {
 	private String unit; // don vi
 	private float mat_w_o_Tax_USD; //Mat w/o Tax USD
 	private float mat_w_o_Tax_VND; //Mat w/o Tax VND
-	@Column(name="LABOUR")
 	private float labour; //Nhan cong tung hang muc
 	private float imp_Tax; //Imp Tax
 	private float special_Con_Tax; // Special con. Tax

@@ -1,4 +1,4 @@
-var url = "products/getproductsjson";
+var url = pageContext + "/products/getproductsjson";
 // prepare the data
 var source =
         {
@@ -6,7 +6,11 @@ var source =
             datafields: [
                 {name: 'productName', type: 'string'},
                 {name: 'productPrice', type: 'float'},
-                {name: 'picLocation', type: 'string'}
+                {name: 'picLocation', type: 'string'},
+                {name: 'productCode', type: 'string'},
+                {name: 'labour', type: 'string'},
+				{name: 'mat_w_o_Tax_USD', type: 'string'},
+				{name: 'mat_w_o_Tax_VND', type: 'string'}
             ],
             id: 'productID',
             url: url
@@ -30,8 +34,8 @@ var dataAdapter = new $.jqx.dataAdapter(source, {
 // initialize jqxGrid
 $("#jqxgridProducts").jqxGrid(
         {
-            width: 1000,
-            height: 1000,
+            width: '100%',
+            height: 400,
             source: dataAdapter,
             sortable: true,
             pageable: true,
@@ -43,36 +47,38 @@ $("#jqxgridProducts").jqxGrid(
             showfilterrow: true,
             filterable: true,
             columnsresize: true,
-                    rowsheight: 140,
-            //	autorowheight: true,
+            autorowheight: true,
             columns: [
-                {text: '', datafield: 'Edit', width: '15%',
+                {text: 'Action', datafield: 'Action', width: '15%',
                     cellsrenderer: function(row, column, value) {
-                        return '<input type ="button" value="Sua" onClick = "updateProduct(' + row + ')"></input>'
-                                + '<input type ="button" value="Xoa" onClick = "deleteProduct(' + row + ')"></input>'
+                        return '<input type ="button" value="Edit" onClick = "updateProduct(' + row + ')"></input>'
+                                + '<input type ="button" value="Delete" onClick = "deleteProduct(' + row + ')"></input>'
                                 ;
                     }
                 },
-                {text: 'STT', datafield: 'stt', width: '5%', columntype: 'number',
-                    cellsrenderer: function(row, column, value) {
-                        return row + 1;
-                    }
-                },
-                {text: 'Ten SP', datafield: 'productName', width: '30%'},
-                {text: 'Gia', datafield: 'productPrice', align: 'right', cellsalign: 'right', cellsformat: 'c0', columntype: 'numberinput', width: '15%'},
-                {text: 'Hinh anh', datafield: 'picLocation', width: '35%',
-                    cellsrenderer: function(row, column, value) {
-                        if (value)
-                            return '<img src="../../images/' + value + '"/>';
-                    }
-                }
+				{
+					text : '#',
+					datafield : 'stt',
+					width : '5%',
+					columntype : 'number',
+					align : 'center',
+					cellsrenderer : function(row, column, value) {
+						return "<div style='margin:4px;'>"
+								+ (value + 1) + "</div>";
+					}
+				},
+                {text: 'Code', datafield: 'productCode', width: '15%'},
+				{text: 'Name', datafield: 'productName', width: '20%'},
+                {text: 'Labour', datafield: 'labour', align: 'right', cellsalign: 'right', cellsformat: 'c0', columntype: 'numberinput', width: '15%'},
+				{text: 'Max USD', datafield: 'mat_w_o_Tax_USD', align: 'right', cellsalign: 'right', cellsformat: 'c0', columntype: 'numberinput', width: '15%'},
+				{text: 'Max VND', datafield: 'mat_w_o_Tax_VND', align: 'right', cellsalign: 'right', cellsformat: 'c0', columntype: 'numberinput', width: '15%'},
 
             ]
         });
 
 function updateProduct(row) {
     var value = $('#jqxgridProducts').jqxGrid('getcellvalue', row, "uid");
-    location.href = "/products/" + value + "?form";
+    location.href = pageContext + "/products/" + value + "?form";
 }
 ;
 function deleteProduct() {
@@ -82,10 +88,10 @@ function deleteProduct() {
         var id = $("#jqxgridProducts").jqxGrid('getrowid', selectedrowindex);
         var productName = $('#jqxgridProducts').jqxGrid('getcellvalue', selectedrowindex, "productName");
 
-        var result = confirm("Ban co chac muon xoa " + productName + ' ?');
+        var result = confirm("Do  you want to delete " + productName + ' ?');
         if (result == true) {
             //Logic to delete the item
-            var url = '/products/' + id + '?delete';
+            var url = pageContext + '/products/' + id + '?delete';
 
             $.ajax({
                 url: url,
