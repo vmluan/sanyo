@@ -95,4 +95,13 @@ public class Price {
     public void setOutSalePrice(long outSalePrice) {
         this.outSalePrice = outSalePrice;
     }
+
+	public PriceType getPriceType() {
+		return priceType;
+	}
+
+	public void setPriceType(PriceType priceType) {
+		this.priceType = priceType;
+	}
+    
 }

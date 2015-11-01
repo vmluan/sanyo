@@ -53,6 +53,13 @@
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
+								<form:label path="unit">Unit 
+								</form:label>
+								<form:input path="unit" class="form-control" />
+							</div>
+						</div>						
+						<div class="col-md-6">
+							<div class="form-group">
 								<form:label path="labour">Labour
 								</form:label>
 								<form:input path="labour" class="form-control" />
@@ -71,7 +78,29 @@
 								</form:label>
 								<form:input path="mat_w_o_Tax_VND" class="form-control" />
 							</div>
-						</div>																		
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<form:label path="startDate">
+									Start Date
+								</form:label>
+								<form:input path="startDate" class="form-control" placeholder="mm/dd/yyyy"/> 
+							</div>
+							<div>
+								<form:errors path="startDate" cssClass="error" />
+							</div>					
+						</div>	
+						<div class="col-md-6">
+							<div class="form-group">
+								<form:label path="endDate">
+									End Date
+								</form:label>
+								<form:input path="endDate" class="form-control" placeholder="mm/dd/yyyy"/> 
+							</div>
+							<div>
+								<form:errors path="endDate" cssClass="error" />
+							</div>					
+						</div>
 <!-- 						<div class="col-md-6"> -->
 <!-- 							<div class="form-group"> -->
 <!-- 								<form:label path="productPriceWrapper">Price (VND) -->
@@ -105,23 +134,31 @@
 	</section>
     <div style="clear: both;"></div>
     <script>
+	var productID = "${product.productID}";
+	var groupID = "${product.productGroup.groupId}";
+	var groupName = "${product.productGroup.groupName}";
+	if(productID){
+		$("#jqxWidgetPG").jqxComboBox('selectItem',groupID);
+		//load assigned product group and categories
+	}
     var pageContext = "${pageContext.request.contextPath}";
 	$("#sbmBtn").click(function(){
 		var form = document.getElementById('newUpdateProductForm');
 		var productCode = form.productCode.value;
 		var productName = form.productName.value;
 		var specification = form.specification.value;
-		var productPriceWrapper = form.productPriceWrapper.value;
 		
 		var product = new Object();
 		product.productCode = productCode;
 		product.productName = productName;
 		product.specification = specification;
-		product.productPriceWrapper = productPriceWrapper;
 		product.labour = form.labour.value;
+		product.unit = form.unit.value;
+		product.startDate = form.startDate.value;
+		product.endDate = form.endDate.value;
 		product.mat_w_o_Tax_USD = form.mat_w_o_Tax_USD.value;
 		product.mat_w_o_Tax_VND = form.mat_w_o_Tax_VND.value;
-		var productID = "${product.productID}";
+		
 		//<![CDATA[
 		var rows = $("#jqxWidgetCategory").jqxTreeGrid('getRows');
 		var categories = new Array();

@@ -163,7 +163,7 @@ public class ProductController {
 //			return "products/new";
 //		}
 		saveProduct(productJson);
-		return "redirect:products?form";
+		return "products/list";
 	}
 	private void saveProduct(ProductJson json){
 		Product product;
@@ -180,6 +180,10 @@ public class ProductController {
 		product.setProductCode(json.getProductCode());
 		product.setMat_w_o_Tax_USD(json.getMat_w_o_Tax_USD());
 		product.setMat_w_o_Tax_VND(json.getMat_w_o_Tax_VND());
+		product.setStartDate(json.getStartDate());
+		product.setEndDate(json.getEndDate());
+		product.setSpecification(json.getSpecification());
+		product.setUnit(json.getUnit());
 		if(json.getProductGroup() != null){
 			ProductGroup pg = productGroupService.findById(json.getProductGroup().getGroupId());
 			product.setProductGroup(pg);
@@ -193,7 +197,6 @@ public class ProductController {
 			product.setCategories(categories);
 		}
 		product.setProductName(json.getProductName());
-		
 		productService.save(product);
 	}
 	
@@ -214,75 +217,17 @@ public class ProductController {
 	}
 	@RequestMapping(value = "/{id}", params = "form", method = RequestMethod.GET)
     public String updateForm(@PathVariable("id") Integer id, Model uiModel) {
-       // uiModel.addAttribute("template", templateService.findById(id));
 		Product product = productService.findById(id);
-//		product.setProductPriceWrapper(String.valueOf(product.getProductPrice()));
 		uiModel.addAttribute("product", product);
-		
-		List<Category> existingCategories = product.getCategories();
-		String []categoriesList = new String[existingCategories.size()];
-		int i = 0;
-		for(Category category : existingCategories){
-//			categoriesList[i] = String.valueOf(category.getCategoryID());
-			i++;
-		}
-		System.out.println("==========  categoriesList = " + categoriesList);
-		product.setCategoriesList(categoriesList);
-		
-		List<Category> categories = categoryService.findAll();
-		
-		
-		uiModel.addAttribute("categories", categories);
-		
         return "products/update";
 	}
 	@RequestMapping(value = "/{id}", params = "form", method = RequestMethod.POST)
 	@Transactional
-    public String update(@Valid Product updatedProduct, @PathVariable Integer id, Model uiModel, 
+    public String update(@RequestBody final ProductJson productJson, @PathVariable Integer id, Model uiModel, 
     		HttpServletRequest httpServletRequest, RedirectAttributes redirectAttributes, Locale locale ) {
 		logger.info("Updating product");
-        uiModel.asMap().clear();
-        Product product = productService.findById(id);
-        
-        String productPriceWrapper = updatedProduct.getProductPriceWrapper();
-        if(productPriceWrapper == null || productPriceWrapper.equals(""))
-        	productPriceWrapper = httpServletRequest.getParameter("productPriceWrapper");
-        System.out.println("==================== " + productPriceWrapper);
-        productPriceWrapper = productPriceWrapper.replace(",", "").replace(" ", "").replace(".", "");
-        
-        System.out.println("==================== " + productPriceWrapper);
-        long price = Long.valueOf(productPriceWrapper);
-        System.out.println("==================== " + price);
-        
-//        product.setProductPrice(price);
-        product.setProductName(updatedProduct.getProductName());
-        
-		String []categoriesList = updatedProduct.getCategoriesList();
-		if(categoriesList != null){
-			ArrayList<Category> categories = new ArrayList<Category>();
-			for (int i=0; i< categoriesList.length; i++){
-				Category category = categoryService.findById(Integer.valueOf(categoriesList[i]));
-				categories.add(category);
-			}
-			product.setCategories(categories);
-		}
-        
-        redirectAttributes.addFlashAttribute("message", "Updating Product");        
-
-        //handle attachments
-        String fileName = "";
-        fileName = saveImages(httpServletRequest);
-       
-        if (!fileName.equalsIgnoreCase(""))
-        	 product.setPicLocation(fileName);
-        productService.save(product);
-        
-		List<Product> products = productService.findAll();
-		uiModel.addAttribute("products", products);
-		
-		generateProductFiles(httpServletRequest);
-		
-       return "redirect:/products";
+		saveProduct(productJson);
+        return "products/list";
 
     }
 	@ResponseBody

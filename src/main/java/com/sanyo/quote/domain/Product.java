@@ -17,7 +17,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -121,7 +120,10 @@ public class Product implements Serializable {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="product_group_id", nullable = false)
 	private ProductGroup productGroup;
-
+	
+	private Date startDate; 
+	private Date endDate;
+	
 	public void setMinDiscountWholeSalePer(float minDiscountWholeSalePer) {
 		this.minDiscountWholeSalePer = minDiscountWholeSalePer;
 	}
@@ -357,6 +359,22 @@ public class Product implements Serializable {
 
 	public void setDiscount_rate(float discount_rate) {
 		this.discount_rate = discount_rate;
+	}
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 
 	@Override

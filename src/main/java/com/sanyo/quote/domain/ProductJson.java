@@ -36,6 +36,8 @@ public class ProductJson {
 	private float special_Con_Tax; // Special con. Tax
 	private float discount_rate; //Discount rate %
 	private String specification;
+	private Date startDate;
+	private Date endDate;
 	
 	private ProductGroupJson productGroup;
 	
@@ -190,6 +192,17 @@ public class ProductJson {
 	public void setProductGroup(ProductGroupJson productGroup) {
 		this.productGroup = productGroup;
 	}
-	
+	public Date getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+	public Date getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
 	
 }
