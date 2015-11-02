@@ -33,14 +33,17 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.ibm.icu.util.Calendar;
 import com.sanyo.quote.domain.Category;
 import com.sanyo.quote.domain.CategoryJson;
+import com.sanyo.quote.domain.LabourPrice;
 import com.sanyo.quote.domain.Product;
 import com.sanyo.quote.domain.ProductGroup;
 import com.sanyo.quote.domain.ProductJson;
 import com.sanyo.quote.helper.ProductHepler;
 import com.sanyo.quote.helper.Utilities;
 import com.sanyo.quote.service.CategoryService;
+import com.sanyo.quote.service.PriceService;
 import com.sanyo.quote.service.ProductGroupService;
 import com.sanyo.quote.service.ProductService;
 
@@ -60,6 +63,9 @@ public class ProductController {
 	
 	@Autowired
 	private ProductGroupService productGroupService;
+	
+	@Autowired
+	private PriceService priceService;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String getProductPage(Model ciModel,@RequestParam(value="lang", required=false)String id) {
@@ -165,12 +171,50 @@ public class ProductController {
 		saveProduct(productJson);
 		return "products/list";
 	}
+	private void saveLabourPrice(ProductJson json,  Product product){
+		LabourPrice labourPrice;
+		List<LabourPrice> labourPrices = productService.findLabourPrices(json.getProductID());
+		if(labourPrices == null || labourPrices.size() ==0){
+			labourPrice = new LabourPrice();
+		}
+		else{
+			//update existing labour prices
+			//check if there is any overlapped date range.
+			//if yes, raise error message to aware user. he has to update date range on gui.
+			//if no, proceed to update end date of latest record and insert new row.
+			for(LabourPrice lb : labourPrices){
+				if(json.getStartDate().equals(lb.getIssuedDate())
+						&& json.getEndDate().equals(lb.getExpiredDate())){
+					labourPrice = lb;
+				}else if(lb.getExpiredDate() != null
+						&& json.getStartDate().after(lb.getExpiredDate())){
+					
+				} else if(lb.getExpiredDate() == null 
+						&& lb.getIssuedDate().before(json.getStartDate())){
+					//update end date of current price
+					lb.setExpiredDate(json.getStartDate()); //- 1 later
+					priceService.save(lb);
+					labourPrice = new LabourPrice();
+				}else
+					labourPrice = new LabourPrice();
+			}
+			labourPrice = labourPrices.get(labourPrices.size() -1);
+		}
+		
+		labourPrice.setIssuedDate(json.getStartDate());
+		labourPrice.setExpiredDate(json.getEndDate());
+		labourPrice.setOutSalePrice(json.getLabour());
+		labourPrice.setProduct(product);
+		priceService.save(labourPrice);
+	}
 	private void saveProduct(ProductJson json){
 		Product product;
 		if(json != null && json.getProductID() != null && json.getProductID() > 0){
 			product = productService.findById(json.getProductID());
-		}else
+			
+		}else{
 			product = new Product();
+		}
 		
 		product.setDiscount_rate(json.getDiscount_rate());
 		product.setImp_Tax(json.getImp_Tax());
@@ -197,7 +241,9 @@ public class ProductController {
 			product.setCategories(categories);
 		}
 		product.setProductName(json.getProductName());
-		productService.save(product);
+		
+		product = productService.save(product);
+		saveLabourPrice(json, product);
 	}
 	
 	@RequestMapping(value = "/getproductsjson", method = RequestMethod.GET, produces = "application/json; charset=utf-8")

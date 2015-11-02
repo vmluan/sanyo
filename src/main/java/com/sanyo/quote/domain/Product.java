@@ -112,9 +112,9 @@ public class Product implements Serializable {
 	
 	private String specification;
 	
-	@JsonIgnore
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="product")
-	private Set<Price> prices;
+//	@JsonIgnore
+//	@OneToMany(fetch=FetchType.LAZY, mappedBy="product")
+//	private Set<Price> prices;
 
 	@JsonIgnore
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -123,6 +123,10 @@ public class Product implements Serializable {
 	
 	private Date startDate; 
 	private Date endDate;
+	
+	@JsonIgnore
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="product")
+	private Set<LabourPrice> labourPrices;
 	
 	public void setMinDiscountWholeSalePer(float minDiscountWholeSalePer) {
 		this.minDiscountWholeSalePer = minDiscountWholeSalePer;
@@ -288,14 +292,14 @@ public class Product implements Serializable {
 	public float getMaxDiscountSalePer() {
 		return maxDiscountSalePer;
 	}
-
-	public Set<Price> getPrices() {
-		return prices;
-	}
-
-	public void setPrices(Set<Price> prices) {
-		this.prices = prices;
-	}
+//
+//	public Set<Price> getPrices() {
+//		return prices;
+//	}
+//
+//	public void setPrices(Set<Price> prices) {
+//		this.prices = prices;
+//	}
 
 	public ProductGroup getProductGroup() {
 		return productGroup;
@@ -375,6 +379,14 @@ public class Product implements Serializable {
 
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
+	}
+
+	public Set<LabourPrice> getLabourPrices() {
+		return labourPrices;
+	}
+
+	public void setLabourPrices(Set<LabourPrice> labourPrices) {
+		this.labourPrices = labourPrices;
 	}
 
 	@Override

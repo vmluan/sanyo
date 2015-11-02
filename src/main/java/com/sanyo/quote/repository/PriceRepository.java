@@ -1,5 +1,6 @@
 package com.sanyo.quote.repository;
 
+import com.sanyo.quote.domain.LabourPrice;
 import com.sanyo.quote.domain.Price;
 import com.sanyo.quote.domain.Product;
 import org.springframework.data.jpa.repository.Query;
@@ -12,8 +13,8 @@ import java.util.List;
 /**
  * Created by User on 10/9/2015.
  */
-public interface PriceRepository extends PagingAndSortingRepository<Price, Integer> {
+public interface PriceRepository extends PagingAndSortingRepository<LabourPrice, Integer> {
 
-    @Query("select c from Price c where c.product  = :productID")
-    List<Price> findPriceByProductID(@Param("productID") Integer productID);
+//    @Query("select c from Price c where c.product  = :productID")
+//    List<LabourPrice> findPriceByProductID(@Param("productID") Integer productID);
 }

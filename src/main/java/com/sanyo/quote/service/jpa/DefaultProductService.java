@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.sanyo.quote.domain.LabourPrice;
 import com.sanyo.quote.domain.Product;
 import com.sanyo.quote.repository.ProductRepository;
 import com.sanyo.quote.service.ProductService;
@@ -72,6 +73,11 @@ public class DefaultProductService implements ProductService {
 		String temp = String.valueOf(new Date().getTime());
 		product.setProductName(product.getProductName() + "_" + temp);
 		productRepository.save(product);
+	}
+
+	@Override
+	public List<LabourPrice> findLabourPrices(Integer id) {
+		return productRepository.findLabourPrices(id);
 	}
 	
 	

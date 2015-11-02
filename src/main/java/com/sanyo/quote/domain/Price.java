@@ -9,8 +9,9 @@ import java.util.Date;
 /**
  * Created by User on 10/9/2015.
  */
-@Entity
-@Table(name = "price", catalog = "sanyo")
+//@Entity
+//@Table(name = "price", catalog = "sanyo")
+@MappedSuperclass
 public class Price {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +19,7 @@ public class Price {
     private int priceId;
 
 	@JsonIgnore
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "PRODUCT_ID", nullable = false)
     private Product product;
 
@@ -35,7 +36,7 @@ public class Price {
     private long outWholeSalePrice;
 
     @Column(name ="OUT_SALE_PRICE")
-    private long outSalePrice;
+    private float outSalePrice;
 
     @Column(name ="PRICE_TYPE")
     private PriceType priceType;
@@ -88,11 +89,11 @@ public class Price {
         this.outWholeSalePrice = outWholeSalePrice;
     }
 
-    public long getOutSalePrice() {
+    public float getOutSalePrice() {
         return outSalePrice;
     }
 
-    public void setOutSalePrice(long outSalePrice) {
+    public void setOutSalePrice(float outSalePrice) {
         this.outSalePrice = outSalePrice;
     }
 
