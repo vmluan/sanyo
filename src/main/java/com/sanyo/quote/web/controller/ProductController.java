@@ -46,6 +46,7 @@ import com.sanyo.quote.service.CategoryService;
 import com.sanyo.quote.service.PriceService;
 import com.sanyo.quote.service.ProductGroupService;
 import com.sanyo.quote.service.ProductService;
+import com.sanyo.quote.web.form.Message;
 
 @Controller
 @RequestMapping(value = "/products")
@@ -171,8 +172,19 @@ public class ProductController {
 		saveProduct(productJson);
 		return "products/list";
 	}
+	private boolean isOverlapped(ProductJson json, List<LabourPrice> labourPrices){
+		boolean result = false;
+		for(LabourPrice lb : labourPrices){
+			if(json.getStartDate().before(lb.getExpiredDate())
+					&& json.getEndDate().after(lb.getExpiredDate())){
+				result = true;
+				break;
+			}
+		}
+		return result;
+	}
 	private void saveLabourPrice(ProductJson json,  Product product){
-		LabourPrice labourPrice;
+		LabourPrice labourPrice = null;
 		List<LabourPrice> labourPrices = productService.findLabourPrices(json.getProductID());
 		if(labourPrices == null || labourPrices.size() ==0){
 			labourPrice = new LabourPrice();
@@ -195,22 +207,32 @@ public class ProductController {
 					lb.setExpiredDate(json.getStartDate()); //- 1 later
 					priceService.save(lb);
 					labourPrice = new LabourPrice();
-				}else
+				} else if(json.getStartDate().before(lb.getExpiredDate())
+						&& json.getEndDate().after(lb.getExpiredDate())){
+					//overlapped date range. Should raise exeption here
+					
+				}
+				else
 					labourPrice = new LabourPrice();
 			}
-			labourPrice = labourPrices.get(labourPrices.size() -1);
 		}
-		
+		if(labourPrice == null)
+			labourPrice = new LabourPrice();
 		labourPrice.setIssuedDate(json.getStartDate());
 		labourPrice.setExpiredDate(json.getEndDate());
 		labourPrice.setOutSalePrice(json.getLabour());
 		labourPrice.setProduct(product);
 		priceService.save(labourPrice);
 	}
-	private void saveProduct(ProductJson json){
+	private boolean saveProduct(ProductJson json){
 		Product product;
 		if(json != null && json.getProductID() != null && json.getProductID() > 0){
 			product = productService.findById(json.getProductID());
+			List<LabourPrice> labourPrices = productService.findLabourPrices(json.getProductID());
+			boolean isOverlapped = isOverlapped(json, labourPrices);
+			if(isOverlapped){
+				return false;
+			}
 			
 		}else{
 			product = new Product();
@@ -244,6 +266,7 @@ public class ProductController {
 		
 		product = productService.save(product);
 		saveLabourPrice(json, product);
+		return true;
 	}
 	
 	@RequestMapping(value = "/getproductsjson", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
@@ -272,7 +295,13 @@ public class ProductController {
     public String update(@RequestBody final ProductJson productJson, @PathVariable Integer id, Model uiModel, 
     		HttpServletRequest httpServletRequest, RedirectAttributes redirectAttributes, Locale locale ) {
 		logger.info("Updating product");
-		saveProduct(productJson);
+		boolean result = saveProduct(productJson);
+		if(!result){
+			//raise exception here
+			uiModel.addAttribute("message", new Message("error", messageSource.getMessage("product_date_overlapped", new Object[]{}, locale)));
+            uiModel.addAttribute("project", productJson);
+            return "products/update";
+		}
         return "products/list";
 
     }
