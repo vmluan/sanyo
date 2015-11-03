@@ -1,6 +1,7 @@
 
 package com.sanyo.quote.service.jpa;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -32,7 +33,13 @@ public class DefaultProductService implements ProductService {
 
 	@Transactional(readOnly=true)
 	public Product findById(Integer id) {
-		return productRepository.findOne(id);
+		Product product =  productRepository.findOne(id);
+		SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+		if(product.getStartDate() != null) 
+			product.setStartDateString(format.format(product.getStartDate()));
+		if(product.getEndDate() != null)
+			product.setEndDateString(format.format(product.getEndDate()));
+		return product;
 	}
 
 	public Product save(Product TH_Product) {

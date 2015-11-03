@@ -247,8 +247,8 @@ public class ProductController {
 		product.setProductCode(json.getProductCode());
 		product.setMat_w_o_Tax_USD(json.getMat_w_o_Tax_USD());
 		product.setMat_w_o_Tax_VND(json.getMat_w_o_Tax_VND());
-//		product.setStartDate(json.getStartDate());
-//		product.setEndDate(json.getEndDate());
+		product.setStartDate(json.getStartDate());
+		product.setEndDate(json.getEndDate());
 		product.setSpecification(json.getSpecification());
 		product.setUnit(json.getUnit());
 		if(json.getProductGroup() != null){

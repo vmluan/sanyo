@@ -21,6 +21,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 @Entity
 @Table(name = "product", catalog = "sanyo")
@@ -121,9 +122,15 @@ public class Product implements Serializable {
 	@JoinColumn(name="product_group_id", nullable = false)
 	private ProductGroup productGroup;
 	
-	private Date startDate; 
+	@DateTimeFormat(pattern = "MM/dd/yyyy")
+	private Date startDate;
+	@DateTimeFormat(pattern = "MM/dd/yyyy")
 	private Date endDate;
 	
+	@Transient
+	private String startDateString;
+	@Transient
+	private String endDateString;
 	@JsonIgnore
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="product")
 	private Set<LabourPrice> labourPrices;
@@ -387,6 +394,22 @@ public class Product implements Serializable {
 
 	public void setLabourPrices(Set<LabourPrice> labourPrices) {
 		this.labourPrices = labourPrices;
+	}
+
+	public String getStartDateString() {
+		return startDateString;
+	}
+
+	public void setStartDateString(String startDateString) {
+		this.startDateString = startDateString;
+	}
+
+	public String getEndDateString() {
+		return endDateString;
+	}
+
+	public void setEndDateString(String endDateString) {
+		this.endDateString = endDateString;
 	}
 
 	@Override
