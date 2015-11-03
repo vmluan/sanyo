@@ -40,7 +40,7 @@ public class ProductJson {
 	private String specification;
 	private Date startDate;
 	private Date endDate;
-	
+//	
 	private String startDateString;
 	private String endDateString;
 	private ProductGroupJson productGroup;
@@ -208,23 +208,6 @@ public class ProductJson {
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
-	public void setStartDate(String s){
-		try {
-			this.startDate = new SimpleDateFormat("MM/dd/yyyy").parse(s);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
-	public void setEndDate(String s) {
-		try {
-			this.endDate = new SimpleDateFormat("MM/dd/yyyy").parse(s);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 	public String getStartDateString() {
 		return startDateString;
 	}
@@ -233,7 +216,6 @@ public class ProductJson {
 		try {
 			this.startDate = new SimpleDateFormat("MM/dd/yyyy").parse(startDateString);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -245,7 +227,6 @@ public class ProductJson {
 		try {
 			this.endDate = new SimpleDateFormat("MM/dd/yyyy").parse(endDateString);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

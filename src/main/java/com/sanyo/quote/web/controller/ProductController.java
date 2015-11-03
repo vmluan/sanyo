@@ -162,9 +162,10 @@ public class ProductController {
 //		return "redirect:products?form";
 //	}
 	
-	@RequestMapping(params = "form", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+	@RequestMapping(params = "form", method = RequestMethod.POST)
 	public String saveNewProduct(@RequestBody final ProductJson productJson, Model uiModel, HttpServletRequest httpServletRequest){
 		logger.info("========== saving new product");
+		logger.info("========== startDate = " + productJson.getStartDate());
 //		if (bindingResult.hasErrors()) {
 //			uiModel.addAttribute("product", product);
 //			return "products/new";
@@ -246,8 +247,8 @@ public class ProductController {
 		product.setProductCode(json.getProductCode());
 		product.setMat_w_o_Tax_USD(json.getMat_w_o_Tax_USD());
 		product.setMat_w_o_Tax_VND(json.getMat_w_o_Tax_VND());
-		product.setStartDate(json.getStartDate());
-		product.setEndDate(json.getEndDate());
+//		product.setStartDate(json.getStartDate());
+//		product.setEndDate(json.getEndDate());
 		product.setSpecification(json.getSpecification());
 		product.setUnit(json.getUnit());
 		if(json.getProductGroup() != null){
