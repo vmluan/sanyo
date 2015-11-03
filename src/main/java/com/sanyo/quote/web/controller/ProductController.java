@@ -288,7 +288,9 @@ public class ProductController {
 	@RequestMapping(value = "/{id}", params = "form", method = RequestMethod.GET)
     public String updateForm(@PathVariable("id") Integer id, Model uiModel) {
 		Product product = productService.findById(id);
+		List<Category> categories = productService.findCategories(id);
 		uiModel.addAttribute("product", product);
+		uiModel.addAttribute("categories", categories);
         return "products/update";
 	}
 	@RequestMapping(value = "/{id}", params = "form", method = RequestMethod.POST)

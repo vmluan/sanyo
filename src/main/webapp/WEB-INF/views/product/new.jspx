@@ -131,16 +131,30 @@
 				<!-- /.box -->
 			</div>
 		</div>
+		<div id="messageNotification" style="z-index: 30000000; display: none">
+				Submit successfully.
+				<jsp:text />
+		</div>			
 	</section>
     <div style="clear: both;"></div>
-    <script>
+	<script>
+		var pageContext = "${pageContext.request.contextPath}";	
+	</script>
+   <script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/productCategory.js">
+        <jsp:text/>
+	</script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/productGroup.js">
+        <jsp:text/>
+    </script>    
+	<script>
+	$("#messageNotification").jqxNotification({
+		width: 250, position: "top-right", opacity: 0.9,
+		autoOpen: false, animationOpenDelay: 800, autoClose: true, autoCloseDelay: 3000, template: "info"
+	});	
 	var productID = "${product.productID}";
 	var groupID = "${product.productGroup.groupId}";
 	var groupName = "${product.productGroup.groupName}";
-	if(productID){
-		$("#jqxWidgetPG").jqxComboBox('selectItem',groupID);
-		//load assigned product group and categories
-	}
+
     var pageContext = "${pageContext.request.contextPath}";
 	$("#sbmBtn").click(function(){
 		var form = document.getElementById('newUpdateProductForm');
@@ -200,9 +214,15 @@
 			   data: jsonData,
 			   url: url,
 			   success: function(msg){
-// 					$("#messageNotification").jqxNotification("open");
+					if(!productID){ //in case of creating new product
+						window.location.href= pageContext + '/products';
+					}
+ 					$("#messageNotification").jqxNotification("open");
 // 					$("#jqxWidgetAssignedUsers").jqxGrid('updatebounddata');
-			   }
+			   },
+			   error: function(msg){
+					alert('There was a problem with your submit')
+			   }			   
 			});
 		
 		
@@ -222,14 +242,29 @@
 			}	
 		return array;	
 	}
+	
 	//]]>
-		
+	function updatePG(){
+		if(productID){
+			$("#jqxWidgetPG").jqxComboBox('selectItem',groupID);
+			//load assigned product group and categories
+		}	
+	}
+	function updateCategories(){
+		if(productID){
+		<c:forEach var="category" items ="${categories}">
+			var categoryID = "${category.categoryId}"
+			$("#jqxWidgetCategory").jqxTreeGrid('checkRow', categoryID);
+		   
+		</c:forEach>
+		}
+	}
+	setTimeout(function(){ 
+		updatePG();
+		updateCategories();
+		}, 1000);
     </script>
     
-   <script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/productCategory.js">
-        <jsp:text/>
-	</script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/productGroup.js">
-        <jsp:text/>
-    </script>
+
 </div>
+
