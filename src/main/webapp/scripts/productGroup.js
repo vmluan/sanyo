@@ -33,7 +33,3 @@ $("#jqxWidgetPG").jqxComboBox({
 	//checkboxes: true,
 	promptText : "Please Choose:"
 });
-	if(productID){
-		$("#jqxWidgetPG").jqxComboBox('selectItem',groupID);
-		//load assigned product group and categories
-	}

@@ -11,14 +11,15 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.exception.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -33,7 +34,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.ibm.icu.util.Calendar;
 import com.sanyo.quote.domain.Category;
 import com.sanyo.quote.domain.CategoryJson;
 import com.sanyo.quote.domain.LabourPrice;
@@ -163,20 +163,40 @@ public class ProductController {
 //	}
 	
 	@RequestMapping(params = "form", method = RequestMethod.POST)
+	@ResponseBody
 	public String saveNewProduct(@RequestBody final ProductJson productJson, Model uiModel, HttpServletRequest httpServletRequest){
 		logger.info("========== saving new product");
 		logger.info("========== startDate = " + productJson.getStartDate());
+		String errorMsg = null;
 //		if (bindingResult.hasErrors()) {
 //			uiModel.addAttribute("product", product);
 //			return "products/new";
 //		}
-		saveProduct(productJson);
-		return "products/list";
+		try{
+			saveProduct(productJson);
+		}catch(DataAccessException e){
+			if (e.getCause() != null 
+					&& e.getCause() instanceof ConstraintViolationException){
+				ConstraintViolationException cv = (ConstraintViolationException) e.getCause();
+				errorMsg = cv.getCause().getMessage();
+				
+				
+			}
+			else
+				errorMsg = e.getMessage();
+		}catch(Exception e){
+			System.out.println("==================");
+			e.printStackTrace();
+		}
+		//return message in case of error only
+		// return null when it proceeds successfully
+		return errorMsg;
 	}
 	private boolean isOverlapped(ProductJson json, List<LabourPrice> labourPrices){
 		boolean result = false;
 		for(LabourPrice lb : labourPrices){
 			if(json.getStartDate().before(lb.getExpiredDate())
+					&& json.getEndDate() != null && lb.getExpiredDate() != null
 					&& json.getEndDate().after(lb.getExpiredDate())){
 				result = true;
 				break;
@@ -197,6 +217,7 @@ public class ProductController {
 			//if no, proceed to update end date of latest record and insert new row.
 			for(LabourPrice lb : labourPrices){
 				if(json.getStartDate().equals(lb.getIssuedDate())
+						&& json.getEndDate() != null && lb.getExpiredDate() != null
 						&& json.getEndDate().equals(lb.getExpiredDate())){
 					labourPrice = lb;
 				}else if(lb.getExpiredDate() != null
@@ -295,17 +316,30 @@ public class ProductController {
 	}
 	@RequestMapping(value = "/{id}", params = "form", method = RequestMethod.POST)
 	@Transactional
+	@ResponseBody
     public String update(@RequestBody final ProductJson productJson, @PathVariable Integer id, Model uiModel, 
     		HttpServletRequest httpServletRequest, RedirectAttributes redirectAttributes, Locale locale ) {
 		logger.info("Updating product");
-		boolean result = saveProduct(productJson);
-		if(!result){
-			//raise exception here
-			uiModel.addAttribute("message", new Message("error", messageSource.getMessage("product_date_overlapped", new Object[]{}, locale)));
-            uiModel.addAttribute("project", productJson);
-            return "products/update";
+		String errorMsg = null;
+		try{
+			saveProduct(productJson);
+		}catch(DataAccessException e){
+			if (e.getCause() != null 
+					&& e.getCause() instanceof ConstraintViolationException){
+				ConstraintViolationException cv = (ConstraintViolationException) e.getCause();
+				errorMsg = cv.getCause().getMessage();
+				
+				
+			}
+			else
+				errorMsg = e.getMessage();
+				
+		}catch(Exception e){
+			System.out.println("==================");
+			e.printStackTrace();
 		}
-        return "products/list";
+		
+		return errorMsg;
 
     }
 	@ResponseBody

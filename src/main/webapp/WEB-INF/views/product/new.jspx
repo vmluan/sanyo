@@ -13,6 +13,18 @@
     <spring:eval expression="product.productID == null ? labelNew:labelUpdate" var="formTitle"/>    
 
 	<section class="content">
+		<div class="box box-warning" id="warningDiv" style="display:none">
+			<!-- left column -->
+			<div class="box-body">
+				<!-- general form elements -->
+				<div class="row">
+					<div class="col-md-12"><label>Please correct following items:</label>
+						<div id="message" class="${message.type}"><jsp:text /></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
 		<div class="box box-default">
 			<!-- left column -->
 			<div class="box-body">
@@ -25,11 +37,6 @@
 					<!-- /.box-header -->
 					<!-- form start -->
 					<form:form modelAttribute="product" id="newUpdateProductForm" acceptCharset="UTF-8" method="post" enctype="multipart/form-data">
-						<div class="col-md-12">
-							<c:if test="${not empty message}">
-								<div id="message" class="${message.type}">${message.message}</div>
-							</c:if>
-						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 								<form:label path="productName">Name * 
@@ -157,6 +164,7 @@
 
     var pageContext = "${pageContext.request.contextPath}";
 	$("#sbmBtn").click(function(){
+		var errorMsg = new Array();
 		var form = document.getElementById('newUpdateProductForm');
 		var productCode = form.productCode.value;
 		var productName = form.productName.value;
@@ -183,7 +191,7 @@
 			categories = categories.concat(temp)
 		}
 		if(categories.length <1){
-			alert('Please select 1 Region at least')
+			errorMsg.push('Please select 1 Region at least.' + '\r\n');
 		}
 		product.categories = categories;
 		
@@ -194,7 +202,12 @@
 			pg.groupName = row.originalItem.groupName;
 			product.productGroup = pg;
 		}else{
-			alert('Please select Group that product belongs to.')
+			errorMsg.push('Please select Group that product belongs to.' + '\r\n');
+		}
+		if(errorMsg.length > 0){
+			$("#warningDiv").css("display","block");
+			$("#message").text(errorMsg);
+			return;
 		}
 		
 		var jsonData = JSON.stringify(product);
@@ -214,11 +227,16 @@
 			   data: jsonData,
 			   url: url,
 			   success: function(msg){
-					if(!productID){ //in case of creating new product
-						window.location.href= pageContext + '/products';
-					}
- 					$("#messageNotification").jqxNotification("open");
-// 					$("#jqxWidgetAssignedUsers").jqxGrid('updatebounddata');
+				   if(msg){
+					   alert('There was a problem with your submit: ' + msg)
+				   }else{
+						if(!productID){ //in case of creating new product
+							window.location.href= pageContext + '/products';
+						}
+	 					$("#messageNotification").jqxNotification("open");
+//	 					$("#jqxWidgetAssignedUsers").jqxGrid('updatebounddata');
+				   }
+
 			   },
 			   error: function(msg){
 					alert('There was a problem with your submit')
