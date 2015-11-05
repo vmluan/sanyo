@@ -58,18 +58,17 @@ public class ExpensesController extends CommonController{
         return "quotation/expenses/create";
     }
 
-    @RequestMapping(value = "/{id}/expenses", params = "form", method = RequestMethod.POST)
-    public String saveLocation(@RequestBody final ExpensesJson expensesJson, @PathVariable Integer id, Model uiModel,
-                               HttpServletRequest httpServletRequest, RedirectAttributes redirectAttributes, Locale locale, BindingResult bindingResult){
-        logger.info("Saving new Location");
-        if (bindingResult.hasErrors()) {
-            uiModel.addAttribute("message", new Message("error", messageSource.getMessage("location_save_fail", new Object[]{}, locale)));
-            uiModel.addAttribute("expensesJson", expensesJson);
-            return "/quotation/expenses/create";
-        }
+    @RequestMapping(value = "/{id}/saveExpenselist", params = "form", method = RequestMethod.POST)
+    public String saveExpenses(@RequestBody final ExpensesJson expensesJson, @PathVariable Integer id, Model uiModel,
+                               HttpServletRequest httpServletRequest, RedirectAttributes redirectAttributes, Locale locale){
+        logger.info("Saving expense list");
+//        if (bindingResult.hasErrors()) {
+//            uiModel.addAttribute("message", new Message("error", messageSource.getMessage("expense_save_fail", new Object[]{}, locale)));
+//            uiModel.addAttribute("expensesJson", expensesJson);
+//            return "/quotation/expenses/create";
+//        }
 
         List<ExpenseElements> expenseElementses = expenseElementsService.findAll();
-        java.lang.reflect.Method method;
         for (ExpenseElements expenseElement : expenseElementses){
            Expenses expense = new Expenses();
             expense.setExpenseElement(expenseElement);

@@ -58,7 +58,7 @@ public class Expenses implements Serializable {
 	}
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "EXPENSE_ELEMENT_ID", nullable = false)
+	@JoinColumn(name = "EXPENSEELEMENT_ID", nullable = false)
 	public ExpenseElements getExpenseElement() {
 		return expenseElement;
 	}

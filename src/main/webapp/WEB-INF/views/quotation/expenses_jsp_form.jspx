@@ -461,36 +461,13 @@
     <script>
         var pageContext = "${pageContext.request.contextPath}";
         var projectId = "${projectId}";
-
         $("#addExpenseBtn").click(function(){
-            var result = new Array();
-            var selectedRole = $("#jqxWidgetRole").jqxDropDownList('getSelectedItem');
-            var roleName = selectedRole.value;
-            var rows = $("#jqxWidget").jqxComboBox('getCheckedItems');
-            //<![CDATA[
-            for(var i=0; i<rows.length; i++){
-                var user = new Object();
-                user.userName = rows[i].value;
-                user.roleName = roleName;
-                result.push(user);
-            }
-            var jsonData = JSON.stringify(result);
-            console.log(jsonData);
+            saveExpensesList();
 
-            var url = pageContext + '/expense/' + ${projectId} + '?form';
-            $.ajax({
-                type: "POST",
-                contentType : 'application/json',
-                data: jsonData,
-                url: url,
-                success: function(msg){
-                    $("#messageNotification").jqxNotification("open");
-                    $("#jqxWidgetAssignedUsers").jqxGrid('updatebounddata');
-                }
-            });
-
-            //]]>
         });
+    </script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/addExpenses.js">
+        <jsp:text/>
     </script>
 </div>
 
