@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,9 +38,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.sanyo.quote.domain.Category;
 import com.sanyo.quote.domain.CategoryJson;
 import com.sanyo.quote.domain.LabourPrice;
+import com.sanyo.quote.domain.Location;
 import com.sanyo.quote.domain.Product;
 import com.sanyo.quote.domain.ProductGroup;
 import com.sanyo.quote.domain.ProductJson;
+import com.sanyo.quote.domain.Project;
 import com.sanyo.quote.helper.ProductHepler;
 import com.sanyo.quote.helper.Utilities;
 import com.sanyo.quote.service.CategoryService;
@@ -205,7 +208,11 @@ public class ProductController {
 		}
 		return result;
 	}
-	private void saveLabourPrice(ProductJson json,  Product product){
+	private void throwOverlappedDateException(String message) throws Exception{
+		Exception e = new Exception(message);
+		throw e;
+	}
+	private void saveLabourPrice(ProductJson json,  Product product) throws Exception{
 		LabourPrice labourPrice = null;
 		List<LabourPrice> labourPrices = productService.findLabourPrices(json.getProductID());
 		if(labourPrices == null || labourPrices.size() ==0){
@@ -230,9 +237,23 @@ public class ProductController {
 					lb.setExpiredDate(json.getStartDate()); //- 1 later
 					priceService.save(lb);
 					labourPrice = new LabourPrice();
-				} else if(json.getStartDate().before(lb.getExpiredDate())
-						&& json.getEndDate().after(lb.getExpiredDate())){
+				} else if(lb.getExpiredDate() == null 
+						&& lb.getIssuedDate().after(json.getStartDate())){
+					if(json.getEndDate() == null
+							|| json.getEndDate().after(lb.getIssuedDate())){
+						throwOverlappedDateException("The date range is overlapped with existing one.");
+						
+					}
+					
+				}
+				else if(lb.getExpiredDate() != null 
+						&&json.getStartDate().before(lb.getExpiredDate())
+						&& (json.getEndDate() == null 
+							||json.getEndDate().after(lb.getExpiredDate())
+							)
+						){
 					//overlapped date range. Should raise exeption here
+					throwOverlappedDateException("The date range is overlapped with existing one.");
 					
 				}
 				else
@@ -243,11 +264,14 @@ public class ProductController {
 			labourPrice = new LabourPrice();
 		labourPrice.setIssuedDate(json.getStartDate());
 		labourPrice.setExpiredDate(json.getEndDate());
-		labourPrice.setOutSalePrice(json.getLabour());
+//		labourPrice.setOutSalePrice(json.getLabour());
+		labourPrice.setLabour(json.getLabour());
+		labourPrice.setMax_w_o_tax_usd(json.getMat_w_o_Tax_USD());
+		labourPrice.setMax_w_o_tax_vnd(json.getMat_w_o_Tax_VND());
 		labourPrice.setProduct(product);
 		priceService.save(labourPrice);
 	}
-	private boolean saveProduct(ProductJson json){
+	private boolean saveProduct(ProductJson json) throws Exception{
 		Product product;
 		if(json != null && json.getProductID() != null && json.getProductID() > 0){
 			product = productService.findById(json.getProductID());
@@ -338,6 +362,7 @@ public class ProductController {
 		}catch(Exception e){
 			System.out.println("==================");
 			e.printStackTrace();
+			errorMsg = e.getMessage();
 		}
 		
 		return errorMsg;
@@ -395,4 +420,20 @@ public class ProductController {
 
 		return fileName;
 	}
+	@RequestMapping(value = "/getproductHistJson", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public String getLocationsJson(@RequestParam(value="productID", required=true) Integer productID,
+			@RequestParam(value="filterscount", required=false) String filterscount
+			, @RequestParam(value="groupscount", required=false) String groupscount
+			, @RequestParam(value="pagenum", required=false) Integer pagenum
+			, @RequestParam(value="pagesize", required=false) Integer pagesize
+			, @RequestParam(value="recordstartindex", required=false) Integer recordstartindex
+			, @RequestParam(value="recordendindex", required=false) Integer recordendindex
+			, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
+		List<LabourPrice> labourPrices = productService.findLabourPrices(productID);
+		String result = Utilities.jSonSerialization(labourPrices);
+		return result;
+	}
+	
+	
 }

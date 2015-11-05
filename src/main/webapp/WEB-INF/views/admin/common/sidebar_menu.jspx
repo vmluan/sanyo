@@ -11,11 +11,12 @@
             <li class="active"><a href="${pageContext.request.contextPath}/projects?status=closed"><i class="fa fa-link"><jsp:text/></i> <span>Closed Projects</span></a></li>
             <li><a href="${pageContext.request.contextPath}/projects"><i class="fa fa-link"><jsp:text/></i> <span>Reports</span></a></li>
             <li class="treeview">
-              <a href="#"><i class="fa fa-link"><jsp:text/></i> <span>Admin</span> <i class="fa fa-angle-left pull-right"><jsp:text/></i></a>
+              <a href="#"><i class="fa fa-link"><jsp:text/></i> <span>${userName }</span> <i class="fa fa-angle-left pull-right"><jsp:text/></i></a>
               <ul class="treeview-menu">
                 <li><a href="${pageContext.request.contextPath}/admin/users">User Maintenance</a></li>
                 <li><a href="${pageContext.request.contextPath}/admin/roles">Role Maintenance</a></li>
                 <li><a href="${pageContext.request.contextPath}/admin/categories">Category Maintenance</a></li>
+                <li><a href="${pageContext.request.contextPath}/products">Products Maintenance</a></li>
               </ul>
             </li>
           </ul><!-- /.sidebar-menu -->

@@ -40,6 +40,10 @@ public class Price {
 
     @Column(name ="PRICE_TYPE")
     private PriceType priceType;
+    
+    private float max_w_o_tax_usd;
+    private float max_w_o_tax_vnd;
+    private float labour;
 
     public int getPriceId() {
         return priceId;
@@ -103,6 +107,30 @@ public class Price {
 
 	public void setPriceType(PriceType priceType) {
 		this.priceType = priceType;
+	}
+
+	public float getMax_w_o_tax_usd() {
+		return max_w_o_tax_usd;
+	}
+
+	public void setMax_w_o_tax_usd(float max_w_o_tax_usd) {
+		this.max_w_o_tax_usd = max_w_o_tax_usd;
+	}
+
+	public float getMax_w_o_tax_vnd() {
+		return max_w_o_tax_vnd;
+	}
+
+	public void setMax_w_o_tax_vnd(float max_w_o_tax_vnd) {
+		this.max_w_o_tax_vnd = max_w_o_tax_vnd;
+	}
+
+	public float getLabour() {
+		return labour;
+	}
+
+	public void setLabour(float labour) {
+		this.labour = labour;
 	}
     
 }

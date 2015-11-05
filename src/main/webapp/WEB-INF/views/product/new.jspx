@@ -141,28 +141,55 @@
 		<div id="messageNotification" style="z-index: 30000000; display: none">
 				Submit successfully.
 				<jsp:text />
-		</div>			
+		</div>
+		<c:if test="${product.productID > 0}">
+          <div class="box box-default">
+            <!-- left column -->
+            <div class="box-body">
+              <!-- general form elements -->
+			  
+              <div class="row">
+                <div class="box-header with-border">
+                  <h3 class="box-title">History</h3>
+                </div><!-- /.box-header -->
+                  <div class="col-md-12">
+					<div class="form-group">
+						<div id="jqxgridProductHist" class="row"><jsp:text />
+						</div>
+						<div id="pager"><jsp:text /></div><jsp:text /><P /><jsp:text />
+					</div>				
+				</div>
+			  </div>
+			 </div>
+			</div>
+		</c:if>
+								
 	</section>
     <div style="clear: both;"></div>
 	<script>
-		var pageContext = "${pageContext.request.contextPath}";	
+		var productID = "${product.productID}";
+		var groupID = "${product.productGroup.groupId}";
+		var groupName = "${product.productGroup.groupName}";
+	    var pageContext = "${pageContext.request.contextPath}";
+	    
 	</script>
    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/productCategory.js">
         <jsp:text/>
 	</script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/productGroup.js">
         <jsp:text/>
-    </script>    
+    </script>
+    <c:if test="${product.productID > 0}">
+	    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/productHist.js">
+	        <jsp:text/>
+	    </script> 
+    </c:if>
 	<script>
 	$("#messageNotification").jqxNotification({
 		width: 250, position: "top-right", opacity: 0.9,
 		autoOpen: false, animationOpenDelay: 800, autoClose: true, autoCloseDelay: 3000, template: "info"
 	});	
-	var productID = "${product.productID}";
-	var groupID = "${product.productGroup.groupId}";
-	var groupName = "${product.productGroup.groupName}";
 
-    var pageContext = "${pageContext.request.contextPath}";
 	$("#sbmBtn").click(function(){
 		var errorMsg = new Array();
 		var form = document.getElementById('newUpdateProductForm');
