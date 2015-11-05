@@ -44,6 +44,10 @@
         <put-attribute name="body"
              value="/WEB-INF/views/quotation/makerlistcreate.jspx" />
     </definition>
+    <definition extends="home" name="quotation/expenses/create">
+        <put-attribute name="body"
+                       value="/WEB-INF/views/quotation/expenses_jsp_form.jspx" />
+    </definition>
     <definition extends="home" name="quotation/expenses">
         <put-attribute name="body"
                        value="/WEB-INF/views/quotation/expenses_jsp_form.jspx" />

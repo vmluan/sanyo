@@ -24,7 +24,7 @@ public class Expenses implements Serializable {
 	private ExpenseElements expenseElement;
 
 	@Column(name="ORDER_NO")
-	private String order;
+	private Integer order;
 
 	@Column(name="QUANTITY")
 	private  float quantity;
@@ -67,11 +67,11 @@ public class Expenses implements Serializable {
 		this.expenseElement = expenseElement;
 	}
 
-	public String getOrder() {
+	public Integer getOrder() {
 		return order;
 	}
 
-	public void setOrder(String order) {
+	public void setOrder(Integer order) {
 		this.order = order;
 	}
 
