@@ -195,8 +195,9 @@ public class ProductController {
 	private boolean isOverlapped(ProductJson json, List<LabourPrice> labourPrices){
 		boolean result = false;
 		for(LabourPrice lb : labourPrices){
-			if(json.getStartDate().before(lb.getExpiredDate())
-					&& json.getEndDate() != null && lb.getExpiredDate() != null
+			if(lb.getExpiredDate() != null
+					&& json.getStartDate().before(lb.getExpiredDate())
+					&& json.getEndDate() != null
 					&& json.getEndDate().after(lb.getExpiredDate())){
 				result = true;
 				break;
