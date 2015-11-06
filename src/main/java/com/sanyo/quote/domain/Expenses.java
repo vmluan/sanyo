@@ -14,31 +14,18 @@ import javax.persistence.*;
 @Entity
 @Table(name = "expenses", catalog = "sanyo")
 public class Expenses implements Serializable {
+	private Integer expenseID;
+	private Project project;
+	private ExpenseElements expenseElement;
+	private Integer order;
+	private  float quantity;
+	private float duration; //duration in some records may be null
+	private float rate;
+	private String remark;
+
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name="EXPENSE_ID")
-	private Integer expenseID;
-
-	private Project project;
-
-	private ExpenseElements expenseElement;
-
-	@Column(name="ORDER_NO")
-	private Integer order;
-
-	@Column(name="QUANTITY")
-	private  float quantity;
-
-	@Column(name="DURATION")
-	private float duration; //duration in some records may be null
-
-	@Column(name="RATE")
-	private float rate;
-
-	@Column(name="remark")
-	private String remark;
-
-
 	public Integer getExpenseID() {
 		return expenseID;
 	}
@@ -66,7 +53,8 @@ public class Expenses implements Serializable {
 	public void setExpenseElement(ExpenseElements expenseElement) {
 		this.expenseElement = expenseElement;
 	}
-
+	
+	@Column(name="ORDER_NO")
 	public Integer getOrder() {
 		return order;
 	}
@@ -74,7 +62,8 @@ public class Expenses implements Serializable {
 	public void setOrder(Integer order) {
 		this.order = order;
 	}
-
+	
+	@Column(name="QUANTITY")
 	public float getQuantity() {
 		return quantity;
 	}
@@ -82,7 +71,8 @@ public class Expenses implements Serializable {
 	public void setQuantity(float quantity) {
 		this.quantity = quantity;
 	}
-
+	
+	@Column(name="DURATION")
 	public float getDuration() {
 		return duration;
 	}
@@ -90,7 +80,8 @@ public class Expenses implements Serializable {
 	public void setDuration(float duration) {
 		this.duration = duration;
 	}
-
+	
+	@Column(name="RATE")
 	public float getRate() {
 		return rate;
 	}
@@ -98,7 +89,8 @@ public class Expenses implements Serializable {
 	public void setRate(float rate) {
 		this.rate = rate;
 	}
-
+	
+	@Column(name="remark")
 	public String getRemark() {
 		return remark;
 	}
