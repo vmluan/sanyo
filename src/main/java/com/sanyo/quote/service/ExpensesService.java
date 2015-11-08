@@ -1,5 +1,6 @@
 package com.sanyo.quote.service;
 
+import com.sanyo.quote.domain.ExpenseElements;
 import com.sanyo.quote.domain.Expenses;
 import com.sanyo.quote.domain.Project;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +15,10 @@ public interface ExpensesService {
     List<Expenses> findAll();
 
     Expenses findById (Integer Id);
+
+    Expenses findByProjectAndElement (Project project, ExpenseElements expenseElements);
+
+    List<Expenses> findByProject (Project project);
 
     Expenses save (Expenses expense);
 

@@ -49,9 +49,75 @@ public class ExpensesController extends CommonController{
     private List<ExpenseElements> allExpenseElement;
 
     @RequestMapping(value = "/{id}/expenses",params = "form",method = RequestMethod.GET)
-    public String createExpenses(@PathVariable("id") String projectId,Model uiModel) {
+    public String createExpenses(@PathVariable("id") Integer projectId,Model uiModel) {
         ExpensesJson expensesJson = new ExpensesJson();
-        uiModel.addAttribute("expensesJson",expensesJson);
+        List<Expenses> expenseses = expensesService.findByProject(projectService.findById(projectId));
+        if (expenseses.size()>0 && expenseses.size()>=61) {
+            expensesJson.setExpenseElement_1(expenseses.get(0).getQuantity());
+            expensesJson.setExpenseElement_2(expenseses.get(1).getQuantity());
+            expensesJson.setExpenseElement_3(expenseses.get(2).getQuantity());
+            expensesJson.setExpenseElement_4(expenseses.get(3).getQuantity());
+            expensesJson.setExpenseElement_5(expenseses.get(4).getQuantity());
+            expensesJson.setExpenseElement_6(expenseses.get(5).getQuantity());
+            expensesJson.setExpenseElement_7(expenseses.get(6).getQuantity());
+            expensesJson.setExpenseElement_8(expenseses.get(7).getQuantity());
+            expensesJson.setExpenseElement_9(expenseses.get(8).getQuantity());
+            expensesJson.setExpenseElement_10(expenseses.get(9).getQuantity());
+            expensesJson.setExpenseElement_11(expenseses.get(10).getQuantity());
+            expensesJson.setExpenseElement_12(expenseses.get(11).getQuantity());
+            expensesJson.setExpenseElement_13(expenseses.get(12).getQuantity());
+            expensesJson.setExpenseElement_14(expenseses.get(13).getQuantity());
+            expensesJson.setExpenseElement_15(expenseses.get(14).getQuantity());
+            expensesJson.setExpenseElement_16(expenseses.get(15).getQuantity());
+            expensesJson.setExpenseElement_17(expenseses.get(16).getQuantity());
+            expensesJson.setExpenseElement_18(expenseses.get(17).getQuantity());
+            expensesJson.setExpenseElement_19(expenseses.get(18).getQuantity());
+            expensesJson.setExpenseElement_20(expenseses.get(19).getQuantity());
+            expensesJson.setExpenseElement_21(expenseses.get(20).getQuantity());
+            expensesJson.setExpenseElement_22(expenseses.get(21).getQuantity());
+            expensesJson.setExpenseElement_23(expenseses.get(22).getQuantity());
+            expensesJson.setExpenseElement_24(expenseses.get(23).getQuantity());
+            expensesJson.setExpenseElement_25(expenseses.get(24).getQuantity());
+            expensesJson.setExpenseElement_26(expenseses.get(25).getQuantity());
+            expensesJson.setExpenseElement_27(expenseses.get(26).getQuantity());
+            expensesJson.setExpenseElement_28(expenseses.get(27).getQuantity());
+            expensesJson.setExpenseElement_29(expenseses.get(28).getQuantity());
+            expensesJson.setExpenseElement_30(expenseses.get(29).getQuantity());
+            expensesJson.setExpenseElement_31(expenseses.get(30).getQuantity());
+            expensesJson.setExpenseElement_32(expenseses.get(31).getQuantity());
+            expensesJson.setExpenseElement_33(expenseses.get(32).getQuantity());
+            expensesJson.setExpenseElement_34(expenseses.get(33).getQuantity());
+            expensesJson.setExpenseElement_35(expenseses.get(34).getQuantity());
+            expensesJson.setExpenseElement_36(expenseses.get(35).getQuantity());
+            expensesJson.setExpenseElement_37(expenseses.get(36).getQuantity());
+            expensesJson.setExpenseElement_38(expenseses.get(37).getQuantity());
+            expensesJson.setExpenseElement_39(expenseses.get(38).getQuantity());
+            expensesJson.setExpenseElement_40(expenseses.get(39).getQuantity());
+            expensesJson.setExpenseElement_41(expenseses.get(40).getQuantity());
+            expensesJson.setExpenseElement_42(expenseses.get(41).getQuantity());
+            expensesJson.setExpenseElement_43(expenseses.get(42).getQuantity());
+            expensesJson.setExpenseElement_44(expenseses.get(43).getQuantity());
+            expensesJson.setExpenseElement_45(expenseses.get(44).getQuantity());
+            expensesJson.setExpenseElement_46(expenseses.get(45).getQuantity());
+            expensesJson.setExpenseElement_47(expenseses.get(46).getQuantity());
+            expensesJson.setExpenseElement_48(expenseses.get(47).getQuantity());
+            expensesJson.setExpenseElement_49(expenseses.get(48).getQuantity());
+            expensesJson.setExpenseElement_50(expenseses.get(49).getQuantity());
+            expensesJson.setExpenseElement_51(expenseses.get(50).getQuantity());
+            expensesJson.setExpenseElement_52(expenseses.get(51).getQuantity());
+            expensesJson.setExpenseElement_53(expenseses.get(52).getQuantity());
+            expensesJson.setExpenseElement_54(expenseses.get(53).getQuantity());
+            expensesJson.setExpenseElement_55(expenseses.get(54).getQuantity());
+            expensesJson.setExpenseElement_56(expenseses.get(55).getQuantity());
+            expensesJson.setExpenseElement_57(expenseses.get(56).getQuantity());
+            expensesJson.setExpenseElement_58(expenseses.get(57).getQuantity());
+            expensesJson.setExpenseElement_59(expenseses.get(58).getQuantity());
+            expensesJson.setExpenseElement_60(expenseses.get(59).getQuantity());
+            expensesJson.setExpenseElement_61(expenseses.get(60).getQuantity());
+
+            expensesJson.setExpenseElementQuantity_1(expenseses.get(1).getDuration());
+        }
+        uiModel.addAttribute("expensesJson", expensesJson);
         uiModel.addAttribute("projectId",projectId);
         setHeader(uiModel, "Update expenses", "");
         setUser(uiModel);
@@ -69,13 +135,21 @@ public class ExpensesController extends CommonController{
 //        }
 
         List<ExpenseElements> expenseElementses = expenseElementsService.findAll();
+        Project project = projectService.findById(id);
         for (ExpenseElements expenseElement : expenseElementses){
-           Expenses expense = new Expenses();
-            expense.setExpenseElement(expenseElement);
-            expense.setProject(projectService.findById(id));
-            expense.setOrder(expenseElement.getDefaultOrder());
+            Expenses expense = expensesService.findByProjectAndElement(project, expenseElement);
+            if (expense != null)
+            {
+                //do nothing
+            }
+            else {
+                expense = new Expenses();
+                expense.setProject(project);
+                expense.setExpenseElement(expenseElement);
 
-            //think about this more
+                expense.setOrder(expenseElement.getDefaultOrder());
+            }
+
             int elementID = expenseElement.getExpenseElementID();
             if (elementID == 1)
                 expense.setQuantity(expensesJson.getExpenseElement_1());
@@ -199,7 +273,6 @@ public class ExpensesController extends CommonController{
                 expense.setQuantity(expensesJson.getExpenseElement_60());
             else
                 expense.setQuantity(expensesJson.getExpenseElement_61());
-
 
             expensesService.save(expense);
         }

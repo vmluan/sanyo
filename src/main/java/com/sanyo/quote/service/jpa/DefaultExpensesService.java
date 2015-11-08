@@ -1,7 +1,9 @@
 package com.sanyo.quote.service.jpa;
 
 import com.google.common.collect.Lists;
+import com.sanyo.quote.domain.ExpenseElements;
 import com.sanyo.quote.domain.Expenses;
+import com.sanyo.quote.domain.ExpensesJson;
 import com.sanyo.quote.domain.Project;
 import com.sanyo.quote.repository.ExpensesRepository;
 import com.sanyo.quote.service.ExpensesService;
@@ -45,4 +47,15 @@ public class DefaultExpensesService implements ExpensesService {
         return expensesRepository.findAll(pageable);
     }
 
+    @Transactional(readOnly = true)
+    public Expenses findByProjectAndElement (Project project, ExpenseElements expenseElements) {
+        List<Expenses> expenses = expensesRepository.findByProjectAndElement(project, expenseElements);
+        return expenses.size()!=0?expenses.get(0):null;
+    }
+
+    @Transactional(readOnly = true)
+    public List<Expenses> findByProject (Project project) {
+        List<Expenses> expenses = expensesRepository.findByProject(project);
+        return expenses;
+    }
 }

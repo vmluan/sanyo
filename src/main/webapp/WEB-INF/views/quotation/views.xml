@@ -50,6 +50,6 @@
     </definition>
     <definition extends="home" name="quotation/expenses">
         <put-attribute name="body"
-                       value="/WEB-INF/views/quotation/expenses_jsp_form.jspx" />
+                       value="/WEB-INF/views/quotation/expenses.jspx" />
     </definition>
 </tiles-definitions>
