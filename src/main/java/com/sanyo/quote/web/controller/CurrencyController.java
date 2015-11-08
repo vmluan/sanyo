@@ -190,13 +190,6 @@ public final class CurrencyController extends CommonController{
 		String errorMsg = null;
 		try{
 			CurrencyExchRate currencyExchRate = currencyExchRateService.findById(id);
-			currencyExchRate.setSourceCurrencyId(currencyExchRate.getSourceCurrency().getCurrencyId().toString());
-			currencyExchRate.setTargetCurrencyId(currencyExchRate.getTargetCurrency().getCurrencyId().toString());
-			List<CurrencyExchRate> existingRates = this.findExistingRates(currencyExchRate.getSourceCurrency(), currencyExchRate.getTargetCurrency());
-	        if(isOverlapped(currencyExchRate, existingRates)){
-	        	throwOverlappedDateException("The date range is overlapped with existing one.");
-	        }
-	        this.updateExistingRates(existingRates, currencyExchRate);
 	        initialize(uiModel, currencyExchRate);
 		}catch(Exception e){
 			errorMsg = e.getMessage();
@@ -239,6 +232,12 @@ public final class CurrencyController extends CommonController{
 	        Currency targetCurrency = currencyService.findById(Integer.valueOf(currencyExchRate.getSourceCurrencyId()));
 	        currencyExchRate.setSourceCurrency(sourceCurrency);
 	        currencyExchRate.setTargetCurrency(targetCurrency);
+			List<CurrencyExchRate> existingRates = this.findExistingRates(sourceCurrency, targetCurrency);
+	        if(isOverlapped(currencyExchRate, existingRates)){
+	        	throwOverlappedDateException("The date range is overlapped with existing one.");
+	        }
+	        this.updateExistingRates(existingRates, currencyExchRate);
+	        initialize(uiModel, currencyExchRate);
 	        currencyExchRateService.save(currencyExchRate);
 		}catch (Exception e){
 			errorMsg = e.getMessage();

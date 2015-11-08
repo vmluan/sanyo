@@ -54,26 +54,36 @@
 						<form:label path="exchangeRateValue">
 							Value
 						</form:label>
-						<form:input path="exchangeRateValue" class="form-control"/>
+						<form:hidden path="exchangeRateValue" class="form-control"/>
+						<div class="form-control" id='exchangeRateValueDiv'><jsp:text/>
+						</div>
 					</div>
+					<div>
+						<form:errors path="exchangeRateValue" cssClass="error" />
+					</div>					
 				</div>
+
 				<div class="col-md-3">
-					<div class="form-group">
+					<div class="form-group" >
 						<form:label path="startDate">
 							Start Date
 						</form:label>
-						<form:input path="startDate" class="form-control" placeholder="mm/dd/yyyy"/> 
+						<form:hidden path="startDate" class="form-control"/>
+						<div class="form-control" id='startDateDiv'><jsp:text/>
+						</div>						
 					</div>
 					<div>
 						<form:errors path="startDate" cssClass="error" />
 					</div>
-				</div>	
+				</div>				
 				<div class="col-md-3">
 					<div class="form-group">
 						<form:label path="endDate">
 							End Date
 						</form:label>
-						<form:input path="endDate" class="form-control" placeholder="mm/dd/yyyy"/> 
+						<form:hidden path="endDate" class="form-control"/>
+						<div class="form-control" id='endDateDiv'><jsp:text/>
+						</div>
 					</div>
 					<div>
 						<form:errors path="endDate" cssClass="error" />
@@ -81,7 +91,7 @@
 				</div>
 				<div class="col-md-12">
                   <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="button" class="btn btn-primary" onclick="submitForm(this.form, this)">Submit</button>
                   </div>
 				</div>
                 </form:form>
@@ -89,4 +99,22 @@
 			</div>
 		</div>
 	</section>
+<script>
+	$("#startDateDiv").jqxDateTimeInput({ 
+		width: '70%', 
+		height: '20px', 
+		formatString: 'd'
+		});
+	$("#endDateDiv").jqxDateTimeInput({ width: '70%', height: '20px', formatString: 'd'});
+	$("#exchangeRateValueDiv").jqxNumberInput({ width: '100%', height: '25px', symbol: '$', max: 99999999});
+	function submitForm(form, current){
+		form.startDate.value=$("#startDateDiv").val();
+		form.endDate.value=$("#endDateDiv").val();
+		form.exchangeRateValue.value=$("#exchangeRateValueDiv").val();
+		form.submit();
+	}
+	$("#startDateDiv").val($("#startDate").val());
+	$("#endDateDiv").val($("#endDate").val());
+	$("#exchangeRateValueDiv").val($("#exchangeRateValue").val());
+</script>	
 </div>

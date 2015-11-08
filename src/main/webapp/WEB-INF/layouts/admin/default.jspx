@@ -124,6 +124,9 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/jqwidgets/jqxtreegrid.js"><jsp:text/></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/jqwidgets/jqxcombobox.js"><jsp:text/></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/jqwidgets/jqxnotification.js"><jsp:text/></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/jqwidgets/jqxdatetimeinput.js"><jsp:text/></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/jqwidgets/jqxcalendar.js"><jsp:text/></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/jqwidgets/globalization/globalize.js"><jsp:text/></script>
      
 	
   </head>

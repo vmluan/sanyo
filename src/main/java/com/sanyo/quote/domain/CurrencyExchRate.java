@@ -63,7 +63,6 @@ public class CurrencyExchRate implements java.io.Serializable {
 	public void setTargetCurrency(Currency targetCurrency) {
 		this.targetCurrency = targetCurrency;
 	}
-	@NotEmpty
 	@NotNull
 	public Float getExchangeRateValue() {
 		return exchangeRateValue;
@@ -71,7 +70,6 @@ public class CurrencyExchRate implements java.io.Serializable {
 	public void setExchangeRateValue(Float exchangeRateValue) {
 		this.exchangeRateValue = exchangeRateValue;
 	}
-	@NotEmpty
 	@NotNull
 	public Date getStartDate() {
 		return startDate;
