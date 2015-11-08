@@ -30,4 +30,8 @@ public class CommonController {
 		org.springframework.security.core.userdetails.User user = Utilities.getCurrentUser();
 		uiModel.addAttribute("userName", user.getUsername());
 	}
+	public void throwOverlappedDateException(String message) throws Exception{
+		Exception e = new Exception(message);
+		throw e;
+	}
 }

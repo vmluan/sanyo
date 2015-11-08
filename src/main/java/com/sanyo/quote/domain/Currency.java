@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "currency", catalog = "sanyo")
-public class Currency {
+public class Currency implements java.io.Serializable{
 	private Integer currencyId;
 	private String currencyName; //like USD, VND;
 	private String currencyCode; //like USD, VND

@@ -12,19 +12,29 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "currency_exch_rate", catalog = "sanyo")
-public class CurrecyExchRate {
+public class CurrencyExchRate implements java.io.Serializable {
 	
 	private Integer id;
 	private Currency sourceCurrency;
 	private Currency targetCurrency;
 	private Float exchangeRateValue;
+	@DateTimeFormat(pattern = "MM/dd/yyyy")
 	private Date startDate;
+	@DateTimeFormat(pattern = "MM/dd/yyyy")
 	private Date endDate;
+	@Transient
+	private String sourceCurrencyId;
+	@Transient
+	private String targetCurrencyId;
 	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -36,8 +46,7 @@ public class CurrecyExchRate {
 		this.id = id;
 	}
 	
-	@JsonIgnore
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="SOURCE_CURRENCY_ID", nullable = false)
 	public Currency getSourceCurrency() {
 		return sourceCurrency;
@@ -46,8 +55,7 @@ public class CurrecyExchRate {
 		this.sourceCurrency = sourceCurrency;
 	}
 	
-	@JsonIgnore
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="TARGET_CURRENCY_ID", nullable = false)
 	public Currency getTargetCurrency() {
 		return targetCurrency;
@@ -55,12 +63,16 @@ public class CurrecyExchRate {
 	public void setTargetCurrency(Currency targetCurrency) {
 		this.targetCurrency = targetCurrency;
 	}
+	@NotEmpty
+	@NotNull
 	public Float getExchangeRateValue() {
 		return exchangeRateValue;
 	}
 	public void setExchangeRateValue(Float exchangeRateValue) {
 		this.exchangeRateValue = exchangeRateValue;
 	}
+	@NotEmpty
+	@NotNull
 	public Date getStartDate() {
 		return startDate;
 	}
@@ -73,4 +85,18 @@ public class CurrecyExchRate {
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
+	public String getSourceCurrencyId() {
+		return sourceCurrencyId;
+	}
+	public void setSourceCurrencyId(String sourceCurrencyId) {
+		this.sourceCurrencyId = sourceCurrencyId;
+	}
+	
+	public String getTargetCurrencyId() {
+		return targetCurrencyId;
+	}
+	public void setTargetCurrencyId(String targetCurrencyId) {
+		this.targetCurrencyId = targetCurrencyId;
+	}
+	
 }

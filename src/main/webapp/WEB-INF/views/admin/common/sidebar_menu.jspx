@@ -17,6 +17,7 @@
                 <li><a href="${pageContext.request.contextPath}/admin/roles">Role Maintenance</a></li>
                 <li><a href="${pageContext.request.contextPath}/admin/categories">Category Maintenance</a></li>
                 <li><a href="${pageContext.request.contextPath}/products">Products Maintenance</a></li>
+                <li><a href="${pageContext.request.contextPath}/currency">Currency Exchange Rates Maintenance</a></li>
               </ul>
             </li>
           </ul><!-- /.sidebar-menu -->

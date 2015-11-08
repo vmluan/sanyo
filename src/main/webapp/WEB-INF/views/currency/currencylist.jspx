@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" 
+     xmlns:c="http://java.sun.com/jsp/jstl/core" 
+     xmlns:spring="http://www.springframework.org/tags"
+     version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>  
+    
+    <spring:message code="label_project_new" var="labelProjectAdd" text="Create Project"/>
+    
+    <c:if test="${not empty message}">
+        <div id="message" class="${message.type}">${message.message}</div>
+    </c:if>
+	<div class="row">
+				<div class="col-md-3 col-sm-6 col-xs-12">
+				  <div class="info-box">
+					<span class="info-box-icon bg-aqua">
+							<i class="ion ion-ios-gear-outline"><jsp:text /></i>
+					</span>
+					<div class="info-box-content">
+					  <span class="info-box-text"><![CDATA[&nbsp;]]></span>
+					  <span class="info-box-number"><a href="?form">${labelProjectAdd}</a></span>
+					</div><!-- /.info-box-content -->
+				  </div><!-- /.info-box -->
+				</div><!-- /.col -->
+
+				<!-- fix for small devices only -->
+				<div class="clearfix visible-sm-block"><jsp:text /></div>
+	</div>
+	
+
+        <section class="content">
+          <div class="box box-default">
+            <!-- left column -->
+            <div class="box-body">
+              <!-- general form elements -->
+			  
+              <div class="row">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Currency Exchange rates</h3>
+                </div><!-- /.box-header -->
+                  <div class="col-md-12">
+					<div class="form-group">
+						<div id="list" class="row"><jsp:text />
+						</div>
+						<div id="pager"><jsp:text /></div><jsp:text /><P /><jsp:text />
+					</div>				
+				</div>
+			  </div>
+			 </div>
+			</div>
+		</section>	
+	<script>
+	var pageContext = "${pageContext.request.contextPath}";
+	var projectStatus = "${projectStatus}";
+	</script>			
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/currencyList.js">
+        <jsp:text/>
+    </script>
+</div>
