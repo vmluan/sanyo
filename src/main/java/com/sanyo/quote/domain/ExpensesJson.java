@@ -71,67 +71,67 @@ public class ExpensesJson {
     private float expenseElement_60;
     private float expenseElement_61;
 
-    private float expenseElementQuantity_1;
-    private float expenseElementQuantity_2;
-    private float expenseElementQuantity_3;
-    private float expenseElementQuantity_4;
-    private float expenseElementQuantity_5;
-    private float expenseElementQuantity_6;
-    private float expenseElementQuantity_7;
-    private float expenseElementQuantity_8;
-    private float expenseElementQuantity_9;
-    private float expenseElementQuantity_10;
-    private float expenseElementQuantity_11;
-    private float expenseElementQuantity_12;
-    private float expenseElementQuantity_13;
-    private float expenseElementQuantity_14;
-    private float expenseElementQuantity_15;
-    private float expenseElementQuantity_16;
-    private float expenseElementQuantity_17;
-    private float expenseElementQuantity_18;
-    private float expenseElementQuantity_19;
-    private float expenseElementQuantity_20;
-    private float expenseElementQuantity_21;
-    private float expenseElementQuantity_22;
-    private float expenseElementQuantity_23;
-    private float expenseElementQuantity_24;
-    private float expenseElementQuantity_25;
-    private float expenseElementQuantity_26;
-    private float expenseElementQuantity_27;
-    private float expenseElementQuantity_28;
-    private float expenseElementQuantity_29;
-    private float expenseElementQuantity_30;
-    private float expenseElementQuantity_31;
-    private float expenseElementQuantity_32;
-    private float expenseElementQuantity_33;
-    private float expenseElementQuantity_34;
-    private float expenseElementQuantity_35;
-    private float expenseElementQuantity_36;
-    private float expenseElementQuantity_37;
-    private float expenseElementQuantity_38;
-    private float expenseElementQuantity_39;
-    private float expenseElementQuantity_40;
-    private float expenseElementQuantity_41;
-    private float expenseElementQuantity_42;
-    private float expenseElementQuantity_43;
-    private float expenseElementQuantity_44;
-    private float expenseElementQuantity_45;
-    private float expenseElementQuantity_46;
-    private float expenseElementQuantity_47;
-    private float expenseElementQuantity_48;
-    private float expenseElementQuantity_49;
-    private float expenseElementQuantity_50;
-    private float expenseElementQuantity_51;
-    private float expenseElementQuantity_52;
-    private float expenseElementQuantity_53;
-    private float expenseElementQuantity_54;
-    private float expenseElementQuantity_55;
-    private float expenseElementQuantity_56;
-    private float expenseElementQuantity_57;
-    private float expenseElementQuantity_58;
-    private float expenseElementQuantity_59;
-    private float expenseElementQuantity_60;
-    private float expenseElementQuantity_61;
+    private float expenseElementDuration_1;
+    private float expenseElementDuration_2;
+    private float expenseElementDuration_3;
+    private float expenseElementDuration_4;
+    private float expenseElementDuration_5;
+    private float expenseElementDuration_6;
+    private float expenseElementDuration_7;
+    private float expenseElementDuration_8;
+    private float expenseElementDuration_9;
+    private float expenseElementDuration_10;
+    private float expenseElementDuration_11;
+    private float expenseElementDuration_12;
+    private float expenseElementDuration_13;
+    private float expenseElementDuration_14;
+    private float expenseElementDuration_15;
+    private float expenseElementDuration_16;
+    private float expenseElementDuration_17;
+    private float expenseElementDuration_18;
+    private float expenseElementDuration_19;
+    private float expenseElementDuration_20;
+    private float expenseElementDuration_21;
+    private float expenseElementDuration_22;
+    private float expenseElementDuration_23;
+    private float expenseElementDuration_24;
+    private float expenseElementDuration_25;
+    private float expenseElementDuration_26;
+    private float expenseElementDuration_27;
+    private float expenseElementDuration_28;
+    private float expenseElementDuration_29;
+    private float expenseElementDuration_30;
+    private float expenseElementDuration_31;
+    private float expenseElementDuration_32;
+    private float expenseElementDuration_33;
+    private float expenseElementDuration_34;
+    private float expenseElementDuration_35;
+    private float expenseElementDuration_36;
+    private float expenseElementDuration_37;
+    private float expenseElementDuration_38;
+    private float expenseElementDuration_39;
+    private float expenseElementDuration_40;
+    private float expenseElementDuration_41;
+    private float expenseElementDuration_42;
+    private float expenseElementDuration_43;
+    private float expenseElementDuration_44;
+    private float expenseElementDuration_45;
+    private float expenseElementDuration_46;
+    private float expenseElementDuration_47;
+    private float expenseElementDuration_48;
+    private float expenseElementDuration_49;
+    private float expenseElementDuration_50;
+    private float expenseElementDuration_51;
+    private float expenseElementDuration_52;
+    private float expenseElementDuration_53;
+    private float expenseElementDuration_54;
+    private float expenseElementDuration_55;
+    private float expenseElementDuration_56;
+    private float expenseElementDuration_57;
+    private float expenseElementDuration_58;
+    private float expenseElementDuration_59;
+    private float expenseElementDuration_60;
+    private float expenseElementDuration_61;
 
     public float getExpenseElement_1() {
         return expenseElement_1;
@@ -621,491 +621,491 @@ public class ExpensesJson {
         this.expenseElement_61 = expenseElement_61;
     }
 
-    public float getExpenseElementQuantity_1() {
-        return expenseElementQuantity_1;
+    public float getExpenseElementDuration_1() {
+        return expenseElementDuration_1;
     }
 
-    public void setExpenseElementQuantity_1(float expenseElementQuantity_1) {
-        this.expenseElementQuantity_1 = expenseElementQuantity_1;
+    public void setExpenseElementDuration_1(float expenseElementDuration_1) {
+        this.expenseElementDuration_1 = expenseElementDuration_1;
     }
 
-    public float getExpenseElementQuantity_2() {
-        return expenseElementQuantity_2;
+    public float getExpenseElementDuration_2() {
+        return expenseElementDuration_2;
     }
 
-    public void setExpenseElementQuantity_2(float expenseElementQuantity_2) {
-        this.expenseElementQuantity_2 = expenseElementQuantity_2;
+    public void setExpenseElementDuration_2(float expenseElementDuration_2) {
+        this.expenseElementDuration_2 = expenseElementDuration_2;
     }
 
-    public float getExpenseElementQuantity_3() {
-        return expenseElementQuantity_3;
+    public float getExpenseElementDuration_3() {
+        return expenseElementDuration_3;
     }
 
-    public void setExpenseElementQuantity_3(float expenseElementQuantity_3) {
-        this.expenseElementQuantity_3 = expenseElementQuantity_3;
+    public void setExpenseElementDuration_3(float expenseElementDuration_3) {
+        this.expenseElementDuration_3 = expenseElementDuration_3;
     }
 
-    public float getExpenseElementQuantity_4() {
-        return expenseElementQuantity_4;
+    public float getExpenseElementDuration_4() {
+        return expenseElementDuration_4;
     }
 
-    public void setExpenseElementQuantity_4(float expenseElementQuantity_4) {
-        this.expenseElementQuantity_4 = expenseElementQuantity_4;
+    public void setExpenseElementDuration_4(float expenseElementDuration_4) {
+        this.expenseElementDuration_4 = expenseElementDuration_4;
     }
 
-    public float getExpenseElementQuantity_5() {
-        return expenseElementQuantity_5;
+    public float getExpenseElementDuration_5() {
+        return expenseElementDuration_5;
     }
 
-    public void setExpenseElementQuantity_5(float expenseElementQuantity_5) {
-        this.expenseElementQuantity_5 = expenseElementQuantity_5;
+    public void setExpenseElementDuration_5(float expenseElementDuration_5) {
+        this.expenseElementDuration_5 = expenseElementDuration_5;
     }
 
-    public float getExpenseElementQuantity_6() {
-        return expenseElementQuantity_6;
+    public float getExpenseElementDuration_6() {
+        return expenseElementDuration_6;
     }
 
-    public void setExpenseElementQuantity_6(float expenseElementQuantity_6) {
-        this.expenseElementQuantity_6 = expenseElementQuantity_6;
+    public void setExpenseElementDuration_6(float expenseElementDuration_6) {
+        this.expenseElementDuration_6 = expenseElementDuration_6;
     }
 
-    public float getExpenseElementQuantity_7() {
-        return expenseElementQuantity_7;
+    public float getExpenseElementDuration_7() {
+        return expenseElementDuration_7;
     }
 
-    public void setExpenseElementQuantity_7(float expenseElementQuantity_7) {
-        this.expenseElementQuantity_7 = expenseElementQuantity_7;
+    public void setExpenseElementDuration_7(float expenseElementDuration_7) {
+        this.expenseElementDuration_7 = expenseElementDuration_7;
     }
 
-    public float getExpenseElementQuantity_8() {
-        return expenseElementQuantity_8;
+    public float getExpenseElementDuration_8() {
+        return expenseElementDuration_8;
     }
 
-    public void setExpenseElementQuantity_8(float expenseElementQuantity_8) {
-        this.expenseElementQuantity_8 = expenseElementQuantity_8;
+    public void setExpenseElementDuration_8(float expenseElementDuration_8) {
+        this.expenseElementDuration_8 = expenseElementDuration_8;
     }
 
-    public float getExpenseElementQuantity_9() {
-        return expenseElementQuantity_9;
+    public float getExpenseElementDuration_9() {
+        return expenseElementDuration_9;
     }
 
-    public void setExpenseElementQuantity_9(float expenseElementQuantity_9) {
-        this.expenseElementQuantity_9 = expenseElementQuantity_9;
+    public void setExpenseElementDuration_9(float expenseElementDuration_9) {
+        this.expenseElementDuration_9 = expenseElementDuration_9;
     }
 
-    public float getExpenseElementQuantity_10() {
-        return expenseElementQuantity_10;
+    public float getExpenseElementDuration_10() {
+        return expenseElementDuration_10;
     }
 
-    public void setExpenseElementQuantity_10(float expenseElementQuantity_10) {
-        this.expenseElementQuantity_10 = expenseElementQuantity_10;
+    public void setExpenseElementDuration_10(float expenseElementDuration_10) {
+        this.expenseElementDuration_10 = expenseElementDuration_10;
     }
 
-    public float getExpenseElementQuantity_11() {
-        return expenseElementQuantity_11;
+    public float getExpenseElementDuration_11() {
+        return expenseElementDuration_11;
     }
 
-    public void setExpenseElementQuantity_11(float expenseElementQuantity_11) {
-        this.expenseElementQuantity_11 = expenseElementQuantity_11;
+    public void setExpenseElementDuration_11(float expenseElementDuration_11) {
+        this.expenseElementDuration_11 = expenseElementDuration_11;
     }
 
-    public float getExpenseElementQuantity_12() {
-        return expenseElementQuantity_12;
+    public float getExpenseElementDuration_12() {
+        return expenseElementDuration_12;
     }
 
-    public void setExpenseElementQuantity_12(float expenseElementQuantity_12) {
-        this.expenseElementQuantity_12 = expenseElementQuantity_12;
+    public void setExpenseElementDuration_12(float expenseElementDuration_12) {
+        this.expenseElementDuration_12 = expenseElementDuration_12;
     }
 
-    public float getExpenseElementQuantity_13() {
-        return expenseElementQuantity_13;
+    public float getExpenseElementDuration_13() {
+        return expenseElementDuration_13;
     }
 
-    public void setExpenseElementQuantity_13(float expenseElementQuantity_13) {
-        this.expenseElementQuantity_13 = expenseElementQuantity_13;
+    public void setExpenseElementDuration_13(float expenseElementDuration_13) {
+        this.expenseElementDuration_13 = expenseElementDuration_13;
     }
 
-    public float getExpenseElementQuantity_14() {
-        return expenseElementQuantity_14;
+    public float getExpenseElementDuration_14() {
+        return expenseElementDuration_14;
     }
 
-    public void setExpenseElementQuantity_14(float expenseElementQuantity_14) {
-        this.expenseElementQuantity_14 = expenseElementQuantity_14;
+    public void setExpenseElementDuration_14(float expenseElementDuration_14) {
+        this.expenseElementDuration_14 = expenseElementDuration_14;
     }
 
-    public float getExpenseElementQuantity_15() {
-        return expenseElementQuantity_15;
+    public float getExpenseElementDuration_15() {
+        return expenseElementDuration_15;
     }
 
-    public void setExpenseElementQuantity_15(float expenseElementQuantity_15) {
-        this.expenseElementQuantity_15 = expenseElementQuantity_15;
+    public void setExpenseElementDuration_15(float expenseElementDuration_15) {
+        this.expenseElementDuration_15 = expenseElementDuration_15;
     }
 
-    public float getExpenseElementQuantity_16() {
-        return expenseElementQuantity_16;
+    public float getExpenseElementDuration_16() {
+        return expenseElementDuration_16;
     }
 
-    public void setExpenseElementQuantity_16(float expenseElementQuantity_16) {
-        this.expenseElementQuantity_16 = expenseElementQuantity_16;
+    public void setExpenseElementDuration_16(float expenseElementDuration_16) {
+        this.expenseElementDuration_16 = expenseElementDuration_16;
     }
 
-    public float getExpenseElementQuantity_17() {
-        return expenseElementQuantity_17;
+    public float getExpenseElementDuration_17() {
+        return expenseElementDuration_17;
     }
 
-    public void setExpenseElementQuantity_17(float expenseElementQuantity_17) {
-        this.expenseElementQuantity_17 = expenseElementQuantity_17;
+    public void setExpenseElementDuration_17(float expenseElementDuration_17) {
+        this.expenseElementDuration_17 = expenseElementDuration_17;
     }
 
-    public float getExpenseElementQuantity_18() {
-        return expenseElementQuantity_18;
+    public float getExpenseElementDuration_18() {
+        return expenseElementDuration_18;
     }
 
-    public void setExpenseElementQuantity_18(float expenseElementQuantity_18) {
-        this.expenseElementQuantity_18 = expenseElementQuantity_18;
+    public void setExpenseElementDuration_18(float expenseElementDuration_18) {
+        this.expenseElementDuration_18 = expenseElementDuration_18;
     }
 
-    public float getExpenseElementQuantity_19() {
-        return expenseElementQuantity_19;
+    public float getExpenseElementDuration_19() {
+        return expenseElementDuration_19;
     }
 
-    public void setExpenseElementQuantity_19(float expenseElementQuantity_19) {
-        this.expenseElementQuantity_19 = expenseElementQuantity_19;
+    public void setExpenseElementDuration_19(float expenseElementDuration_19) {
+        this.expenseElementDuration_19 = expenseElementDuration_19;
     }
 
-    public float getExpenseElementQuantity_20() {
-        return expenseElementQuantity_20;
+    public float getExpenseElementDuration_20() {
+        return expenseElementDuration_20;
     }
 
-    public void setExpenseElementQuantity_20(float expenseElementQuantity_20) {
-        this.expenseElementQuantity_20 = expenseElementQuantity_20;
+    public void setExpenseElementDuration_20(float expenseElementDuration_20) {
+        this.expenseElementDuration_20 = expenseElementDuration_20;
     }
 
-    public float getExpenseElementQuantity_21() {
-        return expenseElementQuantity_21;
+    public float getExpenseElementDuration_21() {
+        return expenseElementDuration_21;
     }
 
-    public void setExpenseElementQuantity_21(float expenseElementQuantity_21) {
-        this.expenseElementQuantity_21 = expenseElementQuantity_21;
+    public void setExpenseElementDuration_21(float expenseElementDuration_21) {
+        this.expenseElementDuration_21 = expenseElementDuration_21;
     }
 
-    public float getExpenseElementQuantity_22() {
-        return expenseElementQuantity_22;
+    public float getExpenseElementDuration_22() {
+        return expenseElementDuration_22;
     }
 
-    public void setExpenseElementQuantity_22(float expenseElementQuantity_22) {
-        this.expenseElementQuantity_22 = expenseElementQuantity_22;
+    public void setExpenseElementDuration_22(float expenseElementDuration_22) {
+        this.expenseElementDuration_22 = expenseElementDuration_22;
     }
 
-    public float getExpenseElementQuantity_23() {
-        return expenseElementQuantity_23;
+    public float getExpenseElementDuration_23() {
+        return expenseElementDuration_23;
     }
 
-    public void setExpenseElementQuantity_23(float expenseElementQuantity_23) {
-        this.expenseElementQuantity_23 = expenseElementQuantity_23;
+    public void setExpenseElementDuration_23(float expenseElementDuration_23) {
+        this.expenseElementDuration_23 = expenseElementDuration_23;
     }
 
-    public float getExpenseElementQuantity_24() {
-        return expenseElementQuantity_24;
+    public float getExpenseElementDuration_24() {
+        return expenseElementDuration_24;
     }
 
-    public void setExpenseElementQuantity_24(float expenseElementQuantity_24) {
-        this.expenseElementQuantity_24 = expenseElementQuantity_24;
+    public void setExpenseElementDuration_24(float expenseElementDuration_24) {
+        this.expenseElementDuration_24 = expenseElementDuration_24;
     }
 
-    public float getExpenseElementQuantity_25() {
-        return expenseElementQuantity_25;
+    public float getExpenseElementDuration_25() {
+        return expenseElementDuration_25;
     }
 
-    public void setExpenseElementQuantity_25(float expenseElementQuantity_25) {
-        this.expenseElementQuantity_25 = expenseElementQuantity_25;
+    public void setExpenseElementDuration_25(float expenseElementDuration_25) {
+        this.expenseElementDuration_25 = expenseElementDuration_25;
     }
 
-    public float getExpenseElementQuantity_26() {
-        return expenseElementQuantity_26;
+    public float getExpenseElementDuration_26() {
+        return expenseElementDuration_26;
     }
 
-    public void setExpenseElementQuantity_26(float expenseElementQuantity_26) {
-        this.expenseElementQuantity_26 = expenseElementQuantity_26;
+    public void setExpenseElementDuration_26(float expenseElementDuration_26) {
+        this.expenseElementDuration_26 = expenseElementDuration_26;
     }
 
-    public float getExpenseElementQuantity_27() {
-        return expenseElementQuantity_27;
+    public float getExpenseElementDuration_27() {
+        return expenseElementDuration_27;
     }
 
-    public void setExpenseElementQuantity_27(float expenseElementQuantity_27) {
-        this.expenseElementQuantity_27 = expenseElementQuantity_27;
+    public void setExpenseElementDuration_27(float expenseElementDuration_27) {
+        this.expenseElementDuration_27 = expenseElementDuration_27;
     }
 
-    public float getExpenseElementQuantity_28() {
-        return expenseElementQuantity_28;
+    public float getExpenseElementDuration_28() {
+        return expenseElementDuration_28;
     }
 
-    public void setExpenseElementQuantity_28(float expenseElementQuantity_28) {
-        this.expenseElementQuantity_28 = expenseElementQuantity_28;
+    public void setExpenseElementDuration_28(float expenseElementDuration_28) {
+        this.expenseElementDuration_28 = expenseElementDuration_28;
     }
 
-    public float getExpenseElementQuantity_29() {
-        return expenseElementQuantity_29;
+    public float getExpenseElementDuration_29() {
+        return expenseElementDuration_29;
     }
 
-    public void setExpenseElementQuantity_29(float expenseElementQuantity_29) {
-        this.expenseElementQuantity_29 = expenseElementQuantity_29;
+    public void setExpenseElementDuration_29(float expenseElementDuration_29) {
+        this.expenseElementDuration_29 = expenseElementDuration_29;
     }
 
-    public float getExpenseElementQuantity_30() {
-        return expenseElementQuantity_30;
+    public float getExpenseElementDuration_30() {
+        return expenseElementDuration_30;
     }
 
-    public void setExpenseElementQuantity_30(float expenseElementQuantity_30) {
-        this.expenseElementQuantity_30 = expenseElementQuantity_30;
+    public void setExpenseElementDuration_30(float expenseElementDuration_30) {
+        this.expenseElementDuration_30 = expenseElementDuration_30;
     }
 
-    public float getExpenseElementQuantity_31() {
-        return expenseElementQuantity_31;
+    public float getExpenseElementDuration_31() {
+        return expenseElementDuration_31;
     }
 
-    public void setExpenseElementQuantity_31(float expenseElementQuantity_31) {
-        this.expenseElementQuantity_31 = expenseElementQuantity_31;
+    public void setExpenseElementDuration_31(float expenseElementDuration_31) {
+        this.expenseElementDuration_31 = expenseElementDuration_31;
     }
 
-    public float getExpenseElementQuantity_32() {
-        return expenseElementQuantity_32;
+    public float getExpenseElementDuration_32() {
+        return expenseElementDuration_32;
     }
 
-    public void setExpenseElementQuantity_32(float expenseElementQuantity_32) {
-        this.expenseElementQuantity_32 = expenseElementQuantity_32;
+    public void setExpenseElementDuration_32(float expenseElementDuration_32) {
+        this.expenseElementDuration_32 = expenseElementDuration_32;
     }
 
-    public float getExpenseElementQuantity_33() {
-        return expenseElementQuantity_33;
+    public float getExpenseElementDuration_33() {
+        return expenseElementDuration_33;
     }
 
-    public void setExpenseElementQuantity_33(float expenseElementQuantity_33) {
-        this.expenseElementQuantity_33 = expenseElementQuantity_33;
+    public void setExpenseElementDuration_33(float expenseElementDuration_33) {
+        this.expenseElementDuration_33 = expenseElementDuration_33;
     }
 
-    public float getExpenseElementQuantity_34() {
-        return expenseElementQuantity_34;
+    public float getExpenseElementDuration_34() {
+        return expenseElementDuration_34;
     }
 
-    public void setExpenseElementQuantity_34(float expenseElementQuantity_34) {
-        this.expenseElementQuantity_34 = expenseElementQuantity_34;
+    public void setExpenseElementDuration_34(float expenseElementDuration_34) {
+        this.expenseElementDuration_34 = expenseElementDuration_34;
     }
 
-    public float getExpenseElementQuantity_35() {
-        return expenseElementQuantity_35;
+    public float getExpenseElementDuration_35() {
+        return expenseElementDuration_35;
     }
 
-    public void setExpenseElementQuantity_35(float expenseElementQuantity_35) {
-        this.expenseElementQuantity_35 = expenseElementQuantity_35;
+    public void setExpenseElementDuration_35(float expenseElementDuration_35) {
+        this.expenseElementDuration_35 = expenseElementDuration_35;
     }
 
-    public float getExpenseElementQuantity_36() {
-        return expenseElementQuantity_36;
+    public float getExpenseElementDuration_36() {
+        return expenseElementDuration_36;
     }
 
-    public void setExpenseElementQuantity_36(float expenseElementQuantity_36) {
-        this.expenseElementQuantity_36 = expenseElementQuantity_36;
+    public void setExpenseElementDuration_36(float expenseElementDuration_36) {
+        this.expenseElementDuration_36 = expenseElementDuration_36;
     }
 
-    public float getExpenseElementQuantity_37() {
-        return expenseElementQuantity_37;
+    public float getExpenseElementDuration_37() {
+        return expenseElementDuration_37;
     }
 
-    public void setExpenseElementQuantity_37(float expenseElementQuantity_37) {
-        this.expenseElementQuantity_37 = expenseElementQuantity_37;
+    public void setExpenseElementDuration_37(float expenseElementDuration_37) {
+        this.expenseElementDuration_37 = expenseElementDuration_37;
     }
 
-    public float getExpenseElementQuantity_38() {
-        return expenseElementQuantity_38;
+    public float getExpenseElementDuration_38() {
+        return expenseElementDuration_38;
     }
 
-    public void setExpenseElementQuantity_38(float expenseElementQuantity_38) {
-        this.expenseElementQuantity_38 = expenseElementQuantity_38;
+    public void setExpenseElementDuration_38(float expenseElementDuration_38) {
+        this.expenseElementDuration_38 = expenseElementDuration_38;
     }
 
-    public float getExpenseElementQuantity_39() {
-        return expenseElementQuantity_39;
+    public float getExpenseElementDuration_39() {
+        return expenseElementDuration_39;
     }
 
-    public void setExpenseElementQuantity_39(float expenseElementQuantity_39) {
-        this.expenseElementQuantity_39 = expenseElementQuantity_39;
+    public void setExpenseElementDuration_39(float expenseElementDuration_39) {
+        this.expenseElementDuration_39 = expenseElementDuration_39;
     }
 
-    public float getExpenseElementQuantity_40() {
-        return expenseElementQuantity_40;
+    public float getExpenseElementDuration_40() {
+        return expenseElementDuration_40;
     }
 
-    public void setExpenseElementQuantity_40(float expenseElementQuantity_40) {
-        this.expenseElementQuantity_40 = expenseElementQuantity_40;
+    public void setExpenseElementDuration_40(float expenseElementDuration_40) {
+        this.expenseElementDuration_40 = expenseElementDuration_40;
     }
 
-    public float getExpenseElementQuantity_41() {
-        return expenseElementQuantity_41;
+    public float getExpenseElementDuration_41() {
+        return expenseElementDuration_41;
     }
 
-    public void setExpenseElementQuantity_41(float expenseElementQuantity_41) {
-        this.expenseElementQuantity_41 = expenseElementQuantity_41;
+    public void setExpenseElementDuration_41(float expenseElementDuration_41) {
+        this.expenseElementDuration_41 = expenseElementDuration_41;
     }
 
-    public float getExpenseElementQuantity_42() {
-        return expenseElementQuantity_42;
+    public float getExpenseElementDuration_42() {
+        return expenseElementDuration_42;
     }
 
-    public void setExpenseElementQuantity_42(float expenseElementQuantity_42) {
-        this.expenseElementQuantity_42 = expenseElementQuantity_42;
+    public void setExpenseElementDuration_42(float expenseElementDuration_42) {
+        this.expenseElementDuration_42 = expenseElementDuration_42;
     }
 
-    public float getExpenseElementQuantity_43() {
-        return expenseElementQuantity_43;
+    public float getExpenseElementDuration_43() {
+        return expenseElementDuration_43;
     }
 
-    public void setExpenseElementQuantity_43(float expenseElementQuantity_43) {
-        this.expenseElementQuantity_43 = expenseElementQuantity_43;
+    public void setExpenseElementDuration_43(float expenseElementDuration_43) {
+        this.expenseElementDuration_43 = expenseElementDuration_43;
     }
 
-    public float getExpenseElementQuantity_44() {
-        return expenseElementQuantity_44;
+    public float getExpenseElementDuration_44() {
+        return expenseElementDuration_44;
     }
 
-    public void setExpenseElementQuantity_44(float expenseElementQuantity_44) {
-        this.expenseElementQuantity_44 = expenseElementQuantity_44;
+    public void setExpenseElementDuration_44(float expenseElementDuration_44) {
+        this.expenseElementDuration_44 = expenseElementDuration_44;
     }
 
-    public float getExpenseElementQuantity_45() {
-        return expenseElementQuantity_45;
+    public float getExpenseElementDuration_45() {
+        return expenseElementDuration_45;
     }
 
-    public void setExpenseElementQuantity_45(float expenseElementQuantity_45) {
-        this.expenseElementQuantity_45 = expenseElementQuantity_45;
+    public void setExpenseElementDuration_45(float expenseElementDuration_45) {
+        this.expenseElementDuration_45 = expenseElementDuration_45;
     }
 
-    public float getExpenseElementQuantity_46() {
-        return expenseElementQuantity_46;
+    public float getExpenseElementDuration_46() {
+        return expenseElementDuration_46;
     }
 
-    public void setExpenseElementQuantity_46(float expenseElementQuantity_46) {
-        this.expenseElementQuantity_46 = expenseElementQuantity_46;
+    public void setExpenseElementDuration_46(float expenseElementDuration_46) {
+        this.expenseElementDuration_46 = expenseElementDuration_46;
     }
 
-    public float getExpenseElementQuantity_47() {
-        return expenseElementQuantity_47;
+    public float getExpenseElementDuration_47() {
+        return expenseElementDuration_47;
     }
 
-    public void setExpenseElementQuantity_47(float expenseElementQuantity_47) {
-        this.expenseElementQuantity_47 = expenseElementQuantity_47;
+    public void setExpenseElementDuration_47(float expenseElementDuration_47) {
+        this.expenseElementDuration_47 = expenseElementDuration_47;
     }
 
-    public float getExpenseElementQuantity_48() {
-        return expenseElementQuantity_48;
+    public float getExpenseElementDuration_48() {
+        return expenseElementDuration_48;
     }
 
-    public void setExpenseElementQuantity_48(float expenseElementQuantity_48) {
-        this.expenseElementQuantity_48 = expenseElementQuantity_48;
+    public void setExpenseElementDuration_48(float expenseElementDuration_48) {
+        this.expenseElementDuration_48 = expenseElementDuration_48;
     }
 
-    public float getExpenseElementQuantity_49() {
-        return expenseElementQuantity_49;
+    public float getExpenseElementDuration_49() {
+        return expenseElementDuration_49;
     }
 
-    public void setExpenseElementQuantity_49(float expenseElementQuantity_49) {
-        this.expenseElementQuantity_49 = expenseElementQuantity_49;
+    public void setExpenseElementDuration_49(float expenseElementDuration_49) {
+        this.expenseElementDuration_49 = expenseElementDuration_49;
     }
 
-    public float getExpenseElementQuantity_50() {
-        return expenseElementQuantity_50;
+    public float getExpenseElementDuration_50() {
+        return expenseElementDuration_50;
     }
 
-    public void setExpenseElementQuantity_50(float expenseElementQuantity_50) {
-        this.expenseElementQuantity_50 = expenseElementQuantity_50;
+    public void setExpenseElementDuration_50(float expenseElementDuration_50) {
+        this.expenseElementDuration_50 = expenseElementDuration_50;
     }
 
-    public float getExpenseElementQuantity_51() {
-        return expenseElementQuantity_51;
+    public float getExpenseElementDuration_51() {
+        return expenseElementDuration_51;
     }
 
-    public void setExpenseElementQuantity_51(float expenseElementQuantity_51) {
-        this.expenseElementQuantity_51 = expenseElementQuantity_51;
+    public void setExpenseElementDuration_51(float expenseElementDuration_51) {
+        this.expenseElementDuration_51 = expenseElementDuration_51;
     }
 
-    public float getExpenseElementQuantity_52() {
-        return expenseElementQuantity_52;
+    public float getExpenseElementDuration_52() {
+        return expenseElementDuration_52;
     }
 
-    public void setExpenseElementQuantity_52(float expenseElementQuantity_52) {
-        this.expenseElementQuantity_52 = expenseElementQuantity_52;
+    public void setExpenseElementDuration_52(float expenseElementDuration_52) {
+        this.expenseElementDuration_52 = expenseElementDuration_52;
     }
 
-    public float getExpenseElementQuantity_53() {
-        return expenseElementQuantity_53;
+    public float getExpenseElementDuration_53() {
+        return expenseElementDuration_53;
     }
 
-    public void setExpenseElementQuantity_53(float expenseElementQuantity_53) {
-        this.expenseElementQuantity_53 = expenseElementQuantity_53;
+    public void setExpenseElementDuration_53(float expenseElementDuration_53) {
+        this.expenseElementDuration_53 = expenseElementDuration_53;
     }
 
-    public float getExpenseElementQuantity_54() {
-        return expenseElementQuantity_54;
+    public float getExpenseElementDuration_54() {
+        return expenseElementDuration_54;
     }
 
-    public void setExpenseElementQuantity_54(float expenseElementQuantity_54) {
-        this.expenseElementQuantity_54 = expenseElementQuantity_54;
+    public void setExpenseElementDuration_54(float expenseElementDuration_54) {
+        this.expenseElementDuration_54 = expenseElementDuration_54;
     }
 
-    public float getExpenseElementQuantity_55() {
-        return expenseElementQuantity_55;
+    public float getExpenseElementDuration_55() {
+        return expenseElementDuration_55;
     }
 
-    public void setExpenseElementQuantity_55(float expenseElementQuantity_55) {
-        this.expenseElementQuantity_55 = expenseElementQuantity_55;
+    public void setExpenseElementDuration_55(float expenseElementDuration_55) {
+        this.expenseElementDuration_55 = expenseElementDuration_55;
     }
 
-    public float getExpenseElementQuantity_56() {
-        return expenseElementQuantity_56;
+    public float getExpenseElementDuration_56() {
+        return expenseElementDuration_56;
     }
 
-    public void setExpenseElementQuantity_56(float expenseElementQuantity_56) {
-        this.expenseElementQuantity_56 = expenseElementQuantity_56;
+    public void setExpenseElementDuration_56(float expenseElementDuration_56) {
+        this.expenseElementDuration_56 = expenseElementDuration_56;
     }
 
-    public float getExpenseElementQuantity_57() {
-        return expenseElementQuantity_57;
+    public float getExpenseElementDuration_57() {
+        return expenseElementDuration_57;
     }
 
-    public void setExpenseElementQuantity_57(float expenseElementQuantity_57) {
-        this.expenseElementQuantity_57 = expenseElementQuantity_57;
+    public void setExpenseElementDuration_57(float expenseElementDuration_57) {
+        this.expenseElementDuration_57 = expenseElementDuration_57;
     }
 
-    public float getExpenseElementQuantity_58() {
-        return expenseElementQuantity_58;
+    public float getExpenseElementDuration_58() {
+        return expenseElementDuration_58;
     }
 
-    public void setExpenseElementQuantity_58(float expenseElementQuantity_58) {
-        this.expenseElementQuantity_58 = expenseElementQuantity_58;
+    public void setExpenseElementDuration_58(float expenseElementDuration_58) {
+        this.expenseElementDuration_58 = expenseElementDuration_58;
     }
 
-    public float getExpenseElementQuantity_59() {
-        return expenseElementQuantity_59;
+    public float getExpenseElementDuration_59() {
+        return expenseElementDuration_59;
     }
 
-    public void setExpenseElementQuantity_59(float expenseElementQuantity_59) {
-        this.expenseElementQuantity_59 = expenseElementQuantity_59;
+    public void setExpenseElementDuration_59(float expenseElementDuration_59) {
+        this.expenseElementDuration_59 = expenseElementDuration_59;
     }
 
-    public float getExpenseElementQuantity_60() {
-        return expenseElementQuantity_60;
+    public float getExpenseElementDuration_60() {
+        return expenseElementDuration_60;
     }
 
-    public void setExpenseElementQuantity_60(float expenseElementQuantity_60) {
-        this.expenseElementQuantity_60 = expenseElementQuantity_60;
+    public void setExpenseElementDuration_60(float expenseElementDuration_60) {
+        this.expenseElementDuration_60 = expenseElementDuration_60;
     }
 
-    public float getExpenseElementQuantity_61() {
-        return expenseElementQuantity_61;
+    public float getExpenseElementDuration_61() {
+        return expenseElementDuration_61;
     }
 
-    public void setExpenseElementQuantity_61(float expenseElementQuantity_61) {
-        this.expenseElementQuantity_61 = expenseElementQuantity_61;
+    public void setExpenseElementDuration_61(float expenseElementDuration_61) {
+        this.expenseElementDuration_61 = expenseElementDuration_61;
     }
 }
