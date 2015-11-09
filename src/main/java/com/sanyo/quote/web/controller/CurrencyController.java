@@ -34,6 +34,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sanyo.quote.domain.Currency;
 import com.sanyo.quote.domain.CurrencyExchRate;
+import com.sanyo.quote.domain.LabourPrice;
 import com.sanyo.quote.helper.Utilities;
 import com.sanyo.quote.service.CurrencyExchRateService;
 import com.sanyo.quote.service.CurrencyService;
@@ -248,4 +249,19 @@ public final class CurrencyController extends CommonController{
         return "currency/newExchRate";
         
     }
+	@RequestMapping(value = "/getHistJson", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public String getLocationsJson(@RequestParam(value="currencyId", required=true) Integer id,
+			@RequestParam(value="filterscount", required=false) String filterscount
+			, @RequestParam(value="groupscount", required=false) String groupscount
+			, @RequestParam(value="pagenum", required=false) Integer pagenum
+			, @RequestParam(value="pagesize", required=false) Integer pagesize
+			, @RequestParam(value="recordstartindex", required=false) Integer recordstartindex
+			, @RequestParam(value="recordendindex", required=false) Integer recordendindex
+			, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
+		CurrencyExchRate currencyExchRate = currencyExchRateService.findById(id);
+		List<CurrencyExchRate> list = currencyExchRateService.findBySourceAndTarget(currencyExchRate.getSourceCurrency(), currencyExchRate.getTargetCurrency());
+		String result = Utilities.jSonSerialization(list);
+		return result;
+	}
 }

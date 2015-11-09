@@ -5,13 +5,27 @@ import java.util.List;
 
 import javax.servlet.ServletContextEvent;
 
-import com.sanyo.quote.domain.*;
-import com.sanyo.quote.service.*;
 import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.ContextLoaderListener;
 
+import com.sanyo.quote.domain.Category;
+import com.sanyo.quote.domain.Currency;
+import com.sanyo.quote.domain.ExpenseElements;
+import com.sanyo.quote.domain.Group;
+import com.sanyo.quote.domain.Maker;
+import com.sanyo.quote.domain.Product;
+import com.sanyo.quote.domain.ProductGroup;
+import com.sanyo.quote.domain.User;
 import com.sanyo.quote.helper.Constants;
+import com.sanyo.quote.service.CategoryService;
+import com.sanyo.quote.service.CurrencyService;
+import com.sanyo.quote.service.ExpenseElementsService;
+import com.sanyo.quote.service.GroupService;
+import com.sanyo.quote.service.MakerService;
+import com.sanyo.quote.service.ProductGroupService;
+import com.sanyo.quote.service.ProductService;
+import com.sanyo.quote.service.UserService;
 
 @Component
 public class StartupContextListener extends ContextLoaderListener{
@@ -81,7 +95,7 @@ public class StartupContextListener extends ContextLoaderListener{
 		ProductGroupService productGroupService = ctx.getBean("productGroupService", ProductGroupService.class);
 		MakerService makerService = ctx.getBean("makerService", MakerService.class);
 		ExpenseElementsService expenseElementsService = ctx.getBean("expenseElementsService", ExpenseElementsService.class);
-		
+		CurrencyService currencyService = ctx.getBean("currencyService", CurrencyService.class);
 		for(int i=0; i < 100; i++){
 			String userName = "admin" + i;
 			if(i ==0)
@@ -151,6 +165,9 @@ public class StartupContextListener extends ContextLoaderListener{
 		}
 		if(expenseElementsService.findAll() != null && expenseElementsService.findAll().size() == 0) {
 			addExpenseElements(expenseElementsService);
+		}
+		if(currencyService.findAll() != null && currencyService.findAll().size() ==0){
+			addCurrency(currencyService);
 		}
 		ctx.destroy();
 	}
@@ -242,6 +259,15 @@ public class StartupContextListener extends ContextLoaderListener{
 			element.setElementName(name);
 			element.setDefaultOrder(i);
 			expenseElementsService.save(element);
+		}
+	}
+	private void addCurrency(CurrencyService currencyService){
+		String[] list = {"USD", "VND", "JPY"};
+		for(String name : list){
+			Currency c = new Currency();
+			c.setCurrencyCode(name);
+			c.setCurrencyName(name);
+			currencyService.save(c);
 		}
 	}
 }

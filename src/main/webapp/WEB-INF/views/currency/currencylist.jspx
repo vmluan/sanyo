@@ -19,7 +19,7 @@
 					</span>
 					<div class="info-box-content">
 					  <span class="info-box-text"><![CDATA[&nbsp;]]></span>
-					  <span class="info-box-number"><a href="?form">${labelProjectAdd}</a></span>
+					  <span class="info-box-number"><a href="?form">New Rate</a></span>
 					</div><!-- /.info-box-content -->
 				  </div><!-- /.info-box -->
 				</div><!-- /.col -->

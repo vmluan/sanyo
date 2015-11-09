@@ -98,8 +98,34 @@
               </div><!-- /.box -->
 			</div>
 		</div>
+		
+		<c:if test="${currencyExchRate.id > 0}">
+          <div class="box box-default">
+            <!-- left column -->
+            <div class="box-body">
+              <!-- general form elements -->
+			  
+              <div class="row">
+                <div class="box-header with-border">
+                  <h3 class="box-title">History</h3>
+                </div><!-- /.box-header -->
+                  <div class="col-md-12">
+					<div class="form-group">
+						<div id="jqxgridHist" class="row"><jsp:text />
+						</div>
+						<div id="pager"><jsp:text /></div><jsp:text /><P /><jsp:text />
+					</div>				
+				</div>
+			  </div>
+			 </div>
+			</div>
+		</c:if>
+				
 	</section>
 <script>
+	var pageContext = "${pageContext.request.contextPath}";
+	var currencyId = "${currencyExchRate.id}";
+	
 	$("#startDateDiv").jqxDateTimeInput({ 
 		width: '70%', 
 		height: '20px', 
@@ -116,5 +142,12 @@
 	$("#startDateDiv").val($("#startDate").val());
 	$("#endDateDiv").val($("#endDate").val());
 	$("#exchangeRateValueDiv").val($("#exchangeRateValue").val());
-</script>	
+	
+	
+</script>
+    <c:if test="${currencyExchRate.id > 0}">
+	    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/currencyHist.js">
+	        <jsp:text/>
+	    </script> 
+    </c:if>	
 </div>
