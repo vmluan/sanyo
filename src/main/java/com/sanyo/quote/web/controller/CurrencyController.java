@@ -64,7 +64,7 @@ public final class CurrencyController extends CommonController{
 	@RequestMapping(method = RequestMethod.GET)
 	public String list(Model uiModel, HttpServletRequest request) {
 		logger.info("Currency exchange rates");
-		setBreadCrumb(uiModel, "/", "Home", "/projects", "Currency");
+		setBreadCrumb(uiModel, "/", "Home", "/currency", "Currency");
 		setHeader(uiModel, "Currency", "List of all Currency exchange rates");
 		setUser(uiModel);
 		return "currency/listExchRates";
@@ -181,7 +181,8 @@ public final class CurrencyController extends CommonController{
 			, @RequestParam(value="recordstartindex", required=false) Integer recordstartindex
 			, @RequestParam(value="recordendindex", required=false) Integer recordendindex
 			, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
-		List<CurrencyExchRate> currencyExchRates =  currencyExchRateService.findAll();
+//		List<CurrencyExchRate> currencyExchRates =  currencyExchRateService.findAll();
+		List<CurrencyExchRate> currencyExchRates =  currencyExchRateService.findLatestList();
 		String result = Utilities.jSonSerialization(currencyExchRates);
 		return result;
 	}	
@@ -226,11 +227,11 @@ public final class CurrencyController extends CommonController{
 	        uiModel.asMap().clear();
 	        currencyExchRate.setId(id);
 	        uiModel.addAttribute("message", new Message("success", messageSource.getMessage("project_save_success", new Object[]{}, locale)));        
-	        setBreadCrumb(uiModel, "/projects", "Projects", "", "Project Detail");
+	        setBreadCrumb(uiModel, "/currency", "Projects", "", "Project Detail");
 	        setHeader(uiModel, "Project Detail", "Contains detail information including regions and assigned users");
 	        
 	        Currency sourceCurrency = currencyService.findById(Integer.valueOf(currencyExchRate.getSourceCurrencyId()));
-	        Currency targetCurrency = currencyService.findById(Integer.valueOf(currencyExchRate.getSourceCurrencyId()));
+	        Currency targetCurrency = currencyService.findById(Integer.valueOf(currencyExchRate.getTargetCurrencyId()));
 	        currencyExchRate.setSourceCurrency(sourceCurrency);
 	        currencyExchRate.setTargetCurrency(targetCurrency);
 			List<CurrencyExchRate> existingRates = this.findExistingRates(sourceCurrency, targetCurrency);

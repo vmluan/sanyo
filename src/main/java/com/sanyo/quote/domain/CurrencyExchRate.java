@@ -15,8 +15,6 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -86,10 +84,11 @@ public class CurrencyExchRate implements java.io.Serializable {
 	public String getSourceCurrencyId() {
 		return sourceCurrencyId;
 	}
+	@Transient
 	public void setSourceCurrencyId(String sourceCurrencyId) {
 		this.sourceCurrencyId = sourceCurrencyId;
 	}
-	
+	@Transient
 	public String getTargetCurrencyId() {
 		return targetCurrencyId;
 	}

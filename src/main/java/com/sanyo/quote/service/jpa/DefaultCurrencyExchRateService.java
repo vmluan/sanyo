@@ -74,8 +74,10 @@ public class DefaultCurrencyExchRateService implements CurrencyExchRateService {
 	@Override
 	public CurrencyExchRate findLatestPair(Currency sourceCode, Currency targetCode, Date startDate) {
 		// TODO Auto-generated method stub
-		Object obj = currencyExchRateRepository.findLatestPair(sourceCode, targetCode, startDate);
-		return (CurrencyExchRate)obj;
+		List<Object> obj = currencyExchRateRepository.findLatestPair(sourceCode, targetCode, startDate);
+		if(obj != null)
+			return (CurrencyExchRate)obj.get(0);
+		else return (CurrencyExchRate)obj;
 	}
 	
 }

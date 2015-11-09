@@ -23,6 +23,6 @@ public interface CurrencyExchRateRepository extends PagingAndSortingRepository<C
 			@Param("targetCode") Currency targetCode);
 	
 	@Query("SELECT distinct c FROM CurrencyExchRate c WHERE c.sourceCurrency = :sourceCode and c.targetCurrency = :targetCode and c.startDate =:startDate")
-	public Object findLatestPair(@Param("sourceCode") Currency sourceCode,
+	public List<Object> findLatestPair(@Param("sourceCode") Currency sourceCode,
 			@Param("targetCode") Currency targetCode, @Param("startDate") Date startDate);
 }
