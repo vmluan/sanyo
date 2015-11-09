@@ -25,13 +25,10 @@ public class CurrencyExchRate implements java.io.Serializable {
 	private Currency sourceCurrency;
 	private Currency targetCurrency;
 	private Float exchangeRateValue;
-	@DateTimeFormat(pattern = "MM/dd/yyyy")
+	
 	private Date startDate;
-	@DateTimeFormat(pattern = "MM/dd/yyyy")
 	private Date endDate;
-	@Transient
 	private String sourceCurrencyId;
-	@Transient
 	private String targetCurrencyId;
 	
 	@Id
@@ -69,22 +66,24 @@ public class CurrencyExchRate implements java.io.Serializable {
 		this.exchangeRateValue = exchangeRateValue;
 	}
 	@NotNull
+	@DateTimeFormat(pattern = "MM/dd/yyyy")
 	public Date getStartDate() {
 		return startDate;
 	}
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
+	@DateTimeFormat(pattern = "MM/dd/yyyy")
 	public Date getEndDate() {
 		return endDate;
 	}
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
+	@Transient
 	public String getSourceCurrencyId() {
 		return sourceCurrencyId;
 	}
-	@Transient
 	public void setSourceCurrencyId(String sourceCurrencyId) {
 		this.sourceCurrencyId = sourceCurrencyId;
 	}
