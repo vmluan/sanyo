@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
@@ -41,6 +43,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sanyo.quote.domain.Category;
+import com.sanyo.quote.domain.Currency;
+import com.sanyo.quote.domain.CurrencyExchRate;
 import com.sanyo.quote.domain.Encounter;
 import com.sanyo.quote.domain.Expenses;
 import com.sanyo.quote.domain.Location;
@@ -57,6 +61,7 @@ import com.sanyo.quote.domain.UserRegionRole;
 import com.sanyo.quote.helper.Constants;
 import com.sanyo.quote.helper.Utilities;
 import com.sanyo.quote.service.CategoryService;
+import com.sanyo.quote.service.CurrencyService;
 import com.sanyo.quote.service.EncounterService;
 import com.sanyo.quote.service.LocationService;
 import com.sanyo.quote.service.ProductGroupMakerService;
@@ -108,7 +113,12 @@ public class ProjectController extends CommonController {
 	@Autowired
 	private ProductGroupMakerService productGroupMakerService;
 	
+	@Autowired
+	private CurrencyService currencyService;
+	
 	private Validator validator;
+	
+	private String projectsUrl="/projects?status=ongoing";
 	
 	public ProjectController(){
 		ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
@@ -123,6 +133,7 @@ public class ProjectController extends CommonController {
 		setHeader(uiModel, "Projects", "List of all projects");
 		setUser(uiModel);
 		String status = request.getParameter("status");
+		projectsUrl ="/projects?status=" + status;
 		uiModel.addAttribute("projectStatus", status);
 		return "projects/list";
 	}
@@ -132,19 +143,29 @@ public class ProjectController extends CommonController {
     public String updateForm(@PathVariable("id") Integer id, Model uiModel) {
 		Project project = projectService.findById(id);
         uiModel.addAttribute("project", project);
-        setBreadCrumb(uiModel, "/projects", "Projects", "", "Project Detail");
+        setBreadCrumb(uiModel, projectsUrl, "Projects", "", "Project Detail");
         setHeader(uiModel, "Project Detail", "Contains detail information including regions and assigned users");
         setUser(uiModel);
+        initialize(uiModel);
         return "projects/update";
 	}
 	
+	private void initialize(Model uiModel){
+		List<Currency> currencies = currencyService.findAll();
+		Map<String,String> currencyList = new LinkedHashMap<String,String>();
+		for(Currency currency : currencies){
+			currencyList.put(currency.getCurrencyId().toString(),currency.getCurrencyName() );
+		}
+		uiModel.addAttribute("currencyList", currencyList);
+	}
 	@RequestMapping(params = "form", method = RequestMethod.GET)
     public String createForm(Model uiModel) {
 		Project project = new Project();
         uiModel.addAttribute("project", project);
-        setBreadCrumb(uiModel, "/projects", "Projects", "", "New Project");
+        setBreadCrumb(uiModel, projectsUrl, "Projects", "", "New Project");
         setHeader(uiModel, "Create new project", "");
         setUser(uiModel);
+        initialize(uiModel);
         return "projects/create";
 	}
 	//create new project, save to database
@@ -164,6 +185,7 @@ public class ProjectController extends CommonController {
         project.setLastModifiedBy(Utilities.getCurrentUser().getUsername());
         project.setLmodDate(date);
         project.setStatus(ProjectStatus.ONGOING);
+        project.setCurrency(currencyService.findById(project.getCurrencyId()));
         projectService.save(project);
         redirectAttributes.addFlashAttribute("message", new Message("success", messageSource.getMessage("project_save_success", new Object[]{}, locale)));
         return "redirect:/projects/" + UrlUtil.encodeUrlPathSegment(project.getProjectId().toString(), httpServletRequest) + "?form";
@@ -190,15 +212,19 @@ public class ProjectController extends CommonController {
 			uiModel.addAttribute("message", new Message("error", messageSource.getMessage("project_save_fail", new Object[]{}, locale)));
             uiModel.addAttribute("project", project);
             return "projects/update";
-	        }    
+	        }
+		Project existingProject = projectService.findById(id);
+		project.setStatus(existingProject.getStatus());
         uiModel.asMap().clear();
         project.setProjectId(id);
         uiModel.addAttribute("message", new Message("success", messageSource.getMessage("project_save_success", new Object[]{}, locale)));        
         uiModel.addAttribute("project", project);
         project.setLmodDate(new Date());
         project.setLastModifiedBy(Utilities.getCurrentUser().getUsername());
+        project.setCurrency(currencyService.findById(project.getCurrencyId()));
         projectService.save(project);
-        setBreadCrumb(uiModel, "/projects", "Projects", "", "Project Detail");
+        initialize(uiModel);
+        setBreadCrumb(uiModel, projectsUrl, "Projects", "", "Project Detail");
         setHeader(uiModel, "Project Detail", "Contains detail information including regions and assigned users");
         return "projects/update";
     }
@@ -379,7 +405,7 @@ public class ProjectController extends CommonController {
 		Project project = projectService.findById(id);
         uiModel.addAttribute("project", project);
         setCategories(uiModel);
-        setBreadCrumb(uiModel, "/projects", "Projects", "", "Project Detail");
+        setBreadCrumb(uiModel, projectsUrl, "Projects", "", "Project Detail");
         return "projects/update";
 	}
 	// handle screen for create new assigned regions.
@@ -389,7 +415,7 @@ public class ProjectController extends CommonController {
 		Project project = projectService.findById(id);
         uiModel.addAttribute("project", project);
         setCategories(uiModel);
-        setBreadCrumb(uiModel, "/projects", "Projects", "", "Project Detail");
+        setBreadCrumb(uiModel, projectsUrl, "Projects", "", "Project Detail");
         return "projects/update";
 	}
 	
@@ -522,7 +548,7 @@ public class ProjectController extends CommonController {
 		Project project = projectService.findById(id);
 		projectRevision.setProject(project);
         uiModel.addAttribute("projectRevision", projectRevision);
-        setBreadCrumb(uiModel, "/projects", "Projects", "", "Create Revision");
+        setBreadCrumb(uiModel, projectsUrl, "Projects", "", "Create Revision");
         setHeader(uiModel, "Revision", "Create a new revision");
         setUser(uiModel);
 		return "projects/revisions/create";

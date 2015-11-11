@@ -69,7 +69,7 @@
 							Start Date
 						</form:label>
 						<form:hidden path="startDate" class="form-control"/>
-						<div class="form-control" id='startDateDiv'><jsp:text/>
+						<div id='startDateDiv'><jsp:text/>
 						</div>						
 					</div>
 					<div>
@@ -82,7 +82,7 @@
 							End Date
 						</form:label>
 						<form:hidden path="endDate" class="form-control"/>
-						<div class="form-control" id='endDateDiv'><jsp:text/>
+						<div id='endDateDiv'><jsp:text/>
 						</div>
 					</div>
 					<div>
@@ -128,10 +128,10 @@
 	
 	$("#startDateDiv").jqxDateTimeInput({ 
 		width: '70%', 
-		height: '20px', 
+		height: '32px', 
 		formatString: 'd'
 		});
-	$("#endDateDiv").jqxDateTimeInput({ width: '70%', height: '20px', formatString: 'd'});
+	$("#endDateDiv").jqxDateTimeInput({ width: '70%', height: '32px', formatString: 'd'});
 	$("#exchangeRateValueDiv").jqxNumberInput({ width: '100%', height: '34px', max: 99999999,decimalDigits: 0});
 	function submitForm(form, current){
 		form.startDate.value=$("#startDateDiv").val();

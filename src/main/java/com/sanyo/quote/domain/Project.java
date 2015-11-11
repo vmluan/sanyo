@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
@@ -90,6 +91,7 @@ public class Project implements java.io.Serializable, Cloneable {
 	
 	private Set<ProductGroupMaker> productGroupMakers;
 	private Set<Expenses> expenses;
+	private Integer currencyId;
 	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -435,7 +437,7 @@ public class Project implements java.io.Serializable, Cloneable {
 	}
 
 	@JsonIgnore
-	@OneToOne(fetch=FetchType.LAZY)
+	@OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="CURRENCY_ID", nullable = true)
 	public Currency getCurrency() {
 		return currency;
@@ -480,6 +482,15 @@ public class Project implements java.io.Serializable, Cloneable {
 	public void setExpenses(Set<Expenses> expenses) {
 		this.expenses = expenses;
 	}
+	@Transient
+	public Integer getCurrencyId() {
+		return currencyId;
+	}
+
+	public void setCurrencyId(Integer currencyId) {
+		this.currencyId = currencyId;
+	}
+
 	@Override
 	public Project clone() throws CloneNotSupportedException {
 		Project clonedProject = (Project) super.clone();

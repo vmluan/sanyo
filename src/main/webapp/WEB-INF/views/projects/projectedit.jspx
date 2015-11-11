@@ -137,29 +137,29 @@
 					<div>
 						<form:errors path="allowance" cssClass="error" />
 					</div>					
-				</div>
-				<div class="col-md-4">
-					<div class="form-group">
-						<form:label path="startDate">
-							Start Date
-						</form:label>
-						<form:input path="startDate" class="form-control" placeholder="mm/dd/yyyy"/> 
-					</div>
-					<div>
-						<form:errors path="startDate" cssClass="error" />
-					</div>					
-				</div>	
-				<div class="col-md-4">
-					<div class="form-group">
-						<form:label path="endDate">
-							End Date
-						</form:label>
-						<form:input path="endDate" class="form-control" placeholder="mm/dd/yyyy"/> 
-					</div>
-					<div>
-						<form:errors path="endDate" cssClass="error" />
-					</div>					
-				</div>
+				</div>				
+<!-- 				<div class="col-md-4"> -->
+<!-- 					<div class="form-group"> -->
+<!-- 						<form:label path="startDate"> -->
+<!-- 							Start Date -->
+<!-- 						</form:label> -->
+<!-- 						<form:input path="startDate" class="form-control" placeholder="mm/dd/yyyy"/>  -->
+<!-- 					</div> -->
+<!-- 					<div> -->
+<!-- 						<form:errors path="startDate" cssClass="error" /> -->
+<!-- 					</div>					 -->
+<!-- 				</div>	 -->
+<!-- 				<div class="col-md-4"> -->
+<!-- 					<div class="form-group"> -->
+<!-- 						<form:label path="endDate"> -->
+<!-- 							End Date -->
+<!-- 						</form:label> -->
+<!-- 						<form:input path="endDate" class="form-control" placeholder="mm/dd/yyyy"/>  -->
+<!-- 					</div> -->
+<!-- 					<div> -->
+<!-- 						<form:errors path="endDate" cssClass="error" /> -->
+<!-- 					</div>					 -->
+<!-- 				</div> -->
 				<div class="col-md-4">
 					<div class="form-group">
 						<form:label path="subConProfit">
@@ -205,6 +205,32 @@
 					</div>					
 				</div>
 				<div class="col-md-4">
+					<div class="form-group" >
+						<form:label path="startDate">
+							Start Date
+						</form:label>
+						<form:hidden path="startDate" class="form-control"/>
+						<div id='startDateDiv'><jsp:text/>
+						</div>						
+					</div>
+					<div>
+						<form:errors path="startDate" cssClass="error" />
+					</div>
+				</div>				
+				<div class="col-md-4">
+					<div class="form-group">
+						<form:label path="endDate">
+							End Date
+						</form:label>
+						<form:hidden path="endDate" class="form-control"/>
+						<div id='endDateDiv'><jsp:text/>
+						</div>
+					</div>
+					<div>
+						<form:errors path="endDate" cssClass="error" />
+					</div>
+				</div>				
+				<div class="col-md-4">
 					<div class="form-group">
 						<form:label path="description">
 							${labelProjectDesc}
@@ -215,62 +241,70 @@
 						<form:errors path="description" cssClass="error" />
 					</div>					
 				</div>
+				
 				<div class="col-md-8">				
 					<div class="box box-primary">
 						<div class="box-body">
 							<div class="row">
 								<div class="box-header with-border">
-									<h3 class="box-title">Currency Exchange Rates</h3>
+									<h3 class="box-title">Payment</h3>
 								</div>
+								<div class="col-md-2">
+									<div class="form-group">
+										<form:label path="currencyId"><jsp:text/>
+										</form:label>
+										<form:select path="currencyId" items="${currencyList}" class="form-control"/>
+									</div>
+								</div>								
 								<!-- /.box-header -->
-								<div class="col-md-4">
-									<div class="form-group">
-										<div class="input-group">
-											<span class="input-group-addon">USD To VND</span>
-											<form:input path="usdToVnd" class="form-control"/> 
-											<span class="input-group-addon">.00</span>
-										  </div>
-									</div>
-									<div>
-										<form:errors path="usdToVnd" cssClass="error" />
-									</div>					
-								</div>
-								<div class="col-md-4">
-									<div class="form-group">
-										<div class="input-group">
-											<span class="input-group-addon">VND To USD</span>
-											<form:input path="vndToUsd" class="form-control"/> 
-											<span class="input-group-addon">.00</span>
-										  </div>
-									</div>
-									<div>
-										<form:errors path="usdToVnd" cssClass="error" />
-									</div>					
-								</div>
-								<div class="col-md-4">
-									<div class="form-group">
-										<div class="input-group">
-											<span class="input-group-addon">JPY To VND</span>
-											<form:input path="jpyToVnd" class="form-control"/>
-											<span class="input-group-addon">.00</span>
-										  </div>
-									</div>
-									<div>
-										<form:errors path="usdToVnd" cssClass="error" />
-									</div>					
-								</div>
-								<div class="col-md-4">
-									<div class="form-group">
-										<div class="input-group">
-											<span class="input-group-addon">VND To JPY</span>
-											<form:input path="vndToJpy" class="form-control"/>
-											<span class="input-group-addon">.00</span>
-										  </div>
-									</div>
-									<div>
-										<form:errors path="usdToVnd" cssClass="error" />
-									</div>					
-								</div>							
+<!-- 								<div class="col-md-4"> -->
+<!-- 									<div class="form-group"> -->
+<!-- 										<div class="input-group"> -->
+<!-- 											<span class="input-group-addon">USD To VND</span> -->
+<!-- 											<form:input path="usdToVnd" class="form-control"/>  -->
+<!-- 											<span class="input-group-addon">.00</span> -->
+<!-- 										  </div> -->
+<!-- 									</div> -->
+<!-- 									<div> -->
+<!-- 										<form:errors path="usdToVnd" cssClass="error" /> -->
+<!-- 									</div>					 -->
+<!-- 								</div> -->
+<!-- 								<div class="col-md-4"> -->
+<!-- 									<div class="form-group"> -->
+<!-- 										<div class="input-group"> -->
+<!-- 											<span class="input-group-addon">VND To USD</span> -->
+<!-- 											<form:input path="vndToUsd" class="form-control"/>  -->
+<!-- 											<span class="input-group-addon">.00</span> -->
+<!-- 										  </div> -->
+<!-- 									</div> -->
+<!-- 									<div> -->
+<!-- 										<form:errors path="usdToVnd" cssClass="error" /> -->
+<!-- 									</div>					 -->
+<!-- 								</div> -->
+<!-- 								<div class="col-md-4"> -->
+<!-- 									<div class="form-group"> -->
+<!-- 										<div class="input-group"> -->
+<!-- 											<span class="input-group-addon">JPY To VND</span> -->
+<!-- 											<form:input path="jpyToVnd" class="form-control"/> -->
+<!-- 											<span class="input-group-addon">.00</span> -->
+<!-- 										  </div> -->
+<!-- 									</div> -->
+<!-- 									<div> -->
+<!-- 										<form:errors path="usdToVnd" cssClass="error" /> -->
+<!-- 									</div>					 -->
+<!-- 								</div> -->
+<!-- 								<div class="col-md-4"> -->
+<!-- 									<div class="form-group"> -->
+<!-- 										<div class="input-group"> -->
+<!-- 											<span class="input-group-addon">VND To JPY</span> -->
+<!-- 											<form:input path="vndToJpy" class="form-control"/> -->
+<!-- 											<span class="input-group-addon">.00</span> -->
+<!-- 										  </div> -->
+<!-- 									</div> -->
+<!-- 									<div> -->
+<!-- 										<form:errors path="usdToVnd" cssClass="error" /> -->
+<!-- 									</div>					 -->
+<!-- 								</div>							 -->
 							</div>
 
 						</div>
@@ -279,7 +313,7 @@
 				</div>				
 				<div class="col-md-12">
                   <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="button" class="btn btn-primary" onclick="submitForm(this.form)">Submit</button>
                   </div>					
 				</div>
 			<c:if test="${project.projectId > 0}">		
@@ -700,12 +734,28 @@ var pageContext = "${pageContext.request.contextPath}";
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/projectRevisionList.js">
         <jsp:text/>
     </script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/projectAssignedRegionList.js">
-        <jsp:text/>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/projectAssignedRegionList.js"><jsp:text/>
     </script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/projectLocationList.js">
         <jsp:text/>
     </script>		
-	</c:if>	
+	</c:if>
+	
+	
+	<script>
+	$("#startDateDiv").jqxDateTimeInput({ 
+		width: '200px', 
+		height: '32px', 
+		formatString: 'd'
+		});
+	$("#endDateDiv").jqxDateTimeInput({ width: '200px', height: '32px', formatString: 'd'});
+	function submitForm(form){
+		form.startDate.value=$("#startDateDiv").val();
+		form.endDate.value=$("#endDateDiv").val();
+		form.submit();
+	}
+	$("#startDateDiv").val($("#startDate").val());
+	$("#endDateDiv").val($("#endDate").val());
+	</script>
 	</section>	
 </div>

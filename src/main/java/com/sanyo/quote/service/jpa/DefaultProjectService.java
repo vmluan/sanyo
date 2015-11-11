@@ -39,11 +39,17 @@ public class DefaultProjectService implements ProjectService {
 
 	@Transactional(readOnly=true)
 	public Project findById(Integer id) {
-		return projectRepository.findOne(id);
+		Project project = projectRepository.findOne(id);
+		if(project.getCurrency() != null)
+			project.setCurrencyId(project.getCurrency().getCurrencyId());
+		return project;
 	}
 
 	public Project save(Project Project) {
-		return projectRepository.save(Project);
+		Project project =  projectRepository.save(Project);
+		if(project.getCurrency() != null)
+			project.setCurrencyId(project.getCurrency().getCurrencyId());
+		return project;
 	}
 
 	@Transactional(readOnly=true)
