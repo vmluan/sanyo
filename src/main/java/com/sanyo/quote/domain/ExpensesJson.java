@@ -195,68 +195,130 @@ public class ExpensesJson {
     private float expenseElementRate_60;
     private float expenseElementRate_61;
 
-    private float expenseElementRemark_1;
-    private float expenseElementRemark_2;
-    private float expenseElementRemark_3;
-    private float expenseElementRemark_4;
-    private float expenseElementRemark_5;
-    private float expenseElementRemark_6;
-    private float expenseElementRemark_7;
-    private float expenseElementRemark_8;
-    private float expenseElementRemark_9;
-    private float expenseElementRemark_10;
-    private float expenseElementRemark_11;
-    private float expenseElementRemark_12;
-    private float expenseElementRemark_13;
-    private float expenseElementRemark_14;
-    private float expenseElementRemark_15;
-    private float expenseElementRemark_16;
-    private float expenseElementRemark_17;
-    private float expenseElementRemark_18;
-    private float expenseElementRemark_19;
-    private float expenseElementRemark_20;
-    private float expenseElementRemark_21;
-    private float expenseElementRemark_22;
-    private float expenseElementRemark_23;
-    private float expenseElementRemark_24;
-    private float expenseElementRemark_25;
-    private float expenseElementRemark_26;
-    private float expenseElementRemark_27;
-    private float expenseElementRemark_28;
-    private float expenseElementRemark_29;
-    private float expenseElementRemark_30;
-    private float expenseElementRemark_31;
-    private float expenseElementRemark_32;
-    private float expenseElementRemark_33;
-    private float expenseElementRemark_34;
-    private float expenseElementRemark_35;
-    private float expenseElementRemark_36;
-    private float expenseElementRemark_37;
-    private float expenseElementRemark_38;
-    private float expenseElementRemark_39;
-    private float expenseElementRemark_40;
-    private float expenseElementRemark_41;
-    private float expenseElementRemark_42;
-    private float expenseElementRemark_43;
-    private float expenseElementRemark_44;
-    private float expenseElementRemark_45;
-    private float expenseElementRemark_46;
-    private float expenseElementRemark_47;
-    private float expenseElementRemark_48;
-    private float expenseElementRemark_49;
-    private float expenseElementRemark_50;
-    private float expenseElementRemark_51;
-    private float expenseElementRemark_52;
-    private float expenseElementRemark_53;
-    private float expenseElementRemark_54;
-    private float expenseElementRemark_55;
-    private float expenseElementRemark_56;
-    private float expenseElementRemark_57;
-    private float expenseElementRemark_58;
-    private float expenseElementRemark_59;
-    private float expenseElementRemark_60;
-    private float expenseElementRemark_61;
+    private String expenseElementRemark_1;
+    private String expenseElementRemark_2;
+    private String expenseElementRemark_3;
+    private String expenseElementRemark_4;
+    private String expenseElementRemark_5;
+    private String expenseElementRemark_6;
+    private String expenseElementRemark_7;
+    private String expenseElementRemark_8;
+    private String expenseElementRemark_9;
+    private String expenseElementRemark_10;
+    private String expenseElementRemark_11;
+    private String expenseElementRemark_12;
+    private String expenseElementRemark_13;
+    private String expenseElementRemark_14;
+    private String expenseElementRemark_15;
+    private String expenseElementRemark_16;
+    private String expenseElementRemark_17;
+    private String expenseElementRemark_18;
+    private String expenseElementRemark_19;
+    private String expenseElementRemark_20;
+    private String expenseElementRemark_21;
+    private String expenseElementRemark_22;
+    private String expenseElementRemark_23;
+    private String expenseElementRemark_24;
+    private String expenseElementRemark_25;
+    private String expenseElementRemark_26;
+    private String expenseElementRemark_27;
+    private String expenseElementRemark_28;
+    private String expenseElementRemark_29;
+    private String expenseElementRemark_30;
+    private String expenseElementRemark_31;
+    private String expenseElementRemark_32;
+    private String expenseElementRemark_33;
+    private String expenseElementRemark_34;
+    private String expenseElementRemark_35;
+    private String expenseElementRemark_36;
+    private String expenseElementRemark_37;
+    private String expenseElementRemark_38;
+    private String expenseElementRemark_39;
+    private String expenseElementRemark_40;
+    private String expenseElementRemark_41;
+    private String expenseElementRemark_42;
+    private String expenseElementRemark_43;
+    private String expenseElementRemark_44;
+    private String expenseElementRemark_45;
+    private String expenseElementRemark_46;
+    private String expenseElementRemark_47;
+    private String expenseElementRemark_48;
+    private String expenseElementRemark_49;
+    private String expenseElementRemark_50;
+    private String expenseElementRemark_51;
+    private String expenseElementRemark_52;
+    private String expenseElementRemark_53;
+    private String expenseElementRemark_54;
+    private String expenseElementRemark_55;
+    private String expenseElementRemark_56;
+    private String expenseElementRemark_57;
+    private String expenseElementRemark_58;
+    private String expenseElementRemark_59;
+    private String expenseElementRemark_60;
+    private String expenseElementRemark_61;
 
+
+    private float expenseElementSum_1;
+    private float expenseElementSum_2;
+    private float expenseElementSum_3;
+    private float expenseElementSum_4;
+    private float expenseElementSum_5;
+    private float expenseElementSum_6;
+    private float expenseElementSum_7;
+    private float expenseElementSum_8;
+    private float expenseElementSum_9;
+    private float expenseElementSum_10;
+    private float expenseElementSum_11;
+    private float expenseElementSum_12;
+    private float expenseElementSum_13;
+    private float expenseElementSum_14;
+    private float expenseElementSum_15;
+    private float expenseElementSum_16;
+    private float expenseElementSum_17;
+    private float expenseElementSum_18;
+    private float expenseElementSum_19;
+    private float expenseElementSum_20;
+    private float expenseElementSum_21;
+    private float expenseElementSum_22;
+    private float expenseElementSum_23;
+    private float expenseElementSum_24;
+    private float expenseElementSum_25;
+    private float expenseElementSum_26;
+    private float expenseElementSum_27;
+    private float expenseElementSum_28;
+    private float expenseElementSum_29;
+    private float expenseElementSum_30;
+    private float expenseElementSum_31;
+    private float expenseElementSum_32;
+    private float expenseElementSum_33;
+    private float expenseElementSum_34;
+    private float expenseElementSum_35;
+    private float expenseElementSum_36;
+    private float expenseElementSum_37;
+    private float expenseElementSum_38;
+    private float expenseElementSum_39;
+    private float expenseElementSum_40;
+    private float expenseElementSum_41;
+    private float expenseElementSum_42;
+    private float expenseElementSum_43;
+    private float expenseElementSum_44;
+    private float expenseElementSum_45;
+    private float expenseElementSum_46;
+    private float expenseElementSum_47;
+    private float expenseElementSum_48;
+    private float expenseElementSum_49;
+    private float expenseElementSum_50;
+    private float expenseElementSum_51;
+    private float expenseElementSum_52;
+    private float expenseElementSum_53;
+    private float expenseElementSum_54;
+    private float expenseElementSum_55;
+    private float expenseElementSum_56;
+    private float expenseElementSum_57;
+    private float expenseElementSum_58;
+    private float expenseElementSum_59;
+    private float expenseElementSum_60;
+    private float expenseElementSum_61;
 
     public float getExpenseElement_1() {
         return expenseElement_1;
@@ -1722,491 +1784,979 @@ public class ExpensesJson {
         this.expenseElementRate_61 = expenseElementRate_61;
     }
 
-    public float getExpenseElementRemark_1() {
+    public String getExpenseElementRemark_1() {
         return expenseElementRemark_1;
     }
 
-    public void setExpenseElementRemark_1(float expenseElementRemark_1) {
+    public void setExpenseElementRemark_1(String expenseElementRemark_1) {
         this.expenseElementRemark_1 = expenseElementRemark_1;
     }
 
-    public float getExpenseElementRemark_2() {
+    public String getExpenseElementRemark_2() {
         return expenseElementRemark_2;
     }
 
-    public void setExpenseElementRemark_2(float expenseElementRemark_2) {
+    public void setExpenseElementRemark_2(String expenseElementRemark_2) {
         this.expenseElementRemark_2 = expenseElementRemark_2;
     }
 
-    public float getExpenseElementRemark_3() {
+    public String getExpenseElementRemark_3() {
         return expenseElementRemark_3;
     }
 
-    public void setExpenseElementRemark_3(float expenseElementRemark_3) {
+    public void setExpenseElementRemark_3(String expenseElementRemark_3) {
         this.expenseElementRemark_3 = expenseElementRemark_3;
     }
 
-    public float getExpenseElementRemark_4() {
+    public String getExpenseElementRemark_4() {
         return expenseElementRemark_4;
     }
 
-    public void setExpenseElementRemark_4(float expenseElementRemark_4) {
+    public void setExpenseElementRemark_4(String expenseElementRemark_4) {
         this.expenseElementRemark_4 = expenseElementRemark_4;
     }
 
-    public float getExpenseElementRemark_5() {
+    public String getExpenseElementRemark_5() {
         return expenseElementRemark_5;
     }
 
-    public void setExpenseElementRemark_5(float expenseElementRemark_5) {
+    public void setExpenseElementRemark_5(String expenseElementRemark_5) {
         this.expenseElementRemark_5 = expenseElementRemark_5;
     }
 
-    public float getExpenseElementRemark_6() {
+    public String getExpenseElementRemark_6() {
         return expenseElementRemark_6;
     }
 
-    public void setExpenseElementRemark_6(float expenseElementRemark_6) {
+    public void setExpenseElementRemark_6(String expenseElementRemark_6) {
         this.expenseElementRemark_6 = expenseElementRemark_6;
     }
 
-    public float getExpenseElementRemark_7() {
+    public String getExpenseElementRemark_7() {
         return expenseElementRemark_7;
     }
 
-    public void setExpenseElementRemark_7(float expenseElementRemark_7) {
+    public void setExpenseElementRemark_7(String expenseElementRemark_7) {
         this.expenseElementRemark_7 = expenseElementRemark_7;
     }
 
-    public float getExpenseElementRemark_8() {
+    public String getExpenseElementRemark_8() {
         return expenseElementRemark_8;
     }
 
-    public void setExpenseElementRemark_8(float expenseElementRemark_8) {
+    public void setExpenseElementRemark_8(String expenseElementRemark_8) {
         this.expenseElementRemark_8 = expenseElementRemark_8;
     }
 
-    public float getExpenseElementRemark_9() {
+    public String getExpenseElementRemark_9() {
         return expenseElementRemark_9;
     }
 
-    public void setExpenseElementRemark_9(float expenseElementRemark_9) {
+    public void setExpenseElementRemark_9(String expenseElementRemark_9) {
         this.expenseElementRemark_9 = expenseElementRemark_9;
     }
 
-    public float getExpenseElementRemark_10() {
+    public String getExpenseElementRemark_10() {
         return expenseElementRemark_10;
     }
 
-    public void setExpenseElementRemark_10(float expenseElementRemark_10) {
+    public void setExpenseElementRemark_10(String expenseElementRemark_10) {
         this.expenseElementRemark_10 = expenseElementRemark_10;
     }
 
-    public float getExpenseElementRemark_11() {
+    public String getExpenseElementRemark_11() {
         return expenseElementRemark_11;
     }
 
-    public void setExpenseElementRemark_11(float expenseElementRemark_11) {
+    public void setExpenseElementRemark_11(String expenseElementRemark_11) {
         this.expenseElementRemark_11 = expenseElementRemark_11;
     }
 
-    public float getExpenseElementRemark_12() {
+    public String getExpenseElementRemark_12() {
         return expenseElementRemark_12;
     }
 
-    public void setExpenseElementRemark_12(float expenseElementRemark_12) {
+    public void setExpenseElementRemark_12(String expenseElementRemark_12) {
         this.expenseElementRemark_12 = expenseElementRemark_12;
     }
 
-    public float getExpenseElementRemark_13() {
+    public String getExpenseElementRemark_13() {
         return expenseElementRemark_13;
     }
 
-    public void setExpenseElementRemark_13(float expenseElementRemark_13) {
+    public void setExpenseElementRemark_13(String expenseElementRemark_13) {
         this.expenseElementRemark_13 = expenseElementRemark_13;
     }
 
-    public float getExpenseElementRemark_14() {
+    public String getExpenseElementRemark_14() {
         return expenseElementRemark_14;
     }
 
-    public void setExpenseElementRemark_14(float expenseElementRemark_14) {
+    public void setExpenseElementRemark_14(String expenseElementRemark_14) {
         this.expenseElementRemark_14 = expenseElementRemark_14;
     }
 
-    public float getExpenseElementRemark_15() {
+    public String getExpenseElementRemark_15() {
         return expenseElementRemark_15;
     }
 
-    public void setExpenseElementRemark_15(float expenseElementRemark_15) {
+    public void setExpenseElementRemark_15(String expenseElementRemark_15) {
         this.expenseElementRemark_15 = expenseElementRemark_15;
     }
 
-    public float getExpenseElementRemark_16() {
+    public String getExpenseElementRemark_16() {
         return expenseElementRemark_16;
     }
 
-    public void setExpenseElementRemark_16(float expenseElementRemark_16) {
+    public void setExpenseElementRemark_16(String expenseElementRemark_16) {
         this.expenseElementRemark_16 = expenseElementRemark_16;
     }
 
-    public float getExpenseElementRemark_17() {
+    public String getExpenseElementRemark_17() {
         return expenseElementRemark_17;
     }
 
-    public void setExpenseElementRemark_17(float expenseElementRemark_17) {
+    public void setExpenseElementRemark_17(String expenseElementRemark_17) {
         this.expenseElementRemark_17 = expenseElementRemark_17;
     }
 
-    public float getExpenseElementRemark_18() {
+    public String getExpenseElementRemark_18() {
         return expenseElementRemark_18;
     }
 
-    public void setExpenseElementRemark_18(float expenseElementRemark_18) {
+    public void setExpenseElementRemark_18(String expenseElementRemark_18) {
         this.expenseElementRemark_18 = expenseElementRemark_18;
     }
 
-    public float getExpenseElementRemark_19() {
+    public String getExpenseElementRemark_19() {
         return expenseElementRemark_19;
     }
 
-    public void setExpenseElementRemark_19(float expenseElementRemark_19) {
+    public void setExpenseElementRemark_19(String expenseElementRemark_19) {
         this.expenseElementRemark_19 = expenseElementRemark_19;
     }
 
-    public float getExpenseElementRemark_20() {
+    public String getExpenseElementRemark_20() {
         return expenseElementRemark_20;
     }
 
-    public void setExpenseElementRemark_20(float expenseElementRemark_20) {
+    public void setExpenseElementRemark_20(String expenseElementRemark_20) {
         this.expenseElementRemark_20 = expenseElementRemark_20;
     }
 
-    public float getExpenseElementRemark_21() {
+    public String getExpenseElementRemark_21() {
         return expenseElementRemark_21;
     }
 
-    public void setExpenseElementRemark_21(float expenseElementRemark_21) {
+    public void setExpenseElementRemark_21(String expenseElementRemark_21) {
         this.expenseElementRemark_21 = expenseElementRemark_21;
     }
 
-    public float getExpenseElementRemark_22() {
+    public String getExpenseElementRemark_22() {
         return expenseElementRemark_22;
     }
 
-    public void setExpenseElementRemark_22(float expenseElementRemark_22) {
+    public void setExpenseElementRemark_22(String expenseElementRemark_22) {
         this.expenseElementRemark_22 = expenseElementRemark_22;
     }
 
-    public float getExpenseElementRemark_23() {
+    public String getExpenseElementRemark_23() {
         return expenseElementRemark_23;
     }
 
-    public void setExpenseElementRemark_23(float expenseElementRemark_23) {
+    public void setExpenseElementRemark_23(String expenseElementRemark_23) {
         this.expenseElementRemark_23 = expenseElementRemark_23;
     }
 
-    public float getExpenseElementRemark_24() {
+    public String getExpenseElementRemark_24() {
         return expenseElementRemark_24;
     }
 
-    public void setExpenseElementRemark_24(float expenseElementRemark_24) {
+    public void setExpenseElementRemark_24(String expenseElementRemark_24) {
         this.expenseElementRemark_24 = expenseElementRemark_24;
     }
 
-    public float getExpenseElementRemark_25() {
+    public String getExpenseElementRemark_25() {
         return expenseElementRemark_25;
     }
 
-    public void setExpenseElementRemark_25(float expenseElementRemark_25) {
+    public void setExpenseElementRemark_25(String expenseElementRemark_25) {
         this.expenseElementRemark_25 = expenseElementRemark_25;
     }
 
-    public float getExpenseElementRemark_26() {
+    public String getExpenseElementRemark_26() {
         return expenseElementRemark_26;
     }
 
-    public void setExpenseElementRemark_26(float expenseElementRemark_26) {
+    public void setExpenseElementRemark_26(String expenseElementRemark_26) {
         this.expenseElementRemark_26 = expenseElementRemark_26;
     }
 
-    public float getExpenseElementRemark_27() {
+    public String getExpenseElementRemark_27() {
         return expenseElementRemark_27;
     }
 
-    public void setExpenseElementRemark_27(float expenseElementRemark_27) {
+    public void setExpenseElementRemark_27(String expenseElementRemark_27) {
         this.expenseElementRemark_27 = expenseElementRemark_27;
     }
 
-    public float getExpenseElementRemark_28() {
+    public String getExpenseElementRemark_28() {
         return expenseElementRemark_28;
     }
 
-    public void setExpenseElementRemark_28(float expenseElementRemark_28) {
+    public void setExpenseElementRemark_28(String expenseElementRemark_28) {
         this.expenseElementRemark_28 = expenseElementRemark_28;
     }
 
-    public float getExpenseElementRemark_29() {
+    public String getExpenseElementRemark_29() {
         return expenseElementRemark_29;
     }
 
-    public void setExpenseElementRemark_29(float expenseElementRemark_29) {
+    public void setExpenseElementRemark_29(String expenseElementRemark_29) {
         this.expenseElementRemark_29 = expenseElementRemark_29;
     }
 
-    public float getExpenseElementRemark_30() {
+    public String getExpenseElementRemark_30() {
         return expenseElementRemark_30;
     }
 
-    public void setExpenseElementRemark_30(float expenseElementRemark_30) {
+    public void setExpenseElementRemark_30(String expenseElementRemark_30) {
         this.expenseElementRemark_30 = expenseElementRemark_30;
     }
 
-    public float getExpenseElementRemark_31() {
+    public String getExpenseElementRemark_31() {
         return expenseElementRemark_31;
     }
 
-    public void setExpenseElementRemark_31(float expenseElementRemark_31) {
+    public void setExpenseElementRemark_31(String expenseElementRemark_31) {
         this.expenseElementRemark_31 = expenseElementRemark_31;
     }
 
-    public float getExpenseElementRemark_32() {
+    public String getExpenseElementRemark_32() {
         return expenseElementRemark_32;
     }
 
-    public void setExpenseElementRemark_32(float expenseElementRemark_32) {
+    public void setExpenseElementRemark_32(String expenseElementRemark_32) {
         this.expenseElementRemark_32 = expenseElementRemark_32;
     }
 
-    public float getExpenseElementRemark_33() {
+    public String getExpenseElementRemark_33() {
         return expenseElementRemark_33;
     }
 
-    public void setExpenseElementRemark_33(float expenseElementRemark_33) {
+    public void setExpenseElementRemark_33(String expenseElementRemark_33) {
         this.expenseElementRemark_33 = expenseElementRemark_33;
     }
 
-    public float getExpenseElementRemark_34() {
+    public String getExpenseElementRemark_34() {
         return expenseElementRemark_34;
     }
 
-    public void setExpenseElementRemark_34(float expenseElementRemark_34) {
+    public void setExpenseElementRemark_34(String expenseElementRemark_34) {
         this.expenseElementRemark_34 = expenseElementRemark_34;
     }
 
-    public float getExpenseElementRemark_35() {
+    public String getExpenseElementRemark_35() {
         return expenseElementRemark_35;
     }
 
-    public void setExpenseElementRemark_35(float expenseElementRemark_35) {
+    public void setExpenseElementRemark_35(String expenseElementRemark_35) {
         this.expenseElementRemark_35 = expenseElementRemark_35;
     }
 
-    public float getExpenseElementRemark_36() {
+    public String getExpenseElementRemark_36() {
         return expenseElementRemark_36;
     }
 
-    public void setExpenseElementRemark_36(float expenseElementRemark_36) {
+    public void setExpenseElementRemark_36(String expenseElementRemark_36) {
         this.expenseElementRemark_36 = expenseElementRemark_36;
     }
 
-    public float getExpenseElementRemark_37() {
+    public String getExpenseElementRemark_37() {
         return expenseElementRemark_37;
     }
 
-    public void setExpenseElementRemark_37(float expenseElementRemark_37) {
+    public void setExpenseElementRemark_37(String expenseElementRemark_37) {
         this.expenseElementRemark_37 = expenseElementRemark_37;
     }
 
-    public float getExpenseElementRemark_38() {
+    public String getExpenseElementRemark_38() {
         return expenseElementRemark_38;
     }
 
-    public void setExpenseElementRemark_38(float expenseElementRemark_38) {
+    public void setExpenseElementRemark_38(String expenseElementRemark_38) {
         this.expenseElementRemark_38 = expenseElementRemark_38;
     }
 
-    public float getExpenseElementRemark_39() {
+    public String getExpenseElementRemark_39() {
         return expenseElementRemark_39;
     }
 
-    public void setExpenseElementRemark_39(float expenseElementRemark_39) {
+    public void setExpenseElementRemark_39(String expenseElementRemark_39) {
         this.expenseElementRemark_39 = expenseElementRemark_39;
     }
 
-    public float getExpenseElementRemark_40() {
+    public String getExpenseElementRemark_40() {
         return expenseElementRemark_40;
     }
 
-    public void setExpenseElementRemark_40(float expenseElementRemark_40) {
+    public void setExpenseElementRemark_40(String expenseElementRemark_40) {
         this.expenseElementRemark_40 = expenseElementRemark_40;
     }
 
-    public float getExpenseElementRemark_41() {
+    public String getExpenseElementRemark_41() {
         return expenseElementRemark_41;
     }
 
-    public void setExpenseElementRemark_41(float expenseElementRemark_41) {
+    public void setExpenseElementRemark_41(String expenseElementRemark_41) {
         this.expenseElementRemark_41 = expenseElementRemark_41;
     }
 
-    public float getExpenseElementRemark_42() {
+    public String getExpenseElementRemark_42() {
         return expenseElementRemark_42;
     }
 
-    public void setExpenseElementRemark_42(float expenseElementRemark_42) {
+    public void setExpenseElementRemark_42(String expenseElementRemark_42) {
         this.expenseElementRemark_42 = expenseElementRemark_42;
     }
 
-    public float getExpenseElementRemark_43() {
+    public String getExpenseElementRemark_43() {
         return expenseElementRemark_43;
     }
 
-    public void setExpenseElementRemark_43(float expenseElementRemark_43) {
+    public void setExpenseElementRemark_43(String expenseElementRemark_43) {
         this.expenseElementRemark_43 = expenseElementRemark_43;
     }
 
-    public float getExpenseElementRemark_44() {
+    public String getExpenseElementRemark_44() {
         return expenseElementRemark_44;
     }
 
-    public void setExpenseElementRemark_44(float expenseElementRemark_44) {
+    public void setExpenseElementRemark_44(String expenseElementRemark_44) {
         this.expenseElementRemark_44 = expenseElementRemark_44;
     }
 
-    public float getExpenseElementRemark_45() {
+    public String getExpenseElementRemark_45() {
         return expenseElementRemark_45;
     }
 
-    public void setExpenseElementRemark_45(float expenseElementRemark_45) {
+    public void setExpenseElementRemark_45(String expenseElementRemark_45) {
         this.expenseElementRemark_45 = expenseElementRemark_45;
     }
 
-    public float getExpenseElementRemark_46() {
+    public String getExpenseElementRemark_46() {
         return expenseElementRemark_46;
     }
 
-    public void setExpenseElementRemark_46(float expenseElementRemark_46) {
+    public void setExpenseElementRemark_46(String expenseElementRemark_46) {
         this.expenseElementRemark_46 = expenseElementRemark_46;
     }
 
-    public float getExpenseElementRemark_47() {
+    public String getExpenseElementRemark_47() {
         return expenseElementRemark_47;
     }
 
-    public void setExpenseElementRemark_47(float expenseElementRemark_47) {
+    public void setExpenseElementRemark_47(String expenseElementRemark_47) {
         this.expenseElementRemark_47 = expenseElementRemark_47;
     }
 
-    public float getExpenseElementRemark_48() {
+    public String getExpenseElementRemark_48() {
         return expenseElementRemark_48;
     }
 
-    public void setExpenseElementRemark_48(float expenseElementRemark_48) {
+    public void setExpenseElementRemark_48(String expenseElementRemark_48) {
         this.expenseElementRemark_48 = expenseElementRemark_48;
     }
 
-    public float getExpenseElementRemark_49() {
+    public String getExpenseElementRemark_49() {
         return expenseElementRemark_49;
     }
 
-    public void setExpenseElementRemark_49(float expenseElementRemark_49) {
+    public void setExpenseElementRemark_49(String expenseElementRemark_49) {
         this.expenseElementRemark_49 = expenseElementRemark_49;
     }
 
-    public float getExpenseElementRemark_50() {
+    public String getExpenseElementRemark_50() {
         return expenseElementRemark_50;
     }
 
-    public void setExpenseElementRemark_50(float expenseElementRemark_50) {
+    public void setExpenseElementRemark_50(String expenseElementRemark_50) {
         this.expenseElementRemark_50 = expenseElementRemark_50;
     }
 
-    public float getExpenseElementRemark_51() {
+    public String getExpenseElementRemark_51() {
         return expenseElementRemark_51;
     }
 
-    public void setExpenseElementRemark_51(float expenseElementRemark_51) {
+    public void setExpenseElementRemark_51(String expenseElementRemark_51) {
         this.expenseElementRemark_51 = expenseElementRemark_51;
     }
 
-    public float getExpenseElementRemark_52() {
+    public String getExpenseElementRemark_52() {
         return expenseElementRemark_52;
     }
 
-    public void setExpenseElementRemark_52(float expenseElementRemark_52) {
+    public void setExpenseElementRemark_52(String expenseElementRemark_52) {
         this.expenseElementRemark_52 = expenseElementRemark_52;
     }
 
-    public float getExpenseElementRemark_53() {
+    public String getExpenseElementRemark_53() {
         return expenseElementRemark_53;
     }
 
-    public void setExpenseElementRemark_53(float expenseElementRemark_53) {
+    public void setExpenseElementRemark_53(String expenseElementRemark_53) {
         this.expenseElementRemark_53 = expenseElementRemark_53;
     }
 
-    public float getExpenseElementRemark_54() {
+    public String getExpenseElementRemark_54() {
         return expenseElementRemark_54;
     }
 
-    public void setExpenseElementRemark_54(float expenseElementRemark_54) {
+    public void setExpenseElementRemark_54(String expenseElementRemark_54) {
         this.expenseElementRemark_54 = expenseElementRemark_54;
     }
 
-    public float getExpenseElementRemark_55() {
+    public String getExpenseElementRemark_55() {
         return expenseElementRemark_55;
     }
 
-    public void setExpenseElementRemark_55(float expenseElementRemark_55) {
+    public void setExpenseElementRemark_55(String expenseElementRemark_55) {
         this.expenseElementRemark_55 = expenseElementRemark_55;
     }
 
-    public float getExpenseElementRemark_56() {
+    public String getExpenseElementRemark_56() {
         return expenseElementRemark_56;
     }
 
-    public void setExpenseElementRemark_56(float expenseElementRemark_56) {
+    public void setExpenseElementRemark_56(String expenseElementRemark_56) {
         this.expenseElementRemark_56 = expenseElementRemark_56;
     }
 
-    public float getExpenseElementRemark_57() {
+    public String getExpenseElementRemark_57() {
         return expenseElementRemark_57;
     }
 
-    public void setExpenseElementRemark_57(float expenseElementRemark_57) {
+    public void setExpenseElementRemark_57(String expenseElementRemark_57) {
         this.expenseElementRemark_57 = expenseElementRemark_57;
     }
 
-    public float getExpenseElementRemark_58() {
+    public String getExpenseElementRemark_58() {
         return expenseElementRemark_58;
     }
 
-    public void setExpenseElementRemark_58(float expenseElementRemark_58) {
+    public void setExpenseElementRemark_58(String expenseElementRemark_58) {
         this.expenseElementRemark_58 = expenseElementRemark_58;
     }
 
-    public float getExpenseElementRemark_59() {
+    public String getExpenseElementRemark_59() {
         return expenseElementRemark_59;
     }
 
-    public void setExpenseElementRemark_59(float expenseElementRemark_59) {
+    public void setExpenseElementRemark_59(String expenseElementRemark_59) {
         this.expenseElementRemark_59 = expenseElementRemark_59;
     }
 
-    public float getExpenseElementRemark_60() {
+    public String getExpenseElementRemark_60() {
         return expenseElementRemark_60;
     }
 
-    public void setExpenseElementRemark_60(float expenseElementRemark_60) {
+    public void setExpenseElementRemark_60(String expenseElementRemark_60) {
         this.expenseElementRemark_60 = expenseElementRemark_60;
     }
 
-    public float getExpenseElementRemark_61() {
+    public String getExpenseElementRemark_61() {
         return expenseElementRemark_61;
     }
 
-    public void setExpenseElementRemark_61(float expenseElementRemark_61) {
+    public void setExpenseElementRemark_61(String expenseElementRemark_61) {
         this.expenseElementRemark_61 = expenseElementRemark_61;
+    }
+
+    public float getExpenseElementSum_1() {
+        return expenseElementSum_1;
+    }
+
+    public void setExpenseElementSum_1(float expenseElementSum_1) {
+        this.expenseElementSum_1 = expenseElementSum_1;
+    }
+
+    public float getExpenseElementSum_2() {
+        return expenseElementSum_2;
+    }
+
+    public void setExpenseElementSum_2(float expenseElementSum_2) {
+        this.expenseElementSum_2 = expenseElementSum_2;
+    }
+
+    public float getExpenseElementSum_3() {
+        return expenseElementSum_3;
+    }
+
+    public void setExpenseElementSum_3(float expenseElementSum_3) {
+        this.expenseElementSum_3 = expenseElementSum_3;
+    }
+
+    public float getExpenseElementSum_4() {
+        return expenseElementSum_4;
+    }
+
+    public void setExpenseElementSum_4(float expenseElementSum_4) {
+        this.expenseElementSum_4 = expenseElementSum_4;
+    }
+
+    public float getExpenseElementSum_5() {
+        return expenseElementSum_5;
+    }
+
+    public void setExpenseElementSum_5(float expenseElementSum_5) {
+        this.expenseElementSum_5 = expenseElementSum_5;
+    }
+
+    public float getExpenseElementSum_6() {
+        return expenseElementSum_6;
+    }
+
+    public void setExpenseElementSum_6(float expenseElementSum_6) {
+        this.expenseElementSum_6 = expenseElementSum_6;
+    }
+
+    public float getExpenseElementSum_7() {
+        return expenseElementSum_7;
+    }
+
+    public void setExpenseElementSum_7(float expenseElementSum_7) {
+        this.expenseElementSum_7 = expenseElementSum_7;
+    }
+
+    public float getExpenseElementSum_8() {
+        return expenseElementSum_8;
+    }
+
+    public void setExpenseElementSum_8(float expenseElementSum_8) {
+        this.expenseElementSum_8 = expenseElementSum_8;
+    }
+
+    public float getExpenseElementSum_9() {
+        return expenseElementSum_9;
+    }
+
+    public void setExpenseElementSum_9(float expenseElementSum_9) {
+        this.expenseElementSum_9 = expenseElementSum_9;
+    }
+
+    public float getExpenseElementSum_10() {
+        return expenseElementSum_10;
+    }
+
+    public void setExpenseElementSum_10(float expenseElementSum_10) {
+        this.expenseElementSum_10 = expenseElementSum_10;
+    }
+
+    public float getExpenseElementSum_11() {
+        return expenseElementSum_11;
+    }
+
+    public void setExpenseElementSum_11(float expenseElementSum_11) {
+        this.expenseElementSum_11 = expenseElementSum_11;
+    }
+
+    public float getExpenseElementSum_12() {
+        return expenseElementSum_12;
+    }
+
+    public void setExpenseElementSum_12(float expenseElementSum_12) {
+        this.expenseElementSum_12 = expenseElementSum_12;
+    }
+
+    public float getExpenseElementSum_13() {
+        return expenseElementSum_13;
+    }
+
+    public void setExpenseElementSum_13(float expenseElementSum_13) {
+        this.expenseElementSum_13 = expenseElementSum_13;
+    }
+
+    public float getExpenseElementSum_14() {
+        return expenseElementSum_14;
+    }
+
+    public void setExpenseElementSum_14(float expenseElementSum_14) {
+        this.expenseElementSum_14 = expenseElementSum_14;
+    }
+
+    public float getExpenseElementSum_15() {
+        return expenseElementSum_15;
+    }
+
+    public void setExpenseElementSum_15(float expenseElementSum_15) {
+        this.expenseElementSum_15 = expenseElementSum_15;
+    }
+
+    public float getExpenseElementSum_16() {
+        return expenseElementSum_16;
+    }
+
+    public void setExpenseElementSum_16(float expenseElementSum_16) {
+        this.expenseElementSum_16 = expenseElementSum_16;
+    }
+
+    public float getExpenseElementSum_17() {
+        return expenseElementSum_17;
+    }
+
+    public void setExpenseElementSum_17(float expenseElementSum_17) {
+        this.expenseElementSum_17 = expenseElementSum_17;
+    }
+
+    public float getExpenseElementSum_18() {
+        return expenseElementSum_18;
+    }
+
+    public void setExpenseElementSum_18(float expenseElementSum_18) {
+        this.expenseElementSum_18 = expenseElementSum_18;
+    }
+
+    public float getExpenseElementSum_19() {
+        return expenseElementSum_19;
+    }
+
+    public void setExpenseElementSum_19(float expenseElementSum_19) {
+        this.expenseElementSum_19 = expenseElementSum_19;
+    }
+
+    public float getExpenseElementSum_20() {
+        return expenseElementSum_20;
+    }
+
+    public void setExpenseElementSum_20(float expenseElementSum_20) {
+        this.expenseElementSum_20 = expenseElementSum_20;
+    }
+
+    public float getExpenseElementSum_21() {
+        return expenseElementSum_21;
+    }
+
+    public void setExpenseElementSum_21(float expenseElementSum_21) {
+        this.expenseElementSum_21 = expenseElementSum_21;
+    }
+
+    public float getExpenseElementSum_22() {
+        return expenseElementSum_22;
+    }
+
+    public void setExpenseElementSum_22(float expenseElementSum_22) {
+        this.expenseElementSum_22 = expenseElementSum_22;
+    }
+
+    public float getExpenseElementSum_23() {
+        return expenseElementSum_23;
+    }
+
+    public void setExpenseElementSum_23(float expenseElementSum_23) {
+        this.expenseElementSum_23 = expenseElementSum_23;
+    }
+
+    public float getExpenseElementSum_24() {
+        return expenseElementSum_24;
+    }
+
+    public void setExpenseElementSum_24(float expenseElementSum_24) {
+        this.expenseElementSum_24 = expenseElementSum_24;
+    }
+
+    public float getExpenseElementSum_25() {
+        return expenseElementSum_25;
+    }
+
+    public void setExpenseElementSum_25(float expenseElementSum_25) {
+        this.expenseElementSum_25 = expenseElementSum_25;
+    }
+
+    public float getExpenseElementSum_26() {
+        return expenseElementSum_26;
+    }
+
+    public void setExpenseElementSum_26(float expenseElementSum_26) {
+        this.expenseElementSum_26 = expenseElementSum_26;
+    }
+
+    public float getExpenseElementSum_27() {
+        return expenseElementSum_27;
+    }
+
+    public void setExpenseElementSum_27(float expenseElementSum_27) {
+        this.expenseElementSum_27 = expenseElementSum_27;
+    }
+
+    public float getExpenseElementSum_28() {
+        return expenseElementSum_28;
+    }
+
+    public void setExpenseElementSum_28(float expenseElementSum_28) {
+        this.expenseElementSum_28 = expenseElementSum_28;
+    }
+
+    public float getExpenseElementSum_29() {
+        return expenseElementSum_29;
+    }
+
+    public void setExpenseElementSum_29(float expenseElementSum_29) {
+        this.expenseElementSum_29 = expenseElementSum_29;
+    }
+
+    public float getExpenseElementSum_30() {
+        return expenseElementSum_30;
+    }
+
+    public void setExpenseElementSum_30(float expenseElementSum_30) {
+        this.expenseElementSum_30 = expenseElementSum_30;
+    }
+
+    public float getExpenseElementSum_31() {
+        return expenseElementSum_31;
+    }
+
+    public void setExpenseElementSum_31(float expenseElementSum_31) {
+        this.expenseElementSum_31 = expenseElementSum_31;
+    }
+
+    public float getExpenseElementSum_32() {
+        return expenseElementSum_32;
+    }
+
+    public void setExpenseElementSum_32(float expenseElementSum_32) {
+        this.expenseElementSum_32 = expenseElementSum_32;
+    }
+
+    public float getExpenseElementSum_33() {
+        return expenseElementSum_33;
+    }
+
+    public void setExpenseElementSum_33(float expenseElementSum_33) {
+        this.expenseElementSum_33 = expenseElementSum_33;
+    }
+
+    public float getExpenseElementSum_34() {
+        return expenseElementSum_34;
+    }
+
+    public void setExpenseElementSum_34(float expenseElementSum_34) {
+        this.expenseElementSum_34 = expenseElementSum_34;
+    }
+
+    public float getExpenseElementSum_35() {
+        return expenseElementSum_35;
+    }
+
+    public void setExpenseElementSum_35(float expenseElementSum_35) {
+        this.expenseElementSum_35 = expenseElementSum_35;
+    }
+
+    public float getExpenseElementSum_36() {
+        return expenseElementSum_36;
+    }
+
+    public void setExpenseElementSum_36(float expenseElementSum_36) {
+        this.expenseElementSum_36 = expenseElementSum_36;
+    }
+
+    public float getExpenseElementSum_37() {
+        return expenseElementSum_37;
+    }
+
+    public void setExpenseElementSum_37(float expenseElementSum_37) {
+        this.expenseElementSum_37 = expenseElementSum_37;
+    }
+
+    public float getExpenseElementSum_38() {
+        return expenseElementSum_38;
+    }
+
+    public void setExpenseElementSum_38(float expenseElementSum_38) {
+        this.expenseElementSum_38 = expenseElementSum_38;
+    }
+
+    public float getExpenseElementSum_39() {
+        return expenseElementSum_39;
+    }
+
+    public void setExpenseElementSum_39(float expenseElementSum_39) {
+        this.expenseElementSum_39 = expenseElementSum_39;
+    }
+
+    public float getExpenseElementSum_40() {
+        return expenseElementSum_40;
+    }
+
+    public void setExpenseElementSum_40(float expenseElementSum_40) {
+        this.expenseElementSum_40 = expenseElementSum_40;
+    }
+
+    public float getExpenseElementSum_41() {
+        return expenseElementSum_41;
+    }
+
+    public void setExpenseElementSum_41(float expenseElementSum_41) {
+        this.expenseElementSum_41 = expenseElementSum_41;
+    }
+
+    public float getExpenseElementSum_42() {
+        return expenseElementSum_42;
+    }
+
+    public void setExpenseElementSum_42(float expenseElementSum_42) {
+        this.expenseElementSum_42 = expenseElementSum_42;
+    }
+
+    public float getExpenseElementSum_43() {
+        return expenseElementSum_43;
+    }
+
+    public void setExpenseElementSum_43(float expenseElementSum_43) {
+        this.expenseElementSum_43 = expenseElementSum_43;
+    }
+
+    public float getExpenseElementSum_44() {
+        return expenseElementSum_44;
+    }
+
+    public void setExpenseElementSum_44(float expenseElementSum_44) {
+        this.expenseElementSum_44 = expenseElementSum_44;
+    }
+
+    public float getExpenseElementSum_45() {
+        return expenseElementSum_45;
+    }
+
+    public void setExpenseElementSum_45(float expenseElementSum_45) {
+        this.expenseElementSum_45 = expenseElementSum_45;
+    }
+
+    public float getExpenseElementSum_46() {
+        return expenseElementSum_46;
+    }
+
+    public void setExpenseElementSum_46(float expenseElementSum_46) {
+        this.expenseElementSum_46 = expenseElementSum_46;
+    }
+
+    public float getExpenseElementSum_47() {
+        return expenseElementSum_47;
+    }
+
+    public void setExpenseElementSum_47(float expenseElementSum_47) {
+        this.expenseElementSum_47 = expenseElementSum_47;
+    }
+
+    public float getExpenseElementSum_48() {
+        return expenseElementSum_48;
+    }
+
+    public void setExpenseElementSum_48(float expenseElementSum_48) {
+        this.expenseElementSum_48 = expenseElementSum_48;
+    }
+
+    public float getExpenseElementSum_49() {
+        return expenseElementSum_49;
+    }
+
+    public void setExpenseElementSum_49(float expenseElementSum_49) {
+        this.expenseElementSum_49 = expenseElementSum_49;
+    }
+
+    public float getExpenseElementSum_50() {
+        return expenseElementSum_50;
+    }
+
+    public void setExpenseElementSum_50(float expenseElementSum_50) {
+        this.expenseElementSum_50 = expenseElementSum_50;
+    }
+
+    public float getExpenseElementSum_51() {
+        return expenseElementSum_51;
+    }
+
+    public void setExpenseElementSum_51(float expenseElementSum_51) {
+        this.expenseElementSum_51 = expenseElementSum_51;
+    }
+
+    public float getExpenseElementSum_52() {
+        return expenseElementSum_52;
+    }
+
+    public void setExpenseElementSum_52(float expenseElementSum_52) {
+        this.expenseElementSum_52 = expenseElementSum_52;
+    }
+
+    public float getExpenseElementSum_53() {
+        return expenseElementSum_53;
+    }
+
+    public void setExpenseElementSum_53(float expenseElementSum_53) {
+        this.expenseElementSum_53 = expenseElementSum_53;
+    }
+
+    public float getExpenseElementSum_54() {
+        return expenseElementSum_54;
+    }
+
+    public void setExpenseElementSum_54(float expenseElementSum_54) {
+        this.expenseElementSum_54 = expenseElementSum_54;
+    }
+
+    public float getExpenseElementSum_55() {
+        return expenseElementSum_55;
+    }
+
+    public void setExpenseElementSum_55(float expenseElementSum_55) {
+        this.expenseElementSum_55 = expenseElementSum_55;
+    }
+
+    public float getExpenseElementSum_56() {
+        return expenseElementSum_56;
+    }
+
+    public void setExpenseElementSum_56(float expenseElementSum_56) {
+        this.expenseElementSum_56 = expenseElementSum_56;
+    }
+
+    public float getExpenseElementSum_57() {
+        return expenseElementSum_57;
+    }
+
+    public void setExpenseElementSum_57(float expenseElementSum_57) {
+        this.expenseElementSum_57 = expenseElementSum_57;
+    }
+
+    public float getExpenseElementSum_58() {
+        return expenseElementSum_58;
+    }
+
+    public void setExpenseElementSum_58(float expenseElementSum_58) {
+        this.expenseElementSum_58 = expenseElementSum_58;
+    }
+
+    public float getExpenseElementSum_59() {
+        return expenseElementSum_59;
+    }
+
+    public void setExpenseElementSum_59(float expenseElementSum_59) {
+        this.expenseElementSum_59 = expenseElementSum_59;
+    }
+
+    public float getExpenseElementSum_60() {
+        return expenseElementSum_60;
+    }
+
+    public void setExpenseElementSum_60(float expenseElementSum_60) {
+        this.expenseElementSum_60 = expenseElementSum_60;
+    }
+
+    public float getExpenseElementSum_61() {
+        return expenseElementSum_61;
+    }
+
+    public void setExpenseElementSum_61(float expenseElementSum_61) {
+        this.expenseElementSum_61 = expenseElementSum_61;
     }
 }

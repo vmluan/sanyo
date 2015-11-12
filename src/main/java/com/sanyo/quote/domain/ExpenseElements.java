@@ -20,6 +20,7 @@ public class ExpenseElements implements Serializable {
     private Integer expenseElementID;
     private String elementName;
     private Integer defaultOrder;
+    private float defaultRate; //for the RATE appear in the expense form
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,5 +49,14 @@ public class ExpenseElements implements Serializable {
 
     public void setDefaultOrder(Integer defaultOrder) {
         this.defaultOrder = defaultOrder;
+    }
+
+    @Column(name="DEFAULT_RATE")
+    public float getDefaultRate() {
+        return defaultRate;
+    }
+
+    public void setDefaultRate(float defaultRate) {
+        this.defaultRate = defaultRate;
     }
 }

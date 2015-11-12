@@ -50,6 +50,7 @@ public class ExpensesController extends CommonController{
 
     @RequestMapping(value = "/{id}/expenses",params = "form",method = RequestMethod.GET)
     public String createExpenses(@PathVariable("id") Integer projectId,Model uiModel) {
+
         ExpensesJson expensesJson = new ExpensesJson();
         List<Expenses> expenseses = expensesService.findByProject(projectService.findById(projectId));
         if (expenseses.size()>0 && expenseses.size()>=61) {
@@ -177,6 +178,259 @@ public class ExpensesController extends CommonController{
             expensesJson.setExpenseElementDuration_60(expenseses.get(59).getDuration());
             expensesJson.setExpenseElementDuration_61(expenseses.get(60).getDuration());
 
+            expensesJson.setExpenseElementRate_1(expenseses.get(0).getRate());
+            expensesJson.setExpenseElementRate_2(expenseses.get(1).getRate());
+            expensesJson.setExpenseElementRate_3(expenseses.get(2).getRate());
+            expensesJson.setExpenseElementRate_4(expenseses.get(3).getRate());
+            expensesJson.setExpenseElementRate_5(expenseses.get(4).getRate());
+            expensesJson.setExpenseElementRate_6(expenseses.get(5).getRate());
+            expensesJson.setExpenseElementRate_7(expenseses.get(6).getRate());
+            expensesJson.setExpenseElementRate_8(expenseses.get(7).getRate());
+            expensesJson.setExpenseElementRate_9(expenseses.get(8).getRate());
+            expensesJson.setExpenseElementRate_10(expenseses.get(9).getRate());
+            expensesJson.setExpenseElementRate_11(expenseses.get(10).getRate());
+            expensesJson.setExpenseElementRate_12(expenseses.get(11).getRate());
+            expensesJson.setExpenseElementRate_13(expenseses.get(12).getRate());
+            expensesJson.setExpenseElementRate_14(expenseses.get(13).getRate());
+            expensesJson.setExpenseElementRate_15(expenseses.get(14).getRate());
+            expensesJson.setExpenseElementRate_16(expenseses.get(15).getRate());
+            expensesJson.setExpenseElementRate_17(expenseses.get(16).getRate());
+            expensesJson.setExpenseElementRate_18(expenseses.get(17).getRate());
+            expensesJson.setExpenseElementRate_19(expenseses.get(18).getRate());
+            expensesJson.setExpenseElementRate_20(expenseses.get(19).getRate());
+            expensesJson.setExpenseElementRate_21(expenseses.get(20).getRate());
+            expensesJson.setExpenseElementRate_22(expenseses.get(21).getRate());
+            expensesJson.setExpenseElementRate_23(expenseses.get(22).getRate());
+            expensesJson.setExpenseElementRate_24(expenseses.get(23).getRate());
+            expensesJson.setExpenseElementRate_25(expenseses.get(24).getRate());
+            expensesJson.setExpenseElementRate_26(expenseses.get(25).getRate());
+            expensesJson.setExpenseElementRate_27(expenseses.get(26).getRate());
+            expensesJson.setExpenseElementRate_28(expenseses.get(27).getRate());
+            expensesJson.setExpenseElementRate_29(expenseses.get(28).getRate());
+            expensesJson.setExpenseElementRate_30(expenseses.get(29).getRate());
+            expensesJson.setExpenseElementRate_31(expenseses.get(30).getRate());
+            expensesJson.setExpenseElementRate_32(expenseses.get(31).getRate());
+            expensesJson.setExpenseElementRate_33(expenseses.get(32).getRate());
+            expensesJson.setExpenseElementRate_34(expenseses.get(33).getRate());
+            expensesJson.setExpenseElementRate_35(expenseses.get(34).getRate());
+            expensesJson.setExpenseElementRate_36(expenseses.get(35).getRate());
+            expensesJson.setExpenseElementRate_37(expenseses.get(36).getRate());
+            expensesJson.setExpenseElementRate_38(expenseses.get(37).getRate());
+            expensesJson.setExpenseElementRate_39(expenseses.get(38).getRate());
+            expensesJson.setExpenseElementRate_40(expenseses.get(39).getRate());
+            expensesJson.setExpenseElementRate_41(expenseses.get(40).getRate());
+            expensesJson.setExpenseElementRate_42(expenseses.get(41).getRate());
+            expensesJson.setExpenseElementRate_43(expenseses.get(42).getRate());
+            expensesJson.setExpenseElementRate_44(expenseses.get(43).getRate());
+            expensesJson.setExpenseElementRate_45(expenseses.get(44).getRate());
+            expensesJson.setExpenseElementRate_46(expenseses.get(45).getRate());
+            expensesJson.setExpenseElementRate_47(expenseses.get(46).getRate());
+            expensesJson.setExpenseElementRate_48(expenseses.get(47).getRate());
+            expensesJson.setExpenseElementRate_49(expenseses.get(48).getRate());
+            expensesJson.setExpenseElementRate_50(expenseses.get(49).getRate());
+            expensesJson.setExpenseElementRate_51(expenseses.get(50).getRate());
+            expensesJson.setExpenseElementRate_52(expenseses.get(51).getRate());
+            expensesJson.setExpenseElementRate_53(expenseses.get(52).getRate());
+            expensesJson.setExpenseElementRate_54(expenseses.get(53).getRate());
+            expensesJson.setExpenseElementRate_55(expenseses.get(54).getRate());
+            expensesJson.setExpenseElementRate_56(expenseses.get(55).getRate());
+            expensesJson.setExpenseElementRate_57(expenseses.get(56).getRate());
+            expensesJson.setExpenseElementRate_58(expenseses.get(57).getRate());
+            expensesJson.setExpenseElementRate_59(expenseses.get(58).getRate());
+            expensesJson.setExpenseElementRate_60(expenseses.get(59).getRate());
+            expensesJson.setExpenseElementRate_61(expenseses.get(60).getRate());
+
+            expensesJson.setExpenseElementSum_1(expenseses.get(0).getSum());
+            expensesJson.setExpenseElementSum_2(expenseses.get(1).getSum());
+            expensesJson.setExpenseElementSum_3(expenseses.get(2).getSum());
+            expensesJson.setExpenseElementSum_4(expenseses.get(3).getSum());
+            expensesJson.setExpenseElementSum_5(expenseses.get(4).getSum());
+            expensesJson.setExpenseElementSum_6(expenseses.get(5).getSum());
+            expensesJson.setExpenseElementSum_7(expenseses.get(6).getSum());
+            expensesJson.setExpenseElementSum_8(expenseses.get(7).getSum());
+            expensesJson.setExpenseElementSum_9(expenseses.get(8).getSum());
+            expensesJson.setExpenseElementSum_10(expenseses.get(9).getSum());
+            expensesJson.setExpenseElementSum_11(expenseses.get(10).getSum());
+            expensesJson.setExpenseElementSum_12(expenseses.get(11).getSum());
+            expensesJson.setExpenseElementSum_13(expenseses.get(12).getSum());
+            expensesJson.setExpenseElementSum_14(expenseses.get(13).getSum());
+            expensesJson.setExpenseElementSum_15(expenseses.get(14).getSum());
+            expensesJson.setExpenseElementSum_16(expenseses.get(15).getSum());
+            expensesJson.setExpenseElementSum_17(expenseses.get(16).getSum());
+            expensesJson.setExpenseElementSum_18(expenseses.get(17).getSum());
+            expensesJson.setExpenseElementSum_19(expenseses.get(18).getSum());
+            expensesJson.setExpenseElementSum_20(expenseses.get(19).getSum());
+            expensesJson.setExpenseElementSum_21(expenseses.get(20).getSum());
+            expensesJson.setExpenseElementSum_22(expenseses.get(21).getSum());
+            expensesJson.setExpenseElementSum_23(expenseses.get(22).getSum());
+            expensesJson.setExpenseElementSum_24(expenseses.get(23).getSum());
+            expensesJson.setExpenseElementSum_25(expenseses.get(24).getSum());
+            expensesJson.setExpenseElementSum_26(expenseses.get(25).getSum());
+            expensesJson.setExpenseElementSum_27(expenseses.get(26).getSum());
+            expensesJson.setExpenseElementSum_28(expenseses.get(27).getSum());
+            expensesJson.setExpenseElementSum_29(expenseses.get(28).getSum());
+            expensesJson.setExpenseElementSum_30(expenseses.get(29).getSum());
+            expensesJson.setExpenseElementSum_31(expenseses.get(30).getSum());
+            expensesJson.setExpenseElementSum_32(expenseses.get(31).getSum());
+            expensesJson.setExpenseElementSum_33(expenseses.get(32).getSum());
+            expensesJson.setExpenseElementSum_34(expenseses.get(33).getSum());
+            expensesJson.setExpenseElementSum_35(expenseses.get(34).getSum());
+            expensesJson.setExpenseElementSum_36(expenseses.get(35).getSum());
+            expensesJson.setExpenseElementSum_37(expenseses.get(36).getSum());
+            expensesJson.setExpenseElementSum_38(expenseses.get(37).getSum());
+            expensesJson.setExpenseElementSum_39(expenseses.get(38).getSum());
+            expensesJson.setExpenseElementSum_40(expenseses.get(39).getSum());
+            expensesJson.setExpenseElementSum_41(expenseses.get(40).getSum());
+            expensesJson.setExpenseElementSum_42(expenseses.get(41).getSum());
+            expensesJson.setExpenseElementSum_43(expenseses.get(42).getSum());
+            expensesJson.setExpenseElementSum_44(expenseses.get(43).getSum());
+            expensesJson.setExpenseElementSum_45(expenseses.get(44).getSum());
+            expensesJson.setExpenseElementSum_46(expenseses.get(45).getSum());
+            expensesJson.setExpenseElementSum_47(expenseses.get(46).getSum());
+            expensesJson.setExpenseElementSum_48(expenseses.get(47).getSum());
+            expensesJson.setExpenseElementSum_49(expenseses.get(48).getSum());
+            expensesJson.setExpenseElementSum_50(expenseses.get(49).getSum());
+            expensesJson.setExpenseElementSum_51(expenseses.get(50).getSum());
+            expensesJson.setExpenseElementSum_52(expenseses.get(51).getSum());
+            expensesJson.setExpenseElementSum_53(expenseses.get(52).getSum());
+            expensesJson.setExpenseElementSum_54(expenseses.get(53).getSum());
+            expensesJson.setExpenseElementSum_55(expenseses.get(54).getSum());
+            expensesJson.setExpenseElementSum_56(expenseses.get(55).getSum());
+            expensesJson.setExpenseElementSum_57(expenseses.get(56).getSum());
+            expensesJson.setExpenseElementSum_58(expenseses.get(57).getSum());
+            expensesJson.setExpenseElementSum_59(expenseses.get(58).getSum());
+            expensesJson.setExpenseElementSum_60(expenseses.get(59).getSum());
+            expensesJson.setExpenseElementSum_61(expenseses.get(60).getSum());
+
+            expensesJson.setExpenseElementRemark_1(expenseses.get(0).getRemark());
+            expensesJson.setExpenseElementRemark_2(expenseses.get(1).getRemark());
+            expensesJson.setExpenseElementRemark_3(expenseses.get(2).getRemark());
+            expensesJson.setExpenseElementRemark_4(expenseses.get(3).getRemark());
+            expensesJson.setExpenseElementRemark_5(expenseses.get(4).getRemark());
+            expensesJson.setExpenseElementRemark_6(expenseses.get(5).getRemark());
+            expensesJson.setExpenseElementRemark_7(expenseses.get(6).getRemark());
+            expensesJson.setExpenseElementRemark_8(expenseses.get(7).getRemark());
+            expensesJson.setExpenseElementRemark_9(expenseses.get(8).getRemark());
+            expensesJson.setExpenseElementRemark_10(expenseses.get(9).getRemark());
+            expensesJson.setExpenseElementRemark_11(expenseses.get(10).getRemark());
+            expensesJson.setExpenseElementRemark_12(expenseses.get(11).getRemark());
+            expensesJson.setExpenseElementRemark_13(expenseses.get(12).getRemark());
+            expensesJson.setExpenseElementRemark_14(expenseses.get(13).getRemark());
+            expensesJson.setExpenseElementRemark_15(expenseses.get(14).getRemark());
+            expensesJson.setExpenseElementRemark_16(expenseses.get(15).getRemark());
+            expensesJson.setExpenseElementRemark_17(expenseses.get(16).getRemark());
+            expensesJson.setExpenseElementRemark_18(expenseses.get(17).getRemark());
+            expensesJson.setExpenseElementRemark_19(expenseses.get(18).getRemark());
+            expensesJson.setExpenseElementRemark_20(expenseses.get(19).getRemark());
+            expensesJson.setExpenseElementRemark_21(expenseses.get(20).getRemark());
+            expensesJson.setExpenseElementRemark_22(expenseses.get(21).getRemark());
+            expensesJson.setExpenseElementRemark_23(expenseses.get(22).getRemark());
+            expensesJson.setExpenseElementRemark_24(expenseses.get(23).getRemark());
+            expensesJson.setExpenseElementRemark_25(expenseses.get(24).getRemark());
+            expensesJson.setExpenseElementRemark_26(expenseses.get(25).getRemark());
+            expensesJson.setExpenseElementRemark_27(expenseses.get(26).getRemark());
+            expensesJson.setExpenseElementRemark_28(expenseses.get(27).getRemark());
+            expensesJson.setExpenseElementRemark_29(expenseses.get(28).getRemark());
+            expensesJson.setExpenseElementRemark_30(expenseses.get(29).getRemark());
+            expensesJson.setExpenseElementRemark_31(expenseses.get(30).getRemark());
+            expensesJson.setExpenseElementRemark_32(expenseses.get(31).getRemark());
+            expensesJson.setExpenseElementRemark_33(expenseses.get(32).getRemark());
+            expensesJson.setExpenseElementRemark_34(expenseses.get(33).getRemark());
+            expensesJson.setExpenseElementRemark_35(expenseses.get(34).getRemark());
+            expensesJson.setExpenseElementRemark_36(expenseses.get(35).getRemark());
+            expensesJson.setExpenseElementRemark_37(expenseses.get(36).getRemark());
+            expensesJson.setExpenseElementRemark_38(expenseses.get(37).getRemark());
+            expensesJson.setExpenseElementRemark_39(expenseses.get(38).getRemark());
+            expensesJson.setExpenseElementRemark_40(expenseses.get(39).getRemark());
+            expensesJson.setExpenseElementRemark_41(expenseses.get(40).getRemark());
+            expensesJson.setExpenseElementRemark_42(expenseses.get(41).getRemark());
+            expensesJson.setExpenseElementRemark_43(expenseses.get(42).getRemark());
+            expensesJson.setExpenseElementRemark_44(expenseses.get(43).getRemark());
+            expensesJson.setExpenseElementRemark_45(expenseses.get(44).getRemark());
+            expensesJson.setExpenseElementRemark_46(expenseses.get(45).getRemark());
+            expensesJson.setExpenseElementRemark_47(expenseses.get(46).getRemark());
+            expensesJson.setExpenseElementRemark_48(expenseses.get(47).getRemark());
+            expensesJson.setExpenseElementRemark_49(expenseses.get(48).getRemark());
+            expensesJson.setExpenseElementRemark_50(expenseses.get(49).getRemark());
+            expensesJson.setExpenseElementRemark_51(expenseses.get(50).getRemark());
+            expensesJson.setExpenseElementRemark_52(expenseses.get(51).getRemark());
+            expensesJson.setExpenseElementRemark_53(expenseses.get(52).getRemark());
+            expensesJson.setExpenseElementRemark_54(expenseses.get(53).getRemark());
+            expensesJson.setExpenseElementRemark_55(expenseses.get(54).getRemark());
+            expensesJson.setExpenseElementRemark_56(expenseses.get(55).getRemark());
+            expensesJson.setExpenseElementRemark_57(expenseses.get(56).getRemark());
+            expensesJson.setExpenseElementRemark_58(expenseses.get(57).getRemark());
+            expensesJson.setExpenseElementRemark_59(expenseses.get(58).getRemark());
+            expensesJson.setExpenseElementRemark_60(expenseses.get(59).getRemark());
+            expensesJson.setExpenseElementRemark_61(expenseses.get(60).getRemark());
+        }
+        else {
+            //Bring the default RATE to the form if this is the new Project (Doesn't have any expenses records yet)
+            List<ExpenseElements> expenseElements = expenseElementsService.findAll();
+            for(ExpenseElements expenseElement : expenseElements){
+                if (expenseElement.getExpenseElementID() ==1) expensesJson.setExpenseElementRate_1(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==2) expensesJson.setExpenseElementRate_2(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==3) expensesJson.setExpenseElementRate_3(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==4) expensesJson.setExpenseElementRate_4(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==5) expensesJson.setExpenseElementRate_5(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==6) expensesJson.setExpenseElementRate_6(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==7) expensesJson.setExpenseElementRate_7(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==8) expensesJson.setExpenseElementRate_8(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==9) expensesJson.setExpenseElementRate_9(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==10) expensesJson.setExpenseElementRate_10(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==11) expensesJson.setExpenseElementRate_11(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==12) expensesJson.setExpenseElementRate_12(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==13) expensesJson.setExpenseElementRate_13(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==14) expensesJson.setExpenseElementRate_14(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==15) expensesJson.setExpenseElementRate_15(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==16) expensesJson.setExpenseElementRate_16(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==17) expensesJson.setExpenseElementRate_17(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==18) expensesJson.setExpenseElementRate_18(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==19) expensesJson.setExpenseElementRate_19(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==20) expensesJson.setExpenseElementRate_20(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==21) expensesJson.setExpenseElementRate_21(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==22) expensesJson.setExpenseElementRate_22(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==23) expensesJson.setExpenseElementRate_23(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==24) expensesJson.setExpenseElementRate_24(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==25) expensesJson.setExpenseElementRate_25(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==26) expensesJson.setExpenseElementRate_26(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==27) expensesJson.setExpenseElementRate_27(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==28) expensesJson.setExpenseElementRate_28(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==29) expensesJson.setExpenseElementRate_29(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==30) expensesJson.setExpenseElementRate_30(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==31) expensesJson.setExpenseElementRate_31(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==32) expensesJson.setExpenseElementRate_32(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==33) expensesJson.setExpenseElementRate_33(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==34) expensesJson.setExpenseElementRate_34(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==35) expensesJson.setExpenseElementRate_35(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==36) expensesJson.setExpenseElementRate_36(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==37) expensesJson.setExpenseElementRate_37(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==38) expensesJson.setExpenseElementRate_38(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==39) expensesJson.setExpenseElementRate_39(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==40) expensesJson.setExpenseElementRate_40(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==41) expensesJson.setExpenseElementRate_41(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==42) expensesJson.setExpenseElementRate_42(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==43) expensesJson.setExpenseElementRate_43(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==44) expensesJson.setExpenseElementRate_44(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==45) expensesJson.setExpenseElementRate_45(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==46) expensesJson.setExpenseElementRate_46(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==47) expensesJson.setExpenseElementRate_47(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==48) expensesJson.setExpenseElementRate_48(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==49) expensesJson.setExpenseElementRate_49(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==50) expensesJson.setExpenseElementRate_50(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==51) expensesJson.setExpenseElementRate_51(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==52) expensesJson.setExpenseElementRate_52(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==53) expensesJson.setExpenseElementRate_53(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==54) expensesJson.setExpenseElementRate_54(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==55) expensesJson.setExpenseElementRate_55(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==56) expensesJson.setExpenseElementRate_56(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==57) expensesJson.setExpenseElementRate_57(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==58) expensesJson.setExpenseElementRate_58(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==59) expensesJson.setExpenseElementRate_59(expenseElement.getDefaultRate());
+                else if (expenseElement.getExpenseElementID() ==60) expensesJson.setExpenseElementRate_60(expenseElement.getDefaultRate());
+                else expensesJson.setExpenseElementRate_61(expenseElement.getDefaultRate());
+
+            }
         }
         uiModel.addAttribute("expensesJson", expensesJson);
         uiModel.addAttribute("projectId",projectId);
@@ -215,246 +469,307 @@ public class ExpensesController extends CommonController{
             if (elementID == 1) {
                 expense.setQuantity(expensesJson.getExpenseElement_1());
                 expense.setDuration(expensesJson.getExpenseElementDuration_1());
+                expense.setRate(expensesJson.getExpenseElementRate_1());
             }
             else if (elementID == 2) {
                 expense.setQuantity(expensesJson.getExpenseElement_2());
                 expense.setDuration(expensesJson.getExpenseElementDuration_2());
+                expense.setRate(expensesJson.getExpenseElementRate_2());
             }
             else if (elementID == 3) {
                 expense.setQuantity(expensesJson.getExpenseElement_3());
                 expense.setDuration(expensesJson.getExpenseElementDuration_3());
+                expense.setRate(expensesJson.getExpenseElementRate_3());
             }
             else if (elementID == 4) {
                 expense.setQuantity(expensesJson.getExpenseElement_4());
                 expense.setDuration(expensesJson.getExpenseElementDuration_4());
+                expense.setRate(expensesJson.getExpenseElementRate_4());
             }
             else if (elementID == 5) {
                 expense.setQuantity(expensesJson.getExpenseElement_5());
                 expense.setDuration(expensesJson.getExpenseElementDuration_5());
+                expense.setRate(expensesJson.getExpenseElementRate_5());
             }
             else if (elementID == 6) {
                 expense.setQuantity(expensesJson.getExpenseElement_6());
                 expense.setDuration(expensesJson.getExpenseElementDuration_6());
+                expense.setRate(expensesJson.getExpenseElementRate_6());
             }
             else if (elementID == 7) {
                 expense.setQuantity(expensesJson.getExpenseElement_7());
                 expense.setDuration(expensesJson.getExpenseElementDuration_7());
+                expense.setRate(expensesJson.getExpenseElementRate_7());
             }
             else if (elementID == 8) {
                 expense.setQuantity(expensesJson.getExpenseElement_8());
                 expense.setDuration(expensesJson.getExpenseElementDuration_8());
+                expense.setRate(expensesJson.getExpenseElementRate_8());
             }
             else if (elementID == 9) {
                 expense.setQuantity(expensesJson.getExpenseElement_9());
                 expense.setDuration(expensesJson.getExpenseElementDuration_9());
+                expense.setRate(expensesJson.getExpenseElementRate_9());
             }
             else if (elementID == 10) {
                 expense.setQuantity(expensesJson.getExpenseElement_10());
                 expense.setDuration(expensesJson.getExpenseElementDuration_10());
+                expense.setRate(expensesJson.getExpenseElementRate_10());
             }
             else if (elementID == 11) {
                 expense.setQuantity(expensesJson.getExpenseElement_11());
                 expense.setDuration(expensesJson.getExpenseElementDuration_11());
+                expense.setRate(expensesJson.getExpenseElementRate_11());
             }
             else if (elementID == 12) {
                 expense.setQuantity(expensesJson.getExpenseElement_12());
                 expense.setDuration(expensesJson.getExpenseElementDuration_12());
+                expense.setRate(expensesJson.getExpenseElementRate_12());
             }
             else if (elementID == 13) {
                 expense.setQuantity(expensesJson.getExpenseElement_13());
                 expense.setDuration(expensesJson.getExpenseElementDuration_13());
+                expense.setRate(expensesJson.getExpenseElementRate_13());
             }
             else if (elementID == 14) {
                 expense.setQuantity(expensesJson.getExpenseElement_14());
                 expense.setDuration(expensesJson.getExpenseElementDuration_14());
+                expense.setRate(expensesJson.getExpenseElementRate_14());
             }
             else if (elementID == 15) {
                 expense.setQuantity(expensesJson.getExpenseElement_15());
                 expense.setDuration(expensesJson.getExpenseElementDuration_15());
+                expense.setRate(expensesJson.getExpenseElementRate_15());
             }
             else if (elementID == 16) {
                 expense.setQuantity(expensesJson.getExpenseElement_16());
                 expense.setDuration(expensesJson.getExpenseElementDuration_16());
+                expense.setRate(expensesJson.getExpenseElementRate_16());
             }
             else if (elementID == 17) {
                 expense.setQuantity(expensesJson.getExpenseElement_17());
                 expense.setDuration(expensesJson.getExpenseElementDuration_17());
+                expense.setRate(expensesJson.getExpenseElementRate_17());
             }
             else if (elementID == 18) {
                 expense.setQuantity(expensesJson.getExpenseElement_18());
                 expense.setDuration(expensesJson.getExpenseElementDuration_18());
+                expense.setRate(expensesJson.getExpenseElementRate_18());
             }
             else if (elementID == 19) {
                 expense.setQuantity(expensesJson.getExpenseElement_19());
                 expense.setDuration(expensesJson.getExpenseElementDuration_19());
+                expense.setRate(expensesJson.getExpenseElementRate_19());
             }
             else if (elementID == 20) {
                 expense.setQuantity(expensesJson.getExpenseElement_20());
                 expense.setDuration(expensesJson.getExpenseElementDuration_20());
+                expense.setRate(expensesJson.getExpenseElementRate_20());
             }
             else if (elementID == 21) {
                 expense.setQuantity(expensesJson.getExpenseElement_21());
                 expense.setDuration(expensesJson.getExpenseElementDuration_21());
+                expense.setRate(expensesJson.getExpenseElementRate_21());
             }
             else if (elementID == 22) {
                 expense.setQuantity(expensesJson.getExpenseElement_22());
                 expense.setDuration(expensesJson.getExpenseElementDuration_22());
+                expense.setRate(expensesJson.getExpenseElementRate_22());
             }
             else if (elementID == 23) {
                 expense.setQuantity(expensesJson.getExpenseElement_23());
                 expense.setDuration(expensesJson.getExpenseElementDuration_23());
+                expense.setRate(expensesJson.getExpenseElementRate_23());
             }
             else if (elementID == 24) {
                 expense.setQuantity(expensesJson.getExpenseElement_24());
                 expense.setDuration(expensesJson.getExpenseElementDuration_24());
+                expense.setRate(expensesJson.getExpenseElementRate_24());
             }
             else if (elementID == 25) {
                 expense.setQuantity(expensesJson.getExpenseElement_25());
                 expense.setDuration(expensesJson.getExpenseElementDuration_25());
+                expense.setRate(expensesJson.getExpenseElementRate_25());
             }
             else if (elementID == 26) {
                 expense.setQuantity(expensesJson.getExpenseElement_26());
                 expense.setDuration(expensesJson.getExpenseElementDuration_26());
+                expense.setRate(expensesJson.getExpenseElementRate_26());
             }
             else if (elementID == 27) {
                 expense.setQuantity(expensesJson.getExpenseElement_27());
                 expense.setDuration(expensesJson.getExpenseElementDuration_27());
+                expense.setRate(expensesJson.getExpenseElementRate_27());
             }
             else if (elementID == 28) {
                 expense.setQuantity(expensesJson.getExpenseElement_28());
                 expense.setDuration(expensesJson.getExpenseElementDuration_28());
+                expense.setRate(expensesJson.getExpenseElementRate_28());
             }
             else if (elementID == 29) {
                 expense.setQuantity(expensesJson.getExpenseElement_29());
                 expense.setDuration(expensesJson.getExpenseElementDuration_29());
+                expense.setRate(expensesJson.getExpenseElementRate_29());
             }
             else if (elementID == 30) {
                 expense.setQuantity(expensesJson.getExpenseElement_30());
                 expense.setDuration(expensesJson.getExpenseElementDuration_30());
+                expense.setRate(expensesJson.getExpenseElementRate_30());
             }
             else if (elementID == 31) {
                 expense.setQuantity(expensesJson.getExpenseElement_31());
                 expense.setDuration(expensesJson.getExpenseElementDuration_31());
+                expense.setRate(expensesJson.getExpenseElementRate_31());
             }
             else if (elementID == 32) {
                 expense.setQuantity(expensesJson.getExpenseElement_32());
                 expense.setDuration(expensesJson.getExpenseElementDuration_32());
+                expense.setRate(expensesJson.getExpenseElementRate_32());
             }
             else if (elementID == 33) {
                 expense.setQuantity(expensesJson.getExpenseElement_33());
                 expense.setDuration(expensesJson.getExpenseElementDuration_33());
+                expense.setRate(expensesJson.getExpenseElementRate_33());
             }
             else if (elementID == 34) {
                 expense.setQuantity(expensesJson.getExpenseElement_34());
                 expense.setDuration(expensesJson.getExpenseElementDuration_34());
+                expense.setRate(expensesJson.getExpenseElementRate_34());
             }
             else if (elementID == 35) {
                 expense.setQuantity(expensesJson.getExpenseElement_35());
                 expense.setDuration(expensesJson.getExpenseElementDuration_35());
+                expense.setRate(expensesJson.getExpenseElementRate_35());
             }
             else if (elementID == 36) {
                 expense.setQuantity(expensesJson.getExpenseElement_36());
                 expense.setDuration(expensesJson.getExpenseElementDuration_36());
+                expense.setRate(expensesJson.getExpenseElementRate_36());
             }
             else if (elementID == 37) {
                 expense.setQuantity(expensesJson.getExpenseElement_37());
                 expense.setDuration(expensesJson.getExpenseElementDuration_37());
+                expense.setRate(expensesJson.getExpenseElementRate_37());
             }
             else if (elementID == 38) {
                 expense.setQuantity(expensesJson.getExpenseElement_38());
                 expense.setDuration(expensesJson.getExpenseElementDuration_38());
+                expense.setRate(expensesJson.getExpenseElementRate_38());
             }
             else if (elementID == 39) {
                 expense.setQuantity(expensesJson.getExpenseElement_39());
                 expense.setDuration(expensesJson.getExpenseElementDuration_39());
+                expense.setRate(expensesJson.getExpenseElementRate_39());
             }
             else if (elementID == 40) {
                 expense.setQuantity(expensesJson.getExpenseElement_40());
                 expense.setDuration(expensesJson.getExpenseElementDuration_40());
+                expense.setRate(expensesJson.getExpenseElementRate_40());
             }
             else if (elementID == 41) {
                 expense.setQuantity(expensesJson.getExpenseElement_41());
                 expense.setDuration(expensesJson.getExpenseElementDuration_41());
+                expense.setRate(expensesJson.getExpenseElementRate_41());
             }
             else if (elementID == 42) {
                 expense.setQuantity(expensesJson.getExpenseElement_42());
                 expense.setDuration(expensesJson.getExpenseElementDuration_42());
+                expense.setRate(expensesJson.getExpenseElementRate_42());
             }
             else if (elementID == 43) {
                 expense.setQuantity(expensesJson.getExpenseElement_43());
                 expense.setDuration(expensesJson.getExpenseElementDuration_43());
+                expense.setRate(expensesJson.getExpenseElementRate_43());
             }
             else if (elementID == 44) {
                 expense.setQuantity(expensesJson.getExpenseElement_44());
                 expense.setDuration(expensesJson.getExpenseElementDuration_44());
+                expense.setRate(expensesJson.getExpenseElementRate_44());
             }
             else if (elementID == 45) {
                 expense.setQuantity(expensesJson.getExpenseElement_45());
                 expense.setDuration(expensesJson.getExpenseElementDuration_45());
+                expense.setRate(expensesJson.getExpenseElementRate_45());
             }
             else if (elementID == 46) {
                 expense.setQuantity(expensesJson.getExpenseElement_46());
                 expense.setDuration(expensesJson.getExpenseElementDuration_46());
+                expense.setRate(expensesJson.getExpenseElementRate_46());
             }
             else if (elementID == 47) {
                 expense.setQuantity(expensesJson.getExpenseElement_47());
                 expense.setDuration(expensesJson.getExpenseElementDuration_47());
+                expense.setRate(expensesJson.getExpenseElementRate_47());
             }
             else if (elementID == 48) {
                 expense.setQuantity(expensesJson.getExpenseElement_48());
                 expense.setDuration(expensesJson.getExpenseElementDuration_48());
+                expense.setRate(expensesJson.getExpenseElementRate_48());
             }
             else if (elementID == 49) {
                 expense.setQuantity(expensesJson.getExpenseElement_49());
                 expense.setDuration(expensesJson.getExpenseElementDuration_49());
+                expense.setRate(expensesJson.getExpenseElementRate_49());
             }
             else if (elementID == 50) {
                 expense.setQuantity(expensesJson.getExpenseElement_50());
                 expense.setDuration(expensesJson.getExpenseElementDuration_50());
+                expense.setRate(expensesJson.getExpenseElementRate_50());
             }
             else if (elementID == 51) {
                 expense.setQuantity(expensesJson.getExpenseElement_51());
                 expense.setDuration(expensesJson.getExpenseElementDuration_51());
+                expense.setRate(expensesJson.getExpenseElementRate_51());
             }
             else if (elementID == 52) {
                 expense.setQuantity(expensesJson.getExpenseElement_52());
                 expense.setDuration(expensesJson.getExpenseElementDuration_52());
+                expense.setRate(expensesJson.getExpenseElementRate_52());
             }
             else if (elementID == 53) {
                 expense.setQuantity(expensesJson.getExpenseElement_53());
                 expense.setDuration(expensesJson.getExpenseElementDuration_53());
+                expense.setRate(expensesJson.getExpenseElementRate_53());
             }
             else if (elementID == 54) {
                 expense.setQuantity(expensesJson.getExpenseElement_54());
                 expense.setDuration(expensesJson.getExpenseElementDuration_54());
+                expense.setRate(expensesJson.getExpenseElementRate_54());
             }
             else if (elementID == 55) {
                 expense.setQuantity(expensesJson.getExpenseElement_55());
                 expense.setDuration(expensesJson.getExpenseElementDuration_55());
+                expense.setRate(expensesJson.getExpenseElementRate_55());
             }
             else if (elementID == 56) {
                 expense.setQuantity(expensesJson.getExpenseElement_56());
                 expense.setDuration(expensesJson.getExpenseElementDuration_56());
+                expense.setRate(expensesJson.getExpenseElementRate_56());
             }
             else if (elementID == 57) {
                 expense.setQuantity(expensesJson.getExpenseElement_57());
                 expense.setDuration(expensesJson.getExpenseElementDuration_57());
+                expense.setRate(expensesJson.getExpenseElementRate_57());
             }
             else if (elementID == 58) {
                 expense.setQuantity(expensesJson.getExpenseElement_58());
                 expense.setDuration(expensesJson.getExpenseElementDuration_58());
+                expense.setRate(expensesJson.getExpenseElementRate_58());
             }
             else if (elementID == 59) {
                 expense.setQuantity(expensesJson.getExpenseElement_59());
                 expense.setDuration(expensesJson.getExpenseElementDuration_59());
+                expense.setRate(expensesJson.getExpenseElementRate_59());
             }
             else if (elementID == 60) {
                 expense.setQuantity(expensesJson.getExpenseElement_60());
                 expense.setDuration(expensesJson.getExpenseElementDuration_60());
+                expense.setRate(expensesJson.getExpenseElementRate_60());
             }
             else {
                 expense.setQuantity(expensesJson.getExpenseElement_61());
                 expense.setDuration(expensesJson.getExpenseElementDuration_61());
+                expense.setRate(expensesJson.getExpenseElementRate_61());
             }
 
             expensesService.save(expense);

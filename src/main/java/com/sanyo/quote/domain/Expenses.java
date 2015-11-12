@@ -22,6 +22,7 @@ public class Expenses implements Serializable {
 	private float duration; //duration in some records may be null
 	private float rate;
 	private String remark;
+	private float Sum;
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -99,5 +100,12 @@ public class Expenses implements Serializable {
 		this.remark = remark;
 	}
 
+	@Column(name="SUM")
+	public float getSum() {
+		return Sum;
+	}
 
+	public void setSum(float sum) {
+		Sum = sum;
+	}
 }

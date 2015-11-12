@@ -239,16 +239,16 @@ public class StartupContextListener extends ContextLoaderListener{
 
 	private void addExpenseElements (ExpenseElementsService expenseElementsService){
 		String [] expenseElements = {
-				"JP Yen 29,000/Day", "JP Yen 35,000/Day", "JP Yen 40,000/Day"
-				,"Japanese Site correction","3rd Country Engineer", "Local Site Manager", "Local Engineer 1","Local Engineer 2"
-				, "Local Engineer 3", "Local Engineer 4", "Cad Operator", "Safety Supervisor"
-				, "Site Office", "Site Storage", "Drawing & Documents", "Site Goods", "Transportation (MAT)", "Transportation (Engineer)", "Safety Goods"
+				"JP Yen 29,000/Day;6571.43", "JP Yen 35,000/Day;7979.59", "JP Yen 40,000/Day"
+				,"Japanese Site correction;918.37","3rd Country Engineer;4000", "Local Site Manager;1200", "Local Engineer 1;1000","Local Engineer 2;900"
+				, "Local Engineer 3;800", "Local Engineer 4", "Cad Operator;600", "Safety Supervisor;500"
+				, "Site Office", "Site Storage;200", "Drawing & Documents;500", "Site Goods;300", "Transportation (MAT)", "Transportation (Engineer);1800", "Safety Goods"
 				, "Accomodation", "others", "Import Tax", "Computer, etc,", "3rd Party Insurance", "Performance Bond", "Tender Fees"
 				, "Prosonal Income Tax", "Personal Social Insurance", "Bank Loan Intarest"
-				, "Japanese, 3rd country", "Air Ticket", "Telephone", "Electric & Water fee", "Administration", "Misce", "Entertainmant"
-				, "Application cost", "Japanese", "3rd Country", "Vietnam", "Vietnam", "Vietnam", "Vietnam", "Vietnam", "Vietnam", "Vietnam", "Vietnam", "Vietnam"
-				, "Japanese", "3rd Country", "Vietnam", "Vietnam", "Vietnam", "Vietnam", "Vietnam", "Vietnam", "Vietnam", "Vietnam", "Vietnam"
-				, "Japanese", "Vietnam"
+				, "Japanese, 3rd country;900", "Air Ticket;1000", "Telephone;30", "Electric & Water fee", "Administration;120", "Misce;200", "Entertainmant;100"
+				, "Application cost", "Japanese;900", "3rd Country;550", "Vietnam;171.43", "Vietnam;142.86", "Vietnam;128.57", "Vietnam;114.29", "Vietnam;100", "Vietnam;85.71", "Vietnam;71.43", "Vietnam;57.14", "Vietnam;42.86"
+				, "Japanese", "3rd Country;600", "Vietnam;300", "Vietnam;250", "Vietnam;225", "Vietnam;200", "Vietnam;175", "Vietnam;150", "Vietnam;125", "Vietnam;100", "Vietnam;75"
+				, "Japanese", "Vietnam;23.67"
 
 		};
 		int i = 0;
@@ -256,7 +256,10 @@ public class StartupContextListener extends ContextLoaderListener{
 			i ++;
 
 			ExpenseElements element = new ExpenseElements();
-			element.setElementName(name);
+			String [] NameAndRate = name.split(";");
+			element.setElementName(NameAndRate[0]);
+			if (NameAndRate.length>1)
+				element.setDefaultRate(Float.valueOf(NameAndRate[1]));
 			element.setDefaultOrder(i);
 			expenseElementsService.save(element);
 		}
