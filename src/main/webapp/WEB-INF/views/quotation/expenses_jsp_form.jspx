@@ -7,6 +7,7 @@
   To change this template use File | Settings | File Templates.
 -->
 
+
 <div xmlns:jsp="http://java.sun.com/JSP/Page"
      xmlns:c="http://java.sun.com/jsp/jstl/core"
      xmlns:spring="http://www.springframework.org/tags"
@@ -80,623 +81,88 @@
 
     <section class="content">
         <form:form modelAttribute="expensesJson" id="projectUpdateForm" method="post">
-            <div class="form-group">
-                <form:label path="expenseElement_1">
-                    ${expenseElement_1}*
-                </form:label>
-                <form:input path="expenseElement_1" class="form-control"/>
-                <form:label path="expenseElementDuration_1">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_1" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_2">
-                    ${expenseElement_2}*
-                </form:label>
-                <form:input path="expenseElement_2" class="form-control"/>
-                <form:label path="expenseElementDuration_2">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_2" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_3">
-                    ${expenseElement_3}*
-                </form:label>
-                <form:input path="expenseElement_3" class="form-control"/>
-                <form:label path="expenseElementDuration_3">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_3" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_4">
-                    ${expenseElement_4}*
-                </form:label>
-                <form:input path="expenseElement_4" class="form-control"/>
-                <form:label path="expenseElementDuration_4">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_4" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_5">
-                    ${expenseElement_5}*
-                </form:label>
-                <form:input path="expenseElement_5" class="form-control"/>
-                <form:label path="expenseElementDuration_5">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_5" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_6">
-                    ${expenseElement_6}*
-                </form:label>
-                <form:input path="expenseElement_6" class="form-control"/>
-                <form:label path="expenseElementDuration_6">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_6" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_7">
-                    ${expenseElement_7}*
-                </form:label>
-                <form:input path="expenseElement_7" class="form-control"/>
-                <form:label path="expenseElementDuration_7">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_7" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_8">
-                    ${expenseElement_8}*
-                </form:label>
-                <form:input path="expenseElement_8" class="form-control"/>
-                <form:label path="expenseElementDuration_8">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_8" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_9">
-                    ${expenseElement_9}*
-                </form:label>
-                <form:input path="expenseElement_9" class="form-control"/>
-                <form:label path="expenseElementDuration_9">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_9" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_10">
-                    ${expenseElement_10}*
-                </form:label>
-                <form:input path="expenseElement_10" class="form-control"/>
-                <form:label path="expenseElementDuration_10">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_10" class="form-control"/>
-            </div>
-
-            <div class="form-group">
-                <form:label path="expenseElement_11">
-                    ${expenseElement_11}*
-                </form:label>
-                <form:input path="expenseElement_11" class="form-control"/>
-                <form:label path="expenseElementDuration_11">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_11" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_12">
-                    ${expenseElement_12}*
-                </form:label>
-                <form:input path="expenseElement_12" class="form-control"/>
-                <form:label path="expenseElementDuration_12">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_12" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_13">
-                    ${expenseElement_13}*
-                </form:label>
-                <form:input path="expenseElement_13" class="form-control"/>
-                <form:label path="expenseElementDuration_13">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_13" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_14">
-                    ${expenseElement_14}*
-                </form:label>
-                <form:input path="expenseElement_14" class="form-control"/>
-                <form:label path="expenseElementDuration_14">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_14" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_15">
-                    ${expenseElement_15}*
-                </form:label>
-                <form:input path="expenseElement_15" class="form-control"/>
-                <form:label path="expenseElementDuration_15">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_15" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_16">
-                    ${expenseElement_16}*
-                </form:label>
-                <form:input path="expenseElement_16" class="form-control"/>
-                <form:label path="expenseElementDuration_16">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_16" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_17">
-                    ${expenseElement_17}*
-                </form:label>
-                <form:input path="expenseElement_17" class="form-control"/>
-                <form:label path="expenseElementDuration_17">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_17" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_18">
-                    ${expenseElement_18}*
-                </form:label>
-                <form:input path="expenseElement_18" class="form-control"/>
-                <form:label path="expenseElementDuration_18">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_18" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_19">
-                    ${expenseElement_19}*
-                </form:label>
-                <form:input path="expenseElement_19" class="form-control"/>
-                <form:label path="expenseElementDuration_19">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_19" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_20">
-                    ${expenseElement_20}*
-                </form:label>
-                <form:input path="expenseElement_20" class="form-control"/>
-                <form:label path="expenseElementDuration_20">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_20" class="form-control"/>
-            </div>
-
-            <div class="form-group">
-                <form:label path="expenseElement_21">
-                    ${expenseElement_21}*
-                </form:label>
-                <form:input path="expenseElement_21" class="form-control"/>
-                <form:label path="expenseElementDuration_21">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_21" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_22">
-                    ${expenseElement_22}*
-                </form:label>
-                <form:input path="expenseElement_22" class="form-control"/>
-                <form:label path="expenseElementDuration_22">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_22" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_23">
-                    ${expenseElement_23}*
-                </form:label>
-                <form:input path="expenseElement_23" class="form-control"/>
-                <form:label path="expenseElementDuration_23">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_23" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_24">
-                    ${expenseElement_24}*
-                </form:label>
-                <form:input path="expenseElement_24" class="form-control"/>
-                <form:label path="expenseElementDuration_24">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_24" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_25">
-                    ${expenseElement_25}*
-                </form:label>
-                <form:input path="expenseElement_25" class="form-control"/>
-                <form:label path="expenseElementDuration_25">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_25" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_26">
-                    ${expenseElement_26}*
-                </form:label>
-                <form:input path="expenseElement_26" class="form-control"/>
-                <form:label path="expenseElementDuration_26">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_26" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_27">
-                    ${expenseElement_27}*
-                </form:label>
-                <form:input path="expenseElement_27" class="form-control"/>
-                <form:label path="expenseElementDuration_27">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_27" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_28">
-                    ${expenseElement_28}*
-                </form:label>
-                <form:input path="expenseElement_28" class="form-control"/>
-                <form:label path="expenseElementDuration_28">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_28" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_29">
-                    ${expenseElement_29}*
-                </form:label>
-                <form:input path="expenseElement_29" class="form-control"/>
-                <form:label path="expenseElementDuration_29">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_29" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_30">
-                    ${expenseElement_30}*
-                </form:label>
-                <form:input path="expenseElement_30" class="form-control"/>
-                <form:label path="expenseElementDuration_30">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_30" class="form-control"/>
-            </div>
-
-            <div class="form-group">
-                <form:label path="expenseElement_31">
-                    ${expenseElement_31}*
-                </form:label>
-                <form:input path="expenseElement_31" class="form-control"/>
-                <form:label path="expenseElementDuration_31">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_31" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_32">
-                    ${expenseElement_32}*
-                </form:label>
-                <form:input path="expenseElement_32" class="form-control"/>
-                <form:label path="expenseElementDuration_32">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_32" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_33">
-                    ${expenseElement_33}*
-                </form:label>
-                <form:input path="expenseElement_33" class="form-control"/>
-                <form:label path="expenseElementDuration_33">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_33" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_34">
-                    ${expenseElement_34}*
-                </form:label>
-                <form:input path="expenseElement_34" class="form-control"/>
-                <form:label path="expenseElementDuration_34">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_34" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_35">
-                    ${expenseElement_35}*
-                </form:label>
-                <form:input path="expenseElement_35" class="form-control"/>
-                <form:label path="expenseElementDuration_35">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_35" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_36">
-                    ${expenseElement_36}*
-                </form:label>
-                <form:input path="expenseElement_36" class="form-control"/>
-                <form:label path="expenseElementDuration_36">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_36" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_37">
-                    ${expenseElement_37}*
-                </form:label>
-                <form:input path="expenseElement_37" class="form-control"/>
-                <form:label path="expenseElementDuration_37">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_37" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_38">
-                    ${expenseElement_38}*
-                </form:label>
-                <form:input path="expenseElement_38" class="form-control"/>
-                <form:label path="expenseElementDuration_38">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_38" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_39">
-                    ${expenseElement_39}*
-                </form:label>
-                <form:input path="expenseElement_39" class="form-control"/>
-                <form:label path="expenseElementDuration_39">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_39" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_40">
-                    ${expenseElement_40}*
-                </form:label>
-                <form:input path="expenseElement_40" class="form-control"/>
-                <form:label path="expenseElementDuration_40">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_40" class="form-control"/>
-            </div>
-
-            <div class="form-group">
-                <form:label path="expenseElement_41">
-                    ${expenseElement_41}*
-                </form:label>
-                <form:input path="expenseElement_41" class="form-control"/>
-                <form:label path="expenseElementDuration_41">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_41" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_42">
-                    ${expenseElement_42}*
-                </form:label>
-                <form:input path="expenseElement_42" class="form-control"/>
-                <form:label path="expenseElementDuration_42">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_42" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_43">
-                    ${expenseElement_43}*
-                </form:label>
-                <form:input path="expenseElement_43" class="form-control"/>
-                <form:label path="expenseElementDuration_43">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_43" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_44">
-                    ${expenseElement_44}*
-                </form:label>
-                <form:input path="expenseElement_44" class="form-control"/>
-                <form:label path="expenseElementDuration_44">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_44" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_45">
-                    ${expenseElement_45}*
-                </form:label>
-                <form:input path="expenseElement_45" class="form-control"/>
-                <form:label path="expenseElementDuration_45">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_45" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_46">
-                    ${expenseElement_46}*
-                </form:label>
-                <form:input path="expenseElement_46" class="form-control"/>
-                <form:label path="expenseElementDuration_46">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_46" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_47">
-                    ${expenseElement_47}*
-                </form:label>
-                <form:input path="expenseElement_47" class="form-control"/>
-                <form:label path="expenseElementDuration_47">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_47" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_48">
-                    ${expenseElement_48}*
-                </form:label>
-                <form:input path="expenseElement_48" class="form-control"/>
-                <form:label path="expenseElementDuration_48">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_48" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_49">
-                    ${expenseElement_49}*
-                </form:label>
-                <form:input path="expenseElement_49" class="form-control"/>
-                <form:label path="expenseElementDuration_49">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_49" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_50">
-                    ${expenseElement_50}*
-                </form:label>
-                <form:input path="expenseElement_50" class="form-control"/>
-                <form:label path="expenseElementDuration_50">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_50" class="form-control"/>
-            </div>
-
-            <div class="form-group">
-                <form:label path="expenseElement_51">
-                    ${expenseElement_51}*
-                </form:label>
-                <form:input path="expenseElement_51" class="form-control"/>
-                <form:label path="expenseElementDuration_51">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_51" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_52">
-                    ${expenseElement_52}*
-                </form:label>
-                <form:input path="expenseElement_52" class="form-control"/>
-                <form:label path="expenseElementDuration_52">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_52" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_53">
-                    ${expenseElement_53}*
-                </form:label>
-                <form:input path="expenseElement_53" class="form-control"/>
-                <form:label path="expenseElementDuration_53">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_53" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_54">
-                    ${expenseElement_54}*
-                </form:label>
-                <form:input path="expenseElement_54" class="form-control"/>
-                <form:label path="expenseElementDuration_54">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_54" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_55">
-                    ${expenseElement_55}*
-                </form:label>
-                <form:input path="expenseElement_55" class="form-control"/>
-                <form:label path="expenseElementDuration_55">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_55" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_56">
-                    ${expenseElement_56}*
-                </form:label>
-                <form:input path="expenseElement_56" class="form-control"/>
-                <form:label path="expenseElementDuration_56">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_56" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_57">
-                    ${expenseElement_57}*
-                </form:label>
-                <form:input path="expenseElement_57" class="form-control"/>
-                <form:label path="expenseElementDuration_57">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_57" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_58">
-                    ${expenseElement_58}*
-                </form:label>
-                <form:input path="expenseElement_58" class="form-control"/>
-                <form:label path="expenseElementDuration_58">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_58" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_59">
-                    ${expenseElement_59}*
-                </form:label>
-                <form:input path="expenseElement_59" class="form-control"/>
-                <form:label path="expenseElementDuration_59">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_59" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <form:label path="expenseElement_60">
-                    ${expenseElement_60}*
-                </form:label>
-                <form:input path="expenseElement_60" class="form-control"/>
-                <form:label path="expenseElementDuration_60">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_60" class="form-control"/>
-            </div>
-
-            <div class="form-group">
-                <form:label path="expenseElement_61">
-                    ${expenseElement_61}*
-                </form:label>
-                <form:input path="expenseElement_61" class="form-control"/>
-                <form:label path="expenseElementDuration_61">
-                    ${duration}
-                </form:label>
-                <form:input path="expenseElementDuration_61" class="form-control"/>
-            </div>
-
+            <table class="tableizer-table">
+                <tbody><tr class="tableizer-firstrow"><th></th><th>Name</th><th>Quantity/Person</th><th>Duration</th><th>Rate</th><th>Sum</th><th>Remark</th></tr>
+                <tr><td>400</td><td>Japanese Cost</td><td></td><td></td><td></td><td>c/f to summary</td><td>US$0.00</td></tr>
+                <tr><td></td><td>JP Yen 29,000/Day</td><td><form:input path="expenseElement_1" class="form-control"/></td><td><form:input path="expenseElementDuration_1" class="form-control"/></td><td> $ 6,571.43 </td><td>$0.00</td><td></td></tr>
+                <tr><td></td><td>JP Yen 35,000/Day</td><td><form:input path="expenseElement_2" class="form-control"/></td><td><form:input path="expenseElementDuration_2" class="form-control"/></td><td> $ 7,979.59 </td><td>$0.00</td><td></td></tr>
+                <tr><td></td><td>JP Yen 40,000/Day</td><td><form:input path="expenseElement_3" class="form-control"/></td><td><form:input path="expenseElementDuration_3" class="form-control"/></td><td></td><td></td><td></td></tr>
+                <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                <tr><td>300-1</td><td>Supervision</td><td></td><td></td><td></td><td>c/f to summary</td><td>US$17,500.00</td></tr>
+                <tr><td></td><td></td><td>person</td><td># month</td><td> US$/month </td><td>total</td><td></td></tr>
+                <tr><td>a</td><td>Japanese Site correction</td><td><form:input path="expenseElement_4" class="form-control"/></td><td><form:input path="expenseElementDuration_4" class="form-control"/></td><td> $ 918.37 </td><td>$0.00</td><td></td></tr>
+                <tr><td>b</td><td>3rd Country Engineer</td><td><form:input path="expenseElement_5" class="form-control"/></td><td><form:input path="expenseElementDuration_5" class="form-control"/></td><td> $ 4,000.00 </td><td>$0.00</td><td></td></tr>
+                <tr><td>c</td><td>Local Site Manager</td><td><form:input path="expenseElement_6" class="form-control"/></td><td><form:input path="expenseElementDuration_6" class="form-control"/></td><td> 1,200.00 </td><td>$0.00</td><td></td></tr>
+                <tr><td>d</td><td>Local Engineer 1</td><td><form:input path="expenseElement_7" class="form-control"/></td><td><form:input path="expenseElementDuration_7" class="form-control"/></td><td> $ 1,000.00 </td><td>$0.00</td><td></td></tr>
+                <tr><td>e</td><td>Local Engineer 2</td><td><form:input path="expenseElement_8" class="form-control"/></td><td><form:input path="expenseElementDuration_8" class="form-control"/></td><td> $ 900.00 </td><td>$5,400.00</td><td>Mr. Phuoc</td></tr>
+                <tr><td>f</td><td>Local Engineer 3</td><td><form:input path="expenseElement_9" class="form-control"/></td><td><form:input path="expenseElementDuration_9" class="form-control"/></td><td> $ 800.00 </td><td>$9,600.00</td><td>Mr. Kim Mr. Phu</td></tr>
+                <tr><td>g</td><td>Local Engineer 4</td><td><form:input path="expenseElement_10" class="form-control"/></td><td><form:input path="expenseElementDuration_10" class="form-control"/></td><td></td><td></td><td></td></tr>
+                <tr><td>h</td><td>Cad Operator</td><td><form:input path="expenseElement_11" class="form-control"/></td><td><form:input path="expenseElementDuration_11" class="form-control"/></td><td> $ 600.00 </td><td>$0.00</td><td></td></tr>
+                <tr><td>i</td><td>Safety Supervisor</td><td><form:input path="expenseElement_12" class="form-control"/></td><td><form:input path="expenseElementDuration_12" class="form-control"/></td><td> $ 500.00 </td><td>$2,500.00</td><td></td></tr>
+                <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                <tr><td>300-2</td><td>Site Expenses </td><td></td><td></td><td></td><td>c/f to summary</td><td>US$14,945.33</td></tr>
+                <tr><td></td><td></td><td></td><td># mth or time</td><td> US$/ mth or time </td><td></td><td></td></tr>
+                <tr><td>a</td><td>Site Office</td><td><form:input path="expenseElement_13" class="form-control"/></td><td><form:input path="expenseElementDuration_13" class="form-control"/></td><td></td><td></td><td>Arrange By Main Con</td></tr>
+                <tr><td>a</td><td>Site Storage</td><td><form:input path="expenseElement_14" class="form-control"/></td><td><form:input path="expenseElementDuration_14" class="form-control"/></td><td> $ 200.00 </td><td>$1,200.00</td><td></td></tr>
+                <tr><td>b</td><td>Drawing &amp; Documents</td><td><form:input path="expenseElement_15" class="form-control"/></td><td><form:input path="expenseElementDuration_15" class="form-control"/></td><td> $ 500.00 </td><td>$0.00</td><td></td></tr>
+                <tr><td>c</td><td>Site Goods</td><td><form:input path="expenseElement_16" class="form-control"/></td><td><form:input path="expenseElementDuration_16" class="form-control"/></td><td> $ 300.00 </td><td>$0.00</td><td></td></tr>
+                <tr><td>d</td><td>Transportation (MAT)</td><td><form:input path="expenseElement_17" class="form-control"/></td><td><form:input path="expenseElementDuration_17" class="form-control"/></td><td></td><td></td><td>In Breakdown</td></tr>
+                <tr><td>e</td><td>Transportation (Engineer)</td><td><form:input path="expenseElement_18" class="form-control"/></td><td><form:input path="expenseElementDuration_18" class="form-control"/></td><td> $ 1,800.00 </td><td>$0.00</td><td>Taxi , rental car, etc</td></tr>
+                <tr><td>f</td><td>Safety Goods</td><td><form:input path="expenseElement_19" class="form-control"/></td><td><form:input path="expenseElementDuration_19" class="form-control"/></td><td> $ 300.00 </td><td>$0.00</td><td></td></tr>
+                <tr><td>h</td><td>Accomodation</td><td><form:input path="expenseElement_20" class="form-control"/></td><td><form:input path="expenseElementDuration_20" class="form-control"/></td><td></td><td>$800.00</td><td></td></tr>
+                <tr><td>i</td><td>others</td><td><form:input path="expenseElement_21" class="form-control"/></td><td><form:input path="expenseElementDuration_21" class="form-control"/></td><td></td><td>$5,810.00</td><td></td></tr>
+                <tr><td></td><td>Import Tax</td><td><form:input path="expenseElement_22" class="form-control"/></td><td><form:input path="expenseElementDuration_22" class="form-control"/></td><td></td><td></td><td>Not Required</td></tr>
+                <tr><td></td><td>Computer, etc,</td><td><form:input path="expenseElement_23" class="form-control"/></td><td><form:input path="expenseElementDuration_23" class="form-control"/></td><td></td><td></td><td>Not Required</td></tr>
+                <tr><td></td><td>3rd Party Insurance</td><td><form:input path="expenseElement_24" class="form-control"/></td><td><form:input path="expenseElementDuration_24" class="form-control"/></td><td></td><td></td><td>Not Required</td></tr>
+                <tr><td></td><td>Performance Bond</td><td><form:input path="expenseElement_25" class="form-control"/></td><td><form:input path="expenseElementDuration_25" class="form-control"/></td><td></td><td></td><td>Not Required</td></tr>
+                <tr><td></td><td>Tender Fees</td><td><form:input path="expenseElement_26" class="form-control"/></td><td><form:input path="expenseElementDuration_26" class="form-control"/></td><td></td><td></td><td>Not Required</td></tr>
+                <tr><td></td><td>Prosonal Income Tax</td><td><form:input path="expenseElement_27" class="form-control"/></td><td><form:input path="expenseElementDuration_27" class="form-control"/></td><td></td><td>$2,500.00</td><td></td></tr>
+                <tr><td></td><td>Personal Social Insurance</td><td><form:input path="expenseElement_28" class="form-control"/></td><td><form:input path="expenseElementDuration_28" class="form-control"/></td><td></td><td>$4,635.33</td><td></td></tr>
+                <tr><td></td><td>Bank Loan Intarest</td><td><form:input path="expenseElement_29" class="form-control"/></td><td><form:input path="expenseElementDuration_29" class="form-control"/></td><td></td><td></td><td></td></tr>
+                <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                <tr><td></td><td>Accomodation</td><td></td><td></td><td></td><td></td><td></td></tr>
+                <tr><td></td><td>Japanese, 3rd country</td><td><form:input path="expenseElement_30" class="form-control"/></td><td><form:input path="expenseElementDuration_30" class="form-control"/></td><td> $ 900.00 </td><td>$0.00</td><td>Hotel</td></tr>
+                <tr><td></td><td>Local</td><td></td><td></td><td></td><td></td><td></td></tr>
+                <tr><td></td><td>Others</td><td></td><td></td><td></td><td></td><td></td></tr>
+                <tr><td></td><td>Air Ticket</td><td><form:input path="expenseElement_31" class="form-control"/></td><td><form:input path="expenseElementDuration_31" class="form-control"/></td><td> $ 1,000.00 </td><td>$0.00</td><td>Air Ticket </td></tr>
+                <tr><td></td><td>Telephone</td><td><form:input path="expenseElement_32" class="form-control"/></td><td><form:input path="expenseElementDuration_32" class="form-control"/></td><td> $ 30.00 </td><td>$690.00</td><td></td></tr>
+                <tr><td></td><td>Electric &amp; Water fee</td><td><form:input path="expenseElement_33" class="form-control"/></td><td><form:input path="expenseElementDuration_33" class="form-control"/></td><td></td><td></td><td></td></tr>
+                <tr><td></td><td>Administration</td><td><form:input path="expenseElement_34" class="form-control"/></td><td><form:input path="expenseElementDuration_34" class="form-control"/></td><td> $ 120.00 </td><td>$720.00</td><td></td></tr>
+                <tr><td></td><td>Misce</td><td><form:input path="expenseElement_35" class="form-control"/></td><td><form:input path="expenseElementDuration_35" class="form-control"/></td><td> $ 200.00 </td><td>$1,200.00</td><td></td></tr>
+                <tr><td></td><td>Entertainmant</td><td><form:input path="expenseElement_36" class="form-control"/></td><td><form:input path="expenseElementDuration_36" class="form-control"/></td><td> $ 100.00 </td><td>$600.00</td><td></td></tr>
+                <tr><td></td><td></td><td></td><td></td><td> $ -   </td><td>$0.00</td><td></td></tr>
+                <tr><td></td><td>Application cost</td><td><form:input path="expenseElement_37" class="form-control"/></td><td><form:input path="expenseElementDuration_37" class="form-control"/></td><td> $ -   </td><td>$2,600.00</td><td>Included Document </td></tr>
+                <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                <tr><td></td><td>Prosonal Income Tax</td><td></td><td></td><td></td><td></td><td></td></tr>
+                <tr><td></td><td>Japanese</td><td><form:input path="expenseElement_38" class="form-control"/></td><td><form:input path="expenseElementDuration_38" class="form-control"/></td><td> $ 900.00 </td><td>$0.00</td><td></td></tr>
+                <tr><td></td><td>3rd Country</td><td><form:input path="expenseElement_39" class="form-control"/></td><td><form:input path="expenseElementDuration_39" class="form-control"/></td><td> $ 550.00 </td><td>$0.00</td><td></td></tr>
+                <tr><td></td><td>Vietnam</td><td><form:input path="expenseElement_40" class="form-control"/></td><td><form:input path="expenseElementDuration_40" class="form-control"/></td><td> $ 171.43 </td><td>$0.00</td><td></td></tr>
+                <tr><td></td><td>Vietnam</td><td><form:input path="expenseElement_41" class="form-control"/></td><td><form:input path="expenseElementDuration_41" class="form-control"/></td><td> $ 142.86 </td><td>$0.00</td><td></td></tr>
+                <tr><td></td><td>Vietnam</td><td><form:input path="expenseElement_42" class="form-control"/></td><td><form:input path="expenseElementDuration_42" class="form-control"/></td><td> $ 128.57 </td><td>$771.43</td><td></td></tr>
+                <tr><td></td><td>Vietnam</td><td><form:input path="expenseElement_43" class="form-control"/></td><td><form:input path="expenseElementDuration_43" class="form-control"/></td><td> $ 114.29 </td><td>$1,371.43</td><td></td></tr>
+                <tr><td></td><td>Vietnam</td><td><form:input path="expenseElement_44" class="form-control"/></td><td><form:input path="expenseElementDuration_44" class="form-control"/></td><td> $ 100.00 </td><td>$0.00</td><td></td></tr>
+                <tr><td></td><td>Vietnam</td><td><form:input path="expenseElement_45" class="form-control"/></td><td><form:input path="expenseElementDuration_45" class="form-control"/></td><td> $ 85.71 </td><td>$0.00</td><td></td></tr>
+                <tr><td></td><td>Vietnam</td><td><form:input path="expenseElement_46" class="form-control"/></td><td><form:input path="expenseElementDuration_46" class="form-control"/></td><td> $ 71.43 </td><td>$357.14</td><td></td></tr>
+                <tr><td></td><td>Vietnam</td><td><form:input path="expenseElement_47" class="form-control"/></td><td><form:input path="expenseElementDuration_47" class="form-control"/></td><td> $ 57.14 </td><td>$0.00</td><td></td></tr>
+                <tr><td></td><td>Vietnam</td><td><form:input path="expenseElement_48" class="form-control"/></td><td><form:input path="expenseElementDuration_48" class="form-control"/></td><td> $ 42.86 </td><td>$0.00</td><td></td></tr>
+                <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                <tr><td></td><td>Personal Social Insurance</td><td></td><td></td><td></td><td></td><td></td></tr>
+                <tr><td></td><td>Japanese</td><td><form:input path="expenseElement_49" class="form-control"/></td><td><form:input path="expenseElementDuration_49" class="form-control"/></td><td></td><td>$0.00</td><td></td></tr>
+                <tr><td></td><td>3rd Country</td><td><form:input path="expenseElement_50" class="form-control"/></td><td><form:input path="expenseElementDuration_50" class="form-control"/></td><td> $ 600.00 </td><td>$0.00</td><td></td></tr>
+                <tr><td></td><td>Vietnam</td><td><form:input path="expenseElement_51" class="form-control"/></td><td><form:input path="expenseElementDuration_51" class="form-control"/></td><td> $ 300.00 </td><td>$0.00</td><td></td></tr>
+                <tr><td></td><td>Vietnam</td><td><form:input path="expenseElement_52" class="form-control"/></td><td><form:input path="expenseElementDuration_52" class="form-control"/></td><td> $ 250.00 </td><td>$0.00</td><td></td></tr>
+                <tr><td></td><td>Vietnam</td><td><form:input path="expenseElement_53" class="form-control"/></td><td><form:input path="expenseElementDuration_53" class="form-control"/></td><td> $ 225.00 </td><td>$1,350.00</td><td></td></tr>
+                <tr><td></td><td>Vietnam</td><td><form:input path="expenseElement_54" class="form-control"/></td><td><form:input path="expenseElementDuration_54" class="form-control"/></td><td> $ 200.00 </td><td>$2,400.00</td><td></td></tr>
+                <tr><td></td><td>Vietnam</td><td><form:input path="expenseElement_55" class="form-control"/></td><td><form:input path="expenseElementDuration_55" class="form-control"/></td><td> $ 175.00 </td><td>$0.00</td><td></td></tr>
+                <tr><td></td><td>Vietnam</td><td><form:input path="expenseElement_56" class="form-control"/></td><td><form:input path="expenseElementDuration_56" class="form-control"/></td><td> $ 150.00 </td><td>$0.00</td><td></td></tr>
+                <tr><td></td><td>Vietnam</td><td><form:input path="expenseElement_57" class="form-control"/></td><td><form:input path="expenseElementDuration_57" class="form-control"/></td><td> $ 125.00 </td><td>$625.00</td><td></td></tr>
+                <tr><td></td><td>Vietnam</td><td><form:input path="expenseElement_58" class="form-control"/></td><td><form:input path="expenseElementDuration_58" class="form-control"/></td><td> $ 100.00 </td><td>$0.00</td><td></td></tr>
+                <tr><td></td><td>Vietnam</td><td><form:input path="expenseElement_59" class="form-control"/></td><td><form:input path="expenseElementDuration_59" class="form-control"/></td><td> $ 75.00 </td><td>$0.00</td><td></td></tr>
+                <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                <tr><td></td><td>Health Insurance</td><td></td><td></td><td></td><td></td><td></td></tr>
+                <tr><td></td><td>Japanese</td><td><form:input path="expenseElement_60" class="form-control"/></td><td><form:input path="expenseElementDuration_60" class="form-control"/></td><td> $ -   </td><td>$0.00</td><td></td></tr>
+                <tr><td></td><td>Vietnam</td><td><form:input path="expenseElement_61" class="form-control"/></td><td><form:input path="expenseElementDuration_61" class="form-control"/></td><td> $ 23.67 </td><td>$260.33</td><td></td></tr>
+                </tbody></table>
             <div class="form-group">
                 <button type="button" class="btn btn-primary" id="addExpenseBtn">Add</button>
             </div>
@@ -717,5 +183,21 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/addExpenses.js">
         <jsp:text/>
     </script>
+    <style type="text/css">
+        table.tableizer-table {
+            border: 1px solid #CCC; font-family: Arial, Helvetica, sans-serif;
+            font-size: 12px;
+        }
+        .tableizer-table td {
+            padding: 4px;
+            margin: 3px;
+            border: 1px solid #ccc;
+        }
+        .tableizer-table th {
+            background-color: #104E8B;
+            color: #FFF;
+            font-weight: bold;
+        }
+    </style>
 </div>
 
