@@ -21,3 +21,10 @@ Or create only one name, so all the time need to save value as a list?
 
 Notes:
 Some records only have quantity, but don't have duration
+-------------------------------------------
+
+1. ExpenseElement will include the the defaultRate
+- on the firt time load Expenses form, load the defaultRate from ExpenseElement.
+- Since Expenses have been saved, the Rate will be got from Expenses rather than ExpenseElement
+
+2. ExpenseJson is temporary class, used to map for View and Controller use.
