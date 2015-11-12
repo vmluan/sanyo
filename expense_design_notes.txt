@@ -28,3 +28,5 @@ Some records only have quantity, but don't have duration
 - Since Expenses have been saved, the Rate will be got from Expenses rather than ExpenseElement
 
 2. ExpenseJson is temporary class, used to map for View and Controller use.
+
+3. Sum will also be stored for long term maintenance, customization and database admin support easily
