@@ -10,9 +10,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.context.support.GenericXmlApplicationContext;
@@ -127,7 +129,7 @@ public class ReadExcelDemo
 				Cell cell = cellIterator.next();
 				if(cell.getCellType() == Cell.CELL_TYPE_STRING){
 					if(cell.getStringCellValue().contains("${clientName}")){
-						cell.setCellValue(cell.getStringCellValue() + " " + project.getCustomerName());
+						cell.setCellValue("　　　施工会社名 :" + " " + project.getCustomerName());
 					}
 				}
 			}
@@ -163,46 +165,71 @@ public class ReadExcelDemo
 	}
 	private static void createMakerRows(List<ProductGroupMaker> productGroupMakers, XSSFSheet sheet, int rowCount, int order ){
 		boolean hasOrderForCategory = false;
+		int startRow = rowCount;
 		for(ProductGroupMaker pg : productGroupMakers){
 			order ++;
 			Row row = sheet.createRow(rowCount);
 			rowCount ++;
-			for(int i=0; i<8; i++){
+			for(int i=0; i<7; i++){
 				Cell cell = row.createCell(i);
+				cell.setCellStyle(getSampleStyleWithBorder(sheet.getWorkbook()));
+				
 				if(i ==0){
 					if(!hasOrderForCategory){
 						cell.setCellValue(order);
 					}
 				}
-				else if (i == 2){
+				else if (i == 1){
 					// set category
 					if(!hasOrderForCategory){
 						cell.setCellValue(pg.getCategory().getName());
 						hasOrderForCategory = true;
 					}
 				}
-				else if (i == 3){
+				else if (i == 2){
 					// set category
 					cell.setCellValue(pg.getProductGroup().getGroupName());
 				}
-				else if(i ==4){
+				else if(i ==3){
 					//set model no
 					cell.setCellValue(pg.getModelNo());
 				}
-				else if(i ==5){
+				else if(i ==4){
 					//set maker name
 					cell.setCellValue(pg.getMaker().getName());
 				}
-				else if(i ==6){
+				else if(i ==5){
 					//set delivery
 					cell.setCellValue(pg.getDelivery());
 				}
-				else if(i ==7){
+				else if(i ==6){
 					//set remarks
 					cell.setCellValue(pg.getRemark());
 				}
 			}
 		}
+//		org.apache.poi.ss.util.CellRangeAddress region = new CellRangeAddress(startRow, rowCount -1, 0, 1);
+//		sheet.addMergedRegion(region);
+	}
+	public static XSSFCellStyle getSampleStyleWithBorder(XSSFWorkbook workbook){
+		
+		XSSFCellStyle cellStyle =  workbook.createCellStyle();
+		cellStyle.setBorderBottom(BorderStyle.THIN);
+		cellStyle.setBorderTop(BorderStyle.THIN);
+		cellStyle.setBorderLeft(BorderStyle.THIN);
+		cellStyle.setBorderRight(BorderStyle.THIN);
+		return cellStyle;
+		
+	}
+	public static XSSFCellStyle getSampleStyleNoBorder(XSSFWorkbook workbook){
+		
+		XSSFCellStyle cellStyle =  workbook.createCellStyle();
+		cellStyle.setBorderBottom(BorderStyle.NONE);
+		cellStyle.setBorderTop(BorderStyle.NONE);
+		cellStyle.setBorderLeft(BorderStyle.NONE);
+		cellStyle.setBorderRight(BorderStyle.NONE);
+		return cellStyle;
+		
 	}
 	public static void main(String[] args) 
 	{
