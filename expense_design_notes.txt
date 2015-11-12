@@ -22,7 +22,7 @@ Or create only one name, so all the time need to save value as a list?
 Notes:
 Some records only have quantity, but don't have duration
 -------------------------------------------
-
+Nov 13th 2015
 1. ExpenseElement will include the the defaultRate
 - on the firt time load Expenses form, load the defaultRate from ExpenseElement.
 - Since Expenses have been saved, the Rate will be got from Expenses rather than ExpenseElement
