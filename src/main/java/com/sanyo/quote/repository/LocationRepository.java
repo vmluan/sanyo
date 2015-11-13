@@ -14,6 +14,6 @@ public interface LocationRepository extends PagingAndSortingRepository<Location,
 	@Query("SELECT l FROM Location l JOIN FETCH l.regions WHERE l.locationId = :id")
 	Location findByIdAndFetchRegionsEagerly(@Param("id") Integer id);
 	
-	@Query("SELECT l.regions FROM Location l JOIN l.regions WHERE l.locationId = :id")
+	@Query("SELECT distinct l.regions FROM Location l JOIN l.regions WHERE l.locationId = :id")
 	List<Region> findRegions(@Param("id") Integer id);
 }

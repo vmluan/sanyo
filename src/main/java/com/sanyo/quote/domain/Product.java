@@ -118,7 +118,7 @@ public class Product implements Serializable {
 //	private Set<Price> prices;
 
 	@JsonIgnore
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="product_group_id", nullable = false)
 	private ProductGroup productGroup;
 	

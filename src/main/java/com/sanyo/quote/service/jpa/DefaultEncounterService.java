@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.collect.Lists;
 import com.sanyo.quote.domain.Encounter;
+import com.sanyo.quote.domain.Region;
 import com.sanyo.quote.repository.EncounterRepository;
 import com.sanyo.quote.service.EncounterService;
 
@@ -52,5 +53,10 @@ public class DefaultEncounterService implements EncounterService {
 	public void delte(Encounter encounter) {
 		encounterRepository.delete(encounter);
 		
+	}
+
+	@Override
+	public List<Encounter> getEncountersByRegion(Region region) {
+		return encounterRepository.getEncountersByRegion(region);
 	}
 }
