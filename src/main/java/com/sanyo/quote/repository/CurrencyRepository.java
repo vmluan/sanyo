@@ -6,4 +6,5 @@ import com.sanyo.quote.domain.Currency;
 
 
 public interface CurrencyRepository extends PagingAndSortingRepository<Currency, Integer> {
+	public Currency findByCurrencyCode(String currencyCode);
 }

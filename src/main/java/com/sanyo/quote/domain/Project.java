@@ -66,12 +66,12 @@ public class Project implements java.io.Serializable, Cloneable {
 	private float allowance = 105f;
 	private float subConProfit = 105f; //mặc định 105%, lấy từ bản thông số chung của dự án
 	
-	private String vndToUsd;
-	private String usdToVnd;
-	private String jpyToVnd;
-	private String vndToJpy;
-	private String usdToJpy;
-	private String jpyToUsd;
+	private float vndToUsd;
+	private float usdToVnd;
+	private float jpyToVnd;
+	private float vndToJpy;
+	private float usdToJpy;
+	private float jpyToUsd;
 	
 	private Set<ProjectRevision> revisions;
 	private Set<Location> locations;
@@ -328,7 +328,7 @@ public class Project implements java.io.Serializable, Cloneable {
 		this.subConProfit = subConProfit;
 	}
 
-	@JsonIgnore
+//	@JsonIgnore
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="project", cascade=CascadeType.REMOVE)
 	public Set<ProjectRevision> getRevisions() {
 		return revisions;
@@ -338,51 +338,51 @@ public class Project implements java.io.Serializable, Cloneable {
 		this.revisions = revisions;
 	}
 
-	public String getVndToUsd() {
+	public float getVndToUsd() {
 		return vndToUsd;
 	}
 
-	public void setVndToUsd(String vndToUsd) {
+	public void setVndToUsd(float vndToUsd) {
 		this.vndToUsd = vndToUsd;
 	}
 
-	public String getUsdToVnd() {
+	public float getUsdToVnd() {
 		return usdToVnd;
 	}
 
-	public void setUsdToVnd(String usdToVnd) {
+	public void setUsdToVnd(float usdToVnd) {
 		this.usdToVnd = usdToVnd;
 	}
 
-	public String getJpyToVnd() {
+	public float getJpyToVnd() {
 		return jpyToVnd;
 	}
 
-	public void setJpyToVnd(String jpyToVnd) {
+	public void setJpyToVnd(float jpyToVnd) {
 		this.jpyToVnd = jpyToVnd;
 	}
 
-	public String getVndToJpy() {
+	public float getVndToJpy() {
 		return vndToJpy;
 	}
 
-	public void setVndToJpy(String vndToJpy) {
+	public void setVndToJpy(float vndToJpy) {
 		this.vndToJpy = vndToJpy;
 	}
 
-	public String getUsdToJpy() {
+	public float getUsdToJpy() {
 		return usdToJpy;
 	}
 
-	public void setUsdToJpy(String usdToJpy) {
+	public void setUsdToJpy(float usdToJpy) {
 		this.usdToJpy = usdToJpy;
 	}
 
-	public String getJpyToUsd() {
+	public float getJpyToUsd() {
 		return jpyToUsd;
 	}
 
-	public void setJpyToUsd(String jpyToUsd) {
+	public void setJpyToUsd(float jpyToUsd) {
 		this.jpyToUsd = jpyToUsd;
 	}
 	

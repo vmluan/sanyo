@@ -61,6 +61,7 @@ import com.sanyo.quote.domain.UserRegionRole;
 import com.sanyo.quote.helper.Constants;
 import com.sanyo.quote.helper.Utilities;
 import com.sanyo.quote.service.CategoryService;
+import com.sanyo.quote.service.CurrencyExchRateService;
 import com.sanyo.quote.service.CurrencyService;
 import com.sanyo.quote.service.EncounterService;
 import com.sanyo.quote.service.LocationService;
@@ -116,6 +117,9 @@ public class ProjectController extends CommonController {
 	@Autowired
 	private CurrencyService currencyService;
 	
+	@Autowired
+	private CurrencyExchRateService currencyExchRateService;
+	
 	private Validator validator;
 	
 	private String projectsUrl="/projects?status=ongoing";
@@ -158,6 +162,36 @@ public class ProjectController extends CommonController {
 		}
 		uiModel.addAttribute("currencyList", currencyList);
 	}
+	private void loadDefaultCurrencies(Project project, Model uiModel){
+		if(project.getCurrency() == null){
+			// in case of new project
+			//set VND as deafault value
+			Currency vndCurrency = currencyService.findByCurrencyCode("VND");
+			if(vndCurrency != null)
+				project.setCurrencyId(vndCurrency.getCurrencyId());
+			List<CurrencyExchRate> rates = currencyExchRateService.findLatestList();
+			for(CurrencyExchRate rate : rates){
+				if(rate.getSourceCurrency().getCurrencyCode().equalsIgnoreCase("USD")
+						&& rate.getTargetCurrency().getCurrencyCode().equalsIgnoreCase("VND"))
+					project.setUsdToVnd(rate.getExchangeRateValue());
+				if(rate.getSourceCurrency().getCurrencyCode().equalsIgnoreCase("VND")
+						&& rate.getTargetCurrency().getCurrencyCode().equalsIgnoreCase("USD"))
+					project.setVndToUsd(rate.getExchangeRateValue());				
+				if(rate.getSourceCurrency().getCurrencyCode().equalsIgnoreCase("USD")
+						&& rate.getTargetCurrency().getCurrencyCode().equalsIgnoreCase("JPY"))
+					project.setUsdToJpy(rate.getExchangeRateValue());
+				if(rate.getSourceCurrency().getCurrencyCode().equalsIgnoreCase("JPY")
+						&& rate.getTargetCurrency().getCurrencyCode().equalsIgnoreCase("USD"))
+					project.setJpyToUsd(rate.getExchangeRateValue());
+				if(rate.getSourceCurrency().getCurrencyCode().equalsIgnoreCase("JPY")
+						&& rate.getTargetCurrency().getCurrencyCode().equalsIgnoreCase("VND"))
+					project.setJpyToVnd(rate.getExchangeRateValue());
+				if(rate.getSourceCurrency().getCurrencyCode().equalsIgnoreCase("VND")
+						&& rate.getTargetCurrency().getCurrencyCode().equalsIgnoreCase("JPY"))
+					project.setVndToJpy(rate.getExchangeRateValue());				
+			}
+		}
+	}
 	@RequestMapping(params = "form", method = RequestMethod.GET)
     public String createForm(Model uiModel) {
 		Project project = new Project();
@@ -166,6 +200,7 @@ public class ProjectController extends CommonController {
         setHeader(uiModel, "Create new project", "");
         setUser(uiModel);
         initialize(uiModel);
+        loadDefaultCurrencies(project, uiModel);
         return "projects/create";
 	}
 	//create new project, save to database
@@ -260,6 +295,11 @@ public class ProjectController extends CommonController {
 				Region region = role.getRegion();
 				Location location = region.getLocation();
 				Project project = location.getProject();
+				List<ProjectRevision> revisions = projectRevisionService.findRevisions(project);
+				Set<ProjectRevision> tempRevisions = new HashSet<ProjectRevision>();
+				tempRevisions.add(revisions.get(0));
+				project.setRevisions(tempRevisions);
+				
 				if(status != null && status.equalsIgnoreCase("ongoing")){
 					if(project.getStatus().toString().equals(ProjectStatus.ONGOING))
 						projectTree.put(project.getProjectId(), project);
@@ -305,22 +345,23 @@ public class ProjectController extends CommonController {
 			totalRegions.addAll(regions);
 		}
 		Iterator<Region> iterator = totalRegions.iterator();
-		Set<Region> assginedRegions = new HashSet<Region>();
-		
-		while(iterator.hasNext()){
-			Region region = iterator.next();
-			Region regionWithUsers = regionService.findByIdAndFetchUserRegionRolesEagerly(region.getRegionId());
-			if(regionWithUsers != null)
-				assginedRegions.add(regionWithUsers);
-			else{
-				regionWithUsers = regionService.findById(region.getRegionId());
-				Set<UserRegionRole> emptyUsers = new HashSet<UserRegionRole>();
-				regionWithUsers.setUserRegionRoles(emptyUsers);
-				assginedRegions.add(regionWithUsers);
-			}
-		}
-		
-		String result = Utilities.jSonSerialization(assginedRegions);
+//		Set<Region> assginedRegions = new HashSet<Region>();
+//		
+//		while(iterator.hasNext()){
+//			Region region = iterator.next();
+//			Region regionWithUsers = regionService.findByIdAndFetchUserRegionRolesEagerly(region.getRegionId());
+//			if(regionWithUsers != null)
+//				assginedRegions.add(regionWithUsers);
+//			else{
+//				regionWithUsers = regionService.findById(region.getRegionId());
+//				Set<UserRegionRole> emptyUsers = new HashSet<UserRegionRole>();
+//				regionWithUsers.setUserRegionRoles(emptyUsers);
+//				assginedRegions.add(regionWithUsers);
+//			}
+//		}
+//		
+//		String result = Utilities.jSonSerialization(assginedRegions);
+		String result = Utilities.createJsonTreeGridForRegions(totalRegions, locations);
 		return result;
 	}
 	@RequestMapping(value = "/getAssginedCategoriesJson", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
@@ -448,7 +489,10 @@ public class ProjectController extends CommonController {
 				if(region == null){
 					region = new Region();
 					region.setCategory(category);
-					region.setRegionName(category.getName());
+					if(regionJson.getRegionName() != null)
+						region.setRegionName(regionJson.getRegionName());
+					else
+						region.setRegionName(category.getName());
 					region.setRegionDesc(category.getDesc());
 					if(existingLocation != null)
 						region.setLocation(existingLocation);
@@ -456,6 +500,11 @@ public class ProjectController extends CommonController {
 				}else{
 					if(existingLocation != null)
 						region.setLocation(existingLocation);
+					if(regionJson.getRegionName() != null)
+						if(!regionJson.getRegionName().equalsIgnoreCase(region.getRegionName())){
+							region.setRegionName(regionJson.getRegionName());
+							regionService.save(region);
+						}
 				}
 
 				List<UserJson> userJsons = regionJson.getUsers();
@@ -571,8 +620,8 @@ public class ProjectController extends CommonController {
 		setBreadCrumb(uiModel, "/projects/" + id + "?form", "Update Project", "", "Update Revision");
 		setHeader(uiModel, "Revision", "Detail of revision");
 		redirectAttributes.addFlashAttribute("message", new Message("success", messageSource.getMessage("revision_save_success", new Object[]{}, locale)));
-		return "redirect:/projects/revisions/" + UrlUtil.encodeUrlPathSegment(projectRevision.getRevisionId().toString(), httpServletRequest) + "?form";
-//		return "projects/revisions/update";
+//		return "redirect:/projects/revisions/" + UrlUtil.encodeUrlPathSegment(projectRevision.getRevisionId().toString(), httpServletRequest) + "?form";
+		return "redirect:/projects/" +project.getProjectId() +"/revisions?form";
 	}
 	@RequestMapping(value = "/revisions/{id}", params = "form", method = RequestMethod.GET)
 	public String  callEditProjectRevisions(@PathVariable("id") Integer id, Model uiModel, HttpServletRequest httpServletRequest){

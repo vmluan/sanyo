@@ -1,4 +1,4 @@
-$("#locationSum").jqxNumberInput({ width: '250px', height: '25px', symbol: '$', disabled: true, max: 99999999});
+$("#locationSum").jqxNumberInput({ width: '250px', height: '25px', symbol: '$', disabled: true, decimalDigits: 2, digits: 12, max: 999999999999});
 
 var urlLocation = pageContext + "/quotation/getAssignedLocationsJson";
 // prepare the data

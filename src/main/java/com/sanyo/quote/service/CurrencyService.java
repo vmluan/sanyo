@@ -18,5 +18,7 @@ public interface CurrencyService {
 	Currency save(Currency currency);
 	
 	Page<Currency> findAllByPage(Pageable pageable);
+	
+	Currency findByCurrencyCode(String currencyCode);
 
 }

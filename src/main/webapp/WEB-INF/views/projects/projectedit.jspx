@@ -13,7 +13,7 @@
     <spring:message code="label_project_name" var="labelProjectName" text="Project Name" />
     <spring:message code="label_project_desc" var="labelProjectDesc" text="Description" />
     <spring:message code="label_project_client" var="labelProjectClient" text="Client" />
-    <spring:message code="label_project_duration" var="labelProjectDuration" text="Duration" />
+    <spring:message code="label_project_duration" var="labelProjectDuration" text="Construction Duration" />
     <spring:message code="label_project_duration" var="labelProjectQuotation" text="Quotation dates" />
     <spring:message code="label_project_duration" var="labelProjectQuotation" text="Quotation dates" />
     <spring:message code="label_project_duration" var="labelProjectQuotation" text="Quotation dates" />
@@ -70,17 +70,6 @@
 					</div>
 					<div>
 						<form:errors path="customerName" cssClass="error" />
-					</div>					
-				</div>
-                  <div class="col-md-4">
-					<div class="form-group">
-						<form:label path="duration">
-							${labelProjectDuration}
-						</form:label>
-						<form:input path="duration" class="form-control"/> 
-					</div>
-					<div>
-						<form:errors path="duration" cssClass="error" />
 					</div>					
 				</div>
                   <div class="col-md-4">
@@ -203,33 +192,126 @@
 					<div>
 						<form:errors path="mQty" cssClass="error" />
 					</div>					
-				</div>
-				<div class="col-md-4">
-					<div class="form-group" >
-						<form:label path="startDate">
-							Start Date
-						</form:label>
-						<form:hidden path="startDate" class="form-control"/>
-						<div id='startDateDiv'><jsp:text/>
-						</div>						
-					</div>
-					<div>
-						<form:errors path="startDate" cssClass="error" />
-					</div>
+				</div>			
+				<div class="col-md-12">				
+					<div class="box box-primary">
+						<div class="box-body">
+									<div class="row">
+										<div class="box-header with-border">
+											<h3 class="box-title">Construction Period of Works</h3>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<form:label path="duration">
+											${labelProjectDuration}
+											</form:label>
+												<form:input path="duration" class="form-control" />
+											</div>
+											<div>
+												<form:errors path="duration" cssClass="error" />
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group" >
+												<form:label path="startDate">
+													Start Date
+												</form:label>
+												<form:hidden path="startDate" class="form-control"/>
+												<div id='startDateDiv'><jsp:text/>
+												</div>						
+											</div>
+											<div>
+												<form:errors path="startDate" cssClass="error" />
+											</div>
+										</div>				
+										<div class="col-md-4">
+											<div class="form-group">
+												<form:label path="endDate">
+													Finish Date
+												</form:label>
+												<form:hidden path="endDate" class="form-control"/>
+												<div id='endDateDiv'><jsp:text/>
+												</div>
+											</div>
+											<div>
+												<form:errors path="endDate" cssClass="error" />
+											</div>
+										</div>										
+									</div>
+
+								</div>
+					</div>				
+				
 				</div>				
-				<div class="col-md-4">
-					<div class="form-group">
-						<form:label path="endDate">
-							End Date
-						</form:label>
-						<form:hidden path="endDate" class="form-control"/>
-						<div id='endDateDiv'><jsp:text/>
+				<div class="col-md-12">				
+					<div class="box box-primary">
+						<div class="box-body">
+							<div class="row">
+								<div class="box-header with-border">
+									<h3 class="box-title">Payment - Currency Exchange Rates</h3>
+								</div>
+								<div class="col-md-2">
+									<div class="form-group">
+										<form:label path="currencyId"><jsp:text/>
+										</form:label>
+										<form:select path="currencyId" items="${currencyList}" class="form-control"/>
+									</div>
+								</div>								
+								<!-- /.box-header -->
+								<div class="col-md-4">
+									<div class="form-group">
+										<div class="input-group">
+											<span class="input-group-addon">USD To VND</span>
+											<form:input path="usdToVnd" class="form-control"/> 
+											<span class="input-group-addon">.00</span>
+										  </div>
+									</div>
+									<div>
+										<form:errors path="usdToVnd" cssClass="error" />
+									</div>					
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<div class="input-group">
+											<span class="input-group-addon">VND To USD</span>
+											<form:input path="vndToUsd" class="form-control"/> 
+											<span class="input-group-addon">.00</span>
+										  </div>
+									</div>
+									<div>
+										<form:errors path="usdToVnd" cssClass="error" />
+									</div>					
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<div class="input-group">
+											<span class="input-group-addon">JPY To VND</span>
+											<form:input path="jpyToVnd" class="form-control"/>
+											<span class="input-group-addon">.00</span>
+										  </div>
+									</div>
+									<div>
+										<form:errors path="usdToVnd" cssClass="error" />
+									</div>					
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<div class="input-group">
+											<span class="input-group-addon">VND To JPY</span>
+											<form:input path="vndToJpy" class="form-control"/>
+											<span class="input-group-addon">.00</span>
+										  </div>
+									</div>
+									<div>
+										<form:errors path="usdToVnd" cssClass="error" />
+									</div>					
+								</div>							
+							</div>
+
 						</div>
-					</div>
-					<div>
-						<form:errors path="endDate" cssClass="error" />
-					</div>
-				</div>				
+					</div>				
+				
+				</div>
 				<div class="col-md-4">
 					<div class="form-group">
 						<form:label path="description">
@@ -240,76 +322,6 @@
 					<div>
 						<form:errors path="description" cssClass="error" />
 					</div>					
-				</div>
-				
-				<div class="col-md-8">				
-					<div class="box box-primary">
-						<div class="box-body">
-							<div class="row">
-								<div class="box-header with-border">
-									<h3 class="box-title">Payment</h3>
-								</div>
-								<div class="col-md-2">
-									<div class="form-group">
-										<form:label path="currencyId"><jsp:text/>
-										</form:label>
-										<form:select path="currencyId" items="${currencyList}" class="form-control"/>
-									</div>
-								</div>								
-								<!-- /.box-header -->
-<!-- 								<div class="col-md-4"> -->
-<!-- 									<div class="form-group"> -->
-<!-- 										<div class="input-group"> -->
-<!-- 											<span class="input-group-addon">USD To VND</span> -->
-<!-- 											<form:input path="usdToVnd" class="form-control"/>  -->
-<!-- 											<span class="input-group-addon">.00</span> -->
-<!-- 										  </div> -->
-<!-- 									</div> -->
-<!-- 									<div> -->
-<!-- 										<form:errors path="usdToVnd" cssClass="error" /> -->
-<!-- 									</div>					 -->
-<!-- 								</div> -->
-<!-- 								<div class="col-md-4"> -->
-<!-- 									<div class="form-group"> -->
-<!-- 										<div class="input-group"> -->
-<!-- 											<span class="input-group-addon">VND To USD</span> -->
-<!-- 											<form:input path="vndToUsd" class="form-control"/>  -->
-<!-- 											<span class="input-group-addon">.00</span> -->
-<!-- 										  </div> -->
-<!-- 									</div> -->
-<!-- 									<div> -->
-<!-- 										<form:errors path="usdToVnd" cssClass="error" /> -->
-<!-- 									</div>					 -->
-<!-- 								</div> -->
-<!-- 								<div class="col-md-4"> -->
-<!-- 									<div class="form-group"> -->
-<!-- 										<div class="input-group"> -->
-<!-- 											<span class="input-group-addon">JPY To VND</span> -->
-<!-- 											<form:input path="jpyToVnd" class="form-control"/> -->
-<!-- 											<span class="input-group-addon">.00</span> -->
-<!-- 										  </div> -->
-<!-- 									</div> -->
-<!-- 									<div> -->
-<!-- 										<form:errors path="usdToVnd" cssClass="error" /> -->
-<!-- 									</div>					 -->
-<!-- 								</div> -->
-<!-- 								<div class="col-md-4"> -->
-<!-- 									<div class="form-group"> -->
-<!-- 										<div class="input-group"> -->
-<!-- 											<span class="input-group-addon">VND To JPY</span> -->
-<!-- 											<form:input path="vndToJpy" class="form-control"/> -->
-<!-- 											<span class="input-group-addon">.00</span> -->
-<!-- 										  </div> -->
-<!-- 									</div> -->
-<!-- 									<div> -->
-<!-- 										<form:errors path="usdToVnd" cssClass="error" /> -->
-<!-- 									</div>					 -->
-<!-- 								</div>							 -->
-							</div>
-
-						</div>
-					</div>				
-				
 				</div>				
 				<div class="col-md-12">
                   <div class="form-group">
@@ -384,15 +396,15 @@
 							
 							
 							<div class="col-md-12">
-							Want to assign more regions?
+							Want to assign more Systems?
 								<p/>
-								<button id="assignRegionButton" type="botton" class="btn btn-primary">Assign Region</button>
+								<button id="assignRegionButton" type="botton" class="btn btn-primary">Assign System</button>
 								<p/>
 							</div>
 							<div id='treeGrid'><jsp:text />
 							</div>		
 							<div id="messageNotification" style="z-index: 30000000; display: none">
-									Assign region successfully.
+									Assign System successfully.
 									<jsp:text />
 							</div>			
 						</section>			
@@ -550,6 +562,33 @@ var dataAdapter = new $.jqx.dataAdapter(source, {
             };
             var dataAdapter = new $.jqx.dataAdapter(source);
 			
+			$('#treeGrid').on('rowCheck', 
+			function (event)
+			{
+				// event args.
+				var args = event.args;
+				// row data.
+				var row = args.row;
+				// row key.
+				var key = args.key;
+				$("#treeGrid").jqxTreeGrid('setCellValue', key, 'location', 'Please Choose');
+				$("#treeGrid").jqxTreeGrid('setCellValue', key, 'user', 'Please Choose');
+				$("#treeGrid").jqxTreeGrid('setCellValue', key, 'role', 'Please Choose');
+			});
+			$('#treeGrid').on('rowUncheck', 
+			function (event)
+			{
+				// event args.
+				var args = event.args;
+				// row data.
+				var row = args.row;
+				// row key.
+				var key = args.key;
+				$("#treeGrid").jqxTreeGrid('setCellValue', key, 'location', '');
+				$("#treeGrid").jqxTreeGrid('setCellValue', key, 'user', '');
+				$("#treeGrid").jqxTreeGrid('setCellValue', key, 'role', '');
+			});
+			
             // create Tree Grid
             $("#treeGrid").jqxTreeGrid(
             {
@@ -583,6 +622,7 @@ var dataAdapter = new $.jqx.dataAdapter(source, {
 					   },
 					   getEditorValue: function (row, cellvalue, editor) {
 						   // return the editor's value.
+						   //return 'Please choose';
 						   return editor.val();
 					   }
 				   },                  
@@ -632,10 +672,9 @@ $("#messageNotification").jqxNotification({
 
 var isValid = true;
 $("#assignRegionButton").click(function(event){
+$(this).prop('disabled', true);
 	event.preventDefault();
     //do something
-    $(this).prop('disabled', true);
-		   
 	var result = new Array();
 	var rows = $("#treeGrid").jqxTreeGrid('getRows');
 	
@@ -646,13 +685,13 @@ $("#assignRegionButton").click(function(event){
 		result = result.concat(temp)
 	}
 	if(result.length ==0){
-		alert('Please select one Region at least.');
+		alert('Please select one System at least.');
 		$("#assignRegionButton").prop('disabled', false);
 		return;
 	}
 	if(!isValid){
-		return;
 		$("#assignRegionButton").prop('disabled', false);
+		return;
 	}
 	console.log(result);
 	var url = "${project.projectId}?assignRegions";
@@ -693,16 +732,19 @@ function getCheckedItems(obj){
 				var users = new Array();
 				
 				regionObj.regionId = record.categoryId;
-				if(record.user){
+				regionObj.regionName = record.categoryName;
+				if(record.user && record.user != 'Please Choose'){
 					arrayUser = record.user.split(',');
 					for(var k=0; k< arrayUser.length; k++){
 						var user = new Object();
 						user.userName = arrayUser[k];
-						if(record.role){
+						if(record.role && record.role != 'Please Choose'){
 							arrayRole = record.role.split(',');
 							if(arrayRole.length >0){
 								user.roleName = arrayRole[0];
 							}
+						}else{
+							alert('Please Choose Role');
 						}
 						users.push(user);
 						isValid =true;
@@ -713,7 +755,7 @@ function getCheckedItems(obj){
 					return;
 				}
 				
-				if(record.location){
+				if(record.location && record.location!= 'Please Choose'){
 					regionObj.locationName=record.location;
 				}else{
 					alert('Please choose a Location that you want to add new Region to by double click Select Location cell');

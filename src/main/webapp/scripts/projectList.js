@@ -27,8 +27,14 @@ var source = {
 		name : 'status',
 		type : 'string'
 	}, {
+		name : 'createdDate',
+		type : 'date'
+	}, {
 		name : 'createdBy',
 		type : 'string'
+	}, {
+		name : 'revision',
+		map : 'revisions>0>revisionNo'
 	}, {
 		name : 'lastModifiedBy',
 		type : 'string'
@@ -98,18 +104,29 @@ $("#list")
 								align : 'center',
 								cellsalign : 'right',
 								cellsformat : 'c0',
-								width : '15%'
+								width : '10%'
+							}, {
+								text : 'Created Date',
+								datafield : 'createdDate',
+								align : 'center',
+								width : '10%',
+								cellsformat: 'MM/dd/yyyy hh:mm:ss'
 							}, {
 								text : 'Last Modified',
 								datafield : 'lmodDate',
 								align : 'center',
-								width : '15%',
+								width : '10%',
 								cellsformat: 'MM/dd/yyyy hh:mm:ss'
 							}, {
 								text : 'By',
 								datafield : 'lastModifiedBy',
 								align : 'center',
-								width : '15%',
+								width : '10%',
+							}, {
+								text : 'Latest Revison',
+								datafield : 'revision',
+								align : 'center',
+								width : '10%',
 							},
 							{
 								text : 'Action',
@@ -119,11 +136,13 @@ $("#list")
 								cellsrenderer : function(row, column, value) {
 									return '<div class="col-md-12">'
 												+'<p>'
+													
+													+ '<button class="btn bg-olive margin col-md-2"  onclick="makeReport('+ value +  ')"' + '>Print</button>'
 													+ '<button class="btn bg-olive margin col-md-2"  onclick="updateProduct('+ value +  ')"' + '>Basic Info</button>'
-													+ '<button class="btn bg-purple margin col-md-2" onclick="addQuotation('+ value +  ')"' + '>Pricing</button>'
-													+ '<button class="btn bg-navy margin col-md-2">Marker</button>'
-													+ '<button class="btn bg-orange margin col-md-1" onclick="cloneProject('+ value +  ')"' + '>Clone</button>'
-													+ '<button class="btn bg-maroon margin col-md-1" onclick="closeProject('+ value +  ')"' + '>Close</button>'
+													+ '<button class="btn bg-purple margin col-md-2" onclick="addQuotation('+ value +  ')"' + '>Quotation</button>'
+													+ '<button class="btn bg-navy margin col-md-3">Marker List</button>'
+													+ '<button class="btn bg-orange margin col-md-2" onclick="cloneProject('+ value +  ')"' + '>Copy</button>'
+													+ '<button class="btn bg-maroon margin col-md-2" onclick="closeProject('+ value +  ')"' + '>Close</button>'
 													+ '<button class="btn btn-danger margin col-md-1" onclick="deleteProject('+ value +  ')"' + '>X</button>'
 												+ '</p>'
 											+ '</div>'

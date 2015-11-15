@@ -53,22 +53,6 @@ $("#listLocation")
 					autorowheight: true,
 					columns : [
 							{
-								text : 'Action',
-								datafield : 'locationId',
-								align : 'center',
-								width : '25%',
-								cellsrenderer : function(row, column, value) {
-									return '<div class="col-md-6">'
-										+ '<a class="btn btn-app col-md-2" onclick="updateLocation('+ value + ')">'
-										+ '<i class="glyphicon glyphicon-edit"></i>'
-										+ '</a>'
-										+ '<a class="btn btn-app col-md-2">'
-										+ '<i class="glyphicon glyphicon-remove-circle" onclick="deleteLocation('+ value +  ')"' + '></i>'
-										+ '</a>' 
-										+ '</div>';										
-								}
-							},
-							{
 								text : '#',
 								datafield : 'stt',
 								width : '5%',
@@ -83,15 +67,31 @@ $("#listLocation")
 								align : 'center',
 								cellsalign : 'left',
 								cellsformat : 'c0',
-								width : '35%'
+								width : '30%'
 							}, {
 								text : 'Description',
 								datafield : 'locationDesc',
 								align : 'center',
 								cellsalign : 'left',
 								cellsformat : 'c0',
-								width : '35%'
-							} ]
+								width : '30%'
+							},
+							{
+								text : 'Action',
+								datafield : 'locationId',
+								align : 'center',
+								width : '35%',
+								cellsrenderer : function(row, column, value) {
+									return '<div class="col-md-12">'
+												+'<p>'
+													+ '<button class="btn bg-olive margin col-md-5"  onclick="updateLocation('+ value +  ')"' + '>Edit</button>'
+													+ '<button class="btn btn-danger margin col-md-1" onclick="deleteLocation('+ value +  ')"' + '>X</button>'
+												+ '</p>'
+											+ '</div>'
+											;									
+								}
+							}
+							]
 				});
 function updateLocation(id) {
 	window.location.href = pageContext + '/projects/locations/' + id + '?form';

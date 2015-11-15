@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 
+import com.sanyo.quote.domain.Project;
 import com.sanyo.quote.domain.ProjectRevision;
 
 public interface ProjectRevisionService {
@@ -19,4 +21,5 @@ public interface ProjectRevisionService {
 	
 	void delete(Integer id);
 	void delete(ProjectRevision projectRevision);
+	List<ProjectRevision> findRevisions(Project project);
 }

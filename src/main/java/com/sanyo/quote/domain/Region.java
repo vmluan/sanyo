@@ -26,7 +26,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 @Table(name = "region", catalog = "sanyo")
 public class Region implements java.io.Serializable, Cloneable{
 	private Integer regionId;
-	private String regionName;
+	private String regionName; // as user can change region name for each project, it may be different from category.name
 	private String regionDesc;
 	private Category category;
 //	private Project project;

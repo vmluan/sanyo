@@ -56,22 +56,6 @@ $("#listRevision")
 					autorowheight: true,
 					columns : [
 							{
-								text : 'Action',
-								datafield : 'revisionId',
-								align : 'center',
-								width : '25%',
-								cellsrenderer : function(row, column, value) {
-									return '<div class="col-md-6">'
-										+ '<a class="btn btn-app col-md-2" onclick="updateRevison('+ value + ')">'
-										+ '<i class="glyphicon glyphicon-edit"></i>'
-										+ '</a>'
-										+ '<a class="btn btn-app col-md-2">'
-										+ '<i class="glyphicon glyphicon-remove-circle" onclick="deleteRevison('+ value +  ')"' + '></i>'
-										+ '</a>' 
-										+ '</div>';									
-								}
-							},
-							{
 								text : '#',
 								datafield : 'stt',
 								width : '5%',
@@ -86,7 +70,7 @@ $("#listRevision")
 								align : 'center',
 								cellsalign : 'left',
 								cellsformat : 'c0',
-								width : '25%'
+								width : '10%'
 							}, {
 								text : 'Date',
 								datafield : 'date',
@@ -94,14 +78,31 @@ $("#listRevision")
 								cellsalign : 'left',
 								cellsformat : 'c0',
 								width : '20%'
-							},{
+							},
+							{
 								text : 'Description',
 								datafield : 'revisionDesc',
 								align : 'center',
 								cellsalign : 'left',
 								cellsformat : 'c0',
 								width : '25%'
-							} ]
+							} ,
+							{
+								text : 'Action',
+								datafield : 'revisionId',
+								align : 'center',
+								width : '35%',
+								cellsrenderer : function(row, column, value) {
+									return '<div class="col-md-12">'
+												+'<p>'
+													+ '<button class="btn bg-olive margin col-md-5"  onclick="updateRevison('+ value +  ')"' + '>Edit</button>'
+													+ '<button class="btn btn-danger margin col-md-1" onclick="deleteRevison('+ value +  ')"' + '>X</button>'
+												+ '</p>'
+											+ '</div>'
+											;										
+								}
+							}
+							]
 				});
 function updateRevison(id) {
 	window.location.href = pageContext + '/projects/revisions/' + id + '?form';

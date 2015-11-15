@@ -17,7 +17,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.jws.soap.SOAPBinding.Use;
 import javax.servlet.http.HttpServletRequest;
 
 import org.codehaus.jackson.map.ObjectMapper;
@@ -29,11 +28,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 
 import com.ibm.icu.util.Calendar;
+import com.sanyo.quote.domain.Category;
 import com.sanyo.quote.domain.Encounter;
 import com.sanyo.quote.domain.Location;
 import com.sanyo.quote.domain.ProductGroupMaker;
 import com.sanyo.quote.domain.Project;
 import com.sanyo.quote.domain.Region;
+import com.sanyo.quote.domain.TreeGrid;
 import com.sanyo.quote.domain.UserRegionRole;
 import com.sanyo.quote.service.EncounterService;
 import com.sanyo.quote.service.RegionService;
@@ -176,6 +177,38 @@ public class Utilities {
 			clonedList.add(clonedObj);
 		}
 		return clonedList;
+	}
+	public static String createJsonTreeGridForRegions(Collection<Region> regions, Collection<Location> locations){
+		List<TreeGrid> treeGrids = new ArrayList<TreeGrid>();
+		final int  indicator = 1010101010;
+		final int  indicator2 = 2020202020;
+		for(Location location : locations){
+			TreeGrid treeGrid = new TreeGrid();
+			treeGrid.setId(indicator + location.getLocationId());
+			treeGrid.setName(location.getLocationName());
+			treeGrid.setParentId(null);
+			treeGrids.add(treeGrid);
+		}
+		List<Category> parentCategories = new ArrayList<Category>();
+		for(Region region : regions){
+			// next is add parent category
+			if(region.getCategory().getParentCategory() != null
+					&& !parentCategories.contains(region.getCategory().getParentCategory())){
+				parentCategories.add(region.getCategory().getParentCategory());
+				TreeGrid treeGrid = new TreeGrid();
+				treeGrid.setId(indicator2 + region.getCategory().getParentCategory().getCategoryId());
+				treeGrid.setName(region.getCategory().getParentCategory().getName());
+				treeGrid.setParentId(region.getLocation().getLocationId() + indicator);
+				treeGrids.add(treeGrid);
+			}
+			//next is add region of sub category
+			TreeGrid treeGrid = new TreeGrid();
+			treeGrid.setId(region.getRegionId());
+			treeGrid.setName(region.getRegionName());
+			treeGrid.setParentId(region.getCategory().getParentCategory().getCategoryId() + indicator2);
+			treeGrids.add(treeGrid);
+		}
+		return jSonSerialization(treeGrids);
 	}
 
 }

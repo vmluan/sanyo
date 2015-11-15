@@ -10,6 +10,7 @@ import com.sanyo.quote.domain.Expenses;
 import com.sanyo.quote.domain.Location;
 import com.sanyo.quote.domain.ProductGroupMaker;
 import com.sanyo.quote.domain.Project;
+import com.sanyo.quote.domain.ProjectRevision;
 import com.sanyo.quote.domain.ProjectStatus;
 
 
@@ -88,6 +89,8 @@ public interface ProjectRepository extends PagingAndSortingRepository<Project, I
 	
 	@Query("SELECT p FROM Project p WHERE p.status = :status")
 	public List<Project> findByStatus(@Param("status") ProjectStatus status);
+	
+	
 	
 	
 }

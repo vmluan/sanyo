@@ -41,4 +41,9 @@ public class DefaultCurrencyService implements CurrencyService {
 	public Page<Currency> findAllByPage(Pageable pageable) {
 		return currencyRepository.findAll(pageable);
 	}
+
+	@Override
+	public Currency findByCurrencyCode(String currencyCode) {
+		return currencyRepository.findByCurrencyCode(currencyCode);
+	}
 }

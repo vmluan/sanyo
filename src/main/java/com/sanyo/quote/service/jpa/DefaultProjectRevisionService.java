@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.collect.Lists;
+import com.sanyo.quote.domain.Project;
 import com.sanyo.quote.domain.ProjectRevision;
 import com.sanyo.quote.repository.ProjectRevisionRepository;
 import com.sanyo.quote.service.ProjectRevisionService;
@@ -51,6 +52,11 @@ public class DefaultProjectRevisionService implements ProjectRevisionService {
 	@Override
 	public void delete(ProjectRevision projectRevision) {
 		ProjectRevisionRepository.delete(projectRevision);
+	}
+
+	@Override
+	public List<ProjectRevision> findRevisions(Project project) {
+		return ProjectRevisionRepository.findRevisions(project);
 	}
 
 	

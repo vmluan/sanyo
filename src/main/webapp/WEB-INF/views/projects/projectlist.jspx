@@ -6,7 +6,7 @@
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>  
     
-    <spring:message code="label_project_new" var="labelProjectAdd" text="Create Project"/>
+    <spring:message code="label_project_new" var="labelProjectAdd" text="New Project"/>
     
     <c:if test="${not empty message}">
         <div id="message" class="${message.type}">${message.message}</div>

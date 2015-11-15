@@ -24,12 +24,14 @@ public class Currency implements java.io.Serializable{
 	public void setCurrencyId(Integer currencyId) {
 		this.currencyId = currencyId;
 	}
+	@Column(name = "CURRENCY_Name", unique = true, nullable = false)
 	public String getCurrencyName() {
 		return currencyName;
 	}
 	public void setCurrencyName(String currencyName) {
 		this.currencyName = currencyName;
 	}
+	@Column(name = "CURRENCY_CODE", unique = true, nullable = false)
 	public String getCurrencyCode() {
 		return currencyCode;
 	}

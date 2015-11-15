@@ -2,104 +2,74 @@
  * To display jqxgrid in user list page.
  */
 var url = pageContext + "/projects/getAssginedRegionsJson";
-// prepare the data
-var source = {
-	datatype : "json",
-	datafields : [ {
-		name : 'regionId',
-		type : 'string'
-	}, {
-		name : 'regionName',
-		type : 'string'
-	}, {
-		name : 'regionDesc',
-		type : 'string'
-	}, {
-		name : 'userName',
-		map : 'userRegionRoles>0>userName'
-	}, {
-		name : 'roleName',
-		map : 'userRegionRoles>0>roleName'
-	}, {
-		name : 'locationName',
-		map : 'location>locationName'
-	} ],
+var source =
+{
+	dataType: "json",
+	dataFields: [
+		{ name: 'id', type: 'number' },
+		{ name: 'parentId', type: 'number' },
+		{ name: 'name', type: 'string' },
+		{ name: 'value', type: 'string' }
+	],
+	hierarchy:
+	{
+		keyDataField: { name: 'id' },
+		parentDataField: { name: 'parentId' }
+	},
+	id: 'id',
 	id : 'regionId',
 	url : url,
 	data : {
 		projectId : projectId
-	}
+	}					
 };
-var dataAdapter = new $.jqx.dataAdapter(source, {
-	downloadComplete : function(data, status, xhr) {
-	},
-	loadComplete : function(data) {
-	},
-	loadError : function(xhr, status, error) {
-	}
-});
-// initialize jqxGrid
-$("#list")
-		.jqxGrid(
-				{
-					width : '100%',
-					height : 500,
-					theme : 'energyblue',
-					source : dataAdapter,
-					sortable : true,
-					pageable : true,
-					autoheight : true,
-					autoloadstate : false,
-					autosavestate : false,
-					columnsresize : true,
-					columnsreorder : true,
-					// showfilterrow : true,
-					// filterable : true,
-					columnsresize : true,
-					rowsheight : 45,
-					showpinnedcolumnbackground : false,
-					altrows : true,							
-					autorowheight: true,
-					columns : [
+var dataAdapter = new $.jqx.dataAdapter(source);
+			
+           // create Tree Grid
+            $("#list").jqxTreeGrid(
+            {
+                width: '100%',
+                source: dataAdapter,
+                sortable: true,
+				theme: 'energyblue',
+                source: dataAdapter,
+                sortable: true,
+				selectionMode: 'singleRow',
+                ready: function()
+                {
+                   $("#list").jqxTreeGrid('expandAll');
+                },				
+                columns: [
+							{
+								text : 'Name',
+								datafield : 'name',
+								align : 'center',
+								width : '75%'
+							},
 							{
 								text : 'Action',
-								datafield : 'regionId',
+								datafield : 'id',
 								align : 'center',
 								width : '25%',
 								cellsrenderer : function(row, column, value) {
+									if(value < 1010101010)
 										return '<div class="col-md-12">'
-											+ '<a class="btn btn-app col-md-5" onclick="updateRegion('+ value + ')">'
-											+ '<i class="glyphicon glyphicon-edit"></i>'
-											+ '</a>'
-											+ '<a class="btn btn-app col-md-5">'
-											+ '<i class="glyphicon glyphicon-remove-circle" onclick="deleteRegion('+ value +  ')"' + '></i>'
-											+ '</a>' + '</div>';
+													+'<p>'
+														+ '<button class="btn bg-olive margin col-md-5"  onclick="updateRegion('+ value +  ')"' + '>Edit</button>'
+														+ '<button class="btn btn-danger margin col-md-1" onclick="deleteRegion('+ value +  ')"' + '>X</button>'
+													+ '</p>'
+												+ '</div>'
+												;
+									else
+										return '';
 								}
-							},
-							{
-								text : '#',
-								datafield : 'stt',
-								width : '5%',
-								columntype : 'number',
-								cellsrenderer : function(row, column, value) {
-									return "<div style='margin:4px;'>"
-											+ (value + 1) + "</div>";
-								}
-							}, {
-								text : 'Region',
-								datafield : 'regionName',
-								align : 'center',
-								width : '35%'
-									
-							} , {
-								text : 'Location',
-								datafield : 'locationName',
-								align : 'center',
-								width : '35%'
-							} ]
-				});
+							}							
+                ]
+            });
+
 function updateRegion(id) {
-	window.location.href = pageContext + '/projects/regions/' + id + '?form';
+	var url = pageContext + '/projects/regions/' + id + '?form';
+	window.location.href = url;
 }
 
 function deleteRegion(id){
