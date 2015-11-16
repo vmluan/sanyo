@@ -377,6 +377,18 @@ $("input[name^='expenseElementDuration_']").change(function () {
 var group1=[1,2,3];
 var group2=[4,5,6,7,8,9,10,11,12];
 var group3=[13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29];
+
+//first load
+var groupTotal1 = totalGroup(group1);
+var groupTotal2 = totalGroup(group2);
+var groupTotal3 = totalGroup(group3);
+$("#group1").val(groupTotal1);
+$("#group2").val(groupTotal2);
+$("#group3").val(groupTotal3);
+$("#total").val(groupTotal1+groupTotal2+groupTotal3); //for all group1 + group 2 + group 3
+
+
+//on changing value
 $(":input").on("change",function () {
     var field = $(this);
     var name = field.attr("name");
