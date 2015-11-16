@@ -55,8 +55,8 @@ var dataAdapter = new $.jqx.dataAdapter(source);
 									if(value < 1010101010)
 										return '<div class="col-md-12">'
 													+'<p>'
-														+ '<button class="btn bg-olive margin col-md-5"  onclick="updateRegion('+ value +  ')"' + '>Edit</button>'
-														+ '<button class="btn btn-danger margin col-md-1" onclick="deleteRegion('+ value +  ')"' + '>X</button>'
+														+ '<button type="button" class="btn bg-olive margin col-md-5"  onclick="updateRegion('+ value +  ')"' + '>Edit</button>'
+														+ '<button type="button" class="btn btn-danger margin col-md-1" onclick="deleteRegion('+ value +  ')"' + '>X</button>'
 													+ '</p>'
 												+ '</div>'
 												;

@@ -54,10 +54,10 @@
 						<form:errors path="locationDesc" cssClass="error" />
 					</div>					
 				</div>			
-				<div class="col-md-12">
-                  <div class="form-group">
+				<div class="col-md-12">					
+					<button type="button" class="btn btn-primary" onclick="goBack();">Back</button>
+					&amp;nbsp;&amp;nbsp;
                     <button type="submit" class="btn btn-primary">Submit</button>
-                  </div>					
 				</div>				
 
                 </form:form>
@@ -66,3 +66,4 @@
 		</div>
 	</section>
 </div>
+

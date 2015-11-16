@@ -701,7 +701,7 @@ public class ProjectController extends CommonController {
 		setHeader(uiModel, "Location", "Detail of Location");
 		redirectAttributes.addFlashAttribute("message", new Message("success", messageSource.getMessage("location_save_success", new Object[]{}, locale)));
 //		return "redirect:/projects/locations/" + UrlUtil.encodeUrlPathSegment(location.getLocationId().toString(), httpServletRequest) + "?form";
-		return "redirect:/projects/" +project.getProjectId() +"/locations?form";
+		return "redirect:/projects/" +project.getProjectId() +"/locations/?form";
 	}
 	
 	@RequestMapping(value = "/locations/{id}", params = "form", method = RequestMethod.GET)

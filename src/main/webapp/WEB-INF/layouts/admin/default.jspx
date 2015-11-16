@@ -115,7 +115,9 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/demos.js">
         <jsp:text/>
     </script>
-
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/sanyo.js">
+        <jsp:text/>
+    </script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/jqwidgets/jqxgrid.columnsresize.js"><jsp:text/></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/jqwidgets/jqxlistbox.js"><jsp:text/></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/jqwidgets/jqxdropdownlist.js"><jsp:text/></script>
