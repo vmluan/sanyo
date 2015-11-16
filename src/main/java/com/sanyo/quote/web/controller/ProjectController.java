@@ -617,6 +617,7 @@ public class ProjectController extends CommonController {
         }
 		Project project = projectService.findById(id);
 		projectRevision.setProject(project);
+		projectRevision.setLmodDate(new Date());
 		projectRevision = projectRevisionService.save(projectRevision);
 		uiModel.asMap().clear();
 		setBreadCrumb(uiModel, "/projects/" + id + "?form", "Update Project", "", "Update Revision");

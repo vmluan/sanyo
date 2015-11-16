@@ -11,6 +11,6 @@ import com.sanyo.quote.domain.ProjectRevision;
 
 
 public interface ProjectRevisionRepository extends PagingAndSortingRepository<ProjectRevision, Integer> {
-	@Query("SELECT pr FROM ProjectRevision pr WHERE pr.project = :project order by pr.revisionId desc")
+	@Query("SELECT pr FROM ProjectRevision pr WHERE pr.project = :project order by pr.lmodDate desc")
 	public List<ProjectRevision> findRevisions(@Param("project") Project project);
 }

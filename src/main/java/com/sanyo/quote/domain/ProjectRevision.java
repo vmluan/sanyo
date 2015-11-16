@@ -2,6 +2,8 @@ package com.sanyo.quote.domain;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,14 +14,17 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "revision", catalog = "sanyo")
 public class ProjectRevision implements java.io.Serializable{
 	private Integer revisionId;
-	private String date;
+	@DateTimeFormat(pattern = "MM/dd/yyyy")
+	private Date date;
 	private String revisionNo;
 	private String revisionDesc;
+	private Date lmodDate;
 	
 	private Project project;
 	@Id
@@ -33,10 +38,10 @@ public class ProjectRevision implements java.io.Serializable{
 	}
 	
 	@Column(name = "DATE")
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 	
@@ -65,8 +70,11 @@ public class ProjectRevision implements java.io.Serializable{
 	public void setRevisionDesc(String revisionDesc) {
 		this.revisionDesc = revisionDesc;
 	}
-	
-	
-	
+	public Date getLmodDate() {
+		return lmodDate;
+	}
+	public void setLmodDate(Date lmodDate) {
+		this.lmodDate = lmodDate;
+	}
 
 }
