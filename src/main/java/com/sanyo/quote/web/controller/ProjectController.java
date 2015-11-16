@@ -55,6 +55,7 @@ import com.sanyo.quote.domain.ProjectRevision;
 import com.sanyo.quote.domain.ProjectStatus;
 import com.sanyo.quote.domain.Region;
 import com.sanyo.quote.domain.RegionJson;
+import com.sanyo.quote.domain.TreeGrid;
 import com.sanyo.quote.domain.User;
 import com.sanyo.quote.domain.UserJson;
 import com.sanyo.quote.domain.UserRegionRole;
@@ -338,13 +339,15 @@ public class ProjectController extends CommonController {
 		System.out.println("start getting assinged regions");
 		Project project = projectService.findByIdAndFetchLocationsEagerly(Integer.valueOf(projectId));
 		
+		List<TreeGrid> treeGrids = new ArrayList<TreeGrid>();
 		Set<Location> locations = project.getLocations();
-		Set<Region> totalRegions = new HashSet<Region>();
+//		Set<Region> totalRegions = new HashSet<Region>();
 		for(Location location : locations){
 			Set<Region> regions  = location.getRegions();
-			totalRegions.addAll(regions);
+			if(regions != null && regions.size() >0)
+				treeGrids.addAll(Utilities.createJsonTreeGridForRegions(regions, location));
 		}
-		Iterator<Region> iterator = totalRegions.iterator();
+//		Iterator<Region> iterator = totalRegions.iterator();
 //		Set<Region> assginedRegions = new HashSet<Region>();
 //		
 //		while(iterator.hasNext()){
@@ -360,8 +363,7 @@ public class ProjectController extends CommonController {
 //			}
 //		}
 //		
-//		String result = Utilities.jSonSerialization(assginedRegions);
-		String result = Utilities.createJsonTreeGridForRegions(totalRegions, locations);
+		String result = Utilities.jSonSerialization(treeGrids);
 		return result;
 	}
 	@RequestMapping(value = "/getAssginedCategoriesJson", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
@@ -698,7 +700,8 @@ public class ProjectController extends CommonController {
 		setBreadCrumb(uiModel, "/projects/" + id + "?form", "Update Project", "", "Update Location");
 		setHeader(uiModel, "Location", "Detail of Location");
 		redirectAttributes.addFlashAttribute("message", new Message("success", messageSource.getMessage("location_save_success", new Object[]{}, locale)));
-		return "redirect:/projects/locations/" + UrlUtil.encodeUrlPathSegment(location.getLocationId().toString(), httpServletRequest) + "?form";
+//		return "redirect:/projects/locations/" + UrlUtil.encodeUrlPathSegment(location.getLocationId().toString(), httpServletRequest) + "?form";
+		return "redirect:/projects/" +project.getProjectId() +"/locations?form";
 	}
 	
 	@RequestMapping(value = "/locations/{id}", params = "form", method = RequestMethod.GET)
