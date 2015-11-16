@@ -317,18 +317,18 @@ function saveExpensesList() {
 
     var jsonData = JSON.stringify(expenseList);
     console.log(jsonData);
-    var url = pageContext + '/expenses/1/saveExpenselist?form';
+    var url = pageContext + '/expenses/'+projectId+'/saveExpenselist?form';
     $.ajax({
         type : "POST",
         contentType : 'application/json',
         data : jsonData,
         url : url,
         success : function(msg) {
-            $("#list").jqxGrid('updatebounddata');
-            $("#listResult").jqxGrid('updatebounddata');
+            //$("#list").jqxGrid('updatebounddata');
+            //$("#listResult").jqxGrid('updatebounddata');
             // $('#list').jqxGrid('addrow', null, {}, 'first');
 
-            $("#list").jqxGrid('begincelledit', 0, "categoryName");
+            //$("#list").jqxGrid('begincelledit', 0, "categoryName");
         },
         complete : function(xhr, status) {
             // $("#assignRegionButton").prop('disabled', false);
@@ -336,3 +336,92 @@ function saveExpensesList() {
     });
 
 }
+
+$("input[name^='expenseElement_']").change(function () {
+    var field = $(this);
+    var name = field.attr("name");
+    var id = name.split("_")[1];
+    var quantity = field.val();
+    var duration = $("#expenseElementDuration_"+id).val();
+    var rate = $("#expenseElementRate_"+id).val();
+
+    $("#expenseElementSum_"+id).val(total(quantity,duration,rate));
+});
+
+$("input[name^='expenseElementRate_']").change(function () {
+    var field = $(this);
+    var name = field.attr("name");
+    var id = name.split("_")[1];
+    var rate = field.val();
+    var duration = $("#expenseElementDuration_"+id).val();
+    var quantity = $("#expenseElement_"+id).val();
+
+    $("#expenseElementSum_"+id).val(total(quantity,duration,rate));
+});
+
+$("input[name^='expenseElementDuration_']").change(function () {
+    var field = $(this);
+    var name = field.attr("name");
+    var id = name.split("_")[1];
+    var duration = field.val();
+    var rate = $("#expenseElementRate_"+id).val();
+    var quantity = $("#expenseElement_"+id).val();
+
+    $("#expenseElementSum_"+id).val(total(quantity,duration,rate));
+});
+
+
+/*
+* define group total
+ */
+var group1=[1,2,3];
+var group2=[4,5,6,7,8,9,10,11,12];
+var group3=[13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29];
+$(":input").on("change",function () {
+    var field = $(this);
+    var name = field.attr("name");
+    var id = name.split("_")[1];
+    var groupTotal1 = 0;
+    var groupTotal2 = 0;
+    var groupTotal3 = 0;
+
+    if (jQuery.inArray(id, group1)){
+        groupTotal1 = totalGroup(group1);
+        $("#group1").val(groupTotal1);
+    }
+    if (jQuery.inArray(id, group2)){
+        groupTotal2 = totalGroup(group2);
+        $("#group2").val(groupTotal2);
+    }
+    if (jQuery.inArray(id, group3)){
+        groupTotal3 = totalGroup(group3);
+        $("#group3").val(groupTotal3);
+    }
+
+    $("#total").val(groupTotal1+groupTotal2+groupTotal3); //for all group1 + group 2 + group 3
+});
+
+/*
+group is an Array
+ */
+function totalGroup(group){
+    var sum = 0;
+    $.each(group, function( index, value ) {
+        sum+=totalById(value);
+    });
+    return sum;
+}
+
+function totalById(id){
+    var quantity = $("#expenseElement_"+id).val();
+    var duration = $("#expenseElementDuration_"+id).val();
+    var rate = $("#expenseElementRate_"+id).val();
+
+    return total(quantity,duration,rate);
+}
+
+
+function total(quantity, duration,rate){
+    return quantity * duration * rate;
+}
+

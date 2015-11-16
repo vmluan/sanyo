@@ -82,14 +82,15 @@
     <section class="content">
         <form:form modelAttribute="expensesJson" id="projectUpdateForm" method="post">
             <!-- table made by: http://tableizer.journalistopia.com/tableizer.php -->
+            Total: US$<input id="total" />
             <table class="tableizer-table">
                 <tbody><tr class="tableizer-firstrow"><th></th><th>Name</th><th>Quantity/Person</th><th>Duration</th><th>Rate</th><th>Sum</th><th>Remark</th></tr>
-                <tr><td>400</td><td>Japanese Cost</td><td></td><td></td><td></td><td>c/f to summary</td><td>US$0.00</td></tr>
+                <tr><td>400</td><td>Japanese Cost</td><td></td><td></td><td></td><td>c/f to summary</td><td>US$<input id="group1"/></td></tr>
                 <tr><td></td><td>JP Yen 29,000/Day</td><td><form:input path="expenseElement_1" class="form-control"/></td><td><form:input path="expenseElementDuration_1" class="form-control"/></td><td><form:input path="expenseElementRate_1" class="form-control"/></td><td><form:input path="expenseElementSum_1" class="form-control"/></td><td><form:input path="expenseElementRemark_1" class="form-control"/></td></tr>
                 <tr><td></td><td>JP Yen 35,000/Day</td><td><form:input path="expenseElement_2" class="form-control"/></td><td><form:input path="expenseElementDuration_2" class="form-control"/></td><td><form:input path="expenseElementRate_2" class="form-control"/></td><td><form:input path="expenseElementSum_2" class="form-control"/></td><td><form:input path="expenseElementRemark_2" class="form-control"/></td></tr>
                 <tr><td></td><td>JP Yen 40,000/Day</td><td><form:input path="expenseElement_3" class="form-control"/></td><td><form:input path="expenseElementDuration_3" class="form-control"/></td><td><form:input path="expenseElementRate_3" class="form-control"/></td><td><form:input path="expenseElementSum_3" class="form-control"/></td><td><form:input path="expenseElementRemark_3" class="form-control"/></td></tr>
                 <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                <tr><td>300-1</td><td>Supervision</td><td></td><td></td><td></td><td>c/f to summary</td><td>US$17,500.00</td></tr>
+                <tr><td>300-1</td><td>Supervision</td><td></td><td></td><td></td><td>c/f to summary</td><td>US$<input id="group2"/></td></tr>
                 <tr><td></td><td></td><td>person</td><td># month</td><td> US$/month </td><td>total</td><td></td></tr>
                 <tr><td>a</td><td>Japanese Site correction</td><td><form:input path="expenseElement_4" class="form-control"/></td><td><form:input path="expenseElementDuration_4" class="form-control"/></td><td><form:input path="expenseElementRate_4" class="form-control"/></td><td><form:input path="expenseElementSum_4" class="form-control"/></td><td><form:input path="expenseElementRemark_4" class="form-control"/></td></tr>
                 <tr><td>b</td><td>3rd Country Engineer</td><td><form:input path="expenseElement_5" class="form-control"/></td><td><form:input path="expenseElementDuration_5" class="form-control"/></td><td><form:input path="expenseElementRate_5" class="form-control"/></td><td><form:input path="expenseElementSum_5" class="form-control"/></td><td><form:input path="expenseElementRemark_5" class="form-control"/></td></tr>
@@ -101,7 +102,7 @@
                 <tr><td>h</td><td>Cad Operator</td><td><form:input path="expenseElement_11" class="form-control"/></td><td><form:input path="expenseElementDuration_11" class="form-control"/></td><td><form:input path="expenseElementRate_11" class="form-control"/></td><td><form:input path="expenseElementSum_11" class="form-control"/></td><td><form:input path="expenseElementRemark_11" class="form-control"/></td></tr>
                 <tr><td>i</td><td>Safety Supervisor</td><td><form:input path="expenseElement_12" class="form-control"/></td><td><form:input path="expenseElementDuration_12" class="form-control"/></td><td><form:input path="expenseElementRate_12" class="form-control"/></td><td><form:input path="expenseElementSum_12" class="form-control"/></td><td><form:input path="expenseElementRemark_12" class="form-control"/></td></tr>
                 <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                <tr><td>300-2</td><td>Site Expenses </td><td></td><td></td><td></td><td>c/f to summary</td><td>US$14,945.33</td></tr>
+                <tr><td>300-2</td><td>Site Expenses </td><td></td><td></td><td></td><td>c/f to summary</td><td>US$<input id="group3"/></td></tr>
                 <tr><td></td><td></td><td></td><td># mth or time</td><td> US$/ mth or time </td><td></td><td></td></tr>
                 <tr><td>a</td><td>Site Office</td><td><form:input path="expenseElement_13" class="form-control"/></td><td><form:input path="expenseElementDuration_13" class="form-control"/></td><td><form:input path="expenseElementRate_13" class="form-control"/></td><td><form:input path="expenseElementSum_13" class="form-control"/></td><td><form:input path="expenseElementRemark_13" class="form-control"/></td></tr>
                 <tr><td>a</td><td>Site Storage</td><td><form:input path="expenseElement_14" class="form-control"/></td><td><form:input path="expenseElementDuration_14" class="form-control"/></td><td><form:input path="expenseElementRate_14" class="form-control"/></td><td><form:input path="expenseElementSum_14" class="form-control"/></td><td><form:input path="expenseElementRemark_14" class="form-control"/></td></tr>
@@ -178,6 +179,7 @@
             saveExpensesList();
 
         });
+
 
 
     </script>

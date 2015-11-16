@@ -107,7 +107,7 @@ function saveMakerList(row) {
 
 	var jsonData = JSON.stringify(makerList);
 	console.log(jsonData);
-	var url = pageContext + '/quotation/1/addmakerlist?form';
+	var url = pageContext + '/quotation/'+projectId+'/addmakerlist?form';
 	$.ajax({
 		type : "POST",
 		contentType : 'application/json',
