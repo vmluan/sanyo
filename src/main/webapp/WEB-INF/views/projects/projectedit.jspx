@@ -279,7 +279,7 @@
 										  </div>
 									</div>
 									<div>
-										<form:errors path="usdToVnd" cssClass="error" />
+										<form:errors path="vndToUsd" cssClass="error" />
 									</div>					
 								</div>
 								<div class="col-md-4">
@@ -291,7 +291,7 @@
 										  </div>
 									</div>
 									<div>
-										<form:errors path="usdToVnd" cssClass="error" />
+										<form:errors path="jpyToVnd" cssClass="error" />
 									</div>					
 								</div>
 								<div class="col-md-4">
@@ -303,7 +303,7 @@
 										  </div>
 									</div>
 									<div>
-										<form:errors path="usdToVnd" cssClass="error" />
+										<form:errors path="vndToJpy" cssClass="error" />
 									</div>					
 								</div>							
 							</div>

@@ -66,12 +66,12 @@ public class Project implements java.io.Serializable, Cloneable {
 	private float allowance = 105f;
 	private float subConProfit = 105f; //mặc định 105%, lấy từ bản thông số chung của dự án
 	
-	private float vndToUsd;
-	private float usdToVnd;
-	private float jpyToVnd;
-	private float vndToJpy;
-	private float usdToJpy;
-	private float jpyToUsd;
+	private Float vndToUsd;
+	private Float usdToVnd;
+	private Float jpyToVnd;
+	private Float vndToJpy;
+	private Float usdToJpy;
+	private Float jpyToUsd;
 	
 	private Set<ProjectRevision> revisions;
 	private Set<Location> locations;
@@ -338,51 +338,51 @@ public class Project implements java.io.Serializable, Cloneable {
 		this.revisions = revisions;
 	}
 
-	public float getVndToUsd() {
+	public Float getVndToUsd() {
 		return vndToUsd;
 	}
 
-	public void setVndToUsd(float vndToUsd) {
+	public void setVndToUsd(Float vndToUsd) {
 		this.vndToUsd = vndToUsd;
 	}
 
-	public float getUsdToVnd() {
+	public Float getUsdToVnd() {
 		return usdToVnd;
 	}
 
-	public void setUsdToVnd(float usdToVnd) {
+	public void setUsdToVnd(Float usdToVnd) {
 		this.usdToVnd = usdToVnd;
 	}
 
-	public float getJpyToVnd() {
+	public Float getJpyToVnd() {
 		return jpyToVnd;
 	}
 
-	public void setJpyToVnd(float jpyToVnd) {
+	public void setJpyToVnd(Float jpyToVnd) {
 		this.jpyToVnd = jpyToVnd;
 	}
 
-	public float getVndToJpy() {
+	public Float getVndToJpy() {
 		return vndToJpy;
 	}
 
-	public void setVndToJpy(float vndToJpy) {
+	public void setVndToJpy(Float vndToJpy) {
 		this.vndToJpy = vndToJpy;
 	}
 
-	public float getUsdToJpy() {
+	public Float getUsdToJpy() {
 		return usdToJpy;
 	}
 
-	public void setUsdToJpy(float usdToJpy) {
+	public void setUsdToJpy(Float usdToJpy) {
 		this.usdToJpy = usdToJpy;
 	}
 
-	public float getJpyToUsd() {
+	public Float getJpyToUsd() {
 		return jpyToUsd;
 	}
 
-	public void setJpyToUsd(float jpyToUsd) {
+	public void setJpyToUsd(Float jpyToUsd) {
 		this.jpyToUsd = jpyToUsd;
 	}
 	

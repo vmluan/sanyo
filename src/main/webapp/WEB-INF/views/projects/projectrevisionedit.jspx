@@ -48,7 +48,7 @@
 						<form:label path="date">
 							${labelDate}
 						</form:label>
-						<form:input path="date" class="form-control"/>
+						<form:input path="date" class="form-control" placeholder="mm/dd/yyyy"/>
 					</div>
 					<div>
 						<form:errors path="date" cssClass="error" />

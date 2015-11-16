@@ -296,9 +296,9 @@ public class ProjectController extends CommonController {
 				Region region = role.getRegion();
 				Location location = region.getLocation();
 				Project project = location.getProject();
-				List<ProjectRevision> revisions = projectRevisionService.findRevisions(project);
+				ProjectRevision latest = projectRevisionService.findLatestRevision(project);
 				Set<ProjectRevision> tempRevisions = new HashSet<ProjectRevision>();
-				tempRevisions.add(revisions.get(0));
+				tempRevisions.add(latest);
 				project.setRevisions(tempRevisions);
 				
 				if(status != null && status.equalsIgnoreCase("ongoing")){
