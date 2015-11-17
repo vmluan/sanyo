@@ -274,5 +274,20 @@ public class Utilities {
 		}
 		return jSonSerialization(treeGrids);
 	}
+	public static List<TreeGrid> createTreeGridForCategories(Collection<Category> categories){
+		List<TreeGrid> treeGrids = new ArrayList<TreeGrid>();
+		for(Category category : categories){
+			TreeGrid treeGrid = new TreeGrid();
+			treeGrid.setId(category.getCategoryId());
+			treeGrid.setName(category.getName());
+			treeGrid.setValue(category.getDesc());
+			if(category.getParentCategory() != null)
+				treeGrid.setParentId(category.getParentCategory().getCategoryId());
+			else
+				treeGrid.setParentId(null);
+			treeGrids.add(treeGrid);
+		}
+		return treeGrids;
+	}
 
 }

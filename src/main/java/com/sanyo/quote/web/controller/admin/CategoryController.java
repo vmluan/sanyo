@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sanyo.quote.domain.Category;
+import com.sanyo.quote.domain.TreeGrid;
 import com.sanyo.quote.helper.Utilities;
 import com.sanyo.quote.service.CategoryService;
 import com.sanyo.quote.web.controller.CommonController;
@@ -153,10 +154,9 @@ public class CategoryController extends CommonController {
 		// Constructs page request for current page
 //		PageRequest pageRequest = null;
 //		pageRequest = new PageRequest(pagenum, pagesize);
-
-		
 		List<Category> categories  = categoryService.findAll();
-		String result = Utilities.jSonSerialization(categories);
+		List<TreeGrid> treeGrids = Utilities.createTreeGridForCategories(categories);
+		String result = Utilities.jSonSerialization(treeGrids);
 		return result;
 	}
 	private void resetCategories(Model uiModel,Category category, List<Category> categories){

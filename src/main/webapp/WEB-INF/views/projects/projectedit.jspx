@@ -499,76 +499,25 @@ var dataAdapterLocationJson = new $.jqx.dataAdapter(sourceLocation, {autoBind: t
 
 	
 var url = "${pageContext.request.contextPath}/admin/categories/getListJson";
-var source = {
-	datatype : "json",
-	datafields : [ {
-		name : 'categoryId',
-		type : 'string'
-	}, {
-		name : 'name',
-		type : 'string'
-	}, {
-		name : 'desc',
-		type : 'string'
-	} ],
-	id : 'categoryId',
-	url : url
-};
-
-var dataAdapter = new $.jqx.dataAdapter(source, {
-	downloadComplete : function(data, status, xhr) {
-	},
-	loadComplete : function(data) {
-	},
-	loadError : function(xhr, status, error) {
-	}
-});
-                // Create a treegrid
-				var regions=[
-					{"categoryId": 1, "categoryName": "ELECTRICAL BOQ", "categoryDesc" : "test", "parentCategoryId": null}
-					,{"categoryId": 2, "categoryName": "HIGH VOLTAGE SYSTEM", "categoryDesc" : "HIGH VOLTAGE SYSTEM", "parentCategoryId": 1}
-					,{"categoryId": 3, "categoryName": "LV MAIN SYSTEM", "categoryDesc" : "LV MAIN SYSTEM", "parentCategoryId": 1}
-					,{"categoryId": 4, "categoryName": "SUBMAIN SYSTEM", "categoryDesc" : "SUBMAIN SYSTEM", "parentCategoryId": 1}
-					,{"categoryId": 5, "categoryName": "POWER SUPPLY TO PRODUCTION", "categoryDesc" : "", "parentCategoryId": 1}
-					,{"categoryId": 6, "categoryName": "EMERGENCY POWER BACK-UP GENERATOR", "categoryDesc" : "", "parentCategoryId": 1}
-					,{"categoryId": 7, "categoryName": "LIGHTING SYSTEM &amp; SOCKET OUTLET", "categoryDesc" : "", "parentCategoryId": 1}
-					,{"categoryId": 8, "categoryName": "ELECTRICAL FOR MECHANICAL EQUIPMENT (A.C, FAN, AIR COMP., PUMPS)", "categoryDesc" : "", "parentCategoryId": 1}
-					,{"categoryId": 9, "categoryName": "TELEPHONE SYSTEM EMPTY CONDUIT", "categoryDesc" : "", "parentCategoryId": 1}
-					,{"categoryId": 10, "categoryName": "LAN SYSTEM EMPTY CONDUIT", "categoryDesc" : "", "parentCategoryId": 1}
-					,{"categoryId": 11, "categoryName": "PUBLIC ADDRESS SYSTEM", "categoryDesc" : "", "parentCategoryId": 1}
-					,{"categoryId": 12, "categoryName": "FIRE ALARM SYSTEM", "categoryDesc" : "", "parentCategoryId": 1}
-					,{"categoryId": 13, "categoryName": "LIGHTNING PROTECTION SYSTEM", "categoryDesc" : "", "parentCategoryId": 1}
-					,{"categoryId": 14, "categoryName": "WATER LEAKING ALARM (FOR PLATING AREA)", "categoryDesc" : "", "parentCategoryId": 1}
-					,{"categoryId": 15, "categoryName": "MECHANICAL BOQ", "categoryDesc" : "", "parentCategoryId": null}
-					,{"categoryId": 16, "categoryName": "AIR CONDITIONING SYSTEM", "categoryDesc" : "", "parentCategoryId": 15}
-					,{"categoryId": 17, "categoryName": "VENTILATION SYSTEM", "categoryDesc" : "", "parentCategoryId": 15}
-					,{"categoryId": 18, "categoryName": "COLD WATER SUPPLY", "categoryDesc" : "", "parentCategoryId": 15}
-					,{"categoryId": 19, "categoryName": "SEWAGE DRAINAGE SYSTEM", "categoryDesc" : "", "parentCategoryId": 15}
-					,{"categoryId": 20, "categoryName": "SANITARY WARE", "categoryDesc" : "", "parentCategoryId": 15}
-					,{"categoryId": 21, "categoryName": "FIRE FIGHTING SYSTEM", "categoryDesc" : "", "parentCategoryId": 15}
-					,{"categoryId": 22, "categoryName": "AIR COMPRESSOR SYSTEM", "categoryDesc" : "", "parentCategoryId": 15}
-					,{"categoryId": 23, "categoryName": "STEAM BOILER SYSTEM", "categoryDesc" : "", "parentCategoryId": 15}
-					,{"categoryId": 23, "categoryName": "LOCAL PRODUCTION HEAT EXHAUST SYSTEM (Heat Treatment &amp; Plating Area )", "categoryDesc" : "", "parentCategoryId": 15}
-					];
-            // prepare the data
-            var source =
-            {
-                dataType: "json",
-                dataFields: [
-                    { name: 'categoryId', type: 'number' },
-                    { name: 'parentCategoryId', type: 'number' },
-                    { name: 'categoryName', type: 'string' },
-                    { name: 'categoryDesc', type: 'string' }
-                ],
-                hierarchy:
-                {
-                    keyDataField: { name: 'categoryId' },
-                    parentDataField: { name: 'parentCategoryId' }
-                },
-                id: 'categoryId',
-                localData: regions
-            };
-            var dataAdapter = new $.jqx.dataAdapter(source);
+//             // prepare the data
+             var source =
+             {
+                 dataType: "json",
+                 dataFields: [
+                     { name: 'id', type: 'number' },
+                     { name: 'parentId', type: 'number' },
+                     { name: 'name', type: 'string' },
+                     { name: 'value', type: 'string' }
+                 ],
+                 hierarchy:
+                 {
+                     keyDataField: { name: 'id' },
+                     parentDataField: { name: 'parentId' }
+                 },
+                 id: 'id',
+                 url : url
+             };
+             var dataAdapter = new $.jqx.dataAdapter(source);
 			
 			$('#treeGrid').on('rowCheck', 
 			function (event)
@@ -596,7 +545,7 @@ var dataAdapter = new $.jqx.dataAdapter(source, {
 				$("#treeGrid").jqxTreeGrid('setCellValue', key, 'user', '');
 				$("#treeGrid").jqxTreeGrid('setCellValue', key, 'role', '');
 			});
-			
+
             // create Tree Grid
             $("#treeGrid").jqxTreeGrid(
             {
@@ -610,13 +559,12 @@ var dataAdapter = new $.jqx.dataAdapter(source, {
 				checkboxes: true,
 				selectionMode: 'singleRow',
 				editSettings: { saveOnPageChange: true, saveOnBlur: true, saveOnSelectionChange: true, cancelOnEsc: true, saveOnEnter: true, editSingleCell: true, editOnDoubleClick: true, editOnF2: true },
-                ready: function()
+				ready: function()
                 {
-                   $("#treeGrid").jqxTreeGrid('lockRow', 1);
-				    $("#treeGrid").jqxTreeGrid('lockRow', 15);
+                   lockParentRows();
                 },
                 columns: [
-                  { text: 'Name', dataField: 'categoryName', width: '40%' },
+                  { text: 'Name', dataField: 'name', width: '40%' },
 				  {
 					   text: 'Select Location', dataField: 'location', width: '20%', columnType: "custom",
 					   createEditor: function (row, cellvalue, editor, cellText, width, height) {
@@ -678,6 +626,13 @@ $("#messageNotification").jqxNotification({
 	autoOpen: false, animationOpenDelay: 800, autoClose: true, autoCloseDelay: 3000, template: "info"
 });
 
+function lockParentRows(){
+	var rows = $("#treeGrid").jqxTreeGrid('getRows');
+	for(var i=0; i<rows.length; i++){
+		$("#treeGrid").jqxTreeGrid('lockRow', rows[i].uid);
+	}				
+}
+
 var isValid = true;
 $("#assignRegionButton").click(function(event){
 $(this).prop('disabled', true);
@@ -689,8 +644,10 @@ $(this).prop('disabled', true);
 	//$("#treeGrid").jqxTreeGrid('selectRow', '1'); //a trick to get correct data of user and role	
 	
 	for(var i=0; i<rows.length; i++){
-		var temp = getCheckedItems(rows[i]);
-		result = result.concat(temp)
+		if(rows[i] && rows[i].records){
+			var temp = getCheckedItems(rows[i]);
+			result = result.concat(temp)
+		}
 	}
 	if(result.length ==0){
 		alert('Please select one System at least.');
@@ -714,7 +671,7 @@ $(this).prop('disabled', true);
 // 		   data: testData,
 		   url: url,
 		   success: function(msg){
-				$("#list").jqxGrid('updateBoundData');
+				$("#list").jqxTreeGrid('updateBoundData');
 				$("#treeGrid").jqxTreeGrid('updateBoundData');
 				$("#messageNotification").jqxNotification("open");
 				
@@ -739,8 +696,8 @@ function getCheckedItems(obj){
 				var regionObj = new Object();
 				var users = new Array();
 				
-				regionObj.regionId = record.categoryId;
-				regionObj.regionName = record.categoryName;
+				regionObj.regionId = record.id;
+				regionObj.regionName = record.name;
 				if(record.user && record.user != 'Please Choose'){
 					arrayUser = record.user.split(',');
 					for(var k=0; k< arrayUser.length; k++){

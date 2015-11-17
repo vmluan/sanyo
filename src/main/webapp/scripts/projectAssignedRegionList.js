@@ -30,7 +30,6 @@ var dataAdapter = new $.jqx.dataAdapter(source);
             $("#list").jqxTreeGrid(
             {
                 width: '100%',
-                source: dataAdapter,
                 sortable: true,
 				theme: 'energyblue',
                 source: dataAdapter,

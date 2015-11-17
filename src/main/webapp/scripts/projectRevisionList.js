@@ -97,8 +97,8 @@ $("#listRevision")
 								cellsrenderer : function(row, column, value) {
 									return '<div class="col-md-12">'
 												+'<p>'
-													+ '<button class="btn bg-olive margin col-md-5"  onclick="updateRevison('+ value +  ')"' + '>Edit</button>'
-													+ '<button class="btn btn-danger margin col-md-1" onclick="deleteRevison('+ value +  ')"' + '>X</button>'
+													+ '<button type="button" class="btn bg-olive margin col-md-5"  onclick="updateRevison('+ value +  ')"' + '>Edit</button>'
+													+ '<button type="button" class="btn btn-danger margin col-md-1" onclick="deleteRevison('+ value +  ')"' + '>X</button>'
 												+ '</p>'
 											+ '</div>'
 											;										
