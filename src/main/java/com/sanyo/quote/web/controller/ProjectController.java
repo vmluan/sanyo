@@ -678,7 +678,7 @@ public class ProjectController extends CommonController {
         resetLinks();
         addToLinks(currentProjecs, projectsUrl);
         addToLinks("Project Detail", "/projects/" + id + "?form");
-        addToLinks("Update Region", "");
+        addToLinks("Update Revision", "");
         setBreadCrumb(uiModel, "/projects/" + projectRevision.getProject().getProjectId() + "?form", "Update Project", "", "Update Revision");
 		return "projects/revisions/update";
 	}
@@ -732,7 +732,7 @@ public class ProjectController extends CommonController {
         resetLinks();
         addToLinks(currentProjecs, projectsUrl);
         addToLinks("Project Detail", "/projects/" + id + "?form");
-        addToLinks("New Location", "");
+        addToLinks("Update Location", "");
         setBreadCrumb(uiModel, "/projects", "Projects", "", "Create Location");
         
 		return "projects/locations/create";

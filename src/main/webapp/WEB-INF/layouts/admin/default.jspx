@@ -130,7 +130,9 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/jqwidgets/jqxcalendar.js"><jsp:text/></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/jqwidgets/globalization/globalize.js"><jsp:text/></script>
      
-	
+	<script>
+		var pageContext = "${pageContext.request.contextPath}";
+	</script>
   </head>
 
   <body class="hold-transition skin-blue sidebar-mini">
@@ -171,10 +173,10 @@
           </h1>
           <ol class="breadcrumb">
           	<c:forEach items="${links }" var="link">
-				<c:if test="${not empty link.isHomeLink }">
+				<c:if test="${link.homeLink }">
 					<li><a href="${pageContext.request.contextPath}${link.linkUrl }"><i class="fa fa-dashboard"><jsp:text/></i> ${link.linkName }</a></li>
 				</c:if>
-				<c:if test="${empty link.isHomeLink }">
+				<c:if test="${not link.homeLink}">
 					<li><a href="${pageContext.request.contextPath}${link.linkUrl }"><i><jsp:text/></i> ${link.linkName }</a></li>
 				</c:if>	          	
           	</c:forEach>

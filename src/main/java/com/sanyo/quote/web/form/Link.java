@@ -3,7 +3,7 @@ package com.sanyo.quote.web.form;
 public class Link {
 	private String linkUrl;
 	private String linkName;
-	private boolean isHomeLink;
+	private boolean homeLink;
 	
 	
 	
@@ -20,10 +20,10 @@ public class Link {
 		this.linkName = linkName;
 	}
 	public boolean isHomeLink() {
-		return isHomeLink;
+		return homeLink;
 	}
-	public void setHomeLink(boolean isHomeLink) {
-		this.isHomeLink = isHomeLink;
+	public void setHomeLink(boolean homeLink) {
+		this.homeLink = homeLink;
 	}
 	
 }

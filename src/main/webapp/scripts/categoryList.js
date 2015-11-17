@@ -1,7 +1,7 @@
 /**
  * To display jqxgrid in user list page.
  */
-var url = "${pageContext.request.contextPath}/categories/getListJson";
+var url = pageContext + "/categories/getListJson";
 // prepare the data
 var source = {
 	datatype : "json",
@@ -102,5 +102,5 @@ $("#list")
 							} ]
 				});
 function updateProduct(userid) {
-	window.location.href = '${pageContext.request.contextPath}/admin/categories/' + userid + '?form';
+	window.location.href = pageContext + '/admin/categories/' + userid + '?form';
 }

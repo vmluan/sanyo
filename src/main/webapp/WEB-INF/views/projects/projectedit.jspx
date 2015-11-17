@@ -377,7 +377,7 @@
 					</div>				
 				
 				</div>				
-				<div class="col-md-8">
+				<div class="col-md-12">
 					<div class="box box-primary">
 						<div class="box-body">
 						  <div class="row">
@@ -401,8 +401,16 @@
 								<button id="assignRegionButton" type="botton" class="btn btn-primary">Assign System</button>
 								<p/>
 							</div>
-							<div id='treeGrid'><jsp:text />
-							</div>		
+							<div class="col-md-10">				
+								<div class="form-group">							
+									<div id='treeGrid'><jsp:text /></div> 
+								</div>					
+							</div>
+							 <div class="col-md-2">			
+								  <div class="form-group">
+									<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/admin/categories?form';">Add System</button>
+								  </div>				
+							</div>					
 							<div id="messageNotification" style="z-index: 30000000; display: none">
 									Assign System successfully.
 									<jsp:text />

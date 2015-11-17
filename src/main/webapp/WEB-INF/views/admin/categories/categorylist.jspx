@@ -20,6 +20,9 @@
 		<p/>
 		<a href="?form" class="btn btn-primary btn-xs">${labelRoleAdd}</a>
 	</section>
+	<script>
+		var pageContext = "${pageContext.request.contextPath}";
+	</script>
 
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/categoryList.js">
         <jsp:text/>
