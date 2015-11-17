@@ -25,4 +25,9 @@ public class Constants {
 	 public static final String MECH_BOQ = "MECHANICAL BOQ";
 	 public static final String ELEC_TYPE = "ELEC";
 	 public static final String MECH_TYPE = "MECH";
+	 public static final String PROJECT_ONGOING = "ONGOING";
+	 public static final String PROJECT_ONGOING_TEXT = "Ongoing Projects";
+	 public static final String PROJECT_FINISHED = "closed";
+	 public static final String PROJECT_FINISHED_TEXT = "Finished Projects";
+	 
 }

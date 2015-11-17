@@ -3,6 +3,7 @@ package com.sanyo.quote.web.form;
 public class Link {
 	private String linkUrl;
 	private String linkName;
+	private boolean isHomeLink;
 	
 	
 	
@@ -17,6 +18,12 @@ public class Link {
 	}
 	public void setLinkName(String linkName) {
 		this.linkName = linkName;
+	}
+	public boolean isHomeLink() {
+		return isHomeLink;
+	}
+	public void setHomeLink(boolean isHomeLink) {
+		this.isHomeLink = isHomeLink;
 	}
 	
 }

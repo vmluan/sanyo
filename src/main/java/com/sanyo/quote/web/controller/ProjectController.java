@@ -19,7 +19,6 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
-import org.eclipse.persistence.sessions.factories.ProjectClassGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +45,6 @@ import com.sanyo.quote.domain.Category;
 import com.sanyo.quote.domain.Currency;
 import com.sanyo.quote.domain.CurrencyExchRate;
 import com.sanyo.quote.domain.Encounter;
-import com.sanyo.quote.domain.Expenses;
 import com.sanyo.quote.domain.Location;
 import com.sanyo.quote.domain.ProductGroup;
 import com.sanyo.quote.domain.ProductGroupMaker;
@@ -67,13 +65,13 @@ import com.sanyo.quote.service.CurrencyService;
 import com.sanyo.quote.service.EncounterService;
 import com.sanyo.quote.service.LocationService;
 import com.sanyo.quote.service.ProductGroupMakerService;
-import com.sanyo.quote.service.ProductGroupService;
 import com.sanyo.quote.service.ProductService;
 import com.sanyo.quote.service.ProjectRevisionService;
 import com.sanyo.quote.service.ProjectService;
 import com.sanyo.quote.service.RegionService;
 import com.sanyo.quote.service.UserRegionRoleService;
 import com.sanyo.quote.service.UserService;
+import com.sanyo.quote.web.form.Link;
 import com.sanyo.quote.web.form.Message;
 import com.sanyo.quote.web.util.UrlUtil;
 
@@ -81,6 +79,7 @@ import com.sanyo.quote.web.util.UrlUtil;
 @RequestMapping(value = "/projects")
 public class ProjectController extends CommonController {
 	final Logger logger = LoggerFactory.getLogger(ProjectController.class);
+	String currentProjecs = "";
 
 	@Autowired
 	MessageSource messageSource;
@@ -130,16 +129,25 @@ public class ProjectController extends CommonController {
         validator = validatorFactory.getValidator();
 	}
 	
+
 	//handle /projects
 	@RequestMapping(method = RequestMethod.GET)
 	public String list(Model uiModel, HttpServletRequest request) {
 		logger.info("Listing projects");
-		setBreadCrumb(uiModel, "/", "Home", "/projects", "Projects");
+		
 		setHeader(uiModel, "Projects", "List of all projects");
 		setUser(uiModel);
 		String status = request.getParameter("status");
 		projectsUrl ="/projects?status=" + status;
 		uiModel.addAttribute("projectStatus", status);
+		if(status != null && status.equalsIgnoreCase(Constants.PROJECT_ONGOING))
+			this.currentProjecs = Constants.PROJECT_ONGOING_TEXT;
+		else if(status != null && status.equalsIgnoreCase(Constants.PROJECT_FINISHED))
+			this.currentProjecs = Constants.PROJECT_FINISHED_TEXT;
+				
+		resetLinks();
+		addToLinks(currentProjecs, projectsUrl);
+		setBreadCrumb(uiModel, "/", "Home", "/projects", "Projects");
 		return "projects/list";
 	}
 	
@@ -148,10 +156,16 @@ public class ProjectController extends CommonController {
     public String updateForm(@PathVariable("id") Integer id, Model uiModel) {
 		Project project = projectService.findById(id);
         uiModel.addAttribute("project", project);
-        setBreadCrumb(uiModel, projectsUrl, "Projects", "", "Project Detail");
+        
         setHeader(uiModel, "Project Detail", "Contains detail information including regions and assigned users");
         setUser(uiModel);
         initialize(uiModel);
+        
+        resetLinks();
+        addToLinks(currentProjecs, projectsUrl);
+        addToLinks("Project Detail", "");
+        setBreadCrumb(uiModel, projectsUrl, "Projects", "", "Project Detail");
+        
         return "projects/update";
 	}
 	
@@ -197,11 +211,17 @@ public class ProjectController extends CommonController {
     public String createForm(Model uiModel) {
 		Project project = new Project();
         uiModel.addAttribute("project", project);
-        setBreadCrumb(uiModel, projectsUrl, "Projects", "", "New Project");
+        
         setHeader(uiModel, "Create new project", "");
         setUser(uiModel);
         initialize(uiModel);
         loadDefaultCurrencies(project, uiModel);
+        
+        resetLinks();
+        addToLinks(currentProjecs, projectsUrl);
+        addToLinks("New Project", "");
+        setBreadCrumb(uiModel, projectsUrl, "Projects", "", "New Project");
+        
         return "projects/create";
 	}
 	//create new project, save to database
@@ -456,6 +476,12 @@ public class ProjectController extends CommonController {
 		Project project = projectService.findById(id);
         uiModel.addAttribute("project", project);
         setCategories(uiModel);
+        
+        
+        resetLinks();
+        addToLinks(currentProjecs, projectsUrl);
+        addToLinks("Project Detail", "/projects/" + id + "?form");
+        addToLinks("New Region", "");
         setBreadCrumb(uiModel, projectsUrl, "Projects", "", "Project Detail");
         return "projects/update";
 	}
@@ -607,9 +633,16 @@ public class ProjectController extends CommonController {
 		Project project = projectService.findById(id);
 		projectRevision.setProject(project);
         uiModel.addAttribute("projectRevision", projectRevision);
-        setBreadCrumb(uiModel, projectsUrl, "Projects", "", "Create Revision");
+        
         setHeader(uiModel, "Revision", "Create a new revision");
         setUser(uiModel);
+        
+        resetLinks();
+        addToLinks(currentProjecs, projectsUrl);
+        addToLinks("Project Detail", "/projects/" + id + "?form");
+        addToLinks("New Revision", "");
+        setBreadCrumb(uiModel, projectsUrl, "Projects", "", "Create Revision");
+        
 		return "projects/revisions/create";
 		
 	}
@@ -638,9 +671,15 @@ public class ProjectController extends CommonController {
 	public String  callEditProjectRevisions(@PathVariable("id") Integer id, Model uiModel, HttpServletRequest httpServletRequest){
 		ProjectRevision projectRevision = projectRevisionService.findById(id);
         uiModel.addAttribute("projectRevision", projectRevision);
-        setBreadCrumb(uiModel, "/projects/" + projectRevision.getProject().getProjectId() + "?form", "Update Project", "", "Update Revision");
+        
         setHeader(uiModel, "Revision", "Update revision");
         setUser(uiModel);
+        
+        resetLinks();
+        addToLinks(currentProjecs, projectsUrl);
+        addToLinks("Project Detail", "/projects/" + id + "?form");
+        addToLinks("Update Region", "");
+        setBreadCrumb(uiModel, "/projects/" + projectRevision.getProject().getProjectId() + "?form", "Update Project", "", "Update Revision");
 		return "projects/revisions/update";
 	}
 	@RequestMapping(value = "/revisions/{id}", params = "form", method = RequestMethod.POST)
@@ -686,9 +725,16 @@ public class ProjectController extends CommonController {
 		Project project = projectService.findById(id);
 		location.setProject(project);
         uiModel.addAttribute("location", location);
-        setBreadCrumb(uiModel, "/projects", "Projects", "", "Create Location");
+        
         setHeader(uiModel, "Location", "Create a new Location");
         setUser(uiModel);
+        
+        resetLinks();
+        addToLinks(currentProjecs, projectsUrl);
+        addToLinks("Project Detail", "/projects/" + id + "?form");
+        addToLinks("New Location", "");
+        setBreadCrumb(uiModel, "/projects", "Projects", "", "Create Location");
+        
 		return "projects/locations/create";
 		
 	}
@@ -717,9 +763,16 @@ public class ProjectController extends CommonController {
 	public String  callEditLocation(@PathVariable("id") Integer id, Model uiModel, HttpServletRequest httpServletRequest){
 		Location location = locationService.findById(id);
         uiModel.addAttribute("location", location);
-        setBreadCrumb(uiModel, "/projects/" + location.getProject().getProjectId() + "?form", "Update Project", "", "Update Location");
+        
         setHeader(uiModel, "Location", "Update location");
         setUser(uiModel);
+        
+        resetLinks();
+        addToLinks(currentProjecs, projectsUrl);
+        addToLinks("Project Detail", "/projects/" + id + "?form");
+        addToLinks("New Location", "");
+        setBreadCrumb(uiModel, "/projects/" + location.getProject().getProjectId() + "?form", "Update Project", "", "Update Location");
+        
 		return "projects/locations/update";
 	}
 	@RequestMapping(value = "/locations/{id}", params = "form", method = RequestMethod.POST)
