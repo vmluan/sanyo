@@ -10,7 +10,7 @@ var source = {
 		type : 'string'
 	}, {
 		name : 'date',
-		type : 'string'
+		type : 'date'
 	}, {
 		name : 'revisionNo',
 		type : 'string'
@@ -19,6 +19,8 @@ var source = {
 		type : 'string'
 	}],
 	id : 'revisionId',
+    sortcolumn: 'date',
+    sortdirection: 'desc',	
 	url : url,
 	data : {
 		projectId : projectId
@@ -76,7 +78,7 @@ $("#listRevision")
 								datafield : 'date',
 								align : 'center',
 								cellsalign : 'left',
-								cellsformat : 'c0',
+								cellsformat: 'MM/dd/yyyy',
 								width : '20%'
 							},
 							{

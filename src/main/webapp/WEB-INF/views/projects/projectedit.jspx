@@ -706,7 +706,7 @@ $(this).prop('disabled', true);
 // 		   data: testData,
 		   url: url,
 		   success: function(msg){
-				$("#list").jqxGrid('updatebounddata');
+				$("#list").jqxGrid('updateBoundData');
 				$("#treeGrid").jqxTreeGrid('updateBoundData');
 				$("#messageNotification").jqxNotification("open");
 				

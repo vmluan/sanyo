@@ -265,6 +265,13 @@ public class ProjectController extends CommonController {
         return "projects/update";
     }
 	
+	private Set<ProjectRevision> getLatestRevision(Project project){
+		ProjectRevision latest = projectRevisionService.findLatestRevision(project);
+		logger.info(" ========== latest revision =" + latest.getRevisionNo());
+		Set<ProjectRevision> tempRevisions = new HashSet<ProjectRevision>();
+		tempRevisions.add(latest);
+		return tempRevisions;
+	}
 	@RequestMapping(value = "/getListJson", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String getProductsJson(@RequestParam(value="filterscount", required=false) String filterscount
@@ -296,9 +303,7 @@ public class ProjectController extends CommonController {
 				Region region = role.getRegion();
 				Location location = region.getLocation();
 				Project project = location.getProject();
-				ProjectRevision latest = projectRevisionService.findLatestRevision(project);
-				Set<ProjectRevision> tempRevisions = new HashSet<ProjectRevision>();
-				tempRevisions.add(latest);
+				Set<ProjectRevision> tempRevisions = getLatestRevision(project);
 				project.setRevisions(tempRevisions);
 				
 				if(status != null && status.equalsIgnoreCase("ongoing")){
@@ -321,7 +326,10 @@ public class ProjectController extends CommonController {
 			else
 				projects = null;
 		}
-		
+		for(Project project : projects){
+			Set<ProjectRevision> tempRevisions = getLatestRevision(project);
+			project.setRevisions(tempRevisions);
+		}
 		String result = Utilities.jSonSerialization(projects);
 		return result;
 	}

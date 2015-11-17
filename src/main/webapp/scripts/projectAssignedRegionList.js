@@ -17,7 +17,8 @@ var source =
 		parentDataField: { name: 'parentId' }
 	},
 	id: 'id',
-	id : 'regionId',
+    sortcolumn: 'name',
+    sortdirection: 'asc',	
 	url : url,
 	data : {
 		projectId : projectId

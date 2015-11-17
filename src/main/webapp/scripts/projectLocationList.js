@@ -16,6 +16,8 @@ var source = {
 		type : 'string'
 	} ],
 	id : 'locationId',
+    sortcolumn: 'locationName',
+    sortdirection: 'asc',	
 	url : url,
 	data : {
 		projectId : projectId

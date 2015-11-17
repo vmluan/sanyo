@@ -46,6 +46,8 @@ var source = {
 		type : 'date'
 	} ],
 	id : 'projectId',
+    sortcolumn: 'createdDate',
+    sortdirection: 'desc',	
 	url : url
 };
 var cellsrenderer = function(row, columnfield, value, defaulthtml,
