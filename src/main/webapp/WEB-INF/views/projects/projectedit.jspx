@@ -468,7 +468,7 @@ var dataAdapterUserJson = new $.jqx.dataAdapter(sourceUserJson,  {autoBind: true
 	}
 });
 
-var urlLocation = "${pageContext.request.contextPath}/projects/getLocationsJson";
+var urlLocation = "${pageContext.request.contextPath}/projects/getLocationsJsonWithAll";
 //prepare the data
 var sourceLocation = {
 	datatype : "json",
@@ -484,6 +484,8 @@ var sourceLocation = {
 	} ],
 	id : 'locationId',
 	url : urlLocation,
+	sortcolumn: 'locationId',
+    sortdirection: 'desc',
 	data : {
 		projectId : ${project.projectId}
 	}

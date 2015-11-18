@@ -501,6 +501,48 @@ public class ProjectController extends CommonController {
 	}
 	
 	
+	private void saveNewRegion(RegionJson regionJson, Location existingLocation ){
+		Category category = categoryService.findById(regionJson.getRegionId());
+		
+		Region region = getExistingRegion(existingLocation, category.getName());
+		if(region == null){
+			region = new Region();
+			region.setCategory(category);
+			if(regionJson.getRegionName() != null)
+				region.setRegionName(regionJson.getRegionName());
+			else
+				region.setRegionName(category.getName());
+			region.setRegionDesc(category.getDesc());
+			if(existingLocation != null)
+				region.setLocation(existingLocation);
+			region = regionService.save(region);
+		}else{
+			if(existingLocation != null)
+				region.setLocation(existingLocation);
+			if(regionJson.getRegionName() != null)
+				if(!regionJson.getRegionName().equalsIgnoreCase(region.getRegionName())){
+					region.setRegionName(regionJson.getRegionName());
+					regionService.save(region);
+				}
+		}
+
+		List<UserJson> userJsons = regionJson.getUsers();
+		for(UserJson userJson : userJsons){
+			
+			UserRegionRole userRegionRole = getExistingUser(region,userJson.getUserName());
+			if(userRegionRole == null){
+				User user = userService.findByUserName(userJson.getUserName());
+				userRegionRole = new UserRegionRole();
+				userRegionRole.setUser(user);
+				userRegionRole.setRoleName(userJson.getRoleName()); //get from request
+				userRegionRole.setRegion(region);
+				userRegionRole.setUserName(user.getUsername());
+				userRegionRole = userRegionRoleService.save(userRegionRole);
+			}
+			
+		}
+	}
+	
 	//method to save assigned regions to database. it also saves assigned users.
 	@RequestMapping(value = "/{id}", params = "assignRegions", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK)
@@ -512,55 +554,60 @@ public class ProjectController extends CommonController {
 		if(regionJsons != null && regionJsons.length >0){
 			for(int i=0; i< regionJsons.length; i++){
 				RegionJson regionJson = regionJsons[i];
-				Location existingLocation = null;
-				for(Location location : locations){
-					if(location.getLocationName().equalsIgnoreCase(regionJson.getLocationName().trim())){
-						existingLocation = location;
+				if(regionJson.getLocationName().trim().equalsIgnoreCase("ALL")){
+					for(Location location : locations){
+						saveNewRegion(regionJson, location);
 					}
-				}
-				
-				Category category = categoryService.findById(regionJson.getRegionId());
-				
-				Region region = getExistingRegion(existingLocation, category.getName());
-				if(region == null){
-					region = new Region();
-					region.setCategory(category);
-					if(regionJson.getRegionName() != null)
-						region.setRegionName(regionJson.getRegionName());
-					else
-						region.setRegionName(category.getName());
-					region.setRegionDesc(category.getDesc());
-					if(existingLocation != null)
-						region.setLocation(existingLocation);
-					region = regionService.save(region);
 				}else{
-					if(existingLocation != null)
-						region.setLocation(existingLocation);
-					if(regionJson.getRegionName() != null)
-						if(!regionJson.getRegionName().equalsIgnoreCase(region.getRegionName())){
-							region.setRegionName(regionJson.getRegionName());
-							regionService.save(region);
+					Location existingLocation = null;
+					for(Location location : locations){
+						if(location.getLocationName().equalsIgnoreCase(regionJson.getLocationName().trim())){
+							existingLocation = location;
 						}
-				}
-
-				List<UserJson> userJsons = regionJson.getUsers();
-//				Set<UserRegionRole> userRegionRoles = new HashSet<UserRegionRole>();
-				for(UserJson userJson : userJsons){
-					
-					UserRegionRole userRegionRole = getExistingUser(region,userJson.getUserName());
-					if(userRegionRole == null){
-						User user = userService.findByUserName(userJson.getUserName());
-						userRegionRole = new UserRegionRole();
-						userRegionRole.setUser(user);
-						userRegionRole.setRoleName(userJson.getRoleName()); //get from request
-						userRegionRole.setRegion(region);
-						userRegionRole.setUserName(user.getUsername());
-						userRegionRole = userRegionRoleService.save(userRegionRole);
 					}
-					
-//					userRegionRoles.add(userRegionRole);
+					saveNewRegion(regionJson, existingLocation);
 				}
-//				region.setUserRegionRoles(userRegionRoles);
+				
+				
+//				Category category = categoryService.findById(regionJson.getRegionId());
+//				
+//				Region region = getExistingRegion(existingLocation, category.getName());
+//				if(region == null){
+//					region = new Region();
+//					region.setCategory(category);
+//					if(regionJson.getRegionName() != null)
+//						region.setRegionName(regionJson.getRegionName());
+//					else
+//						region.setRegionName(category.getName());
+//					region.setRegionDesc(category.getDesc());
+//					if(existingLocation != null)
+//						region.setLocation(existingLocation);
+//					region = regionService.save(region);
+//				}else{
+//					if(existingLocation != null)
+//						region.setLocation(existingLocation);
+//					if(regionJson.getRegionName() != null)
+//						if(!regionJson.getRegionName().equalsIgnoreCase(region.getRegionName())){
+//							region.setRegionName(regionJson.getRegionName());
+//							regionService.save(region);
+//						}
+//				}
+//
+//				List<UserJson> userJsons = regionJson.getUsers();
+//				for(UserJson userJson : userJsons){
+//					
+//					UserRegionRole userRegionRole = getExistingUser(region,userJson.getUserName());
+//					if(userRegionRole == null){
+//						User user = userService.findByUserName(userJson.getUserName());
+//						userRegionRole = new UserRegionRole();
+//						userRegionRole.setUser(user);
+//						userRegionRole.setRoleName(userJson.getRoleName()); //get from request
+//						userRegionRole.setRegion(region);
+//						userRegionRole.setUserName(user.getUsername());
+//						userRegionRole = userRegionRoleService.save(userRegionRole);
+//					}
+//					
+//				}
 								
 			}
 		}
@@ -810,7 +857,35 @@ public class ProjectController extends CommonController {
 		String result = Utilities.jSonSerialization(locations);
 		return result;
 	}
-
+	@RequestMapping(value = "/getLocationsJsonWithAll", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public String getLocationsJsonWithAll(@RequestParam(value="projectId", required=true) String projectId,
+			@RequestParam(value="filterscount", required=false) String filterscount
+			, @RequestParam(value="groupscount", required=false) String groupscount
+			, @RequestParam(value="pagenum", required=false) Integer pagenum
+			, @RequestParam(value="pagesize", required=false) Integer pagesize
+			, @RequestParam(value="recordstartindex", required=false) Integer recordstartindex
+			, @RequestParam(value="recordendindex", required=false) Integer recordendindex
+			, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
+		Project project = projectService.findById(Integer.valueOf(projectId));
+		Location  locationAll = new Location();
+		locationAll.setLocationName("All");
+		locationAll.setLocationId(0);
+		Set<Location> locations = project.getLocations();
+		
+		
+		TreeMap<Integer, Location> tree = new TreeMap<Integer, Location>();
+		tree.put(locationAll.getLocationId(), locationAll);
+		for(Location location: locations){
+			tree.put(location.getLocationId(), location);
+		}
+		List<Location> list = new ArrayList<Location>();
+		for(int i=0; i<tree.size(); i++){
+			list.add(tree.get(i));
+		}
+		String result = Utilities.jSonSerialization(list);
+		return result;
+	}
 	@RequestMapping(value = "/getProductGroupMakersJson", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String getProductGroupMakersJsGon(@RequestParam(value="projectId", required=true) String projectId,
