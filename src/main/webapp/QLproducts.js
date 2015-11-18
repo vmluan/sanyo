@@ -10,7 +10,10 @@ var source =
                 {name: 'productCode', type: 'string'},
                 {name: 'labour', type: 'string'},
 				{name: 'mat_w_o_Tax_USD', type: 'string'},
-				{name: 'mat_w_o_Tax_VND', type: 'string'}
+				{name: 'mat_w_o_Tax_VND', type: 'string'},
+				{name: 'specification', type: 'string'},
+				{name: 'unit', type: 'string'}
+				
             ],
             id: 'productID',
             url: url,
@@ -52,13 +55,6 @@ $("#jqxgridProducts").jqxGrid(
             columnsresize: true,
             autorowheight: true,
             columns: [
-                {text: 'Action', datafield: 'Action', width: '15%',
-                    cellsrenderer: function(row, column, value) {
-                        return '<input type ="button" value="Edit" onClick = "updateProduct(' + row + ')"></input>'
-                                + '<input type ="button" value="Delete" onClick = "deleteProduct(' + row + ')"></input>'
-                                ;
-                    }
-                },
 				{
 					text : '#',
 					datafield : 'stt',
@@ -70,11 +66,19 @@ $("#jqxgridProducts").jqxGrid(
 								+ (value + 1) + "</div>";
 					}
 				},
-                {text: 'Code', datafield: 'productCode', width: '15%'},
+				{text: 'Specification', datafield: 'specification', width: '20%'},
 				{text: 'Name', datafield: 'productName', width: '20%'},
-                {text: 'Labour', datafield: 'labour', align: 'right', cellsalign: 'right', cellsformat: 'c0', columntype: 'numberinput', width: '15%'},
-				{text: 'Max USD', datafield: 'mat_w_o_Tax_USD', align: 'right', cellsalign: 'right', cellsformat: 'c0', columntype: 'numberinput', width: '15%'},
-				{text: 'Max VND', datafield: 'mat_w_o_Tax_VND', align: 'right', cellsalign: 'right', cellsformat: 'c0', columntype: 'numberinput', width: '15%'},
+				{text: 'Unit', datafield: 'unit', width: '10%'},
+                {text: 'Labour', datafield: 'labour', align: 'right', cellsalign: 'right', cellsformat: 'c0', columntype: 'numberinput', width: '10%'},
+				{text: 'Max USD', datafield: 'mat_w_o_Tax_USD', align: 'right', cellsalign: 'right', cellsformat: 'c0', columntype: 'numberinput', width: '10%'},
+				{text: 'Max VND', datafield: 'mat_w_o_Tax_VND', align: 'right', cellsalign: 'right', cellsformat: 'c0', columntype: 'numberinput', width: '10%'},
+                {text: 'Action', datafield: 'Action', width: '15%',
+                    cellsrenderer: function(row, column, value) {
+                        return '<input type ="button" value="Edit" onClick = "updateProduct(' + row + ')"></input>'
+                                + '<input type ="button" value="Delete" onClick = "deleteProduct(' + row + ')"></input>'
+                                ;
+                    }
+                }				
 
             ]
         });

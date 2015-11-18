@@ -94,13 +94,13 @@ public class Product implements Serializable {
 	private String unit; // don vi
 
 	@Column(name="TAX_USD")
-	private float mat_w_o_Tax_USD; //Mat w/o Tax USD
+	private Float mat_w_o_Tax_USD; //Mat w/o Tax USD
 
 	@Column(name="TAX_VND")
-	private float mat_w_o_Tax_VND; //Mat w/o Tax VND
+	private Float mat_w_o_Tax_VND; //Mat w/o Tax VND
 
 	@Column(name="LABOUR")
-	private float labour; //Nhan cong tung hang muc
+	private Float labour; //Nhan cong tung hang muc
 
 	@Column(name="Imp_Tax")
 	private float imp_Tax; //Imp Tax
@@ -275,11 +275,11 @@ public class Product implements Serializable {
 		this.unit = unit;
 	}
 
-	public float getLabour() {
+	public Float getLabour() {
 		return labour;
 	}
 
-	public void setLabour(float labour) {
+	public void setLabour(Float labour) {
 		this.labour = labour;
 	}
 	
@@ -332,19 +332,19 @@ public class Product implements Serializable {
 		this.vat = vat;
 	}
 
-	public float getMat_w_o_Tax_USD() {
+	public Float getMat_w_o_Tax_USD() {
 		return mat_w_o_Tax_USD;
 	}
 
-	public void setMat_w_o_Tax_USD(float mat_w_o_Tax_USD) {
+	public void setMat_w_o_Tax_USD(Float mat_w_o_Tax_USD) {
 		this.mat_w_o_Tax_USD = mat_w_o_Tax_USD;
 	}
 
-	public float getMat_w_o_Tax_VND() {
+	public Float getMat_w_o_Tax_VND() {
 		return mat_w_o_Tax_VND;
 	}
 
-	public void setMat_w_o_Tax_VND(float mat_w_o_Tax_VND) {
+	public void setMat_w_o_Tax_VND(Float mat_w_o_Tax_VND) {
 		this.mat_w_o_Tax_VND = mat_w_o_Tax_VND;
 	}
 
