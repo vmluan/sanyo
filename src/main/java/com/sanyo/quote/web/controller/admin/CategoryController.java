@@ -98,6 +98,10 @@ public class CategoryController extends CommonController {
 
         uiModel.asMap().clear();
         redirectAttributes.addFlashAttribute("message", new Message("success", messageSource.getMessage("category_save_success", new Object[]{}, locale)));
+        String parentCategoryId = category.getParentCategoryId();
+        if(parentCategoryId != null && !parentCategoryId.equals(""))
+        	category.setParentCategory(categoryService.findById(Integer.valueOf(parentCategoryId)));
+        
         categoryService.save(category);
         return "redirect:/admin/categories/" + UrlUtil.encodeUrlPathSegment(category.getCategoryId().toString(), httpServletRequest) + "?form";
     }
