@@ -33,7 +33,9 @@ import com.sanyo.quote.domain.Product;
 import com.sanyo.quote.domain.ProductGroup;
 import com.sanyo.quote.domain.ProductGroupMaker;
 import com.sanyo.quote.domain.Project;
+import com.sanyo.quote.domain.ProjectStatus;
 import com.sanyo.quote.domain.Region;
+import com.sanyo.quote.helper.Constants;
 import com.sanyo.quote.helper.Utilities;
 import com.sanyo.quote.service.CategoryService;
 import com.sanyo.quote.service.EncounterService;
@@ -84,18 +86,24 @@ public class Quotation extends CommonController {
 			Model uiModel,HttpServletRequest httpServletRequest) {
 		Project project = projectService.findById(Integer.valueOf(projectId));
 		uiModel.addAttribute("projectId", projectId);
-		if(links != null &&links.size() >1){
-			Link linkHome = links.get(0);
-			Link linkProject = links.get(1);
-			
-			resetLinks();
-			links.add(linkHome);
-			links.add(linkProject);
-		}else
-			resetLinks();
+		String status = "";
+		String currentProjecs = "";
+		if(project.getStatus().equals(ProjectStatus.ONGOING)){
+			status=Constants.PROJECT_ONGOING;
+			currentProjecs = Constants.PROJECT_ONGOING_TEXT;
+		}
+		else if(project.getStatus().equals(ProjectStatus.FINISH)){
+			status = Constants.PROJECT_FINISHED;
+			currentProjecs = Constants.PROJECT_FINISHED_TEXT;
+		}
+		String projectsUrl ="/projects?status=" + status;
+		
+		resetLinks();
+		addToLinks(currentProjecs, projectsUrl);
 		addToLinks("Quotation", "");
 		addToLinks(project.getProjectName(), "");
 		setUser(uiModel);
+		setBreadCrumb(uiModel);
 		return "quotation/index";
 	}
 	@RequestMapping(value = "/{id}/addmakerlist", params = "form", method = RequestMethod.GET)

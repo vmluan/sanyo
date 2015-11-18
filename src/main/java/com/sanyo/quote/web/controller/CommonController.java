@@ -24,7 +24,10 @@ public class CommonController {
 		if(url.equalsIgnoreCase("/"))
 			link.setHomeLink(true);
 		links.add(link);
-	}	
+	}
+	public void setBreadCrumb(Model uiModel){
+		uiModel.addAttribute("links", links);
+	}
 	public void setBreadCrumb(Model uiModel, String parentLinkUrl, String parentLinkName, String currentLinkUrl, String currentLinkName){
 		BreadCrumb breadCrumb = new BreadCrumb();
 		Link currentLink = new Link();
