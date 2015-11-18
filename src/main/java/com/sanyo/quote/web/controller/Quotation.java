@@ -44,6 +44,7 @@ import com.sanyo.quote.service.ProductGroupService;
 import com.sanyo.quote.service.ProductService;
 import com.sanyo.quote.service.ProjectService;
 import com.sanyo.quote.service.RegionService;
+import com.sanyo.quote.web.form.Link;
 /*
  * Controller for Encounter 
  */
@@ -81,7 +82,19 @@ public class Quotation extends CommonController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String getQuotationPage(@RequestParam(value="projectId", required=true) String projectId,
 			Model uiModel,HttpServletRequest httpServletRequest) {
+		Project project = projectService.findById(Integer.valueOf(projectId));
 		uiModel.addAttribute("projectId", projectId);
+		if(links != null &&links.size() >1){
+			Link linkHome = links.get(0);
+			Link linkProject = links.get(1);
+			
+			resetLinks();
+			links.add(linkHome);
+			links.add(linkProject);
+		}else
+			resetLinks();
+		addToLinks("Quotation", "");
+		addToLinks(project.getProjectName(), "");
 		setUser(uiModel);
 		return "quotation/index";
 	}

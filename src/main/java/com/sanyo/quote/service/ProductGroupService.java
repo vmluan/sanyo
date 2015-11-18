@@ -22,4 +22,5 @@ public interface ProductGroupService {
 	ProductGroup findByIdAndFetchProductsEagerly(Integer id);
 	
 	ProductGroup findByGroupName(String groupName);
+	ProductGroup findByGroupCode(String groupCode);
 }

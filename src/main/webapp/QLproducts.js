@@ -13,7 +13,10 @@ var source =
 				{name: 'mat_w_o_Tax_VND', type: 'string'}
             ],
             id: 'productID',
-            url: url
+            url: url,
+        	data : {
+        		productGroupCode : $("#productGroupCode").val()
+        	}
         };
 var cellsrenderer = function(row, columnfield, value, defaulthtml, columnproperties, rowdata) {
     if (value < 20) {

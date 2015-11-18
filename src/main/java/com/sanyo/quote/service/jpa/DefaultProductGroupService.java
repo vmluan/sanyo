@@ -59,6 +59,11 @@ public class DefaultProductGroupService implements ProductGroupService {
 		return productGroupRepository.findByGroupName(groupName);
 	}
 
+	@Override
+	public ProductGroup findByGroupCode(String groupCode) {
+		return productGroupRepository.findByGroupCode(groupCode);
+	}
+
 
 
 }

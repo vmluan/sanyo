@@ -25,6 +25,42 @@
 			  
               <div class="row">
                 <div class="box-header with-border">
+                  <h3 class="box-title">Search</h3>
+                </div><!-- /.box-header -->
+                  <div class="col-md-12">
+					  <div class="col-md-2">
+						<div class="form-group">
+							<label>Code</label>
+	 						<input id="productGroupCode" class="form-control"/>
+						</div>
+					</div>
+					<div class="col-md-2">
+						<div class="form-group">
+							<label>Maker List</label>
+							<div id="makerListDiv"><jsp:text /></div>
+						</div>
+					</div>
+				<!--  <div class="col-md-2">			
+					<div class="form-group">
+						<label><jsp:text /></label>
+					  <div class="form-group">
+						<button type="button" class="btn btn-primary" id="searchBtn">Search</button>
+					  </div>							
+					</div>					
+				</div>					
+				-->
+				</div>
+			  </div>
+			 </div>
+			</div>
+			
+          <div class="box box-default">
+            <!-- left column -->
+            <div class="box-body">
+              <!-- general form elements -->
+			  
+              <div class="row">
+                <div class="box-header with-border">
                   <h3 class="box-title">Products list</h3>
                 </div><!-- /.box-header -->
                   <div class="col-md-12">
@@ -73,6 +109,54 @@
                 .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         });
         });
+
+var urlMaker = pageContext + '/makers/getMakersJson';
+var sourceMaker = {
+	datatype : "json",
+	datafields : [ {
+		name : 'id',
+		type : 'string'
+	}, {
+		name : 'name',
+		type : 'string'
+	}, {
+		name : 'makerDesc',
+		type : 'string'
+	} ],
+	sortcolumn : 'name',
+	sortdirection : 'asc',
+	id : 'id',
+	url : urlMaker,
+	data : {
+		productGroudCode : $("#productGroupCode").val()
+	}
+};
+var dataAdapterMaker = new $.jqx.dataAdapter(sourceMaker, {
+	autoBind : false,
+	downloadComplete : function(data, status, xhr) {
+	},
+	loadComplete : function(data) {
+	},
+	loadError : function(xhr, status, error) {
+	}
+});
+$("#productGroupCode").change(function() {
+	console.log($("#productGroupCode").val());
+	sourceMaker.data.productGroudCode = $("#productGroupCode").val();
+	
+	dataAdapterMaker = new $.jqx.dataAdapter(sourceMaker);	
+	$("#makerListDiv").jqxDropDownList({
+		height : '32',
+		source : dataAdapterMaker,
+		width : '100%',
+		selectedIndex : 0,
+		displayMember : "name",
+		valueMember : "id",	
+		promptText : "Please Choose:"
+	});
+	$.getScript('${pageContext.request.contextPath}/resources/QLproducts.js', function(){});	
+	//$("#makerListDiv").jqxDropDownList('clear');
+});		
         ]]>
     </script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/QLproducts.js">

@@ -62,6 +62,8 @@ public class DefaultProjectRevisionService implements ProjectRevisionService {
 	@Override
 	public ProjectRevision findLatestRevision(Project project) {
 		List<ProjectRevision> revisions = this.findRevisions(project);
+		if(revisions == null || revisions.size() ==0)
+			return null;
 		return revisions.get(0);
 	}
 

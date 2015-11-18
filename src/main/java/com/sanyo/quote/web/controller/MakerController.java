@@ -20,10 +20,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sanyo.quote.domain.Category;
 import com.sanyo.quote.domain.Maker;
+import com.sanyo.quote.domain.Product;
+import com.sanyo.quote.domain.ProductGroup;
 import com.sanyo.quote.domain.ProductGroupMaker;
 import com.sanyo.quote.domain.Project;
 import com.sanyo.quote.helper.Utilities;
 import com.sanyo.quote.service.MakerService;
+import com.sanyo.quote.service.ProductGroupService;
+import com.sanyo.quote.service.ProductService;
 import com.sanyo.quote.service.ProjectService;
 
 @Controller
@@ -39,15 +43,24 @@ public final class MakerController {
 	@Autowired
 	private ProjectService projectService;
 	
+	@Autowired 
+	private ProductService productService; 
+	
+	@Autowired
+	private ProductGroupService productGroupService;
 	@RequestMapping(value = "/getMakersJson", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public String getMakersJson(@RequestParam(value="filterscount", required=false) String filterscount
+	public String getMakersJson(@RequestParam(value="filterscount", required=false) String filterscount,
+			@RequestParam(value="productGroudCode", required=false) String productGroupCode
 			, @RequestParam(value="groupscount", required=false) String groupscount
 			, @RequestParam(value="pagenum", required=false) Integer pagenum
 			, @RequestParam(value="pagesize", required=false) Integer pagesize
 			, @RequestParam(value="recordstartindex", required=false) Integer recordstartindex
 			, @RequestParam(value="recordendindex", required=false) Integer recordendindex
 			, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
+		if(productGroupCode != null && !productGroupCode.equalsIgnoreCase("")){
+			ProductGroup pg = productGroupService.findByGroupCode(productGroupCode);
+		}
 		List<Maker> makers = makerService.findAll();
 		String result = Utilities.jSonSerialization(makers);
 		return result;

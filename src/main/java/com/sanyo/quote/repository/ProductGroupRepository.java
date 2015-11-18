@@ -16,5 +16,6 @@ public interface ProductGroupRepository extends PagingAndSortingRepository<Produ
 	public ProductGroup findByIdAndFetchProductsEagerly(@Param("id") Integer id);
 	
 	public ProductGroup findByGroupName(String groupName);
+	public ProductGroup findByGroupCode(String groupCode);
 
 }

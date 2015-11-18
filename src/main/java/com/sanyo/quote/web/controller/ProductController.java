@@ -319,12 +319,24 @@ public class ProductController {
 	@RequestMapping(value = "/getproductsjson", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String getProductsJson(@RequestParam(value="filterscount", required=false) String filterscount
+			, @RequestParam(value="productGroupCode", required=false) String productGroupCode
+			, @RequestParam(value="makerId", required=false) Integer makerId
 			, @RequestParam(value="groupscount", required=false) String groupscount
 			, @RequestParam(value="pagenum", required=false) Integer pagenum
 			, @RequestParam(value="pagesize", required=false) Integer pagesize
 			, @RequestParam(value="recordstartindex", required=false) Integer recordstartindex
 			, @RequestParam(value="recordendindex", required=false) Integer recordendindex
 			, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
+		if(productGroupCode != null && !productGroupCode.equalsIgnoreCase("")){
+			ProductGroup pg = productGroupService.findByGroupCode(productGroupCode);;
+			if(pg == null)
+				return "[]";
+			else{
+				List<Product> productsOfPG = productService.findByProductGroup(pg);
+				return Utilities.jSonSerialization(productsOfPG);
+				//filter by maker later.
+			}
+		}
 		List<Product> products =  productService.findAll();
 		System.out.println(products);
 		String result = Utilities.jSonSerialization(products);

@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import com.sanyo.quote.domain.Category;
 import com.sanyo.quote.domain.LabourPrice;
 import com.sanyo.quote.domain.Product;
+import com.sanyo.quote.domain.ProductGroup;
 
 
 public interface ProductRepository extends PagingAndSortingRepository<Product, Integer> {
@@ -27,4 +28,6 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, I
 	
 	@Query("SELECT distinct  p.categories FROM Product p JOIN p.categories WHERE p.productID = :id")
 	public List<Category> findCategories(@Param("id") Integer id);
+	
+	public List<Product> findByProductGroup(ProductGroup productGroup);
 }

@@ -4,11 +4,11 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.query.Param;
 
 import com.sanyo.quote.domain.Category;
 import com.sanyo.quote.domain.LabourPrice;
 import com.sanyo.quote.domain.Product;
+import com.sanyo.quote.domain.ProductGroup;
 
 public interface ProductService {
 
@@ -30,6 +30,7 @@ public interface ProductService {
 	void deleteProduct(Product product);
 	public List<LabourPrice> findLabourPrices(Integer id);
 	public List<Category> findCategories(Integer id);
+	public List<Product> findByProductGroup(ProductGroup productGroup);
 	
 	
 }

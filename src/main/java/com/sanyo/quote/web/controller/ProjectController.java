@@ -287,9 +287,9 @@ public class ProjectController extends CommonController {
 	
 	private Set<ProjectRevision> getLatestRevision(Project project){
 		ProjectRevision latest = projectRevisionService.findLatestRevision(project);
-		logger.info(" ========== latest revision =" + latest.getRevisionNo());
 		Set<ProjectRevision> tempRevisions = new HashSet<ProjectRevision>();
-		tempRevisions.add(latest);
+		if(latest != null)
+			tempRevisions.add(latest);
 		return tempRevisions;
 	}
 	@RequestMapping(value = "/getListJson", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
