@@ -50,11 +50,11 @@
 	<link href="${styles}/home/css/customizeUI.css" rel="stylesheet" type="text/css" media="screen" />
 
 </head>
-<body>
+<body >
 	<div id="container">
         <tiles:insertAttribute name="header" ignore="true" />
         <div id="body-container" class="clearfix">
-			<tiles:insertAttribute name="body" />
+			<tiles:insertAttribute name="body"/>
 		</div>
 	    <tiles:insertAttribute name="footer" ignore="true"/>
 	</div>
