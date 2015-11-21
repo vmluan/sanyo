@@ -126,7 +126,13 @@
 								<form:label path="productPriceWrapper">Nhom Vat Tu</form:label>
 								<div id='jqxWidgetPG'><jsp:text /></div>
 							</div>
-						</div>						
+						</div>	
+						<div class="col-md-6">
+							<div class="form-group">
+								<label>Maker</label>
+								<div id='jqxWidgetMaker'><jsp:text /></div>
+							</div>
+						</div>											
 						<div class="col-md-12">
 							<div class="form-group">
 								<button type="button" class="btn btn-primary" id="sbmBtn">Submit</button>
@@ -171,6 +177,7 @@
 		var groupID = "${product.productGroup.groupId}";
 		var groupName = "${product.productGroup.groupName}";
 	    var pageContext = "${pageContext.request.contextPath}";
+	    var selectedMakerID = "${product.maker.id}"
 	    
 	</script>
    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/productCategory.js">
@@ -235,6 +242,14 @@
 			$("#warningDiv").css("display","block");
 			$("#message").text(errorMsg);
 			return;
+		}
+		//get selected maker
+		var selectedMaker = $("#jqxWidgetMaker").jqxDropDownList('getSelectedItem');
+		if(selectedMaker){
+			var makerId = selectedMaker.value;
+			if(makerId){
+				product.makerId = makerId;
+			}
 		}
 		
 		var jsonData = JSON.stringify(product);
@@ -304,9 +319,16 @@
 		</c:forEach>
 		}
 	}
+	function updateMaker(){
+		if(productID){
+			$("#jqxWidgetMaker").jqxDropDownList('selectItem',selectedMakerID);
+			//load assigned product group and categories
+		}	
+	}	
 	setTimeout(function(){ 
 		updatePG();
 		updateCategories();
+		updateMaker();
 		}, 1000);
     </script>
     

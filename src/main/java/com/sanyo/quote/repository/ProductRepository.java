@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.sanyo.quote.domain.Category;
 import com.sanyo.quote.domain.LabourPrice;
+import com.sanyo.quote.domain.Maker;
 import com.sanyo.quote.domain.Product;
 import com.sanyo.quote.domain.ProductGroup;
 
@@ -30,4 +31,6 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, I
 	public List<Category> findCategories(@Param("id") Integer id);
 	
 	public List<Product> findByProductGroup(ProductGroup productGroup);
+	
+	public List<Product> findByProductGroupAndMaker(ProductGroup productGroup, Maker maker);
 }

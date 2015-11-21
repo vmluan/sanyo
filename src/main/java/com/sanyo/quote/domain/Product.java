@@ -122,6 +122,11 @@ public class Product implements Serializable {
 	@JoinColumn(name="product_group_id", nullable = false)
 	private ProductGroup productGroup;
 	
+	@JsonIgnore
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="maker_id", nullable = true)
+	private Maker maker;
+	
 	@DateTimeFormat(pattern = "MM/dd/yyyy")
 	private Date startDate;
 	@DateTimeFormat(pattern = "MM/dd/yyyy")
@@ -410,6 +415,14 @@ public class Product implements Serializable {
 
 	public void setEndDateString(String endDateString) {
 		this.endDateString = endDateString;
+	}
+
+	public Maker getMaker() {
+		return maker;
+	}
+
+	public void setMaker(Maker maker) {
+		this.maker = maker;
 	}
 
 	@Override

@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.collect.Lists;
+import com.sanyo.quote.domain.Maker;
+import com.sanyo.quote.domain.ProductGroup;
 import com.sanyo.quote.domain.ProductGroupMaker;
 import com.sanyo.quote.repository.ProductGroupMakerRepository;
 import com.sanyo.quote.service.ProductGroupMakerService;
@@ -41,5 +43,10 @@ public class DefaultProductGroupMakerService implements ProductGroupMakerService
 	@Override
 	public Page<ProductGroupMaker> findAllByPage(Pageable pageable) {
 		return productGroupMakerRepository.findAll(pageable);
+	}
+
+	@Override
+	public List<Maker> findMakersOfProductGroup(ProductGroup productGroup) {
+		return productGroupMakerRepository.findMakersOfProductGroup(productGroup);
 	}
 }

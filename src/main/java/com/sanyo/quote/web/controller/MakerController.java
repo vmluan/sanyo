@@ -20,12 +20,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sanyo.quote.domain.Category;
 import com.sanyo.quote.domain.Maker;
-import com.sanyo.quote.domain.Product;
 import com.sanyo.quote.domain.ProductGroup;
 import com.sanyo.quote.domain.ProductGroupMaker;
 import com.sanyo.quote.domain.Project;
 import com.sanyo.quote.helper.Utilities;
 import com.sanyo.quote.service.MakerService;
+import com.sanyo.quote.service.ProductGroupMakerService;
 import com.sanyo.quote.service.ProductGroupService;
 import com.sanyo.quote.service.ProductService;
 import com.sanyo.quote.service.ProjectService;
@@ -48,6 +48,9 @@ public final class MakerController {
 	
 	@Autowired
 	private ProductGroupService productGroupService;
+	@Autowired
+	private ProductGroupMakerService productGroupMakerService;
+	
 	@RequestMapping(value = "/getMakersJson", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String getMakersJson(@RequestParam(value="filterscount", required=false) String filterscount,
@@ -60,6 +63,11 @@ public final class MakerController {
 			, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
 		if(productGroupCode != null && !productGroupCode.equalsIgnoreCase("")){
 			ProductGroup pg = productGroupService.findByGroupCode(productGroupCode);
+			if(pg != null){
+				List<Maker> makers = productGroupMakerService.findMakersOfProductGroup(pg);
+				return Utilities.jSonSerialization(makers);
+			}
+			
 		}
 		List<Maker> makers = makerService.findAll();
 		String result = Utilities.jSonSerialization(makers);

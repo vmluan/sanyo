@@ -18,7 +18,8 @@ var source =
             id: 'productID',
             url: url,
         	data : {
-        		productGroupCode : $("#productGroupCode").val()
+        		productGroupCode : $("#productGroupCode").val(),
+        		makerId : makerId,
         	}
         };
 var cellsrenderer = function(row, columnfield, value, defaulthtml, columnproperties, rowdata) {

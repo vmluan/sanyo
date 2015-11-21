@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sanyo.quote.domain.Category;
 import com.sanyo.quote.domain.LabourPrice;
+import com.sanyo.quote.domain.Maker;
 import com.sanyo.quote.domain.Product;
 import com.sanyo.quote.domain.ProductGroup;
 import com.sanyo.quote.repository.ProductRepository;
@@ -98,7 +99,9 @@ public class DefaultProductService implements ProductService {
 	public List<Product> findByProductGroup(ProductGroup productGroup) {
 		return productRepository.findByProductGroup(productGroup);
 	}
-	
-	
-	
+
+	@Override
+	public List<Product> findByProductGroupAndMaker(ProductGroup productGroup, Maker maker) {
+		return productRepository.findByProductGroupAndMaker(productGroup, maker);
+	}
 }

@@ -19,6 +19,8 @@ import org.eclipse.persistence.sessions.factories.ProjectClassGenerator;
 /*
  * it represent an instance of the many to many relationship between ProductGroup and Marker
  * as we need extra columns so create new class for handling data easily.
+ * 
+ * 
  */
 @Entity
 @Table(name = "productgroup_Maker", catalog = "sanyo")
@@ -129,7 +131,7 @@ public class ProductGroupMaker implements java.io.Serializable, Cloneable {
 //		this.region = region;
 //	}
 	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="category_id", nullable = false)
+	@JoinColumn(name="category_id", nullable = true)
 	public Category getCategory() {
 		return category;
 	}
@@ -138,7 +140,7 @@ public class ProductGroupMaker implements java.io.Serializable, Cloneable {
 	}
 	
 	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="project_id", nullable = false)
+	@JoinColumn(name="project_id", nullable = true)
 	public Project getProject() {
 		return project;
 	}

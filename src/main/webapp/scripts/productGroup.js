@@ -33,3 +33,11 @@ $("#jqxWidgetPG").jqxComboBox({
 	//checkboxes: true,
 	promptText : "Please Choose:"
 });
+
+$("#jqxWidgetPG").on('select', function(event) {
+	$.getScript(pageContext + '/resources/scripts/productMaker.js', function(){}).done(function( s, Status ) {
+		setTimeout(function(){ 
+			updateMaker();
+			}, 100);
+	});
+});	

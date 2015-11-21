@@ -8,7 +8,6 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,18 +37,17 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.sanyo.quote.domain.Category;
 import com.sanyo.quote.domain.CategoryJson;
 import com.sanyo.quote.domain.LabourPrice;
-import com.sanyo.quote.domain.Location;
+import com.sanyo.quote.domain.Maker;
 import com.sanyo.quote.domain.Product;
 import com.sanyo.quote.domain.ProductGroup;
 import com.sanyo.quote.domain.ProductJson;
-import com.sanyo.quote.domain.Project;
 import com.sanyo.quote.helper.ProductHepler;
 import com.sanyo.quote.helper.Utilities;
 import com.sanyo.quote.service.CategoryService;
+import com.sanyo.quote.service.MakerService;
 import com.sanyo.quote.service.PriceService;
 import com.sanyo.quote.service.ProductGroupService;
 import com.sanyo.quote.service.ProductService;
-import com.sanyo.quote.web.form.Message;
 
 @Controller
 @RequestMapping(value = "/products")
@@ -70,6 +68,9 @@ public class ProductController {
 	
 	@Autowired
 	private PriceService priceService;
+	
+	@Autowired
+	private MakerService makerService;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String getProductPage(Model ciModel,@RequestParam(value="lang", required=false)String id) {
@@ -311,6 +312,11 @@ public class ProductController {
 		}
 		product.setProductName(json.getProductName());
 		
+		if(json.getMakerId() != null){
+			Maker maker = makerService.findById(json.getMakerId());
+			if(maker != null)
+				product.setMaker(maker);
+		}
 		product = productService.save(product);
 		saveLabourPrice(json, product);
 		return true;
@@ -320,21 +326,23 @@ public class ProductController {
 	@ResponseBody
 	public String getProductsJson(@RequestParam(value="filterscount", required=false) String filterscount
 			, @RequestParam(value="productGroupCode", required=false) String productGroupCode
-			, @RequestParam(value="makerId", required=false) Integer makerId
+			, @RequestParam(value="makerId", required=false) String makerId
 			, @RequestParam(value="groupscount", required=false) String groupscount
 			, @RequestParam(value="pagenum", required=false) Integer pagenum
 			, @RequestParam(value="pagesize", required=false) Integer pagesize
 			, @RequestParam(value="recordstartindex", required=false) Integer recordstartindex
 			, @RequestParam(value="recordendindex", required=false) Integer recordendindex
 			, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
-		if(productGroupCode != null && !productGroupCode.equalsIgnoreCase("")){
-			ProductGroup pg = productGroupService.findByGroupCode(productGroupCode);;
-			if(pg == null)
+		if(productGroupCode != null && !productGroupCode.equalsIgnoreCase("")
+				&& makerId != null && !makerId.equalsIgnoreCase("")){
+			ProductGroup pg = productGroupService.findByGroupCode(productGroupCode);
+			Maker maker = makerService.findById(Integer.valueOf(makerId));
+			
+			if(pg == null || maker == null)
 				return "[]";
 			else{
-				List<Product> productsOfPG = productService.findByProductGroup(pg);
+				List<Product> productsOfPG = productService.findByProductGroupAndMaker(pg, maker);
 				return Utilities.jSonSerialization(productsOfPG);
-				//filter by maker later.
 			}
 		}
 		List<Product> products =  productService.findAll();

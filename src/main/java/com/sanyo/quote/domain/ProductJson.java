@@ -31,9 +31,9 @@ public class ProductJson {
 	private String lastModifiedBy;
 	private String productCode; //Ma san pham
 	private String unit; // don vi
-	private float mat_w_o_Tax_USD; //Mat w/o Tax USD
-	private float mat_w_o_Tax_VND; //Mat w/o Tax VND
-	private float labour; //Nhan cong tung hang muc
+	private Float mat_w_o_Tax_USD; //Mat w/o Tax USD
+	private Float mat_w_o_Tax_VND; //Mat w/o Tax VND
+	private Float labour; //Nhan cong tung hang muc
 	private float imp_Tax; //Imp Tax
 	private float special_Con_Tax; // Special con. Tax
 	private float discount_rate; //Discount rate %
@@ -44,7 +44,7 @@ public class ProductJson {
 	private String startDateString;
 	private String endDateString;
 	private ProductGroupJson productGroup;
-	
+	private Integer makerId;
 	
 	public Integer getProductID() {
 		return productID;
@@ -148,22 +148,22 @@ public class ProductJson {
 	public void setUnit(String unit) {
 		this.unit = unit;
 	}
-	public float getMat_w_o_Tax_USD() {
+	public Float getMat_w_o_Tax_USD() {
 		return mat_w_o_Tax_USD;
 	}
-	public void setMat_w_o_Tax_USD(float mat_w_o_Tax_USD) {
+	public void setMat_w_o_Tax_USD(Float mat_w_o_Tax_USD) {
 		this.mat_w_o_Tax_USD = mat_w_o_Tax_USD;
 	}
-	public float getMat_w_o_Tax_VND() {
+	public Float getMat_w_o_Tax_VND() {
 		return mat_w_o_Tax_VND;
 	}
-	public void setMat_w_o_Tax_VND(float mat_w_o_Tax_VND) {
+	public void setMat_w_o_Tax_VND(Float mat_w_o_Tax_VND) {
 		this.mat_w_o_Tax_VND = mat_w_o_Tax_VND;
 	}
-	public float getLabour() {
+	public Float getLabour() {
 		return labour;
 	}
-	public void setLabour(float labour) {
+	public void setLabour(Float labour) {
 		this.labour = labour;
 	}
 	public float getImp_Tax() {
@@ -229,6 +229,12 @@ public class ProductJson {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+	}
+	public Integer getMakerId() {
+		return makerId;
+	}
+	public void setMakerId(Integer makerId) {
+		this.makerId = makerId;
 	}
 	
 	

@@ -16,6 +16,7 @@ import com.sanyo.quote.domain.Group;
 import com.sanyo.quote.domain.Maker;
 import com.sanyo.quote.domain.Product;
 import com.sanyo.quote.domain.ProductGroup;
+import com.sanyo.quote.domain.ProductGroupMaker;
 import com.sanyo.quote.domain.User;
 import com.sanyo.quote.helper.Constants;
 import com.sanyo.quote.service.CategoryService;
@@ -23,6 +24,7 @@ import com.sanyo.quote.service.CurrencyService;
 import com.sanyo.quote.service.ExpenseElementsService;
 import com.sanyo.quote.service.GroupService;
 import com.sanyo.quote.service.MakerService;
+import com.sanyo.quote.service.ProductGroupMakerService;
 import com.sanyo.quote.service.ProductGroupService;
 import com.sanyo.quote.service.ProductService;
 import com.sanyo.quote.service.UserService;
@@ -96,6 +98,7 @@ public class StartupContextListener extends ContextLoaderListener{
 		MakerService makerService = ctx.getBean("makerService", MakerService.class);
 		ExpenseElementsService expenseElementsService = ctx.getBean("expenseElementsService", ExpenseElementsService.class);
 		CurrencyService currencyService = ctx.getBean("currencyService", CurrencyService.class);
+		ProductGroupMakerService productGroupMakerService = ctx.getBean("productGroupMakerService", ProductGroupMakerService.class);
 		for(int i=0; i < 100; i++){
 			String userName = "admin" + i;
 			if(i ==0)
@@ -160,8 +163,11 @@ public class StartupContextListener extends ContextLoaderListener{
 		if(productService.findAll().size() ==0){
 			addProductSample(productService, categoryService, productGroupService);
 		}
+		if(productGroupService.findAll() != null && productGroupService.findAll().size() ==0){
+			addProductGroup(productGroupService);
+		}
 		if(makerService.findAll() != null && makerService.findAll().size() ==0 ){
-			addMakerData(makerService);
+			addMakerData(makerService, productGroupService, productGroupMakerService);
 		}
 		if(expenseElementsService.findAll() != null && expenseElementsService.findAll().size() == 0) {
 			addExpenseElements(expenseElementsService);
@@ -224,7 +230,7 @@ public class StartupContextListener extends ContextLoaderListener{
 		
 		
 	}
-	private void addMakerData(MakerService makerService){
+	private void addMakerData(MakerService makerService, ProductGroupService productGroupService,ProductGroupMakerService productGroupMakerService){
 		String[] makerList = {"ABB or equivalent", "Hai Nam", "Sunlight Electric", "LS / or equivalent"
 				,"LS-Vina", "Taisin cable", "THT", "An thy", "Henikwon", "Paragon", "Formular"
 				, "Maxspid"};
@@ -232,8 +238,19 @@ public class StartupContextListener extends ContextLoaderListener{
 		for(String name: makerList){
 			Maker maker = new Maker();
 			maker.setName(name);
-			makerService.save(maker);
+			maker = makerService.save(maker);
+			
+			//add productGroupMaker data;
+			ProductGroupMaker pgm = new ProductGroupMaker();
+			pgm.setCategory(null);
+			pgm.setMaker(maker);
+			pgm.setProductGroup(productGroupService.findByGroupCode("151-HV"));
+			
+			productGroupMakerService.save(pgm);
 		}
+		
+		
+		
 		
 	}
 
@@ -272,5 +289,14 @@ public class StartupContextListener extends ContextLoaderListener{
 			c.setCurrencyName(name);
 			currencyService.save(c);
 		}
+	}
+	private void addProductGroup(ProductGroupService productGroupService){
+		String[] list = {"151-HV", "Code 111"};
+		for(String name : list){
+			ProductGroup pg = new ProductGroup();
+			pg.setGroupCode(name);
+			pg.setGroupName(name);
+			productGroupService.save(pg);
+			}
 	}
 }

@@ -40,7 +40,7 @@
 							<div id="makerListDiv"><jsp:text /></div>
 						</div>
 					</div>
-				<!--  <div class="col-md-2">			
+				<div class="col-md-2">			
 					<div class="form-group">
 						<label><jsp:text /></label>
 					  <div class="form-group">
@@ -48,7 +48,7 @@
 					  </div>							
 					</div>					
 				</div>					
-				-->
+				
 				</div>
 			  </div>
 			 </div>
@@ -140,6 +140,7 @@ var dataAdapterMaker = new $.jqx.dataAdapter(sourceMaker, {
 	loadError : function(xhr, status, error) {
 	}
 });
+var makerId = '';
 $("#productGroupCode").change(function() {
 	console.log($("#productGroupCode").val());
 	sourceMaker.data.productGroudCode = $("#productGroupCode").val();
@@ -154,6 +155,11 @@ $("#productGroupCode").change(function() {
 		valueMember : "id",	
 		promptText : "Please Choose:"
 	});
+});	
+
+$("#searchBtn").click(function() {
+	var selectedMaker = $("#makerListDiv").jqxDropDownList('getSelectedItem');
+	makerId = selectedMaker.value;
 	$.getScript('${pageContext.request.contextPath}/resources/QLproducts.js', function(){});	
 	//$("#makerListDiv").jqxDropDownList('clear');
 });		
