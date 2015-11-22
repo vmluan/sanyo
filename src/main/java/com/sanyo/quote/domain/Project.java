@@ -89,7 +89,7 @@ public class Project implements java.io.Serializable, Cloneable {
 	@DateTimeFormat(pattern = "MM/dd/yyyy")
 	private Date endDate;
 	
-	private Set<ProductGroupMaker> productGroupMakers;
+//	private Set<ProductGroupMaker> productGroupMakers;
 	private Set<Expenses> expenses;
 	private Integer currencyId;
 	
@@ -463,14 +463,14 @@ public class Project implements java.io.Serializable, Cloneable {
 		this.createdDate = createdDate;
 	}
 	
-	@JsonIgnore
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="project", cascade=CascadeType.REMOVE)
-	public Set<ProductGroupMaker> getProductGroupMakers() {
-		return productGroupMakers;
-	}
-	public void setProductGroupMakers(Set<ProductGroupMaker> productGroupMakers) {
-		this.productGroupMakers = productGroupMakers;
-	}
+//	@JsonIgnore
+//	@OneToMany(fetch=FetchType.LAZY, mappedBy="project", cascade=CascadeType.REMOVE)
+//	public Set<ProductGroupMaker> getProductGroupMakers() {
+//		return productGroupMakers;
+//	}
+//	public void setProductGroupMakers(Set<ProductGroupMaker> productGroupMakers) {
+//		this.productGroupMakers = productGroupMakers;
+//	}
 
 
 	@JsonIgnore
@@ -497,7 +497,7 @@ public class Project implements java.io.Serializable, Cloneable {
 		clonedProject.setExpenses(null);
 		clonedProject.setLocations(null);
 		clonedProject.setRevisions(null);
-		clonedProject.setProductGroupMakers(null);
+//		clonedProject.setProductGroupMakers(null);
 		clonedProject.setCreatedDate(new Date());
 		clonedProject.setStatus(ProjectStatus.ONGOING);
 		clonedProject.setProjectCode(clonedProject.getProjectCode() + "_" + new Random().nextInt()%11);

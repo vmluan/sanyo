@@ -72,6 +72,9 @@ var sourceMaker = {
 	sortcolumn : 'name',
 	sortdirection : 'asc',
 	id : 'id',
+	data : {
+		productGroudCode : ''
+	},
 	url : urlMaker
 };
 var dataAdapterMaker = new $.jqx.dataAdapter(sourceMaker, {
@@ -318,6 +321,7 @@ function loadAddQuotationGrid() {
 																				0,
 																				"productGroupId",
 																				value);
+																updateMakerAdapter(label);
 															}
 														});
 									},
@@ -488,10 +492,10 @@ function showResultGrid(categoryId) {
 			type : 'string'
 		}, {
 			name : 'productGroupName',
-			map : 'productGroup>groupName'
+			map : 'productGroupMaker>productGroup>groupName'
 		}, {
 			name : 'makerName',
-			map : 'maker>name'
+			map : 'productGroupMaker>maker>name'
 		}, {
 			name : 'categoryName',
 			map : 'category>name'
@@ -773,4 +777,9 @@ function showResultGrid(categoryId) {
 								} ],
 								groups: ['categoryName']
 					});
+}
+function updateMakerAdapter(productGroupCode){
+	sourceMaker.data.productGroudCode = productGroupCode;
+	dataAdapterMaker = new $.jqx.dataAdapter(sourceMaker);
+	return dataAdapterMaker;
 }

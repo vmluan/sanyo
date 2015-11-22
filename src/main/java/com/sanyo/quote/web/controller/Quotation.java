@@ -2,6 +2,7 @@ package com.sanyo.quote.web.controller;
 
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,9 +27,9 @@ import com.sanyo.quote.domain.Encounter;
 import com.sanyo.quote.domain.EncounterJson;
 import com.sanyo.quote.domain.EncounterStatus;
 import com.sanyo.quote.domain.Location;
-import com.sanyo.quote.domain.LocationJson;
 import com.sanyo.quote.domain.Maker;
 import com.sanyo.quote.domain.MakerJson;
+import com.sanyo.quote.domain.MakerProject;
 import com.sanyo.quote.domain.Product;
 import com.sanyo.quote.domain.ProductGroup;
 import com.sanyo.quote.domain.ProductGroupMaker;
@@ -40,13 +41,13 @@ import com.sanyo.quote.helper.Utilities;
 import com.sanyo.quote.service.CategoryService;
 import com.sanyo.quote.service.EncounterService;
 import com.sanyo.quote.service.LocationService;
+import com.sanyo.quote.service.MakerProjectService;
 import com.sanyo.quote.service.MakerService;
 import com.sanyo.quote.service.ProductGroupMakerService;
 import com.sanyo.quote.service.ProductGroupService;
 import com.sanyo.quote.service.ProductService;
 import com.sanyo.quote.service.ProjectService;
 import com.sanyo.quote.service.RegionService;
-import com.sanyo.quote.web.form.Link;
 /*
  * Controller for Encounter 
  */
@@ -80,6 +81,9 @@ public class Quotation extends CommonController {
 	
 	@Autowired
 	private CategoryService categoryService;
+	
+	@Autowired
+	private MakerProjectService makerProjectService;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String getQuotationPage(@RequestParam(value="projectId", required=true) String projectId,
@@ -121,21 +125,25 @@ public class Quotation extends CommonController {
 		System.out.println("=================================== saving Maker list");
 		Maker maker = makerService.findById(Integer.valueOf(makerJson.getMakerId()));
 		ProductGroup productGroup = productGroupService.findById(Integer.valueOf(makerJson.getProductGroupId()));
+		List<ProductGroupMaker> productGroupMakers = productGroupMakerService.findByProductGroupAndMaker(productGroup, maker);
+		
+		MakerProject makerProject = new MakerProject();
+		
+		if(productGroupMakers != null && productGroupMakers.size() >0){
+			makerProject.setProductGroupMaker(productGroupMakers.get(0));
+		}
 		Category category = categoryService.findById(Integer.valueOf(makerJson.getCategoryId()));
-		ProductGroupMaker productGroupMaker = new ProductGroupMaker();
 		Project project = projectService.findById(id);
 		
-		productGroupMaker.setCreatedBy(Utilities.getCurrentUser().getUsername());
-		productGroupMaker.setDelivery(makerJson.getDelivery());
-		productGroupMaker.setMaker(maker);
-		productGroupMaker.setModelNo(makerJson.getModelNo());
-		productGroupMaker.setProductGroup(productGroup);
-		productGroupMaker.setRemark(makerJson.getRemarks());
-		productGroupMaker.setCategory(category);
-		productGroupMaker.setProject(project);
-		productGroupMaker.setEquivalent(makerJson.getEquivalent());
+		makerProject.setCreatedBy(Utilities.getCurrentUser().getUsername());
+		makerProject.setDelivery(makerJson.getDelivery());
+		makerProject.setModelNo(makerJson.getModelNo());
+		makerProject.setRemark(makerJson.getRemarks());
+		makerProject.setCategory(category);
+		makerProject.setProject(project);
+		makerProject.setEquivalent(makerJson.getEquivalent());
 		
-		productGroupMakerService.save(productGroupMaker);
+		makerProjectService.save(makerProject);
 	}
 	
 	//get all assigned products of a specific project.

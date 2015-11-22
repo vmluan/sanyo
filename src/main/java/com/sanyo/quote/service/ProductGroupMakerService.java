@@ -20,4 +20,5 @@ public interface ProductGroupMakerService {
 	
 	Page<ProductGroupMaker> findAllByPage(Pageable pageable);
 	public List<Maker> findMakersOfProductGroup(ProductGroup productGroup);
+	public List<ProductGroupMaker> findByProductGroupAndMaker(ProductGroup productGroup, Maker maker);
 }

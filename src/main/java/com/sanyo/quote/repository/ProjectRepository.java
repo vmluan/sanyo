@@ -69,8 +69,8 @@ public interface ProjectRepository extends PagingAndSortingRepository<Project, I
 	@Query("SELECT p FROM Project p JOIN FETCH p.locations WHERE p.projectId = :id")
 	public Project findByIdAndFetchLocationsEagerly(@Param("id") Integer id);
 	
-	@Query("SELECT p FROM Project p JOIN FETCH p.productGroupMakers WHERE p.projectId = :id")
-	public Project findByIdAndFetchMakers(@Param("id") Integer id);
+//	@Query("SELECT p FROM Project p JOIN FETCH p.productGroupMakers WHERE p.projectId = :id")
+//	public Project findByIdAndFetchMakers(@Param("id") Integer id);
 
 	@Query("SELECT p FROM Project p JOIN FETCH p.expenses WHERE p.projectId = :id")
 	public Project findByIdAndFetchExpenses(@Param("id") Integer id);
@@ -81,8 +81,8 @@ public interface ProjectRepository extends PagingAndSortingRepository<Project, I
 	@Query("SELECT distinct  p.locations FROM Project p JOIN p.locations WHERE p.projectId = :id")
 	public List<Location> findLocations(@Param("id") Integer id);
 	
-	@Query("SELECT distinct  p.productGroupMakers FROM Project p JOIN p.productGroupMakers WHERE p.projectId = :id")
-	public List<ProductGroupMaker> findProductGroupMakers(@Param("id") Integer id);
+//	@Query("SELECT distinct  p.productGroupMakers FROM Project p JOIN p.productGroupMakers WHERE p.projectId = :id")
+//	public List<ProductGroupMaker> findProductGroupMakers(@Param("id") Integer id);
 	
 	@Query("SELECT distinct  p.expenses FROM Project p JOIN p.expenses WHERE p.projectId = :id")
 	public List<Expenses> findExpenses(@Param("id") Integer id);

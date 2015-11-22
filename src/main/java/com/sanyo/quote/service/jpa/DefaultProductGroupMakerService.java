@@ -49,4 +49,9 @@ public class DefaultProductGroupMakerService implements ProductGroupMakerService
 	public List<Maker> findMakersOfProductGroup(ProductGroup productGroup) {
 		return productGroupMakerRepository.findMakersOfProductGroup(productGroup);
 	}
+
+	@Override
+	public List<ProductGroupMaker> findByProductGroupAndMaker(ProductGroup productGroup, Maker maker) {
+		return productGroupMakerRepository.findByProductGroupAndMaker(productGroup, maker);
+	}
 }

@@ -46,6 +46,7 @@ import com.sanyo.quote.domain.Currency;
 import com.sanyo.quote.domain.CurrencyExchRate;
 import com.sanyo.quote.domain.Encounter;
 import com.sanyo.quote.domain.Location;
+import com.sanyo.quote.domain.MakerProject;
 import com.sanyo.quote.domain.ProductGroup;
 import com.sanyo.quote.domain.ProductGroupMaker;
 import com.sanyo.quote.domain.Project;
@@ -64,6 +65,7 @@ import com.sanyo.quote.service.CurrencyExchRateService;
 import com.sanyo.quote.service.CurrencyService;
 import com.sanyo.quote.service.EncounterService;
 import com.sanyo.quote.service.LocationService;
+import com.sanyo.quote.service.MakerProjectService;
 import com.sanyo.quote.service.ProductGroupMakerService;
 import com.sanyo.quote.service.ProductService;
 import com.sanyo.quote.service.ProjectRevisionService;
@@ -71,7 +73,6 @@ import com.sanyo.quote.service.ProjectService;
 import com.sanyo.quote.service.RegionService;
 import com.sanyo.quote.service.UserRegionRoleService;
 import com.sanyo.quote.service.UserService;
-import com.sanyo.quote.web.form.Link;
 import com.sanyo.quote.web.form.Message;
 import com.sanyo.quote.web.util.UrlUtil;
 
@@ -119,6 +120,9 @@ public class ProjectController extends CommonController {
 	
 	@Autowired
 	private CurrencyExchRateService currencyExchRateService;
+	
+	@Autowired
+	private MakerProjectService makerProjectService;
 	
 	private Validator validator;
 	
@@ -873,11 +877,12 @@ public class ProjectController extends CommonController {
 		locationAll.setLocationId(0);
 		Set<Location> locations = project.getLocations();
 		
-		
 		TreeMap<Integer, Location> tree = new TreeMap<Integer, Location>();
-		tree.put(locationAll.getLocationId(), locationAll);
-		for(Location location: locations){
-			tree.put(location.getLocationId(), location);
+		if(locations.size() > 0){
+			tree.put(locationAll.getLocationId(), locationAll);
+			for(Location location: locations){
+				tree.put(location.getLocationId(), location);
+			}
 		}
 		List<Location> list = new ArrayList<Location>();
 		for(int i=0; i<tree.size(); i++){
@@ -886,6 +891,44 @@ public class ProjectController extends CommonController {
 		String result = Utilities.jSonSerialization(list);
 		return result;
 	}
+//	@RequestMapping(value = "/getProductGroupMakersJson", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+//	@ResponseBody
+//	public String getProductGroupMakersJsGon(@RequestParam(value="projectId", required=true) String projectId,
+//			@RequestParam(value="filterscount", required=false) String filterscount
+//			, @RequestParam(value="groupscount", required=false) String groupscount
+//			, @RequestParam(value="pagenum", required=false) Integer pagenum
+//			, @RequestParam(value="pagesize", required=false) Integer pagesize
+//			, @RequestParam(value="recordstartindex", required=false) Integer recordstartindex
+//			, @RequestParam(value="recordendindex", required=false) Integer recordendindex
+//			, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
+//		
+//		String regionType =  httpServletRequest.getParameter("regionType");
+//		System.out.println("============ start getting product group makers ");
+//		Project project = projectService.findByIdAndFetchMakers(Integer.valueOf(projectId));
+//		Set<ProductGroupMaker> productGroupMakers = project.getProductGroupMakers();
+//		Set<ProductGroup> productGroups = new HashSet<ProductGroup>();
+//		Iterator<ProductGroupMaker> iterator = productGroupMakers.iterator();
+//		while(iterator.hasNext()){
+//			ProductGroupMaker productGroupMaker = iterator.next();
+//			Category category = productGroupMaker.getCategory().getParentCategory();
+//			if(regionType.equalsIgnoreCase(Constants.ELEC_TYPE)){
+//				if(category.getName().equalsIgnoreCase(Constants.ELECT_BOQ)){
+//					ProductGroup productGroup = productGroupMaker.getProductGroup();
+//					productGroups.add(productGroup);
+//				}
+//			}else if(regionType.equalsIgnoreCase(Constants.MECH_TYPE)){
+//				if(category.getName().equalsIgnoreCase(Constants.MECH_BOQ)){
+//					ProductGroup productGroup = productGroupMaker.getProductGroup();
+//					productGroups.add(productGroup);
+//				}				
+//			}
+//		}
+//		String result = Utilities.jSonSerialization(productGroups);
+//		return result;
+//	}
+	/*
+	 * get list of product group that are assinged to the project. it is defined in Maker sheet
+	 */
 	@RequestMapping(value = "/getProductGroupMakersJson", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String getProductGroupMakersJsGon(@RequestParam(value="projectId", required=true) String projectId,
@@ -898,14 +941,14 @@ public class ProjectController extends CommonController {
 			, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
 		
 		String regionType =  httpServletRequest.getParameter("regionType");
-		System.out.println("============ start getting product group makers ");
-		Project project = projectService.findByIdAndFetchMakers(Integer.valueOf(projectId));
-		Set<ProductGroupMaker> productGroupMakers = project.getProductGroupMakers();
+		System.out.println("============ start getting maker of project ");
+		Project project = projectService.findById(Integer.valueOf(projectId));
+		
+		List<MakerProject> makerProjects = makerProjectService.findByProject(project);
 		Set<ProductGroup> productGroups = new HashSet<ProductGroup>();
-		Iterator<ProductGroupMaker> iterator = productGroupMakers.iterator();
-		while(iterator.hasNext()){
-			ProductGroupMaker productGroupMaker = iterator.next();
-			Category category = productGroupMaker.getCategory().getParentCategory();
+		for(MakerProject makerProject : makerProjects){
+			ProductGroupMaker productGroupMaker = makerProject.getProductGroupMaker();
+			Category category = makerProject.getCategory().getParentCategory();
 			if(regionType.equalsIgnoreCase(Constants.ELEC_TYPE)){
 				if(category.getName().equalsIgnoreCase(Constants.ELECT_BOQ)){
 					ProductGroup productGroup = productGroupMaker.getProductGroup();
@@ -921,6 +964,7 @@ public class ProjectController extends CommonController {
 		String result = Utilities.jSonSerialization(productGroups);
 		return result;
 	}
+
 	@RequestMapping(value = "/{id}", params = "clone", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK)
 	public void cloneProject(@PathVariable("id") Integer id, Model uiModel
@@ -969,13 +1013,12 @@ public class ProjectController extends CommonController {
 		}
 	}
 	public void cloneProductGroupMakers(Integer sourceProjectId, Project clonedObj) throws CloneNotSupportedException{
-		List<ProductGroupMaker> productGroupMakers = projectService.findProductGroupMakers(sourceProjectId);
-		Set<ProductGroupMaker> clonedList = Utilities.cloneProductGroupMaker(productGroupMakers);
-		for(ProductGroupMaker pg : clonedList){
-			pg.setId(null);
-			pg.setProject(clonedObj);
-			productGroupMakerService.save(pg);
-		}
+//		List<ProductGroupMaker> productGroupMakers = projectService.findProductGroupMakers(sourceProjectId);
+//		Set<ProductGroupMaker> clonedList = Utilities.cloneProductGroupMaker(productGroupMakers);
+//		for(ProductGroupMaker pg : clonedList){
+//			pg.setId(null);
+//			productGroupMakerService.save(pg);
+//		}
 	}
 	public void cloneUserRegionRole(Integer sourceRegionId, Region clonedRegion) throws CloneNotSupportedException{
 		List<UserRegionRole> userRegionRoles = regionService.getUserRegionRoles(sourceRegionId);

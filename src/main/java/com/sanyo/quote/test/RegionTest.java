@@ -8,20 +8,16 @@
 package com.sanyo.quote.test;
 
 import java.text.ParseException;
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import org.springframework.context.support.GenericXmlApplicationContext;
 
-import com.sanyo.quote.domain.Currency;
-import com.sanyo.quote.domain.CurrencyExchRate;
 import com.sanyo.quote.domain.Encounter;
 import com.sanyo.quote.domain.Location;
-import com.sanyo.quote.domain.Project;
-import com.sanyo.quote.domain.ProjectRevision;
-import com.sanyo.quote.domain.ProjectStatus;
+import com.sanyo.quote.domain.Maker;
+import com.sanyo.quote.domain.Product;
+import com.sanyo.quote.domain.ProductGroup;
 import com.sanyo.quote.domain.Region;
 import com.sanyo.quote.helper.Utilities;
 import com.sanyo.quote.service.CategoryService;
@@ -30,6 +26,9 @@ import com.sanyo.quote.service.CurrencyService;
 import com.sanyo.quote.service.EncounterService;
 import com.sanyo.quote.service.GroupService;
 import com.sanyo.quote.service.LocationService;
+import com.sanyo.quote.service.MakerService;
+import com.sanyo.quote.service.ProductGroupMakerService;
+import com.sanyo.quote.service.ProductGroupService;
 import com.sanyo.quote.service.ProductService;
 import com.sanyo.quote.service.ProjectRevisionService;
 import com.sanyo.quote.service.ProjectService;
@@ -83,6 +82,9 @@ public class RegionTest {
 		CurrencyService currencyService = ctx.getBean("currencyService", CurrencyService.class);
 		CurrencyExchRateService currencyExchRateService = ctx.getBean("currencyExchRateService", CurrencyExchRateService.class);
 		ProjectRevisionService projectRevisionService = ctx.getBean("projectRevisionService", ProjectRevisionService.class);
+		ProductGroupMakerService productGroupMakerService = ctx.getBean("productGroupMakerService", ProductGroupMakerService.class);
+		ProductGroupService productGroupService = ctx.getBean("productGroupService", ProductGroupService.class);
+		MakerService makerService = ctx.getBean("makerService", MakerService.class);
 //
 		
 //		RegionTest test = new RegionTest();
@@ -110,17 +112,14 @@ public class RegionTest {
 //			currency.setCurrencyName(a);
 //			currencyService.save(currency);
 //		}
-		Currency source = currencyService.findByCurrencyCode("VND");
-		System.out.println(source.getCurrencyName());
-		Project project = projectService.findByIdAndFetchLocationsEagerly(Integer.valueOf(1));
-		Set<Location> locations = project.getLocations();
-		Set<Region> totalRegions = new HashSet<Region>();
-		for(Location location : locations){
-			Set<Region> regions  = location.getRegions();
-			totalRegions.addAll(regions);
-		}
-		String result = Utilities.createJsonTreeGridForRegions(totalRegions, locations);
-		System.out.println(result);
+		ProductGroup pg = productGroupService.findByGroupCode("151-HV");
+		List<Maker> makers = productGroupMakerService.findMakersOfProductGroup(pg);
+		System.out.println(makers.size());
+		
+		Maker maker = makerService.findById(1);
+		List<Product> products = productService.findByProductGroupAndMaker(pg, maker);
+		System.out.println(products.size());
+		
 	}
 
 }

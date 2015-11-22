@@ -15,4 +15,5 @@ public interface ProductGroupMakerRepository extends PagingAndSortingRepository<
 	@Query("SELECT distinct  p.maker FROM ProductGroupMaker p JOIN p.maker WHERE p.productGroup = :productGroup")
 	public List<Maker> findMakersOfProductGroup(@Param("productGroup") ProductGroup productGroup);
 	
+	public List<ProductGroupMaker> findByProductGroupAndMaker(ProductGroup productGroup, Maker maker);
 }

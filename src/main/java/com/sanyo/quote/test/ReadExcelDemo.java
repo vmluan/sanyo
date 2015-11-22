@@ -131,7 +131,7 @@ public class ReadExcelDemo
 	}
 	private static void updateElecMaker(Project project,XSSFWorkbook workbook,ProjectService projectService){
 		XSSFSheet sheet = workbook.getSheetAt(6);
-		List<ProductGroupMaker> productGroupMakers = projectService.findProductGroupMakers(project.getProjectId());
+//		List<ProductGroupMaker> productGroupMakers = projectService.findProductGroupMakers(project.getProjectId());
 		//Iterate through each rows one by one
 		Iterator<Row> rowIterator = sheet.iterator();
 		int rowCount = 0;
@@ -148,7 +148,6 @@ public class ReadExcelDemo
 				Cell cell = cellIterator.next();
 				if(cell.getCellType() == Cell.CELL_TYPE_STRING){
 					if(cell.getStringCellValue().contains("${clientName}")){
-						cell.setCellValue("　　　施工会社名 :" + " " + project.getCustomerName());
 					}
 				}
 			}
@@ -158,17 +157,6 @@ public class ReadExcelDemo
 		
 		
 		TreeMap<String, List<ProductGroupMaker>> list = new TreeMap<String, List<ProductGroupMaker>>();
-		for(ProductGroupMaker pg : productGroupMakers){
-			List<ProductGroupMaker> existingValues = list.get(pg.getCategory().getName());
-			if(existingValues != null){
-				existingValues.add(pg);
-			}
-			else{
-				existingValues = new ArrayList<ProductGroupMaker>();
-				existingValues.add(pg);
-				list.put(pg.getCategory().getName(), existingValues);
-			}
-		}
 		
 		for(Map.Entry<String,List<ProductGroupMaker>> entry : list.entrySet()) {
 			  String key = entry.getKey();
@@ -185,48 +173,48 @@ public class ReadExcelDemo
 	private static void createMakerRows(List<ProductGroupMaker> productGroupMakers, XSSFSheet sheet, int rowCount, int order ){
 		boolean hasOrderForCategory = false;
 		int startRow = rowCount;
-		for(ProductGroupMaker pg : productGroupMakers){
-			order ++;
-			Row row = sheet.createRow(rowCount);
-			rowCount ++;
-			for(int i=0; i<7; i++){
-				Cell cell = row.createCell(i);
-				cell.setCellStyle(getSampleStyleWithBorder(sheet.getWorkbook()));
-				
-				if(i ==0){
-					if(!hasOrderForCategory){
-						cell.setCellValue(order);
-					}
-				}
-				else if (i == 1){
-					// set category
-					if(!hasOrderForCategory){
-						cell.setCellValue(pg.getCategory().getName());
-						hasOrderForCategory = true;
-					}
-				}
-				else if (i == 2){
-					// set category
-					cell.setCellValue(pg.getProductGroup().getGroupName());
-				}
-				else if(i ==3){
-					//set model no
-					cell.setCellValue(pg.getModelNo());
-				}
-				else if(i ==4){
-					//set maker name
-					cell.setCellValue(pg.getMaker().getName());
-				}
-				else if(i ==5){
-					//set delivery
-					cell.setCellValue(pg.getDelivery());
-				}
-				else if(i ==6){
-					//set remarks
-					cell.setCellValue(pg.getRemark());
-				}
-			}
-		}
+//		for(ProductGroupMaker pg : productGroupMakers){
+//			order ++;
+//			Row row = sheet.createRow(rowCount);
+//			rowCount ++;
+//			for(int i=0; i<7; i++){
+//				Cell cell = row.createCell(i);
+//				cell.setCellStyle(getSampleStyleWithBorder(sheet.getWorkbook()));
+//				
+//				if(i ==0){
+//					if(!hasOrderForCategory){
+//						cell.setCellValue(order);
+//					}
+//				}
+//				else if (i == 1){
+//					// set category
+//					if(!hasOrderForCategory){
+//						cell.setCellValue(pg.getCategory().getName());
+//						hasOrderForCategory = true;
+//					}
+//				}
+//				else if (i == 2){
+//					// set category
+//					cell.setCellValue(pg.getProductGroup().getGroupName());
+//				}
+//				else if(i ==3){
+//					//set model no
+//					cell.setCellValue(pg.getModelNo());
+//				}
+//				else if(i ==4){
+//					//set maker name
+//					cell.setCellValue(pg.getMaker().getName());
+//				}
+//				else if(i ==5){
+//					//set delivery
+//					cell.setCellValue(pg.getDelivery());
+//				}
+//				else if(i ==6){
+//					//set remarks
+//					cell.setCellValue(pg.getRemark());
+//				}
+//			}
+//		}
 //		org.apache.poi.ss.util.CellRangeAddress region = new CellRangeAddress(startRow, rowCount -1, 0, 1);
 //		sheet.addMergedRegion(region);
 	}

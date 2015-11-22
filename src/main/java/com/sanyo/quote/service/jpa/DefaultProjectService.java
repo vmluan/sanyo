@@ -216,10 +216,10 @@ public class DefaultProjectService implements ProjectService {
 		return projectRepository.findByIdAndFetchLocationsEagerly(id);
 	}
 
-	@Override
-	public Project findByIdAndFetchMakers(Integer id) {
-		return projectRepository.findByIdAndFetchMakers(id);
-	}
+//	@Override
+//	public Project findByIdAndFetchMakers(Integer id) {
+//		return projectRepository.findByIdAndFetchMakers(id);
+//	}
 
 	@Override
 	public List<Project> findProjectsWithStatus(ProjectStatus projectStatus) {
@@ -231,10 +231,10 @@ public class DefaultProjectService implements ProjectService {
 		return projectRepository.findLocations(id);
 	}
 
-	@Override
-	public List<ProductGroupMaker> findProductGroupMakers(Integer id) {
-		return projectRepository.findProductGroupMakers(id);
-	}
+//	@Override
+//	public List<ProductGroupMaker> findProductGroupMakers(Integer id) {
+//		return projectRepository.findProductGroupMakers(id);
+//	}
 
 	@Override
 	public List<Expenses> findExpenses(Integer id) {

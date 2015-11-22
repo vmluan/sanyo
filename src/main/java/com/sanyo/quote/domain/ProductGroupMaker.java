@@ -26,8 +26,8 @@ import org.eclipse.persistence.sessions.factories.ProjectClassGenerator;
 @Table(name = "productgroup_Maker", catalog = "sanyo")
 public class ProductGroupMaker implements java.io.Serializable, Cloneable {
 	private Integer id;
-	private String delivery;
-	private String remark;
+//	private String delivery;
+//	private String remark;
 	private Date startDate;
 	private Date endDate;
 	private String createdBy;
@@ -36,11 +36,11 @@ public class ProductGroupMaker implements java.io.Serializable, Cloneable {
 	private String lmodUser;
 	private ProductGroup productGroup;
 	private Maker maker;
-	private String modelNo;
+//	private String modelNo;
 //	private Region region; // will be removed later.
-	private Category category;
-	private Project project;
-	private String equivalent;
+//	private Category category;
+//	private Project project;
+//	private String equivalent;
 	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -51,18 +51,18 @@ public class ProductGroupMaker implements java.io.Serializable, Cloneable {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getDelivery() {
-		return delivery;
-	}
-	public void setDelivery(String delivery) {
-		this.delivery = delivery;
-	}
-	public String getRemark() {
-		return remark;
-	}
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
+//	public String getDelivery() {
+//		return delivery;
+//	}
+//	public void setDelivery(String delivery) {
+//		this.delivery = delivery;
+//	}
+//	public String getRemark() {
+//		return remark;
+//	}
+//	public void setRemark(String remark) {
+//		this.remark = remark;
+//	}
 	public Date getStartDate() {
 		return startDate;
 	}
@@ -115,12 +115,12 @@ public class ProductGroupMaker implements java.io.Serializable, Cloneable {
 	public void setMaker(Maker maker) {
 		this.maker = maker;
 	}
-	public String getModelNo() {
-		return modelNo;
-	}
-	public void setModelNo(String modelNo) {
-		this.modelNo = modelNo;
-	}
+//	public String getModelNo() {
+//		return modelNo;
+//	}
+//	public void setModelNo(String modelNo) {
+//		this.modelNo = modelNo;
+//	}
 //	@JsonIgnore
 //	@ManyToOne(fetch=FetchType.LAZY)
 //	@JoinColumn(name="region_id", nullable = false)
@@ -130,29 +130,29 @@ public class ProductGroupMaker implements java.io.Serializable, Cloneable {
 //	public void setRegion(Region region) {
 //		this.region = region;
 //	}
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="category_id", nullable = true)
-	public Category getCategory() {
-		return category;
-	}
-	public void setCategory(Category category) {
-		this.category = category;
-	}
+//	@ManyToOne(fetch=FetchType.EAGER)
+//	@JoinColumn(name="category_id", nullable = true)
+//	public Category getCategory() {
+//		return category;
+//	}
+//	public void setCategory(Category category) {
+//		this.category = category;
+//	}
 	
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="project_id", nullable = true)
-	public Project getProject() {
-		return project;
-	}
-	public void setProject(Project project) {
-		this.project = project;
-	}
-	public String getEquivalent() {
-		return equivalent;
-	}
-	public void setEquivalent(String equivalent) {
-		this.equivalent = equivalent;
-	}
+//	@ManyToOne(fetch=FetchType.EAGER)
+//	@JoinColumn(name="project_id", nullable = true)
+//	public Project getProject() {
+//		return project;
+//	}
+//	public void setProject(Project project) {
+//		this.project = project;
+//	}
+//	public String getEquivalent() {
+//		return equivalent;
+//	}
+//	public void setEquivalent(String equivalent) {
+//		this.equivalent = equivalent;
+//	}
 	
 	@Override
 	public ProductGroupMaker clone() throws CloneNotSupportedException {

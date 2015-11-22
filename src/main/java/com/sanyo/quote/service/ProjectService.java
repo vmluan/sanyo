@@ -33,13 +33,13 @@ public interface ProjectService {
 	
 	Project findByIdAndFetchLocationsEagerly(Integer id);
 	
-	Project findByIdAndFetchMakers(Integer id);
+//	Project findByIdAndFetchMakers(Integer id);
 	
 	List<Project> findProjectsWithStatus(ProjectStatus projectStatus);
 	
 	List<Location> findLocations(Integer id);
 	
-	List<ProductGroupMaker> findProductGroupMakers(Integer id);
+//	List<ProductGroupMaker> findProductGroupMakers(Integer id);
 	
 	List<Expenses> findExpenses(Integer id);
 	

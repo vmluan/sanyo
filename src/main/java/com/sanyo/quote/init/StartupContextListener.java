@@ -242,7 +242,7 @@ public class StartupContextListener extends ContextLoaderListener{
 			
 			//add productGroupMaker data;
 			ProductGroupMaker pgm = new ProductGroupMaker();
-			pgm.setCategory(null);
+//			pgm.setCategory(null);
 			pgm.setMaker(maker);
 			pgm.setProductGroup(productGroupService.findByGroupCode("151-HV"));
 			
