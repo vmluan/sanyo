@@ -59,4 +59,9 @@ public class DefaultEncounterService implements EncounterService {
 	public List<Encounter> getEncountersByRegion(Region region) {
 		return encounterRepository.getEncountersByRegion(region);
 	}
+
+	@Override
+	public List<Encounter> findByRegion(Region region) {
+		return encounterRepository.findByRegion(region);
+	}
 }

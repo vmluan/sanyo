@@ -170,8 +170,9 @@ public class Quotation extends CommonController {
 			, @RequestParam(value="recordendindex", required=false) Integer recordendindex
 			, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
 		
-		Region region = regionService.findByIdAndFetchEncountersEagerly(Integer.valueOf(regionId));
-		Set<Encounter> encounters = region.getEncounters();
+//		Region region = regionService.findByIdAndFetchEncountersEagerly(Integer.valueOf(regionId));
+		Region region = regionService.findById(Integer.valueOf(regionId));
+		List<Encounter> encounters = encounterService.findByRegion(region);
 		String result = Utilities.jSonSerialization(encounters);
 		return result;
 	}

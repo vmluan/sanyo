@@ -932,6 +932,7 @@ public class ProjectController extends CommonController {
 	@RequestMapping(value = "/getProductGroupMakersJson", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String getProductGroupMakersJsGon(@RequestParam(value="projectId", required=true) String projectId,
+			@RequestParam(value="projectId", required=false) Integer regionId,
 			@RequestParam(value="filterscount", required=false) String filterscount
 			, @RequestParam(value="groupscount", required=false) String groupscount
 			, @RequestParam(value="pagenum", required=false) Integer pagenum
@@ -944,25 +945,32 @@ public class ProjectController extends CommonController {
 		System.out.println("============ start getting maker of project ");
 		Project project = projectService.findById(Integer.valueOf(projectId));
 		
-		List<MakerProject> makerProjects = makerProjectService.findByProject(project);
-		Set<ProductGroup> productGroups = new HashSet<ProductGroup>();
-		for(MakerProject makerProject : makerProjects){
-			ProductGroupMaker productGroupMaker = makerProject.getProductGroupMaker();
-			Category category = makerProject.getCategory().getParentCategory();
-			if(regionType.equalsIgnoreCase(Constants.ELEC_TYPE)){
-				if(category.getName().equalsIgnoreCase(Constants.ELECT_BOQ)){
-					ProductGroup productGroup = productGroupMaker.getProductGroup();
-					productGroups.add(productGroup);
+		if(regionId != null){
+			Region region = regionService.findById(regionId);
+			Category assignedCategory = region.getCategory();
+			List<MakerProject> makerProjects = makerProjectService.findByProjectAndCategory(project, assignedCategory);
+			Set<ProductGroup> productGroups = new HashSet<ProductGroup>();
+			for(MakerProject makerProject : makerProjects){
+				ProductGroupMaker productGroupMaker = makerProject.getProductGroupMaker();
+				Category category = makerProject.getCategory().getParentCategory();
+				if(regionType.equalsIgnoreCase(Constants.ELEC_TYPE)){
+					if(category.getName().equalsIgnoreCase(Constants.ELECT_BOQ)){
+						ProductGroup productGroup = productGroupMaker.getProductGroup();
+						productGroups.add(productGroup);
+					}
+				}else if(regionType.equalsIgnoreCase(Constants.MECH_TYPE)){
+					if(category.getName().equalsIgnoreCase(Constants.MECH_BOQ)){
+						ProductGroup productGroup = productGroupMaker.getProductGroup();
+						productGroups.add(productGroup);
+					}				
 				}
-			}else if(regionType.equalsIgnoreCase(Constants.MECH_TYPE)){
-				if(category.getName().equalsIgnoreCase(Constants.MECH_BOQ)){
-					ProductGroup productGroup = productGroupMaker.getProductGroup();
-					productGroups.add(productGroup);
-				}				
 			}
+			String result = Utilities.jSonSerialization(productGroups);
+			return result;
 		}
-		String result = Utilities.jSonSerialization(productGroups);
-		return result;
+		
+		return "[]";
+
 	}
 
 	@RequestMapping(value = "/{id}", params = "clone", method = RequestMethod.POST)

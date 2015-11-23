@@ -13,5 +13,7 @@ import com.sanyo.quote.domain.Region;
 public interface EncounterRepository extends PagingAndSortingRepository<Encounter, Integer> {
     @Query("SELECT e FROM Encounter e WHERE e.region = :region order by e.order asc")
     public List<Encounter> getEncountersByRegion(@Param("region") Region region);
+    
+    public List<Encounter> findByRegion(Region region);
 
 }

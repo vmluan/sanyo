@@ -23,5 +23,6 @@ public interface EncounterService {
 	
 	void delte(Encounter encounter); 
 	List<Encounter> getEncountersByRegion(Region region);
+	public List<Encounter> findByRegion(Region region);
 	
 }

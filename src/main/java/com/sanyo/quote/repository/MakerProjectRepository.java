@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
 
+import com.sanyo.quote.domain.Category;
 import com.sanyo.quote.domain.MakerProject;
 import com.sanyo.quote.domain.Project;
 
@@ -14,5 +15,6 @@ public interface MakerProjectRepository extends PagingAndSortingRepository<Maker
 //	
 //	public Maker findByName(String name);
 	public List<MakerProject> findByProject(Project project);
+	public List<MakerProject> findByProjectAndCategory(Project project, Category category);
 
 }

@@ -30,18 +30,16 @@
 							</div>
 						</div>						
 					</div>
-					<div class="col-md-12">
+					<div class="col-md-12 col-md-12">
 						<div class="form-group col-md-2">
-							<p />
+							<label>Select Region</label>
 							<div id="listRegion" class="row"><jsp:text />
 							</div>
 							<div id="pagerRegion"><jsp:text /></div><jsp:text /><P /><jsp:text />
-							<p />
 						</div>
 					</div>							
 					<div class="col-md-12">
 						<div class="form-group">
-							<p />
 							<div id="list" class="row"><jsp:text />
 							</div>
 							<div id="pager"><jsp:text /></div><jsp:text /><P /><jsp:text />
@@ -50,7 +48,7 @@
 					</div>			
 					<div class="col-md-12">
 						<div class="form-group">
-							<p />
+							<label>List of added items</label>
 							<div id="listResult" class="row"><jsp:text />
 							</div>
 							<div id="pagerResult"><jsp:text /></div><jsp:text /><P /><jsp:text />
@@ -76,6 +74,7 @@
 	var eQtyOther = "${project.eQtyOther}";
 	var mQtymQty = "${project.mQty}";
 	var pageContext = "${pageContext.request.contextPath}";
+	var exchangeRate = "${project.usdToVnd}";
 </script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/addQuotation.js">
 		<jsp:text/>

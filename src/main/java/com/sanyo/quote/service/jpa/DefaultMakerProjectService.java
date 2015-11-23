@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.collect.Lists;
+import com.sanyo.quote.domain.Category;
 import com.sanyo.quote.domain.MakerProject;
 import com.sanyo.quote.domain.Project;
 import com.sanyo.quote.repository.MakerProjectRepository;
@@ -47,6 +48,11 @@ public class DefaultMakerProjectService implements MakerProjectService {
 	@Override
 	public List<MakerProject> findByProject(Project project) {
 		return makerProjectRepository.findByProject(project);
+	}
+
+	@Override
+	public List<MakerProject> findByProjectAndCategory(Project project, Category category) {
+		return makerProjectRepository.findByProjectAndCategory(project, category);
 	}
 
 
