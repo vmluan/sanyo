@@ -1,5 +1,6 @@
 package com.sanyo.quote.web.controller;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -13,6 +14,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.hibernate.exception.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +29,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,6 +55,7 @@ import com.sanyo.quote.service.MakerService;
 import com.sanyo.quote.service.PriceService;
 import com.sanyo.quote.service.ProductGroupService;
 import com.sanyo.quote.service.ProductService;
+import com.sanyo.quote.web.form.FileBean;
 
 @Controller
 @RequestMapping(value = "/products")
@@ -82,6 +90,9 @@ public class ProductController {
 		}
 		List<Product> products = productService.findAll();
 		ciModel.addAttribute("products", products);
+		//fileBean
+		FileBean fileBean = new FileBean();
+		ciModel.addAttribute("fileBean", fileBean);
 		return "products/list";
 	}
 	
@@ -454,6 +465,49 @@ public class ProductController {
 		String result = Utilities.jSonSerialization(labourPrices);
 		return result;
 	}
-	
+	@RequestMapping(method = RequestMethod.POST)
+	public void importProductFromExcel(@ModelAttribute("fileBean") FileBean fileBean, BindingResult bindingResult,
+			Model uiModel,
+			HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException{
+
+        MultiValueMap<String, MultipartFile> fileMap = ((MultipartHttpServletRequest)httpServletRequest).getMultiFileMap();
+        Iterator<String> fileNameIterator = fileMap.keySet().iterator();
+        String fileName = "";
+        System.out.println("=================== " + fileBean.getFile() );
+        while(fileNameIterator.hasNext()) {
+        	fileName = fileNameIterator.next();
+        }
+        System.out.println("======== file name is " + fileName);
+		MultipartFile file =  ((MultipartHttpServletRequest)httpServletRequest).getFile(fileName);
+		
+		String mime_type = file.getContentType();
+		
+		System.out.println("======================= file type is " + mime_type);
+		
+	       ByteArrayInputStream bis = new ByteArrayInputStream(file.getBytes());
+	       XSSFWorkbook workbook;
+	        try {
+	            if (file.getOriginalFilename().endsWith("xls") ||
+	            		file.getOriginalFilename().endsWith("xlsx") 	) {
+	                workbook = new XSSFWorkbook(bis);
+	            } else {
+	                throw new IllegalArgumentException("Received file does not have a standard excel extension.");
+	            }
+	            XSSFSheet sheet = workbook.getSheetAt(0);
+	            for (Row row : sheet) {
+	               if (row.getRowNum() == 0) {
+	                  Iterator<Cell> cellIterator = row.cellIterator();
+	                  while (cellIterator.hasNext()) {
+	                      Cell cell = cellIterator.next();
+	                      //go from cell to cell and do create sql based on the content
+	                      System.out.println(cell.getStringCellValue());
+	                  }
+	               }
+	            }
+
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	}	
 	
 }

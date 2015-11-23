@@ -2,6 +2,7 @@
 <div xmlns:jsp="http://java.sun.com/JSP/Page" 
      xmlns:c="http://java.sun.com/jsp/jstl/core" 
      xmlns:spring="http://www.springframework.org/tags"
+     xmlns:form="http://www.springframework.org/tags/form"
      version="2.0">
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:directive.page pageEncoding="UTF-8" />
@@ -24,6 +25,14 @@
               <!-- general form elements -->
 			  
               <div class="row">
+                <div class="box-header with-border">
+				    <form:form modelAttribute="fileBean" id="userUpdateForm" method="post" enctype="multipart/form-data">
+				        <form:label for="file" path="file">Import</form:label><br/><br/>
+				        <form:input path="file" type="file"/>
+				        <input type="submit" />
+				    </form:form>
+                </div><!-- /.box-header -->
+                              
                 <div class="box-header with-border">
                   <h3 class="box-title">Search</h3>
                 </div><!-- /.box-header -->
