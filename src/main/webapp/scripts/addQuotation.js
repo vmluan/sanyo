@@ -1167,13 +1167,14 @@ function updateQuantity(qtyManual){
 function updatePriceAfterDiscount(){
 	//Unit price after discount bằng cot 11+ cot 12/tỉ giá) 
 	//var exchangeRate = 22000; //update to get from database later.
-	if(!isNaN(exchangeRate)){
+	var floatValue = parseFloat(exchangeRate);
+	if(!isNaN(floatValue)){
 		alert("Exchange Rate is not set up or not valid. Please check at the Project Detail page.");
 		return;
 	}
 	var mat_w_o_Tax_USD = $("#list").jqxGrid('getcellvalue', 0, "mat_w_o_Tax_USD"); //cot 11
 	var mat_w_o_Tax_VND = $("#list").jqxGrid('getcellvalue', 0, "mat_w_o_Tax_VND"); //cot 12
-	var result = mat_w_o_Tax_USD + mat_w_o_Tax_VND/exchangeRate;
+	var result = mat_w_o_Tax_USD + mat_w_o_Tax_VND/floatValue;
 	$("#list").jqxGrid('setcellvalue', 0, "unit_Price_After_Discount", result);
 	
 	updateUnitRate();

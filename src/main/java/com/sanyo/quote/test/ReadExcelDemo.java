@@ -15,9 +15,11 @@ import org.apache.poi.hssf.usermodel.HSSFDataFormat;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFDataFormat;
+import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.context.support.GenericXmlApplicationContext;
@@ -248,6 +250,36 @@ public class ReadExcelDemo
 		return cellStyle;
 		
 	}
+	public static XSSFCellStyle getSampleStyleForLocation(XSSFWorkbook workbook){
+		
+		XSSFCellStyle cellStyle =  workbook.createCellStyle();
+		cellStyle.setBorderBottom(BorderStyle.DASHED);
+		cellStyle.setBorderTop(BorderStyle.DASHED);
+		cellStyle.setBorderLeft(BorderStyle.DASHED);
+		cellStyle.setBorderRight(BorderStyle.DASHED);
+		XSSFFont font = workbook.createFont();
+//		font.setBold(true);
+		font.setFontHeightInPoints((short) 14);
+		font.setFontName("Arial");
+		cellStyle.setFont(font);
+		return cellStyle;
+		
+	}
+	public static XSSFCellStyle getSampleStyleForRegion(XSSFWorkbook workbook){
+		
+		XSSFCellStyle cellStyle =  workbook.createCellStyle();
+		cellStyle.setBorderBottom(BorderStyle.DASHED);
+		cellStyle.setBorderTop(BorderStyle.DASHED);
+		cellStyle.setBorderLeft(BorderStyle.DASHED);
+		cellStyle.setBorderRight(BorderStyle.DASHED);
+		XSSFFont font = workbook.createFont();
+//		font.setBold(true);
+		font.setFontHeightInPoints((short) 12);
+		font.setFontName("Arial");
+		cellStyle.setFont(font);
+		return cellStyle;
+		
+	}
 	private static void setDataFormatForFloat(XSSFCellStyle cellStyle, XSSFWorkbook workbook){
 		XSSFDataFormat xssfDataFormat = workbook.createDataFormat(); 
 		cellStyle.setDataFormat(xssfDataFormat.getFormat("#,##0.000"));
@@ -255,12 +287,18 @@ public class ReadExcelDemo
 	//print based on location.
 	private static void createBoQSheet(Project project, XSSFWorkbook workbook){
 		XSSFSheet sheet = workbook.getSheetAt(5);
-		int rowCount =5;
+		int rowCount =5; //change this number later if need
 		int order = 1;
 		List<Location> locations = projectService.findLocations(project.getProjectId());
 		for(Location location: locations){
+			//create location row
+			createLocationRow(location, sheet, rowCount, order);
+			rowCount +=2;
 			List<Region> regions = locationService.findRegions(location.getLocationId());
 			for(Region region : regions){
+				//create region row
+				createRegionRow(region, sheet, rowCount, order);
+				rowCount +=2;
 				List<Encounter> encounters = encounterService.getEncountersByRegion(region);
 				createBOQRows(encounters, sheet, rowCount, order);
 				rowCount += encounters.size();
@@ -271,7 +309,7 @@ public class ReadExcelDemo
 	private static void writeCellValue(Cell cell, String text){
 		if(text != null){
 			cell.setCellValue(text);
-			cell.setCellType(Cell.CELL_TYPE_NUMERIC);
+			cell.setCellType(Cell.CELL_TYPE_STRING);
 		}
 	}
 	private static void writeCellValue(Cell cell, Float text){
@@ -287,13 +325,29 @@ public class ReadExcelDemo
 	private static void writeCellValue(Cell cell, int text){
 		cell.setCellValue(text);
 	}
+	private static void createLocationRow(Location location, XSSFSheet sheet, int rowCount, int order ){
+		Row row = sheet.createRow(rowCount);
+		rowCount++;
+		Cell cell = row.createCell(1);
+		cell.setCellValue(location.getLocationName());
+		cell.setCellStyle(getSampleStyleForLocation(sheet.getWorkbook()));
+		sheet.createRow(rowCount);
+	}
+	private static void createRegionRow(Region region, XSSFSheet sheet, int rowCount, int order ){
+		Row row = sheet.createRow(rowCount);
+		rowCount++;
+		Cell cell = row.createCell(1);
+		cell.setCellValue(region.getRegionName());
+		cell.setCellStyle(getSampleStyleForRegion(sheet.getWorkbook()));
+		sheet.createRow(rowCount);
+	}
 	private static void createBOQRows(List<Encounter> encounters, XSSFSheet sheet, int rowCount, int order ){
 		boolean hasOrderForCategory = false;
 		int startRow = rowCount;
 		for(Encounter encounter : encounters){
 			Row row = sheet.createRow(rowCount);
 			rowCount++;
-			for(int i=0; i< 31; i++){
+			for(int i=0; i< 32; i++){
 				Cell cell = row.createCell(i);
 				cell.setCellStyle(getSampleStyleWithBorderDash(sheet.getWorkbook()));
 				if(i==0){
@@ -337,56 +391,71 @@ public class ReadExcelDemo
 				}else if(i==13){
 					//empty col
 					
-				}else if(i==14){
+				}else if(i ==14){
+					//Code column. 
+					//show empty
+				}
+				else if(i==15){
 					//percent
 					writeCellValue(cell, encounter.getNonamePercent());
-				}else if(i==15){
+				}else if(i==16){
 					//range
 					writeCellValue(cell, encounter.getNonameRange());
-				}else if(i==16){
+				}else if(i==17){
 					//mat w_o_tax_usd
 					writeCellValue(cell, encounter.getMat_w_o_Tax_USD());
-				}else if(i==17){
+				}else if(i==18){
 					//mat w_o_tax_vnd
 					writeCellValue(cell, encounter.getMat_w_o_Tax_VND());
-				}else if(i==18){
+				}else if(i==19){
 					//labour w_o tax usd
 					writeCellValue(cell, encounter.getCost_Labour_Amount_USD());
-				}else if(i==19){
+				}else if(i==20){
 					//import duty
 					writeCellValue(cell, encounter.getImp_Tax());
-				}else if(i==20){
+				}else if(i==21){
 					//special tax
 					writeCellValue(cell, encounter.getSpecial_Con_Tax());
-				}else if(i==21){
+				}else if(i==22){
 					//vat
 					writeCellValue(cell, encounter.getVAT());
-				}else if(i==22){
+				}else if(i==23){
 					//discount rate
 					writeCellValue(cell, encounter.getDiscount_rate());
-				}else if(i==23){
+				}else if(i==24){
 					//unit price after discount
 					writeCellValue(cell, encounter.getUnit_Price_After_Discount());
-				}else if(i==24){
+				}else if(i==25){
 					//allowance
 					writeCellValue(cell, encounter.getAllowance());
-				}else if(i==25){
+				}else if(i==26){
 					//unit price with tax and profit - Mat submit usd
 					// it==ROUND(Y117*Z117,2) = unit price after discount * allowance
 					writeCellValue(cell, encounter.getUnit_Price_After_Discount() * encounter.getAllowance());
-				}else if(i==26){
+				}else if(i==27){
 					//subCon profit
 					writeCellValue(cell, encounter.getSubcon_Profit());
-				}else if(i==27){
-					//Unit price with tax  labour c/w tax us
-					writeCellValue(cell, encounter.getUnit_Price_W_Tax_Labour());
 				}else if(i==28){
-					//Unit price w tax & profit labour submit us
-				
+					//Unit price with tax  
+					//labour c/w tax us
+					String strFormula= "ROUND((T" + rowCount +"*(1+" + "AB"+ rowCount +")),2)";
+					System.out.println(strFormula);
+					cell.setCellType(Cell.CELL_TYPE_FORMULA);
+					cell.setCellFormula(strFormula);
 				}else if(i==29){
+					//Unit price w tax & profit 
+					//labour submit us
+					//ROUND(AC6*'Summary-E'!$R$50,2)
+					
+					String strFormula= "ROUND(AC" + rowCount + "*'Summary-E'!$R$50,2)";
+					System.out.println(strFormula);
+					cell.setCellType(Cell.CELL_TYPE_FORMULA);
+					cell.setCellFormula(strFormula);
+				
+				}else if(i==30){
 					//mat amount usd
 					writeCellValue(cell, encounter.getMat_w_o_Tax_USD());
-				}else if(i==30){
+				}else if(i==31){
 					//lab amount usd
 					writeCellValue(cell, encounter.getCost_Labour_Amount_USD());
 				}
