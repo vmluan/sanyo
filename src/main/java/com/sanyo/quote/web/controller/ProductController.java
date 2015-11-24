@@ -14,9 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.poi.EncryptedDocumentException;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -572,7 +571,10 @@ public class ProductController {
 	                     
 	                      if(cell.getColumnIndex() ==1){
 	                    	  //desc
+	                    	  
 	                    	  String value = cell.getStringCellValue();
+	                    	  if(value == null || value.equalsIgnoreCase(""))
+	                    		  break;
 	                    	  product.setProductCode(cell.getStringCellValue());
 	                    	  product.setProductName(value);
 	                      }else if(cell.getColumnIndex() ==2){
@@ -586,12 +588,22 @@ public class ProductController {
 	                      }else if(cell.getColumnIndex()==4
 	                    		  ){
 	                    	  //unit price
-	                    	  if(cell.getCellType() == Cell.CELL_TYPE_NUMERIC){
+//	                    	  DataFormatter formatter = new DataFormatter(); //creating formatter using the default locale
+//	                    	  String cellValue = formatter.formatCellValue(cell); //Returns 
+//	                    	  logger.info("============== cellValue = " + cellValue);
+	                    	  try{
 		                    	  Double value = (cell.getNumericCellValue());
 		                    	  Float floatValue = Float.valueOf(value.toString());
 		                    	  product.setMat_w_o_Tax_VND(floatValue);
+	                    	  }catch(Exception e){
+	                    		  //handle exception later.
 	                    	  }
 	                      }
+	                      else
+	                    	  break;
+	                      
+	                  }
+	                  if(product.getProductName() != null){
 	                      product = productService.save(product);
 	                      ProductJson json = new ProductJson();
 	                      json.setProductID(product.getProductID());
@@ -602,12 +614,23 @@ public class ProductController {
 	                      json.setLabour(product.getLabour());
 	                      
 	                      saveLabourPrice(json, product);
-	                      
 	                  }
 				}
 			}
 		}
+		
 	}
 	
-	
+	public boolean isNumeric(String str)  
+	{  
+	  try  
+	  {  
+	    double d = Float.parseFloat(str);  
+	  }  
+	  catch(NumberFormatException nfe)  
+	  {  
+	    return false;  
+	  }  
+	  return true;  
+	}
 }
