@@ -22,7 +22,7 @@ import com.sanyo.quote.service.ProductService;
 
 @Service("productService")
 @Repository
-@Transactional
+//@Transactional
 public class DefaultProductService implements ProductService {
 
 	@Autowired

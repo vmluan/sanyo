@@ -24,15 +24,7 @@
             <div class="box-body">
               <!-- general form elements -->
 			  
-              <div class="row">
-                <div class="box-header with-border">
-				    <form:form modelAttribute="fileBean" id="userUpdateForm" method="post" enctype="multipart/form-data">
-				        <form:label for="file" path="file">Import</form:label><br/><br/>
-				        <form:input path="file" type="file"/>
-				        <input type="submit" />
-				    </form:form>
-                </div><!-- /.box-header -->
-                              
+              <div class="row">         
                 <div class="box-header with-border">
                   <h3 class="box-title">Search</h3>
                 </div><!-- /.box-header -->
@@ -56,8 +48,15 @@
 						<button type="button" class="btn btn-primary" id="searchBtn">Search</button>
 					  </div>							
 					</div>					
+				</div>				
+				<div class="col-md-6">			
+							<form:form modelAttribute="fileBean" action="${pageContext.request.contextPath}/products/uploadFile" id="userUpdateForm" method="post" enctype="multipart/form-data">
+								<div class="form-group col-md-12 btn" >
+									<input type="submit" value="Import" class="btn btn-primary btn pull-right" />
+									<form:input path="file" type="file" class="btn btn pull-right"/>
+								</div>	
+							</form:form>				
 				</div>					
-				
 				</div>
 			  </div>
 			 </div>

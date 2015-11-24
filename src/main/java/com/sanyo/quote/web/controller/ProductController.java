@@ -14,10 +14,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.poi.EncryptedDocumentException;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.hibernate.exception.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,12 +50,14 @@ import com.sanyo.quote.domain.LabourPrice;
 import com.sanyo.quote.domain.Maker;
 import com.sanyo.quote.domain.Product;
 import com.sanyo.quote.domain.ProductGroup;
+import com.sanyo.quote.domain.ProductGroupMaker;
 import com.sanyo.quote.domain.ProductJson;
 import com.sanyo.quote.helper.ProductHepler;
 import com.sanyo.quote.helper.Utilities;
 import com.sanyo.quote.service.CategoryService;
 import com.sanyo.quote.service.MakerService;
 import com.sanyo.quote.service.PriceService;
+import com.sanyo.quote.service.ProductGroupMakerService;
 import com.sanyo.quote.service.ProductGroupService;
 import com.sanyo.quote.service.ProductService;
 import com.sanyo.quote.web.form.FileBean;
@@ -79,6 +84,9 @@ public class ProductController {
 	
 	@Autowired
 	private MakerService makerService;
+	
+	@Autowired
+	private ProductGroupMakerService productGroupMakerService;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String getProductPage(Model ciModel,@RequestParam(value="lang", required=false)String id) {
@@ -465,10 +473,12 @@ public class ProductController {
 		String result = Utilities.jSonSerialization(labourPrices);
 		return result;
 	}
-	@RequestMapping(method = RequestMethod.POST)
-	public void importProductFromExcel(@ModelAttribute("fileBean") FileBean fileBean, BindingResult bindingResult,
+	@RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
+	public String importProductFromExcel(@ModelAttribute("fileBean") FileBean fileBean, BindingResult bindingResult,
 			Model uiModel,
-			HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException{
+			HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception{
+		
+//		System.out.println("=============== file parm is " + fileParm.toString());
 
         MultiValueMap<String, MultipartFile> fileMap = ((MultipartHttpServletRequest)httpServletRequest).getMultiFileMap();
         Iterator<String> fileNameIterator = fileMap.keySet().iterator();
@@ -485,29 +495,119 @@ public class ProductController {
 		System.out.println("======================= file type is " + mime_type);
 		
 	       ByteArrayInputStream bis = new ByteArrayInputStream(file.getBytes());
-	       XSSFWorkbook workbook;
+	       Workbook exWorkBook;
 	        try {
 	            if (file.getOriginalFilename().endsWith("xls") ||
 	            		file.getOriginalFilename().endsWith("xlsx") 	) {
-	                workbook = new XSSFWorkbook(bis);
+	                exWorkBook = WorkbookFactory.create(bis);
+	                readExcelAndParseToProducts(exWorkBook, file.getOriginalFilename());
 	            } else {
 	                throw new IllegalArgumentException("Received file does not have a standard excel extension.");
 	            }
-	            XSSFSheet sheet = workbook.getSheetAt(0);
-	            for (Row row : sheet) {
-	               if (row.getRowNum() == 0) {
-	                  Iterator<Cell> cellIterator = row.cellIterator();
-	                  while (cellIterator.hasNext()) {
-	                      Cell cell = cellIterator.next();
-	                      //go from cell to cell and do create sql based on the content
-	                      System.out.println(cell.getStringCellValue());
-	                  }
-	               }
-	            }
+//	            Sheet sheet = exWorkBook.getSheetAt(0);
+//	            for (Row row : sheet) {
+//	               if (row.getRowNum() == 0) {
+//	                  Iterator<Cell> cellIterator = row.cellIterator();
+//	                  while (cellIterator.hasNext()) {
+//	                      Cell cell = cellIterator.next();
+//	                      //go from cell to cell and do create sql based on the content
+//	                      System.out.println(cell.getStringCellValue());
+//	                  }
+//	               }
+//	            }
 
 	        } catch (IOException e) {
 	            e.printStackTrace();
 	        }
-	}	
+	        bis.close();
+	        return "redirect:/products";
+	}
+	
+	//import products from excel file.
+	@Transactional
+	private void readExcelAndParseToProducts(Workbook workBook, String fileName) throws Exception{
+		String groupName = fileName.substring(0,fileName.lastIndexOf("."));
+		ProductGroup pg = productGroupService.findByGroupCode(groupName);
+		if(pg == null){
+			pg = new ProductGroup();
+			pg.setGroupCode(groupName);
+			pg.setGroupName(groupName);
+			pg = productGroupService.save(pg);
+		}
+		for(int i=0; i<workBook.getNumberOfSheets(); i++){
+			Sheet sheet = workBook.getSheetAt(i);
+			String makerName = sheet.getSheetName(); // maker name
+			
+			//fileName is productGroup code.
+			
+			Maker maker = makerService.findByName(makerName);
+			if(maker ==null){
+				maker = new Maker();
+				maker.setName(makerName);
+				maker = makerService.save(maker);
+			}
+			List<ProductGroupMaker> pgms = productGroupMakerService.findByProductGroupAndMaker(pg, maker);
+			if(pgms != null && pgms.size() >0){
+				//do nothing
+			}else{
+				ProductGroupMaker pgm = new ProductGroupMaker();
+				pgm.setCreatedDate(new Date().toString());
+				pgm.setMaker(maker);
+				pgm.setProductGroup(pg);
+				productGroupMakerService.save(pgm);
+			}
+			for(Row row: sheet){
+				if(row.getRowNum() >5){
+					 //add new product
+                    Product product = new Product();
+                    product.setStartDate(new Date());
+                    product.setMaker(maker);
+                    product.setProductGroup(pg);
+	                  Iterator<Cell> cellIterator = row.cellIterator();
+	                  while (cellIterator.hasNext()) {
+	                      Cell cell = cellIterator.next();
+	                      if(cell.getColumnIndex() ==0){
+	                    	  continue;
+	                      }
+	                     
+	                      if(cell.getColumnIndex() ==1){
+	                    	  //desc
+	                    	  String value = cell.getStringCellValue();
+	                    	  product.setProductCode(cell.getStringCellValue());
+	                    	  product.setProductName(value);
+	                      }else if(cell.getColumnIndex() ==2){
+	                    	  //specification
+	                    	  String value = cell.getStringCellValue();
+	                    	  product.setSpecification(value);
+	                      }else if(cell.getColumnIndex() ==3){
+	                    	  //unit
+	                    	  String value = cell.getStringCellValue();
+	                    	  product.setUnit(value);
+	                      }else if(cell.getColumnIndex()==4
+	                    		  ){
+	                    	  //unit price
+	                    	  if(cell.getCellType() == Cell.CELL_TYPE_NUMERIC){
+		                    	  Double value = (cell.getNumericCellValue());
+		                    	  Float floatValue = Float.valueOf(value.toString());
+		                    	  product.setMat_w_o_Tax_VND(floatValue);
+	                    	  }
+	                      }
+	                      product = productService.save(product);
+	                      ProductJson json = new ProductJson();
+	                      json.setProductID(product.getProductID());
+	                      json.setStartDate(new Date());
+	                      
+	                      json.setMat_w_o_Tax_USD(product.getMat_w_o_Tax_USD());
+	                      json.setMat_w_o_Tax_VND(product.getMat_w_o_Tax_VND());
+	                      json.setLabour(product.getLabour());
+	                      
+	                      saveLabourPrice(json, product);
+	                      
+	                  }
+				}
+			}
+		}
+	}
+	
 	
 }
