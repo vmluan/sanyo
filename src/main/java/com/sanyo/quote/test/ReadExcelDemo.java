@@ -289,22 +289,36 @@ public class ReadExcelDemo
 		XSSFSheet sheet = workbook.getSheetAt(5);
 		int rowCount =5; //change this number later if need
 		int order = 1;
+		int startRowOfRegion=0;
 		List<Location> locations = projectService.findLocations(project.getProjectId());
 		for(Location location: locations){
 			//create location row
 			createLocationRow(location, sheet, rowCount, order);
 			rowCount +=2;
 			List<Region> regions = locationService.findRegions(location.getLocationId());
+			int numOfRegions = 0;
 			for(Region region : regions){
+				numOfRegions ++;
+				startRowOfRegion = rowCount;  
 				//create region row
 				createRegionRow(region, sheet, rowCount, order);
 				rowCount +=2;
 				List<Encounter> encounters = encounterService.getEncountersByRegion(region);
 				createBOQRows(encounters, sheet, rowCount, order);
 				rowCount += encounters.size();
+				//create sub-total for each region.
+				createSubTotal(startRowOfRegion, rowCount, numOfRegions, sheet);
 			}
 		}
 		
+	}
+	private static void createSubTotal(int startRow, int endRow, int order, XSSFSheet sheet){
+		Row row = sheet.createRow(endRow+ 2);
+		String strFomula = "SUBTOTAL(9,H" + startRow + ":H" + endRow + ")";
+		Cell cell1 = row.createCell(1);
+		writeCellValue(cell1, "Sub toal " + order);
+		Cell cell7 = row.createCell(7);
+		writeCellFomula(cell7, strFomula);
 	}
 	private static void writeCellValue(Cell cell, String text){
 		if(text != null){
@@ -321,6 +335,10 @@ public class ReadExcelDemo
 			cell.setCellType(Cell.CELL_TYPE_NUMERIC);
 			cell.setCellStyle(cellStyle);
 		}
+	}
+	private static void writeCellFomula(Cell cell, String strFormula){
+		cell.setCellType(Cell.CELL_TYPE_FORMULA);
+		cell.setCellFormula(strFormula);
 	}
 	private static void writeCellValue(Cell cell, int text){
 		cell.setCellValue(text);
