@@ -3,19 +3,15 @@ package com.sanyo.quote.test;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;
-import org.apache.poi.hssf.usermodel.HSSFDataFormat;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFDataFormat;
@@ -29,6 +25,7 @@ import com.sanyo.quote.domain.Location;
 import com.sanyo.quote.domain.ProductGroupMaker;
 import com.sanyo.quote.domain.Project;
 import com.sanyo.quote.domain.Region;
+import com.sanyo.quote.helper.Constants;
 import com.sanyo.quote.service.CategoryService;
 import com.sanyo.quote.service.CurrencyExchRateService;
 import com.sanyo.quote.service.CurrencyService;
@@ -56,6 +53,8 @@ public class ReadExcelDemo
 	private static PriceService priceService;
 	private static CurrencyExchRateService currencyExchRateService;
 	private static CurrencyService currencyService;
+	
+	private static TreeMap<Integer, Integer> summRegionsTree = new TreeMap<Integer, Integer>();
 	
 	private class RowCount{
 		int rowCount = 0;
@@ -302,11 +301,15 @@ public class ReadExcelDemo
 	//print based on location.
 	private static void createBoQSheet(Project project, XSSFWorkbook workbook, RowCount rowCount){
 		XSSFSheet sheet = workbook.getSheetAt(5);
-//		int rowCount =5; 
-		rowCount.setRowCount(5);//change this number later if need
+//		rowCount.setRowCount(5);//change this number later if need
 		int order = 1;
 		int startRowOfRegion=0;
 		List<Location> locations = projectService.findLocations(project.getProjectId());
+		
+		createSummaryOfLocations(locations, sheet, rowCount, order);
+		createBreakDownRow(sheet, rowCount, order);
+		rowCount.addMoreValue(2);
+		
 		for(Location location: locations){
 			//create location row
 			createLocationRow(location, sheet, rowCount, order);
@@ -324,20 +327,83 @@ public class ReadExcelDemo
 //				rowCount += encounters.size();
 				//create sub-total for each region.
 				createSubTotal(startRowOfRegion, rowCount, numOfRegions, sheet);
+				
+				//update total summary for region.
+				int regionSummRowNum = summRegionsTree.get(region.getRegionId());
+				Row row = sheet.getRow(regionSummRowNum);
+				updateTotalSummaryForRegion(row,rowCount.getRowCount()-1);
 			}
+			//update total summary for location.
 		}
 		
+	}
+	private static void updateTotalSummaryForRegion(Row row, int rowNum){
+		updateTotalRegionAmountFormula(row, rowNum);
+		updateTotalRegionLabourAmountFormula(row, rowNum);
+		updateTotalRegionAEFormula(row, rowNum);
+		updateTotalRegionAFFormula(row, rowNum);
+	}
+	private static String getTotalRegionFormula(int row, String column){
+		String strFormula = column + row;;
+		return strFormula;
+	}
+	private static void updateTotalRegionAmountFormula(Row row, int rowNum){
+		String strFomula = getTotalRegionFormula(rowNum, "H");
+		Cell cell7 = row.createCell(Constants.BOQ_COLUMN_AMOUNT); //amount
+		writeCellFomula(cell7, strFomula);
+	}
+	private static void updateTotalRegionLabourAmountFormula(Row row, int rowNum){
+		String strFomula = getTotalRegionFormula(rowNum, "M");
+		Cell cell7 = row.createCell(Constants.BOQ_COLUMN_LABOUR_AMOUNT); //amount
+		writeCellFomula(cell7, strFomula);
+	}
+	private static void updateTotalRegionAEFormula(Row row, int rowNum){
+		String strFomula = getTotalRegionFormula(rowNum, "AE");
+		Cell cell7 = row.createCell(Constants.BOQ_COLUMN_Mat_w_o_Tax_USD); //amount
+		writeCellFomula(cell7, strFomula);
+	}
+	private static void updateTotalRegionAFFormula(Row row, int rowNum){
+		String strFomula = getTotalRegionFormula(rowNum, "AF");
+		Cell cell7 = row.createCell(Constants.BOQ_COLUMN_Cost_Labour_Amount_USD); //amount
+		writeCellFomula(cell7, strFomula);
+	}
+	private static String getSubTotalFormula(int start, int end, String column){
+		String strFormula = "SUBTOTAL(9," + column + start + ":" + column + end + ")";
+		return strFormula;
 	}
 	private static void createSubTotal(int startRow, RowCount endRow, int order, XSSFSheet sheet){
 		endRow.addMoreValue(1);
 		Row row = sheet.getRow(endRow.getRowCount());
-		String strFomula = "SUBTOTAL(9,H" + startRow + ":H" + endRow.getRowCount() + ")";
+//		String strFomula = "SUBTOTAL(9,H" + startRow + ":H" + endRow.getRowCount() + ")";
 		Cell cell1 = row.createCell(1);
 		writeCellValue(cell1, "Sub toal " + order);
-		Cell cell7 = row.createCell(7);
-		writeCellFomula(cell7, strFomula);
+		updateSubTotal(row, startRow, endRow.getRowCount());
+		
 		endRow.addMoreValue(2);
 	}
+	//update H column value
+	private static void updateAmountFormula(Row row, int startRow, int endRow){
+		String strFomula = getSubTotalFormula(startRow, endRow, "H");
+		Cell cell7 = row.createCell(Constants.BOQ_COLUMN_AMOUNT); //amount
+		writeCellFomula(cell7, strFomula);
+	}
+	//update M column value
+	private static void updateLabourAmountFormula(Row row, int startRow, int endRow){
+		String strFomula = getSubTotalFormula(startRow, endRow, "M");
+		Cell cell7 = row.createCell(Constants.BOQ_COLUMN_LABOUR_AMOUNT); //amount
+		writeCellFomula(cell7, strFomula);
+	}
+	private static void updateAEFormula(Row row, int startRow, int endRow){
+		String strFomula = getSubTotalFormula(startRow, endRow, "AE");
+		Cell cell7 = row.createCell(Constants.BOQ_COLUMN_Mat_w_o_Tax_USD); //amount
+		writeCellFomula(cell7, strFomula);
+	}
+	private static void updateAFFormula(Row row, int startRow, int endRow){
+		String strFomula = getSubTotalFormula(startRow, endRow, "AF");
+		Cell cell7 = row.createCell(Constants.BOQ_COLUMN_Cost_Labour_Amount_USD); //amount
+		writeCellFomula(cell7, strFomula);
+	}
+	
 	private static void writeCellValue(Cell cell, String text){
 		if(text != null){
 			cell.setCellValue(text);
@@ -362,12 +428,20 @@ public class ReadExcelDemo
 		cell.setCellValue(text);
 	}
 	private static void createLocationRow(Location location, XSSFSheet sheet, RowCount rowCount, int order ){
+		
 		Row row = sheet.getRow(rowCount.getRowCount());
 		rowCount.addMoreValue(1);
 		Cell cell = row.createCell(1);
 		cell.setCellValue(location.getLocationName());
 		cell.setCellStyle(getSampleStyleForLocation(sheet.getWorkbook()));
-		sheet.getRow(rowCount.getRowCount());
+	}
+private static void createRegionHeaderRow(Region region, XSSFSheet sheet, RowCount rowCount, int order ){
+		
+		Row row = sheet.getRow(rowCount.getRowCount());
+		rowCount.addMoreValue(1);
+		Cell cell = row.createCell(1);
+		cell.setCellValue(region.getRegionName());
+		cell.setCellStyle(getSampleStyleForLocation(sheet.getWorkbook()));
 	}
 	private static void createRegionRow(Region region, XSSFSheet sheet, RowCount rowCount, int order ){
 		Row row = sheet.getRow(rowCount.getRowCount());
@@ -500,6 +574,68 @@ public class ReadExcelDemo
 			}
 		}
 	}
+	private static void createSummaryOfLocations(List<Location> locations, XSSFSheet sheet, RowCount rowCount, int order ){
+		int startRow = rowCount.getRowCount();
+		for(Location location: locations){
+			createLocationRow(location, sheet, rowCount, order);
+			Set<Region> regions = location.getRegions();
+			Iterator<Region> iter = regions.iterator();
+			int startRowOfEachLocation = rowCount.getRowCount();
+			while(iter.hasNext()){
+				Region region = iter.next();
+				createRegionHeaderRow(region, sheet, rowCount, order);
+				summRegionsTree.put(region.getRegionId(), Integer.valueOf(rowCount.getRowCount() -1));
+			}
+			//create total summary row for each location
+			createTotalSummaryRowForLocation(location, sheet,startRowOfEachLocation, rowCount, order);
+		}
+		String mainRegion = "Total " + Constants.ELECT_WORKS;
+		createTotalWorks(mainRegion, sheet,startRow, rowCount, order);
+		
+
+	}
+	private static void createTotalWorks(String mainRegion, XSSFSheet sheet,int startRow, RowCount rowCount, int order){
+		rowCount.addMoreValue(1);
+		Row row = sheet.getRow(rowCount.getRowCount());
+		int endRow = rowCount.getRowCount() -1;
+		rowCount.addMoreValue(2);
+		Cell cell = row.createCell(1);
+		cell.setCellValue(mainRegion);
+		cell.setCellStyle(getSampleStyleForLocation(sheet.getWorkbook()));
+		updateSubTotal(row, startRow, endRow);
+		
+	}
+	private static void createBreakDownRow(XSSFSheet sheet, RowCount rowCount, int order){
+		rowCount.addMoreValue(1);
+		Row row = sheet.getRow(rowCount.getRowCount());
+		rowCount.addMoreValue(1);
+		Cell cell = row.createCell(1);
+		cell.setCellValue(Constants.BREAK_DOWN);
+		cell.setCellStyle(getSampleStyleForLocation(sheet.getWorkbook()));		
+	}
+	private static void updateSubTotal(Row row, int startRow, int endRow){
+		updateAmountFormula(row, startRow, endRow);
+		updateLabourAmountFormula(row, startRow, endRow);
+		updateAEFormula(row, startRow, endRow);
+		updateAFFormula(row, startRow, endRow);
+	}
+	private static void createTotalSummaryRowForLocation(Location location,XSSFSheet sheet,int startRow, RowCount rowCount, int order){
+		rowCount.addMoreValue(1);
+		int endRow = rowCount.getRowCount() -1;
+		Row row = sheet.getRow(rowCount.getRowCount());
+		rowCount.addMoreValue(2);
+		Cell cell = row.createCell(1);
+		cell.setCellValue(getTotalRowSumaryName(location));
+		cell.setCellStyle(getSampleStyleForLocation(sheet.getWorkbook()));
+		
+		updateSubTotal(row, startRow, endRow);
+	}
+	private static String getTotalRowSumaryName(Location location){
+		String result = "Total " + location.getLocationName() 
+				+ " " 
+				+ Constants.ELECT_WORKS ;
+		return result;
+	}
 	public static void main(String[] args) 
 	{
 		try
@@ -531,6 +667,7 @@ public class ReadExcelDemo
 			updateCover(project, workbook, rowCount);
 			updateCondition1(project, workbook);
 			updateElecMaker(project, workbook, projectService);
+			rowCount.setRowCount(6);
 			createBoQSheet(project, workbook, rowCount);
 			
 			file.close();
