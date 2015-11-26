@@ -15,10 +15,9 @@ import org.springframework.context.support.GenericXmlApplicationContext;
 
 import com.sanyo.quote.domain.Encounter;
 import com.sanyo.quote.domain.Location;
-import com.sanyo.quote.domain.Maker;
-import com.sanyo.quote.domain.Product;
-import com.sanyo.quote.domain.ProductGroup;
+import com.sanyo.quote.domain.Project;
 import com.sanyo.quote.domain.Region;
+import com.sanyo.quote.helper.ReportExcel;
 import com.sanyo.quote.helper.Utilities;
 import com.sanyo.quote.service.CategoryService;
 import com.sanyo.quote.service.CurrencyExchRateService;
@@ -26,6 +25,7 @@ import com.sanyo.quote.service.CurrencyService;
 import com.sanyo.quote.service.EncounterService;
 import com.sanyo.quote.service.GroupService;
 import com.sanyo.quote.service.LocationService;
+import com.sanyo.quote.service.MakerProjectService;
 import com.sanyo.quote.service.MakerService;
 import com.sanyo.quote.service.ProductGroupMakerService;
 import com.sanyo.quote.service.ProductGroupService;
@@ -85,6 +85,7 @@ public class RegionTest {
 		ProductGroupMakerService productGroupMakerService = ctx.getBean("productGroupMakerService", ProductGroupMakerService.class);
 		ProductGroupService productGroupService = ctx.getBean("productGroupService", ProductGroupService.class);
 		MakerService makerService = ctx.getBean("makerService", MakerService.class);
+		MakerProjectService makerProjectService = ctx.getBean("makerProjectService", MakerProjectService.class);
 //
 		
 //		RegionTest test = new RegionTest();
@@ -112,13 +113,21 @@ public class RegionTest {
 //			currency.setCurrencyName(a);
 //			currencyService.save(currency);
 //		}
-		ProductGroup pg = productGroupService.findByGroupCode("151-HV");
-		List<Maker> makers = productGroupMakerService.findMakersOfProductGroup(pg);
-		System.out.println(makers.size());
+//		ProductGroup pg = productGroupService.findByGroupCode("151-HV");
+//		List<Maker> makers = productGroupMakerService.findMakersOfProductGroup(pg);
+//		System.out.println(makers.size());
+//		
+//		Maker maker = makerService.findById(1);
+//		List<Product> products = productService.findByProductGroupAndMaker(pg, maker);
+//		System.out.println(products.size());
 		
-		Maker maker = makerService.findById(1);
-		List<Product> products = productService.findByProductGroupAndMaker(pg, maker);
-		System.out.println(products.size());
+		Project project = projectService.findAll().get(0);
+		ReportExcel reportExcel = new ReportExcel();
+		reportExcel.setEncounterService(encounterService);
+		reportExcel.setProjectService(projectService);
+		reportExcel.setLocationService(locationService);
+		reportExcel.setMakerProjectService(makerProjectService);
+		reportExcel.writeExcelReportForProject(project, "report_template.xlsx");
 		
 	}
 

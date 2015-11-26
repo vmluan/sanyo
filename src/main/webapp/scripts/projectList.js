@@ -155,6 +155,9 @@ $("#list")
 				});
 				
 				//
+function makeReport(id) {
+	window.location.href = pageContext + '/reports/' + id + '/report';
+}
 function updateProduct(id) {
 	window.location.href = pageContext + '/projects/' + id + '?form';
 }

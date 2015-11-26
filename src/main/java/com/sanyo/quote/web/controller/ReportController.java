@@ -1,7 +1,12 @@
 package com.sanyo.quote.web.controller;
 
-import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.postgresql.translation.messages_bg;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.sanyo.quote.domain.Project;
+import com.sanyo.quote.helper.ReportExcel;
 import com.sanyo.quote.service.CategoryService;
 import com.sanyo.quote.service.EncounterService;
 import com.sanyo.quote.service.LocationService;
+import com.sanyo.quote.service.MakerProjectService;
 import com.sanyo.quote.service.MakerService;
 import com.sanyo.quote.service.ProductGroupMakerService;
 import com.sanyo.quote.service.ProductGroupService;
@@ -52,12 +59,28 @@ public class ReportController {
 	
 	@Autowired
 	private CategoryService categoryService;
-	
+
+	@Autowired
+	private MakerProjectService makerProjectService;
 	@RequestMapping(value = "/{id}/report", method = RequestMethod.GET)
-	public String showRegions(@PathVariable("id") Integer id, Model uiModel, HttpServletRequest httpServletRequest){
+	public void showRegions(@PathVariable("id") Integer id, Model uiModel, HttpServletRequest httpServletRequest, HttpServletResponse response){
 		Project project = projectService.findById(id);
-		
-		return "";
+		if(project != null){
+			response.setHeader("Content-disposition", "attachment; filename=" +project.getProjectName() +".xlsx");
+			response.setContentType("application/vnd.ms-excel");
+			ReportExcel reportExcel = new ReportExcel();
+			reportExcel.setEncounterService(encounterService);
+			reportExcel.setProjectService(projectService);
+			reportExcel.setLocationService(locationService);
+			reportExcel.setMakerProjectService(makerProjectService);
+			XSSFWorkbook workbook =  reportExcel.writeExcelReportForProject(project, "report_template.xlsx");
+			try {
+				workbook.write(response.getOutputStream());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 }
