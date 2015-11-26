@@ -1168,7 +1168,7 @@ function updatePriceAfterDiscount(){
 	//Unit price after discount bằng cot 11+ cot 12/tỉ giá) 
 	//var exchangeRate = 22000; //update to get from database later.
 	var floatValue = parseFloat(exchangeRate);
-	if(!isNaN(floatValue)){
+	if(isNaN(floatValue)){
 		alert("Exchange Rate is not set up or not valid. Please check at the Project Detail page.");
 		return;
 	}

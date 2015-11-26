@@ -927,12 +927,12 @@ public class ProjectController extends CommonController {
 //		return result;
 //	}
 	/*
-	 * get list of product group that are assinged to the project. it is defined in Maker sheet
+	 * get list of product group that are assigned to the project. it is defined in Maker sheet
 	 */
 	@RequestMapping(value = "/getProductGroupMakersJson", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String getProductGroupMakersJsGon(@RequestParam(value="projectId", required=true) String projectId,
-			@RequestParam(value="projectId", required=false) Integer regionId,
+			@RequestParam(value="regionId", required=false) Integer regionId,
 			@RequestParam(value="filterscount", required=false) String filterscount
 			, @RequestParam(value="groupscount", required=false) String groupscount
 			, @RequestParam(value="pagenum", required=false) Integer pagenum
