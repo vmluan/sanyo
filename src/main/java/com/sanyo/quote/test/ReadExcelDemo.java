@@ -57,7 +57,22 @@ public class ReadExcelDemo
 	private static CurrencyExchRateService currencyExchRateService;
 	private static CurrencyService currencyService;
 	
-	private static void updateCover(Project project,XSSFWorkbook workbook){
+	private class RowCount{
+		int rowCount = 0;
+
+		public int getRowCount() {
+			return rowCount;
+		}
+
+		public void setRowCount(int rowCount) {
+			this.rowCount = rowCount;
+		}
+		public void addMoreValue(int value){
+			this.rowCount += value;
+		}
+	}
+	
+	private static void updateCover(Project project,XSSFWorkbook workbook, RowCount rowCount){
 		XSSFSheet sheet = workbook.getSheetAt(0);
 
 		//Iterate through each rows one by one
@@ -177,7 +192,7 @@ public class ReadExcelDemo
 		int startRow = rowCount;
 //		for(ProductGroupMaker pg : productGroupMakers){
 //			order ++;
-//			Row row = sheet.createRow(rowCount);
+//			Row row = sheet.getRow(rowCount);
 //			rowCount ++;
 //			for(int i=0; i<7; i++){
 //				Cell cell = row.createCell(i);
@@ -235,8 +250,8 @@ public class ReadExcelDemo
 		XSSFCellStyle cellStyle =  workbook.createCellStyle();
 		cellStyle.setBorderBottom(BorderStyle.DASHED);
 		cellStyle.setBorderTop(BorderStyle.DASHED);
-		cellStyle.setBorderLeft(BorderStyle.DASHED);
-		cellStyle.setBorderRight(BorderStyle.DASHED);
+		cellStyle.setBorderLeft(BorderStyle.THIN);
+		cellStyle.setBorderRight(BorderStyle.THIN);
 		return cellStyle;
 		
 	}	
@@ -255,8 +270,8 @@ public class ReadExcelDemo
 		XSSFCellStyle cellStyle =  workbook.createCellStyle();
 		cellStyle.setBorderBottom(BorderStyle.DASHED);
 		cellStyle.setBorderTop(BorderStyle.DASHED);
-		cellStyle.setBorderLeft(BorderStyle.DASHED);
-		cellStyle.setBorderRight(BorderStyle.DASHED);
+		cellStyle.setBorderLeft(BorderStyle.THIN);
+		cellStyle.setBorderRight(BorderStyle.THIN);
 		XSSFFont font = workbook.createFont();
 //		font.setBold(true);
 		font.setFontHeightInPoints((short) 14);
@@ -270,8 +285,8 @@ public class ReadExcelDemo
 		XSSFCellStyle cellStyle =  workbook.createCellStyle();
 		cellStyle.setBorderBottom(BorderStyle.DASHED);
 		cellStyle.setBorderTop(BorderStyle.DASHED);
-		cellStyle.setBorderLeft(BorderStyle.DASHED);
-		cellStyle.setBorderRight(BorderStyle.DASHED);
+		cellStyle.setBorderLeft(BorderStyle.THIN);
+		cellStyle.setBorderRight(BorderStyle.THIN);
 		XSSFFont font = workbook.createFont();
 //		font.setBold(true);
 		font.setFontHeightInPoints((short) 12);
@@ -285,40 +300,43 @@ public class ReadExcelDemo
 		cellStyle.setDataFormat(xssfDataFormat.getFormat("#,##0.000"));
 	}
 	//print based on location.
-	private static void createBoQSheet(Project project, XSSFWorkbook workbook){
+	private static void createBoQSheet(Project project, XSSFWorkbook workbook, RowCount rowCount){
 		XSSFSheet sheet = workbook.getSheetAt(5);
-		int rowCount =5; //change this number later if need
+//		int rowCount =5; 
+		rowCount.setRowCount(5);//change this number later if need
 		int order = 1;
 		int startRowOfRegion=0;
 		List<Location> locations = projectService.findLocations(project.getProjectId());
 		for(Location location: locations){
 			//create location row
 			createLocationRow(location, sheet, rowCount, order);
-			rowCount +=2;
+//			rowCount +=2;s
 			List<Region> regions = locationService.findRegions(location.getLocationId());
 			int numOfRegions = 0;
 			for(Region region : regions){
 				numOfRegions ++;
-				startRowOfRegion = rowCount;  
 				//create region row
 				createRegionRow(region, sheet, rowCount, order);
-				rowCount +=2;
+//				rowCount +=2;
+				startRowOfRegion = rowCount.getRowCount();
 				List<Encounter> encounters = encounterService.getEncountersByRegion(region);
 				createBOQRows(encounters, sheet, rowCount, order);
-				rowCount += encounters.size();
+//				rowCount += encounters.size();
 				//create sub-total for each region.
 				createSubTotal(startRowOfRegion, rowCount, numOfRegions, sheet);
 			}
 		}
 		
 	}
-	private static void createSubTotal(int startRow, int endRow, int order, XSSFSheet sheet){
-		Row row = sheet.createRow(endRow+ 2);
-		String strFomula = "SUBTOTAL(9,H" + startRow + ":H" + endRow + ")";
+	private static void createSubTotal(int startRow, RowCount endRow, int order, XSSFSheet sheet){
+		endRow.addMoreValue(1);
+		Row row = sheet.getRow(endRow.getRowCount());
+		String strFomula = "SUBTOTAL(9,H" + startRow + ":H" + endRow.getRowCount() + ")";
 		Cell cell1 = row.createCell(1);
 		writeCellValue(cell1, "Sub toal " + order);
 		Cell cell7 = row.createCell(7);
 		writeCellFomula(cell7, strFomula);
+		endRow.addMoreValue(2);
 	}
 	private static void writeCellValue(Cell cell, String text){
 		if(text != null){
@@ -343,28 +361,28 @@ public class ReadExcelDemo
 	private static void writeCellValue(Cell cell, int text){
 		cell.setCellValue(text);
 	}
-	private static void createLocationRow(Location location, XSSFSheet sheet, int rowCount, int order ){
-		Row row = sheet.createRow(rowCount);
-		rowCount++;
+	private static void createLocationRow(Location location, XSSFSheet sheet, RowCount rowCount, int order ){
+		Row row = sheet.getRow(rowCount.getRowCount());
+		rowCount.addMoreValue(1);
 		Cell cell = row.createCell(1);
 		cell.setCellValue(location.getLocationName());
 		cell.setCellStyle(getSampleStyleForLocation(sheet.getWorkbook()));
-		sheet.createRow(rowCount);
+		sheet.getRow(rowCount.getRowCount());
 	}
-	private static void createRegionRow(Region region, XSSFSheet sheet, int rowCount, int order ){
-		Row row = sheet.createRow(rowCount);
-		rowCount++;
+	private static void createRegionRow(Region region, XSSFSheet sheet, RowCount rowCount, int order ){
+		Row row = sheet.getRow(rowCount.getRowCount());
+		rowCount.addMoreValue(1);;
 		Cell cell = row.createCell(1);
 		cell.setCellValue(region.getRegionName());
 		cell.setCellStyle(getSampleStyleForRegion(sheet.getWorkbook()));
-		sheet.createRow(rowCount);
+		sheet.getRow(rowCount.getRowCount());
 	}
-	private static void createBOQRows(List<Encounter> encounters, XSSFSheet sheet, int rowCount, int order ){
+	private static void createBOQRows(List<Encounter> encounters, XSSFSheet sheet, RowCount rowCount, int order ){
 		boolean hasOrderForCategory = false;
-		int startRow = rowCount;
+		int startRow = rowCount.getRowCount();
 		for(Encounter encounter : encounters){
-			Row row = sheet.createRow(rowCount);
-			rowCount++;
+			Row row = sheet.getRow(rowCount.getRowCount());
+			rowCount.addMoreValue(1);
 			for(int i=0; i< 32; i++){
 				Cell cell = row.createCell(i);
 				cell.setCellStyle(getSampleStyleWithBorderDash(sheet.getWorkbook()));
@@ -389,7 +407,9 @@ public class ReadExcelDemo
 					writeCellValue(cell, encounter.getUnitRate());
 				}else if(i==7){
 					//Amount
-					writeCellValue(cell, encounter.getAmount());
+					String strFormula = "ROUND(" + encounter.getAmount()+ ",2)";
+					writeCellFomula(cell, strFormula);
+//					writeCellValue(cell, encounter.getAmount());
 				}else if(i==8){
 					//remarks
 					writeCellValue(cell, encounter.getRemark());
@@ -456,7 +476,7 @@ public class ReadExcelDemo
 				}else if(i==28){
 					//Unit price with tax  
 					//labour c/w tax us
-					String strFormula= "ROUND((T" + rowCount +"*(1+" + "AB"+ rowCount +")),2)";
+					String strFormula= "ROUND((T" + rowCount.getRowCount() +"*(1+" + "AB"+ rowCount.getRowCount() +")),2)";
 					System.out.println(strFormula);
 					cell.setCellType(Cell.CELL_TYPE_FORMULA);
 					cell.setCellFormula(strFormula);
@@ -465,7 +485,7 @@ public class ReadExcelDemo
 					//labour submit us
 					//ROUND(AC6*'Summary-E'!$R$50,2)
 					
-					String strFormula= "ROUND(AC" + rowCount + "*'Summary-E'!$R$50,2)";
+					String strFormula= "ROUND(AC" + rowCount.getRowCount() + "*'Summary-E'!$R$50,2)";
 					System.out.println(strFormula);
 					cell.setCellType(Cell.CELL_TYPE_FORMULA);
 					cell.setCellFormula(strFormula);
@@ -502,14 +522,16 @@ public class ReadExcelDemo
 			currencyService = ctx.getBean("currencyService", CurrencyService.class);
 			
 			FileInputStream file = new FileInputStream(new File("report_template.xlsx"));
-
+			ReadExcelDemo excelReader = new ReadExcelDemo();
+			RowCount rowCount = excelReader.new RowCount();
+			
 			//Create Workbook instance holding reference to .xlsx file
 			XSSFWorkbook workbook = new XSSFWorkbook(file);
 			Project project = projectService.findAll().get(0);
-			updateCover(project, workbook);
+			updateCover(project, workbook, rowCount);
 			updateCondition1(project, workbook);
 			updateElecMaker(project, workbook, projectService);
-			createBoQSheet(project, workbook);
+			createBoQSheet(project, workbook, rowCount);
 			
 			file.close();
 			
