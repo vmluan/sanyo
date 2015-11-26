@@ -134,7 +134,7 @@ public class ReportExcel extends ExcelHelper{
 	private void updateElecMaker(Project project,XSSFWorkbook workbook,ProjectService projectService){
 		XSSFSheet sheet = workbook.getSheetAt(6);
 		List<MakerProject> makerProjects = makerProjectService.findByProject(project);
-		int rowCount = 0;
+		int rowCount = 5;
 		Row row1 = sheet.getRow(0);
 		Cell cellClientName = row1.getCell(6);
 		cellClientName.setCellValue(cellClientName.getStringCellValue() + project.getCustomerName());
