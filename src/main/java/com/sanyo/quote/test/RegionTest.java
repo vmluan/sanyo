@@ -127,7 +127,7 @@ public class RegionTest {
 		reportExcel.setProjectService(projectService);
 		reportExcel.setLocationService(locationService);
 		reportExcel.setMakerProjectService(makerProjectService);
-		reportExcel.writeExcelReportForProject(project, "report_template.xlsx");
+		reportExcel.writeExcelReportClientForProject(project, "template_quotaion_client.xlsx");
 		
 	}
 

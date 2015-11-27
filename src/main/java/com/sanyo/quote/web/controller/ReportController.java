@@ -73,7 +73,7 @@ public class ReportController {
 			reportExcel.setProjectService(projectService);
 			reportExcel.setLocationService(locationService);
 			reportExcel.setMakerProjectService(makerProjectService);
-			XSSFWorkbook workbook =  reportExcel.writeExcelReportForProject(project, "report_template.xlsx");
+			XSSFWorkbook workbook =  reportExcel.writeExcelReportForProject(project, "template_quotaion_client.xlsx");
 			try {
 				workbook.write(response.getOutputStream());
 			} catch (IOException e) {
