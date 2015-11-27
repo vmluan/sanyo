@@ -42,6 +42,7 @@ public class ReportExcel extends ExcelHelper{
 	private XSSFCellStyle sampleCellStyle;
 	private boolean isClientVersion = true;
 	private int maxBoQCol = 32;
+	private static final int startBoQRow=6;
 	
 	public ReportExcel(){
 		if(isClientVersion)
@@ -118,15 +119,33 @@ public class ReportExcel extends ExcelHelper{
 		Cell cellEndDate = sheet.getRow(11).getCell(2);
 		cellEndDate.setCellValue(Utilities.formatDate(project.getEndDate()));
 		
-		Cell cellDuration = sheet.getRow(11).getCell(5);
+		Cell cellDuration = sheet.getRow(10).getCell(5);
 		cellDuration.setCellValue("Minimum Requirement for duration is " + project.getDuration());
 		//Minimum Requirement for duration is 10 months
+		//updte payment condition
+		// ■US$     □VND     □Japanese Yen
+		Cell cellPayment = sheet.getRow(19).getCell(1);
+		
+		String textPayment = "□US$     ■VND     □Japanese Yen";
+		if(project.getCurrency() != null){
+			String currencyCode = project.getCurrency().getCurrencyCode();
+			if(currencyCode.equalsIgnoreCase("USD")){
+				textPayment = "■US$     □VND     □Japanese Yen";
+			}else if(currencyCode.equalsIgnoreCase("JPY")){
+				textPayment = "□US$     □VND     ■Japanese Yen";
+			}
+			
+		}
+		cellPayment.setCellValue(textPayment);
 	}
-	private void updateElecMaker(Project project,XSSFSheet sheet,ProjectService projectService){
+	private void updateMaker(Project project,XSSFSheet sheet,ProjectService projectService, String parentCategoryName){
 		List<MakerProject> makerProjects = makerProjectService.findByProject(project);
+		Cell cell0 = sheet.getRow(0).getCell(0);
+		cell0.setCellValue(project.getProjectName());
+		
 		int rowCount = 4;
 		Row row1 = sheet.getRow(0);
-		Cell cellClientName = row1.getCell(5);
+		Cell cellClientName = row1.getCell(6);
 		cellClientName.setCellValue(cellClientName.getStringCellValue() + project.getCustomerName());
 		
 		int stt =0;
@@ -134,15 +153,19 @@ public class ReportExcel extends ExcelHelper{
 		
 		TreeMap<String, List<MakerProject>> list = new TreeMap<String, List<MakerProject>>();
 		for(MakerProject pg : makerProjects){
-			List<MakerProject> existingValues = list.get(pg.getCategory().getName());
-			if(existingValues != null){
-				existingValues.add(pg);
+			if(pg.getCategory().getParentCategory() != null
+					&& pg.getCategory().getParentCategory().getName().equalsIgnoreCase(parentCategoryName)){
+				List<MakerProject> existingValues = list.get(pg.getCategory().getName());
+				if(existingValues != null){
+					existingValues.add(pg);
+				}
+				else{
+					existingValues = new ArrayList<MakerProject>();
+					existingValues.add(pg);
+					list.put(pg.getCategory().getName(), existingValues);
+				}
 			}
-			else{
-				existingValues = new ArrayList<MakerProject>();
-				existingValues.add(pg);
-				list.put(pg.getCategory().getName(), existingValues);
-			}
+
 		}
 		
 		for(Map.Entry<String,List<MakerProject>> entry : list.entrySet()) {
@@ -206,14 +229,23 @@ public class ReportExcel extends ExcelHelper{
 //		org.apache.poi.ss.util.CellRangeAddress region = new CellRangeAddress(startRow, rowCount -1, 0, 1);
 //		sheet.addMergedRegion(region);
 	}
-	private void createBoQSheet(Project project, XSSFSheet sheet, RowCount rowCount){
+	private void createBOQCommon(Project project, XSSFSheet sheet, RowCount rowCount, String parentCategoryName){
+		Cell cell0 = sheet.getRow(0).getCell(0);
+		cell0.setCellValue(project.getProjectName());
+		int order = 1;
+		List<Location> locations = projectService.findLocations(project.getProjectId());
+		
+		createSummaryOfLocations(locations, sheet, rowCount, order,parentCategoryName);
+		createBreakDownRow(sheet, rowCount, order);
+		rowCount.addMoreValue(2);
+	}
+	private void createElecBoQSheet(Project project, XSSFSheet sheet, RowCount rowCount){
+		summRegionsTree.clear();
 		int order = 1;
 		int startRowOfRegion=0;
 		List<Location> locations = projectService.findLocations(project.getProjectId());
 		
-		createSummaryOfLocations(locations, sheet, rowCount, order);
-		createBreakDownRow(sheet, rowCount, order);
-		rowCount.addMoreValue(2);
+		createBOQCommon(project, sheet, rowCount, Constants.ELECT_BOQ);
 		
 		for(Location location: locations){
 			//create location row
@@ -221,25 +253,65 @@ public class ReportExcel extends ExcelHelper{
 			List<Region> regions = locationService.findRegions(location.getLocationId());
 			int numOfRegions = 0;
 			for(Region region : regions){
-				numOfRegions ++;
-				//create region row
-				createRegionRow(region, sheet, rowCount, order);
-//				rowCount +=2;
-				startRowOfRegion = rowCount.getRowCount();
-				List<Encounter> encounters = encounterService.getEncountersByRegion(region);
-				createBOQRows(encounters, sheet, rowCount, order);
-				//create sub-total for each region.
-				createSubTotal(startRowOfRegion, rowCount, numOfRegions, sheet, region.getRegionName());
-				
-				//update total summary for region.
-				int regionSummRowNum = summRegionsTree.get(region.getRegionId());
-				Row row = sheet.getRow(regionSummRowNum); // must getRow as we need to update the total value only.
-				updateTotalSummaryForRegion(row,rowCount.getRowCount()-1);
+				if(region.getCategory().getParentCategory() != null
+						&& region.getCategory().getParentCategory().getName().equalsIgnoreCase(Constants.ELECT_BOQ)){
+					numOfRegions ++;
+					//create region row
+					createRegionRow(region, sheet, rowCount, order);
+	//				rowCount +=2;
+					startRowOfRegion = rowCount.getRowCount();
+					List<Encounter> encounters = encounterService.getEncountersByRegion(region);
+					createBOQRows(encounters, sheet, rowCount, order);
+					//create sub-total for each region.
+					createSubTotal(startRowOfRegion, rowCount, numOfRegions, sheet, region.getRegionName());
+					
+					//update total summary for region.
+					int regionSummRowNum = summRegionsTree.get(region.getRegionId());
+					Row row = sheet.getRow(regionSummRowNum); // must getRow as we need to update the total value only.
+					updateTotalSummaryForRegion(row,rowCount.getRowCount()-1);
+				}
 			}
 			//update total summary for location.
 		}
 		
 	}
+	private void createMechBoQSheet(Project project, XSSFSheet sheet, RowCount rowCount){
+		summRegionsTree.clear();
+		int order = 1;
+		int startRowOfRegion=0;
+		List<Location> locations = projectService.findLocations(project.getProjectId());
+		
+		createBOQCommon(project, sheet, rowCount,Constants.MECH_BOQ);
+		
+		for(Location location: locations){
+			//create location row
+			createLocationRow(location, sheet, rowCount, order);
+			List<Region> regions = locationService.findRegions(location.getLocationId());
+			int numOfRegions = 0;
+			for(Region region : regions){
+				if(region.getCategory().getParentCategory() != null
+						&& region.getCategory().getParentCategory().getName().equalsIgnoreCase(Constants.MECH_BOQ)){
+					numOfRegions ++;
+					//create region row
+					createRegionRow(region, sheet, rowCount, order);
+	//				rowCount +=2;
+					startRowOfRegion = rowCount.getRowCount();
+					List<Encounter> encounters = encounterService.getEncountersByRegion(region);
+					createBOQRows(encounters, sheet, rowCount, order);
+					//create sub-total for each region.
+					createSubTotal(startRowOfRegion, rowCount, numOfRegions, sheet, region.getRegionName());
+					
+					//update total summary for region.
+					int regionSummRowNum = summRegionsTree.get(region.getRegionId());
+					Row row = sheet.getRow(regionSummRowNum); // must getRow as we need to update the total value only.
+					updateTotalSummaryForRegion(row,rowCount.getRowCount()-1);
+				}
+			}
+			//update total summary for location.
+		}
+		
+	}
+
 	private void updateTotalSummaryForRegion(Row row, int rowNum){
 		updateTotalRegionAmountFormula(row, rowNum);
 		if(!this.isClientVersion){
@@ -474,8 +546,13 @@ private void createRegionHeaderRow(Region region, XSSFSheet sheet, RowCount rowC
 			}
 		}
 	}
-	private void createSummaryOfLocations(List<Location> locations, XSSFSheet sheet, RowCount rowCount, int order ){
+	private void createSummaryOfLocations(List<Location> locations, XSSFSheet sheet, RowCount rowCount, int order, String parentCategoryName ){
 		int startRow = rowCount.getRowCount();
+		String totalName = "Total ";
+		if(parentCategoryName.equalsIgnoreCase(Constants.ELECT_BOQ))
+			totalName += Constants.ELECT_WORKS;
+		else if(parentCategoryName.equalsIgnoreCase(Constants.MECH_BOQ))
+			totalName += Constants.MECH_WORKS;
 		for(Location location: locations){
 			createLocationRow(location, sheet, rowCount, order);
 			Set<Region> regions = location.getRegions();
@@ -483,14 +560,17 @@ private void createRegionHeaderRow(Region region, XSSFSheet sheet, RowCount rowC
 			int startRowOfEachLocation = rowCount.getRowCount();
 			while(iter.hasNext()){
 				Region region = iter.next();
-				createRegionHeaderRow(region, sheet, rowCount, order);
-				summRegionsTree.put(region.getRegionId(), Integer.valueOf(rowCount.getRowCount() -1));
+				if(region.getCategory().getParentCategory() != null
+						&& region.getCategory().getParentCategory().getName().equals(parentCategoryName)){
+					createRegionHeaderRow(region, sheet, rowCount, order);
+					summRegionsTree.put(region.getRegionId(), Integer.valueOf(rowCount.getRowCount() -1));
+				}
 			}
 			//create total summary row for each location
-			createTotalSummaryRowForLocation(location, sheet,startRowOfEachLocation, rowCount, order);
+			createTotalSummaryRowForLocation(location, sheet,startRowOfEachLocation, rowCount, order, totalName);
 		}
-		String mainRegion = "Total " + Constants.ELECT_WORKS;
-		createTotalWorks(mainRegion, sheet,startRow, rowCount, order);
+		
+		createTotalWorks(totalName, sheet,startRow, rowCount, order);
 		
 
 	}
@@ -523,22 +603,22 @@ private void createRegionHeaderRow(Region region, XSSFSheet sheet, RowCount rowC
 			updateAFFormula(row, startRow, endRow);
 		}
 	}
-	private void createTotalSummaryRowForLocation(Location location,XSSFSheet sheet,int startRow, RowCount rowCount, int order){
+	private void createTotalSummaryRowForLocation(Location location,XSSFSheet sheet,int startRow, RowCount rowCount, int order, String parentCategoryName){
 		rowCount.addMoreValue(1);
 		int endRow = rowCount.getRowCount() -1;
 		Row row = sheet.createRow(rowCount.getRowCount());
 		rowCount.addMoreValue(2);
 		Cell cell = row.createCell(1);
-		cell.setCellValue(getTotalRowSumaryName(location));
+		cell.setCellValue(getTotalRowSumaryName(location, parentCategoryName));
 		cell.setCellStyle(sampleCellStyle);
 		
 		updateSubTotal(row, startRow, endRow);
 		updateCellStyleOfRowBoQ(row);
 	}
-	private String getTotalRowSumaryName(Location location){
+	private String getTotalRowSumaryName(Location location, String parentCategoryName){
 		String result = "Total " + location.getLocationName() 
 				+ " " 
-				+ Constants.ELECT_WORKS ;
+				+ parentCategoryName ;
 		return result;
 	}
 
@@ -551,9 +631,9 @@ private void createRegionHeaderRow(Region region, XSSFSheet sheet, RowCount rowC
 			sampleCellStyle = getSampleStyleWithBorder(workbook);
 			updateCover(project, workbook, rowCount);
 			updateCondition1(project, workbook);
-			updateElecMaker(project, workbook.getSheetAt(6), projectService);
+			updateMaker(project, workbook.getSheetAt(6), projectService, Constants.ELECT_BOQ);
 			rowCount.setRowCount(6);
-			createBoQSheet(project, workbook.getSheetAt(5), rowCount);
+			createElecBoQSheet(project, workbook.getSheetAt(5), rowCount);
 			
 			file.close();
 			
@@ -575,10 +655,14 @@ private void createRegionHeaderRow(Region region, XSSFSheet sheet, RowCount rowC
 			sampleCellStyle = getSampleStyleWithBorder(workbook);
 			updateCover(project, workbook, rowCount);
 			updateCondition1(project, workbook);
-			updateElecMaker(project, workbook.getSheetAt(6), projectService);
-			rowCount.setRowCount(6);
-			createBoQSheet(project, workbook.getSheetAt(4), rowCount);
+			updateMaker(project, workbook.getSheetAt(6), projectService, Constants.ELECT_BOQ);
+			rowCount.setRowCount(startBoQRow);
+			createElecBoQSheet(project, workbook.getSheetAt(4), rowCount);
 			
+			RowCount mechCount = new RowCount();
+			mechCount.setRowCount(startBoQRow);
+			createMechBoQSheet(project, workbook.getSheetAt(5), mechCount);
+			updateMaker(project, workbook.getSheetAt(7), projectService, Constants.MECH_BOQ);
 			file.close();
 			
 			String outFileName = project.getProjectName() + ".xlsx";
