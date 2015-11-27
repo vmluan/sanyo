@@ -282,12 +282,17 @@ public class ProjectController extends CommonController {
         project.setLmodDate(new Date());
         project.setLastModifiedBy(Utilities.getCurrentUser().getUsername());
         project.setCurrency(currencyService.findById(project.getCurrencyId()));
+        keepCurrentStatuses(existingProject, project);
         projectService.save(project);
         initialize(uiModel);
         setBreadCrumb(uiModel, projectsUrl, "Projects", "", "Project Detail");
         setHeader(uiModel, "Project Detail", "Contains detail information including regions and assigned users");
         return "projects/update";
     }
+	private void keepCurrentStatuses(Project existingProject, Project newProject){
+		newProject.setCreatedBy(existingProject.getCreatedBy());
+		newProject.setCreatedDate(existingProject.getCreatedDate());
+	}
 	
 	private Set<ProjectRevision> getLatestRevision(Project project){
 		ProjectRevision latest = projectRevisionService.findLatestRevision(project);
