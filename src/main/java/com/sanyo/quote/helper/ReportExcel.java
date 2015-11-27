@@ -23,10 +23,12 @@ import com.sanyo.quote.domain.Encounter;
 import com.sanyo.quote.domain.Location;
 import com.sanyo.quote.domain.MakerProject;
 import com.sanyo.quote.domain.Project;
+import com.sanyo.quote.domain.ProjectRevision;
 import com.sanyo.quote.domain.Region;
 import com.sanyo.quote.service.EncounterService;
 import com.sanyo.quote.service.LocationService;
 import com.sanyo.quote.service.MakerProjectService;
+import com.sanyo.quote.service.ProjectRevisionService;
 import com.sanyo.quote.service.ProjectService;
 
 public class ReportExcel extends ExcelHelper{
@@ -36,6 +38,7 @@ public class ReportExcel extends ExcelHelper{
 	private LocationService locationService;
 	private EncounterService encounterService;
 	private MakerProjectService makerProjectService;
+	private ProjectRevisionService projectRevisionService;
 	private XSSFCellStyle sampleCellStyle;
 	private boolean isClientVersion = true;
 	private int maxBoQCol = 32;
@@ -66,68 +69,58 @@ public class ReportExcel extends ExcelHelper{
 	}
 	private void updateCover(Project project,XSSFWorkbook workbook, RowCount rowCount){
 		XSSFSheet sheet = workbook.getSheetAt(0);
-
-		//Iterate through each rows one by one
-		Iterator<Row> rowIterator = sheet.iterator();
-		while (rowIterator.hasNext()) 
-		{
-			Row row = rowIterator.next();
-			Iterator<Cell> cellIterator = row.cellIterator();
-//			
-//			while (cellIterator.hasNext()) 
-//			{
-//				Cell cell = cellIterator.next();
-//				if(cell.getStringCellValue().equalsIgnoreCase("${projectName}")){
-//					cell.setCellValue(project.getProjectName());
-//				}
-//				else if(cell.getStringCellValue().equalsIgnoreCase("${clientName}")){
-//					cell.setCellValue(project.getCustomerName());
-//				}
-//				else if(cell.getStringCellValue().equalsIgnoreCase("${projectCode}")){
-//					cell.setCellValue(project.getProjectCode());
-//				}
-//				else if(cell.getStringCellValue().equalsIgnoreCase("${reportDate}")){
-//					cell.setCellValue(new Date());
-//				}
-//				else if(cell.getStringCellValue().equalsIgnoreCase("${duration}")){
-//					cell.setCellValue(project.getDuration().toString());
-//				}
-//			}
+		Row rowProjectName = sheet.getRow(10);
+		Cell cellProjectName = rowProjectName.getCell(3);
+		cellProjectName.setCellValue(project.getProjectName());
+		Row rowDate = sheet.getRow(0);
+		Cell cellDate = rowDate.getCell(9);
+		cellDate.setCellValue(project.getCreatedDate());
+		
+		Cell cellRefNo = sheet.getRow(1).getCell(9);
+		cellRefNo.setCellValue(project.getProjectCode());
+		
+		Cell cellPeriod = sheet.getRow(2).getCell(9);
+		cellPeriod.setCellValue(project.getDuration());
+		
+		Cell cellClient = sheet.getRow(15).getCell(3);
+		cellClient.setCellValue(project.getCustomerName());
+		
+		List<ProjectRevision> revisions = projectRevisionService.findRevisions(project);
+		
+		for(ProjectRevision revision : revisions){
+			RowCount rowCount2 = new RowCount();
+			rowCount2.setRowCount(18);
+			Row row = sheet.createRow(rowCount2.getRowCount());
+			Cell date = row.createCell(2);
+			date.setCellValue("Date : ");
+			
+			Cell cellRvsDate = row.createCell(3);
+			cellRvsDate.setCellValue(Utilities.formatDate(revision.getDate()));
+			
+			Cell cellRvsNo = row.createCell(6);
+			cellRvsNo.setCellValue(revision.getRevisionNo());
 		}
+		
+		Cell cellPeriodVald = sheet.getRow(25).getCell(6);
+		cellPeriodVald.setCellValue("PERIOD OF VALIDITY :" + project.getDuration());
+		
+		
+		
+		//PERIOD OF VALIDITY : 1month 
+
 	}
 	private void updateCondition1(Project project,XSSFWorkbook workbook){
 		XSSFSheet sheet = workbook.getSheetAt(1);
-
-		//Iterate through each rows one by one
-		Iterator<Row> rowIterator = sheet.iterator();
-		while (rowIterator.hasNext()) 
-		{
-			Row row = rowIterator.next();
-			//For each row, iterate through all the columns
-			Iterator<Cell> cellIterator = row.cellIterator();
-			
-			while (cellIterator.hasNext()) 
-			{
-				Cell cell = cellIterator.next();
-				if(cell.getCellType() == Cell.CELL_TYPE_STRING){
-					if(cell.getStringCellValue().contains("${projectName}")){
-						cell.setCellValue(cell.getStringCellValue() + " " + project.getProjectName());
-					}
-					if(cell.getStringCellValue().contains("${clientName}")){
-						cell.setCellValue(cell.getStringCellValue() + " " + project.getCustomerName());
-					}
-					if(cell.getStringCellValue().contains("${projectCode}")){
-						cell.setCellValue(cell.getStringCellValue() + " " + project.getProjectCode());
-					}
-					if(cell.getStringCellValue().contains("${reportDate}")){
-						cell.setCellValue(cell.getStringCellValue() + " " + new Date());
-					}
-					if(cell.getStringCellValue().contains("${duration}")){
-						cell.setCellValue(cell.getStringCellValue() + " " + project.getDuration().toString());
-					}
-				}
-			}
-		}
+		
+		Cell cellStartDate = sheet.getRow(10).getCell(2);
+		cellStartDate.setCellValue(Utilities.formatDate(project.getStartDate()));
+		
+		Cell cellEndDate = sheet.getRow(11).getCell(2);
+		cellEndDate.setCellValue(Utilities.formatDate(project.getEndDate()));
+		
+		Cell cellDuration = sheet.getRow(11).getCell(5);
+		cellDuration.setCellValue("Minimum Requirement for duration is " + project.getDuration());
+		//Minimum Requirement for duration is 10 months
 	}
 	private void updateElecMaker(Project project,XSSFSheet sheet,ProjectService projectService){
 		List<MakerProject> makerProjects = makerProjectService.findByProject(project);
@@ -620,6 +613,30 @@ private void createRegionHeaderRow(Region region, XSSFSheet sheet, RowCount rowC
 	}
 	public void setMakerProjectService(MakerProjectService makerProjectService) {
 		this.makerProjectService = makerProjectService;
+	}
+
+	public ProjectRevisionService getProjectRevisionService() {
+		return projectRevisionService;
+	}
+
+	public void setProjectRevisionService(ProjectRevisionService projectRevisionService) {
+		this.projectRevisionService = projectRevisionService;
+	}
+
+	public boolean isClientVersion() {
+		return isClientVersion;
+	}
+
+	public void setClientVersion(boolean isClientVersion) {
+		this.isClientVersion = isClientVersion;
+	}
+
+	public int getMaxBoQCol() {
+		return maxBoQCol;
+	}
+
+	public void setMaxBoQCol(int maxBoQCol) {
+		this.maxBoQCol = maxBoQCol;
 	}
 	
 }

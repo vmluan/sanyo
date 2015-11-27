@@ -48,7 +48,7 @@ public class Utilities {
 	@Autowired
 	private static EncounterService encounterService;
 	
-	public static final String datePattern = "dd/MM/yyyy";
+	public static final String datePattern = "MM/dd/yyyy";
 	
 	static final Logger logger = LoggerFactory.getLogger(Utilities.class);
 	
@@ -95,6 +95,10 @@ public class Utilities {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	public static String formatDate(Date date){
+		SimpleDateFormat format = new SimpleDateFormat(datePattern);
+		return format.format(date);
 	}
 	public static Date getLastTimeOfDate(Date date){
 		Calendar calendar = Calendar.getInstance();

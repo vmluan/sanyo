@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.postgresql.translation.messages_bg;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +25,7 @@ import com.sanyo.quote.service.MakerService;
 import com.sanyo.quote.service.ProductGroupMakerService;
 import com.sanyo.quote.service.ProductGroupService;
 import com.sanyo.quote.service.ProductService;
+import com.sanyo.quote.service.ProjectRevisionService;
 import com.sanyo.quote.service.ProjectService;
 import com.sanyo.quote.service.RegionService;
 
@@ -62,6 +62,8 @@ public class ReportController {
 
 	@Autowired
 	private MakerProjectService makerProjectService;
+	@Autowired
+	private ProjectRevisionService projectRevisionService;
 	@RequestMapping(value = "/{id}/report", method = RequestMethod.GET)
 	public void showRegions(@PathVariable("id") Integer id, Model uiModel, HttpServletRequest httpServletRequest, HttpServletResponse response){
 		Project project = projectService.findById(id);
@@ -73,6 +75,7 @@ public class ReportController {
 			reportExcel.setProjectService(projectService);
 			reportExcel.setLocationService(locationService);
 			reportExcel.setMakerProjectService(makerProjectService);
+			reportExcel.setProjectRevisionService(projectRevisionService);
 			XSSFWorkbook workbook =  reportExcel.writeExcelReportForProject(project, "template_quotaion_client.xlsx");
 			try {
 				workbook.write(response.getOutputStream());
