@@ -18,6 +18,7 @@ import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import com.sanyo.quote.domain.Category;
 import com.sanyo.quote.domain.Encounter;
 import com.sanyo.quote.domain.Location;
 import com.sanyo.quote.domain.MakerProject;
@@ -727,6 +728,7 @@ private void createRegionHeaderRow(Region region, XSSFSheet sheet, RowCount rowC
 	private void createSummarySheetCommon(XSSFSheet sheet, TreeMap<String, List<SummaryRegion>> tree, RowCount rowCount){
 		Set<String> elecLocations = tree.keySet();
 		Iterator<String> elecIter = elecLocations.iterator();
+		int start=rowCount.getRowCount();
 		while(elecIter.hasNext()){
 			String locationName = elecIter.next();
 			//create Location row
@@ -735,7 +737,7 @@ private void createRegionHeaderRow(Region region, XSSFSheet sheet, RowCount rowC
 			Cell cell2 = row2.createCell(2);
 			cell2.setCellValue(locationName);
 			List<SummaryRegion> summaryRegions = tree.get(locationName);
-			int start=rowCount.getRowCount();
+			
 			for(SummaryRegion summaryRegion : summaryRegions){
 				Row regionRow = sheet.getRow(rowCount.getRowCount());
 				rowCount.addMoreValue(1);
@@ -746,8 +748,20 @@ private void createRegionHeaderRow(Region region, XSSFSheet sheet, RowCount rowC
 				String strFormula = "'Electrical works'!H" + summaryRegion.getRowNo();
 				writeCellFomula(regionTotalCell, strFormula);
 			}
-			createSubTotalSummarySheet(start, rowCount, sheet, locationName);
+//			
 		}
+		if(tree.lastEntry() != null){
+			if(tree.lastEntry().getValue() != null)
+			{
+				if(tree.lastEntry().getValue().get(0) != null){
+					Region region = tree.lastEntry().getValue().get(0).getRegion();
+					if(region!=null && region.getCategory() != null && region.getCategory().getParentCategory() != null)
+						createSubTotalSummarySheet(start, rowCount, sheet,region.getCategory().getParentCategory().getName() );
+				}
+			}
+		};
+		
+		
 	}
 	private void createSubTotalSummarySheet(int startRow, RowCount endRow, XSSFSheet sheet, String locationName){
 		Row row = sheet.createRow(endRow.getRowCount());
