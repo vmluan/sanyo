@@ -6,7 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +31,23 @@ import com.sanyo.quote.service.ProjectRevisionService;
 import com.sanyo.quote.service.ProjectService;
 
 public class ReportExcel extends ExcelHelper{
+	private class SummaryRegion{
+		private Region region;
+		private Integer rowNo;
+		public Region getRegion() {
+			return region;
+		}
+		public void setRegion(Region region) {
+			this.region = region;
+		}
+		public Integer getRowNo() {
+			return rowNo;
+		}
+		public void setRowNo(Integer rowNo) {
+			this.rowNo = rowNo;
+		}
+		
+	}
 	private TreeMap<Integer, Integer> summRegionsTree = new TreeMap<Integer, Integer>();
 	
 	private ProjectService projectService;
@@ -43,6 +59,8 @@ public class ReportExcel extends ExcelHelper{
 	private boolean isClientVersion = true;
 	private int maxBoQCol = 32;
 	private static final int startBoQRow=6;
+	private TreeMap<String, List<SummaryRegion>> elecSummaryTree = new TreeMap<String, List<SummaryRegion>>();
+	private TreeMap<String, List<SummaryRegion>> mechSummaryTree = new TreeMap<String, List<SummaryRegion>>();
 	
 	public ReportExcel(){
 		if(isClientVersion)
@@ -75,7 +93,7 @@ public class ReportExcel extends ExcelHelper{
 		cellProjectName.setCellValue(project.getProjectName());
 		Row rowDate = sheet.getRow(0);
 		Cell cellDate = rowDate.getCell(9);
-		cellDate.setCellValue(project.getCreatedDate());
+//		cellDate.setCellValue(project.getCreatedDate());
 		
 		Cell cellRefNo = sheet.getRow(1).getCell(9);
 		cellRefNo.setCellValue(project.getProjectCode());
@@ -252,6 +270,7 @@ public class ReportExcel extends ExcelHelper{
 			createLocationRow(location, sheet, rowCount, order);
 			List<Region> regions = locationService.findRegions(location.getLocationId());
 			int numOfRegions = 0;
+			List<SummaryRegion> summaryRegions = new ArrayList<ReportExcel.SummaryRegion>();
 			for(Region region : regions){
 				if(region.getCategory().getParentCategory() != null
 						&& region.getCategory().getParentCategory().getName().equalsIgnoreCase(Constants.ELECT_BOQ)){
@@ -263,14 +282,19 @@ public class ReportExcel extends ExcelHelper{
 					List<Encounter> encounters = encounterService.getEncountersByRegion(region);
 					createBOQRows(encounters, sheet, rowCount, order);
 					//create sub-total for each region.
+					rowCount.addMoreValue(1);
 					createSubTotal(startRowOfRegion, rowCount, numOfRegions, sheet, region.getRegionName());
-					
+					SummaryRegion summaryRegion = new SummaryRegion();
+					summaryRegion.setRegion(region);
+					summaryRegion.setRowNo(rowCount.getRowCount() -1);
+					summaryRegions.add(summaryRegion);
 					//update total summary for region.
 					int regionSummRowNum = summRegionsTree.get(region.getRegionId());
 					Row row = sheet.getRow(regionSummRowNum); // must getRow as we need to update the total value only.
 					updateTotalSummaryForRegion(row,rowCount.getRowCount()-1);
 				}
 			}
+			elecSummaryTree.put(location.getLocationName(), summaryRegions);
 			//update total summary for location.
 		}
 		
@@ -288,6 +312,7 @@ public class ReportExcel extends ExcelHelper{
 			createLocationRow(location, sheet, rowCount, order);
 			List<Region> regions = locationService.findRegions(location.getLocationId());
 			int numOfRegions = 0;
+			List<SummaryRegion> summaryRegions = new ArrayList<ReportExcel.SummaryRegion>();
 			for(Region region : regions){
 				if(region.getCategory().getParentCategory() != null
 						&& region.getCategory().getParentCategory().getName().equalsIgnoreCase(Constants.MECH_BOQ)){
@@ -299,14 +324,19 @@ public class ReportExcel extends ExcelHelper{
 					List<Encounter> encounters = encounterService.getEncountersByRegion(region);
 					createBOQRows(encounters, sheet, rowCount, order);
 					//create sub-total for each region.
+					rowCount.addMoreValue(1);
 					createSubTotal(startRowOfRegion, rowCount, numOfRegions, sheet, region.getRegionName());
-					
+					SummaryRegion summaryRegion = new SummaryRegion();
+					summaryRegion.setRegion(region);
+					summaryRegion.setRowNo(rowCount.getRowCount()-1);
+					summaryRegions.add(summaryRegion);
 					//update total summary for region.
 					int regionSummRowNum = summRegionsTree.get(region.getRegionId());
 					Row row = sheet.getRow(regionSummRowNum); // must getRow as we need to update the total value only.
 					updateTotalSummaryForRegion(row,rowCount.getRowCount()-1);
 				}
 			}
+			mechSummaryTree.put(location.getLocationName(), summaryRegions);
 			//update total summary for location.
 		}
 		
@@ -353,12 +383,12 @@ public class ReportExcel extends ExcelHelper{
 		return strFormula;
 	}
 	private void createSubTotal(int startRow, RowCount endRow, int order, XSSFSheet sheet, String regionName){
-		endRow.addMoreValue(1);
+//		endRow.addMoreValue(1);
 		Row row = sheet.createRow(endRow.getRowCount());
 		Cell cell0 = row.createCell(0);
 		cell0.setCellValue(order);
 		Cell cell1 = row.createCell(1);
-		writeCellValue(cell1, "Sub-total of " + regionName);
+		writeCellValue(cell1, "Sub Total of " + regionName);
 		updateSubTotal(row, startRow, endRow.getRowCount());
 		
 		endRow.addMoreValue(2);
@@ -663,6 +693,10 @@ private void createRegionHeaderRow(Region region, XSSFSheet sheet, RowCount rowC
 			mechCount.setRowCount(startBoQRow);
 			createMechBoQSheet(project, workbook.getSheetAt(5), mechCount);
 			updateMaker(project, workbook.getSheetAt(7), projectService, Constants.MECH_BOQ);
+			
+			RowCount summaryCount = new RowCount();
+			summaryCount.setRowCount(5);
+			createSummarySheet(project, workbook.getSheetAt(3), summaryCount);
 			file.close();
 			
 			String outFileName = project.getProjectName() + ".xlsx";
@@ -673,6 +707,65 @@ private void createRegionHeaderRow(Region region, XSSFSheet sheet, RowCount rowC
 			e.printStackTrace();
 		}
 		return null;
+	}
+	private void createSummarySheet(Project project, XSSFSheet sheet, RowCount rowCount){
+		//create Electrical Works row
+		Row row1 = sheet.createRow(rowCount.getRowCount());
+		rowCount.addMoreValue(1);
+		Cell cell1 = row1.createCell(2);
+		cell1.setCellValue(Constants.ELECT_WORKS);
+		createSummarySheetCommon(sheet, elecSummaryTree, rowCount);
+		
+		rowCount.addMoreValue(1);
+		Row row2 = sheet.createRow(rowCount.getRowCount());
+		rowCount.addMoreValue(1);
+		Cell cell2 = row2.createCell(2);
+		cell2.setCellValue(Constants.MECH_WORKS);
+		createSummarySheetCommon(sheet, mechSummaryTree, rowCount);
+		rowCount.addMoreValue(1);
+	}
+	private void createSummarySheetCommon(XSSFSheet sheet, TreeMap<String, List<SummaryRegion>> tree, RowCount rowCount){
+		Set<String> elecLocations = tree.keySet();
+		Iterator<String> elecIter = elecLocations.iterator();
+		while(elecIter.hasNext()){
+			String locationName = elecIter.next();
+			//create Location row
+			Row row2 = sheet.createRow(rowCount.getRowCount());
+			rowCount.addMoreValue(1);
+			Cell cell2 = row2.createCell(2);
+			cell2.setCellValue(locationName);
+			List<SummaryRegion> summaryRegions = tree.get(locationName);
+			int start=rowCount.getRowCount();
+			for(SummaryRegion summaryRegion : summaryRegions){
+				Row regionRow = sheet.getRow(rowCount.getRowCount());
+				rowCount.addMoreValue(1);
+				Cell regionNamCell = regionRow.createCell(2);
+				regionNamCell.setCellValue(summaryRegion.getRegion().getRegionName());
+				Cell regionTotalCell = regionRow.createCell(5);
+				//='Electrical works'!H23
+				String strFormula = "'Electrical works'!H" + summaryRegion.getRowNo();
+				writeCellFomula(regionTotalCell, strFormula);
+			}
+			createSubTotalSummarySheet(start, rowCount, sheet, locationName);
+		}
+	}
+	private void createSubTotalSummarySheet(int startRow, RowCount endRow, XSSFSheet sheet, String locationName){
+		Row row = sheet.createRow(endRow.getRowCount());
+		Cell cell1 = row.createCell(2);
+		writeCellValue(cell1, "Sub Total of " + locationName);
+		String strFomula = getSubTotalFormula(startRow, endRow.getRowCount(), "F");
+		Cell cell5 = row.createCell(5); //amount
+		writeCellFomula(cell5, strFomula);
+		endRow.addMoreValue(2);
+//		updateCellStyleSummarySheet(row);
+	}
+	private void updateCellStyleSummarySheet(Row row){
+		for(int i=0; i< 7; i++){
+			Cell cell = row.getCell(i);
+			if(cell == null)
+				cell = row.createCell(i);
+			cell.setCellStyle(sampleCellStyle);
+		}
 	}
 	public ProjectService getProjectService() {
 		return projectService;
