@@ -174,7 +174,7 @@
     <script>
         var pageContext = "${pageContext.request.contextPath}";
         var projectId = "${projectId}";
-        var expensesJson = "${expensesJson}"
+        var expensesJson = "${expensesJson}";
         $("#addExpenseBtn").click(function(){
             saveExpensesList();
 
