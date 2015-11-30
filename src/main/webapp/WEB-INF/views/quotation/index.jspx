@@ -8,7 +8,7 @@
 <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs pull-right">
 				  <li class="abc"><a href="${pageContext.request.contextPath}/quotation/${projectId }/addmakerlist?form&amp;type=mech" data-target="#tab_1-1" data-toggle="tab" aria-expanded="false">Mechanical Maker</a></li>
-				  <li class="abc"><a href="${pageContext.request.contextPath}/quotation/${projectId }/addquotation?form" data-target="#tab_1-2" data-toggle="tab" aria-expanded="false">Mechanical BOQ</a></li>
+				  <li class="abc"><a href="${pageContext.request.contextPath}/quotation/${projectId }/addquotation?form&amp;type=mech" data-target="#tab_1-2" data-toggle="tab" aria-expanded="false">Mechanical BOQ</a></li>
 				  <li class="abc"><a href="${pageContext.request.contextPath}/quotation/${projectId }/addmakerlist?form&amp;type=elec" data-target="#tab_1-3" data-toggle="tab" aria-expanded="false">Electrical Maker</a></li>
 				  <li class="abc"><a href="${pageContext.request.contextPath}/quotation/${projectId }/addquotation?form&amp;type=elec" data-target="#tab_1-4" data-toggle="tab" aria-expanded="false">Electrical BOQ</a></li>
 

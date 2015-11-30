@@ -751,7 +751,7 @@ private void createRegionHeaderRow(Region region, XSSFSheet sheet, RowCount rowC
 //			
 		}
 		if(tree.lastEntry() != null){
-			if(tree.lastEntry().getValue() != null)
+			if(tree.lastEntry().getValue() != null && tree.lastEntry().getValue().size() >0)
 			{
 				if(tree.lastEntry().getValue().get(0) != null){
 					Region region = tree.lastEntry().getValue().get(0).getRegion();

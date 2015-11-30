@@ -93,6 +93,8 @@ public class Project implements java.io.Serializable, Cloneable {
 	private Set<Expenses> expenses;
 	private Integer currencyId;
 	
+	private Set<MakerProject> makerProjects;
+	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "PROJECT_ID", unique = true, nullable = false)
@@ -489,6 +491,16 @@ public class Project implements java.io.Serializable, Cloneable {
 
 	public void setCurrencyId(Integer currencyId) {
 		this.currencyId = currencyId;
+	}
+	
+	@JsonIgnore
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="project", cascade=CascadeType.REMOVE)
+	public Set<MakerProject> getMakerProjects() {
+		return makerProjects;
+	}
+
+	public void setMakerProjects(Set<MakerProject> makerProjects) {
+		this.makerProjects = makerProjects;
 	}
 
 	@Override
