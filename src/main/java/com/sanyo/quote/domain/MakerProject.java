@@ -22,7 +22,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "maker_project", catalog = "sanyo")
-public class MakerProject {
+public class MakerProject implements java.io.Serializable, Cloneable{
 	private Integer id;
 	private Project project;
 	private ProductGroupMaker productGroupMaker;
@@ -125,5 +125,11 @@ public class MakerProject {
 	}
 	public void setCategory(Category category) {
 		this.category = category;
+	}
+	@Override
+	public MakerProject clone() throws CloneNotSupportedException {
+		// TODO Auto-generated method stub
+		MakerProject clonedObj = (MakerProject) super.clone();
+		return clonedObj;
 	}
 }

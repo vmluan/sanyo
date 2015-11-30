@@ -890,8 +890,8 @@ public class ProjectController extends CommonController {
 			}
 		}
 		List<Location> list = new ArrayList<Location>();
-		for(int i=0; i<tree.size(); i++){
-			list.add(tree.get(i));
+		for(Integer locationId : tree.keySet()){
+			list.add(tree.get(locationId));
 		}
 		String result = Utilities.jSonSerialization(list);
 		return result;
@@ -987,6 +987,7 @@ public class ProjectController extends CommonController {
 		Project clonedProject = project.clone();
 		clonedProject.setProjectId(null);
 		clonedProject = projectService.save(clonedProject);
+		cloneMakerProject(project, clonedProject);
 		cloneProductGroupMakers(project.getProjectId(), clonedProject);
 		this.cloneLocation(project.getProjectId(), clonedProject);
 
@@ -1040,6 +1041,14 @@ public class ProjectController extends CommonController {
 			role.setId(null);
 			role.setRegion(clonedRegion);
 			userRegionRoleService.save(role);
+		}
+	}
+	public void cloneMakerProject(Project sourecProject, Project clonedProject) throws CloneNotSupportedException{
+		List<MakerProject> makerProjects = makerProjectService.findByProject(sourecProject);
+		for(MakerProject makerProject : makerProjects){
+			MakerProject clonedMP = makerProject.clone();
+			clonedMP.setProject(clonedProject);
+			makerProjectService.save(clonedMP);
 		}
 	}
 	@Transactional

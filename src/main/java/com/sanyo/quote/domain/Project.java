@@ -509,6 +509,7 @@ public class Project implements java.io.Serializable, Cloneable {
 		clonedProject.setExpenses(null);
 		clonedProject.setLocations(null);
 		clonedProject.setRevisions(null);
+		clonedProject.setMakerProjects(null);
 //		clonedProject.setProductGroupMakers(null);
 		clonedProject.setCreatedDate(new Date());
 		clonedProject.setStatus(ProjectStatus.ONGOING);
