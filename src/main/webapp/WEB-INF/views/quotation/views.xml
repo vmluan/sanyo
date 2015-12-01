@@ -8,7 +8,7 @@
 
     <definition extends="home" name="quotation/cover">
         <put-attribute name="body"
-                       value="/WEB-INF/views/quotation/cover.jspx" />
+                       value="/WEB-INF/views/quotation/cover_new.jspx" />
     </definition>
 
     <definition extends="home" name="quotation/condition_1">
