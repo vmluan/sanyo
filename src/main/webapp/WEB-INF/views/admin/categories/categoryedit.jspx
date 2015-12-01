@@ -7,8 +7,8 @@
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
 
-    <spring:message code="label_role_new" var="labelCategoryNew"/>
-    <spring:message code="label_role_update" var="labelCategoryUpdate"/>
+    <spring:message code="label_category_new" var="labelCategoryNew"/>
+    <spring:message code="label_category_update" var="labelCategoryUpdate"/>
     <spring:message code="label_category_name" var="labelCategoryName" text="Name" />
     <spring:message code="label_category_desc" var="labelCategoryDesc" text="Description" />
     

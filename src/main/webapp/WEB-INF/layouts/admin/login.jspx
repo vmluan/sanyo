@@ -18,7 +18,8 @@
   	<body>
   	<div class="loginBox">  
   		<div class="loginHead">
-            <img src="${pageContext.request.contextPath}/resources/styles/aquarius-theme/img/logo.png" alt="iCoffee" title="Aquarius -  responsive admin panel"/>
+            <!--<img src="${pageContext.request.contextPath}/resources/styles/aquarius-theme/img/logo.png" alt="iCoffee" title="Aquarius -  responsive admin panel"/>-->
+			<label style="color:#FFFFFF">SANYO QUOTATION</label>
         </div>
         
         <form name="loginForm" action="${loginUrl}" method="post">
