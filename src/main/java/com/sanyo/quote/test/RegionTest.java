@@ -122,14 +122,15 @@ public class RegionTest {
 //		System.out.println(products.size());
 		
 		Project project = projectService.findAll().get(0);
-		ReportExcel reportExcel = new ReportExcel();
-		reportExcel.setEncounterService(encounterService);
-		reportExcel.setProjectService(projectService);
-		reportExcel.setLocationService(locationService);
-		reportExcel.setMakerProjectService(makerProjectService);
-		reportExcel.setProjectRevisionService(projectRevisionService);
-		reportExcel.writeExcelReportClientForProject(project, "template_quotaion_client.xlsx");
+//		ReportExcel reportExcel = new ReportExcel();
+//		reportExcel.setEncounterService(encounterService);
+//		reportExcel.setProjectService(projectService);
+//		reportExcel.setLocationService(locationService);
+//		reportExcel.setMakerProjectService(makerProjectService);
+//		reportExcel.setProjectRevisionService(projectRevisionService);
+//		reportExcel.writeExcelReportClientForProject(project, "template_quotaion_client.xlsx");
 		
+		Project clonedProject = project.clone();
 	}
 
 }

@@ -76,7 +76,8 @@ public class ReportController {
 			reportExcel.setLocationService(locationService);
 			reportExcel.setMakerProjectService(makerProjectService);
 			reportExcel.setProjectRevisionService(projectRevisionService);
-			XSSFWorkbook workbook =  reportExcel.writeExcelReportClientForProject(project, "template_quotaion_client.xlsx");
+			String homePath = httpServletRequest.getSession().getServletContext().getRealPath("/");
+			XSSFWorkbook workbook =  reportExcel.writeExcelReportClientForProject( homePath,project, "template_quotaion_client.xlsx");
 			try {
 				workbook.write(response.getOutputStream());
 			} catch (IOException e) {

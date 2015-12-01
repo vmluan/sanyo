@@ -12,13 +12,16 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
+import javax.servlet.ServletContext;
+
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import com.sanyo.quote.domain.Category;
 import com.sanyo.quote.domain.Encounter;
 import com.sanyo.quote.domain.Location;
 import com.sanyo.quote.domain.MakerProject;
@@ -30,8 +33,11 @@ import com.sanyo.quote.service.LocationService;
 import com.sanyo.quote.service.MakerProjectService;
 import com.sanyo.quote.service.ProjectRevisionService;
 import com.sanyo.quote.service.ProjectService;
-
+@Component
 public class ReportExcel extends ExcelHelper{
+	@Autowired
+	ServletContext servletContext;
+	
 	private class SummaryRegion{
 		private Region region;
 		private Integer rowNo;
@@ -68,10 +74,11 @@ public class ReportExcel extends ExcelHelper{
 			this.maxBoQCol = 9;
 	}
 	
-	public FileInputStream getFile(String fileName){
+	public FileInputStream getFile(String homePath, String fileName){
 		FileInputStream file;
 		try {
-			file = new FileInputStream(new File(fileName));
+			System.out.println("=============== real path = " + homePath);
+			file = new FileInputStream(new File(homePath + "/report/" + fileName));
 			return file;
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -655,7 +662,7 @@ private void createRegionHeaderRow(Region region, XSSFSheet sheet, RowCount rowC
 
 	public XSSFWorkbook writeExcelReportForProject(Project project, String reportTemplate){
 		RowCount rowCount = new RowCount();
-		FileInputStream file = getFile(reportTemplate);
+		FileInputStream file = getFile(null,reportTemplate);
 		XSSFWorkbook workbook;
 		try {
 			workbook = new XSSFWorkbook(file);
@@ -677,9 +684,9 @@ private void createRegionHeaderRow(Region region, XSSFSheet sheet, RowCount rowC
 		}
 		return null;
 	}
-	public XSSFWorkbook writeExcelReportClientForProject(Project project, String reportTemplate){
+	public XSSFWorkbook writeExcelReportClientForProject(String homePath, Project project, String reportTemplate){
 		RowCount rowCount = new RowCount();
-		FileInputStream file = getFile(reportTemplate);
+		FileInputStream file = getFile(homePath, reportTemplate);
 		XSSFWorkbook workbook;
 		try {
 			workbook = new XSSFWorkbook(file);
