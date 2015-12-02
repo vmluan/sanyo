@@ -1,6 +1,7 @@
 package com.sanyo.quote.domain;
 
 public class MakerJson {
+	private Integer id;
 	private String productGroupName;
 	private String modelNo;
 	private String makerName;
@@ -71,6 +72,12 @@ public class MakerJson {
 	}
 	public void setEquivalent(String equivalent) {
 		this.equivalent = equivalent;
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	
 	

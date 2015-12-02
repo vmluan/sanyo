@@ -127,7 +127,14 @@ public class Quotation extends CommonController {
 		ProductGroup productGroup = productGroupService.findById(Integer.valueOf(makerJson.getProductGroupId()));
 		List<ProductGroupMaker> productGroupMakers = productGroupMakerService.findByProductGroupAndMaker(productGroup, maker);
 		
-		MakerProject makerProject = new MakerProject();
+		MakerProject makerProject = null;
+		if(makerJson.getId() != null && makerJson.getId() >0){
+			makerProject = makerProjectService.findById(makerJson.getId());
+		}
+		if(makerProject == null){
+			makerProject = new MakerProject();
+			makerProject.setCreatedBy(Utilities.getCurrentUser().getUsername());
+		}
 		
 		if(productGroupMakers != null && productGroupMakers.size() >0){
 			makerProject.setProductGroupMaker(productGroupMakers.get(0));
@@ -135,7 +142,7 @@ public class Quotation extends CommonController {
 		Category category = categoryService.findById(Integer.valueOf(makerJson.getCategoryId()));
 		Project project = projectService.findById(id);
 		
-		makerProject.setCreatedBy(Utilities.getCurrentUser().getUsername());
+		
 		makerProject.setDelivery(makerJson.getDelivery());
 		makerProject.setModelNo(makerJson.getModelNo());
 		makerProject.setRemark(makerJson.getRemarks());

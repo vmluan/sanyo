@@ -91,18 +91,21 @@ loadAddQuotationGrid();
 showResultGrid();
 function addItem(row) {
 	// call server action to add new row.
-	saveMakerList(row);
+	var data = $('#list').jqxGrid('getrowdata', row);
+	saveMakerList(data);
 
 }
-function saveMakerList(row) {
-	var data = $('#list').jqxGrid('getrowdata', row);
+function saveMakerList(data) {
+	//var data = $('#list').jqxGrid('getrowdata', row);
 	var makerList = new Object();
+	if(data.id >0)
+		makerList.id = data.id;
 	makerList.categoryName = data.categoryName;
 	makerList.productGroupName = data.productGroupName;
 	makerList.modelNo = data.modelNo;
 	makerList.makerName = data.makerName;
 	makerList.delivery = data.delivery;
-	makerList.remarks = data.remarks;
+	makerList.remarks = data.remark;
 	makerList.makerId = data.makerId;
 	makerList.categoryId = data.categoryId;
 	makerList.productGroupId = data.productGroupId;
@@ -128,6 +131,12 @@ function saveMakerList(row) {
 		}
 	});
 
+}
+function updateItem(row){
+	console.log(row);
+	var data = $("#listResult").jqxGrid('getrowdata', row);
+	var id= data.id;
+	saveMakerList(data);
 }
 var toThemeProperty = function(className) {
 	return className + " " + className + "-" + theme;
@@ -196,7 +205,7 @@ function loadAddQuotationGrid() {
 			name : 'delivery',
 			type : 'string'
 		}, {
-			name : 'remarks',
+			name : 'remark',
 			type : 'string'
 
 		} ],
@@ -222,6 +231,7 @@ function loadAddQuotationGrid() {
 						source : dataAdapter2,
 						filterable : true,
 						editable : true,
+						editmode: 'click',
 						ready : function() {
 							$("#list").jqxGrid('setcellvalue', 0, "equivalent",
 									" / or equivalent");
@@ -417,7 +427,7 @@ function loadAddQuotationGrid() {
 								},
 								{
 									text : 'Remarks',
-									dataField : 'remarks',
+									dataField : 'remark',
 									align : 'center',
 									cellsalign : 'right',
 									// cellsformat : 'c0',
@@ -455,13 +465,11 @@ function loadAddQuotationGrid() {
 								{
 									text : 'Action',
 									align : 'center',
-									datafield : '',
+									datafield : 'buttonAdd',
 									width : '10%',
 									cellsrenderer : function(row, column, value) {
-										return '<div class="col-md-6">'
-												+ '<a class="btn btn-app" onclick="addItem('
-												+ row
-												+ ')">'
+										return '<div class="col-md-12" style="margin-left: -0px;">'
+												+ '<a class="btn btn-app col-md-12" style="margin-left: -0px;">'
 												+ '<i class="glyphicon glyphicon-plus"></i>'
 												+ '</div>';
 									},
@@ -472,6 +480,13 @@ function loadAddQuotationGrid() {
 					});
 
 }
+$('#list').on('cellclick', function (event) {
+	var field = event.args.datafield;
+	var index = event.args.rowindex;
+	if(field == 'buttonAdd'){
+		addItem(index);
+	}
+ });
 var toThemeProperty = function(className) {
 	return className + " " + className + "-" + theme;
 }
@@ -494,11 +509,20 @@ function showResultGrid(categoryId) {
 			name : 'productGroupName',
 			map : 'productGroupMaker>productGroup>groupName'
 		}, {
+			name : 'productGroupId',
+			map : 'productGroupMaker>productGroup>groupId'
+		}, {
 			name : 'makerName',
 			map : 'productGroupMaker>maker>name'
 		}, {
+			name : 'makerId',
+			map : 'productGroupMaker>maker>id'
+		}, {
 			name : 'categoryName',
 			map : 'category>name'
+		}, {
+			name : 'categoryId',
+			map : 'category>categoryId'
 		}, {
 			name : 'delivery',
 			type : 'string'
@@ -586,14 +610,13 @@ function showResultGrid(categoryId) {
 										editor.on('select', function(event) {
 											var args = event.args;
 											if (args) {
-												var index = args.index;
 												var item = args.item;
 												// get item's label and value.
 												var label = item.label;
 												var value = item.value;
 												// set value to hidden field
-												$("#list").jqxGrid(
-														'setcellvalue', index,
+												$("#listResult").jqxGrid(
+														'setcellvalue', getSelectedIndexOfResult(),
 														"categoryId", value);
 											}
 										});
@@ -641,7 +664,6 @@ function showResultGrid(categoryId) {
 														function(event) {
 															var args = event.args;
 															if (args) {
-																var index = args.index;
 																var item = args.item;
 																// get item's
 																// label and
@@ -650,10 +672,10 @@ function showResultGrid(categoryId) {
 																var value = item.value;
 																// set value to
 																// hidden field
-																$("#list")
+																$("#listResult")
 																		.jqxGrid(
 																				'setcellvalue',
-																				index,
+																				getSelectedIndexOfResult(),
 																				"productGroupId",
 																				value);
 															}
@@ -706,14 +728,13 @@ function showResultGrid(categoryId) {
 										editor.on('select', function(event) {
 											var args = event.args;
 											if (args) {
-												var index = args.index;
 												var item = args.item;
 												// get item's label and value.
 												var label = item.label;
 												var value = item.value;
 												// set value to hidden field
-												$("#list").jqxGrid(
-														'setcellvalue', index,
+												$("#listResult").jqxGrid(
+														'setcellvalue', getSelectedIndexOfResult(),
 														"makerId", value);
 											}
 										});
@@ -752,11 +773,40 @@ function showResultGrid(categoryId) {
 								},
 								{
 									text : 'Remarks',
-									datafield : 'remark',
+									dataField : 'remark',
 									align : 'center',
 									cellsalign : 'right',
 									// cellsformat : 'c0',
-									width : '15%'
+									width : '15%',
+									columnType : "custom",
+									createEditor : function(row, cellvalue,
+											editor, cellText, width, height) {
+										// construct the editor.
+										var remarkList = [ "Import", "By Other", "Local manufacture", "Local / Import", "Import main component"];
+										 
+										editor.jqxDropDownList({
+											height : '25',
+											source : remarkList,
+											width : '100%',
+											height : '45',
+											selectedIndex : 0,
+											autoOpen : true,
+											autoDropDownHeight : true
+										});
+									},
+									initEditor : function(row, cellvalue,
+											editor, celltext, width, height) {
+										// set the editor's current value.
+										// The callback is called each time
+										// the editor is displayed.
+										editor.jqxDropDownList('selectItem',
+												cellvalue);
+									},
+									getEditorValue : function(row, cellvalue,
+											editor) {
+										// return the editor's value.
+										return editor.val();
+									}
 								},
 								{
 									text : 'Action',
@@ -777,6 +827,9 @@ function showResultGrid(categoryId) {
 								} ],
 								groups: ['categoryName']
 					});
+}
+function getSelectedIndexOfResult(){
+	return $('#listResult').jqxGrid('getselectedrowindex');
 }
 function updateMakerAdapter(productGroupCode){
 	sourceMaker.data.productGroudCode = productGroupCode;
