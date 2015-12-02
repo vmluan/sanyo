@@ -31,11 +31,25 @@ public class Encounter implements Serializable, Cloneable{
 	//Theo thiết kế thì lấy từ bảng price với PriceType là LABOUR
 	private float Imp_Tax; //Imp Tax. mặc định ="0%", lấy từ bản thông số chung của dự án
 	private float Special_Con_Tax; // Special con. Tax. mặc định ="0%", lấy từ bản thông số chung của dự án
+
+	/*
+	Discount_rate here is designed for rating per PRODUCT
+	While this rate will actually be gotten by discount_rate of productgroup
+	refer to ProductGroupRate class for more detail of rating
+	 */
 	private float Discount_rate; //Discount rate %. mặc định ="100%", lấy từ bản thông số chung của dự án
+
 	private Date encounterTime;
 	private float VAT; // mặc định ="0%", lấy từ bản thông số chung của dự án
 	private float Unit_Price_After_Discount; // = Mat_w_o_Tax_USD + (Mat_w_o_Tax_VND/Ti_gia_VND_to_USD)
+
+	/*
+	Allowance here is designed for rating per PRODUCT
+	While this rate will actually be gotten by discount_rate of productgroup
+	refer to ProductGroupRate class for more detail of rating
+	 */
 	private float allowance; //mặc định 105%, lấy từ bản thông số chung của dự án
+
 	private float Unit_Price_W_Tax_Profit; //Unit_Price_After_Discount * (1+(1+Special_Con_Tax*(1+Imp_Tax))*VAT)*Discount_rate
 	private float Subcon_Profit; //mặc định 105%, lấy từ bản thông số chung của dự án
 	private float Unit_Price_W_Tax_Labour; //=labour*Subcon_Profit

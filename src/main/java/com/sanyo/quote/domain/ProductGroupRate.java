@@ -8,14 +8,18 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 /**
  * Created by Chuong on 11/27/2015.
+ * To store Discount rate and Allowance rate for each ProductGroup belongs to a project
+ *
+ * By changing these rating from Summary screen of project. The Rating (Discount rate and Allowance)
+ * of the product related to ProductGroup will be changed relevantly
  */
 @Entity
 @Table(name = "ProductGroupRate", catalog = "sanyo")
 public class ProductGroupRate {
 
     int id;
-    float discount;
-    float allowance;
+    float discount; //discount_rate for the GroupProduct
+    float allowance; //Allowance for the GroupProduct
     ProductGroup productGroup;
     Project project;
 
@@ -60,7 +64,7 @@ public class ProductGroupRate {
     }
 
     @JsonIgnore
-    @OneToOne(fetch= FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "PROJECT_ID", nullable = false)
     public Project getProject() {
         return project;
