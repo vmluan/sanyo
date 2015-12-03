@@ -91,12 +91,12 @@ loadAddQuotationGrid();
 showResultGrid();
 function addItem(row) {
 	// call server action to add new row.
-	var data = $('#list').jqxGrid('getrowdata', row);
+	var data = $('#listMaker').jqxGrid('getrowdata', row);
 	saveMakerList(data);
 
 }
 function saveMakerList(data) {
-	//var data = $('#list').jqxGrid('getrowdata', row);
+	//var data = $('#listMaker').jqxGrid('getrowdata', row);
 	var makerList = new Object();
 	if(data.id >0)
 		makerList.id = data.id;
@@ -120,11 +120,11 @@ function saveMakerList(data) {
 		data : jsonData,
 		url : url,
 		success : function(msg) {
-			$("#list").jqxGrid('updatebounddata');
-			$("#listResult").jqxGrid('updatebounddata');
-			// $('#list').jqxGrid('addrow', null, {}, 'first');
+			$("#listMaker").jqxGrid('updatebounddata');
+			$("#listResultMaker").jqxGrid('updatebounddata');
+			// $('#listMaker').jqxGrid('addrow', null, {}, 'first');
 			
-			$("#list").jqxGrid('begincelledit', 0, "categoryName");
+			$("#listMaker").jqxGrid('begincelledit', 0, "categoryName");
 		},
 		complete : function(xhr, status) {
 			// $("#assignRegionButton").prop('disabled', false);
@@ -134,7 +134,7 @@ function saveMakerList(data) {
 }
 function updateItem(row){
 	console.log(row);
-	var data = $("#listResult").jqxGrid('getrowdata', row);
+	var data = $("#listResultMaker").jqxGrid('getrowdata', row);
 	var id= data.id;
 	saveMakerList(data);
 }
@@ -180,9 +180,9 @@ var groupsrenderer = function(text, group, expanded, data) {
 	}
 }
 
-$('#list').on('bindingcomplete', function(event) {
-	$('#list').jqxGrid('addrow', null, {}, 'first');
-	$("#list").jqxGrid('setcellvalue', 0, "equivalent"," / or equivalent");
+$('#listMaker').on('bindingcomplete', function(event) {
+	$('#listMaker').jqxGrid('addrow', null, {}, 'first');
+	$("#listMaker").jqxGrid('setcellvalue', 0, "equivalent"," / or equivalent");
 });
 
 function loadAddQuotationGrid() {
@@ -221,7 +221,7 @@ function loadAddQuotationGrid() {
 		}
 	});
 	// initialize jqxGrid
-	$("#list")
+	$("#listMaker")
 			.jqxGrid(
 					{
 						width : '100%',
@@ -233,7 +233,7 @@ function loadAddQuotationGrid() {
 						editable : true,
 						editmode: 'click',
 						ready : function() {
-							$("#list").jqxGrid('setcellvalue', 0, "equivalent",
+							$("#listMaker").jqxGrid('setcellvalue', 0, "equivalent",
 									" / or equivalent");
 
 						},
@@ -267,7 +267,7 @@ function loadAddQuotationGrid() {
 												var label = item.label;
 												var value = item.value;
 												// set value to hidden field
-												$("#list").jqxGrid(
+												$("#listMaker").jqxGrid(
 														'setcellvalue', 0,
 														"categoryId", value);
 											}
@@ -325,7 +325,7 @@ function loadAddQuotationGrid() {
 																var value = item.value;
 																// set value to
 																// hidden field
-																$("#list")
+																$("#listMaker")
 																		.jqxGrid(
 																				'setcellvalue',
 																				0,
@@ -388,7 +388,7 @@ function loadAddQuotationGrid() {
 												var label = item.label;
 												var value = item.value;
 												// set value to hidden field
-												$("#list").jqxGrid(
+												$("#listMaker").jqxGrid(
 														'setcellvalue', 0,
 														"makerId", value);
 											}
@@ -480,7 +480,7 @@ function loadAddQuotationGrid() {
 					});
 
 }
-$('#list').on('cellclick', function (event) {
+$('#listMaker').on('cellclick', function (event) {
 	var field = event.args.datafield;
 	var index = event.args.rowindex;
 	if(field == 'buttonAdd'){
@@ -571,7 +571,7 @@ function showResultGrid(categoryId) {
 		}
 	});
 
-	$("#listResult")
+	$("#listResultMaker")
 			.jqxGrid(
 					{
 						width : '100%',
@@ -585,7 +585,7 @@ function showResultGrid(categoryId) {
 						// autorowheight: true,
 						groupable: true,
 						ready: function(){
-							$("#listResult").jqxGrid('expandallgroups');
+							$("#listResultMaker").jqxGrid('expandallgroups');
 						},
 						columns : [
 								{
@@ -615,7 +615,7 @@ function showResultGrid(categoryId) {
 												var label = item.label;
 												var value = item.value;
 												// set value to hidden field
-												$("#listResult").jqxGrid(
+												$("#listResultMaker").jqxGrid(
 														'setcellvalue', getSelectedIndexOfResult(),
 														"categoryId", value);
 											}
@@ -672,7 +672,7 @@ function showResultGrid(categoryId) {
 																var value = item.value;
 																// set value to
 																// hidden field
-																$("#listResult")
+																$("#listResultMaker")
 																		.jqxGrid(
 																				'setcellvalue',
 																				getSelectedIndexOfResult(),
@@ -733,7 +733,7 @@ function showResultGrid(categoryId) {
 												var label = item.label;
 												var value = item.value;
 												// set value to hidden field
-												$("#listResult").jqxGrid(
+												$("#listResultMaker").jqxGrid(
 														'setcellvalue', getSelectedIndexOfResult(),
 														"makerId", value);
 											}
@@ -829,7 +829,7 @@ function showResultGrid(categoryId) {
 					});
 }
 function getSelectedIndexOfResult(){
-	return $('#listResult').jqxGrid('getselectedrowindex');
+	return $('#listResultMaker').jqxGrid('getselectedrowindex');
 }
 function updateMakerAdapter(productGroupCode){
 	sourceMaker.data.productGroudCode = productGroupCode;

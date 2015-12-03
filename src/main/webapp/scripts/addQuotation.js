@@ -799,19 +799,22 @@ function loadAddQuotationGrid() {
 													if (args) {
 														var index = args.index;
 														var item = args.item;
-														// get item's label and value.
-														var label = item.label;
-														var value = item.value;
-														//set value to hidden field
-														$("#list").jqxGrid('setcellvalue', 0, "groupId", value);
-														//update project combobox.
-														var sourceProducts2 = getUrlProducts(value);
-														var itemRegion = $("#listRegion").jqxComboBox('getSelectedItem');
-														if(itemRegion){
-															var regionId = itemRegion.value;
-															sourceProducts2.data.regionId = regionId; //set region id
-															dataAdapterProducts = getProductAdapter(sourceProducts2);
+														if(item){
+															// get item's label and value.
+															var label = item.label;
+															var value = item.value;
+															//set value to hidden field
+															$("#list").jqxGrid('setcellvalue', 0, "groupId", value);
+															//update project combobox.
+															var sourceProducts2 = getUrlProducts(value);
+															var itemRegion = $("#listRegion").jqxComboBox('getSelectedItem');
+															if(itemRegion){
+																var regionId = itemRegion.value;
+																sourceProducts2.data.regionId = regionId; //set region id
+																dataAdapterProducts = getProductAdapter(sourceProducts2);
+															}
 														}
+														
 													}
 											});												
 
@@ -858,13 +861,15 @@ function loadAddQuotationGrid() {
 												if (args) {
 													var index = args.index;
 													var item = args.item;
-													// get item's label and value.
-													var label = item.label;
-													var value = item.value;
-													//set value to hidden field
-													$("#list").jqxGrid('setcellvalue', 0, "productId", value);
-													//update Description field
-													updateProductFields(value);
+													if(item){
+														// get item's label and value.
+														var label = item.label;
+														var value = item.value;
+														//set value to hidden field
+														$("#list").jqxGrid('setcellvalue', 0, "productId", value);
+														//update Description field
+														updateProductFields(value);
+													}
 												}
 										});											
 									},

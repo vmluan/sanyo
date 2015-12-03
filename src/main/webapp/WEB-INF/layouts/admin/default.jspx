@@ -119,6 +119,7 @@
         <jsp:text/>
     </script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/jqwidgets/jqxgrid.columnsresize.js"><jsp:text/></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/jqwidgets/jqxgrid.grouping.js"><jsp:text/></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/jqwidgets/jqxlistbox.js"><jsp:text/></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/jqwidgets/jqxdropdownlist.js"><jsp:text/></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/jqwidgets/jqxdragdrop.js"><jsp:text/></script>

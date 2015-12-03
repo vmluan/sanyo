@@ -20,9 +20,9 @@
 					<div class="col-md-12">
 						<div class="form-group">
 							<p />
-							<div id="list" class="row"><jsp:text />
+							<div id="listMaker" class="row"><jsp:text />
 							</div>
-							<div id="pager"><jsp:text /></div><jsp:text /><P /><jsp:text />
+							<div id="pagerMaker"><jsp:text /></div><jsp:text /><P /><jsp:text />
 							<p />
 						</div>
 					</div>			
@@ -30,9 +30,9 @@
 						<div class="form-group">
 							<H2>List of Makers</H2>
 							<p />
-							<div id="listResult" class="row"><jsp:text />
+							<div id="listResultMaker" class="row"><jsp:text />
 							</div>
-							<div id="pagerResult"><jsp:text /></div><jsp:text /><P /><jsp:text />
+							<div id="pagerResultMaker"><jsp:text /></div><jsp:text /><P /><jsp:text />
 							<p />
 						</div>
 					</div>					
