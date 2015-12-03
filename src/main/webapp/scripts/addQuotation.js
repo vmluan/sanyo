@@ -685,9 +685,7 @@ function saveEncounter(row,isUpdate) {
 
 	var jsonData = JSON.stringify(encounter);
 	console.log(jsonData);
-	 var url = '/quotation/' + projectId + '/addquotation?form';
-//	var url = '/quotation/1/addquotation?form';
-	// var url = '/quotation/1/savequotation';
+	 var url = pageContext + '/quotation/' + projectId + '/addquotation?form';
 	$.ajax({
 		type : "POST",
 		contentType : 'application/json',
