@@ -762,6 +762,7 @@ function loadAddQuotationGrid() {
 						source : dataAdapter2,
 						filterable : true,
 						editable : true,
+						editmode: 'click',
 						// autorowheight: true,
 						ready: function()
 						{
@@ -1090,13 +1091,11 @@ function loadAddQuotationGrid() {
 								{
 									text : 'Action',
 									align : 'center',
-									datafield : '',
+									datafield : 'buttonAdd',
 									width : '10%',
 									cellsrenderer : function(row, column, value) {
-										return '<div class="col-md-6">'
-												+ '<a class="btn btn-app" onclick="addItem('
-												+ row
-												+ ')">'
+										return '<div class="col-md-12" style="margin-left: -0px;">'
+												+ '<a class="btn btn-app col-md-12" style="margin-left: -0px;">'
 												+ '<i class="glyphicon glyphicon-plus"></i>'
 												+ '</div>';
 									},
@@ -1107,6 +1106,13 @@ function loadAddQuotationGrid() {
 					});
 					
 }
+$('#list').on('cellclick', function (event) {
+	var field = event.args.datafield;
+	var index = event.args.rowindex;
+	if(field == 'buttonAdd'){
+		addItem(index);
+	}
+ });
 function showResultGrid(regionId) {
 	var isCompleted = $("#listResult").jqxGrid('isBindingCompleted');
 	console.log(isCompleted);
