@@ -15,10 +15,10 @@
 
                    <li class="abc"><a href="#tab_1-5" data-toggle="tab" aria-expanded="false">Summary</a></li>
 
-                  <li class="abc"><a href="${pageContext.request.contextPath}/parameter" data-target="#tab_1-6" data-toggle="tab" aria-expanded="false">Summary-info</a></li>
+                  <li class="abc"><a href="${pageContext.request.contextPath}/parameter?projectId=${projectId}" data-target="#tab_1-6" data-toggle="tab" aria-expanded="false">Summary-info</a></li>
                   <li class="abc"><a href="${pageContext.request.contextPath}/expenses/${projectId }/expenses?form" data-target="#tab_1-7" data-toggle="tab" aria-expanded="false"><![CDATA[M&E Expenses]]></a></li>
-                  <li class="abc"><a href="${pageContext.request.contextPath}/condition_2" data-target="#tab_1-8" data-toggle="tab" aria-expanded="false">Condition 2</a></li>
-                  <li class="abc"><a href="${pageContext.request.contextPath}/condition_1" data-target="#tab_1-9" data-toggle="tab" aria-expanded="false">Condition 1</a></li>
+                  <li class="abc"><a href="${pageContext.request.contextPath}/condition_2?projectId=${projectId}" data-target="#tab_1-8" data-toggle="tab" aria-expanded="false">Condition 2</a></li>
+                  <li class="abc"><a href="${pageContext.request.contextPath}/condition_1?projectId=${projectId}" data-target="#tab_1-9" data-toggle="tab" aria-expanded="false">Condition 1</a></li>
                   <li class="abc"><a href="${pageContext.request.contextPath}/cover?projectId=${projectId}" data-target="#tab_1-10" data-toggle="tab" aria-expanded="false">Cover</a></li>
                   <li class="pull-left header"><i class="fa fa-th"><jsp:text /></i>Quotation</li>
                 </ul>
@@ -60,18 +60,36 @@
               </div>
 <![CDATA[
               <script>
+				function resetAllTabs(){
+					for(var i=1; i< 11; i++){
+						var targ = "#tab_1-" + i;
+						if($(targ)){
+							$(targ).html('<b>Loading...Please wait.</b>');
+							console.log(targ);
+							}
+						
+					}
+				}
+				  var pageContext = "${pageContext.request.contextPath}";
                   $('[data-toggle="tab"]').click(function(e) {
+				    resetAllTabs();
                     var $this = $(this),
-                        loadurl = $this.attr('href'),
-                        targ = $this.attr('data-target');
+					loadurl = $this.attr('href'),
+					targ = $this.attr('data-target');
+					$(targ).html('<b>Loading...Please wait.</b>');
+						
+					$.getScript(loadurl)
+					.done(function( s, Status ) {
+						console.warn( Status );
+					})
+					.fail(function( jqxhr, settings, exception ) {
+						if(jqxhr.status ==200){
+							$(targ).html(jqxhr.responseText);
+							
+						}
+					});
 
-                    $.get(loadurl, function(data) {
-                        $(targ).html(data);
-                    });
-
-                    $this.tab('show');
-                    return false;
-                   });
+                });
               </script>
 
 ]]>
