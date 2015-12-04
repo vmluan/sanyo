@@ -96,6 +96,7 @@ function addItem(row) {
 
 }
 function saveMakerList(data) {
+console.log(data);
 	//var data = $('#listMaker').jqxGrid('getrowdata', row);
 	var makerList = new Object();
 	if(data.id >0)
@@ -432,7 +433,7 @@ function loadAddQuotationGrid() {
 									cellsalign : 'right',
 									// cellsformat : 'c0',
 									width : '15%',
-									columnType : "custom",
+									columnType : "dropdownlist",
 									createEditor : function(row, cellvalue,
 											editor, cellText, width, height) {
 										// construct the editor.
@@ -444,7 +445,7 @@ function loadAddQuotationGrid() {
 											width : '100%',
 											height : '45',
 											selectedIndex : 0,
-											autoOpen : true,
+											autoOpen : false,
 											autoDropDownHeight : true
 										});
 									},
@@ -778,7 +779,7 @@ function showResultGrid(categoryId) {
 									cellsalign : 'right',
 									// cellsformat : 'c0',
 									width : '15%',
-									columnType : "custom",
+									columnType : "dropdownlist",
 									createEditor : function(row, cellvalue,
 											editor, cellText, width, height) {
 										// construct the editor.
@@ -787,10 +788,10 @@ function showResultGrid(categoryId) {
 										editor.jqxDropDownList({
 											height : '25',
 											source : remarkList,
-											width : '100%',
+											width : '15%',
 											height : '45',
 											selectedIndex : 0,
-											autoOpen : true,
+											autoOpen : false,
 											autoDropDownHeight : true
 										});
 									},
