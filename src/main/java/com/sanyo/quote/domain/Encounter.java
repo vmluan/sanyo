@@ -61,6 +61,7 @@ public class Encounter implements Serializable, Cloneable{
 	private float labourAfterTax;
 	private Float nonamePercent;
 	private String nonameRange;
+	private boolean needUpdatePrice = false;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -318,6 +319,12 @@ public class Encounter implements Serializable, Cloneable{
 //		clonedEncounter.setEncounterID(null);
 //		clonedEncounter.setRegion(null);
 		return clonedEncounter;
+	}
+	public boolean isNeedUpdatePrice() {
+		return needUpdatePrice;
+	}
+	public void setNeedUpdatePrice(boolean needUpdatePrice) {
+		this.needUpdatePrice = needUpdatePrice;
 	}
 	
 }
