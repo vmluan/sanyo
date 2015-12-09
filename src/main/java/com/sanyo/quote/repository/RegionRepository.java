@@ -7,6 +7,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 
 import com.sanyo.quote.domain.Encounter;
+import com.sanyo.quote.domain.Location;
 import com.sanyo.quote.domain.Region;
 import com.sanyo.quote.domain.UserRegionRole;
 
@@ -27,4 +28,5 @@ public interface RegionRepository extends PagingAndSortingRepository<Region, Int
     @Query("SELECT distinct r.userRegionRoles FROM Region r JOIN  r.userRegionRoles WHERE r.regionId = :id")
     public List<UserRegionRole> getUserRegionRoles(@Param("id") Integer id);
     
+    public List<Region> findByLocation(Location location);
 }

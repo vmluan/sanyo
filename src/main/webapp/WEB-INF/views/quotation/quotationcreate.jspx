@@ -28,7 +28,14 @@
 							<!--input name="locationSum" class="form-control" id="locationSum" type="text" value="${locationSum}"></input-->
 							<div id="locationSum" class="row"><jsp:text />
 							</div>
-						</div>						
+						</div>
+						<c:if test="${needUpdatePrice }"
+							<div class="col-md-6">			
+								<div class="form-group col-md-12 btn" >
+									<input type="button" value="Update Price" class="btn btn-primary btn pull-right" click="uppdatePrice();" />
+								</div>	
+							</div>
+						</c:if>										
 					</div>
 					<div class="col-md-12 col-md-12">
 						<div class="form-group col-md-2">
@@ -75,6 +82,22 @@
 	var mQtymQty = "${project.mQty}";
 	var pageContext = "${pageContext.request.contextPath}";
 	var exchangeRate = "${project.usdToVnd}";
+	
+	function uppdatePrice(){
+		 var url = pageContext + '/quotation/' + projectId + '/updatePrice';
+			$.ajax({
+				type : "POST",
+				contentType : 'application/json',
+				data : jsonData,
+				url : url,
+				success : function(msg) {
+					alert('update completed');
+				},
+				complete : function(xhr, status) {
+					// $("#assignRegionButton").prop('disabled', false);
+				}
+			});
+	}
 </script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/addQuotation.js">
 		<jsp:text/>

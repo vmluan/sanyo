@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.google.common.collect.Lists;
 import com.sanyo.quote.domain.Category;
 import com.sanyo.quote.domain.Encounter;
+import com.sanyo.quote.domain.Location;
 import com.sanyo.quote.domain.Region;
 import com.sanyo.quote.domain.UserRegionRole;
 import com.sanyo.quote.repository.CategoryRepository;
@@ -84,6 +85,11 @@ public class DefaultRegionService implements RegionService {
 	public void delete(Region region) {
 		regionRepository.delete(region);
 		
+	}
+
+	@Override
+	public List<Region> findByLocation(Location location) {
+		return regionRepository.findByLocation(location);
 	}
 	
 	

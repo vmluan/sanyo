@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.sanyo.quote.domain.Encounter;
+import com.sanyo.quote.domain.Location;
 import com.sanyo.quote.domain.Region;
 import com.sanyo.quote.domain.UserRegionRole;
 
@@ -29,4 +30,5 @@ public interface RegionService {
 	
 	void delete(Integer id);
 	void delete(Region region);
+	public List<Region> findByLocation(Location location);
 }

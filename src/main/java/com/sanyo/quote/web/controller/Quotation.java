@@ -295,4 +295,46 @@ public class Quotation extends CommonController {
 		}
 	return total.toString();
 	}
+	//function to update price for encounters of specific project.
+		@ResponseBody
+		@RequestMapping(value = "/{id}", params = "updatePrice", method = RequestMethod.POST)
+	    public void updatePrice(@PathVariable("id") String id, Model uiModel, HttpServletRequest httpServletRequest) {
+			Project project = projectService.findByIdAndFetchLocationsEagerly(Integer.valueOf(id));
+			Set<Location> locations = project.getLocations();
+			Iterator<Location> iterLocation = locations.iterator();
+			while(iterLocation.hasNext()){
+				Location location = iterLocation.next();
+				List<Region> regions = regionService.findByLocation(location);
+				for(Region region : regions){
+					List<Encounter> encounters = encounterService.findByRegion(region);
+					for(Encounter encounter : encounters){
+						if(encounter.isNeedUpdatePrice()){
+							//update encounter
+							Product product = encounter.getProduct();
+							encounter.setMat_w_o_Tax_USD(product.getMat_w_o_Tax_USD());
+							encounter.setMat_w_o_Tax_VND(product.getMat_w_o_Tax_VND());
+							encounter.setLabour(product.getLabour());
+							
+							//update related fields
+							updatePriceAfterDiscount(encounter, project);
+						}
+					}
+				}
+			}
+			
+	       
+		}
+		private void updatePriceAfterDiscount(Encounter encounter, Project project){
+			if(project.getVndToUsd() != null && project.getVndToUsd() != 0){
+				float result = encounter.getMat_w_o_Tax_USD() + encounter.getMat_w_o_Tax_VND()/project.getVndToUsd();
+				encounter.setUnit_Price_After_Discount(result);
+			}
+		}
+		private void updateUnitRate(Encounter encounter, Project project){
+			//var result = unit_Price_After_Discount * allowance/100;
+			
+		}
+		private void updateUnitPriceWTaxProfit(Encounter encounter, Project project){
+			
+		}
 }
