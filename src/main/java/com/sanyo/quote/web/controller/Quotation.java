@@ -8,6 +8,8 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sanyo.quote.domain.*;
+import com.sanyo.quote.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,32 +24,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import com.sanyo.quote.domain.Category;
-import com.sanyo.quote.domain.Encounter;
-import com.sanyo.quote.domain.EncounterJson;
-import com.sanyo.quote.domain.EncounterStatus;
-import com.sanyo.quote.domain.Location;
-import com.sanyo.quote.domain.Maker;
-import com.sanyo.quote.domain.MakerJson;
-import com.sanyo.quote.domain.MakerProject;
-import com.sanyo.quote.domain.Product;
-import com.sanyo.quote.domain.ProductGroup;
-import com.sanyo.quote.domain.ProductGroupMaker;
-import com.sanyo.quote.domain.Project;
-import com.sanyo.quote.domain.ProjectStatus;
-import com.sanyo.quote.domain.Region;
 import com.sanyo.quote.helper.Constants;
 import com.sanyo.quote.helper.Utilities;
-import com.sanyo.quote.service.CategoryService;
-import com.sanyo.quote.service.EncounterService;
-import com.sanyo.quote.service.LocationService;
-import com.sanyo.quote.service.MakerProjectService;
-import com.sanyo.quote.service.MakerService;
-import com.sanyo.quote.service.ProductGroupMakerService;
-import com.sanyo.quote.service.ProductGroupService;
-import com.sanyo.quote.service.ProductService;
-import com.sanyo.quote.service.ProjectService;
-import com.sanyo.quote.service.RegionService;
+
 /*
  * Controller for Encounter 
  */
@@ -84,6 +63,9 @@ public class Quotation extends CommonController {
 	
 	@Autowired
 	private MakerProjectService makerProjectService;
+
+	@Autowired
+	private ProductGroupRateService productGroupRateService;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String getQuotationPage(@RequestParam(value="projectId", required=true) String projectId,
@@ -198,6 +180,8 @@ public class Quotation extends CommonController {
 			encounter = new Encounter();
 			Product product = productService.findById(Integer.valueOf(encounterJson.getProductId()));
 			encounter.setProduct(product); //set product
+			ProductGroup productGroup =  productGroupService.findById(product.getProductGroup().getGroupId());
+			//checking productGroup here to create record in ProductGroupRate
 			Region region = regionService.findById(Integer.valueOf(encounterJson.getRegionId()));
 			encounter.setRegion(region);
 		}

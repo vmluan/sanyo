@@ -19,4 +19,6 @@ public interface ProductGroupRateService {
     Page<ProductGroupRate> findAllByPage(Pageable pageable);
 
     List<ProductGroupRate> findByProjectId (Integer projectId);
+
+    List<ProductGroupRate> findByProjectIdAndProductGroupId (Integer projectId, Integer productGroupId);
 }

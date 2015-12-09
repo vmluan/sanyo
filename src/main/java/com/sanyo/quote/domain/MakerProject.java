@@ -58,7 +58,7 @@ public class MakerProject implements java.io.Serializable, Cloneable{
 	}
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="product_group_maker_id", nullable = false)
-	public ProductGroupMaker getProductGroupMaker() {
+	public ProductGroupMaker getProductGroupMaker(	) {
 		return productGroupMaker;
 	}
 	public void setProductGroupMaker(ProductGroupMaker productGroupMaker) {

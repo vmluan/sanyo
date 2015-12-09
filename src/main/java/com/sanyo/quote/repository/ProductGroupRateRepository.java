@@ -14,5 +14,8 @@ public interface ProductGroupRateRepository extends PagingAndSortingRepository<P
 
     @Query("SELECT p FROM ProductGroupRate p WHERE p.project = :projectId")
     public List<ProductGroupRate> findByProjectId(@Param("projectId")Integer projectId);
+
+    @Query("SELECT p FROM ProductGroupRate p WHERE p.project = :projectId and p.productGroup = :productGroupId")
+    public List<ProductGroupRate> findByProjectIdAndProductGroup (@Param("projectId")Integer projectId, @Param("projectId")Integer productGroupId);
 }
 
