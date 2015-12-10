@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.sanyo.quote.domain.Location;
+import com.sanyo.quote.domain.Project;
 import com.sanyo.quote.domain.Region;
 
 public interface LocationService {
@@ -24,5 +25,6 @@ public interface LocationService {
 	
 	void delete(Integer id);
 	void delete(Location location);
+	List<Location> findByProject(Project project);
 	
 }

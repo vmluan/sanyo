@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.collect.Lists;
 import com.sanyo.quote.domain.Location;
+import com.sanyo.quote.domain.Project;
 import com.sanyo.quote.domain.Region;
 import com.sanyo.quote.repository.LocationRepository;
 import com.sanyo.quote.service.LocationService;
@@ -62,6 +63,11 @@ public class DefaultLocationService implements LocationService {
 	@Override
 	public void delete(Location location) {
 		locationRepository.delete(location);
+	}
+
+	@Override
+	public List<Location> findByProject(Project project) {
+		return locationRepository.findByProject(project);
 	}
 
 }

@@ -7,6 +7,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 
 import com.sanyo.quote.domain.Location;
+import com.sanyo.quote.domain.Project;
 import com.sanyo.quote.domain.Region;
 
 
@@ -16,4 +17,6 @@ public interface LocationRepository extends PagingAndSortingRepository<Location,
 	
 	@Query("SELECT distinct l.regions FROM Location l JOIN l.regions WHERE l.locationId = :id")
 	List<Region> findRegions(@Param("id") Integer id);
+	
+	List<Location> findByProject(Project project);
 }

@@ -138,15 +138,31 @@ public class Quotation extends CommonController {
 	//get all assigned products of a specific project.
 	@RequestMapping(value = "/{id}/addquotation", params = "form", method = RequestMethod.GET)
 	public String showRegions(@PathVariable("id") Integer id, Model uiModel, HttpServletRequest httpServletRequest){
-//		Region region = regionService.findById(id);
-//		Encounter encounter = new Encounter();
-//		if(region != null){
-//			encounter.setRegion(region);
-//		}
+		
+		Project project = projectService.findById(id);
+		if(isNeedUpdatePrice(project))
+			uiModel.addAttribute("needUpdatePrice", true);
 		uiModel.addAttribute("regionType", httpServletRequest.getParameter("type"));
-		uiModel.addAttribute("project", projectService.findById(id));
+		uiModel.addAttribute("project", project);
 		setUser(uiModel);
 		return "quotation/create";
+	}
+	private boolean isNeedUpdatePrice(Project project){
+		List<Location> locations = locationService.findByProject(project);
+		boolean result = false;
+		for(Location location : locations){
+			List<Region> regions = regionService.findByLocation(location);
+			for(Region region : regions){
+				List<Encounter> encounters = encounterService.findByRegion(region);
+				for(Encounter encounter : encounters){
+					if(encounter.isNeedUpdatePrice()){
+						result = true;
+						return result;
+					}
+				}
+			}
+		}
+		return result;
 	}
 	@RequestMapping(value = "/getAssignedProductOfRegion", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
@@ -327,12 +343,15 @@ public class Quotation extends CommonController {
 						if(encounter.isNeedUpdatePrice()){
 							//update encounter
 							Product product = encounter.getProduct();
-							encounter.setMat_w_o_Tax_USD(product.getMat_w_o_Tax_USD());
-							encounter.setMat_w_o_Tax_VND(product.getMat_w_o_Tax_VND());
-							encounter.setLabour(product.getLabour());
+							if(product.getMat_w_o_Tax_USD() != null)
+								encounter.setMat_w_o_Tax_USD(product.getMat_w_o_Tax_USD());
+							if(product.getMat_w_o_Tax_VND() != null)
+								encounter.setMat_w_o_Tax_VND(product.getMat_w_o_Tax_VND());
+							if(product.getLabour() != null)
+								encounter.setLabour(product.getLabour());
 							
 							//update related fields
-							updatePriceAfterDiscount(encounter, project);
+							updateEncounterFields(encounter);
 						}
 					}
 				}
@@ -340,17 +359,74 @@ public class Quotation extends CommonController {
 			
 	       
 		}
+		private void updateEncounterFields(Encounter encounter){
+			Project project = encounter.getRegion().getLocation().getProject();
+			updatePriceAfterDiscount(encounter, project);
+			float allowance, specialCon, impTax, discountRate, vat;
+			allowance = specialCon = impTax = discountRate = vat= 0f;
+			List<ProductGroupRate> productGroupRates = productGroupRateService.findByProjectIdAndProductGroupId(project.getProjectId(), encounter.getProduct().getProductGroup().getGroupId());
+			if(productGroupRates != null && productGroupRates.size() >0){
+				//get 1 productGroupRate. Should not have multiple productGroupRate for each pair of project and productGroup
+				ProductGroupRate productGroupRate = productGroupRates.get(0);
+				allowance =productGroupRate.getAllowance();
+				discountRate = productGroupRate.getDiscount();
+			}else{
+				allowance = project.getAllowance();
+				discountRate = project.getDiscountRate();
+			}
+			impTax = project.getImpTax();
+			specialCon = project.getSpecialTax();
+			
+			updateUnitRate(encounter, allowance);
+			updateUnitPriceWTaxProfit(encounter, specialCon, impTax, discountRate, vat);
+			updateUnitPriceWTaxLabour(encounter);
+			updateCostMatAmountUsd(encounter);
+			updateCostMatAmountVnd(encounter);
+			updateLabour(encounter);
+			updateAmount(encounter);
+		}
 		private void updatePriceAfterDiscount(Encounter encounter, Project project){
 			if(project.getVndToUsd() != null && project.getVndToUsd() != 0){
 				float result = encounter.getMat_w_o_Tax_USD() + encounter.getMat_w_o_Tax_VND()/project.getVndToUsd();
 				encounter.setUnit_Price_After_Discount(result);
 			}
 		}
-		private void updateUnitRate(Encounter encounter, Project project){
+		
+		private void updateUnitRate(Encounter encounter, float allowance){
 			//var result = unit_Price_After_Discount * allowance/100;
+			encounter.setUnitRate(encounter.getUnit_Price_After_Discount()*allowance/100);
+		}
+		private void updateUnitPriceWTaxProfit(Encounter encounter, float specialCon, float impTax, float discountRate, float vat){
+			//var result = unit_Price_After_Discount*(1+(1+specialCon*(1+impTax))*vat)*discountRate;
+			float result = encounter.getUnit_Price_After_Discount()*(1+(1+specialCon*(1+impTax))*vat)*discountRate;
+			encounter.setUnit_Price_W_Tax_Profit(result);
+		}
+		private void updateUnitPriceWTaxLabour(Encounter encounter){
+			//var result = labour * subcon_Profit;
+			float result = encounter.getLabour() * encounter.getSubcon_Profit()/100;
+			encounter.setUnit_Price_W_Tax_Labour(result);
 			
 		}
-		private void updateUnitPriceWTaxProfit(Encounter encounter, Project project){
-			
+		private void updateCostMatAmountUsd(Encounter encounter){
+			//var result = unit_Price_After_Discount * qtyManual;
+			float result = encounter.getUnit_Price_After_Discount()*encounter.getQuantity();
+			encounter.setCost_Mat_Amount_USD(result);
+		}
+		private void updateCostMatAmountVnd(Encounter encounter){
+			//var result = unit_Price_W_Tax_Labour * qtyManual;
+			float result = encounter.getUnit_Price_W_Tax_Labour() * encounter.getQuantity();
+			encounter.setCost_Labour_Amount_USD(result);
+		}
+		private void updateLabour(Encounter encounter){
+			//var result = unit_Price_W_Tax_Labour * quantity;
+			float result = encounter.getUnit_Price_W_Tax_Labour() * encounter.getQuantity();
+			encounter.setLabour(result);
+		}
+		private void updateAmount(Encounter encounter){
+			//var result = quantity * unitRate;
+			float result = encounter.getActualQuantity() * encounter.getUnitRate();
+		}
+		private void updateMat_w_o_Tax_USD(){
+			//update later for range and percent
 		}
 }
