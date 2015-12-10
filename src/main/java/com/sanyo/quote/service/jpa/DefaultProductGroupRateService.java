@@ -1,7 +1,9 @@
 package com.sanyo.quote.service.jpa;
 
 import com.google.common.collect.Lists;
+import com.sanyo.quote.domain.ProductGroup;
 import com.sanyo.quote.domain.ProductGroupRate;
+import com.sanyo.quote.domain.Project;
 import com.sanyo.quote.repository.ProductGroupRateRepository;
 import com.sanyo.quote.service.ProductGroupRateService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,4 +55,9 @@ public class DefaultProductGroupRateService implements ProductGroupRateService {
     public List<ProductGroupRate> findByProjectIdAndProductGroupId(Integer projectId, Integer productGroupId) {
         return productGroupRateRepository.findByProjectIdAndProductGroup(projectId,productGroupId);
     }
+
+	@Override
+	public List<ProductGroupRate> findByProjectAndProductGroup(Project project, ProductGroup productGroup) {
+		return productGroupRateRepository.findByProjectAndProductGroup(project, productGroup);
+	}
 }

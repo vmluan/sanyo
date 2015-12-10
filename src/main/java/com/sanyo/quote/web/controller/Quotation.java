@@ -204,7 +204,7 @@ public class Quotation extends CommonController {
 			//checking productGroup here to create record in ProductGroupRate
 			productGroup =  productGroupService.findById(product.getProductGroup().getGroupId());
 			Project project = region.getLocation().getProject();
-			List<ProductGroupRate> productGroupRates = productGroupRateService.findByProjectIdAndProductGroupId(project.getProjectId(), productGroup.getGroupId());
+			List<ProductGroupRate> productGroupRates = productGroupRateService.findByProjectAndProductGroup(project, productGroup);
 			if (productGroupRates.size()>0){
 				//do nothing-don't need to add new record to ProductGroupRate
 			}
@@ -364,7 +364,7 @@ public class Quotation extends CommonController {
 			updatePriceAfterDiscount(encounter, project);
 			float allowance, specialCon, impTax, discountRate, vat;
 			allowance = specialCon = impTax = discountRate = vat= 0f;
-			List<ProductGroupRate> productGroupRates = productGroupRateService.findByProjectIdAndProductGroupId(project.getProjectId(), encounter.getProduct().getProductGroup().getGroupId());
+			List<ProductGroupRate> productGroupRates = productGroupRateService.findByProjectAndProductGroup(project, encounter.getProduct().getProductGroup());
 			if(productGroupRates != null && productGroupRates.size() >0){
 				//get 1 productGroupRate. Should not have multiple productGroupRate for each pair of project and productGroup
 				ProductGroupRate productGroupRate = productGroupRates.get(0);
