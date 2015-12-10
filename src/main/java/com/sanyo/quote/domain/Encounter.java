@@ -55,7 +55,7 @@ public class Encounter implements Serializable, Cloneable{
 	private float Unit_Price_W_Tax_Labour; //=labour*Subcon_Profit
 	private float Cost_Mat_Amount_USD; // = Unit_Price_After_Discount * quantity
 	private float Cost_Labour_Amount_USD; //=Unit_Price_W_Tax_Labour* quantity
-	private Region region;
+	private Region region; // link between Encounter and project: region -> location -> project
 	private EncounterStatus status;
 //	private Location location;
 	private float labourAfterTax;

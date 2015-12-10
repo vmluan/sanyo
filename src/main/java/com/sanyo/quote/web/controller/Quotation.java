@@ -174,16 +174,32 @@ public class Quotation extends CommonController {
 	}
 	private void saveEncounter(EncounterJson encounterJson){
 		Encounter encounter;
+		ProductGroup productGroup;
 		if(encounterJson.getEncounterID() != null && encounterJson.getEncounterID() >0){
 			encounter = encounterService.findById(encounterJson.getEncounterID());
 		}else{
+			//Create new encounter
 			encounter = new Encounter();
 			Product product = productService.findById(Integer.valueOf(encounterJson.getProductId()));
 			encounter.setProduct(product); //set product
-			ProductGroup productGroup =  productGroupService.findById(product.getProductGroup().getGroupId());
-			//checking productGroup here to create record in ProductGroupRate
 			Region region = regionService.findById(Integer.valueOf(encounterJson.getRegionId()));
 			encounter.setRegion(region);
+
+			//checking productGroup here to create record in ProductGroupRate
+			productGroup =  productGroupService.findById(product.getProductGroup().getGroupId());
+			Project project = region.getLocation().getProject();
+			List<ProductGroupRate> productGroupRates = productGroupRateService.findByProjectIdAndProductGroupId(project.getProjectId(), productGroup.getGroupId());
+			if (productGroupRates.size()>0){
+				//do nothing-don't need to add new record to ProductGroupRate
+			}
+			else{
+				ProductGroupRate productGroupRate = new ProductGroupRate();
+				productGroupRate.setProductGroup(productGroup);
+				productGroupRate.setProject(project);
+				productGroupRate.setDiscount(project.getDiscountRate()); //Get default Discount rate from project configuration
+				productGroupRate.setAllowance(project.getAllowance()); //Get default Discount rate from project configuration
+				productGroupRateService.save(productGroupRate);
+			}
 		}
 		if(Utilities.isValidInputNumber(encounterJson.getActualQuantity()))
 			encounter.setActualQuantity(Float.valueOf(encounterJson.getActualQuantity()));
