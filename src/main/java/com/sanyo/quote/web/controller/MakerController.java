@@ -14,6 +14,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -112,6 +114,13 @@ public final class MakerController {
 		}
 		return Utilities.jSonSerialization(listOfSystem);
 	}
+	//function to delete makerProject.
+		@ResponseBody
+		@RequestMapping(value = "/{id}", params = "delete", method = RequestMethod.POST)
+	    public void deleteMakerProject(@PathVariable("id") String id, Model uiModel, HttpServletRequest httpServletRequest) {
+			makerProjectService.delete(Integer.valueOf(id));
+	       
+		}
 //	private Set<ProductGroupMaker> getCollection(Set<ProductGroupMaker> makers, String regionType){
 //		Set<ProductGroupMaker> results = new HashSet<ProductGroupMaker>();
 //		Iterator<ProductGroupMaker> iterator = makers.iterator();

@@ -55,6 +55,12 @@ public class DefaultMakerProjectService implements MakerProjectService {
 		return makerProjectRepository.findByProjectAndCategory(project, category);
 	}
 
+	@Override
+	public void delete(Integer id) {
+		makerProjectRepository.delete(id);
+		
+	}
+
 
 
 }

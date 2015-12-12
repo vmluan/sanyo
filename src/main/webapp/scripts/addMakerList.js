@@ -815,12 +815,13 @@ function showResultGrid(categoryId) {
 									datafield : '',
 									width : '10%',
 									cellsrenderer : function(row, column, value) {
-										return '<div class="col-md-6">'
-												+ '<a class="btn btn-app" onclick="updateItem('
-												+ row
-												+ ')">'
-												+ '<i class="glyphicon glyphicon-edit"></i>'
-												+ '</div>';
+										return '<div class="col-md-12">'
+										+'<p>'
+											+ '<button class="btn bg-olive margin col-md-4"  onclick="updateItem('+ row +  ')"' + '>Update</button>'
+											+ '<button class="btn btn-danger margin col-md-4" onclick="deleteItem('+ value +  ')"' +'>Delete</button>'
+										+ '</p>'
+									+ '</div>'
+									;
 									},
 									cellbeginedit : function(row) {
 										return false;
@@ -836,4 +837,20 @@ function updateMakerAdapter(productGroupCode){
 	sourceMaker.data.productGroudCode = productGroupCode;
 	dataAdapterMaker = new $.jqx.dataAdapter(sourceMaker);
 	return dataAdapterMaker;
+}
+function deleteItem(makerId){
+	var url = pageContext + '/makers/' + markerId + '?delete';
+	var result = confirm('Do you want to delete this record?');
+    if (result == false)
+		return;
+	$.ajax({
+		type : "POST",
+		contentType : 'application/json',
+		url : url,
+		success : function(msg) {
+			$("#listResult").jqxGrid('updatebounddata');
+		},
+		complete : function(xhr, status) {
+		}
+	});
 }

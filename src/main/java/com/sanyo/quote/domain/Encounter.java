@@ -61,8 +61,10 @@ public class Encounter implements Serializable, Cloneable{
 	private float labourAfterTax;
 	private Float nonamePercent;
 	private String nonameRange;
-	private boolean needUpdatePrice = false;
-
+	private boolean needUpdatePrice = false; // to have Update Price button enabled in GUI when price is updated.There is a trigger in database to update this fields
+	private boolean hasMakerDeleted = false; // to highlight records in GUI when the maker is deleted. There is a trigger in database to update this fields
+	 //encounter --> product --> productGroup
+	//makerProject --> productGroupMaker --> productGroup
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ENCOUNTER_ID", nullable = false)
@@ -326,5 +328,12 @@ public class Encounter implements Serializable, Cloneable{
 	public void setNeedUpdatePrice(boolean needUpdatePrice) {
 		this.needUpdatePrice = needUpdatePrice;
 	}
+	public boolean isHasMakerDeleted() {
+		return hasMakerDeleted;
+	}
+	public void setHasMakerDeleted(boolean hasMakerDeleted) {
+		this.hasMakerDeleted = hasMakerDeleted;
+	}
+	
 	
 }

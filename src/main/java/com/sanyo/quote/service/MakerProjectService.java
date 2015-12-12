@@ -21,5 +21,6 @@ public interface MakerProjectService {
 	
 	List<MakerProject> findByProject(Project project);
 	public List<MakerProject> findByProjectAndCategory(Project project, Category category);
+	void delete(Integer id);
 	
 }
