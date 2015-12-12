@@ -28,7 +28,7 @@
 		   		--check if that productGroup is in the above productGroupMaker list
 		   			-- if yes, it is ok
 		   			-- if no, update encounter set hasMakerDelete to true
-		   					
+	   					
 		DROP TRIGGER IF EXISTS makerProjectDelte;
 		DELIMITER //
 
@@ -51,9 +51,10 @@
 				and p.PROJECT_ID = old.project_id
 				and pro.product_group_id = pg.product_group_id
 				and e.PRODUCT_ID = pro.PRODUCT_ID
-				
-	            and not exists (select * from productgroup_maker pgm
-								where pgm.ProductGroup_id =  pg.product_group_id
+	            and not exists (select * from maker_project mp, productgroup_maker pgm
+								where mp.id <> old.id
+                                and mp.product_group_maker_id = pgm.id
+                                and pgm.Maker_id = pro.maker_id
 								)
 				;
 				-- declare NOT FOUND handler
@@ -68,7 +69,7 @@
 				     END IF;				 
 					 FETCH encounter_cursor INTO v_encounter;
 					update sanyo.encounter
-					set needUpdatePrice = true
+					set hasMakerDeleted = true
 					where encounter_id = v_encounter;
 			
 				END LOOP get_encounter;
