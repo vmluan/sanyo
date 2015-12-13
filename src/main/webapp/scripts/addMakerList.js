@@ -812,8 +812,8 @@ function showResultGrid(categoryId) {
 								{
 									text : 'Action',
 									align : 'center',
-									datafield : '',
-									width : '10%',
+									datafield : 'id',
+									width : '30%',
 									cellsrenderer : function(row, column, value) {
 										return '<div class="col-md-12">'
 										+'<p>'
@@ -839,7 +839,7 @@ function updateMakerAdapter(productGroupCode){
 	return dataAdapterMaker;
 }
 function deleteItem(makerId){
-	var url = pageContext + '/makers/' + markerId + '?delete';
+	var url = pageContext + '/makers/' + makerId + '?delete';
 	var result = confirm('Do you want to delete this record?');
     if (result == false)
 		return;
@@ -848,7 +848,7 @@ function deleteItem(makerId){
 		contentType : 'application/json',
 		url : url,
 		success : function(msg) {
-			$("#listResult").jqxGrid('updatebounddata');
+			$("#listResultMaker").jqxGrid('updatebounddata');
 		},
 		complete : function(xhr, status) {
 		}
