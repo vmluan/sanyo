@@ -84,10 +84,11 @@ public class Project implements java.io.Serializable, Cloneable {
 	private Date lmodDate;
 	private Date createdDate;
 	
-	@DateTimeFormat(pattern = "MM/dd/yyyy")
+	@DateTimeFormat(pattern = "MM/yyyy")
 	private Date startDate;
-	@DateTimeFormat(pattern = "MM/dd/yyyy")
+	@DateTimeFormat(pattern = "MM/yyyy")
 	private Date endDate;
+	private boolean needUpdatePrice = false;
 	
 //	private Set<ProductGroupMaker> productGroupMakers;
 	private Set<Expenses> expenses;
@@ -501,6 +502,14 @@ public class Project implements java.io.Serializable, Cloneable {
 
 	public void setMakerProjects(Set<MakerProject> makerProjects) {
 		this.makerProjects = makerProjects;
+	}
+
+	public boolean isNeedUpdatePrice() {
+		return needUpdatePrice;
+	}
+
+	public void setNeedUpdatePrice(boolean needUpdatePrice) {
+		this.needUpdatePrice = needUpdatePrice;
 	}
 
 	@Override

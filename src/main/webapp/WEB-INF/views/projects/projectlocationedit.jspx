@@ -55,7 +55,7 @@
 					</div>					
 				</div>			
 				<div class="col-md-12">					
-					<button type="button" class="btn btn-primary" onclick="goBack();">Back</button>
+					<button type="button" class="btn btn-primary" onclick="goBack(${location.project.projectId});">Back</button>
 					&amp;nbsp;&amp;nbsp;
                     <button type="submit" class="btn btn-primary">Submit</button>
 				</div>				

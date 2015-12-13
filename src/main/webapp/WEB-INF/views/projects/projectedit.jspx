@@ -312,6 +312,7 @@
 					</div>				
 				
 				</div>
+				<!-- 
 				<div class="col-md-4">
 					<div class="form-group">
 						<form:label path="description">
@@ -322,7 +323,8 @@
 					<div>
 						<form:errors path="description" cssClass="error" />
 					</div>					
-				</div>				
+				</div>	
+				 -->			
 				<div class="col-md-12">
                   <div class="form-group">
                     <button type="button" class="btn btn-primary" onclick="submitForm(this.form)">Submit</button>
@@ -755,9 +757,9 @@ var pageContext = "${pageContext.request.contextPath}";
 	$("#startDateDiv").jqxDateTimeInput({ 
 		width: '200px', 
 		height: '32px', 
-		formatString: 'd'
+		formatString: 'MM/yyyy'
 		});
-	$("#endDateDiv").jqxDateTimeInput({ width: '200px', height: '32px', formatString: 'd'});
+	$("#endDateDiv").jqxDateTimeInput({ width: '200px', height: '32px', formatString: 'MM/yyyy'});
 	function submitForm(form){
 		form.startDate.value=$("#startDateDiv").val();
 		form.endDate.value=$("#endDateDiv").val();

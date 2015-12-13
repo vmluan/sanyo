@@ -101,7 +101,7 @@ public class ReportExcel extends ExcelHelper{
 		cellProjectName.setCellValue(project.getProjectName());
 		Row rowDate = sheet.getRow(0);
 		Cell cellDate = rowDate.getCell(9);
-//		cellDate.setCellValue(project.getCreatedDate());
+		cellDate.setCellValue(project.getCreatedDate());
 		
 		Cell cellRefNo = sheet.getRow(1).getCell(9);
 		cellRefNo.setCellValue(project.getProjectCode());
@@ -731,6 +731,7 @@ private void createRegionHeaderRow(Region region, XSSFSheet sheet, RowCount rowC
 		cell2.setCellValue(Constants.MECH_WORKS);
 		createSummarySheetCommon(sheet, mechSummaryTree, rowCount);
 		rowCount.addMoreValue(1);
+		createSubTotalSummaryAll(8, rowCount, sheet);
 	}
 	private void createSummarySheetCommon(XSSFSheet sheet, TreeMap<String, List<SummaryRegion>> tree, RowCount rowCount){
 		Set<String> elecLocations = tree.keySet();
@@ -762,8 +763,16 @@ private void createRegionHeaderRow(Region region, XSSFSheet sheet, RowCount rowC
 			{
 				if(tree.lastEntry().getValue().get(0) != null){
 					Region region = tree.lastEntry().getValue().get(0).getRegion();
-					if(region!=null && region.getCategory() != null && region.getCategory().getParentCategory() != null)
-						createSubTotalSummarySheet(start, rowCount, sheet,region.getCategory().getParentCategory().getName() );
+					if(region!=null && region.getCategory() != null && region.getCategory().getParentCategory() != null){
+//						createSubTotalSummarySheet(start, rowCount, sheet,region.getCategory().getParentCategory().getName() );
+						String name = "";
+						if(tree.equals(elecSummaryTree))
+							name = Constants.ELECT_WORKS;
+						else if (tree.equals(elecSummaryTree))
+							name = Constants.MECH_WORKS;
+						createSubTotalSummarySheet(start, rowCount, sheet,name);
+						
+					}
 				}
 			}
 		};
@@ -779,6 +788,15 @@ private void createRegionHeaderRow(Region region, XSSFSheet sheet, RowCount rowC
 		writeCellFomula(cell5, strFomula);
 		endRow.addMoreValue(2);
 //		updateCellStyleSummarySheet(row);
+	}
+	private void createSubTotalSummaryAll(int startRow, RowCount endRow, XSSFSheet sheet){
+		Row row = sheet.createRow(endRow.getRowCount());
+		Cell cell1 = row.createCell(2);
+		writeCellValue(cell1, "SUB TOTAL ELECTRICAL AND MECHANICAL WORKS");
+		String strFomula = getSubTotalFormula(startRow, endRow.getRowCount(), "F");
+		Cell cell5 = row.createCell(5); //amount
+		writeCellFomula(cell5, strFomula);
+		endRow.addMoreValue(2);
 	}
 	private void updateCellStyleSummarySheet(Row row){
 		for(int i=0; i< 7; i++){

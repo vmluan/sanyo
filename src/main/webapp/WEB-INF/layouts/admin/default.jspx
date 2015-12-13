@@ -49,7 +49,9 @@
         }
     </style>
    <!-- REQUIRED JS SCRIPTS -->
-
+	<script>
+		var pageContext = "${pageContext.request.contextPath}";
+	</script>
     <!-- jQuery 2.1.4 -->
     <script src="${pageContext.request.contextPath}/resources/plugins/jQuery/jQuery-2.1.4.min.js"><jsp:text/></script>
     <!-- Bootstrap 3.3.5 -->
@@ -131,9 +133,7 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/jqwidgets/jqxcalendar.js"><jsp:text/></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/jqwidgets/globalization/globalize.js"><jsp:text/></script>
      
-	<script>
-		var pageContext = "${pageContext.request.contextPath}";
-	</script>
+
   </head>
 
   <body class="hold-transition skin-blue sidebar-mini">
