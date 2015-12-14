@@ -26,6 +26,7 @@ public class Location implements java.io.Serializable, Cloneable {
 	private String locationDesc;
 	private Project project;
 	private Set<Region> regions;
+	private Integer orderNo;
 	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -82,5 +83,12 @@ public class Location implements java.io.Serializable, Cloneable {
 		
 		return clonedLocation;
 	}
+	public Integer getOrderNo() {
+		return orderNo;
+	}
+	public void setOrderNo(Integer orderNo) {
+		this.orderNo = orderNo;
+	}
+	
 	
 }
