@@ -118,9 +118,9 @@ $("#listLocation")
 								//update startRow
 								if(startRow != cell.row){
 									if(startRowOrderNo < endRowOrderNo){
-										updateOrderNo(startRowOrderNo, endRowOrderNo, - 1 );
+										updateOrderNo(startRowOrderNo +1, endRowOrderNo, - 1 );
 									}else{
-										updateOrderNo(endRowOrderNo, startRowOrderNo, +1);
+										updateOrderNo(endRowOrderNo -1, startRowOrderNo, +1);
 									}
 									$("#listLocation").jqxGrid('setcellvalue', startRow, "orderNo", endRowOrderNo);
 								}
@@ -155,7 +155,7 @@ $("#listLocation")
 								cellsformat : 'c0',
 								width : '30%'
 							}, {
-								text : '',
+								text : 'Order',
 								datafield : 'orderNo',
 								hidden : false,
 								width : '10%'
@@ -200,14 +200,46 @@ function deleteLocation(id){
 }
 
 // for drag and drop
-//$("#jqx-grid-cell").$.jqxDragDrop({ dropTarget: $('#listLocation') });
 function updateOrderNo(start, end, increment){
 	var rows = $("#listLocation").jqxGrid('getrows'); //get all rows with order as displayed on GUI
 	var length = rows.length;
 	//$('#listLocation').jqxGrid('getrowdatabyid', rowid);
 	for(var i = start; i <= end; i++){
-		var row = rows[i];
-		//var currentOrderNo = $('#listLocation').jqxGrid('getcellvalue', i, "orderNo");
-		//$("#listLocation").jqxGrid('setcellvalue', i, "orderNo", currentOrderNo + increment);
+		var uid = rows[i-1].uid;
+		var currentOrderNo = $('#listLocation').jqxGrid('getcellvaluebyid', uid, "orderNo");
+		$("#listLocation").jqxGrid('setcellvaluebyid', uid, "orderNo", currentOrderNo + increment);
 	}
+}
+$("#listLocation").on('cellvaluechanged', function (event) 
+{
+    // event arguments.
+    var args = event.args;
+    // column data field.
+    var datafield = event.args.datafield;
+	if(datafield == 'orderNo'){
+		// row's bound index.
+		var rowBoundIndex = args.rowindex;
+		// new cell value.
+		var value = args.newvalue;
+		// old cell value.
+		var oldvalue = args.oldvalue;
+		var locationId = $('#listLocation').jqxGrid('getcellvalue', rowBoundIndex, "locationId");
+		synchOrderNo(locationId,value);
+	}
+	
+});
+function synchOrderNo(locationId, newOrderNo){
+	var url = pageContext + '/projects/locations/' + locationId + '?updateOrder';
+	$.ajax({
+		type : "POST",
+		url : url,
+		data: {
+			orderNo : newOrderNo
+		},
+		success : function(msg) {
+			$("#listLocation").jqxGrid('updatebounddata');
+		},
+		complete : function(xhr, status) {
+		}
+	});
 }

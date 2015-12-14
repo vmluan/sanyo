@@ -850,6 +850,16 @@ public class ProjectController extends CommonController {
         setHeader(uiModel, "Location", "Update Location");
         uiModel.addAttribute("message", new Message("success", messageSource.getMessage("location_save_success", new Object[]{}, locale)));
 		return "projects/locations/update";
+	}
+	@RequestMapping(value = "/locations/{id}", params = "updateOrder", method = RequestMethod.POST)
+	@ResponseBody
+	public void  updateLocationOrder(@PathVariable Integer id
+			, @RequestParam(value="orderNo", required=true) String orderNo
+			, HttpServletRequest httpServletRequest){
+		System.out.println("=============== update location order");
+		Location location = locationService.findById(id);
+		location.setOrderNo(Integer.valueOf(orderNo));
+		locationService.save(location);
 	}	
 	@RequestMapping(value = "/getLocationsJson", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
