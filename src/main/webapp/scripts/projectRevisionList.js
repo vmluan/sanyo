@@ -96,10 +96,8 @@ $("#listRevision")
 								width : '35%',
 								cellsrenderer : function(row, column, value) {
 									return '<div class="col-md-12">'
-												+'<p>'
-													+ '<button type="button" class="btn bg-olive margin col-md-5"  onclick="updateRevison('+ value +  ')"' + '>Edit</button>'
-													+ '<button type="button" class="btn btn-danger margin col-md-1" onclick="deleteRevison('+ value +  ')"' + '>X</button>'
-												+ '</p>'
+													+ '<button type="button" class="btn bg-olive col-md-5"  onclick="updateRevison('+ value +  ')"' + '>Edit</button>'
+													+ '<button type="button" class="btn btn-danger col-md-1" onclick="deleteRevison('+ value +  ')"' + '>X</button>'
 											+ '</div>'
 											;										
 								}
