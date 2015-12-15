@@ -1,4 +1,4 @@
-		DROP TRIGGER IF EXISTS locationAddTrigger;
+DROP TRIGGER IF EXISTS locationAddTrigger;
 		DELIMITER //
 
 		CREATE TRIGGER locationAddTrigger
@@ -12,8 +12,9 @@
 			from sanyo.location
 			where project_id=NEW.project_id;
 			
-			DECLARE CONTINUE HANDLER 
-				        FOR NOT FOUND SET v_max_orderNo = 0;
+            if v_max_orderNo is null then
+				set v_max_orderNo =0;
+            end if;
 			set NEW.orderNo = v_max_orderNo +1;        
 		END;
 

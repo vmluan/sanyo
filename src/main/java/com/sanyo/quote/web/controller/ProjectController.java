@@ -46,6 +46,7 @@ import com.sanyo.quote.domain.Currency;
 import com.sanyo.quote.domain.CurrencyExchRate;
 import com.sanyo.quote.domain.Encounter;
 import com.sanyo.quote.domain.Location;
+import com.sanyo.quote.domain.LocationJson;
 import com.sanyo.quote.domain.MakerProject;
 import com.sanyo.quote.domain.ProductGroup;
 import com.sanyo.quote.domain.ProductGroupMaker;
@@ -563,18 +564,30 @@ public class ProjectController extends CommonController {
 		if(regionJsons != null && regionJsons.length >0){
 			for(int i=0; i< regionJsons.length; i++){
 				RegionJson regionJson = regionJsons[i];
-				if(regionJson.getLocationName().trim().equalsIgnoreCase("ALL")){
+				boolean hasAllChecked = false;
+				for(LocationJson locationJson : regionJson.getLocations()){
+					if(locationJson.getLocationName().trim().equalsIgnoreCase("ALL")){
+						hasAllChecked = true;
+						break;
+					}
+				}
+				if(hasAllChecked){
 					for(Location location : locations){
 						saveNewRegion(regionJson, location);
 					}
 				}else{
-					Location existingLocation = null;
-					for(Location location : locations){
-						if(location.getLocationName().equalsIgnoreCase(regionJson.getLocationName().trim())){
-							existingLocation = location;
+					
+					for(LocationJson locationJson : regionJson.getLocations()){
+						Location existingLocation = null;
+						
+						for(Location location : locations){
+							if(location.getLocationName().equalsIgnoreCase(locationJson.getLocationName().trim())){
+								existingLocation = location;
+							}
 						}
+						if(existingLocation != null)
+							saveNewRegion(regionJson, existingLocation);					
 					}
-					saveNewRegion(regionJson, existingLocation);
 				}
 				
 				
