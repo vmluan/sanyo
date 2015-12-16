@@ -378,30 +378,34 @@ function loadAddQuotationGrid() {
 											source : dataAdapterMaker,
 											displayMember : "name",
 											valueMember : "id",
+											checkboxes: true,
 											promptText : "Please Choose:"
 										});
-										editor.on('select', function(event) {
-											var args = event.args;
-											if (args) {
-												var index = args.index;
-												var item = args.item;
-												// get item's label and value.
-												var label = item.label;
-												var value = item.value;
-												// set value to hidden field
-												$("#listMaker").jqxGrid(
-														'setcellvalue', 0,
-														"makerId", value);
-											}
-										});
+										
 									},
 									geteditorvalue : function(row, cellvalue,
 											editor) {
 										// return the editor's value.
-										var item = editor
-												.jqxComboBox('getSelectedItem');
-										if (item) {
-											return item.label;
+										var items = editor.jqxComboBox('getCheckedItems');
+										console.log(items);
+										var item = editor.jqxComboBox('getSelectedItem');
+										if (items) {
+											var makers = '';
+											var makerIds = '';
+											for(var i=0; i< items.length; i++){
+												if(i==0){
+													makers = items[i].label;
+													makerIds = items[i].value;
+												}
+												else{
+													makers += ', ' + items[i].label;
+													makerIds += ", " + items[i].value;
+												}
+											}
+											$("#listMaker").jqxGrid(
+													'setcellvalue', 0,
+													"makerId", makerIds);											
+											return makers;
 										}
 									}
 
@@ -448,6 +452,22 @@ function loadAddQuotationGrid() {
 											autoOpen : false,
 											autoDropDownHeight : true
 										});
+										editor.on('select', function(event) {
+											var args = event.args;
+											if (args) {
+												var index = args.index;
+												var item = args.item;
+												if(item){
+													var label = item.label;
+													var value = item.value;
+													// set value to hidden field
+													$("#listMaker").jqxGrid(
+															'setcellvalue', 0,
+															"remark", value);												
+												}
+
+											}
+										});										
 									},
 									initEditor : function(row, cellvalue,
 											editor, celltext, width, height) {

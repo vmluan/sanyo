@@ -105,34 +105,39 @@ public class Quotation extends CommonController {
 	@ResponseStatus(value = HttpStatus.OK)
 	public void saveMakers(@RequestBody final MakerJson makerJson, @PathVariable("id") Integer id, Model uiModel, HttpServletRequest httpServletRequest){
 		System.out.println("=================================== saving Maker list");
-		Maker maker = makerService.findById(Integer.valueOf(makerJson.getMakerId()));
-		ProductGroup productGroup = productGroupService.findById(Integer.valueOf(makerJson.getProductGroupId()));
-		List<ProductGroupMaker> productGroupMakers = productGroupMakerService.findByProductGroupAndMaker(productGroup, maker);
-		
-		MakerProject makerProject = null;
-		if(makerJson.getId() != null && makerJson.getId() >0){
-			makerProject = makerProjectService.findById(makerJson.getId());
+		String makerIds = makerJson.getMakerId();
+		String[] tempArr = makerIds.split(",");
+		for(String makerId : tempArr){
+			Maker maker = makerService.findById(Integer.valueOf(makerId.trim().replace(" ","")));
+			ProductGroup productGroup = productGroupService.findById(Integer.valueOf(makerJson.getProductGroupId()));
+			List<ProductGroupMaker> productGroupMakers = productGroupMakerService.findByProductGroupAndMaker(productGroup, maker);
+			
+			MakerProject makerProject = null;
+			if(makerJson.getId() != null && makerJson.getId() >0){
+				makerProject = makerProjectService.findById(makerJson.getId());
+			}
+			if(makerProject == null){
+				makerProject = new MakerProject();
+				makerProject.setCreatedBy(Utilities.getCurrentUser().getUsername());
+			}
+			
+			if(productGroupMakers != null && productGroupMakers.size() >0){
+				makerProject.setProductGroupMaker(productGroupMakers.get(0));
+			}
+			Category category = categoryService.findById(Integer.valueOf(makerJson.getCategoryId()));
+			Project project = projectService.findById(id);
+			
+			
+			makerProject.setDelivery(makerJson.getDelivery());
+			makerProject.setModelNo(makerJson.getModelNo());
+			makerProject.setRemark(makerJson.getRemarks());
+			makerProject.setCategory(category);
+			makerProject.setProject(project);
+			makerProject.setEquivalent(makerJson.getEquivalent());
+			
+			makerProjectService.save(makerProject);
 		}
-		if(makerProject == null){
-			makerProject = new MakerProject();
-			makerProject.setCreatedBy(Utilities.getCurrentUser().getUsername());
-		}
-		
-		if(productGroupMakers != null && productGroupMakers.size() >0){
-			makerProject.setProductGroupMaker(productGroupMakers.get(0));
-		}
-		Category category = categoryService.findById(Integer.valueOf(makerJson.getCategoryId()));
-		Project project = projectService.findById(id);
-		
-		
-		makerProject.setDelivery(makerJson.getDelivery());
-		makerProject.setModelNo(makerJson.getModelNo());
-		makerProject.setRemark(makerJson.getRemarks());
-		makerProject.setCategory(category);
-		makerProject.setProject(project);
-		makerProject.setEquivalent(makerJson.getEquivalent());
-		
-		makerProjectService.save(makerProject);
+
 	}
 	
 	//get all assigned products of a specific project.
