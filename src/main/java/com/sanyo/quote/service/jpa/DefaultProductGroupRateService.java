@@ -5,6 +5,8 @@ import com.sanyo.quote.domain.ProductGroup;
 import com.sanyo.quote.domain.ProductGroupRate;
 import com.sanyo.quote.domain.Project;
 import com.sanyo.quote.repository.ProductGroupRateRepository;
+import com.sanyo.quote.repository.ProductGroupRepository;
+import com.sanyo.quote.repository.ProjectRepository;
 import com.sanyo.quote.service.ProductGroupRateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,6 +27,10 @@ public class DefaultProductGroupRateService implements ProductGroupRateService {
 
     @Autowired
     private ProductGroupRateRepository productGroupRateRepository;
+    @Autowired
+    private ProjectRepository projectRepository;
+    @Autowired
+    private ProductGroupRepository productGroupRepository;
 
     @Override
     public List<ProductGroupRate> findAll() {
@@ -48,12 +54,15 @@ public class DefaultProductGroupRateService implements ProductGroupRateService {
 
     @Override
     public List<ProductGroupRate> findByProjectId(Integer projectId) {
-        return productGroupRateRepository.findByProjectId(projectId);
+        Project project = projectRepository.findOne(projectId);
+        return productGroupRateRepository.findByProjectId(project);
     }
 
     @Override
     public List<ProductGroupRate> findByProjectIdAndProductGroupId(Integer projectId, Integer productGroupId) {
-        return productGroupRateRepository.findByProjectIdAndProductGroup(projectId,productGroupId);
+        Project project = projectRepository.findOne(projectId);
+        ProductGroup productGroup = productGroupRepository.findOne(productGroupId);
+        return productGroupRateRepository.findByProjectIdAndProductGroup(project,productGroup);
     }
 
 	@Override

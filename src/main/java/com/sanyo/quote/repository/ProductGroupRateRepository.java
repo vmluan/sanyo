@@ -15,13 +15,12 @@ import com.sanyo.quote.domain.Project;
  */
 public interface ProductGroupRateRepository extends PagingAndSortingRepository<ProductGroupRate, Integer> {
 
-    @Query("SELECT p FROM ProductGroupRate p WHERE p.project = :projectId")
-    public List<ProductGroupRate> findByProjectId(@Param("projectId")Integer projectId);
-    
-    // Luan: i think this method will not work, use the below instead.
-    @Query("SELECT p FROM ProductGroupRate p WHERE p.project = :projectId and p.productGroup = :productGroupId")
-    public List<ProductGroupRate> findByProjectIdAndProductGroup (@Param("projectId")Integer projectId, @Param("projectId")Integer productGroupId);
-    
+    @Query("SELECT p FROM ProductGroupRate p WHERE p.project = :project")
+    public List<ProductGroupRate> findByProjectId(@Param("project")Project project);
+
+    @Query("SELECT p FROM ProductGroupRate p WHERE p.project = :project and p.productGroup = :productGroup")
+    public List<ProductGroupRate> findByProjectIdAndProductGroup (@Param("project")Project project, @Param("productGroup")ProductGroup productGroup);
+
     public List<ProductGroupRate> findByProjectAndProductGroup(Project project, ProductGroup productGroup);
 }
 
