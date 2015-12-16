@@ -12,14 +12,12 @@
 				  <li class="abc"><a href="${pageContext.request.contextPath}/quotation/${projectId }/addmakerlist?form&amp;type=elec" data-target="#tab_1-3" data-toggle="tab" aria-expanded="false">Electrical Maker</a></li>
 				  <li class="abc"><a href="${pageContext.request.contextPath}/quotation/${projectId }/addquotation?form&amp;type=elec" data-target="#tab_1-4" data-toggle="tab" aria-expanded="false">Electrical BOQ</a></li>
 
-
-                   <li class="abc"><a href="#tab_1-5" data-toggle="tab" aria-expanded="false">Summary</a></li>
-
                   <li class="abc"><a href="${pageContext.request.contextPath}/parameter?projectId=${projectId}" data-target="#tab_1-6" data-toggle="tab" aria-expanded="false">Summary-info</a></li>
                   <li class="abc"><a href="${pageContext.request.contextPath}/expenses/${projectId }/expenses?form" data-target="#tab_1-7" data-toggle="tab" aria-expanded="false"><![CDATA[M&E Expenses]]></a></li>
                   <li class="abc"><a href="${pageContext.request.contextPath}/condition_2?projectId=${projectId}" data-target="#tab_1-8" data-toggle="tab" aria-expanded="false">Condition 2</a></li>
                   <li class="abc"><a href="${pageContext.request.contextPath}/condition_1?projectId=${projectId}" data-target="#tab_1-9" data-toggle="tab" aria-expanded="false">Condition 1</a></li>
                   <li class="abc"><a href="${pageContext.request.contextPath}/cover?projectId=${projectId}" data-target="#tab_1-10" data-toggle="tab" aria-expanded="false">Cover</a></li>
+                    <li class="abc"><a href="${pageContext.request.contextPath}/summary/${projectId }" data-target="#tab_1-11" data-toggle="tab" aria-expanded="false">Summary</a></li>
                   <li class="pull-left header"><i class="fa fa-th"><jsp:text /></i>Quotation</li>
                 </ul>
                 <div class="tab-content">
@@ -56,12 +54,15 @@
                     <b>Loading...</b>
                   </div>
 
+                <div class="tab-pane" id="tab_1-11">
+                    <b>Loading...</b>
+                </div>
                 </div><!-- /.tab-content -->
               </div>
 <![CDATA[
               <script>
 				function resetAllTabs(){
-					for(var i=1; i< 11; i++){
+					for(var i=1; i< 12; i++){
 						var targ = "#tab_1-" + i;
 						if($(targ)){
 							$(targ).html('<b>Loading...Please wait.</b>');

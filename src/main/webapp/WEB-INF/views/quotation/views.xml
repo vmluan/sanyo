@@ -26,7 +26,7 @@
                        value="/WEB-INF/views/quotation/parameter.jspx" />
     </definition>
 
-    <definition extends="home" name="quotation/summary">
+    <definition extends="defaultWithoutHeaderFooter" name="quotation/summary">
         <put-attribute name="body"
                        value="/WEB-INF/views/quotation/summary.jspx" />
     </definition>

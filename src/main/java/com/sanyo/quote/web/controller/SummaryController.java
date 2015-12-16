@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping(value = "/summary")
 public class SummaryController {
 
-    @RequestMapping(method = RequestMethod.GET)
-    public String getBOQPage(Model uiModel) {
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public String getSummaryPage(Model uiModel) {
         return "quotation/summary";
     }
 }
