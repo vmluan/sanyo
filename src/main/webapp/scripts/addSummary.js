@@ -3,14 +3,14 @@
  */
 
 
-var urlProductGroup = pageContext + '/summary/getProductGroupRateJson';
+var urlProductGroup = pageContext + '/summary/getProductGroupRateJson/'+ projectId;
 var sourceProductGroupRate = {
     datatype : "json",
     datafields : [ {
         name : 'Code',
         type : 'string'
     }, {
-        name : 'M&E WORKS',
+        name : 'MEWORKS',
         type : 'string'
     }, {
         name : 'Discount',
@@ -19,10 +19,10 @@ var sourceProductGroupRate = {
         name : 'Allowance',
         type : 'float'
     }, {
-        name : 'Total M&E',
+        name : 'TotalME',
         type : 'float'
     }, {
-        name : 'Total labour M&E',
+        name : 'TotalLabourME',
         type : 'float'
     } ],
     sortcolumn : 'Code',
@@ -33,7 +33,7 @@ var sourceProductGroupRate = {
     },
     url : urlProductGroup
 };
-var dataAdapter = new $.jqx.dataAdapter(sourceProductGroupRate, {
+var dataProductGroupRateAdapter = new $.jqx.dataAdapter(sourceProductGroupRate, {
     downloadComplete: function (data, status, xhr) { },
     loadComplete: function (data) { },
     loadError: function (xhr, status, error) { }
@@ -42,7 +42,7 @@ var dataAdapter = new $.jqx.dataAdapter(sourceProductGroupRate, {
 $("#productGroupRate").jqxGrid(
     {
         width: 850,
-        source: dataAdapter,
+        source: dataProductGroupRateAdapter,
         pageable: true,
         autoheight: true,
         sortable: true,
@@ -51,14 +51,15 @@ $("#productGroupRate").jqxGrid(
         editable: true,
         selectionmode: 'multiplecellsadvanced',
         columns: [
-            { text: 'Product Name', columngroup: 'ProductDetails', datafield: 'ProductName', width: 250 },
-            { text: 'Quantity per Unit', columngroup: 'ProductDetails', datafield: 'QuantityPerUnit', cellsalign: 'right', align: 'right', width: 200 },
-            { text: 'Unit Price', columngroup: 'ProductDetails', datafield: 'UnitPrice', align: 'right', cellsalign: 'right', cellsformat: 'c2', width: 200 },
-            { text: 'Units In Stock', datafield: 'UnitsInStock', cellsalign: 'right', cellsrenderer: cellsrenderer, width: 100 },
-            { text: 'Discontinued', columntype: 'checkbox', datafield: 'Discontinued' }
+            { text: 'Code', datafield: 'Code', width: 250 },
+            { text: 'M&E WORKS',datafield: 'MEWORKS', cellsalign: 'right', align: 'right', width: 200 },
+            { text: 'Discount', datafield: 'Discount', align: 'right', cellsalign: 'right', cellsformat: 'c2', width: 200 },
+            { text: 'Allowance', datafield: 'Allowance', cellsalign: 'right', width: 100 },
+            { text: 'Total M&E', columngroup: 'total', datafield: 'TotalME' },
+            { text: 'Total Labour M&E', columngroup: 'total', datafield: 'TotalLabourME' }
         ],
         columngroups: [
-            { text: 'Product Details', align: 'center', name: 'ProductDetails' }
+            { text: 'Total', align: 'center', name: 'Total' }
         ]
     });
 

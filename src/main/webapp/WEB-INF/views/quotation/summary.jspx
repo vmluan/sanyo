@@ -22,6 +22,7 @@
 
 <script>
 var pageContext = "${pageContext.request.contextPath}";
+var projectId = "${projectId}";
 </script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/addSummary.js">
 <jsp:text/>
