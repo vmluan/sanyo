@@ -79,7 +79,7 @@
         </init-param>
         <load-on-startup>1</load-on-startup>
         <multipart-config>
-        	<max-file-size>500000</max-file-size>
+        	<max-file-size>50000000</max-file-size>
         </multipart-config>
     </servlet>
         

@@ -140,6 +140,8 @@ public class Product implements Serializable {
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="product")
 	private Set<LabourPrice> labourPrices;
 	
+	private String productNameVietnamese;
+	
 	public void setMinDiscountWholeSalePer(float minDiscountWholeSalePer) {
 		this.minDiscountWholeSalePer = minDiscountWholeSalePer;
 	}
@@ -423,6 +425,14 @@ public class Product implements Serializable {
 
 	public void setMaker(Maker maker) {
 		this.maker = maker;
+	}
+
+	public String getProductNameVietnamese() {
+		return productNameVietnamese;
+	}
+
+	public void setProductNameVietnamese(String productNameVietnamese) {
+		this.productNameVietnamese = productNameVietnamese;
 	}
 
 	@Override

@@ -556,7 +556,7 @@ public class ProductController {
 				productGroupMakerService.save(pgm);
 			}
 			for(Row row: sheet){
-				if(row.getRowNum() >5){
+				if(row.getRowNum() >2){
 					 //add new product
                     Product product = new Product();
                     product.setStartDate(new Date());
@@ -566,27 +566,37 @@ public class ProductController {
 	                  while (cellIterator.hasNext()) {
 	                      Cell cell = cellIterator.next();
 	                      if(cell.getColumnIndex() ==0){
-	                    	  continue;
+	                    	 //productCode or model
+	                    	  String value = cell.getStringCellValue();
+	                    	  if(value == null || value.equalsIgnoreCase(""))
+	                    		  break;
+	                    	  product.setProductCode(value);
 	                      }
 	                     
 	                      if(cell.getColumnIndex() ==1){
-	                    	  //desc
+	                    	  //desc in english
 	                    	  
 	                    	  String value = cell.getStringCellValue();
 	                    	  if(value == null || value.equalsIgnoreCase(""))
 	                    		  break;
-	                    	  product.setProductCode(cell.getStringCellValue());
 	                    	  product.setProductName(value);
 	                      }else if(cell.getColumnIndex() ==2){
+	                    	  //desc in vietnamese
+	                    	  
+	                    	  String value = cell.getStringCellValue();
+	                    	  if(value == null || value.equalsIgnoreCase(""))
+	                    		  break;
+	                    	  product.setProductNameVietnamese(value);
+	                      }
+	                      else if(cell.getColumnIndex() ==3){
 	                    	  //specification
 	                    	  String value = cell.getStringCellValue();
 	                    	  product.setSpecification(value);
-	                      }else if(cell.getColumnIndex() ==3){
+	                      }else if(cell.getColumnIndex() ==4){
 	                    	  //unit
 	                    	  String value = cell.getStringCellValue();
 	                    	  product.setUnit(value);
-	                      }else if(cell.getColumnIndex()==4
-	                    		  ){
+	                      }else if(cell.getColumnIndex()==5){
 	                    	  //unit price
 //	                    	  DataFormatter formatter = new DataFormatter(); //creating formatter using the default locale
 //	                    	  String cellValue = formatter.formatCellValue(cell); //Returns 
@@ -598,12 +608,17 @@ public class ProductController {
 	                    	  }catch(Exception e){
 	                    		  //handle exception later.
 	                    	  }
+	                      }else if(cell.getColumnIndex() ==6){
+	                    	  //labour (usd)
+	                    	  Double value = (cell.getNumericCellValue());
+	                    	  Float floatValue = Float.valueOf(value.toString());
+	                    	  product.setLabour(floatValue);
 	                      }
 	                      else
 	                    	  break;
 	                      
 	                  }
-	                  if(product.getProductName() != null){
+	                  if(product.getProductCode() != null){
 	                      product = productService.save(product);
 	                      ProductJson json = new ProductJson();
 	                      json.setProductID(product.getProductID());
