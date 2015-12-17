@@ -18,6 +18,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -127,8 +129,10 @@ public class Product implements Serializable {
 	@JoinColumn(name="maker_id", nullable = true)
 	private Maker maker;
 	
+	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "MM/dd/yyyy")
 	private Date startDate;
+	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "MM/dd/yyyy")
 	private Date endDate;
 	

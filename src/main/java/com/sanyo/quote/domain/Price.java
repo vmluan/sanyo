@@ -23,20 +23,22 @@ public class Price {
 	@JoinColumn(name = "PRODUCT_ID", nullable = false)
     private Product product;
 
-    @Column(name = "ISSUED_DATE", nullable = false)
+	@Temporal(TemporalType.DATE)
+	@Column(name = "ISSUED_DATE", nullable = false)
     private Date issuedDate; //Ngay bat dau co hieu luc
 
-    @Column(name = "EXPIRED_DATE", nullable = true)
+	@Temporal(TemporalType.DATE)
+	@Column(name = "EXPIRED_DATE", nullable = true)
     private Date expiredDate; //Ngay het hieu luc
 
     @Column(name ="IN_PRICE")
-    private long inPrice;
+    private long inPrice = 0;
 
     @Column(name ="OUT_WHLSE_PRICE")
-    private long outWholeSalePrice;
+    private long outWholeSalePrice = 0;
 
     @Column(name ="OUT_SALE_PRICE")
-    private float outSalePrice;
+    private float outSalePrice = 0;
 
     @Column(name ="PRICE_TYPE")
     private PriceType priceType;

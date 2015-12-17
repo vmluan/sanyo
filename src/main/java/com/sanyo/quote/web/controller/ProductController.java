@@ -336,7 +336,7 @@ public class ProductController {
 				product.setMaker(maker);
 		}
 		product = productService.save(product);
-		saveLabourPrice(json, product);
+//		saveLabourPrice(json, product);
 		return true;
 	}
 	
@@ -627,7 +627,7 @@ public class ProductController {
 	                      json.setMat_w_o_Tax_VND(product.getMat_w_o_Tax_VND());
 	                      json.setLabour(product.getLabour());
 	                      
-	                      saveLabourPrice(json, product);
+//	                      saveLabourPrice(json, product);
 	                  }
 				}
 			}

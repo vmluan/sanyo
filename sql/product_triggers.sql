@@ -23,7 +23,7 @@ else
 				from product
 				where product_id = p_product_id
 				and  (startDate between p_start_date and p_end_date
-                                or endDAte is not null and end_date between p_start_date and p_end_date
+                                or endDate is not null and endDate between p_start_date and p_end_date
                                 )
                                 ;
     return false;
@@ -34,10 +34,10 @@ DELIMITER ;
 
 
 ### trigger
-		DROP TRIGGER IF EXISTS productAddTrigger;
+		DROP TRIGGER IF EXISTS productUpdateTrigger;
 		DELIMITER //
 
-		CREATE TRIGGER productAddTrigger
+		CREATE TRIGGER productUpdateTrigger
 		before update
 		   ON sanyo.product FOR EACH ROW
 		   
@@ -48,7 +48,75 @@ DELIMITER ;
             if is_overlapped is true then
                 set msg = 'Overllapped range.';
                 signal sqlstate '45000' set message_text = msg;
+            else
+				if NEW.startDate <> OLD.startDate || NEW.endDate <> OLD.endDate then
+					#### insert data to labour_price 
+					INSERT INTO `sanyo`.`labour_price`
+					(
+					`EXPIRED_DATE`,
+					`IN_PRICE`,
+					`ISSUED_DATE`,
+					`labour`,
+					`max_w_o_tax_usd`,
+					`max_w_o_tax_vnd`,
+					`OUT_SALE_PRICE`,
+					`OUT_WHLSE_PRICE`,
+					`PRICE_TYPE`,
+					`PRODUCT_ID`)
+					VALUES
+					(
+					date(NEW.endDate),
+					0,
+					date(NEW.startDate),
+					NEW.labour,
+					NEW.TAX_USD,
+					NEW.TAX_VND,
+					0,
+					0,
+					null,
+					NEW.PRODUCT_ID);
+                end if;    
              end if;   
+		END; //
+
+		DELIMITER ;	
+        
+
+### trigger
+		DROP TRIGGER IF EXISTS productAddTrigger;
+		DELIMITER //
+
+		CREATE TRIGGER productAddTrigger
+		after insert
+		   ON sanyo.product FOR EACH ROW
+		   
+		BEGIN
+			
+			INSERT INTO `sanyo`.`labour_price`
+			(
+			`EXPIRED_DATE`,
+			`IN_PRICE`,
+			`ISSUED_DATE`,
+			`labour`,
+			`max_w_o_tax_usd`,
+			`max_w_o_tax_vnd`,
+			`OUT_SALE_PRICE`,
+			`OUT_WHLSE_PRICE`,
+			`PRICE_TYPE`,
+			`PRODUCT_ID`)
+			VALUES
+			(
+			date(NEW.endDate),
+			0,
+			date(NEW.startDate),
+			NEW.labour,
+			NEW.TAX_USD,
+			NEW.TAX_VND,
+			0,
+			0,
+			null,
+			NEW.PRODUCT_ID);
+                
 		END; //
 
 		DELIMITER ;	
