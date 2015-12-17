@@ -572,8 +572,7 @@ public class ProductController {
 	                    		  break;
 	                    	  product.setProductCode(value);
 	                      }
-	                     
-	                      if(cell.getColumnIndex() ==1){
+	                      else if(cell.getColumnIndex() ==1){
 	                    	  //desc in english
 	                    	  
 	                    	  String value = cell.getStringCellValue();

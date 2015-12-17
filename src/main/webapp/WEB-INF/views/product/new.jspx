@@ -46,6 +46,13 @@
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
+								<form:label path="productNameVietnamese">Name (Vietnamese) 
+								</form:label>
+								<form:input path="productNameVietnamese" class="form-control" />
+							</div>
+						</div>						
+						<div class="col-md-6">
+							<div class="form-group">
 								<form:label path="productCode">Code * 
 								</form:label>
 								<form:input path="productCode" class="form-control" />
