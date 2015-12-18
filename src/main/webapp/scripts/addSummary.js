@@ -7,30 +7,18 @@ var urlProductGroup = pageContext + '/summary/getProductGroupRateJson/'+ project
 var sourceProductGroupRate = {
     datatype : "json",
     datafields : [ {
-        name : 'Code',
+        name : 'id',
         type : 'string'
     }, {
-        name : 'MEWORKS',
-        type : 'string'
-    }, {
-        name : 'Discount',
+        name : 'discount',
         type : 'float'
     }, {
-        name : 'Allowance',
-        type : 'float'
-    }, {
-        name : 'TotalME',
-        type : 'float'
-    }, {
-        name : 'TotalLabourME',
+        name : 'allowance',
         type : 'float'
     } ],
-    sortcolumn : 'Code',
+    sortcolumn : 'id',
     sortdirection : 'asc',
     id : 'id',
-    data : {
-        productGroud : ''
-    },
     url : urlProductGroup
 };
 var dataProductGroupRateAdapter = new $.jqx.dataAdapter(sourceProductGroupRate, {
@@ -41,7 +29,7 @@ var dataProductGroupRateAdapter = new $.jqx.dataAdapter(sourceProductGroupRate, 
 // initialize jqxGrid
 $("#productGroupRate").jqxGrid(
     {
-        width: 850,
+        width: 550,
         source: dataProductGroupRateAdapter,
         pageable: true,
         autoheight: true,
@@ -51,19 +39,16 @@ $("#productGroupRate").jqxGrid(
         editable: true,
         selectionmode: 'multiplecellsadvanced',
         columns: [
-            { text: 'Code', datafield: 'Code', width: 250 },
-            { text: 'M&E WORKS',datafield: 'MEWORKS', cellsalign: 'right', align: 'right', width: 200 },
-            { text: 'Discount', datafield: 'Discount', align: 'right', cellsalign: 'right', cellsformat: 'c2', width: 200 },
-            { text: 'Allowance', datafield: 'Allowance', cellsalign: 'right', width: 100 },
-            { text: 'Total M&E', columngroup: 'total', datafield: 'TotalME' },
-            { text: 'Total Labour M&E', columngroup: 'total', datafield: 'TotalLabourME' }
-        ],
-        columngroups: [
-            { text: 'Total', align: 'center', name: 'Total' }
+            { text: 'Code', datafield: 'id', width: 250 },
+            //{ text: 'M&E WORKS',datafield: 'id', cellsalign: 'right', align: 'right', width: 200 },
+            { text: 'Discount', datafield: 'discount', align: 'right', cellsalign: 'right', cellsformat: 'p', width: 200 },
+            { text: 'Allowance', datafield: 'allowance', cellsalign: 'right', cellsformat: 'p', width: 100 }//,
+            //{ text: 'Total M&E', columngroup: 'total', datafield: 'id' },
+            //{ text: 'Total Labour M&E', columngroup: 'total', datafield: 'id' }
         ]
+        //],
+        //columngroups: [
+        //    { text: 'Total', align: 'center', name: 'Total' }
+        //]
     });
 
-function loadProductGroupRate (){
-
-
-}
