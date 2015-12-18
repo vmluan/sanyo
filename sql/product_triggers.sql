@@ -65,58 +65,31 @@ DELIMITER ;
 					`PRODUCT_ID`)
 					VALUES
 					(
-					date(NEW.endDate),
+					date(OLD.endDate),
 					0,
-					date(NEW.startDate),
-					NEW.labour,
-					NEW.TAX_USD,
-					NEW.TAX_VND,
+					date(OLD.startDate),
+					OLD.labour,
+					OLD.TAX_USD,
+					OLD.TAX_VND,
 					0,
 					0,
 					null,
-					NEW.PRODUCT_ID);
-                end if;    
-             end if;   
+					OLD.PRODUCT_ID);
+                end if;
+				if NEW.TAX_USD <=> OLD.TAX_USD || NEW.TAX_VND <=> OLD.TAX_VND 
+					|| NEW.LABOUR <> OLD.LABOUR
+				then
+				begin 
+					update sanyo.encounter
+					set needUpdatePrice = 1
+					where product_id = NEW.product_id
+					and ENCOUNTER_TIME between OLD.startDate and OLD.endDate;
+				END;	
+				end if;                
+             end if; 
+             
+
 		END; //
 
 		DELIMITER ;	
         
-
-### trigger
-		DROP TRIGGER IF EXISTS productAddTrigger;
-		DELIMITER //
-
-		CREATE TRIGGER productAddTrigger
-		after insert
-		   ON sanyo.product FOR EACH ROW
-		   
-		BEGIN
-			
-			INSERT INTO `sanyo`.`labour_price`
-			(
-			`EXPIRED_DATE`,
-			`IN_PRICE`,
-			`ISSUED_DATE`,
-			`labour`,
-			`max_w_o_tax_usd`,
-			`max_w_o_tax_vnd`,
-			`OUT_SALE_PRICE`,
-			`OUT_WHLSE_PRICE`,
-			`PRICE_TYPE`,
-			`PRODUCT_ID`)
-			VALUES
-			(
-			date(NEW.endDate),
-			0,
-			date(NEW.startDate),
-			NEW.labour,
-			NEW.TAX_USD,
-			NEW.TAX_VND,
-			0,
-			0,
-			null,
-			NEW.PRODUCT_ID);
-                
-		END; //
-
-		DELIMITER ;	

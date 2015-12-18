@@ -1,24 +1,4 @@
---1. triiger when update product
-		DROP TRIGGER IF EXISTS productUpdate;
-		DELIMITER //
 
-		CREATE TRIGGER productUpdate
-		AFTER UPDATE
-		   ON sanyo.product FOR EACH ROW
-		   
-		BEGIN
-		if NEW.TAX_USD <=> OLD.TAX_USD || NEW.TAX_VND <=> OLD.TAX_VND then
-		begin 
-			update sanyo.encounter
-			set needUpdatePrice = 1
-			where product_id = NEW.product_id
-			and ENCOUNTER_TIME between OLD.startDate and OLD.endDate;
-		END;	
-		end if;
-
-		END; //
-
-		DELIMITER ;
 
 -- 2. trigger when delete makerProject
 
