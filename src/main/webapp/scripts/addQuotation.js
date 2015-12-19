@@ -1,4 +1,11 @@
-	var urlResult = pageContext + "/quotation/getAssignedProductOfRegion";
+var cellclass = function (row, column, value, data) {
+    var val = $('#listResult').jqxGrid('getcellvalue', row, "hasMakerDeleted");
+    if (val == true) {
+        return "yellowCell";
+    }
+}
+
+var urlResult = pageContext + "/quotation/getAssignedProductOfRegion";
 
 	var sourceResult = {
 		datatype : "json",
@@ -109,7 +116,11 @@
 		}, {
 			name: 'labourProduct',
 			map: 'product>labour'
+		}, {
+			name: 'hasMakerDeleted',
+			type: 'bool'
 		}
+		
 		],
 	    sortcolumn: 'order',
 	    sortdirection: 'asc',
@@ -153,7 +164,8 @@
 							datafield : 'regionName',
 							align : 'center',
 							cellsalign : 'right',
-							width : '15%'
+							width : '15%',
+							cellclassname: cellclass
 						},
 						{
 							text : 'No',
@@ -161,7 +173,8 @@
 							align : 'center',
 							cellsalign : 'right',
 							cellsformat : 'n',
-							width : '15%'
+							width : '15%',
+							cellclassname: cellclass
 						},
 				        {
 							text : 'Description',
@@ -169,7 +182,8 @@
 							align : 'center',
 							cellsalign : 'right',
 							editable: false,
-							width : '15%'
+							width : '15%',
+							cellclassname: cellclass
 						},								
 						{
 							text : 'Unit',
@@ -177,7 +191,8 @@
 							align : 'center',
 							cellsalign : 'right',
 							editable: false,
-							width : '15%'
+							width : '15%',
+							cellclassname: cellclass
 						},
 						{
 							text : 'Quantity',
@@ -186,7 +201,8 @@
 							cellsalign : 'right',
 							editable: false,
 							cellsformat : 'n',
-							width : '15%'
+							width : '15%',
+							cellclassname: cellclass
 						},
 						{
 							text : 'Unit Rate',
@@ -195,7 +211,8 @@
 							cellsalign : 'right',
 							editable: false,
 							cellsformat : 'c2',
-							width : '15%'
+							width : '15%',
+							cellclassname: cellclass
 						},
 						{
 							text : 'Amount',
@@ -205,7 +222,8 @@
 							editable: false,
 							cellsformat : 'c2',
 							width : '15%',
-							aggregates: ['sum']
+							aggregates: ['sum'],
+							cellclassname: cellclass
 						},
 						{
 							text : 'Percent',
@@ -213,14 +231,16 @@
 							align : 'center',
 							cellsalign : 'right',
 							cellsformat : 'p2',
-							width : '15%'
+							width : '15%',
+							cellclassname: cellclass
 						},
 						{
 							text : 'Range',
 							datafield : 'nonameRange',
 							align : 'center',
 							cellsalign : 'right',
-							width : '15%'
+							width : '15%',
+							cellclassname: cellclass
 						},								
 						{
 							text : 'Remark',
@@ -228,7 +248,8 @@
 							align : 'center',
 							cellsalign : 'right',
 							// cellsformat : 'c0',
-							width : '15%'
+							width : '15%',
+							cellclassname: cellclass
 						},
 						{
 							text : 'Qty',
@@ -236,7 +257,8 @@
 							align : 'center',
 							cellsalign : 'right',
 							cellsformat : 'n',
-							width : '15%'
+							width : '15%',
+							cellclassname: cellclass
 						},								
 						{
 							text : 'Labour',
@@ -245,7 +267,8 @@
 							cellsalign : 'right',
 							cellsformat : 'c2',
 							editable: false,
-							width : '15%'
+							width : '15%',
+							cellclassname: cellclass
 						},
 						{
 							text : 'Mat w/o Tax USD',
@@ -254,7 +277,8 @@
 							cellsalign : 'right',
 							cellsformat : 'c2',
 							editable: false,
-							width : '15%'
+							width : '15%',
+							cellclassname: cellclass
 						},
 						{
 							text : 'Mat w/o Tax VND',
@@ -263,7 +287,8 @@
 							cellsalign : 'right',
 							cellsformat : 'c2',
 							editable: false,
-							width : '15%'
+							width : '15%',
+							cellclassname: cellclass
 						},
 						{
 							text : 'Labour (database)',
@@ -272,7 +297,8 @@
 							cellsalign : 'right',
 							cellsformat : 'c2',
 							editable: false,
-							width : '15%'
+							width : '15%',
+							cellclassname: cellclass
 						},								
 						{
 							text : 'Imp Tax',
@@ -281,7 +307,8 @@
 							cellsalign : 'right',
 							cellsformat : 'p2',
 							editable: false,
-							width : '15%'
+							width : '15%',
+							cellclassname: cellclass
 						},
 						{
 							text : 'Special con. Tax',
@@ -290,7 +317,8 @@
 							cellsalign : 'right',
 							cellsformat : 'p2',
 							editable: false,
-							width : '15%'
+							width : '15%',
+							cellclassname: cellclass
 						},
 						{
 							text : 'VAT',
@@ -299,7 +327,8 @@
 							cellsalign : 'right',
 							cellsformat : 'p2',
 							editable: false,
-							width : '15%'
+							width : '15%',
+							cellclassname: cellclass
 						},
 						{
 							text : 'Discount rate %',
@@ -308,7 +337,8 @@
 							cellsalign : 'right',
 							cellsformat : 'p2',
 							editable: false,
-							width : '15%'
+							width : '15%',
+							cellclassname: cellclass
 						},
 						{
 							text : 'Unit price after discount',
@@ -317,7 +347,8 @@
 							cellsalign : 'right',
 							cellsformat : 'p2',
 							editable: false,
-							width : '15%'
+							width : '15%',
+							cellclassname: cellclass
 						},
 						{
 							text : 'Allowance',
@@ -326,7 +357,8 @@
 							cellsalign : 'right',
 							cellsformat : 'p2',
 							editable: false,
-							width : '15%'
+							width : '15%',
+							cellclassname: cellclass
 						},
 						{
 							text : 'Unit price w Tax & profit',
@@ -335,7 +367,8 @@
 							cellsalign : 'right',
 							cellsformat : 'c2',
 							editable: false,
-							width : '15%'
+							width : '15%',
+							cellclassname: cellclass
 						},
 						{
 							text : 'Subcon profit',
@@ -344,7 +377,8 @@
 							cellsalign : 'right',
 							cellsformat : 'p2',
 							editable: false,
-							width : '15%'
+							width : '15%',
+							cellclassname: cellclass
 						},
 						{
 							text : 'Unit price w Tax – labour',
@@ -353,7 +387,8 @@
 							cellsalign : 'right',
 							// cellsformat : 'c0',
 							editable: false,
-							width : '15%'
+							width : '15%',
+							cellclassname: cellclass
 						},
 						{
 							text : 'Cost - Mat amount USD',
@@ -362,7 +397,8 @@
 							cellsalign : 'right',
 							// cellsformat : 'c0',
 							editable: false,
-							width : '10%'
+							width : '10%',
+							cellclassname: cellclass
 						},
 						{
 							text : 'Cost - Labour amount USD',
@@ -371,7 +407,8 @@
 							cellsalign : 'right',
 							cellsformat : 'c2',
 							editable: false,
-							width : '10%'
+							width : '10%',
+							cellclassname: cellclass
 						},
 						{
 							text : 'Action',
