@@ -12,20 +12,17 @@ BEGIN
 				select count(*) into v_count
 				from labour_price
 				where product_id = p_product_id
-				and  (issued_date between p_start_date and p_end_date
-                                or expired_date is not null and expired_date between p_start_date and p_end_date
+				and expired_date is not null
+				and issued_date is not null
+				and  (date(p_start_date) between date(issued_date) and date(expired_date)
+                                or date(p_end_date) between date(issued_date) and date(expired_date)
+                                or date(issued_date) between date(p_start_date) and date(p_end_date)
+                                or date(expired_date) between date(p_start_date) and date(p_end_date)
                                 )
                                 ;
 if v_count > 0 then                                
   RETURN true;
 else
-				select count(*) into v_count
-				from product
-				where product_id = p_product_id
-				and  (startDate between p_start_date and p_end_date
-                                or endDate is not null and endDate between p_start_date and p_end_date
-                                )
-                                ;
     return false;
 end if;
 END;
@@ -44,9 +41,14 @@ DELIMITER ;
 		BEGIN
 			DECLARE is_overlapped BOOLEAN ; 
                 declare msg varchar(255);
+            ## do not allow to update past product
+            if NEW.startDate < OLD.startDate || NEW.endDate < OLD.startDate then
+            	set msg = concat('Time range is the past. Please select date after ',  date(OLD.startDate));
+                signal sqlstate '46000' set message_text = msg;
+            end if;
             select checkOverlap(old.product_id, new.startDate, new.endDate) into is_overlapped;
             if is_overlapped is true then
-                set msg = 'Overllapped range.';
+                set msg = 'Overlapped range.';
                 signal sqlstate '45000' set message_text = msg;
             else
 				if NEW.startDate <> OLD.startDate || NEW.endDate <> OLD.endDate then

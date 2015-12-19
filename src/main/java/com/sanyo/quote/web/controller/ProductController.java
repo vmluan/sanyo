@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.sql.BatchUpdateException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -21,6 +22,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.hibernate.exception.ConstraintViolationException;
+import org.hibernate.exception.GenericJDBCException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -214,19 +216,19 @@ public class ProductController {
 		// return null when it proceeds successfully
 		return errorMsg;
 	}
-	private boolean isOverlapped(ProductJson json, List<LabourPrice> labourPrices){
-		boolean result = false;
-		for(LabourPrice lb : labourPrices){
-			if(lb.getExpiredDate() != null
-					&& json.getStartDate().before(lb.getExpiredDate())
-					&& json.getEndDate() != null
-					&& json.getEndDate().after(lb.getExpiredDate())){
-				result = true;
-				break;
-			}
-		}
-		return result;
-	}
+//	private boolean isOverlapped(ProductJson json, List<LabourPrice> labourPrices){
+//		boolean result = false;
+//		for(LabourPrice lb : labourPrices){
+//			if(lb.getExpiredDate() != null
+//					&& json.getStartDate().before(lb.getExpiredDate())
+//					&& json.getEndDate() != null
+//					&& json.getEndDate().after(lb.getExpiredDate())){
+//				result = true;
+//				break;
+//			}
+//		}
+//		return result;
+//	}
 	private void throwOverlappedDateException(String message) throws Exception{
 		Exception e = new Exception(message);
 		throw e;
@@ -294,11 +296,11 @@ public class ProductController {
 		Product product;
 		if(json != null && json.getProductID() != null && json.getProductID() > 0){
 			product = productService.findById(json.getProductID());
-			List<LabourPrice> labourPrices = productService.findLabourPrices(json.getProductID());
-			boolean isOverlapped = isOverlapped(json, labourPrices);
-			if(isOverlapped){
-				return false;
-			}
+//			List<LabourPrice> labourPrices = productService.findLabourPrices(json.getProductID());
+//			boolean isOverlapped = isOverlapped(json, labourPrices);
+//			if(isOverlapped){
+//				return false;
+//			}
 			
 		}else{
 			product = new Product();
@@ -387,10 +389,20 @@ public class ProductController {
 		try{
 			saveProduct(productJson);
 		}catch(DataAccessException e){
+			errorMsg = "There is exception";
 			if (e.getCause() != null 
 					&& e.getCause() instanceof ConstraintViolationException){
 				ConstraintViolationException cv = (ConstraintViolationException) e.getCause();
 				errorMsg = cv.getCause().getMessage();
+				
+				
+			}else if(e.getCause() != null && e.getCause() instanceof GenericJDBCException){
+				GenericJDBCException genericJDBCException = (GenericJDBCException) e.getCause();
+				if(genericJDBCException.getCause() != null && genericJDBCException.getCause() instanceof BatchUpdateException){
+					errorMsg = genericJDBCException.getCause().getMessage();
+					BatchUpdateException batchUpdateException = (BatchUpdateException) genericJDBCException.getCause();
+					errorMsg = batchUpdateException.getMessage();
+				}
 				
 				
 			}
