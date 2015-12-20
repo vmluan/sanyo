@@ -466,18 +466,48 @@ public class ProjectController extends CommonController {
 	@ResponseBody
 	public String getAssginedRegionsOfLocationJson(@RequestParam(value="locationId", required=true) String locationId,
 			@RequestParam(value="filterscount", required=false) String filterscount
+			, @RequestParam(value="projectId", required=false) String projectId
 			, @RequestParam(value="groupscount", required=false) String groupscount
 			, @RequestParam(value="pagenum", required=false) Integer pagenum
 			, @RequestParam(value="pagesize", required=false) Integer pagesize
 			, @RequestParam(value="recordstartindex", required=false) Integer recordstartindex
 			, @RequestParam(value="recordendindex", required=false) Integer recordendindex
 			, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
-		
 		System.out.println("start getting assinged regions of location");
-		Location location = locationService.findById(Integer.valueOf(locationId));
-		Set<Region> totalRegions =location.getRegions();
-		
-		String result = Utilities.jSonSerialization(totalRegions);
+		String[] locationIds = locationId.split(",");
+		TreeMap<String, Region> treeRegions = new TreeMap<String, Region>();
+		boolean isAllLocation = false;
+		for(String id : locationIds){
+			if(id.equalsIgnoreCase("0")){
+				isAllLocation =true;
+				break;
+			}
+		}
+		if(isAllLocation){
+			Project project = projectService.findById(Integer.valueOf(projectId));
+			List<Location> locations = locationService.findByProject(project);
+			for(Location location : locations){
+				List<Region> regions = regionService.findByLocation(location);
+				for(Region region: regions){
+					treeRegions.put(String.valueOf(region.getRegionId()), region);
+				}
+			}
+		}else{
+			for(String id : locationIds){
+				Location location = locationService.findById(Integer.valueOf(id));
+				List<Region> regions = regionService.findByLocation(location);
+				for(Region region: regions){
+					treeRegions.put(String.valueOf(region.getRegionId()), region);
+				}
+			}	
+		}
+		List<Region> finalRegions = new ArrayList<Region>(treeRegions.values());
+		 
+		Region regionAll = new Region();
+		regionAll.setRegionName("All");
+		regionAll.setRegionId(0);
+		finalRegions.add(0,regionAll);
+		String result = Utilities.jSonSerialization(finalRegions);
 		return result;
 	}
 	// handle screen for create new assigned regions.

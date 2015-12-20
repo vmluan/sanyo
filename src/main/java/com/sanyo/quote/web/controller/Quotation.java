@@ -1,5 +1,6 @@
 package com.sanyo.quote.web.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -8,8 +9,6 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.sanyo.quote.domain.*;
-import com.sanyo.quote.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +23,34 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.sanyo.quote.domain.Category;
+import com.sanyo.quote.domain.Encounter;
+import com.sanyo.quote.domain.EncounterJson;
+import com.sanyo.quote.domain.EncounterStatus;
+import com.sanyo.quote.domain.Location;
+import com.sanyo.quote.domain.Maker;
+import com.sanyo.quote.domain.MakerJson;
+import com.sanyo.quote.domain.MakerProject;
+import com.sanyo.quote.domain.Product;
+import com.sanyo.quote.domain.ProductGroup;
+import com.sanyo.quote.domain.ProductGroupMaker;
+import com.sanyo.quote.domain.ProductGroupRate;
+import com.sanyo.quote.domain.Project;
+import com.sanyo.quote.domain.ProjectStatus;
+import com.sanyo.quote.domain.Region;
 import com.sanyo.quote.helper.Constants;
 import com.sanyo.quote.helper.Utilities;
+import com.sanyo.quote.service.CategoryService;
+import com.sanyo.quote.service.EncounterService;
+import com.sanyo.quote.service.LocationService;
+import com.sanyo.quote.service.MakerProjectService;
+import com.sanyo.quote.service.MakerService;
+import com.sanyo.quote.service.ProductGroupMakerService;
+import com.sanyo.quote.service.ProductGroupRateService;
+import com.sanyo.quote.service.ProductGroupService;
+import com.sanyo.quote.service.ProductService;
+import com.sanyo.quote.service.ProjectService;
+import com.sanyo.quote.service.RegionService;
 
 /*
  * Controller for Encounter 
@@ -171,7 +196,9 @@ public class Quotation extends CommonController {
 	}
 	@RequestMapping(value = "/getAssignedProductOfRegion", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public String getProductsJson(@RequestParam(value="regionId", required=true) String regionId
+	public String getProductsJson(@RequestParam(value="regionId", required=true) String regionId,
+				@RequestParam(value="locationIds", required=false) String locationIds
+			, @RequestParam(value="projectId", required=false) String projectId
 			, @RequestParam(value="filterscount", required=false) String filterscount
 			, @RequestParam(value="groupscount", required=false) String groupscount
 			, @RequestParam(value="pagenum", required=false) Integer pagenum
@@ -180,10 +207,55 @@ public class Quotation extends CommonController {
 			, @RequestParam(value="recordendindex", required=false) Integer recordendindex
 			, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
 		
-//		Region region = regionService.findByIdAndFetchEncountersEagerly(Integer.valueOf(regionId));
-		Region region = regionService.findById(Integer.valueOf(regionId));
-		List<Encounter> encounters = encounterService.findByRegion(region);
-		String result = Utilities.jSonSerialization(encounters);
+		String[] regionIds = regionId.split(",");
+		List<Encounter> finalEncounters = new ArrayList<Encounter>();
+		boolean isAllLocation = false;
+		boolean isAllRegion = false;
+		for(String id : regionIds){
+			if(id.equalsIgnoreCase("0")){
+				isAllRegion = true;
+				break;
+			}
+		}
+		if(!isAllRegion){
+			for(String id : regionIds){
+				Region region = regionService.findById(Integer.valueOf(id));
+				List<Encounter> encounters = encounterService.findByRegion(region);
+				finalEncounters.addAll(encounters);
+			}
+		}else{
+			if(locationIds !=null){
+				for(String id : locationIds.split(",")){
+					if(id.equalsIgnoreCase("0")){
+						isAllLocation = true;
+						break;
+					}
+				}
+				if(!isAllLocation){
+					for(String id : locationIds.split(",")){
+						Location location = locationService.findById(Integer.valueOf(id));
+						List<Region> regions = regionService.findByLocation(location);
+						for(Region region : regions){
+							List<Encounter> encounters = encounterService.findByRegion(region);
+							finalEncounters.addAll(encounters);
+						}
+					}	
+				}else{
+					//find all locations of the project, then find all regions of each location.
+					Project project = projectService.findById(Integer.valueOf(projectId));
+					List<Location> locations = locationService.findByProject(project);
+					for(Location location : locations){
+						List<Region> regions = regionService.findByLocation(location);
+						for(Region region : regions){
+							List<Encounter> encounters = encounterService.findByRegion(region);
+							finalEncounters.addAll(encounters);
+						}
+					}
+				}
+			}
+		}
+		
+		String result = Utilities.jSonSerialization(finalEncounters);
 		return result;
 	}
 	//save encounter
@@ -295,8 +367,14 @@ public class Quotation extends CommonController {
 			, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
 		
 		Project project = projectService.findByIdAndFetchLocationsEagerly(Integer.valueOf(projectId));
-		Set<Location> locatoins = project.getLocations();
-		String result = Utilities.jSonSerialization(locatoins);
+//		Set<Location> locatoins = project.getLocations();
+		Location  locationAll = new Location();
+		locationAll.setLocationName("All");
+		locationAll.setLocationId(0);
+		
+		List<Location> locations = locationService.findByProjectOrderByOrderNoAsc(project);
+		locations.add(0, locationAll);
+		String result = Utilities.jSonSerialization(locations);
 		return result;
 	}
 	
@@ -433,5 +511,46 @@ public class Quotation extends CommonController {
 		}
 		private void updateMat_w_o_Tax_USD(){
 			//update later for range and percent
+		}
+		@RequestMapping(value = "/getLocationSum", method = RequestMethod.GET)
+		@ResponseBody
+		public String getLocationSum(
+				@RequestParam(value="locationIds", required=true) String locationIds
+				, @RequestParam(value="projectId", required=true) String projectId
+				, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
+			Float total = 0f;
+			boolean isAllLocation = false;
+			for(String id : locationIds.split(",")){
+				if(id.equalsIgnoreCase(",")){
+					isAllLocation = true;
+					break;
+				}
+			}
+			if(isAllLocation){
+				Project project = projectService.findById(Integer.valueOf(projectId));
+				List<Location> locations = locationService.findByProject(project);
+				for(Location location : locations){
+					total += getSummOfLocation(location);
+				}
+			}else{
+				for(String id : locationIds.split(",")){
+					Location location = locationService.findById(Integer.valueOf(id));
+					total += getSummOfLocation(location);
+				}
+			}
+		return total.toString();
+		}
+		private float getSummOfLocation(Location location){
+			Float total = 0f;
+			if(location != null){
+				List<Region> regions = regionService.findByLocation(location);
+				for(Region region : regions){
+					List<Encounter> encounters = encounterService.findByRegion(region);
+					for(Encounter encounter : encounters){
+						total += encounter.getAmount();
+					}
+				}
+			}
+			return total;
 		}
 }

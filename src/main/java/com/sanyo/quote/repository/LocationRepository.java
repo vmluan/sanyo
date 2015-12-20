@@ -19,4 +19,7 @@ public interface LocationRepository extends PagingAndSortingRepository<Location,
 	List<Region> findRegions(@Param("id") Integer id);
 	
 	List<Location> findByProject(Project project);
+	
+	List<Location> findByProjectOrderByOrderNoAsc(Project project);
+	List<Location> findByProjectOrderByOrderNoDesc(Project project);
 }

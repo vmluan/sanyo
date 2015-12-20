@@ -26,5 +26,7 @@ public interface LocationService {
 	void delete(Integer id);
 	void delete(Location location);
 	List<Location> findByProject(Project project);
+	List<Location> findByProjectOrderByOrderNoAsc(Project project);
+	List<Location> findByProjectOrderByOrderNoDesc(Project project);
 	
 }

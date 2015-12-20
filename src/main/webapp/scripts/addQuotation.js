@@ -29,7 +29,7 @@ var urlResult = pageContext + "/quotation/getAssignedProductOfRegion";
 			type : 'string'
 		}, {
 			name : 'encounterID',
-			type : 'string'
+			type : 'number'
 		}, {
 			name : 'actualQuantity',
 			type : 'string'
@@ -127,7 +127,9 @@ var urlResult = pageContext + "/quotation/getAssignedProductOfRegion";
 		id : 'encounterID',
 		url : urlResult,
 		data : {
-			regionId : 0
+			regionId : 0,
+			locationIds: -1,
+			projectId: projectId
 		}
 	};
 
@@ -438,13 +440,16 @@ var sourceLocation = {
 	datatype : "json",
 	datafields : [ {
 		name : 'locationId',
-		type : 'string'
+		type : 'number'
 	}, {
 		name : 'locationName',
 		type : 'string'
+	}, {
+		name : 'orderNo',
+		type : 'number'
 	} ],
-    sortcolumn: 'locationName',
-    sortdirection: 'asc',
+//    sortcolumn: 'orderNo',
+//    sortdirection: 'asc',
 	id : 'locationId',
 	url : urlLocation,
 	data : {
@@ -467,6 +472,7 @@ $("#jqxWidgetLocation").jqxComboBox({
 	displayMember : "locationName",
 	valueMember : "locationId",
 	width : '100%',
+	checkboxes: true,
 	height : 25
 });
 	// prepare the data for region
@@ -475,7 +481,7 @@ $("#jqxWidgetLocation").jqxComboBox({
 		datatype : "json",
 		datafields : [ {
 			name : 'regionId',
-			type : 'string'
+			type : 'number'
 		}, {
 			name : 'regionName',
 			type : 'string'
@@ -486,12 +492,13 @@ $("#jqxWidgetLocation").jqxComboBox({
 			name : 'locationName',
 			map : 'location>locationName'
 		} ],
-		sortcolumn: 'regionName',
-		sortdirection: 'asc',
+//		sortcolumn: 'regionName',
+//		sortdirection: 'asc',
 		id : 'regionId',
 		url : urlRegion,
 		data : {
-			locationId : 0
+			locationId : 0,
+			projectId: projectId
 		}
 	};
 	var dataAdapterRegion = new $.jqx.dataAdapter(sourceRegion, {
@@ -508,21 +515,23 @@ $("#jqxWidgetLocation").jqxComboBox({
 			displayMember : "regionName",
 			valueMember : "regionId",
 			width : '100%',
-			height : 25
+			height : 25,
+			checkboxes: true
 		});	
-$('#jqxWidgetLocation').on('select', function(event) {
-	// load region section.
-	var args = event.args;
-	if (args) {
-		// index represents the item's index.
-		var index = args.index;
-		var item = args.item;
-		if(item)
-		{
-		// get item's label and value.
-			var label = item.label;
-			var value = item.value;
-			sourceRegion.data.locationId = value;
+$("#jqxWidgetLocation").on('checkChange', function (event)
+{
+    if (event.args) {
+    var item = event.args.item;
+	if(item){
+		var value = item.value;
+		var label = item.label;
+		var checked = item.checked;
+		
+		var locationIDs=getCheckedLocationIds();
+		 if(locationIDs != ''){
+			 updateLocationSum(locationIDs);
+			//load regions of checked locations.
+			sourceRegion.data.locationId = locationIDs;
 			dataAdapterRegion = new $.jqx.dataAdapter(sourceRegion);
 			$("#listRegion").jqxComboBox({
 				// checkboxes : true,
@@ -530,41 +539,75 @@ $('#jqxWidgetLocation').on('select', function(event) {
 				displayMember : "regionName",
 				valueMember : "regionId",
 				width : '100%',
-				height : 25
+				height : 25,
+				checkboxes: true
 			});
-		}	
-	//update locationSum
-	if(value)
-		updateLocationSum(value);
+		}			
+		 }
+		console.log(locationIDs);	
+		
 	}
 
-});
-$('#listRegion').on('select', function(event) {
-	console.log('select region');
-	var args = event.args;
-		if (args) {
-			var index = args.index;
-			var item = args.item;
-			if(item){
-				// get item's label and value.
-				var label = item.label;
-				var value = item.value;
-				var rows1 = $('#list').jqxGrid('getrows');
-				if(rows1)
-					$('#list').jqxGrid('updatebounddata');
-				else
-					loadAddQuotationGrid();
-				
-				var isCompleted = $("#listResult").jqxGrid('isBindingCompleted');
-				if(isCompleted)
-					showResultGrid(value);
-			}	
-		}
-});
-function updateLocationSum(locationId){
-	var urlLocationSum = pageContext + '/quotation/' + locationId +'/getLocationSum';
+});		
+//$('#jqxWidgetLocation').on('select', function(event) {
+//	// load region section.
+//	var args = event.args;
+//	if (args) {
+//		// index represents the item's index.
+//		var index = args.index;
+//		var item = args.item;
+//		if(item)
+//		{
+//		// get item's label and value.
+//			var label = item.label;
+//			var value = item.value;
+//			sourceRegion.data.locationId = value;
+//			dataAdapterRegion = new $.jqx.dataAdapter(sourceRegion);
+//			$("#listRegion").jqxComboBox({
+//				// checkboxes : true,
+//				source : dataAdapterRegion,
+//				displayMember : "regionName",
+//				valueMember : "regionId",
+//				width : '100%',
+//				height : 25
+//			});
+//		}	
+//	//update locationSum
+//	if(value)
+//		updateLocationSum(value);
+//	}
+//
+//});
+//$('#listRegion').on('select', function(event) {
+//	console.log('select region');
+//	var args = event.args;
+//		if (args) {
+//			var index = args.index;
+//			var item = args.item;
+//			if(item){
+//				// get item's label and value.
+//				var label = item.label;
+//				var value = item.value;
+//				var rows1 = $('#list').jqxGrid('getrows');
+//				if(rows1)
+//					$('#list').jqxGrid('updatebounddata');
+//				else
+//					loadAddQuotationGrid();
+//				
+//				var isCompleted = $("#listResult").jqxGrid('isBindingCompleted');
+//				if(isCompleted)
+//					showResultGrid(value);
+//			}	
+//		}
+//});
+function updateLocationSum(locationIds){
+	var urlLocationSum = pageContext + '/quotation/getLocationSum';
 		$.ajax({
-			type : "POST",
+			type : "GET",
+			data : {
+				locationIds: locationIds,
+				projectId: projectId
+			},
 			contentType : 'application/json',
 			url : urlLocationSum,
 			success : function(msg) {
@@ -594,7 +637,7 @@ function getUrlProducts(productGroupId){
 				type : 'string'
 			}, {
 				name : 'productID',
-				type : 'string'
+				type : 'number'
 			} 
 			, {
 				name : 'mat_w_o_Tax_USD',
@@ -645,7 +688,7 @@ var sourceProductGroup = {
 	datatype : "json",
 	datafields : [ {
 		name : 'groupId',
-		type : 'string'
+		type : 'number'
 	}, {
 		name : 'groupCode',
 		type : 'string'
@@ -733,9 +776,12 @@ function saveEncounter(row,isUpdate) {
 
 			//$('#list').jqxGrid('addrow', null, {}, 'first');
 			//$("#list").jqxGrid('begincelledit', 0, "desc");
-			showResultGrid(item.value);
-			var itemLocation = $("#jqxWidgetLocation").jqxComboBox('getSelectedItem');
-			updateLocationSum(itemLocation.value);
+			var regionIDs=getCheckedRegionIds();
+			var locationIDs=getCheckedLocationIds();
+			showResultGrid(locationIDs, regionIDs);
+//			var itemLocation = $("#jqxWidgetLocation").jqxComboBox('getSelectedItem');
+			var locationIds = getCheckedLocationIds();
+			updateLocationSum(locationIds);
 		},
 		complete : function(xhr, status) {
 			// $("#assignRegionButton").prop('disabled', false);
@@ -1153,11 +1199,11 @@ $('#list').on('cellclick', function (event) {
 		addItem(index);
 	}
  });
-function showResultGrid(regionId) {
+function showResultGrid(locationIds, regionIds) {
 	var isCompleted = $("#listResult").jqxGrid('isBindingCompleted');
 	console.log(isCompleted);
-	console.log(regionId);
-	sourceResult.data.regionId =regionId;
+	sourceResult.data.locationIds =locationIds;
+	sourceResult.data.regionId =regionIds;
 	dataAdapterResult = new $.jqx.dataAdapter(sourceResult);
 	$("#listResult").jqxGrid('updatebounddata');
 }
@@ -1327,4 +1373,43 @@ function deleteItem(encounterId){
 			// $("#assignRegionButton").prop('disabled', false);
 		}
 	});
+}
+$("#searchBtn").click(function(){
+    console.log("The Search was clicked.");
+    var checkedItems = $("#listRegion").jqxComboBox('getCheckedItems');
+	var regionIDs=getCheckedRegionIds();
+	var locationIDs=getCheckedLocationIds();
+	var row1 = $('#list').jqxGrid('getrows');
+	if(row1)
+		$('#list').jqxGrid('updatebounddata');
+	else
+		loadAddQuotationGrid();
+	
+	var isCompleted = $("#listResult").jqxGrid('isBindingCompleted');
+	if(isCompleted)
+		showResultGrid(locationIDs,regionIDs);		 
+});
+function getCheckedLocationIds(){
+	var checkedItemsLocation = $("#jqxWidgetLocation").jqxComboBox(
+			'getCheckedItems');
+	var locationIDs = '';
+	$.each(checkedItemsLocation, function(index) {
+		locationIDs += this.value + ",";
+	});
+	if (locationIDs != '') {
+		locationIDs = locationIDs.substr(0, locationIDs.length - 1);
+	}
+	console.log(locationIDs);
+	return locationIDs;
+}
+function getCheckedRegionIds(){
+    var checkedItems = $("#listRegion").jqxComboBox('getCheckedItems');
+	var regionIDs='';
+	  $.each(checkedItems, function (index) {
+		  regionIDs += this.value + ",";
+	  });
+	  if(regionIDs != ''){
+		  regionIDs = regionIDs.substr(0, regionIDs.length-1);
+	  }
+	  return regionIDs;
 }

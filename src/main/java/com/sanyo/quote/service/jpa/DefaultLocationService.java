@@ -70,4 +70,14 @@ public class DefaultLocationService implements LocationService {
 		return locationRepository.findByProject(project);
 	}
 
+	@Override
+	public List<Location> findByProjectOrderByOrderNoAsc(Project project) {
+		return locationRepository.findByProjectOrderByOrderNoAsc(project);
+	}
+
+	@Override
+	public List<Location> findByProjectOrderByOrderNoDesc(Project project) {
+		return locationRepository.findByProjectOrderByOrderNoDesc(project);
+	}
+
 }

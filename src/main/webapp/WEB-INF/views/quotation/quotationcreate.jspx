@@ -39,14 +39,23 @@
 							</div>
 						</c:if>										
 					</div>
-					<div class="col-md-12 col-md-12">
-						<div class="form-group col-md-2">
+					<div class="col-md-4">
+						<div class="form-group col-md-12">
 							<label>Select Region</label>
 							<div id="listRegion" class="row"><jsp:text />
 							</div>
 							<div id="pagerRegion"><jsp:text /></div><jsp:text /><P /><jsp:text />
-						</div>
-					</div>							
+						</div>					
+					</div>
+					<div class="col-md-4">
+						<div class="form-group col-md-12">
+							<label><jsp:text /></label>
+							<div class="form-group">
+								<button type="button" class="btn btn-primary" id="searchBtn">Search</button>
+							</div>	
+						</div>						
+					</div>
+					
 					<div class="col-md-12">
 						<div class="form-group">
 							<div id="list" class="row"><jsp:text />
