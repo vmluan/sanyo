@@ -358,6 +358,7 @@ public class Quotation extends CommonController {
 	@RequestMapping(value = "/getAssignedLocationsJson", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String getAssignedLocations(@RequestParam(value="projectId", required=true) String projectId
+			, @RequestParam(value="regionType", required=false) String regionType
 			, @RequestParam(value="filterscount", required=false) String filterscount
 			, @RequestParam(value="groupscount", required=false) String groupscount
 			, @RequestParam(value="pagenum", required=false) Integer pagenum
@@ -365,19 +366,39 @@ public class Quotation extends CommonController {
 			, @RequestParam(value="recordstartindex", required=false) Integer recordstartindex
 			, @RequestParam(value="recordendindex", required=false) Integer recordendindex
 			, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
-		
-		Project project = projectService.findByIdAndFetchLocationsEagerly(Integer.valueOf(projectId));
-//		Set<Location> locatoins = project.getLocations();
+		Project project = projectService.findById(Integer.valueOf(projectId));
 		Location  locationAll = new Location();
 		locationAll.setLocationName("All");
 		locationAll.setLocationId(0);
 		
 		List<Location> locations = locationService.findByProjectOrderByOrderNoAsc(project);
-		locations.add(0, locationAll);
-		String result = Utilities.jSonSerialization(locations);
+		List<Location> selectedLocations = new ArrayList<Location>();
+		
+		if(regionType != null && (regionType.equalsIgnoreCase(Constants.ELEC_TYPE)
+									|| regionType.equalsIgnoreCase(Constants.MECH_TYPE))
+				){
+			for(Location location : locations){
+				List<Region> regions = regionService.findByLocation(location);
+				for(Region region : regions){
+					Category category = region.getCategory().getParentCategory();
+					if((category.getName().equalsIgnoreCase(Constants.MECH_BOQ)
+							&& regionType.equalsIgnoreCase(Constants.MECH_TYPE))
+							||(category.getName().equalsIgnoreCase(Constants.ELECT_BOQ)
+							&& regionType.equalsIgnoreCase(Constants.ELEC_TYPE)
+							)){
+						selectedLocations.add(location);
+						break;
+					}
+				}
+			}
+		}else{
+			//find all
+		}
+		
+		selectedLocations.add(0, locationAll);
+		String result = Utilities.jSonSerialization(selectedLocations);
 		return result;
 	}
-	
 	//function to delete encounter.
 	@ResponseBody
 	@RequestMapping(value = "/{id}", params = "delete", method = RequestMethod.POST)
@@ -521,7 +542,7 @@ public class Quotation extends CommonController {
 			Float total = 0f;
 			boolean isAllLocation = false;
 			for(String id : locationIds.split(",")){
-				if(id.equalsIgnoreCase(",")){
+				if(id.equalsIgnoreCase("0")){
 					isAllLocation = true;
 					break;
 				}

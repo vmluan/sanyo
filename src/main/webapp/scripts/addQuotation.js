@@ -453,7 +453,8 @@ var sourceLocation = {
 	id : 'locationId',
 	url : urlLocation,
 	data : {
-		projectId : projectId
+		projectId : projectId,
+		regionType: regionType
 	}
 };
 var dataAdapterLocation = new $.jqx.dataAdapter(sourceLocation, {
@@ -498,7 +499,8 @@ $("#jqxWidgetLocation").jqxComboBox({
 		url : urlRegion,
 		data : {
 			locationId : 0,
-			projectId: projectId
+			projectId: projectId,
+			regionType: regionType
 		}
 	};
 	var dataAdapterRegion = new $.jqx.dataAdapter(sourceRegion, {

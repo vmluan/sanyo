@@ -467,6 +467,7 @@ public class ProjectController extends CommonController {
 	public String getAssginedRegionsOfLocationJson(@RequestParam(value="locationId", required=true) String locationId,
 			@RequestParam(value="filterscount", required=false) String filterscount
 			, @RequestParam(value="projectId", required=false) String projectId
+			, @RequestParam(value="regionType", required=false) String regionType
 			, @RequestParam(value="groupscount", required=false) String groupscount
 			, @RequestParam(value="pagenum", required=false) Integer pagenum
 			, @RequestParam(value="pagesize", required=false) Integer pagesize
@@ -502,10 +503,31 @@ public class ProjectController extends CommonController {
 			}	
 		}
 		List<Region> finalRegions = new ArrayList<Region>(treeRegions.values());
-		 
+		List<Region> selectedRegions = new ArrayList<Region>();
 		Region regionAll = new Region();
 		regionAll.setRegionName("All");
 		regionAll.setRegionId(0);
+		
+		//next is filter by regionType
+		if(regionType != null){
+			if(regionType.equalsIgnoreCase(Constants.ELEC_TYPE)
+					|| regionType.equalsIgnoreCase(Constants.MECH_TYPE)){
+				selectedRegions.add(0, regionAll);
+				for(Region region : finalRegions){
+					Category category = region.getCategory().getParentCategory();
+					if((category.getName().equalsIgnoreCase(Constants.MECH_BOQ)
+							&& regionType.equalsIgnoreCase(Constants.MECH_TYPE))
+							||(category.getName().equalsIgnoreCase(Constants.ELECT_BOQ)
+							&& regionType.equalsIgnoreCase(Constants.ELEC_TYPE)
+							)){
+						selectedRegions.add(region);
+					}
+				}
+				return Utilities.jSonSerialization(selectedRegions);
+			}
+		}
+		 
+		
 		finalRegions.add(0,regionAll);
 		String result = Utilities.jSonSerialization(finalRegions);
 		return result;
