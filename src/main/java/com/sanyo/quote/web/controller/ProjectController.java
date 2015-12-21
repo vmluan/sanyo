@@ -478,12 +478,12 @@ public class ProjectController extends CommonController {
 		String[] locationIds = locationId.split(",");
 		TreeMap<String, Region> treeRegions = new TreeMap<String, Region>();
 		boolean isAllLocation = false;
-		for(String id : locationIds){
-			if(id.equalsIgnoreCase("0")){
-				isAllLocation =true;
-				break;
-			}
-		}
+//		for(String id : locationIds){
+//			if(id.equalsIgnoreCase("0")){
+//				isAllLocation =true;
+//				break;
+//			}
+//		}
 		if(isAllLocation){
 			Project project = projectService.findById(Integer.valueOf(projectId));
 			List<Location> locations = locationService.findByProject(project);
@@ -495,6 +495,8 @@ public class ProjectController extends CommonController {
 			}
 		}else{
 			for(String id : locationIds){
+				if(id.equalsIgnoreCase("0"))
+					continue;
 				Location location = locationService.findById(Integer.valueOf(id));
 				List<Region> regions = regionService.findByLocation(location);
 				for(Region region: regions){
@@ -617,12 +619,12 @@ public class ProjectController extends CommonController {
 			for(int i=0; i< regionJsons.length; i++){
 				RegionJson regionJson = regionJsons[i];
 				boolean hasAllChecked = false;
-				for(LocationJson locationJson : regionJson.getLocations()){
-					if(locationJson.getLocationName().trim().equalsIgnoreCase("ALL")){
-						hasAllChecked = true;
-						break;
-					}
-				}
+//				for(LocationJson locationJson : regionJson.getLocations()){
+//					if(locationJson.getLocationName().trim().equalsIgnoreCase("ALL")){
+//						hasAllChecked = true;
+//						break;
+//					}
+//				}
 				if(hasAllChecked){
 					for(Location location : locations){
 						saveNewRegion(regionJson, location);
@@ -630,6 +632,9 @@ public class ProjectController extends CommonController {
 				}else{
 					
 					for(LocationJson locationJson : regionJson.getLocations()){
+						if(locationJson.getLocationName().trim().equalsIgnoreCase("ALL")){
+							continue;
+						}
 						Location existingLocation = null;
 						
 						for(Location location : locations){

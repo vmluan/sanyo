@@ -520,6 +520,22 @@ $("#jqxWidgetLocation").jqxComboBox({
 			height : 25,
 			checkboxes: true
 		});	
+$("#listRegion").on('checkChange', function (event)
+{
+    if (event.args) {
+    var item = event.args.item;
+	if(item){
+		var value = item.value;
+		var label = item.label;
+		var checked = item.checked;
+		
+		if(checked && label =='All'){
+			$("#listRegion").jqxComboBox('checkAll');
+		}else if(!checked && label =='All')
+			$("#listRegion").jqxComboBox('uncheckAll');
+		}	
+	}
+});
 $("#jqxWidgetLocation").on('checkChange', function (event)
 {
     if (event.args) {
@@ -528,6 +544,11 @@ $("#jqxWidgetLocation").on('checkChange', function (event)
 		var value = item.value;
 		var label = item.label;
 		var checked = item.checked;
+		
+		if(checked && label =='All'){
+			$("#jqxWidgetLocation").jqxComboBox('checkAll');
+		}else if(!checked && label =='All')
+			$("#jqxWidgetLocation").jqxComboBox('uncheckAll');
 		
 		var locationIDs=getCheckedLocationIds();
 		 if(locationIDs != ''){

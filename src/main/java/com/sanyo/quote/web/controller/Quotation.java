@@ -211,28 +211,32 @@ public class Quotation extends CommonController {
 		List<Encounter> finalEncounters = new ArrayList<Encounter>();
 		boolean isAllLocation = false;
 		boolean isAllRegion = false;
-		for(String id : regionIds){
-			if(id.equalsIgnoreCase("0")){
-				isAllRegion = true;
-				break;
-			}
-		}
+//		for(String id : regionIds){
+//			if(id.equalsIgnoreCase("0")){
+//				isAllRegion = true;
+//				break;
+//			}
+//		}
 		if(!isAllRegion){
 			for(String id : regionIds){
+				if(id.equalsIgnoreCase("0"))
+					continue;
 				Region region = regionService.findById(Integer.valueOf(id));
 				List<Encounter> encounters = encounterService.findByRegion(region);
 				finalEncounters.addAll(encounters);
 			}
 		}else{
 			if(locationIds !=null){
-				for(String id : locationIds.split(",")){
-					if(id.equalsIgnoreCase("0")){
-						isAllLocation = true;
-						break;
-					}
-				}
+//				for(String id : locationIds.split(",")){
+//					if(id.equalsIgnoreCase("0")){
+//						isAllLocation = true;
+//						break;
+//					}
+//				}
 				if(!isAllLocation){
 					for(String id : locationIds.split(",")){
+						if(id.equalsIgnoreCase("0"))
+							continue;
 						Location location = locationService.findById(Integer.valueOf(id));
 						List<Region> regions = regionService.findByLocation(location);
 						for(Region region : regions){
@@ -541,12 +545,12 @@ public class Quotation extends CommonController {
 				, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
 			Float total = 0f;
 			boolean isAllLocation = false;
-			for(String id : locationIds.split(",")){
-				if(id.equalsIgnoreCase("0")){
-					isAllLocation = true;
-					break;
-				}
-			}
+//			for(String id : locationIds.split(",")){
+//				if(id.equalsIgnoreCase("0")){
+//					isAllLocation = true;
+//					break;
+//				}
+//			}
 			if(isAllLocation){
 				Project project = projectService.findById(Integer.valueOf(projectId));
 				List<Location> locations = locationService.findByProject(project);
@@ -555,6 +559,8 @@ public class Quotation extends CommonController {
 				}
 			}else{
 				for(String id : locationIds.split(",")){
+					if(id.equalsIgnoreCase("0"))
+						continue;
 					Location location = locationService.findById(Integer.valueOf(id));
 					total += getSummOfLocation(location);
 				}
