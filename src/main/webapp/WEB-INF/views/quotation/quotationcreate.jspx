@@ -78,8 +78,59 @@
 			</div>
 
 		</div>
+		
+<label>test for drag and drop using data table</label>		
+
+<table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+	<thead>
+		<tr>
+
+			<th>Rendering engine</th>
+			        <th></th>
+			<th>Browser</th>
+			<th>Platform(s)</th>
+			<th>Engine version</th>
+			<th>CSS grade</th>
+		</tr>
+	</thead>
+	<tfoot>
+		<tr>
+			<th>Rendering engine</th>
+			        <th></th>
+			<th>Browser</th>
+			<th>Platform(s)</th>
+			<th>Engine version</th>
+			<th>CSS grade</th>
+		</tr>
+
+	</tfoot>
+	<tbody>
+  
+  
+    	
+<tr  data-position="8" class="even_gradeA" id="107"><td>gecko</td><td>1</td>
+			
+			<td class="">Firefox 1.5</td>
+			<td class=" ">Win 98+ / OSX.2+</td>
+			<td class="center ">1.8</td>
+
+			<td class="center ">A</td>
+		</tr><tr  data-position="9" class="odd_gradeA" id="108"><td>gecko</td><td>2</td>
+			
+			<td class="">Firefox 2.0</td>
+			<td class=" ">Win 98+ / OSX.2+</td>
+			<td class="center ">1.8</td>
+
+			<td class="center ">A</td>
+		</tr> 
+ </tbody>	
+</table>
+ Edit on jsFiddle
+
+
 	</section>
 <script>
+
 	var projectId=${project.projectId};
 	var impTax = "${project.impTax}";
 	var specialCon = "${project.specialTax}";
@@ -108,6 +159,53 @@
 				}
 			});
 	}
+$(document).ready(function() {
+ //<![CDATA[
+	var table = $("#example").dataTable( {
+        "bProcessing": true,
+        "bServerSide": true,
+        "sort": "position",
+        //bStateSave variable you can use to save state on client cookies: set value "true" 
+        "bStateSave": false,
+        //Default: Page display length
+        "iDisplayLength": 10,
+        //We will use below variable to track page number on server side(For more information visit: http://legacy.datatables.net/usage/options#iDisplayStart)
+        "iDisplayStart": 0,
+        "fnDrawCallback": function () {
+            //Get page numer on client. Please note: number start from 0 So
+            //for the first page you will see 0 second page 1 third page 2...
+            //Un-comment below alert to see page number
+        	//alert("Current page number: "+this.fnPagingInfo().iPage);    
+        },         
+        "sAjaxSource": "/quotation/getAssignedProductOfRegionForDatatables?projectId=1&regionId=1&locationIds=1",
+        "aoColumns": [
+            { "mData": "encounterID" },
+            { "mData": "encounterID" },
+            { "mData": "encounterID" },
+            { "mData": "encounterID" },
+            { "mData": "encounterID" },
+            { "mData": "encounterID" },
+             
+        ]
+    } );
+table.rowGrouping({ iGroupingColumnIndex: 0 });
+table.rowReordering({ bGroupingUsed: true, iIndexColumn:1 }); 
+} );
+//]]>
+</script>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-17838786-6']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
 </script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/addQuotation.js">
 		<jsp:text/>

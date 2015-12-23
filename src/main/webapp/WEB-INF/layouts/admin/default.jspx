@@ -36,7 +36,8 @@
    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/jqwidgets/styles/jqx.darkblue.css"
           type="text/css" />
    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/jqwidgets/styles/jqx.energyblue.css"
-          type="text/css" />                    
+          type="text/css" />
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.10/css/jquery.dataTables.min.css"/>		  
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -57,6 +58,14 @@
 	</script>
     <!-- jQuery 2.1.4 -->
     <script src="${pageContext.request.contextPath}/resources/plugins/jQuery/jQuery-2.1.4.min.js"><jsp:text/></script>
+	
+	<script type="text/javascript" language="javascript" src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"><jsp:text/>
+	</script>	
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"><jsp:text/></script>
+	
+	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/resources/scripts/jquery.dataTables.rowGrouping.js"><jsp:text/></script>
+	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/resources/scripts/jquery.dataTables.rowReordering.js"><jsp:text/></script>
+	
     <!-- Bootstrap 3.3.5 -->
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"><jsp:text/></script>
     <!-- AdminLTE App -->

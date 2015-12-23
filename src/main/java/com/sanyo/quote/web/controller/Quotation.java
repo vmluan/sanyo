@@ -51,6 +51,7 @@ import com.sanyo.quote.service.ProductGroupService;
 import com.sanyo.quote.service.ProductService;
 import com.sanyo.quote.service.ProjectService;
 import com.sanyo.quote.service.RegionService;
+import com.sanyo.quote.web.form.DataTableObject;
 
 /*
  * Controller for Encounter 
@@ -580,4 +581,78 @@ public class Quotation extends CommonController {
 			}
 			return total;
 		}
+		@RequestMapping(value = "/getAssignedProductOfRegionForDatatables", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+		@ResponseBody
+		public String getProductsJsonForDataTables(@RequestParam(value="regionId", required=true) String regionId,
+					@RequestParam(value="locationIds", required=false) String locationIds
+				, @RequestParam(value="projectId", required=false) String projectId
+				, @RequestParam(value="filterscount", required=false) String filterscount
+				, @RequestParam(value="groupscount", required=false) String groupscount
+				, @RequestParam(value="pagenum", required=false) Integer pagenum
+				, @RequestParam(value="pagesize", required=false) Integer pagesize
+				, @RequestParam(value="recordstartindex", required=false) Integer recordstartindex
+				, @RequestParam(value="recordendindex", required=false) Integer recordendindex
+				, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
+			
+			String[] regionIds = regionId.split(",");
+			List<Encounter> finalEncounters = new ArrayList<Encounter>();
+			boolean isAllLocation = false;
+			boolean isAllRegion = false;
+//			for(String id : regionIds){
+//				if(id.equalsIgnoreCase("0")){
+//					isAllRegion = true;
+//					break;
+//				}
+//			}
+			if(!isAllRegion){
+				for(String id : regionIds){
+					if(id.equalsIgnoreCase("0"))
+						continue;
+					Region region = regionService.findById(Integer.valueOf(id));
+					List<Encounter> encounters = encounterService.findByRegion(region);
+					finalEncounters.addAll(encounters);
+				}
+			}else{
+				if(locationIds !=null){
+//					for(String id : locationIds.split(",")){
+//						if(id.equalsIgnoreCase("0")){
+//							isAllLocation = true;
+//							break;
+//						}
+//					}
+					if(!isAllLocation){
+						for(String id : locationIds.split(",")){
+							if(id.equalsIgnoreCase("0"))
+								continue;
+							Location location = locationService.findById(Integer.valueOf(id));
+							List<Region> regions = regionService.findByLocation(location);
+							for(Region region : regions){
+								List<Encounter> encounters = encounterService.findByRegion(region);
+								finalEncounters.addAll(encounters);
+							}
+						}	
+					}else{
+						//find all locations of the project, then find all regions of each location.
+						Project project = projectService.findById(Integer.valueOf(projectId));
+						List<Location> locations = locationService.findByProject(project);
+						for(Location location : locations){
+							List<Region> regions = regionService.findByLocation(location);
+							for(Region region : regions){
+								List<Encounter> encounters = encounterService.findByRegion(region);
+								finalEncounters.addAll(encounters);
+							}
+						}
+					}
+				}
+			}
+			DataTableObject<Encounter> dataTableObject = new DataTableObject<Encounter>();
+			dataTableObject.setAaData(finalEncounters);
+			dataTableObject.setiTotalRecords(finalEncounters.size());
+			dataTableObject.setiTotalDisplayRecords(finalEncounters.size());
+			
+			String result = Utilities.jSonSerialization(dataTableObject);
+			return result;
+		}		
 }
+
+

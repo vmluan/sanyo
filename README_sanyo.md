@@ -57,3 +57,6 @@ Every price is updated, we should update related quotation but how?
 when the trigger fired?
 - case 1: price is updated only. start date and end date is not changed. -->Update current price.
 - case 2: price, start date and end date are updated. it is a new price for new duration. -->Add new price for new duration.
+
+-- spring mvc with datatables
+http://javahonk.com/spring-mvc-pagination-datatables/
