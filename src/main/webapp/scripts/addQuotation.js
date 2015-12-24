@@ -1410,7 +1410,47 @@ $("#searchBtn").click(function(){
 	
 	var isCompleted = $("#listResult").jqxGrid('isBindingCompleted');
 	if(isCompleted)
-		showResultGrid(locationIDs,regionIDs);		 
+		showResultGrid(locationIDs,regionIDs);
+		
+	var table;
+
+	table = $("#example").dataTable( {
+		destroy: true,
+        "bProcessing": true,
+        "bServerSide": true,
+        "sort": "position",
+        //bStateSave variable you can use to save state on client cookies: set value "true" 
+        "bStateSave": false,
+        //Default: Page display length
+        "iDisplayLength": 10,
+        //We will use below variable to track page number on server side(For more information visit: http://legacy.datatables.net/usage/options#iDisplayStart)
+        "iDisplayStart": 0,
+        "fnDrawCallback": function () {
+            //Get page numer on client. Please note: number start from 0 So
+            //for the first page you will see 0 second page 1 third page 2...
+            //Un-comment below alert to see page number
+        	//alert("Current page number: "+this.fnPagingInfo().iPage);    
+        },			
+        "sAjaxSource": "/quotation/getAssignedProductOfRegionForDatatables?projectId=1&regionId=1&locationIds=1",
+		"fnServerParams": function ( aoData ) {
+				aoData.push( { "name": "regionId", "value": regionIDs },
+							 { "name": "locationIds", "value": locationIDs }); //push more parameters
+				},		
+        "aoColumns": [
+            { "mData": "encounterID" },
+            { "mData": "product.productName" },
+            { "mData": "encounterID" },
+            { "mData": "encounterID" },
+            { "mData": "encounterID" },
+            { "mData": "encounterID" },
+             
+        ]
+    } );
+//	table.rowGrouping({ iGroupingColumnIndex: 0 });
+	table.rowReordering({ bGroupingUsed: true, iIndexColumn:1 });	
+
+
+		
 });
 function getCheckedLocationIds(){
 	var checkedItemsLocation = $("#jqxWidgetLocation").jqxComboBox(

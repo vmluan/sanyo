@@ -103,27 +103,7 @@
 			<th>CSS grade</th>
 		</tr>
 
-	</tfoot>
-	<tbody>
-  
-  
-    	
-<tr  data-position="8" class="even_gradeA" id="107"><td>gecko</td><td>1</td>
-			
-			<td class="">Firefox 1.5</td>
-			<td class=" ">Win 98+ / OSX.2+</td>
-			<td class="center ">1.8</td>
-
-			<td class="center ">A</td>
-		</tr><tr  data-position="9" class="odd_gradeA" id="108"><td>gecko</td><td>2</td>
-			
-			<td class="">Firefox 2.0</td>
-			<td class=" ">Win 98+ / OSX.2+</td>
-			<td class="center ">1.8</td>
-
-			<td class="center ">A</td>
-		</tr> 
- </tbody>	
+	</tfoot>	
 </table>
  Edit on jsFiddle
 
@@ -161,35 +141,7 @@
 	}
 $(document).ready(function() {
  //<![CDATA[
-	var table = $("#example").dataTable( {
-        "bProcessing": true,
-        "bServerSide": true,
-        "sort": "position",
-        //bStateSave variable you can use to save state on client cookies: set value "true" 
-        "bStateSave": false,
-        //Default: Page display length
-        "iDisplayLength": 10,
-        //We will use below variable to track page number on server side(For more information visit: http://legacy.datatables.net/usage/options#iDisplayStart)
-        "iDisplayStart": 0,
-        "fnDrawCallback": function () {
-            //Get page numer on client. Please note: number start from 0 So
-            //for the first page you will see 0 second page 1 third page 2...
-            //Un-comment below alert to see page number
-        	//alert("Current page number: "+this.fnPagingInfo().iPage);    
-        },         
-        "sAjaxSource": "/quotation/getAssignedProductOfRegionForDatatables?projectId=1&regionId=1&locationIds=1",
-        "aoColumns": [
-            { "mData": "encounterID" },
-            { "mData": "encounterID" },
-            { "mData": "encounterID" },
-            { "mData": "encounterID" },
-            { "mData": "encounterID" },
-            { "mData": "encounterID" },
-             
-        ]
-    } );
-table.rowGrouping({ iGroupingColumnIndex: 0 });
-table.rowReordering({ bGroupingUsed: true, iIndexColumn:1 }); 
+ 
 } );
 //]]>
 </script>
