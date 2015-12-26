@@ -1431,7 +1431,13 @@ $("#searchBtn").click(function(){
             //for the first page you will see 0 second page 1 third page 2...
             //Un-comment below alert to see page number
         	//alert("Current page number: "+this.fnPagingInfo().iPage);    
-        },			
+        },
+	   "fnRowCallback": function ( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+			$(nRow).attr( 'data-position', iDisplayIndex);
+			$(nRow).attr( 'data-row-id', iDisplayIndex);
+			$(nRow).attr( 'id', aData.RowOrder);
+			$(nRow).find('.attr-setting-order' ).val(iDisplayIndex);
+		},
         "sAjaxSource": "/quotation/getAssignedProductOfRegionForDatatables",
 		"fnServerParams": function ( aoData ) {
 				aoData.push( { "name": "regionId", "value": regionIDs },
@@ -1468,7 +1474,7 @@ $("#searchBtn").click(function(){
     } );
 	table.rowGrouping({ iGroupingColumnIndex: 0 });
 //	table.rowReordering({ bGroupingUsed: true, iIndexColumn:1 });
-	table.rowReordering({ bGroupingUsed: true});
+	table.rowReordering({ bGroupingUsed: true,sURL:"UpdateRowOrder.php", sRequestType: "GET" });	
 
 
 		
