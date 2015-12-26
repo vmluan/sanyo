@@ -166,7 +166,8 @@
 			 <tr height="24" style="mso-height-source:userset;height:18.0pt">
 			  <td height="24"  style="height:18.0pt"></td>
 			  <td >Start</td>
-			  <td colspan="2"  style="border-right:.5pt solid #BFBFBF"><form:input path="startDate" class="form-control" readonly="true"/></td>
+			  <td colspan="2"  style="border-right:.5pt solid #BFBFBF">
+			  <form:input path="startDate" class="form-control" readonly="true"/></td>
 			  <td rowspan="3" height="72"  width="75" style="mso-ignore:colspan-rowspan;
 			  height:54.0pt;width:56pt"><span style="mso-ignore:vglayout">
 			  <table cellpadding="0" cellspacing="0">
@@ -184,7 +185,7 @@
 			  </table>
 			  </span></td>
 			  <td colspan="4" rowspan="2"  width="310" style="width:232pt">Minimum
-			  Requirement for duration is 10 months</td>
+			  Requirement for duration is ${summonth}  months</td>
 			  <td ></td>
 			  <td ></td>
 			  <td ></td>
@@ -194,7 +195,8 @@
 			 <tr height="24" style="mso-height-source:userset;height:18.0pt">
 			  <td height="24"  style="height:18.0pt"></td>
 			  <td >Finish</td>
-			  <td colspan="2"  style="border-right:.5pt solid #BFBFBF"><form:input path="endDate" class="form-control" readonly="true"/></td>
+			  <td colspan="2"  style="border-right:.5pt solid #BFBFBF">
+			  <form:input path="endDate" class="form-control" readonly="true"/></td>
 			  <td ></td>
 			  <td ></td>
 			  <td ></td>

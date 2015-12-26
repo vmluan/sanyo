@@ -1,5 +1,7 @@
 package com.sanyo.quote.web.controller;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -35,7 +37,27 @@ public class Condition1Controller extends CommonController {
 	public String getCoverPage(@RequestParam(value="projectId", required=true) String projectId,
 			Model uiModel,HttpServletRequest httpServletRequest) {
 		Project project = projectService.findById(Integer.valueOf(projectId));
-		uiModel.addAttribute("project", project);		
+		Date startDate=project.getStartDate();
+		Date endate = project.getEndDate();
+		
+		int startmonth = startDate.getMonth();
+		int startyear = startDate.getYear();
+		int endmonth = endate.getMonth();
+		int endyear = endate.getYear();
+		int summonth=0;
+		if(startyear==endyear)
+		{
+			summonth=endmonth-startmonth;
+		}
+		else
+			if(startyear < endyear)
+			{
+				int month=12*(endyear-startyear);
+				summonth = (month - startmonth) + endmonth;
+			}
+		
+		uiModel.addAttribute("project", project);
+		uiModel.addAttribute("summonth", summonth);
 		return "quotation/condition_1";
 	}
 }

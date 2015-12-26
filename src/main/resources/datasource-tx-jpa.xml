@@ -22,7 +22,7 @@
 			<value>root</value>
 		</property>
 		<property name="password">
-			<value>password</value>
+			<value></value>
 		</property>
 	</bean>
 

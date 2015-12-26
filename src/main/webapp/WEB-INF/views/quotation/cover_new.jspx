@@ -17,6 +17,21 @@
     <jsp:output omit-xml-declaration="yes"/>    
 
     <section class="content">
+    	<style>
+    	.div-horver
+    	{
+    		transition: padding-left 0.2s ease;
+    		padding-left:0px;
+    	}
+    		.div-horver:hover
+    		{
+    			color:red;
+    			background:black;
+    			font-weight:bold;
+    			padding-left: 10px;
+    			cursor:pointer;
+    		}
+    	</style>
         <form:form modelAttribute="project" id="projectCoverForm" method="post">
             <!-- table made by: http://tableizer.journalistopia.com/tableizer.php -->
             <table class="tableizer-table">
@@ -30,7 +45,7 @@
 				  <td width="64" style="width:48pt"></td>
 				  <td width="64" style="width:48pt">DATE</td>
 				  <td colspan="2" width="197" style="border-right:.5pt solid #A4BED4;
-				  width:148pt"><form:input path="createdDate" class="form-control"/></td>
+				  width:170pt"><form:input disabled="true" path="createdDate" value="" class="form-control"/></td>
 				 </tr>
 				 <tr height="20" style="mso-height-source:userset;height:15.0pt">
 				  <td height="20" style="height:15.0pt"></td>
@@ -41,7 +56,7 @@
 				  <td></td>
 				  <td></td>
 				  <td>REF NO.</td>
-				  <td colspan="2" style="border-right:.5pt solid #BFBFBF"><form:input path="projectCode" class="form-control"/></td>
+				  <td colspan="2" style="border-right:.5pt solid #BFBFBF"><form:input disabled="true" path="projectCode" class="form-control"/></td>
 				 </tr>
 				 <tr height="20" style="mso-height-source:userset;height:15.0pt">
 				  <td height="20"  style="height:15.0pt"></td>
@@ -140,7 +155,7 @@
 				 <tr height="32" style="mso-height-source:userset;height:24.0pt">
 				  <td height="32"  style="height:24.0pt"></td>
 				  <td >PROJECT :</td>
-				  <td colspan="6" style="border-right:.5pt solid #BFBFBF"><form:input path="projectName" class="form-control"/></td>
+				  <td colspan="6" style="border-right:.5pt solid #BFBFBF"><form:input disabled="true" path="projectName" class="form-control"/></td>
 				  <td style="border-left:none"></td>
 				  <td ></td>
 				 </tr>
@@ -190,15 +205,13 @@
 				 <tr height="32" style="mso-height-source:userset;height:24.0pt">
 				  <td height="32"  style="height:24.0pt"></td>
 				  <td >CLIENT<span style="mso-spacerun:yes"> </span>:</td>
-				  <td colspan="6" style="border-right:.5pt solid #BFBFBF"><form:input path="customerName" class="form-control"/></td>
+				  <td colspan="6" style="border-right:.5pt solid #BFBFBF"><form:input disabled="true" path="customerName" class="form-control"/></td>
 				  <td ></td>
 				  <td ></td>
 				 </tr>
 				 <tr height="32" style="mso-height-source:userset;height:24.0pt">
 				  <td height="32"  style="height:24.0pt"></td>
-				  <td align="left" valign="top"><!--[if !vml]--><span style="mso-ignore:vglayout;
-				  position:absolute;z-index:1;margin-left:80px;margin-top:19px;width:498px;
-				  height:293px"></span><!--[endif]--><span style="mso-ignore:vglayout2">
+				  <td align="left" valign="top"><!--[if !vml]--><!--[endif]--><span style="mso-ignore:vglayout2">
 				  <table cellpadding="0" cellspacing="0">
 				   <tbody><tr>
 				    <td height="32"  width="87" style="height:24.0pt;width:65pt"></td>
@@ -228,64 +241,21 @@
 				 </tr>
 				 <tr height="32" style="mso-height-source:userset;height:24.0pt">
 				  <td height="32"  style="height:24.0pt"></td>
-				  <td >DATE<span style="mso-spacerun:yes"> </span>:</td>
-				  <td ></td>
-				  <td ></td>
-				  <td ></td>
-				  <td ></td>
-				  <td ></td>
-				  <td ></td>
-				  <td ></td>
-				  <td ></td>
+				  <td colspan="10" >DATE<span style="mso-spacerun:yes"> </span>:
+				  <c:if test="${sizeRevision>0}">				  
+				  <div style="margin-left:10%;border-radius:5px;height: 143px;border: 1px solid;overflow: auto;line-height:2">
+				  <c:forEach items="${revision}" var="festival">		  
+					 <div class="div-horver"><span>${festival.date}</span>					  
+					  <span style="margin-left:25%">${festival.revisionNo}</span></div>			  
+				  </c:forEach></div>
+				  </c:if>
+				  </td>
+				  		  
 				 </tr>
-				 <tr height="32" style="mso-height-source:userset;height:24.0pt">
-				  <td height="32"  style="height:24.0pt"></td>
-				  <td ></td>
-				  <td ></td>
-				  <td ></td>
-				  <td ></td>
-				  <td ></td>
-				  <td ></td>
-				  <td ></td>
-				  <td ></td>
-				  <td ></td>
-				 </tr>
-				 <tr height="32" style="mso-height-source:userset;height:24.0pt">
-				  <td height="32"  style="height:24.0pt"></td>
-				  <td ></td>
-				  <td ></td>
-				  <td ></td>
-				  <td ></td>
-				  <td ></td>
-				  <td ></td>
-				  <td ></td>
-				  <td ></td>
-				  <td ></td>
-				 </tr>
-				 <tr height="32" style="mso-height-source:userset;height:24.0pt">
-				  <td height="32"  style="height:24.0pt"></td>
-				  <td ></td>
-				  <td ></td>
-				  <td ></td>
-				  <td ></td>
-				  <td ></td>
-				  <td ></td>
-				  <td ></td>
-				  <td ></td>
-				  <td ></td>
-				 </tr>
-				 <tr height="32" style="mso-height-source:userset;height:24.0pt">
-				  <td height="32"  style="height:24.0pt"></td>
-				  <td ></td>
-				  <td ></td>
-				  <td ></td>
-				  <td ></td>
-				  <td ></td>
-				  <td ></td>
-				  <td ></td>
-				  <td ></td>
-				  <td ></td>
-				 </tr>
+				 
+				 
+				 
+				 
 				 <tr height="32" style="mso-height-source:userset;height:24.0pt">
 				  <td height="32"  style="height:24.0pt"></td>
 				  <td ></td>
@@ -445,6 +415,12 @@
 				</tbody>
             </table>
         </form:form>
+        <script>
+        	//var revision = "${revision}";
+        	$(function(){
+        		//alert("");
+        	});
+        </script>
     </section>
 </div>
 
