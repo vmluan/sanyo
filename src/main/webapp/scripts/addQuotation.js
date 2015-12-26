@@ -1415,7 +1415,8 @@ $("#searchBtn").click(function(){
 	var table;
 
 	table = $("#example").dataTable( {
-		destroy: true,
+		"scrollX": true,
+		//destroy: true,
         "bProcessing": true,
         "bServerSide": true,
         "sort": "position",
@@ -1431,23 +1432,43 @@ $("#searchBtn").click(function(){
             //Un-comment below alert to see page number
         	//alert("Current page number: "+this.fnPagingInfo().iPage);    
         },			
-        "sAjaxSource": "/quotation/getAssignedProductOfRegionForDatatables?projectId=1&regionId=1&locationIds=1",
+        "sAjaxSource": "/quotation/getAssignedProductOfRegionForDatatables",
 		"fnServerParams": function ( aoData ) {
 				aoData.push( { "name": "regionId", "value": regionIDs },
 							 { "name": "locationIds", "value": locationIDs }); //push more parameters
 				},		
         "aoColumns": [
-            { "mData": "encounterID" },
+            { "mData": "region.regionName" },
+            { "mData": "order" },
             { "mData": "product.productName" },
-            { "mData": "encounterID" },
-            { "mData": "encounterID" },
-            { "mData": "encounterID" },
-            { "mData": "encounterID" },
-             
+            { "mData": "product.unit" },
+            { "mData": "actualQuantity" },
+            { "mData": "unitRate" },
+            { "mData": "amount" },
+            { "mData": "nonamePercent" },
+            { "mData": "nonameRange" },
+            { "mData": "remark" },
+            { "mData": "quantity" },
+            { "mData": "labour" },
+            { "mData": "mat_w_o_Tax_USD" },
+            { "mData": "mat_w_o_Tax_VND" },
+            { "mData": "product.labour" },
+            { "mData": "imp_Tax" },
+            { "mData": "special_Con_Tax" },
+            { "mData": "vat" },
+            { "mData": "discount_rate" },
+            { "mData": "unit_Price_After_Discount" },
+            { "mData": "allowance" },
+            { "mData": "unit_Price_W_Tax_Profit" },
+            { "mData": "subcon_Profit" },
+            { "mData": "unit_Price_W_Tax_Labour" }, 
+            { "mData": "cost_Mat_Amount_USD" }, 
+            { "mData": "cost_Labour_Amount_USD" }, 
         ]
     } );
-//	table.rowGrouping({ iGroupingColumnIndex: 0 });
-	table.rowReordering({ bGroupingUsed: true, iIndexColumn:1 });	
+	table.rowGrouping({ iGroupingColumnIndex: 0 });
+//	table.rowReordering({ bGroupingUsed: true, iIndexColumn:1 });
+	table.rowReordering({ bGroupingUsed: true});
 
 
 		
