@@ -67,7 +67,7 @@ public class Condition2 implements Serializable{
 		this.project = project;
 	}
 
-	@Column(name = "checkboxs")
+	@Column(name = "checkboxs", columnDefinition="TEXT")
 	public String getCheckboxs() {
 		return checkboxs;
 	}
@@ -76,7 +76,7 @@ public class Condition2 implements Serializable{
 		this.checkboxs = checkboxs;
 	}
 
-	@Column(name = "contents")
+	@Column(name = "contents", columnDefinition="TEXT")
 	public String getContents() {
 		return contents;
 	}
