@@ -1,6 +1,13 @@
 package com.sanyo.quote.web.controller;
 
 import java.io.Console;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -48,9 +55,22 @@ public class CoverController extends CommonController {
     }*/
     @RequestMapping(method = RequestMethod.GET)
 	public String getCoverPage(@RequestParam(value="projectId", required=true) String projectId,
-			Model uiModel,HttpServletRequest httpServletRequest) {
+		Model uiModel,HttpServletRequest httpServletRequest) {
     	Project project = projectService.findById(Integer.parseInt(projectId));
     	List<ProjectRevision> revision = projectrevisionService.findRevisions(project);
+    	convertDateToString convert =new convertDateToString();
+    	List<convertDateToString> listRevision = new ArrayList<convertDateToString>() ;
+    	for(ProjectRevision list : revision)
+    	{
+    		convert.setStrDate(convertDate(list.getDate()));
+    		convert.setRevision_no(list.getRevisionNo());
+    		listRevision.add(convert);
+    	}
+    	//Date date = convertDate(strdate);
+    	//project.setCreatedDate(convertDate(project.getCreatedDate().toString()));
+		uiModel.addAttribute("project", project);
+		uiModel.addAttribute("projectCreateDate", convertDate(project.getCreatedDate()));
+		uiModel.addAttribute("revision",listRevision);
     	for(ProjectRevision list : revision)
     	{
     		list.setDate(convertDate(list.getDate().toString()));
@@ -64,6 +84,18 @@ public class CoverController extends CommonController {
 		//uiModel.addAttribute("rivisionNo", revision.());
 		return "quotation/cover";
 	}
+    private String convertDate(Date date)
+    {
+    	//Date today;
+    	String dateOut;
+    	DateFormat dateFormatter;
+    	Locale currentLocale = Locale.US;
+
+    	dateFormatter = DateFormat.getDateInstance(DateFormat.DEFAULT, currentLocale);
+    	//today = new Date();
+    	dateOut = dateFormatter.format(date);
+    	return dateOut;
+    }
     private Date convertDate(String strdate)
     {
     	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy");

@@ -176,7 +176,7 @@
 			   </tr>
 			   <tr>
 			    <td></td>
-			    <td><img width="20" height="49"></img></td>
+			    <td><img width="20" height="50" src="${pageContext.request.contextPath}/resources/styles/condition2/img/brackets.png"></img></td>
 			    <td width="24"></td>
 			   </tr>
 			   <tr>
