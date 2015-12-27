@@ -7,15 +7,19 @@ var urlProductGroup = pageContext + '/summary/getProductGroupRateJson/'+ project
 var sourceProductGroupRate = {
     datatype : "json",
     datafields : [ {
-        name : 'id',
-        type : 'string'
+        name : 'code',
+        map : 'productGroup>groupCode'
     }, {
         name : 'discount',
         type : 'float'
     }, {
         name : 'allowance',
         type : 'float'
-    } ],
+    }, {
+        name : 'productGroupName',
+        map : 'productGroup>groupName'
+    }
+    ],
     sortcolumn : 'id',
     sortdirection : 'asc',
     id : 'id',
@@ -39,8 +43,8 @@ $("#productGroupRate").jqxGrid(
         editable: true,
         selectionmode: 'multiplecellsadvanced',
         columns: [
-            { text: 'Code', datafield: 'id', width: 250 },
-            //{ text: 'M&E WORKS',datafield: 'id', cellsalign: 'right', align: 'right', width: 200 },
+            { text: 'Code', datafield: 'code', width: 250 },
+            { text: 'M&E WORKS',datafield: 'productGroupName', cellsalign: 'right', align: 'right', width: 200 },
             { text: 'Discount', datafield: 'discount', align: 'right', cellsalign: 'right', cellsformat: 'p', width: 200 },
             { text: 'Allowance', datafield: 'allowance', cellsalign: 'right', cellsformat: 'p', width: 100 }//,
             //{ text: 'Total M&E', columngroup: 'total', datafield: 'id' },
