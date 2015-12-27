@@ -652,6 +652,33 @@ public class Quotation extends CommonController {
 			
 			String result = Utilities.jSonSerialization(dataTableObject);
 			return result;
+		}
+		//get quotation list and display in data table.
+		@RequestMapping(value = "/getquotationlistdatatables", method = RequestMethod.GET)
+		public String getquotationlistdatatables(@RequestParam(value="projectId", required=false) String projectId,
+				@RequestParam(value="locationIds", required=true) String locationIds,
+				@RequestParam(value="regionIds", required=true) String regionIds,
+				Model uiModel, HttpServletRequest httpServletRequest){
+			if(projectId !=null)
+				uiModel.addAttribute("projectId", projectId);
+			uiModel.addAttribute("locationIds", locationIds);
+			uiModel.addAttribute("regionIds", regionIds);
+			return "quotation/createDataTable";
+		}
+		//get quotation list and display in data table.
+		@RequestMapping(value = "/updateQuotaitonOrder", method = RequestMethod.GET)
+		@ResponseBody
+		public void updateQuotaitonOrder(@RequestParam(value="id", required=true) Integer encounterId,
+				@RequestParam(value="fromPosition", required=true) Integer fromPosition,
+				@RequestParam(value="toPosition", required=true) Integer toPosition,
+				Model uiModel, HttpServletRequest httpServletRequest){
+			Encounter encounter = encounterService.findById(encounterId);
+			if(encounter.getOrder() == fromPosition.intValue()){
+				encounter.setOrder(toPosition);
+				encounter.setDataTableChange(true);
+			}
+			encounterService.save(encounter);
+			
 		}		
 }
 

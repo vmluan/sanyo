@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:spring="http://www.springframework.org/tags" version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+
+<section class="content">
+<table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+<![CDATA[	
+	<thead>
+		<tr>
+			<th>No</th>
+			<th>Region</th>
+			<th>Description</th>
+			<th>Unit</th>
+			<th>Quantity</th>
+			<th>Unit Rate</th>
+			<th>Amount</th>
+			<th>Percent</th>
+			<th>Range</th>
+			<th>Remark</th>
+			<th>Qty</th>
+			<th>Labour</th>
+			<th>Mat w/o Tax USD</th>
+			<th>Mat w/o Tax VND</th>
+			<th>Labour (database)</th>
+			<th>Imp Tax</th>
+			<th>Special con. Tax</th>
+			<th>VAT</th>
+			<th>Discount rate %</th>
+			<th>Unit price after discount</th>
+			<th>Allowance</th>
+			<th>Unit price w Tax & profit</th>
+			<th>Subcon profit</th>
+			<th>Unit price w Tax – labour</th>
+			<th>Cost - Mat amount USD</th>
+			<th>Cost - Labour amount USD</th>
+		</tr>
+	</thead>
+	<tfoot>
+		<tr>
+			<th>No</th>
+			<th>Region</th>
+			<th>Description</th>
+			<th>Unit</th>
+			<th>Quantity</th>
+			<th>Unit Rate</th>
+			<th>Amount</th>
+			<th>Percent</th>
+			<th>Range</th>
+			<th>Remark</th>
+			<th>Qty</th>
+			<th>Labour</th>
+			<th>Mat w/o Tax USD</th>
+			<th>Mat w/o Tax VND</th>
+			<th>Labour (database)</th>
+			<th>Imp Tax</th>
+			<th>Special con. Tax</th>
+			<th>VAT</th>
+			<th>Discount rate %</th>
+			<th>Unit price after discount</th>
+			<th>Allowance</th>
+			<th>Unit price w Tax & profit</th>
+			<th>Subcon profit</th>
+			<th>Unit price w Tax – labour</th>
+			<th>Cost - Mat amount USD</th>
+			<th>Cost - Labour amount USD</th>
+		</tr>
+		</tr>
+
+	</tfoot>
+]]>	
+</table>
+</section>
+<script>
+
+	var projectId=${projectId};
+	var locationIds = "${locationIds}";
+	var regionIds = "${regionIds}";
+	var table;
+	//cal ajax
+	
+$(document).ready(function() {
+	table = $("#example").dataTable( {
+		"scrollX": true,
+		destroy: true,
+        //Default: Page display length
+        "iDisplayLength": 10,
+        "iDisplayStart": 0,
+	   "fnRowCallback": function ( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+			$(nRow).attr( 'data-position', iDisplayIndex);
+			//$(nRow).attr( 'data-row-id', iDisplayIndex);
+			//$(nRow).attr( 'id', aData.order);
+			nRow.setAttribute('id', aData.encounterID);  //Initialize row id for every row
+			//$(nRow).find('.attr-setting-order' ).val(iDisplayIndex);
+		},
+		"sPaginationType": "full_numbers",
+        "sAjaxSource": "${pageContext.request.contextPath}/quotation/getAssignedProductOfRegionForDatatables",
+		"fnServerParams": function ( aoData ) {
+				aoData.push( { "name": "regionId", "value": regionIds },
+							 { "name": "locationIds", "value": locationIds }); //push more parameters
+				},		
+        "aoColumns": [
+            { "mData": "order" },
+			{ "mData": "region.regionName" },
+            { "mData": "product.productName" },
+            { "mData": "product.unit" },
+            { "mData": "actualQuantity" },
+            { "mData": "unitRate" },
+            { "mData": "amount" },
+            { "mData": "nonamePercent" },
+            { "mData": "nonameRange" },
+            { "mData": "remark" },
+            { "mData": "quantity" },
+            { "mData": "labour" },
+            { "mData": "mat_w_o_Tax_USD" },
+            { "mData": "mat_w_o_Tax_VND" },
+            { "mData": "product.labour" },
+            { "mData": "imp_Tax" },
+            { "mData": "special_Con_Tax" },
+            { "mData": "vat" },
+            { "mData": "discount_rate" },
+            { "mData": "unit_Price_After_Discount" },
+            { "mData": "allowance" },
+            { "mData": "unit_Price_W_Tax_Profit" },
+            { "mData": "subcon_Profit" },
+            { "mData": "unit_Price_W_Tax_Labour" }, 
+            { "mData": "cost_Mat_Amount_USD" }, 
+            { "mData": "cost_Labour_Amount_USD" }, 
+        ]
+    } );
+	table.rowGrouping({ iGroupingColumnIndex: 1 });
+	table.rowReordering({ sURL:"${pageContext.request.contextPath}/quotation/updateQuotaitonOrder", sRequestType: "GET" });	
+ 
+} );
+</script>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-17838786-6']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</div>

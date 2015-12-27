@@ -1411,73 +1411,25 @@ $("#searchBtn").click(function(){
 	var isCompleted = $("#listResult").jqxGrid('isBindingCompleted');
 	if(isCompleted)
 		showResultGrid(locationIDs,regionIDs);
-		
-	var table;
-
-	table = $("#example").dataTable( {
-		"scrollX": true,
-		//destroy: true,
-        "bProcessing": true,
-        "bServerSide": true,
-        "sort": "position",
-        //bStateSave variable you can use to save state on client cookies: set value "true" 
-        "bStateSave": false,
-        //Default: Page display length
-        "iDisplayLength": 10,
-        //We will use below variable to track page number on server side(For more information visit: http://legacy.datatables.net/usage/options#iDisplayStart)
-        "iDisplayStart": 0,
-        "fnDrawCallback": function () {
-            //Get page numer on client. Please note: number start from 0 So
-            //for the first page you will see 0 second page 1 third page 2...
-            //Un-comment below alert to see page number
-        	//alert("Current page number: "+this.fnPagingInfo().iPage);    
-        },
-	   "fnRowCallback": function ( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
-			$(nRow).attr( 'data-position', iDisplayIndex);
-			$(nRow).attr( 'data-row-id', iDisplayIndex);
-			$(nRow).attr( 'id', aData.RowOrder);
-			$(nRow).find('.attr-setting-order' ).val(iDisplayIndex);
-		},
-        "sAjaxSource": "/quotation/getAssignedProductOfRegionForDatatables",
-		"fnServerParams": function ( aoData ) {
-				aoData.push( { "name": "regionId", "value": regionIDs },
-							 { "name": "locationIds", "value": locationIDs }); //push more parameters
-				},		
-        "aoColumns": [
-            { "mData": "region.regionName" },
-            { "mData": "order" },
-            { "mData": "product.productName" },
-            { "mData": "product.unit" },
-            { "mData": "actualQuantity" },
-            { "mData": "unitRate" },
-            { "mData": "amount" },
-            { "mData": "nonamePercent" },
-            { "mData": "nonameRange" },
-            { "mData": "remark" },
-            { "mData": "quantity" },
-            { "mData": "labour" },
-            { "mData": "mat_w_o_Tax_USD" },
-            { "mData": "mat_w_o_Tax_VND" },
-            { "mData": "product.labour" },
-            { "mData": "imp_Tax" },
-            { "mData": "special_Con_Tax" },
-            { "mData": "vat" },
-            { "mData": "discount_rate" },
-            { "mData": "unit_Price_After_Discount" },
-            { "mData": "allowance" },
-            { "mData": "unit_Price_W_Tax_Profit" },
-            { "mData": "subcon_Profit" },
-            { "mData": "unit_Price_W_Tax_Labour" }, 
-            { "mData": "cost_Mat_Amount_USD" }, 
-            { "mData": "cost_Labour_Amount_USD" }, 
-        ]
-    } );
-	table.rowGrouping({ iGroupingColumnIndex: 0 });
-//	table.rowReordering({ bGroupingUsed: true, iIndexColumn:1 });
-	table.rowReordering({ bGroupingUsed: true,sURL:"UpdateRowOrder.php", sRequestType: "GET" });	
-
-
-		
+	//load data table
+	
+	 var url = pageContext + '/quotation/getquotationlistdatatables';
+		$.ajax({
+			type : "GET",
+			contentType : 'application/json',
+			url : url,
+			data: {
+				projectId : projectId,
+				locationIds : locationIDs,
+				regionIds : regionIDs
+			},
+			success : function(msg) {
+				alert('update completed');
+			},
+			complete : function( jqxhr, settings, exception ) {
+				 $("#quotation_data_table").html(jqxhr.responseText);
+			}
+		});
 });
 function getCheckedLocationIds(){
 	var checkedItemsLocation = $("#jqxWidgetLocation").jqxComboBox(

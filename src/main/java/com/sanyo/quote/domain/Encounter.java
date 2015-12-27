@@ -65,6 +65,8 @@ public class Encounter implements Serializable, Cloneable{
 	private boolean hasMakerDeleted = false; // to highlight records in GUI when the maker is deleted. There is a trigger in database to update this fields
 	 //encounter --> product --> productGroup
 	//makerProject --> productGroupMaker --> productGroup
+	private boolean isDataTableChange = false;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ENCOUNTER_ID", nullable = false)
@@ -333,6 +335,12 @@ public class Encounter implements Serializable, Cloneable{
 	}
 	public void setHasMakerDeleted(boolean hasMakerDeleted) {
 		this.hasMakerDeleted = hasMakerDeleted;
+	}
+	public boolean isDataTableChange() {
+		return isDataTableChange;
+	}
+	public void setDataTableChange(boolean isDataTableChange) {
+		this.isDataTableChange = isDataTableChange;
 	}
 	
 	

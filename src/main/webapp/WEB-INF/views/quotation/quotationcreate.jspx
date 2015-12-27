@@ -78,75 +78,7 @@
 			</div>
 
 		</div>
-		
-<label>test for drag and drop using data table</label>		
-
-<table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
-//<![CDATA[	
-	<thead>
-		<tr>
-			<th>Region</th>
-			<th>No</th>
-			<th>Description</th>
-			<th>Unit</th>
-			<th>Quantity</th>
-			<th>Unit Rate</th>
-			<th>Amount</th>
-			<th>Percent</th>
-			<th>Range</th>
-			<th>Remark</th>
-			<th>Qty</th>
-			<th>Labour</th>
-			<th>Mat w/o Tax USD</th>
-			<th>Mat w/o Tax VND</th>
-			<th>Labour (database)</th>
-			<th>Imp Tax</th>
-			<th>Special con. Tax</th>
-			<th>VAT</th>
-			<th>Discount rate %</th>
-			<th>Unit price after discount</th>
-			<th>Allowance</th>
-			<th>Unit price w Tax & profit</th>
-			<th>Subcon profit</th>
-			<th>Unit price w Tax – labour</th>
-			<th>Cost - Mat amount USD</th>
-			<th>Cost - Labour amount USD</th>
-		</tr>
-	</thead>
-	<tfoot>
-		<tr>
-			<th>Region</th>
-			<th>No</th>
-			<th>Description</th>
-			<th>Unit</th>
-			<th>Quantity</th>
-			<th>Unit Rate</th>
-			<th>Amount</th>
-			<th>Percent</th>
-			<th>Range</th>
-			<th>Remark</th>
-			<th>Qty</th>
-			<th>Labour</th>
-			<th>Mat w/o Tax USD</th>
-			<th>Mat w/o Tax VND</th>
-			<th>Labour (database)</th>
-			<th>Imp Tax</th>
-			<th>Special con. Tax</th>
-			<th>VAT</th>
-			<th>Discount rate %</th>
-			<th>Unit price after discount</th>
-			<th>Allowance</th>
-			<th>Unit price w Tax & profit</th>
-			<th>Subcon profit</th>
-			<th>Unit price w Tax – labour</th>
-			<th>Cost - Mat amount USD</th>
-			<th>Cost - Labour amount USD</th>
-		</tr>
-		</tr>
-
-	</tfoot>
-//]]>	
-</table>
+		<div class="box box-default" id="quotation_data_table"><jsp:text /></div>
 </section>
 <script>
 
@@ -178,25 +110,6 @@
 				}
 			});
 	}
-$(document).ready(function() {
- //<![CDATA[
- 
-} );
-//]]>
-</script>
-
-<script type="text/javascript">
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-17838786-6']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
 </script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/addQuotation.js">
 		<jsp:text/>
