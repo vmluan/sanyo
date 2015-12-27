@@ -3159,7 +3159,7 @@
     			else
     				contents=index+"-"+$(this).val();
     		});
-    		alert("slfj");
+    		//alert("slfj");
     		saveconditon2();
     	});
     	function saveconditon2()
