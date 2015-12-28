@@ -66,22 +66,10 @@ public class CoverController extends CommonController {
     		convert.setRevision_no(list.getRevisionNo());
     		listRevision.add(convert);
     	}
-    	//Date date = convertDate(strdate);
-    	//project.setCreatedDate(convertDate(project.getCreatedDate().toString()));
-		uiModel.addAttribute("project", project);
+    	uiModel.addAttribute("project", project);
 		uiModel.addAttribute("projectCreateDate", convertDate(project.getCreatedDate()));
 		uiModel.addAttribute("revision",listRevision);
-    	for(ProjectRevision list : revision)
-    	{
-    		list.setDate(convertDate(list.getDate().toString()));
-    	}
-    	//Date date = convertDate(strdate);
-    	project.setCreatedDate(convertDate(project.getCreatedDate().toString()));
-		uiModel.addAttribute("project", project);
-		uiModel.addAttribute("revision",revision);
 		uiModel.addAttribute("sizeRevision",revision.size());
-		//uiModel.addAttribute("rivisionDate",date);
-		//uiModel.addAttribute("rivisionNo", revision.());
 		return "quotation/cover";
 	}
     private String convertDate(Date date)
