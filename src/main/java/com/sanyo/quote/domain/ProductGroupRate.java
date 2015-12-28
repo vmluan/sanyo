@@ -53,7 +53,7 @@ public class ProductGroupRate {
     }
 
     @JsonIgnore
-    @OneToOne(fetch= FetchType.LAZY)
+    @OneToOne(fetch= FetchType.EAGER)
     @JoinColumn(name = "product_group_id", nullable = false)
     public ProductGroup getProductGroup() {
         return productGroup;

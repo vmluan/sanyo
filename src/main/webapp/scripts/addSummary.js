@@ -20,9 +20,8 @@ var sourceProductGroupRate = {
         map : 'productGroup>groupName'
     }
     ],
-    sortcolumn : 'id',
+    sortcolumn : 'code',
     sortdirection : 'asc',
-    id : 'id',
     url : urlProductGroup
 };
 var dataProductGroupRateAdapter = new $.jqx.dataAdapter(sourceProductGroupRate, {
