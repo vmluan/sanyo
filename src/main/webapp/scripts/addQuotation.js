@@ -141,6 +141,7 @@ var urlResult = pageContext + "/quotation/getAssignedProductOfRegion";
 		loadError : function(xhr, status, error) {
 		}
 	});
+	/*
 	$("#listResult")
 	.jqxGrid(
 			{
@@ -432,6 +433,7 @@ var urlResult = pageContext + "/quotation/getAssignedProductOfRegion";
 						} ],
 				groups : [ 'regionName' ]
 			});
+*/			
 $("#locationSum").jqxNumberInput({ width: '250px', height: '25px', symbol: '$', disabled: true, decimalDigits: 2, digits: 12, max: 999999999999});
 
 var urlLocation = pageContext + "/quotation/getAssignedLocationsJson";
@@ -533,7 +535,9 @@ $("#listRegion").on('checkChange', function (event)
 			$("#listRegion").jqxComboBox('checkAll');
 		}else if(!checked && label =='All')
 			$("#listRegion").jqxComboBox('uncheckAll');
-		}	
+		}else if(!checked && label !='All'){
+			//$("#listRegion").jqxComboBox('uncheckIndex',0);
+		}
 	}
 });
 $("#jqxWidgetLocation").on('checkChange', function (event)
@@ -549,7 +553,11 @@ $("#jqxWidgetLocation").on('checkChange', function (event)
 			$("#jqxWidgetLocation").jqxComboBox('checkAll');
 		}else if(!checked && label =='All')
 			$("#jqxWidgetLocation").jqxComboBox('uncheckAll');
-		
+		else if(!checked && label !='All'){
+			console.log(checked );
+			console.log(label);
+			//$("#jqxWidgetLocation").jqxComboBox('uncheckIndex',0);
+		}
 		var locationIDs=getCheckedLocationIds();
 		 if(locationIDs != ''){
 			 updateLocationSum(locationIDs);
@@ -750,7 +758,7 @@ function saveEncounter(row,isUpdate) {
 	var encounter = new Object();
 	var data;
 	if(isUpdate){
-		data = $('#listResult').jqxGrid('getrowdata', row);
+		//data = $('#listResult').jqxGrid('getrowdata', row);
 		}
 	else{
 		data = $('#list').jqxGrid('getrowdata', row);
@@ -801,7 +809,8 @@ function saveEncounter(row,isUpdate) {
 			//$("#list").jqxGrid('begincelledit', 0, "desc");
 			var regionIDs=getCheckedRegionIds();
 			var locationIDs=getCheckedLocationIds();
-			showResultGrid(locationIDs, regionIDs);
+			//showResultGrid(locationIDs, regionIDs);
+			loadDataTable();
 //			var itemLocation = $("#jqxWidgetLocation").jqxComboBox('getSelectedItem');
 			var locationIds = getCheckedLocationIds();
 			updateLocationSum(locationIds);
@@ -834,7 +843,7 @@ var groupsrenderer = function(text, group, expanded, data) {
 			updateQuantity(value);
 		 }else if(datafield == 'nonamePercent' ||
 				 datafield == 'nonameRange'){
-			 updateMat_w_o_Tax_USD();
+			 //updateMat_w_o_Tax_USD();
 		 }
 	 });
 	 
@@ -1398,6 +1407,7 @@ function deleteItem(encounterId){
 	});
 }
 $("#searchBtn").click(function(){
+	$("#example").show();
     console.log("The Search was clicked.");
     var checkedItems = $("#listRegion").jqxComboBox('getCheckedItems');
 	var regionIDs=getCheckedRegionIds();
@@ -1413,56 +1423,9 @@ $("#searchBtn").click(function(){
 //		showResultGrid(locationIDs,regionIDs);
 	//load data table
 	
-	table = $("#example").dataTable( {
-		"scrollX": true,
-		destroy: true,
-        //Default: Page display length
-        "iDisplayLength": 10,
-        "iDisplayStart": 0,
-	   "fnRowCallback": function ( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
-			$(nRow).attr( 'data-position', iDisplayIndex);
-			//$(nRow).attr( 'data-row-id', iDisplayIndex);
-			//$(nRow).attr( 'id', aData.order);
-			nRow.setAttribute('id', aData.encounterID);  //Initialize row id for every row
-			//$(nRow).find('.attr-setting-order' ).val(iDisplayIndex);
-		},
-		"sPaginationType": "full_numbers",
-        "sAjaxSource": pageContext +"/quotation/getAssignedProductOfRegionForDatatables",
-		"fnServerParams": function ( aoData ) {
-				aoData.push( { "name": "regionId", "value": regionIDs },
-							 { "name": "locationIds", "value": locationIDs }); //push more parameters
-				},		
-        "aoColumns": [
-            { "mData": "order" },
-			{ "mData": "region.regionName" },
-            { "mData": "product.productName" },
-            { "mData": "product.unit" },
-            { "mData": "actualQuantity" },
-            { "mData": "unitRate" },
-            { "mData": "amount" },
-            { "mData": "nonamePercent" },
-            { "mData": "nonameRange" },
-            { "mData": "remark" },
-            { "mData": "quantity" },
-            { "mData": "labour" },
-            { "mData": "mat_w_o_Tax_USD" },
-            { "mData": "mat_w_o_Tax_VND" },
-            { "mData": "product.labour" },
-            { "mData": "imp_Tax" },
-            { "mData": "special_Con_Tax" },
-            { "mData": "vat" },
-            { "mData": "discount_rate" },
-            { "mData": "unit_Price_After_Discount" },
-            { "mData": "allowance" },
-            { "mData": "unit_Price_W_Tax_Profit" },
-            { "mData": "subcon_Profit" },
-            { "mData": "unit_Price_W_Tax_Labour" }, 
-            { "mData": "cost_Mat_Amount_USD" }, 
-            { "mData": "cost_Labour_Amount_USD" }, 
-        ]
-    } );
+	table = loadDataTable();
 	table.rowGrouping({ iGroupingColumnIndex: 1 });
-	table.rowReordering({ sURL: pageContext + "/quotation/updateQuotaitonOrder", sRequestType: "GET" });	
+	table.rowReordering({ bGroupingUsed: true, sURL: pageContext + "/quotation/updateQuotaitonOrder", sRequestType: "GET" });	
 /*	
 	 var url = pageContext + '/quotation/getquotationlistdatatables';
 		$.ajax({
@@ -1505,4 +1468,62 @@ function getCheckedRegionIds(){
 		  regionIDs = regionIDs.substr(0, regionIDs.length-1);
 	  }
 	  return regionIDs;
+}
+function loadDataTable(){
+	var regionIDs=getCheckedRegionIds();
+	var locationIDs=getCheckedLocationIds();
+	
+	var table = $("#example").dataTable( {
+		  "columnDefs": [
+		                 { "visible": false, "targets": 2 }
+		               ],		
+		"scrollX": true,
+		destroy: true,
+        //Default: Page display length
+        "iDisplayLength": 10,
+        "iDisplayStart": 0,
+	   "fnRowCallback": function ( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+			$(nRow).attr( 'data-position', iDisplayIndex);
+			//$(nRow).attr( 'data-row-id', iDisplayIndex);
+			//$(nRow).attr( 'id', aData.order);
+			nRow.setAttribute('id', aData.encounterID);  //Initialize row id for every row
+			//$(nRow).find('.attr-setting-order' ).val(iDisplayIndex);
+		},
+		"sPaginationType": "full_numbers",
+        "sAjaxSource": pageContext +"/quotation/getAssignedProductOfRegionForDatatables",
+		"fnServerParams": function ( aoData ) {
+				aoData.push( { "name": "regionId", "value": regionIDs },
+							 { "name": "locationIds", "value": locationIDs }); //push more parameters
+				},		
+        "aoColumns": [
+            { "mData": "order" },
+			{ "mData": "region.regionName" },
+			{ "mData": "region.regionId" },
+			{ "mData": "product.productName" },
+            { "mData": "product.unit" },
+            { "mData": "actualQuantity" },
+            { "mData": "unitRate" },
+            { "mData": "amount" },
+            { "mData": "nonamePercent" },
+            { "mData": "nonameRange" },
+            { "mData": "remark" },
+            { "mData": "quantity" },
+            { "mData": "labour" },
+            { "mData": "mat_w_o_Tax_USD" },
+            { "mData": "mat_w_o_Tax_VND" },
+            { "mData": "product.labour" },
+            { "mData": "imp_Tax" },
+            { "mData": "special_Con_Tax" },
+            { "mData": "vat" },
+            { "mData": "discount_rate" },
+            { "mData": "unit_Price_After_Discount" },
+            { "mData": "allowance" },
+            { "mData": "unit_Price_W_Tax_Profit" },
+            { "mData": "subcon_Profit" },
+            { "mData": "unit_Price_W_Tax_Labour" }, 
+            { "mData": "cost_Mat_Amount_USD" }, 
+            { "mData": "cost_Labour_Amount_USD" }, 
+        ]
+    } );
+	return table;
 }

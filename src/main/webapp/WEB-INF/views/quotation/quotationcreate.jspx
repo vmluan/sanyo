@@ -85,6 +85,7 @@
 		<tr>
 			<th>No</th>
 			<th>Region</th>
+			<th>Region ID</th>
 			<th>Description</th>
 			<th>Unit</th>
 			<th>Quantity</th>
@@ -115,6 +116,7 @@
 		<tr>
 			<th>No</th>
 			<th>Region</th>
+			<th>Region ID</th>
 			<th>Description</th>
 			<th>Unit</th>
 			<th>Quantity</th>
@@ -178,7 +180,7 @@
 	}
 </script>
 <script type="text/javascript">
-
+	$("#example").hide();
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-17838786-6']);
   _gaq.push(['_trackPageview']);
