@@ -103,7 +103,6 @@
 				contentType : 'application/json',
 				url : url,
 				success : function(msg) {
-					alert('update completed');
 				},
 				complete : function(xhr, status) {
 					// $("#assignRegionButton").prop('disabled', false);

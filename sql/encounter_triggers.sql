@@ -24,7 +24,7 @@ DROP TRIGGER IF EXISTS encounterAddTrigger;
 		
 		
 		
-		
+		/*
 		DROP TRIGGER IF EXISTS encounterUpDateTrigger;
 		DELIMITER //
 
@@ -47,11 +47,13 @@ DROP TRIGGER IF EXISTS encounterAddTrigger;
 
 		DELIMITER ;
 		
+		*/
+		
 		DROP TRIGGER IF EXISTS encounterOrderHistInsertTrigger;
 		DELIMITER //
 
 		CREATE TRIGGER encounterOrderHistInsertTrigger
-		after insert
+		before insert
 		   ON sanyo.encounter_order_hist FOR EACH ROW
 		BEGIN
 			declare v_encounter_id int(11);
@@ -79,38 +81,23 @@ DROP TRIGGER IF EXISTS encounterAddTrigger;
             
 		begin
 			
-			DECLARE encounter_cursor CURSOR FOR
-				select encounter_id
-				from encounter
-				where region_id = v_region_id
-				and order_No >= v_start_pos
-				and order_No <= v_end_pos
-				and encounter_id <> v_source_encounter_id;
-				
-				 DECLARE CONTINUE HANDLER 
-				        FOR NOT FOUND SET exit_loop = true;
-				 OPEN encounter_cursor;
-				 
-				 update_encounter: LOOP
-				     IF exit_loop THEN
-				         CLOSE encounter_cursor;
-				         LEAVE update_encounter;
-				     END IF;				 
-					FETCH encounter_cursor INTO v_encounter_id;
-					if is_increased then
-						update sanyo.encounter
-						set orderNo = orderNo -1,
-						dataTableChange = false
-						where encounter_id = v_encounter_id
-						and encounter_id <> v_source_encounter_id;
-					else
-						update sanyo.encounter
-						set orderNo = orderNo + 1
-						where encounter_id = v_encounter_id
-						and encounter_id <> v_source_encounter_id;
-					end if;
-			
-				END LOOP update_encounter;
+				if is_increased then
+					update sanyo.encounter
+					set order_No = order_No -1,
+					dataTableChange = false
+					where region_id = v_region_id
+					and order_No >= v_start_pos
+					and order_No <= v_end_pos
+					and encounter_id <> v_source_encounter_id;
+				else
+					update sanyo.encounter
+					set order_No = order_No + 1,
+					dataTableChange = false
+					where region_id = v_region_id
+					and order_No >= v_start_pos
+					and order_No <= v_end_pos
+					and encounter_id <> v_source_encounter_id;
+				end if;				
 		END;
 
 		END; //

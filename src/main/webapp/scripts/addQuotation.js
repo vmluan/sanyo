@@ -1408,9 +1408,9 @@ $("#searchBtn").click(function(){
 	else
 		loadAddQuotationGrid();
 	
-	var isCompleted = $("#listResult").jqxGrid('isBindingCompleted');
-	if(isCompleted)
-		showResultGrid(locationIDs,regionIDs);
+//	var isCompleted = $("#listResult").jqxGrid('isBindingCompleted');
+//	if(isCompleted)
+//		showResultGrid(locationIDs,regionIDs);
 	//load data table
 	
 	 var url = pageContext + '/quotation/getquotationlistdatatables';
@@ -1424,7 +1424,6 @@ $("#searchBtn").click(function(){
 				regionIds : regionIDs
 			},
 			success : function(msg) {
-				alert('update completed');
 			},
 			complete : function( jqxhr, settings, exception ) {
 				 $("#quotation_data_table").html(jqxhr.responseText);
