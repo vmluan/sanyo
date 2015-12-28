@@ -1413,6 +1413,57 @@ $("#searchBtn").click(function(){
 //		showResultGrid(locationIDs,regionIDs);
 	//load data table
 	
+	table = $("#example").dataTable( {
+		"scrollX": true,
+		destroy: true,
+        //Default: Page display length
+        "iDisplayLength": 10,
+        "iDisplayStart": 0,
+	   "fnRowCallback": function ( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+			$(nRow).attr( 'data-position', iDisplayIndex);
+			//$(nRow).attr( 'data-row-id', iDisplayIndex);
+			//$(nRow).attr( 'id', aData.order);
+			nRow.setAttribute('id', aData.encounterID);  //Initialize row id for every row
+			//$(nRow).find('.attr-setting-order' ).val(iDisplayIndex);
+		},
+		"sPaginationType": "full_numbers",
+        "sAjaxSource": pageContext +"/quotation/getAssignedProductOfRegionForDatatables",
+		"fnServerParams": function ( aoData ) {
+				aoData.push( { "name": "regionId", "value": regionIDs },
+							 { "name": "locationIds", "value": locationIDs }); //push more parameters
+				},		
+        "aoColumns": [
+            { "mData": "order" },
+			{ "mData": "region.regionName" },
+            { "mData": "product.productName" },
+            { "mData": "product.unit" },
+            { "mData": "actualQuantity" },
+            { "mData": "unitRate" },
+            { "mData": "amount" },
+            { "mData": "nonamePercent" },
+            { "mData": "nonameRange" },
+            { "mData": "remark" },
+            { "mData": "quantity" },
+            { "mData": "labour" },
+            { "mData": "mat_w_o_Tax_USD" },
+            { "mData": "mat_w_o_Tax_VND" },
+            { "mData": "product.labour" },
+            { "mData": "imp_Tax" },
+            { "mData": "special_Con_Tax" },
+            { "mData": "vat" },
+            { "mData": "discount_rate" },
+            { "mData": "unit_Price_After_Discount" },
+            { "mData": "allowance" },
+            { "mData": "unit_Price_W_Tax_Profit" },
+            { "mData": "subcon_Profit" },
+            { "mData": "unit_Price_W_Tax_Labour" }, 
+            { "mData": "cost_Mat_Amount_USD" }, 
+            { "mData": "cost_Labour_Amount_USD" }, 
+        ]
+    } );
+	table.rowGrouping({ iGroupingColumnIndex: 1 });
+	table.rowReordering({ sURL: pageContext + "/quotation/updateQuotaitonOrder", sRequestType: "GET" });	
+/*	
 	 var url = pageContext + '/quotation/getquotationlistdatatables';
 		$.ajax({
 			type : "GET",
@@ -1429,6 +1480,7 @@ $("#searchBtn").click(function(){
 				 $("#quotation_data_table").html(jqxhr.responseText);
 			}
 		});
+		*/
 });
 function getCheckedLocationIds(){
 	var checkedItemsLocation = $("#jqxWidgetLocation").jqxComboBox(
