@@ -47,6 +47,7 @@ import com.sanyo.quote.domain.CurrencyExchRate;
 import com.sanyo.quote.domain.Encounter;
 import com.sanyo.quote.domain.Location;
 import com.sanyo.quote.domain.LocationJson;
+import com.sanyo.quote.domain.LocationOrderHist;
 import com.sanyo.quote.domain.MakerProject;
 import com.sanyo.quote.domain.ProductGroup;
 import com.sanyo.quote.domain.ProductGroupMaker;
@@ -65,6 +66,7 @@ import com.sanyo.quote.service.CategoryService;
 import com.sanyo.quote.service.CurrencyExchRateService;
 import com.sanyo.quote.service.CurrencyService;
 import com.sanyo.quote.service.EncounterService;
+import com.sanyo.quote.service.LocationOrderHistService;
 import com.sanyo.quote.service.LocationService;
 import com.sanyo.quote.service.MakerProjectService;
 import com.sanyo.quote.service.ProductGroupMakerService;
@@ -124,6 +126,9 @@ public class ProjectController extends CommonController {
 	
 	@Autowired
 	private MakerProjectService makerProjectService;
+	
+	@Autowired
+	private LocationOrderHistService locationOrderHistService;
 	
 	private Validator validator;
 	
@@ -930,7 +935,23 @@ public class ProjectController extends CommonController {
 		Location location = locationService.findById(id);
 		location.setOrderNo(Integer.valueOf(orderNo));
 		locationService.save(location);
-	}	
+	}
+	@RequestMapping(value = "/locations/{id}", params = "updateOrder2", method = RequestMethod.POST)
+	@ResponseBody
+	public void  updateLocationOrder2(@PathVariable Integer id
+			, @RequestParam(value="startPos", required=true) Integer startPos
+			, @RequestParam(value="endPos", required=true) Integer endPos
+			, HttpServletRequest httpServletRequest){
+		Location location = locationService.findById(id);
+//		location.setOrderNo(endPos);
+//		locationService.save(location);
+		if(location.getOrderNo().intValue()==startPos.intValue()){
+			LocationOrderHist locationOrderHist = new LocationOrderHist();
+			locationOrderHist.setLocationId(id);
+			locationOrderHist.setFromPos(startPos);
+			locationOrderHist.setToPos(endPos);
+		}
+	}
 	@RequestMapping(value = "/getLocationsJson", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String getLocationsJson(@RequestParam(value="projectId", required=true) String projectId,
