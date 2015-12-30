@@ -945,11 +945,12 @@ public class ProjectController extends CommonController {
 		Location location = locationService.findById(id);
 //		location.setOrderNo(endPos);
 //		locationService.save(location);
-		if(location.getOrderNo().intValue()==startPos.intValue()){
+		if(location.getOrderNo()==startPos){
 			LocationOrderHist locationOrderHist = new LocationOrderHist();
 			locationOrderHist.setLocationId(id);
 			locationOrderHist.setFromPos(startPos);
 			locationOrderHist.setToPos(endPos);
+			locationOrderHistService.save(locationOrderHist);
 		}
 	}
 	@RequestMapping(value = "/getLocationsJson", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
