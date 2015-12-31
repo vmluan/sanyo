@@ -52,7 +52,7 @@ public class ProductGroupRate {
         this.allowance = allowance;
     }
 
-    @JsonIgnore
+
     @OneToOne(fetch= FetchType.EAGER)
     @JoinColumn(name = "product_group_id", nullable = false)
     public ProductGroup getProductGroup() {
@@ -63,7 +63,7 @@ public class ProductGroupRate {
         this.productGroup = productGroup;
     }
 
-    @JsonIgnore
+
     @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "PROJECT_ID", nullable = false)
     public Project getProject() {
