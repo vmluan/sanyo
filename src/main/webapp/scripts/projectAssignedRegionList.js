@@ -82,6 +82,7 @@ function deleteRegion(id){
 		success : function(msg) {
 			alert('delete successfully.');
 			$("#list").jqxGrid('updatebounddata');
+			$("#list").jqxTreeGrid('expandAll');
 		},
 		complete : function(xhr, status) {
 

@@ -358,7 +358,7 @@ function loadAddQuotationGrid() {
 									datafield : 'modelNo',
 									align : 'center',
 									cellsalign : 'right',
-									cellsformat : 'c0',
+								//	cellsformat : 'c0',
 									width : '15%'
 								},
 								{
@@ -724,7 +724,7 @@ function showResultGrid(categoryId) {
 									datafield : 'modelNo',
 									align : 'center',
 									cellsalign : 'right',
-									cellsformat : 'c0',
+									//cellsformat : 'c0',
 									width : '15%'
 								},
 								{

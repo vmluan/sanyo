@@ -117,29 +117,34 @@ $("#listLocation")
 								var startRowOrderNo = $('#listLocation').jqxGrid('getcellvalue', startRow, "orderNo");
 								//update startRow
 								if(startRow != cell.row){
-									if(startRowOrderNo < endRowOrderNo){
-										updateOrderNo(startRowOrderNo +1, endRowOrderNo, - 1 );
-									}else{
-										updateOrderNo(endRowOrderNo -1, startRowOrderNo, +1);
-									}
-									$("#listLocation").jqxGrid('setcellvalue', startRow, "orderNo", endRowOrderNo);
+									var locationId = $('#listLocation').jqxGrid('getcellvalue', startRow, "locationId");
+									updateOrder(locationId, startRowOrderNo, endRowOrderNo)
+//									if(startRowOrderNo < endRowOrderNo){
+//										updateOrderNo(startRowOrderNo +1, endRowOrderNo, - 1 );
+//									}else{
+//										updateOrderNo(endRowOrderNo -1, startRowOrderNo, +1);
+//									}
+//									$("#listLocation").jqxGrid('setcellvalue', startRow, "orderNo", endRowOrderNo);
 								}
-								//update endRow and prior rows.
-								  
-								//  $("#listLocation").jqxGrid('setcellvalue', cell.row, "orderNo", currentOrderNo +1);
 							}
 						});
 					},
 					columns : [
+//							{
+//								text : '#',
+//								datafield : 'stt',
+//								width : '5%',
+//								columntype : 'number',
+//								cellsrenderer : function(row, column, value) {
+//									return "<div style='margin:4px;'>"
+//											+ (value + 1) + "</div>";
+//								}
+//							}
 							{
-								text : '#',
-								datafield : 'stt',
-								width : '5%',
-								columntype : 'number',
-								cellsrenderer : function(row, column, value) {
-									return "<div style='margin:4px;'>"
-											+ (value + 1) + "</div>";
-								}
+								text : 'Order',
+								datafield : 'orderNo',
+								hidden : false,
+								width : '10%'
 							}, {
 								text : 'Name',
 								datafield : 'locationName',
@@ -154,17 +159,12 @@ $("#listLocation")
 								cellsalign : 'left',
 								cellsformat : 'c0',
 								width : '30%'
-							}, {
-								text : 'Order',
-								datafield : 'orderNo',
-								hidden : false,
-								width : '10%'
 							},
 							{
 								text : 'Action',
 								datafield : 'locationId',
 								align : 'center',
-								width : '35%',
+								width : '30%',
 								cellsrenderer : function(row, column, value) {
 									return '<div class="col-md-12">'
 													+ '<button type="button" class="btn bg-olive col-md-5"  onclick="updateLocation('+ value +  ')"' + '>Edit</button>'
@@ -196,7 +196,23 @@ function deleteLocation(id){
 		}
 });
 }
-
+function updateOrder(locationId, startPos, endPos){
+	var url = pageContext + '/projects/locations/' + locationId + '?updateOrder2';
+	$.ajax({
+		type : "POST",
+		url : url,
+		data: {
+			startPos : startPos,
+			endPos : endPos
+		},
+		success : function(msg) {
+			$("#listLocation").jqxGrid('updatebounddata');
+			$('#listLocation').jqxGrid('sortby', 'orderNo', 'asc');
+		},
+		complete : function(xhr, status) {
+		}
+	});
+}
 // for drag and drop
 function updateOrderNo(start, end, increment){
 	var rows = $("#listLocation").jqxGrid('getrows'); //get all rows with order as displayed on GUI
@@ -208,24 +224,24 @@ function updateOrderNo(start, end, increment){
 		$("#listLocation").jqxGrid('setcellvaluebyid', uid, "orderNo", currentOrderNo + increment);
 	}
 }
-$("#listLocation").on('cellvaluechanged', function (event) 
-{
-    // event arguments.
-    var args = event.args;
-    // column data field.
-    var datafield = event.args.datafield;
-	if(datafield == 'orderNo'){
-		// row's bound index.
-		var rowBoundIndex = args.rowindex;
-		// new cell value.
-		var value = args.newvalue;
-		// old cell value.
-		var oldvalue = args.oldvalue;
-		var locationId = $('#listLocation').jqxGrid('getcellvalue', rowBoundIndex, "locationId");
-		synchOrderNo(locationId,value);
-	}
-	
-});
+//$("#listLocation").on('cellvaluechanged', function (event) 
+//{
+//    // event arguments.
+//    var args = event.args;
+//    // column data field.
+//    var datafield = event.args.datafield;
+//	if(datafield == 'orderNo'){
+//		// row's bound index.
+//		var rowBoundIndex = args.rowindex;
+//		// new cell value.
+//		var value = args.newvalue;
+//		// old cell value.
+//		var oldvalue = args.oldvalue;
+//		var locationId = $('#listLocation').jqxGrid('getcellvalue', rowBoundIndex, "locationId");
+//		synchOrderNo(locationId,value);
+//	}
+//	
+//});
 function synchOrderNo(locationId, newOrderNo){
 	var url = pageContext + '/projects/locations/' + locationId + '?updateOrder';
 	$.ajax({
@@ -236,6 +252,7 @@ function synchOrderNo(locationId, newOrderNo){
 		},
 		success : function(msg) {
 			$("#listLocation").jqxGrid('updatebounddata');
+			$('#listLocation').jqxGrid('sortby', 'orderNo', 'asc');
 		},
 		complete : function(xhr, status) {
 		}
