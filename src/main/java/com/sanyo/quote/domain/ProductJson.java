@@ -45,6 +45,7 @@ public class ProductJson {
 	private String endDateString;
 	private ProductGroupJson productGroup;
 	private Integer makerId;
+	private String productNameVietnamese;
 	
 	public Integer getProductID() {
 		return productID;
@@ -235,6 +236,12 @@ public class ProductJson {
 	}
 	public void setMakerId(Integer makerId) {
 		this.makerId = makerId;
+	}
+	public String getProductNameVietnamese() {
+		return productNameVietnamese;
+	}
+	public void setProductNameVietnamese(String productNameVietnamese) {
+		this.productNameVietnamese = productNameVietnamese;
 	}
 	
 	
