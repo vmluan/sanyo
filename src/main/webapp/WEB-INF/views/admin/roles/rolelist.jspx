@@ -22,7 +22,10 @@
 		<p/>
 		<a href="?form" class="btn btn-primary btn-xs">${labelRoleAdd}</a>
 	</section>
-
+	<script>
+	activeLink('liRole');
+	$(".treeview-menu").css("display", "block");	
+	</script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/roleList.js">
         <jsp:text/>
     </script>

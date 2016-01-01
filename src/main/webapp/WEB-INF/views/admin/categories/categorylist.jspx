@@ -22,6 +22,8 @@
 	</section>
 	<script>
 		var pageContext = "${pageContext.request.contextPath}";
+		activeLink('liCategory');
+		$(".treeview-menu").css("display", "block");	
 	</script>
 
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/categoryList.js">

@@ -3,12 +3,14 @@ package com.sanyo.quote.web.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
 import com.sanyo.quote.helper.Utilities;
 import com.sanyo.quote.web.form.BreadCrumb;
 import com.sanyo.quote.web.form.Link;
 
+@Controller
 public class CommonController {
 	public List<Link> links = new ArrayList<Link>();
 	
