@@ -32,7 +32,7 @@ var dataProductGroupRateAdapter = new $.jqx.dataAdapter(sourceProductGroupRate, 
 // initialize jqxGrid
 $("#productGroupRate").jqxGrid(
     {
-        width: 550,
+        width: '100%',
         source: dataProductGroupRateAdapter,
         pageable: true,
         autoheight: true,
@@ -42,16 +42,40 @@ $("#productGroupRate").jqxGrid(
         editable: true,
         selectionmode: 'multiplecellsadvanced',
         columns: [
-            { text: 'Code', datafield: 'code', width: 250 },
-            { text: 'M&E WORKS',datafield: 'productGroupName', cellsalign: 'right', align: 'right', width: 200 },
-            { text: 'Discount', datafield: 'discount', align: 'right', cellsalign: 'right', cellsformat: 'p', width: 200 },
-            { text: 'Allowance', datafield: 'allowance', cellsalign: 'right', cellsformat: 'p', width: 100 }//,
+            { text: 'Code', datafield: 'code', width: '20%' },
+            { text: 'M&E WORKS',datafield: 'productGroupName', cellsalign: 'right', align: 'right', width: '30%' },
+            { text: 'Discount', datafield: 'discount', align: 'right', cellsalign: 'right', cellsformat: 'p', width: '20%' },
+            { text: 'Allowance', datafield: 'allowance', cellsalign: 'right', cellsformat: 'p', width: '20%' },
             //{ text: 'Total M&E', columngroup: 'total', datafield: 'id' },
             //{ text: 'Total Labour M&E', columngroup: 'total', datafield: 'id' }
+            {
+                text : 'Action',
+                align : 'center',
+                datafield : 'buttonUpdate',
+                width : '10%',
+                cellsrenderer : function(row, column, value) {
+                    return '<div class="col-md-12" style="margin-left: -0px;">'
+                        + '<button class="btn bg-olive margin col-md-4"  onclick="updateRate('+ row +  ')"' + '>Update</button>'
+                        + '</div>';
+                },
+                cellbeginedit : function(row) {
+                    return false;
+                }
+            }
         ]
         //],
         //columngroups: [
         //    { text: 'Total', align: 'center', name: 'Total' }
         //]
     });
+
+
+//Update DiscountRate and Allowance
+$('#list').on('cellclick', function (event) {
+    var field = event.args.datafield;
+    var index = event.args.rowindex;
+    if(field == 'buttonAdd'){
+        addItem(index);
+    }
+});
 

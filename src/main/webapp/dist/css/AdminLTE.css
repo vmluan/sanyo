@@ -4246,6 +4246,7 @@ table.text-center th {
 }
 .bg-olive {
   background-color: #3d9970 !important;
+  width: inherit;
 }
 .bg-lime {
   background-color: #01ff70 !important;
@@ -4258,6 +4259,7 @@ table.text-center th {
 }
 .bg-purple {
   background-color: #605ca8 !important;
+  width:inherit;
 }
 .bg-maroon {
   background-color: #d81b60 !important;
