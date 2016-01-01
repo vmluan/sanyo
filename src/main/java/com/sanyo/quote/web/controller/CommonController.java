@@ -3,15 +3,19 @@ package com.sanyo.quote.web.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
 import com.sanyo.quote.helper.Utilities;
+import com.sanyo.quote.service.UserService;
 import com.sanyo.quote.web.form.BreadCrumb;
 import com.sanyo.quote.web.form.Link;
 
 @Controller
 public class CommonController {
+	@Autowired
+	UserService userService;
 	public List<Link> links = new ArrayList<Link>();
 	
 	public void resetLinks(){
@@ -53,9 +57,17 @@ public class CommonController {
 	public void setUser(Model uiModel){
 		org.springframework.security.core.userdetails.User user = Utilities.getCurrentUser();
 		uiModel.addAttribute("userName", user.getUsername());
+		com.sanyo.quote.domain.User userSanyo = userService.findByUserName(user.getUsername());
+		uiModel.addAttribute("user",userSanyo);
 	}
 	public void throwOverlappedDateException(String message) throws Exception{
 		Exception e = new Exception(message);
 		throw e;
+	}
+	public void checkAdminRole() throws Exception{
+		if(!Utilities.hasAdminRole()){
+			Exception e = new Exception("You have not permission to execute this request. Please contact admin for the support");
+			throw e;
+		}
 	}
 }

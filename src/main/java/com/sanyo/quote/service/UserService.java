@@ -16,5 +16,5 @@ public interface UserService {
 	User save(User user);
 	
 	Page<User> findAllByPage(Pageable pageable);	
-	
+	void delete(Integer id);
 }
