@@ -99,7 +99,7 @@ $("#listLocation")
 							var startRow = $(this).jqxDragDrop('data');
 							var position = $.jqx.position(event.args);
 							var cell = $("#listLocation").jqxGrid('getcellatposition', position.left, position.top);
-							if (cell != null) {
+							if (cell != null && cell.row != null) {
 								var targetRow = $("#listLocation").jqxGrid('getrowdata', cell.row);
 								var test='';
 								// move dapped row to afer the dropped row.
@@ -196,6 +196,10 @@ function deleteLocation(id){
 		}
 });
 }
+$("#listLocation").on('bindingcomplete', function (event) {
+	$('#listLocation').jqxGrid('sortby', 'orderNo', 'asc');			
+});
+
 function updateOrder(locationId, startPos, endPos){
 	var url = pageContext + '/projects/locations/' + locationId + '?updateOrder2';
 	$.ajax({
@@ -207,7 +211,7 @@ function updateOrder(locationId, startPos, endPos){
 		},
 		success : function(msg) {
 			$("#listLocation").jqxGrid('updatebounddata');
-			$('#listLocation').jqxGrid('sortby', 'orderNo', 'asc');
+			
 		},
 		complete : function(xhr, status) {
 		}
