@@ -7,6 +7,9 @@ var urlProductGroup = pageContext + '/summary/getProductGroupRateJson/'+ project
 var sourceProductGroupRate = {
     datatype : "json",
     datafields : [ {
+        name : 'id',
+        type : 'float'
+    },{
         name : 'code',
         map : 'productGroup>groupCode'
     }, {
@@ -55,7 +58,7 @@ $("#productGroupRate").jqxGrid(
                 width : '10%',
                 cellsrenderer : function(row, column, value) {
                     return '<div class="col-md-12" style="margin-left: -0px;">'
-                        + '<button class="btn bg-olive margin col-md-4"  onclick="updateRate('+ row +  ')"' + '>Update</button>'
+                        + '<button class="btn bg-olive margin col-md-4"  onclick="updateRate('+ row +','+dataProductGroupRateAdapter.records[row].id + ')"' + '>Update</button>'
                         + '</div>';
                 },
                 cellbeginedit : function(row) {
@@ -78,4 +81,42 @@ $('#list').on('cellclick', function (event) {
         addItem(index);
     }
 });
+
+function updateRate(row, id){
+    var productGroupRate = new Object();
+    var data = $('#productGroupRate').jqxGrid('getrowdata', row);
+
+    productGroupRate.id = id;
+    productGroupRate.discount =
+        data.discount;
+    productGroupRate.allowance =
+        data.allowance;
+
+    var jsonData = JSON.stringify(productGroupRate);
+    console.log(jsonData);
+    var url = pageContext + '/summary/' + id + '/updateRate?form';
+    $.ajax({
+        type : "POST",
+        contentType : 'application/json',
+        data : jsonData,
+        url : url,
+        success : function(msg) {
+            $("#productGroupRate").jqxGrid('updatebounddata');
+
+            //$('#list').jqxGrid('addrow', null, {}, 'first');
+            //$("#list").jqxGrid('begincelledit', 0, "desc");
+            //var regionIDs=getCheckedRegionIds();
+            //var locationIDs=getCheckedLocationIds();
+            //showResultGrid(locationIDs, regionIDs);
+            //loadDataTable();
+//			var itemLocation = $("#jqxWidgetLocation").jqxComboBox('getSelectedItem');
+            //var locationIds = getCheckedLocationIds();
+            //updateLocationSum(locationIds);
+        },
+        complete : function(xhr, status) {
+            // $("#assignRegionButton").prop('disabled', false);
+        }
+    });
+
+}
 

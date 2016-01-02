@@ -1,5 +1,6 @@
 package com.sanyo.quote.web.controller;
 
+import com.sanyo.quote.domain.EncounterJson;
 import com.sanyo.quote.domain.Maker;
 import com.sanyo.quote.domain.ProductGroupRate;
 import com.sanyo.quote.helper.Utilities;
@@ -7,6 +8,7 @@ import com.sanyo.quote.service.ProductGroupRateService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -53,5 +55,18 @@ public class SummaryController {
         List<ProductGroupRate> productGroupRates = productGroupRateService.findAll();
         String result = Utilities.jSonSerialization(productGroupRates);
         return result;
+    }
+
+    @RequestMapping(value = "/{id}/updateRate", params = "form", method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.OK)
+    public void saveEncounters(@RequestBody final ProductGroupRate productGroupRate, @PathVariable("id") Integer id, Model uiModel, HttpServletRequest httpServletRequest){
+        System.out.println("=================================== updaing productGroupRate");
+        float discount = productGroupRate.getDiscount();
+        float allowance = productGroupRate.getAllowance();
+
+        ProductGroupRate productGroupRate1 = productGroupRateService.findById(id); //Temp object to update value
+        productGroupRate1.setDiscount(discount);
+        productGroupRate1.setAllowance(allowance);
+        productGroupRateService.save(productGroupRate1);
     }
 }
