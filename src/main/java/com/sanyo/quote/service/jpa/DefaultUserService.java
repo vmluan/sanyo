@@ -46,4 +46,10 @@ public class DefaultUserService implements UserService {
 	public User findByUserName(String userName) {
 		return userRepository.findByUsername(userName);
 	}
+
+	@Override
+	public void delete(Integer id) {
+		userRepository.delete(id);
+		
+	}
 }

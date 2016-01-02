@@ -153,7 +153,6 @@
 	if("${user.avatar}"){
 		var imgPrev = document.getElementById('imgPrev');
 		imgPrev.src = "../../images/profile/" + "${user.avatar}";
-		alert('test');
 	}
 </script>
 </div>

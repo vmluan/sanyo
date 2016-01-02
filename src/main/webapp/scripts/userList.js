@@ -74,12 +74,14 @@ $("#list")
 								width : '20%',
 								cellsrenderer : function(row, column, value) {
 									return '<div class="col-md-6">'
-											+ '<a class="btn btn-app" onclick="updateProduct('
+											+ '<a class="btn btn-app" onclick="updateUser('
 											+ value
 											+ ')">'
 											+ '<i class="glyphicon glyphicon-edit"></i>'
 											+ '</a>'
-											+ '<a class="btn btn-app">'
+											+ '<a class="btn btn-app" onclick="deleteUser('
+											+ value
+											+ ')">'
 											+ '<i class="glyphicon glyphicon-remove-circle"></i>'
 											+ '</a>' + '</div>';
 								}
@@ -130,6 +132,24 @@ $("#list")
 								}
 							}, ]
 				});
-function updateProduct(userid) {
+function updateUser(userid) {
 	window.location.href = pageContext + '/admin/users/' + userid + '?form';
+}
+function deleteUser(userid) {
+	var result = confirm('Do you want to delete this record?');
+    if (result == false)
+		return;
+	var url = pageContext + '/admin/users/' + userid + '?delete';
+	$.ajax({
+		type : "POST",
+		contentType : 'application/json',
+		url : url,
+		success : function(msg) {
+			alert('delete successfully.');
+			$("#list").jqxGrid('updatebounddata');
+		},
+		complete : function(xhr, status) {
+
+		}
+});
 }
