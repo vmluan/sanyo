@@ -23,6 +23,7 @@ import com.sanyo.quote.domain.Region;
 import com.sanyo.quote.domain.UserRegionRole;
 import com.sanyo.quote.helper.Utilities;
 import com.sanyo.quote.service.RegionService;
+import com.sanyo.quote.service.UserRegionRoleService;
 
 @Controller
 @RequestMapping(value = "/regions")
@@ -31,6 +32,9 @@ public class RegionController {
 	
 	@Autowired
 	RegionService regionService;
+	
+	@Autowired
+	UserRegionRoleService userRegionRoleService;
 	
 	@RequestMapping(value = "/getAssginedUsersJson", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
@@ -55,6 +59,12 @@ public class RegionController {
     public void deleteLocation(@PathVariable("id") Integer id, Model uiModel) {
 		regionService.delete(id);
 		
+	}
+	
+	@RequestMapping(value = "/assignedUser/{id}", params = "delete", method = RequestMethod.POST)
+	@ResponseBody
+    public void deleteUser(@PathVariable("id") Integer id, Model uiModel) {
+		userRegionRoleService.delete(id);
 	}
 
 }

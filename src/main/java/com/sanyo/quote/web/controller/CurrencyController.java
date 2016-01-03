@@ -59,7 +59,11 @@ public final class CurrencyController extends CommonController{
 		ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
         validator = validatorFactory.getValidator();
 	}
-	
+	private void addCurrencyHomeLink(Model model){
+		resetLinks();
+		addToLinks("Currency List", "/currency");
+		setModel(model);
+	}
 	//handle /currencies
 	@RequestMapping(method = RequestMethod.GET)
 	public String list(Model uiModel, HttpServletRequest request) {
@@ -67,6 +71,7 @@ public final class CurrencyController extends CommonController{
 		setBreadCrumb(uiModel, "/", "Home", "/currency", "Currency");
 		setHeader(uiModel, "Currency", "List of all Currency exchange rates");
 		setUser(uiModel);
+		addCurrencyHomeLink(uiModel);
 		return "currency/listExchRates";
 	}
 	@RequestMapping(params = "form", method = RequestMethod.GET)
@@ -79,6 +84,8 @@ public final class CurrencyController extends CommonController{
 		uiModel.addAttribute("currencyExchRate", new CurrencyExchRate());
 		uiModel.addAttribute("currencyList", currencyList);
 		uiModel.addAttribute("currencies", currencies);
+		addCurrencyHomeLink(uiModel);
+		addToLinks("New Currency", "");
 		return "currency/newExchRate";
 	}	//create new project, save to database
 	@RequestMapping(params = "form", method = RequestMethod.POST)
@@ -197,7 +204,8 @@ public final class CurrencyController extends CommonController{
 			errorMsg = e.getMessage();
 		}
 		uiModel.addAttribute("message", new Message("error", errorMsg));
-		
+		addCurrencyHomeLink(uiModel);
+		addToLinks("Update Currency", "");
 		return "currency/newExchRate";
 	}
 	@RequestMapping(value = "/{id}", params = "form", method = RequestMethod.POST)

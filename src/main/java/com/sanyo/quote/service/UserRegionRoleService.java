@@ -23,4 +23,5 @@ public interface UserRegionRoleService {
 	List<UserRegionRole> findAssignedRegionsByUserId(Integer userid);
 	List<UserRegionRole> findAssignedRegionsByUserName(String username);
 	List<Project> findAssignedProjectsByUserName(String username);
+	void delete(Integer id);
 }

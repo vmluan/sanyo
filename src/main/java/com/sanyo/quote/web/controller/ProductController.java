@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -65,7 +64,7 @@ import com.sanyo.quote.web.form.FileBean;
 
 @Controller
 @RequestMapping(value = "/products")
-public class ProductController {
+public class ProductController extends CommonController {
 	final Logger logger = LoggerFactory.getLogger(ProductController.class);
 	final String UPLOAD_DIRECTORY = "/images/t-shirts/";
 	@Autowired
@@ -102,9 +101,17 @@ public class ProductController {
 		//fileBean
 		FileBean fileBean = new FileBean();
 		ciModel.addAttribute("fileBean", fileBean);
+		
+		addProductHomeLink(ciModel);
+		
 		return "products/list";
 	}
 	
+	private void addProductHomeLink(Model model){
+		resetLinks();
+		addToLinks("Product List", "/products");
+		setModel(model);
+	}
 	@RequestMapping(value = "/setjson")
 	public String generateJsonFile(HttpServletRequest httpServletRequest){
 		
@@ -133,6 +140,8 @@ public class ProductController {
 		uiModel.addAttribute("categories", categories);
 		
 		httpServletRequest.setCharacterEncoding("UTF-8");
+		addProductHomeLink(uiModel);
+		addToLinks("New Product", "");
 		return "products/new";
 	}
 	
@@ -229,10 +238,10 @@ public class ProductController {
 //		}
 //		return result;
 //	}
-	private void throwOverlappedDateException(String message) throws Exception{
-		Exception e = new Exception(message);
-		throw e;
-	}
+//	private void throwOverlappedDateException(String message) throws Exception{
+//		Exception e = new Exception(message);
+//		throw e;
+//	}
 	private void saveLabourPrice(ProductJson json,  Product product) throws Exception{
 		LabourPrice labourPrice = null;
 		List<LabourPrice> labourPrices = productService.findLabourPrices(json.getProductID());
@@ -377,6 +386,8 @@ public class ProductController {
 		List<Category> categories = productService.findCategories(id);
 		uiModel.addAttribute("product", product);
 		uiModel.addAttribute("categories", categories);
+		addProductHomeLink(uiModel);
+		addToLinks("Update Product", "");
         return "products/update";
 	}
 	@RequestMapping(value = "/{id}", params = "form", method = RequestMethod.POST)

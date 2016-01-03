@@ -31,6 +31,9 @@ public class CommonController {
 			link.setHomeLink(true);
 		links.add(link);
 	}
+	public void setModel(Model model){
+		model.addAttribute("links", links);
+	}
 	public void setBreadCrumb(Model uiModel){
 		uiModel.addAttribute("links", links);
 	}

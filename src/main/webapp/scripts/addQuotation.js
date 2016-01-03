@@ -1488,6 +1488,10 @@ function loadDataTable(){
 			//$(nRow).attr( 'id', aData.order);
 			nRow.setAttribute('id', aData.encounterID);  //Initialize row id for every row
 			//$(nRow).find('.attr-setting-order' ).val(iDisplayIndex);
+			var hasMakerDeleted = aData.hasMakerDeleted;
+			if(hasMakerDeleted == true){
+				$nRow.css({"background-color":"red"})
+			}
 		},
 		"sPaginationType": "full_numbers",
         "sAjaxSource": pageContext +"/quotation/getAssignedProductOfRegionForDatatables",

@@ -144,7 +144,9 @@ $("#list")
 													+ '<button class="btn bg-purple margin col-md-2" onclick="addQuotation('+ value +  ')"' + '>Quotation</button>'
 													+ '<button class="btn bg-navy margin col-md-3">Marker List</button>'
 													+ '<button class="btn bg-orange margin col-md-2" onclick="cloneProject('+ value +  ')"' + '>Copy</button>'
-													+ '<button class="btn bg-maroon margin col-md-2" onclick="closeProject('+ value +  ')"' + '>Close</button>'
+													if(projectStatus != 'closed'){
+														+ '<button class="btn bg-maroon margin col-md-2" onclick="closeProject('+ value +  ')"' + '>Close</button>'
+													}
 													+ '<button class="btn btn-danger margin col-md-1" onclick="deleteProject('+ value +  ')"' + '>X</button>'
 												+ '</p>'
 											+ '</div>'
