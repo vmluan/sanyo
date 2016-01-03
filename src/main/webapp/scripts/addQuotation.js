@@ -1490,7 +1490,7 @@ function loadDataTable(){
 			//$(nRow).find('.attr-setting-order' ).val(iDisplayIndex);
 			var hasMakerDeleted = aData.hasMakerDeleted;
 			if(hasMakerDeleted == true){
-				$nRow.css({"background-color":"red"})
+				$(nRow).css({"background-color":"red"})
 			}
 		},
 		"sPaginationType": "full_numbers",
