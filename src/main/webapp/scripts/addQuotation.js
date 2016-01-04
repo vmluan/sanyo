@@ -1267,11 +1267,11 @@ function updateQuantity(qtyManual){
 	var productGroupCode = $("#list").jqxGrid('getcellvalue', 0, "productGroupCode");
 	
 	switch(productGroupCode){
-		case '131', '151-HV':
+		case '131':
 			//sub-main
 			indicator = qtySubMain;
 			break;
-		case  '111E-1', '111E-2','111E-3','111E-4','111E-5','121', '111':
+		case  '111E-1', '111E-2','111E-3','111E-4','111E-5','121':
 			//E-qty
 			indicator = eQtyOther;
 			break;
@@ -1280,8 +1280,7 @@ function updateQuantity(qtyManual){
 			indicator = mQtymQty;
 			break;
 		default:
-			//sub-main
-			indicator = qtySubMain;
+			indicator = 100;
 	}
 	var result = (qtyManual * indicator)/100;
 	//update quantity field.
