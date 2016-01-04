@@ -700,6 +700,8 @@ function getProductAdapter(sourceProducts){
 	var dataAdapterProducts = new $.jqx.dataAdapter(sourceProducts, {
 		autoBind : true,
 		downloadComplete : function(data, status, xhr) {
+			//update allowance
+			//update discount_rate
 		},
 		loadComplete : function(data) {
 		},
@@ -1303,7 +1305,7 @@ function updatePriceAfterDiscount(){
 	updateUnitRate();
 }
 function updateUnitRate(){
-//unit rate = cot 18 * cot 19 =  Unit price after discount  * Allowance
+//unit rate = cot 19 * cot 20 =  Unit price after discount  * Allowance
 	var unit_Price_After_Discount = $("#list").jqxGrid('getcellvalue', 0, "unit_Price_After_Discount");
 	var result = unit_Price_After_Discount * allowance/100;
 	$("#list").jqxGrid('setcellvalue', 0, "unitRate", result);
@@ -1378,10 +1380,9 @@ function updateMat_w_o_Tax_USD(){
 			var aEValue = $("#listResult").jqxGrid('getcellvalue', i, "cost_Mat_Amount_USD"); //cot 5
 			total = total + aEValue;
 		}
+		var result = total * percent/100;
+		$("#list").jqxGrid('setcellvalue', 0, "mat_w_o_Tax_USD", result);		
 	}
-	var result = total * percent/100;
-	$("#list").jqxGrid('setcellvalue', 0, "mat_w_o_Tax_USD", result);
-	
 }
 function updateItem(row){
 	 var encounterId = $('#listResult').jqxGrid('getcellvalue', row, "uid");
