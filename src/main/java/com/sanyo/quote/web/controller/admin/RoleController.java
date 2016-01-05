@@ -51,7 +51,11 @@ public class RoleController extends CommonController{
 		ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
         validator = validatorFactory.getValidator();
 	}
-	
+	private void addRoleHomeLink(Model model){
+		resetLinks();
+		addToLinks("Role List", "/admin/roles");
+		setModel(model);
+	}
 	//handle /admin/roles
 	@RequestMapping(method = RequestMethod.GET)
 	public String list(Model uiModel) {
@@ -61,6 +65,7 @@ public class RoleController extends CommonController{
 		uiModel.addAttribute("groups", groups);
 		setBreadCrumb(uiModel, "/", "Home", "", "Users");
 		setUser(uiModel);
+		addRoleHomeLink(uiModel);
 		return "roles/list";
 	}
 	
@@ -71,6 +76,8 @@ public class RoleController extends CommonController{
         uiModel.addAttribute("group", group);
         setBreadCrumb(uiModel, "/admin/roles", "Roles", "", "Update Role");
         setUser(uiModel);
+        addRoleHomeLink(uiModel);
+        addToLinks("Update Role", "");
         return "roles/update";
 	}
 	
@@ -80,6 +87,8 @@ public class RoleController extends CommonController{
         uiModel.addAttribute("group", group);
         setBreadCrumb(uiModel, "/admin/roles", "Roles", "", "Create Role");
         setUser(uiModel);
+        addRoleHomeLink(uiModel);
+        addToLinks("New Role", "");
         return "roles/create";
 	}
 	//create new role, save to database

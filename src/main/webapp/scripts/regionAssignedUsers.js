@@ -52,12 +52,14 @@ $("#jqxWidgetAssignedUsers")
 					columns : [
 							{
 								text : 'Action',
-								datafield : 'regionId',
+								datafield : 'id',
 								align : 'center',
 								width : '18%',
 								cellsrenderer : function(row, column, value) {
 									return '<div class="col-md-6" style="margin-left: -20px;">'
-											+ '<a class="btn btn-app">'
+											+ '<a class="btn btn-app" onclick="deleteAssignedUser('
+											+ value
+											+ ')">'
 											+ '<i class="glyphicon glyphicon-remove-circle"></i>'
 											+ '</a>' + '</div>';
 								}
@@ -89,4 +91,22 @@ $("#jqxWidgetAssignedUsers")
 				});
 function updateProduct(id) {
 	window.location.href = pageContext + '/projects/regions/' + id + '?form';
+}
+function deleteAssignedUser(id){
+	var result = confirm('Do you want to delete this record?');
+    if (result == false)
+		return;
+	var url = pageContext + '/regions/assignedUser/' + id + '?delete';
+	$.ajax({
+		type : "POST",
+		contentType : 'application/json',
+		url : url,
+		success : function(msg) {
+			alert('delete successfully.');
+			$("#jqxWidgetAssignedUsers").jqxGrid('updatebounddata');
+		},
+		complete : function(xhr, status) {
+
+		}
+});
 }

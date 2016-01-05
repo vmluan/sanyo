@@ -14,11 +14,8 @@
     <spring:message code="label_user_email" var="labelUserEmail"/>
     <spring:message code="label_user_active" var="labelUserActive"/>
     <spring:message code="label_user_new" var="labelUserAdd"/>
-    
-	
-	<h3> <a href="${pageContext.request.contextPath}/products?form">Add Product</a></h3>
-    
         <section class="content">
+			<a href="${pageContext.request.contextPath}/products?form">New Product</a>
           <div class="box box-default">
             <!-- left column -->
             <div class="box-body">
@@ -52,7 +49,7 @@
 				<div class="col-md-6">			
 							<form:form modelAttribute="fileBean" action="${pageContext.request.contextPath}/products/uploadFile" id="userUpdateForm" method="post" enctype="multipart/form-data">
 								<div class="form-group col-md-12 btn" >
-									<input type="submit" value="Import" class="btn btn-primary btn pull-right" />
+									<input type="button" onclick="submitForm(this)" value="Import" class="btn btn-primary btn pull-right" />
 									<form:input path="file" type="file" class="btn btn pull-right"/>
 								</div>	
 							</form:form>				
@@ -170,7 +167,15 @@ $("#searchBtn").click(function() {
 	makerId = selectedMaker.value;
 	$.getScript('${pageContext.request.contextPath}/resources/QLproducts.js', function(){});	
 	//$("#makerListDiv").jqxDropDownList('clear');
-});		
+});	
+
+function submitForm(form){
+	if( document.getElementById("file").files.length == 0 ){
+	    alert("no file selected");
+	    return;
+	}
+	form.submit();
+}
         ]]>
 		
 activeLink('liProduct');

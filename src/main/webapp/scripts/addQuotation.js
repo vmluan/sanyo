@@ -700,6 +700,8 @@ function getProductAdapter(sourceProducts){
 	var dataAdapterProducts = new $.jqx.dataAdapter(sourceProducts, {
 		autoBind : true,
 		downloadComplete : function(data, status, xhr) {
+			//update allowance
+			//update discount_rate
 		},
 		loadComplete : function(data) {
 		},
@@ -1267,11 +1269,11 @@ function updateQuantity(qtyManual){
 	var productGroupCode = $("#list").jqxGrid('getcellvalue', 0, "productGroupCode");
 	
 	switch(productGroupCode){
-		case '131', '151-HV':
+		case '131':
 			//sub-main
 			indicator = qtySubMain;
 			break;
-		case  '111E-1', '111E-2','111E-3','111E-4','111E-5','121', '111':
+		case  '111E-1', '111E-2','111E-3','111E-4','111E-5','121':
 			//E-qty
 			indicator = eQtyOther;
 			break;
@@ -1280,8 +1282,7 @@ function updateQuantity(qtyManual){
 			indicator = mQtymQty;
 			break;
 		default:
-			//sub-main
-			indicator = qtySubMain;
+			indicator = 100;
 	}
 	var result = (qtyManual * indicator)/100;
 	//update quantity field.
@@ -1304,7 +1305,7 @@ function updatePriceAfterDiscount(){
 	updateUnitRate();
 }
 function updateUnitRate(){
-//unit rate = cot 18 * cot 19 =  Unit price after discount  * Allowance
+//unit rate = cot 19 * cot 20 =  Unit price after discount  * Allowance
 	var unit_Price_After_Discount = $("#list").jqxGrid('getcellvalue', 0, "unit_Price_After_Discount");
 	var result = unit_Price_After_Discount * allowance/100;
 	$("#list").jqxGrid('setcellvalue', 0, "unitRate", result);
@@ -1379,10 +1380,9 @@ function updateMat_w_o_Tax_USD(){
 			var aEValue = $("#listResult").jqxGrid('getcellvalue', i, "cost_Mat_Amount_USD"); //cot 5
 			total = total + aEValue;
 		}
+		var result = total * percent/100;
+		$("#list").jqxGrid('setcellvalue', 0, "mat_w_o_Tax_USD", result);		
 	}
-	var result = total * percent/100;
-	$("#list").jqxGrid('setcellvalue', 0, "mat_w_o_Tax_USD", result);
-	
 }
 function updateItem(row){
 	 var encounterId = $('#listResult').jqxGrid('getcellvalue', row, "uid");
@@ -1488,6 +1488,10 @@ function loadDataTable(){
 			//$(nRow).attr( 'id', aData.order);
 			nRow.setAttribute('id', aData.encounterID);  //Initialize row id for every row
 			//$(nRow).find('.attr-setting-order' ).val(iDisplayIndex);
+			var hasMakerDeleted = aData.hasMakerDeleted;
+			if(hasMakerDeleted == true){
+				$(nRow).css({"background-color":"red"})
+			}
 		},
 		"sPaginationType": "full_numbers",
         "sAjaxSource": pageContext +"/quotation/getAssignedProductOfRegionForDatatables",

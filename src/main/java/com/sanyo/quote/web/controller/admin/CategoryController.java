@@ -51,7 +51,11 @@ public class CategoryController extends CommonController {
 		ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
         validator = validatorFactory.getValidator();
 	}
-	
+	private void addCategoryHomeLink(Model model){
+		resetLinks();
+		addToLinks("Category List", "/admin/categories");
+		setModel(model);
+	}
 	//handle /admin/categories
 	@RequestMapping(method = RequestMethod.GET)
 	public String list(Model uiModel) {
@@ -61,6 +65,7 @@ public class CategoryController extends CommonController {
 		uiModel.addAttribute("categories", categories);
 		setBreadCrumb(uiModel, "/", "Home", "", "Categories");
 		setUser(uiModel);
+		addCategoryHomeLink(uiModel);
 		return "categories/list";
 	}
 	
@@ -72,6 +77,7 @@ public class CategoryController extends CommonController {
         resetCategories(uiModel,category, categoryService.findParents());
         setBreadCrumb(uiModel, "/admin/categories", "Categories", "", "Update Category");
         setUser(uiModel);
+        addToLinks("Update Category", "");
         return "categories/update";
 	}
 	
@@ -82,6 +88,8 @@ public class CategoryController extends CommonController {
         resetCategories(uiModel,category, categoryService.findParents());
         setBreadCrumb(uiModel, "/admin/categories", "Categories", "", "Create Category");
         setUser(uiModel);
+        addCategoryHomeLink(uiModel);
+        addToLinks("New Category", "");
         return "categories/create";
 	}
 	//create new category, save to database
@@ -92,6 +100,7 @@ public class CategoryController extends CommonController {
         if (bindingResult.hasErrors()) {
 			uiModel.addAttribute("message", new Message("error", messageSource.getMessage("category_save_fail", new Object[]{}, locale)));
             uiModel.addAttribute("category", category);
+            addCategoryHomeLink(uiModel);
             resetCategories(uiModel,category, categoryService.findParents());
             return "categories/create";
         }
@@ -127,6 +136,7 @@ public class CategoryController extends CommonController {
 		if (bindingResult.hasErrors()) {
 			uiModel.addAttribute("message", new Message("error", messageSource.getMessage("category_save_fail", new Object[]{}, locale)));
             uiModel.addAttribute("category", category);
+            addCategoryHomeLink(uiModel);
             resetCategories(uiModel, category, categoryService.findParents());
             return "categories/update";
 	        }    

@@ -67,7 +67,11 @@ public class UserController extends CommonController {
 		ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
         validator = validatorFactory.getValidator();
 	}
-
+	
+	private void addUserHomeLink(){
+		resetLinks();
+		addToLinks("User List", "/admin/users");
+	}
 	@RequestMapping(method = RequestMethod.GET)
 	public String list(Model uiModel) {
 		logger.info("Listing users");
@@ -79,6 +83,8 @@ public class UserController extends CommonController {
 		logger.info("No. of users: " + users.size());
 		setBreadCrumb(uiModel, "/", "Home", "", "Users");
 		setUser(uiModel);
+		
+		addUserHomeLink();
 		return "users/list";
 	}
 
@@ -137,6 +143,8 @@ public class UserController extends CommonController {
 		uiModel.addAttribute("user", user);
 		setBreadCrumb(uiModel, "/admin/users", "Users", "", "View User");
 		setUser(uiModel);
+		addUserHomeLink();
+		addToLinks("Show User", "");
         return "users/show";
     }
 	
@@ -147,6 +155,8 @@ public class UserController extends CommonController {
         resetGroups(user,uiModel);
         setBreadCrumb(uiModel, "/admin/users", "Users", "", "Update User");
         setUser(uiModel);
+        addUserHomeLink();
+        addToLinks("Update User", "/admin/users");
         return "users/update";
 	}
 	
@@ -158,6 +168,8 @@ public class UserController extends CommonController {
         setPageHeader(uiModel, "Create User", "");
         setBreadCrumb(uiModel, "/admin/users", "Users", "", "Create User");
         setUser(uiModel);
+        addUserHomeLink();
+        addToLinks("New User", "");
         return "users/create";
 	}
 	//update an existing user, save to database
@@ -291,4 +303,9 @@ public class UserController extends CommonController {
 	        
         }
 	}
+	@RequestMapping(value = "/{id}", params = "delete", method = RequestMethod.POST)
+	@ResponseBody
+    public void deleteUser(@PathVariable("id") Integer id, Model uiModel) {
+		userService.delete(id);
+	}	
 }

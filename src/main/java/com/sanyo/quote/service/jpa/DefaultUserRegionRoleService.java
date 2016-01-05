@@ -62,4 +62,10 @@ public class DefaultUserRegionRoleService implements UserRegionRoleService {
 		return userRegionRoleRepository.findAssignedProjectsByUserName(username);
 	}
 
+	@Override
+	public void delete(Integer id) {
+		userRegionRoleRepository.delete(id);
+		
+	}
+
 }
