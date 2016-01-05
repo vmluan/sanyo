@@ -1,0 +1,5 @@
+1. Allowance and Discount Rate table:
+    - ProductGroupRate is define to support for saving Allowance and Discount Rate.
+    - Does we need trigger to calculate total of Labor and Material and store in ProductGroupRate table as columns.
+    The flow of total material and total labor: Product belongs to project -> product have the ProductGroup -> Total in encounter
+2. Summary by Region
