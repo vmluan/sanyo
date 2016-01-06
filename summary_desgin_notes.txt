@@ -3,3 +3,11 @@
     - Does we need trigger to calculate total of Labor and Material and store in ProductGroupRate table as columns.
     The flow of total material and total labor: Product belongs to project -> product have the ProductGroup -> Total in encounter
 2. Summary by Region
+Summary by region with location sorting
+Location->findByProjectOrderByOrderNoAsc(Project project); Region->getEncountersByRegion(Region region); ->
+Unit: Encounter -> Product -> Unit
+Q'ty: Encounter -> getEncountersByRegion (Region)->list
+UnitRate USD: Encounter -> getUnitRate
+Amount: Encounter -> getAmount (total of all Encounters in the same Region)
+Remark: notes
+
