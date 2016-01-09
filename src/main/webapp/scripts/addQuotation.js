@@ -728,6 +728,12 @@ var sourceProductGroup = {
 	} , {
 		name : 'groupName',
 		type : 'string'
+	}, {
+		name : 'discount',
+		type : 'string'
+	}, {
+		name : 'allowance',
+		type : 'string'
 	}],
 	sortcolumn: 'groupCode',
 	sortdirection: 'asc',
@@ -928,6 +934,7 @@ function loadAddQuotationGrid() {
 																sourceProducts2.data.regionId = regionId; //set region id
 																dataAdapterProducts = getProductAdapter(sourceProducts2);
 															}
+															setDefaultCellValues(label);
 														}
 														
 													}
@@ -1141,7 +1148,7 @@ function loadAddQuotationGrid() {
 									datafield : 'discount_rate',
 									align : 'center',
 									cellsalign : 'right',
-									cellsformat : 'p',
+									cellsformat : 'p2',
 									editable: false,
 									width : '15%'
 								},
@@ -1255,13 +1262,17 @@ function updateProductFields(productId){
 			}
 	}
 }
-function setDefaultCellValues(){
-	$("#list").jqxGrid('setcellvalue', 0, "imp_Tax", impTax); 
-	$("#list").jqxGrid('setcellvalue', 0, "special_Con_Tax", specialCon);
-	$("#list").jqxGrid('setcellvalue', 0, "vat", vat);
-	$("#list").jqxGrid('setcellvalue', 0, "discount_rate", discountRate);
-	$("#list").jqxGrid('setcellvalue', 0, "allowance", allowance);
-	$("#list").jqxGrid('setcellvalue', 0, "subcon_Profit", subcon_Profit);
+function setDefaultCellValues(productGroupCode){
+	if(productGroupCode){
+		$("#list").jqxGrid('setcellvalue', 0, "discount_rate", getDiscount(productGroupCode));
+		$("#list").jqxGrid('setcellvalue', 0, "allowance", getAllowance(productGroupCode));	
+	}else{
+		$("#list").jqxGrid('setcellvalue', 0, "imp_Tax", impTax); 
+		$("#list").jqxGrid('setcellvalue', 0, "special_Con_Tax", specialCon);
+		$("#list").jqxGrid('setcellvalue', 0, "vat", vat);
+		$("#list").jqxGrid('setcellvalue', 0, "subcon_Profit", subcon_Profit);	
+	}
+
 }
 function updateQuantity(qtyManual){
 	//Q'ty = Q'ty(nhập) * hao hut% bênsheet Summary(Q'ty sub-main, E-Q'ty other ,M-Q'ty)
@@ -1290,7 +1301,7 @@ function updateQuantity(qtyManual){
 	updatePriceAfterDiscount();
 }
 function updatePriceAfterDiscount(){
-	//Unit price after discount bằng cot 11+ cot 12/tỉ giá) 
+	//Unit price after discount bằng cot 12+ cot 13/tỉ giá)  = mat_w_o_Tax USD + mat_w_o_Tax_VND/tigia
 	//var exchangeRate = 22000; //update to get from database later.
 	var floatValue = parseFloat(exchangeRate);
 	if(isNaN(floatValue)){
@@ -1307,12 +1318,14 @@ function updatePriceAfterDiscount(){
 function updateUnitRate(){
 //unit rate = cot 19 * cot 20 =  Unit price after discount  * Allowance
 	var unit_Price_After_Discount = $("#list").jqxGrid('getcellvalue', 0, "unit_Price_After_Discount");
+	var allowance = $("#list").jqxGrid('getcellvalue', 0, "allowance");
 	var result = unit_Price_After_Discount * allowance/100;
 	$("#list").jqxGrid('setcellvalue', 0, "unitRate", result);
 	updateUnitPriceWTaxProfit();
 }
 function updateUnitPriceWTaxProfit() {
-//Unit price w Tax & profit =cot 18*(1+(1+cot 15*(1+cot14))*cot 16)*cot17 
+	//congthuc =cột 19*(1+(1+cột 16*(1+cot15))*cột 17)*cot18
+	//=  Unit price after discount * (1+(1+[Special con. Tax]*(1+[Imp Tax]))*[VAT ])*[Discount rate %]
 	//var result = 
 	var unit_Price_After_Discount = $("#list").jqxGrid('getcellvalue', 0, "unit_Price_After_Discount"); //cot 18
 	//cot 15 = specialCon
@@ -1334,9 +1347,9 @@ function updateUnitPriceWTaxLabour(){
 	updateCostMatAmountUsd();
 }
 function updateCostMatAmountUsd(){
-// Cost - Mat amount USD =cot 18* cot 9 
-	var unit_Price_After_Discount = $("#list").jqxGrid('getcellvalue', 0, "unit_Price_After_Discount"); //cot 18 
-	var qtyManual = $("#list").jqxGrid('getcellvalue', 0, "quantity"); //cot 9
+// Cost - Mat amount USD =cot 19* cot 10 = Unit price after discount * Q'ty (nhập)
+	var unit_Price_After_Discount = $("#list").jqxGrid('getcellvalue', 0, "unit_Price_After_Discount"); //cot 19
+	var qtyManual = $("#list").jqxGrid('getcellvalue', 0, "quantity"); //cot 10
 	var result = unit_Price_After_Discount * qtyManual;
 	$("#list").jqxGrid('setcellvalue', 0, "cost_Mat_Amount_USD", result);
 	updateCostMatAmountVnd();
@@ -1350,16 +1363,16 @@ function updateCostMatAmountVnd(){
 	updateLabour();
 }
 function updateLabour(){
-//labour sau thue = cot 5 * cot 22
+//labour sau thue = cot 6 * cot 22
 	var unit_Price_W_Tax_Labour = $("#list").jqxGrid('getcellvalue', 0, "unit_Price_W_Tax_Labour"); //cot 22
-	var quantity = $("#list").jqxGrid('getcellvalue', 0, "actualQuantity"); //cot 5
+	var quantity = $("#list").jqxGrid('getcellvalue', 0, "actualQuantity"); //cot 6
 	var result = unit_Price_W_Tax_Labour * quantity;
 	$("#list").jqxGrid('setcellvalue', 0, "labour", result);
 	updateAmount();
 }
 function updateAmount(){
-	//assume that amout = qty * unitRate
-	var quantity = $("#list").jqxGrid('getcellvalue', 0, "actualQuantity"); //cot 5
+	//amount = cot6 * cot 7 = actualQty * unitRate;
+	var quantity = $("#list").jqxGrid('getcellvalue', 0, "actualQuantity"); //cot 6
 	var unitRate = $("#list").jqxGrid('getcellvalue', 0, "unitRate");
 	var result = quantity * unitRate;
 	$("#list").jqxGrid('setcellvalue', 0, "amount", result);
@@ -1530,4 +1543,22 @@ function loadDataTable(){
         ]
     } );
 	return table;
+}
+function getAllowance(productGroupCode){
+	var records = dataAdapterProductGroup.records;
+	for(var i=0; i< records.length; i++){
+		if(records[i].groupCode == productGroupCode){
+			return records[i].allowance;
+		}
+	}
+	
+}
+function getDiscount(productGroupCode){
+	var records = dataAdapterProductGroup.records;
+	for(var i=0; i< records.length; i++){
+		if(records[i].groupCode == productGroupCode){
+			return records[i].discount;
+		}
+	}
+	
 }

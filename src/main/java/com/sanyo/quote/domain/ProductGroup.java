@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -27,6 +28,10 @@ public class ProductGroup {
 	private String groupCode;
 	private Set<ProductGroupMaker> productGroupMakers;
 	private Set<Product> products;
+	
+	//to get values from productGroupRate and display in the BOQ tabs.
+	float discount; //discount_rate for the GroupProduct
+    float allowance; //Allowance for the GroupProduct
 	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -67,6 +72,20 @@ public class ProductGroup {
 	}
 	public void setProducts(Set<Product> products) {
 		this.products = products;
+	}
+	@Transient
+	public float getDiscount() {
+		return discount;
+	}
+	public void setDiscount(float discount) {
+		this.discount = discount;
+	}
+	@Transient
+	public float getAllowance() {
+		return allowance;
+	}
+	public void setAllowance(float allowance) {
+		this.allowance = allowance;
 	}
 	
 }
