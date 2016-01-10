@@ -2,7 +2,10 @@ package com.sanyo.quote.helper;
 
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFDataFormat;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -15,8 +18,17 @@ public class ExcelHelper {
 	public  XSSFCellStyle getSampleStyleWithBorder(XSSFWorkbook workbook){
 		
 		XSSFCellStyle cellStyle =  workbook.createCellStyle();
-		cellStyle.setBorderBottom(BorderStyle.THIN);
-		cellStyle.setBorderTop(BorderStyle.THIN);
+		cellStyle.setBorderBottom(BorderStyle.DASH_DOT_DOT);
+		cellStyle.setBorderTop(BorderStyle.DASH_DOT_DOT);
+		cellStyle.setBorderLeft(BorderStyle.THIN);
+		cellStyle.setBorderRight(BorderStyle.THIN);
+		return cellStyle;
+		
+	}public  XSSFCellStyle getSampleStyleWithBorder(Cell cell){
+		
+		XSSFCellStyle cellStyle = (XSSFCellStyle) cell.getCellStyle();
+		cellStyle.setBorderBottom(BorderStyle.DASH_DOT_DOT);
+		cellStyle.setBorderTop(BorderStyle.DASH_DOT_DOT);
 		cellStyle.setBorderLeft(BorderStyle.THIN);
 		cellStyle.setBorderRight(BorderStyle.THIN);
 		return cellStyle;
@@ -47,12 +59,55 @@ public class ExcelHelper {
 		XSSFCellStyle cellStyle =  getSampleStyleWithBorder(workbook);
 		XSSFFont font = workbook.createFont();
 //		font.setBold(true);
-		font.setFontHeightInPoints((short) 14);
+		font.setFontHeightInPoints((short) 12);
 		font.setFontName("Arial");
+		font.setBold(true);
 		cellStyle.setFont(font);
 		return cellStyle;
 		
 	}
+	public  XSSFCellStyle getSampleStyleForSubTotal(XSSFWorkbook workbook){
+		
+		XSSFCellStyle cellStyle =  getSampleStyleWithBorder(workbook);
+		XSSFFont font = workbook.createFont();
+//		font.setBold(true);
+		font.setFontHeightInPoints((short) 11);
+		font.setFontName("Arial");
+		font.setBold(true);
+		cellStyle.setFont(font);
+		cellStyle.setFillForegroundColor(new XSSFColor(new java.awt.Color(113, 214, 245)));
+		cellStyle.setFillPattern(CellStyle.SOLID_FOREGROUND);
+		return cellStyle;
+		
+	}
+	public  XSSFCellStyle getSampleStyleForTotalWork(XSSFWorkbook workbook){
+		
+		XSSFCellStyle cellStyle =  getSampleStyleWithBorder(workbook);
+		XSSFFont font = workbook.createFont();
+//		font.setBold(true);
+		font.setFontHeightInPoints((short) 11);
+		font.setFontName("Arial");
+		font.setBold(true);
+		cellStyle.setFont(font);
+		cellStyle.setFillForegroundColor(new XSSFColor(new java.awt.Color(113, 214, 245)));
+		cellStyle.setFillPattern(CellStyle.SOLID_FOREGROUND);
+		return cellStyle;
+		
+	}
+	public  XSSFCellStyle getSampleStyleForBreakDown(XSSFWorkbook workbook){
+		
+		XSSFCellStyle cellStyle =  getSampleStyleWithBorder(workbook);
+		XSSFFont font = workbook.createFont();
+//		font.setBold(true);
+		font.setFontHeightInPoints((short) 14);
+		font.setFontName("Arial");
+		font.setBold(true);
+		cellStyle.setFont(font);
+		cellStyle.setFillForegroundColor(new XSSFColor(new java.awt.Color(103, 114, 205)));
+		cellStyle.setFillPattern(CellStyle.SOLID_FOREGROUND);
+		return cellStyle;
+		
+	}		
 	public  XSSFCellStyle getSampleStyleForRegion(XSSFWorkbook workbook){
 		
 		XSSFCellStyle cellStyle =  getSampleStyleWithBorder(workbook);
