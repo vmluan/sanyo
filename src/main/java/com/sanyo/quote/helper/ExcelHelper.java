@@ -18,8 +18,8 @@ public class ExcelHelper {
 	public  XSSFCellStyle getSampleStyleWithBorder(XSSFWorkbook workbook){
 		
 		XSSFCellStyle cellStyle =  workbook.createCellStyle();
-		cellStyle.setBorderBottom(BorderStyle.DASH_DOT_DOT);
-		cellStyle.setBorderTop(BorderStyle.DASH_DOT_DOT);
+		cellStyle.setBorderBottom(BorderStyle.DOTTED);
+		cellStyle.setBorderTop(BorderStyle.DOTTED);
 		cellStyle.setBorderLeft(BorderStyle.THIN);
 		cellStyle.setBorderRight(BorderStyle.THIN);
 		return cellStyle;
@@ -27,8 +27,8 @@ public class ExcelHelper {
 	}public  XSSFCellStyle getSampleStyleWithBorder(Cell cell){
 		
 		XSSFCellStyle cellStyle = (XSSFCellStyle) cell.getCellStyle();
-		cellStyle.setBorderBottom(BorderStyle.DASH_DOT_DOT);
-		cellStyle.setBorderTop(BorderStyle.DASH_DOT_DOT);
+		cellStyle.setBorderBottom(BorderStyle.DOTTED);
+		cellStyle.setBorderTop(BorderStyle.DOTTED);
 		cellStyle.setBorderLeft(BorderStyle.THIN);
 		cellStyle.setBorderRight(BorderStyle.THIN);
 		return cellStyle;

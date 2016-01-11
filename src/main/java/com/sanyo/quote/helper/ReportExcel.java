@@ -93,7 +93,7 @@ public class ReportExcel extends ExcelHelper{
 	private XSSFCellStyle sampleCellStyle;
 	private boolean isClientVersion = true;
 	private int maxBoQCol = 32;
-	private int maxSumCol = 6;
+	private int maxSumCol = 7;
 	private static final int startBoQRow=6;
 	private TreeMap<String, List<SummaryRegion>> elecSummaryTree = new TreeMap<String, List<SummaryRegion>>();
 	private TreeMap<String, List<SummaryRegion>> mechSummaryTree = new TreeMap<String, List<SummaryRegion>>();
@@ -109,8 +109,8 @@ public class ReportExcel extends ExcelHelper{
 		FileInputStream file;
 		try {
 			System.out.println("=============== real path = " + homePath);
-//			file = new FileInputStream(new File(homePath + "/report/" + fileName));
-			file = new FileInputStream(new File(fileName)); //for testing at local only
+			file = new FileInputStream(new File(homePath + "/report/" + fileName));
+//			file = new FileInputStream(new File(fileName)); //for testing at local only
 			return file;
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -556,13 +556,17 @@ public class ReportExcel extends ExcelHelper{
 				row = sheet.createRow(k);
 			for (int i = 0; i < maxCol; i++) {
 				Cell cell = row.getCell(i);
-				if (cell == null)
+				if(cell == null)
 					cell = row.createCell(i);
-				XSSFCellStyle cellStyle = getSampleStyleWithBorder(cell);
+				XSSFCellStyle cellStyle = (XSSFCellStyle) getSampleStyleWithBorder(cell).clone();
+				cellStyle.setBorderBottom(BorderStyle.DOTTED);
+				cellStyle.setBorderTop(BorderStyle.DOTTED);
+				cellStyle.setBorderLeft(BorderStyle.THIN);
+				cellStyle.setBorderRight(BorderStyle.THIN);
 				if (i == 0) {
-					cellStyle.setBorderRight(BorderStyle.DASH_DOT_DOT);
+					cellStyle.setBorderRight(BorderStyle.DOTTED);
 				} else if (i == 1) {
-					cellStyle.setBorderLeft(BorderStyle.DASH_DOT_DOT);
+					cellStyle.setBorderLeft(BorderStyle.DOTTED);
 				}
 				cell.setCellStyle(cellStyle);
 			}
