@@ -126,9 +126,9 @@
         <jsp:text/>
     </script>
 
-    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/demos.js">
+    <!-- script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/demos.js">
         <jsp:text/>
-    </script>
+    </script-->
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/sanyo.js">
         <jsp:text/>
     </script>
