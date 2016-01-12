@@ -19,6 +19,12 @@ var sourceProductGroupRate = {
         name : 'allowance',
         type : 'float'
     }, {
+        name : 'totalMaterial',
+        type : 'float'
+    }, {
+        name : 'totalLabor',
+        type : 'float'
+    }, {
         name : 'productGroupName',
         map : 'productGroup>groupName'
     }
@@ -47,10 +53,10 @@ $("#productGroupRate").jqxGrid(
         columns: [
             { text: 'Code', datafield: 'code', width: '20%' },
             { text: 'M&E WORKS',datafield: 'productGroupName', cellsalign: 'right', align: 'right', width: '30%' },
-            { text: 'Discount', datafield: 'discount', align: 'right', cellsalign: 'right', cellsformat: 'p', width: '20%' },
-            { text: 'Allowance', datafield: 'allowance', cellsalign: 'right', cellsformat: 'p', width: '20%' },
-            //{ text: 'Total M&E', columngroup: 'total', datafield: 'id' },
-            //{ text: 'Total Labour M&E', columngroup: 'total', datafield: 'id' }
+            { text: 'Discount', datafield: 'discount', align: 'right', cellsalign: 'right', cellsformat: 'p', width: '10%' },
+            { text: 'Allowance', datafield: 'allowance', cellsalign: 'right', cellsformat: 'p', width: '10%' },
+            { text: 'Total Material', datafield: 'totalMaterial', cellsalign: 'right', cellsformat: 'p', width: '10%' },
+            { text: 'Total Labour', datafield: 'totalLabor', cellsalign: 'right', cellsformat: 'p', width: '10%' },
             {
                 text : 'Action',
                 align : 'center',

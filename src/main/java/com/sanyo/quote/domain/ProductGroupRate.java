@@ -20,6 +20,8 @@ public class ProductGroupRate {
     int id;
     float discount; //discount_rate for the GroupProduct
     float allowance; //Allowance for the GroupProduct
+    float totalMaterial; //This attribute is to support for getting total Material which calculated from encounter trigger easier
+    float totalLabor; //This attribute is to support for getting total Labor which calculated from encounter trigger easier
     ProductGroup productGroup;
     Project project;
 
@@ -52,6 +54,21 @@ public class ProductGroupRate {
         this.allowance = allowance;
     }
 
+    public float getTotalMaterial() {
+        return totalMaterial;
+    }
+
+    public void setTotalMaterial(float totalMaterial) {
+        this.totalMaterial = totalMaterial;
+    }
+
+    public float getTotalLabor() {
+        return totalLabor;
+    }
+
+    public void setTotalLabor(float totalLabor) {
+        this.totalLabor = totalLabor;
+    }
 
     @OneToOne(fetch= FetchType.EAGER)
     @JoinColumn(name = "product_group_id", nullable = false)

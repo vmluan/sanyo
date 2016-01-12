@@ -102,4 +102,56 @@ DROP TRIGGER IF EXISTS encounterAddTrigger;
 
 		END; //
 
-		DELIMITER ;				
+		DELIMITER ;
+
+
+
+		DROP TRIGGER IF EXISTS encounterTotalMaterialByCodeInsertTrigger;
+		DELIMITER //
+
+		CREATE TRIGGER encounterTotalMaterialByCodeInsertTrigger
+		before insert
+		   ON sanyo.encounter FOR EACH ROW
+		BEGIN
+			declare encounter_total FLOAT;
+			select project_id into v_project_id from location l where l.LOCATION_ID in (SELECT LOCATION_ID in region where REGION_ID=NEW.REGION_ID)
+			--chuong is doing here
+			if   then
+				set v_start_pos = new.toPos;
+				set v_end_pos = new.fromPos;
+				set is_increased = false;
+			else
+				set v_start_pos = new.fromPos;
+				set v_end_pos = new.toPos;
+				set is_increased = true;
+			end if;
+
+			set v_source_encounter_id = new.encounter_id;
+			select region_id into v_region_id
+			from sanyo.encounter
+			where encounter_id = new.encounter_id;
+
+		begin
+
+				if is_increased then
+					update sanyo.encounter
+					set order_No = order_No -1,
+					dataTableChange = false
+					where region_id = v_region_id
+					and order_No >= v_start_pos
+					and order_No <= v_end_pos
+					and encounter_id <> v_source_encounter_id;
+				else
+					update sanyo.encounter
+					set order_No = order_No + 1,
+					dataTableChange = false
+					where region_id = v_region_id
+					and order_No >= v_start_pos
+					and order_No <= v_end_pos
+					and encounter_id <> v_source_encounter_id;
+				end if;
+		END;
+
+		END; //
+
+		DELIMITER ;
