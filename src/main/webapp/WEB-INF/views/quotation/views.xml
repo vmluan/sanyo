@@ -6,22 +6,22 @@
             value="/WEB-INF/views/quotation/index.jspx" />
     </definition>
 
-    <definition extends="home" name="quotation/cover">
+    <definition extends="defaultWithoutHeaderFooter" name="quotation/cover">
         <put-attribute name="body"
                        value="/WEB-INF/views/quotation/cover_new.jspx" />
     </definition>
 
-    <definition extends="home" name="quotation/condition_1">
+    <definition extends="defaultWithoutHeaderFooter" name="quotation/condition_1">
         <put-attribute name="body"
                        value="/WEB-INF/views/quotation/condition_1.jspx" />
     </definition>
 
-    <definition extends="home" name="quotation/condition_2">
+    <definition extends="defaultWithoutHeaderFooter" name="quotation/condition_2">
         <put-attribute name="body"
                        value="/WEB-INF/views/quotation/condition_2.jspx" />
     </definition>
 
-    <definition extends="home" name="quotation/parameter">
+    <definition extends="defaultWithoutHeaderFooter" name="quotation/parameter">
         <put-attribute name="body"
                        value="/WEB-INF/views/quotation/parameter.jspx" />
     </definition>
@@ -31,7 +31,7 @@
                        value="/WEB-INF/views/quotation/summary.jspx" />
     </definition>
 
-    <definition extends="home" name="quotation/boq">
+    <definition extends="defaultWithoutHeaderFooter" name="quotation/boq">
         <put-attribute name="body"
                        value="/WEB-INF/views/quotation/boq.jspx" />
     </definition>
@@ -50,11 +50,11 @@
         <put-attribute name="body"
              value="/WEB-INF/views/quotation/makerlistcreate.jspx" />
     </definition>
-    <definition extends="home" name="quotation/expenses/create">
+    <definition extends="defaultWithoutHeaderFooter" name="quotation/expenses/create">
         <put-attribute name="body"
                        value="/WEB-INF/views/quotation/expenses_jsp_form.jspx" />
     </definition>
-    <definition extends="home" name="quotation/expenses">
+    <definition extends="defaultWithoutHeaderFooter" name="quotation/expenses">
         <put-attribute name="body"
                        value="/WEB-INF/views/quotation/expenses.jspx" />
     </definition>

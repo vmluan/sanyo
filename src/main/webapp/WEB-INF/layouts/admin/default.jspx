@@ -59,8 +59,7 @@
     <!-- jQuery 2.1.4 -->
     <script src="${pageContext.request.contextPath}/resources/plugins/jQuery/jQuery-2.1.4.min.js"><jsp:text/></script>
 	
-	<script type="text/javascript" language="javascript" src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"><jsp:text/>
-	</script>	
+	<script src="${pageContext.request.contextPath}/resources/plugins/jQueryUI/jquery-ui.min.js"><jsp:text/></script>	
 	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"><jsp:text/></script>
 	
 	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/resources/scripts/jquery.dataTables.rowGrouping.js"><jsp:text/></script>
