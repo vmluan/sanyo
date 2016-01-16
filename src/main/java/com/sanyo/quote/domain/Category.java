@@ -33,7 +33,7 @@ public class Category implements java.io.Serializable {
 	private Category parentCategory;
 	
 	private String parentCategoryId;
-	
+	private String nameVN; //translated name in vietnamese
 //	private Set<ProductGroupMaker> productGroupMakers;
 	
 	@Id
@@ -92,6 +92,14 @@ public class Category implements java.io.Serializable {
 
 	public void setParentCategoryId(String parentCategoryId) {
 		this.parentCategoryId = parentCategoryId;
+	}
+
+	public String getNameVN() {
+		return nameVN;
+	}
+
+	public void setNameVN(String nameVN) {
+		this.nameVN = nameVN;
 	}
 
 //	@JsonIgnore

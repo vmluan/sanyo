@@ -40,6 +40,17 @@
 						<form:errors path="name" cssClass="error" />
 					</div>					
 				</div>
+                  <div class="col-md-6">
+					<div class="form-group">
+						<form:label path="nameVN">
+							Name (in Vietnamese) 
+						</form:label>
+						<form:input path="nameVN" class="form-control"/> 
+					</div>
+					<div>
+						<form:errors path="nameVN" cssClass="error" />
+					</div>					
+				</div>				
 				<div class="col-md-6">
 					<div class="form-group">
 						<form:label path="desc">

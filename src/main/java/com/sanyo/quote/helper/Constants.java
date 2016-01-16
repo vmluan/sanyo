@@ -64,4 +64,7 @@ public class Constants {
 	 public static final int BOQ_COLUMN_LABOUR_SUBMIT_US=29;
 	 public static final int BOQ_COLUMN_Mat_w_o_Tax_USD=30;
 	 public static final int BOQ_COLUMN_Cost_Labour_Amount_USD=31;
+	 
+	 public static final String LANG_EN = "EN";
+	 public static final String LANG_VN = "VN";
 }

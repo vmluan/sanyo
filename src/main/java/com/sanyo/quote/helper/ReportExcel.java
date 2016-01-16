@@ -40,7 +40,15 @@ import com.sanyo.quote.service.ProjectService;
 public class ReportExcel extends ExcelHelper{
 	@Autowired
 	ServletContext servletContext;
+	private String language = "EN"; //default is english
 	
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
+	}
 	private class SummaryRegion{
 		private Region region;
 		private Integer rowNo;
@@ -172,13 +180,23 @@ public class ReportExcel extends ExcelHelper{
 		XSSFSheet sheet = workbook.getSheetAt(1);
 		
 		Cell cellStartDate = sheet.getRow(10).getCell(2);
-		cellStartDate.setCellValue(Utilities.formatDate(project.getStartDate()));
-		
 		Cell cellEndDate = sheet.getRow(11).getCell(2);
-		cellEndDate.setCellValue(Utilities.formatDate(project.getEndDate()));
-		
 		Cell cellDuration = sheet.getRow(10).getCell(5);
-		cellDuration.setCellValue("Minimum Requirement for duration is " + project.getDuration());
+		if(isVietNamese()){
+			cellStartDate = sheet.getRow(11).getCell(3);
+			cellStartDate.setCellValue(Utilities.formatDate(project.getStartDate())); //set vietnamese later
+			cellEndDate = sheet.getRow(12).getCell(3);
+			cellEndDate.setCellValue(Utilities.formatDate(project.getEndDate()));
+			cellDuration = sheet.getRow(11).getCell(5);
+			cellDuration.setCellValue("Minimum Requirement for duration is " + project.getDuration());
+		}
+		else{
+			cellStartDate.setCellValue(Utilities.formatDate(project.getStartDate()));
+			cellEndDate.setCellValue(Utilities.formatDate(project.getEndDate()));
+			cellDuration.setCellValue("Minimum Requirement for duration is " + project.getDuration());
+		}
+		
+		
 		//Minimum Requirement for duration is 10 months
 		//updte payment condition
 		// ■US$     □VND     □Japanese Yen
@@ -195,6 +213,17 @@ public class ReportExcel extends ExcelHelper{
 			
 		}
 		cellPayment.setCellValue(textPayment);
+	}
+	private void updateCondition2(Project project,XSSFWorkbook workbook){
+		XSSFSheet sheet = workbook.getSheetAt(2);
+		Row row1 = sheet.getRow(1);
+		Cell clientName = row1.getCell(6);
+		if(isVietNamese()){
+			clientName = row1.getCell(10);
+		}else{
+			
+		}
+		clientName.setCellValue(project.getCustomerName());
 	}
 	private void updateMaker(Project project,XSSFSheet sheet,ProjectService projectService, String parentCategoryName){
 		List<MakerProject> makerProjects = makerProjectService.findByProject(project);
@@ -841,6 +870,7 @@ private void createRegionHeaderRow(Region region, XSSFSheet sheet, RowCount rowC
 			sampleCellStyle = getSampleStyleWithBorder(workbook);
 			updateCover(project, workbook, rowCount);
 			updateCondition1(project, workbook);
+			updateCondition2(project, workbook);
 			updateMaker(project, workbook.getSheetAt(6), projectService, Constants.ELECT_BOQ);
 			rowCount.setRowCount(startBoQRow);
 			createElecBoQSheet(project, workbook.getSheetAt(4), rowCount);
@@ -870,6 +900,9 @@ private void createRegionHeaderRow(Region region, XSSFSheet sheet, RowCount rowC
 	}
 	private void createSummarySheet(Project project, XSSFSheet sheet, RowCount rowCount){
 		//create Electrical Works row
+		Row row0 = sheet.getRow(0);
+		Cell cell00 = row0.getCell(0);
+		cell00.setCellValue(project.getProjectName());
 		Row row1 = sheet.createRow(rowCount.getRowCount());
 		rowCount.addMoreValue(1);
 		Cell cell1 = row1.createCell(2);
@@ -1063,6 +1096,11 @@ private void createRegionHeaderRow(Region region, XSSFSheet sheet, RowCount rowC
 		if(sheet.getSheetName().contains("Mechanical")){
 			return true;
 		}
+		return false;
+	}
+	private boolean isVietNamese(){
+		if(this.language.equalsIgnoreCase(Constants.LANG_VN))
+			return true;
 		return false;
 	}
 }
