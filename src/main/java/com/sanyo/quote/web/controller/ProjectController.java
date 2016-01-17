@@ -589,6 +589,7 @@ public class ProjectController extends CommonController {
 			region.setRegionDesc(category.getDesc());
 			if(existingLocation != null)
 				region.setLocation(existingLocation);
+			region.setRegionNameVN(category.getNameVN());
 			region = regionService.save(region);
 		}else{
 			if(existingLocation != null)
@@ -596,6 +597,7 @@ public class ProjectController extends CommonController {
 			if(regionJson.getRegionName() != null)
 				if(!regionJson.getRegionName().equalsIgnoreCase(region.getRegionName())){
 					region.setRegionName(regionJson.getRegionName());
+					region.setRegionNameVN(category.getNameVN());
 					regionService.save(region);
 				}
 		}

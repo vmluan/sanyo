@@ -24,7 +24,10 @@ public class Constants {
 	 public static final String ELECT_BOQ = "ELECTRICAL BOQ";
 	 public static final String ELECT_WORKS = "ELECTRICAL WORKS";
 	 public static final String MECH_WORKS = "MECHANICAL WORKS";
+	 public static final String ELECT_WORKS_VN = "Công việc điện";
+	 public static final String MECH_WORKS_VN = "Cộng việc cơ";
 	 public static final String BREAK_DOWN = "BREAKDOWN";
+	 public static final String BREAK_DOWN_VN = "CHI TIẾT";
 	 public static final String MECH_BOQ = "MECHANICAL BOQ";
 	 public static final String ELEC_TYPE = "ELEC";
 	 public static final String MECH_TYPE = "MECH";

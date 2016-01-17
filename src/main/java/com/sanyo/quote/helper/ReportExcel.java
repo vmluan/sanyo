@@ -134,29 +134,29 @@ public class ReportExcel extends ExcelHelper{
 		}
 		return null;
 	}
-	private void updateCover(Project project,XSSFWorkbook workbook, RowCount rowCount){
+	private void updateCoverVN(Project project,XSSFWorkbook workbook, RowCount rowCount){
 		XSSFSheet sheet = workbook.getSheetAt(0);
-		Row rowProjectName = sheet.getRow(10);
+		Row rowProjectName = sheet.getRow(13);
 		Cell cellProjectName = rowProjectName.getCell(3);
 		cellProjectName.setCellValue(project.getProjectName());
 		Row rowDate = sheet.getRow(0);
 		Cell cellDate = rowDate.getCell(9);
 		cellDate.setCellValue(project.getCreatedDate());
 		
-		Cell cellRefNo = sheet.getRow(1).getCell(9);
+		Cell cellRefNo = sheet.getRow(2).getCell(9);
 		cellRefNo.setCellValue(project.getProjectCode());
 		
-		Cell cellPeriod = sheet.getRow(2).getCell(9);
+		Cell cellPeriod = sheet.getRow(4).getCell(9);
 		cellPeriod.setCellValue(project.getDuration());
 		
-		Cell cellClient = sheet.getRow(15).getCell(3);
+		Cell cellClient = sheet.getRow(17).getCell(3);
 		cellClient.setCellValue(project.getCustomerName());
 		
 		List<ProjectRevision> revisions = projectRevisionService.findRevisions(project);
 		
 		for(ProjectRevision revision : revisions){
 			RowCount rowCount2 = new RowCount();
-			rowCount2.setRowCount(18);
+			rowCount2.setRowCount(20);
 			Row row = sheet.createRow(rowCount2.getRowCount());
 			Cell date = row.createCell(2);
 			date.setCellValue("Date : ");
@@ -168,12 +168,59 @@ public class ReportExcel extends ExcelHelper{
 			cellRvsNo.setCellValue(revision.getRevisionNo());
 		}
 		
-		Cell cellPeriodVald = sheet.getRow(25).getCell(6);
+		Cell cellPeriodVald = sheet.getRow(27).getCell(6);
 		cellPeriodVald.setCellValue("PERIOD OF VALIDITY :" + project.getDuration());
 		
 		
 		
 		//PERIOD OF VALIDITY : 1month 
+
+	}
+	private void updateCover(Project project,XSSFWorkbook workbook, RowCount rowCount){
+		if(isVietNamese()){
+			updateCoverVN(project, workbook, rowCount);
+		}
+		else{
+			XSSFSheet sheet = workbook.getSheetAt(0);
+			Row rowProjectName = sheet.getRow(10);
+			Cell cellProjectName = rowProjectName.getCell(3);
+			cellProjectName.setCellValue(project.getProjectName());
+			Row rowDate = sheet.getRow(0);
+			Cell cellDate = rowDate.getCell(9);
+			cellDate.setCellValue(project.getCreatedDate());
+			
+			Cell cellRefNo = sheet.getRow(1).getCell(9);
+			cellRefNo.setCellValue(project.getProjectCode());
+			
+			Cell cellPeriod = sheet.getRow(2).getCell(9);
+			cellPeriod.setCellValue(project.getDuration());
+			
+			Cell cellClient = sheet.getRow(15).getCell(3);
+			cellClient.setCellValue(project.getCustomerName());
+			
+			List<ProjectRevision> revisions = projectRevisionService.findRevisions(project);
+			
+			for(ProjectRevision revision : revisions){
+				RowCount rowCount2 = new RowCount();
+				rowCount2.setRowCount(18);
+				Row row = sheet.createRow(rowCount2.getRowCount());
+				Cell date = row.createCell(2);
+				date.setCellValue("Date : ");
+				
+				Cell cellRvsDate = row.createCell(3);
+				cellRvsDate.setCellValue(Utilities.formatDate(revision.getDate()));
+				
+				Cell cellRvsNo = row.createCell(6);
+				cellRvsNo.setCellValue(revision.getRevisionNo());
+			}
+			
+			Cell cellPeriodVald = sheet.getRow(25).getCell(6);
+			cellPeriodVald.setCellValue("PERIOD OF VALIDITY :" + project.getDuration());
+			
+			
+			
+			//PERIOD OF VALIDITY : 1month 
+		}
 
 	}
 	private void updateCondition1(Project project,XSSFWorkbook workbook){
@@ -352,7 +399,7 @@ public class ReportExcel extends ExcelHelper{
 					createBOQRows(encounters, sheet, rowCount, order);
 					//create sub-total for each region.
 					rowCount.addMoreValue(1);
-					createSubTotal(startRowOfRegion, rowCount, numOfRegions, sheet, region.getRegionName());
+					createSubTotal(startRowOfRegion, rowCount, numOfRegions, sheet, region);
 					SummaryRegion summaryRegion = new SummaryRegion();
 					summaryRegion.setRegion(region);
 					summaryRegion.setRowNo(rowCount.getRowCount() -1);
@@ -394,7 +441,7 @@ public class ReportExcel extends ExcelHelper{
 					createBOQRows(encounters, sheet, rowCount, order);
 					//create sub-total for each region.
 					rowCount.addMoreValue(1);
-					createSubTotal(startRowOfRegion, rowCount, numOfRegions, sheet, region.getRegionName());
+					createSubTotal(startRowOfRegion, rowCount, numOfRegions, sheet, region);
 					SummaryRegion summaryRegion = new SummaryRegion();
 					summaryRegion.setRegion(region);
 					summaryRegion.setRowNo(rowCount.getRowCount()-1);
@@ -451,13 +498,18 @@ public class ReportExcel extends ExcelHelper{
 		String strFormula = "SUBTOTAL(9," + column + start + ":" + column + end + ")";
 		return strFormula;
 	}
-	private void createSubTotal(int startRow, RowCount endRow, int order, XSSFSheet sheet, String regionName){
+	private void createSubTotal(int startRow, RowCount endRow, int order, XSSFSheet sheet, Region region){
 //		endRow.addMoreValue(1);
 		Row row = sheet.createRow(endRow.getRowCount());
 		Cell cell0 = row.createCell(0);
 		cell0.setCellValue(order);
 		Cell cell1 = row.createCell(1);
-		writeCellValue(cell1, "Sub Total of " + regionName);
+		String text = "Sub Total of " + region.getRegionName();
+		if(isVietNamese()){
+			if(region.getRegionNameVN() != null)
+				text += " / " + region.getRegionNameVN();
+		}
+		writeCellValue(cell1, text);
 		updateSubTotal(row, startRow, endRow.getRowCount());
 		
 		endRow.addMoreValue(2);
@@ -601,13 +653,20 @@ public class ReportExcel extends ExcelHelper{
 			}
 		}
 	}
-	
+/*
+ * create region header under location name.	
+ */
 private void createRegionHeaderRow(Region region, XSSFSheet sheet, RowCount rowCount, int order ){
 		
 		Row row = sheet.createRow(rowCount.getRowCount());
 		rowCount.addMoreValue(1);
 		Cell cell = row.createCell(1);
-		cell.setCellValue(region.getRegionName());
+		String regionName = region.getRegionName();
+		if(isVietNamese()){
+			if(region.getCategory().getNameVN() != null)
+				regionName += " / " + region.getCategory().getNameVN();
+		}
+		cell.setCellValue(regionName);
 		cell.setCellStyle(sampleCellStyle);
 		updateCellStyleOfRowBoQ(row);
 	}
@@ -615,7 +674,12 @@ private void createRegionHeaderRow(Region region, XSSFSheet sheet, RowCount rowC
 		Row row = sheet.createRow(rowCount.getRowCount());
 		rowCount.addMoreValue(1);
 		Cell cell = row.createCell(1);
-		cell.setCellValue(region.getRegionName());
+		String regionName = region.getRegionName();
+		if(isVietNamese()){
+			if(region.getRegionName() != null)
+				regionName += " / " + region.getCategory().getNameVN();
+		}
+		cell.setCellValue(regionName);
 		cell.setCellStyle(getSampleStyleForRegion(sheet.getWorkbook()));
 		sheet.createRow(rowCount.getRowCount());
 		updateCellStyleOfRowBoQ(row);
@@ -632,7 +696,13 @@ private void createRegionHeaderRow(Region region, XSSFSheet sheet, RowCount rowC
 				if(i==0){
 					
 				}else if(i==1){ //product name
-					writeCellValue(cell,encounter.getProduct().getProductName());
+					String productName = encounter.getProduct().getProductName();
+					if(isVietNamese()){
+						String nameVN = encounter.getProduct().getProductNameVietnamese();
+						if(nameVN != null)
+							productName += " / " + nameVN;
+					}
+					writeCellValue(cell,productName);
 				}else if(i==2){
 					//product specification
 					writeCellValue(cell, encounter.getProduct().getSpecification());
@@ -759,10 +829,19 @@ private void createRegionHeaderRow(Region region, XSSFSheet sheet, RowCount rowC
 	private void createSummaryOfLocations(List<Location> locations, XSSFSheet sheet, RowCount rowCount, int order, String parentCategoryName ){
 		int startRow = rowCount.getRowCount();
 		String totalName = "";
-		if(parentCategoryName.equalsIgnoreCase(Constants.ELECT_BOQ))
+		String totalNameVN = "";
+		if(parentCategoryName.equalsIgnoreCase(Constants.ELECT_BOQ)){
 			totalName += Constants.ELECT_WORKS;
-		else if(parentCategoryName.equalsIgnoreCase(Constants.MECH_BOQ))
-			totalName += Constants.MECH_WORKS;
+			if(isVietNamese()){
+				totalNameVN = Constants.ELECT_WORKS_VN;
+			}
+		}
+		else if(parentCategoryName.equalsIgnoreCase(Constants.MECH_BOQ)){
+			totalName = Constants.MECH_WORKS;
+			if(isVietNamese()){
+				totalNameVN = Constants.MECH_WORKS_VN;
+			}
+		}
 		for(Location location: locations){
 			if(isElecSheet(sheet))
 				elecSummLocationTree.put(location.getLocationId(), getSummLocation(location, sheet));
@@ -781,7 +860,7 @@ private void createRegionHeaderRow(Region region, XSSFSheet sheet, RowCount rowC
 				}
 			}
 			//create total summary row for each location
-			createTotalSummaryRowForLocation(location, sheet,startRowOfEachLocation, rowCount, order, totalName);
+			createTotalSummaryRowForLocation(location, sheet,startRowOfEachLocation, rowCount, order, totalName, totalNameVN);
 		}
 		
 		createTotalWorks(totalName, sheet,startRow, rowCount, order);
@@ -805,7 +884,10 @@ private void createRegionHeaderRow(Region region, XSSFSheet sheet, RowCount rowC
 		Row row = sheet.createRow(rowCount.getRowCount());
 		rowCount.addMoreValue(1);
 		Cell cell = row.createCell(1);
-		cell.setCellValue(Constants.BREAK_DOWN);
+		String text = Constants.BREAK_DOWN;
+		if(isVietNamese())
+			text += " / " + Constants.BREAK_DOWN_VN;
+		cell.setCellValue(text);
 		cell.setCellStyle(sampleCellStyle);	
 		updateCellStyleBreakDown(row);
 	}
@@ -817,23 +899,28 @@ private void createRegionHeaderRow(Region region, XSSFSheet sheet, RowCount rowC
 			updateAFFormula(row, startRow, endRow);
 		}
 	}
-	private void createTotalSummaryRowForLocation(Location location,XSSFSheet sheet,int startRow, RowCount rowCount, int order, String parentCategoryName){
+	private void createTotalSummaryRowForLocation(Location location,XSSFSheet sheet,int startRow, RowCount rowCount, int order, String parentCategoryName, String nameVN){
 		rowCount.addMoreValue(1);
 		int endRow = rowCount.getRowCount() -1;
 		Row row = sheet.createRow(rowCount.getRowCount());
 		rowCount.addMoreValue(2);
 		Cell cell = row.createCell(1);
-		cell.setCellValue(getTotalRowSumaryName(location, parentCategoryName));
+		cell.setCellValue(getTotalRowSumaryName(location, parentCategoryName, nameVN));
 		cell.setCellStyle(sampleCellStyle);
 		
 		updateSubTotal(row, startRow, endRow);
 		updateCellStyleSubTotal(row);
 		
 	}
-	private String getTotalRowSumaryName(Location location, String parentCategoryName){
+	private String getTotalRowSumaryName(Location location, String parentCategoryName, String nameVN){
 		String result = "Total " + location.getLocationName() 
 				+ " " 
 				+ parentCategoryName ;
+		if(isVietNamese()){
+			result += " / Tổng của " + location.getLocationName()
+				+ " " 
+				+ nameVN ;
+		}
 		return result;
 	}
 
@@ -906,14 +993,20 @@ private void createRegionHeaderRow(Region region, XSSFSheet sheet, RowCount rowC
 		Row row1 = sheet.createRow(rowCount.getRowCount());
 		rowCount.addMoreValue(1);
 		Cell cell1 = row1.createCell(2);
-		cell1.setCellValue(Constants.ELECT_WORKS);
+		String electWorks = Constants.ELECT_WORKS;
+		String mechWorks = Constants.MECH_WORKS;
+		if(isVietNamese()){
+			electWorks += " / " + Constants.ELECT_WORKS_VN;
+			mechWorks += " / " + Constants.MECH_WORKS_VN;
+		}
+		cell1.setCellValue(electWorks);
 		createSummarySheetCommon(sheet, elecSummaryTree, rowCount);
 		
 		rowCount.addMoreValue(1);
 		Row row2 = sheet.createRow(rowCount.getRowCount());
 		rowCount.addMoreValue(1);
 		Cell cell2 = row2.createCell(2);
-		cell2.setCellValue(Constants.MECH_WORKS);
+		cell2.setCellValue(mechWorks);
 		createSummarySheetCommon(sheet, mechSummaryTree, rowCount);
 		rowCount.addMoreValue(1);
 		createSubTotalSummaryAll(8, rowCount, sheet);
@@ -943,7 +1036,12 @@ private void createRegionHeaderRow(Region region, XSSFSheet sheet, RowCount rowC
 				Cell cell1 = regionRow.createCell(1);
 				cell1.setCellValue(numOfRegion);
 				Cell regionNamCell = regionRow.createCell(2);
-				regionNamCell.setCellValue(summaryRegion.getRegion().getRegionName());
+				String regionName = summaryRegion.getRegion().getRegionName();
+				if(isVietNamese()){
+					if(summaryRegion.getRegion().getCategory().getNameVN() != null)
+						regionName += " / " + summaryRegion.getRegion().getCategory().getNameVN();
+				}
+				regionNamCell.setCellValue(regionName);
 				Cell regionTotalCell = regionRow.createCell(5);
 				//='Electrical works'!H23
 				String strFormula = "'Electrical works'!H" + summaryRegion.getRowNo();
@@ -959,11 +1057,16 @@ private void createRegionHeaderRow(Region region, XSSFSheet sheet, RowCount rowC
 					if(region!=null && region.getCategory() != null && region.getCategory().getParentCategory() != null){
 //						createSubTotalSummarySheet(start, rowCount, sheet,region.getCategory().getParentCategory().getName() );
 						String name = "";
-						if(tree.equals(elecSummaryTree))
+						String nameVN="";
+						if(tree.equals(elecSummaryTree)){
 							name = Constants.ELECT_WORKS;
-						else if (tree.equals(elecSummaryTree))
+							nameVN = Constants.ELECT_WORKS_VN;
+						}
+						else if (tree.equals(elecSummaryTree)){
 							name = Constants.MECH_WORKS;
-						createSubTotalSummarySheet(start, rowCount, sheet,name);
+							nameVN = Constants.MECH_WORKS_VN;
+						}
+						createSubTotalSummarySheet(start, rowCount, sheet,name, nameVN);
 						
 					}
 				}
@@ -972,10 +1075,13 @@ private void createRegionHeaderRow(Region region, XSSFSheet sheet, RowCount rowC
 		
 		
 	}
-	private void createSubTotalSummarySheet(int startRow, RowCount endRow, XSSFSheet sheet, String locationName){
+	private void createSubTotalSummarySheet(int startRow, RowCount endRow, XSSFSheet sheet, String locationName, String nameVN){
 		Row row = sheet.createRow(endRow.getRowCount());
 		Cell cell1 = row.createCell(2);
-		writeCellValue(cell1, "Sub Total of " + locationName);
+		String cell1Text = "Sub Total of "+ locationName;
+		if(isVietNamese())
+			cell1Text += " / Tổng cộng của " + nameVN;
+		writeCellValue(cell1, cell1Text);
 		String strFomula = getSubTotalFormula(startRow, endRow.getRowCount(), "F");
 		Cell cell5 = row.createCell(5); //amount
 		writeCellFomula(cell5, strFomula);
@@ -985,7 +1091,10 @@ private void createRegionHeaderRow(Region region, XSSFSheet sheet, RowCount rowC
 	private void createSubTotalSummaryAll(int startRow, RowCount endRow, XSSFSheet sheet){
 		Row row = sheet.createRow(endRow.getRowCount());
 		Cell cell1 = row.createCell(2);
-		writeCellValue(cell1, "SUB TOTAL ELECTRICAL AND MECHANICAL WORKS");
+		String cell1Text = "SUB TOTAL ELECTRICAL AND MECHANICAL WORKS";
+		if(isVietNamese())
+			cell1Text += " / Tổng cộng phần Cơ và Điện";
+			writeCellValue(cell1, cell1Text);
 		String strFomula = getSubTotalFormula(startRow, endRow.getRowCount(), "F");
 		Cell cell5 = row.createCell(5); //amount
 		writeCellFomula(cell5, strFomula);

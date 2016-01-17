@@ -37,6 +37,7 @@ public class Region implements java.io.Serializable, Cloneable{
 	private Set<UserRegionRole> userRegionRoles;
 	private Location location;
 //	private Set<ProductGroupMaker> productGroupMakers;
+	private String regionNameVN; //vietnamese name.
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -144,6 +145,12 @@ public class Region implements java.io.Serializable, Cloneable{
 		clonedRegion.setEncounters(null);
 		clonedRegion.setUserRegionRoles(null);
 		return clonedRegion;
+	}
+	public String getRegionNameVN() {
+		return regionNameVN;
+	}
+	public void setRegionNameVN(String regionNameVN) {
+		this.regionNameVN = regionNameVN;
 	}
 	
 	
