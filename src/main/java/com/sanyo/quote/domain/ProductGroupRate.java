@@ -54,6 +54,7 @@ public class ProductGroupRate {
         this.allowance = allowance;
     }
 
+    @Column(name = "total_material", nullable = true)
     public float getTotalMaterial() {
         return totalMaterial;
     }
@@ -62,6 +63,7 @@ public class ProductGroupRate {
         this.totalMaterial = totalMaterial;
     }
 
+    @Column(name = "total_labor", nullable = true)
     public float getTotalLabor() {
         return totalLabor;
     }
