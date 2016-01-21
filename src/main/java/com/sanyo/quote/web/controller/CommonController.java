@@ -61,7 +61,7 @@ public class CommonController {
 		org.springframework.security.core.userdetails.User user = Utilities.getCurrentUser();
 		uiModel.addAttribute("userName", user.getUsername());
 		com.sanyo.quote.domain.User userSanyo = userService.findByUserName(user.getUsername());
-		uiModel.addAttribute("user",userSanyo);
+		uiModel.addAttribute("logginUser",userSanyo);
 	}
 	public void throwOverlappedDateException(String message) throws Exception{
 		Exception e = new Exception(message);

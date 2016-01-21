@@ -190,6 +190,7 @@ function deleteLocation(id){
 		success : function(msg) {
 			alert('delete successfully.');
 			$("#listLocation").jqxGrid('updatebounddata');
+			dataAdapterLocationJson.dataBind(); //to refresh the location list in the dropdown of assign regions.
 		},
 		complete : function(xhr, status) {
 

@@ -22,5 +22,7 @@ public interface ProductGroupRateRepository extends PagingAndSortingRepository<P
     public List<ProductGroupRate> findByProjectIdAndProductGroup (@Param("project")Project project, @Param("productGroup")ProductGroup productGroup);
 
     public List<ProductGroupRate> findByProjectAndProductGroup(Project project, ProductGroup productGroup);
+    
+    public List<ProductGroupRate> findByProductGroup(ProductGroup productGroup);
 }
 

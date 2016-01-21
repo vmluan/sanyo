@@ -174,7 +174,8 @@ function submitForm(form){
 	    alert("no file selected");
 	    return;
 	}
-	form.submit();
+	var b = form.parentElement.parentElement;
+	b.submit();
 }
         ]]>
 		

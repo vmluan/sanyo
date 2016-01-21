@@ -136,29 +136,34 @@ $("#list")
 								datafield : 'projectId',
 								width : '50%',
 								cellsrenderer : function(row, column, value) {
-									return '<div class="col-md-12">'
+									var lang = "'VN'";
+									var result = 
+												'<div class="col-md-12">'
 												+'<p>'
-													
 													+ '<button class="btn bg-olive margin col-md-2"  onclick="makeReport('+ value +  ')"' + '>Print</button>'
+													+ '<button class="btn bg-olive margin col-md-2"  onclick="makeReport('+ value + ',' + lang + ')"' + '>Print VN</button>'
 													+ '<button class="btn bg-olive margin col-md-2"  onclick="updateProduct('+ value +  ')"' + '>Basic Info</button>'
 													+ '<button class="btn bg-purple margin col-md-2" onclick="addQuotation('+ value +  ')"' + '>Quotation</button>'
 													+ '<button class="btn bg-navy margin col-md-3">Marker List</button>'
-													+ '<button class="btn bg-orange margin col-md-2" onclick="cloneProject('+ value +  ')"' + '>Copy</button>'
-													if(projectStatus != 'closed'){
-														+ '<button class="btn bg-maroon margin col-md-2" onclick="closeProject('+ value +  ')"' + '>Close</button>'
-													}
-													+ '<button class="btn btn-danger margin col-md-1" onclick="deleteProject('+ value +  ')"' + '>X</button>'
+													+ '<button class="btn bg-orange margin col-md-2" onclick="cloneProject('+ value +  ')"' + '>Copy</button>';
+									if(projectStatus != 'closed'){
+										result +=												'<button class="btn bg-maroon margin col-md-2" onclick="closeProject('+ value +  ')"' + '>Close</button>'
+									}
+									result +=													'<button class="btn btn-danger margin col-md-1" onclick="deleteProject('+ value +  ')"' + '>X</button>'
 												+ '</p>'
-											+ '</div>'
-											;
+											+ '</div>';
+									return result;
 								}
 							}
 							]
 				});
 				
 				//
-function makeReport(id) {
-	window.location.href = pageContext + '/reports/' + id + '/report';
+function makeReport(id, lang) {
+	var url = pageContext + '/reports/' + id + '/report';
+	if(lang)
+		url += '?rptLanguage='+ lang;
+	window.location.href = url;
 }
 function updateProduct(id) {
 	window.location.href = pageContext + '/projects/' + id + '?form';

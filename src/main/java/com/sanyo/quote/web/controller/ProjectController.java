@@ -51,6 +51,7 @@ import com.sanyo.quote.domain.LocationOrderHist;
 import com.sanyo.quote.domain.MakerProject;
 import com.sanyo.quote.domain.ProductGroup;
 import com.sanyo.quote.domain.ProductGroupMaker;
+import com.sanyo.quote.domain.ProductGroupRate;
 import com.sanyo.quote.domain.Project;
 import com.sanyo.quote.domain.ProjectRevision;
 import com.sanyo.quote.domain.ProjectStatus;
@@ -70,6 +71,7 @@ import com.sanyo.quote.service.LocationOrderHistService;
 import com.sanyo.quote.service.LocationService;
 import com.sanyo.quote.service.MakerProjectService;
 import com.sanyo.quote.service.ProductGroupMakerService;
+import com.sanyo.quote.service.ProductGroupRateService;
 import com.sanyo.quote.service.ProductService;
 import com.sanyo.quote.service.ProjectRevisionService;
 import com.sanyo.quote.service.ProjectService;
@@ -129,6 +131,9 @@ public class ProjectController extends CommonController {
 	
 	@Autowired
 	private LocationOrderHistService locationOrderHistService;
+	
+	@Autowired
+	private ProductGroupRateService productGroupRateService;
 	
 	private Validator validator;
 	
@@ -584,6 +589,7 @@ public class ProjectController extends CommonController {
 			region.setRegionDesc(category.getDesc());
 			if(existingLocation != null)
 				region.setLocation(existingLocation);
+			region.setRegionNameVN(category.getNameVN());
 			region = regionService.save(region);
 		}else{
 			if(existingLocation != null)
@@ -591,6 +597,7 @@ public class ProjectController extends CommonController {
 			if(regionJson.getRegionName() != null)
 				if(!regionJson.getRegionName().equalsIgnoreCase(region.getRegionName())){
 					region.setRegionName(regionJson.getRegionName());
+					region.setRegionNameVN(category.getNameVN());
 					regionService.save(region);
 				}
 		}
@@ -1033,6 +1040,16 @@ public class ProjectController extends CommonController {
 //		String result = Utilities.jSonSerialization(productGroups);
 //		return result;
 //	}
+	
+	private void setRatesForProductGroup(ProductGroup productGroup){
+		List<ProductGroupRate> productGroupRates = productGroupRateService.findByProductGroup(productGroup);
+		if(productGroupRates != null && productGroupRates.size()>0){
+			ProductGroupRate rate = productGroupRates.get(0);
+			productGroup.setAllowance(rate.getAllowance());
+			productGroup.setDiscount(rate.getDiscount());
+		}
+	}
+	
 	/*
 	 * get list of product group that are assigned to the project. it is defined in Maker sheet
 	 */
@@ -1063,11 +1080,13 @@ public class ProjectController extends CommonController {
 				if(regionType.equalsIgnoreCase(Constants.ELEC_TYPE)){
 					if(category.getName().equalsIgnoreCase(Constants.ELECT_BOQ)){
 						ProductGroup productGroup = productGroupMaker.getProductGroup();
+						setRatesForProductGroup(productGroup);
 						productGroups.add(productGroup);
 					}
 				}else if(regionType.equalsIgnoreCase(Constants.MECH_TYPE)){
 					if(category.getName().equalsIgnoreCase(Constants.MECH_BOQ)){
 						ProductGroup productGroup = productGroupMaker.getProductGroup();
+						setRatesForProductGroup(productGroup);
 						productGroups.add(productGroup);
 					}				
 				}

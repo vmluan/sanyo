@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.sanyo.quote.domain.Project;
+import com.sanyo.quote.helper.Constants;
 import com.sanyo.quote.helper.ReportExcel;
 import com.sanyo.quote.service.CategoryService;
 import com.sanyo.quote.service.EncounterService;
@@ -76,8 +77,16 @@ public class ReportController {
 			reportExcel.setLocationService(locationService);
 			reportExcel.setMakerProjectService(makerProjectService);
 			reportExcel.setProjectRevisionService(projectRevisionService);
+			
+			String lang = httpServletRequest.getParameter("rptLanguage");
+			String rptName = "template_quotaion_client.xlsx";
+			if(lang != null && lang.equalsIgnoreCase(Constants.LANG_VN)){
+				rptName = "template_quotaion_client_vietnamese.xlsx";
+				reportExcel.setLanguage(Constants.LANG_VN);
+			}
+			
 			String homePath = httpServletRequest.getSession().getServletContext().getRealPath("/");
-			XSSFWorkbook workbook =  reportExcel.writeExcelReportClientForProject( homePath,project, "template_quotaion_client.xlsx");
+			XSSFWorkbook workbook =  reportExcel.writeExcelReportClientForProject( homePath,project, rptName);
 			try {
 				workbook.write(response.getOutputStream());
 			} catch (IOException e) {

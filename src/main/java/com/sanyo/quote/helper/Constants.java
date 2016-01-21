@@ -24,7 +24,10 @@ public class Constants {
 	 public static final String ELECT_BOQ = "ELECTRICAL BOQ";
 	 public static final String ELECT_WORKS = "ELECTRICAL WORKS";
 	 public static final String MECH_WORKS = "MECHANICAL WORKS";
+	 public static final String ELECT_WORKS_VN = "Công việc điện";
+	 public static final String MECH_WORKS_VN = "Cộng việc cơ";
 	 public static final String BREAK_DOWN = "BREAKDOWN";
+	 public static final String BREAK_DOWN_VN = "CHI TIẾT";
 	 public static final String MECH_BOQ = "MECHANICAL BOQ";
 	 public static final String ELEC_TYPE = "ELEC";
 	 public static final String MECH_TYPE = "MECH";
@@ -64,4 +67,7 @@ public class Constants {
 	 public static final int BOQ_COLUMN_LABOUR_SUBMIT_US=29;
 	 public static final int BOQ_COLUMN_Mat_w_o_Tax_USD=30;
 	 public static final int BOQ_COLUMN_Cost_Labour_Amount_USD=31;
+	 
+	 public static final String LANG_EN = "EN";
+	 public static final String LANG_VN = "VN";
 }

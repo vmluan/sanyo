@@ -25,4 +25,5 @@ public interface ProductGroupRateService {
 
     List<ProductGroupRate> findByProjectIdAndProductGroupId (Integer projectId, Integer productGroupId);
     public List<ProductGroupRate> findByProjectAndProductGroup(Project project, ProductGroup productGroup);
+    public List<ProductGroupRate> findByProductGroup(ProductGroup productGroup);
 }

@@ -69,4 +69,9 @@ public class DefaultProductGroupRateService implements ProductGroupRateService {
 	public List<ProductGroupRate> findByProjectAndProductGroup(Project project, ProductGroup productGroup) {
 		return productGroupRateRepository.findByProjectAndProductGroup(project, productGroup);
 	}
+
+	@Override
+	public List<ProductGroupRate> findByProductGroup(ProductGroup productGroup) {
+		return productGroupRateRepository.findByProductGroup(productGroup);
+	}
 }

@@ -11,12 +11,14 @@ import java.text.ParseException;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.context.support.GenericXmlApplicationContext;
 
 import com.sanyo.quote.domain.Encounter;
 import com.sanyo.quote.domain.Location;
 import com.sanyo.quote.domain.Project;
 import com.sanyo.quote.domain.Region;
+import com.sanyo.quote.helper.Constants;
 import com.sanyo.quote.helper.ReportExcel;
 import com.sanyo.quote.helper.Utilities;
 import com.sanyo.quote.service.CategoryService;
@@ -130,7 +132,20 @@ public class RegionTest {
 //		reportExcel.setProjectRevisionService(projectRevisionService);
 //		reportExcel.writeExcelReportClientForProject(project, "template_quotaion_client.xlsx");
 		
-		Project clonedProject = project.clone();
+//		Project clonedProject = project.clone();
+		ReportExcel reportExcel = new ReportExcel();
+		reportExcel.setEncounterService(encounterService);
+		reportExcel.setProjectService(projectService);
+		reportExcel.setLocationService(locationService);
+		reportExcel.setMakerProjectService(makerProjectService);
+		reportExcel.setProjectRevisionService(projectRevisionService);
+		
+		reportExcel.setLanguage(Constants.LANG_VN);
+		String homePath = "";
+//		XSSFWorkbook workbook =  reportExcel.writeExcelReportClientForProject( homePath,project, "template_quotaion_client.xlsx");
+		XSSFWorkbook workbook =  reportExcel.writeExcelReportClientForProject( homePath,project, "template_quotaion_client_vietnamese.xlsx");
+		
+		
 	}
 
 }
