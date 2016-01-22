@@ -7,6 +7,10 @@ DROP TRIGGER IF EXISTS encounterAddTrigger;
 		   
 		BEGIN
 			declare v_max_orderNo int(11);
+			declare encounter_total_material FLOAT;
+			declare v_project_id FLOAT;
+			declare v_product_group_id FLOAT;
+
 		begin
 			select max(order_No) into v_max_orderNo
 			from sanyo.encounter
@@ -16,6 +20,18 @@ DROP TRIGGER IF EXISTS encounterAddTrigger;
 				set v_max_orderNo =0;
             end if;
 			set NEW.order_No = v_max_orderNo +1;
+
+			-- Update total material
+			select project_id into v_project_id from location l where l.LOCATION_ID in (SELECT LOCATION_ID from region where REGION_ID=NEW.REGION_ID);
+			select product_group_id into v_product_group_id from product p where p.PRODUCT_ID in (SELECT PRODUCT_ID from encounter where PRODUCT_ID=NEW.PRODUCT_ID);
+
+			select sum (Cost_Mat_Amount_USD) into encounter_total_material
+			FROM encounter
+			WHERE PRODUCT_ID in (select PRODUCT_ID from product where product_group_id=v_product_group_id) AND
+			REGION_ID in (select REGION_ID from region r where r.LOCATION_ID in (select LOCATION_ID from location l where l.PROJECT_ID=v_project_id ));
+			update productgrouprate
+			SET total_material = encounter_total_material
+			WHERE  product_group_id = v_product_group_id AND PROJECT_ID=v_project_id;
 		END;
 
 		END; //
@@ -99,33 +115,6 @@ DROP TRIGGER IF EXISTS encounterAddTrigger;
 					and encounter_id <> v_source_encounter_id;
 				end if;				
 		END;
-
-		END; //
-
-		DELIMITER ;
-
-
-
-		DROP TRIGGER IF EXISTS encounterTotalMaterialByCodeInsertTrigger;
-		DELIMITER //
-
-		CREATE TRIGGER encounterTotalMaterialByCodeInsertTrigger
-		before insert
-		   ON sanyo.encounter FOR EACH ROW
-		BEGIN
-			declare encounter_total FLOAT;
-			select project_id into v_project_id from location l where l.LOCATION_ID in (SELECT LOCATION_ID from region where REGION_ID=NEW.REGION_ID)
-			select product_group_id into v_product_group_id from product p where p.PRODUCT_ID in (SELECT PRODUCT_ID from encounter where PRODUCT_ID=NEW.PRODUCT_ID)
-
-			select sum (Cost_Mat_Amount_USD) into encounter_total_material
-			FROM encounter
-			WHERE PRODUCT_ID in (select PRODUCT_ID from product where product_group_id=v_product_group_id) AND
-			REGION_ID in (select REGION_ID from region r where r.LOCATION_ID in (select LOCATION_ID from location l where l.PROJECT_ID=v_project_id ))
-			--chuong is doing here
-
-			update productgrouprate
-			SET total_material = encounter_total_material
-			WHERE  product_group_id = v_product_group_id AND PROJECT_ID=v_project_id;
 
 		END; //
 
