@@ -8,8 +8,8 @@ DROP TRIGGER IF EXISTS encounterAddTrigger;
 		BEGIN
 			declare v_max_orderNo int(11);
 			declare encounter_total_material FLOAT;
-			declare v_project_id FLOAT;
-			declare v_product_group_id FLOAT;
+			declare v_project_id int(11);
+			declare v_product_group_id int(11);
 
 		begin
 			select max(order_No) into v_max_orderNo
@@ -25,7 +25,7 @@ DROP TRIGGER IF EXISTS encounterAddTrigger;
 			select project_id into v_project_id from location l where l.LOCATION_ID in (SELECT LOCATION_ID from region where REGION_ID=NEW.REGION_ID);
 			select product_group_id into v_product_group_id from product p where p.PRODUCT_ID in (SELECT PRODUCT_ID from encounter where PRODUCT_ID=NEW.PRODUCT_ID);
 
-			select sum (Cost_Mat_Amount_USD) into encounter_total_material
+			select sum(Cost_Mat_Amount_USD) into encounter_total_material
 			FROM encounter
 			WHERE PRODUCT_ID in (select PRODUCT_ID from product where product_group_id=v_product_group_id) AND
 			REGION_ID in (select REGION_ID from region r where r.LOCATION_ID in (select LOCATION_ID from location l where l.PROJECT_ID=v_project_id ));
