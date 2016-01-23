@@ -55,8 +55,8 @@ $("#productGroupRate").jqxGrid(
             { text: 'M&E WORKS',datafield: 'productGroupName', cellsalign: 'right', align: 'right', width: '30%' },
             { text: 'Discount', datafield: 'discount', align: 'right', cellsalign: 'right', cellsformat: 'p', width: '10%' },
             { text: 'Allowance', datafield: 'allowance', cellsalign: 'right', cellsformat: 'p', width: '10%' },
-            { text: 'Total Material', datafield: 'totalMaterial', cellsalign: 'right', cellsformat: 'p', width: '10%' },
-            { text: 'Total Labour', datafield: 'totalLabor', cellsalign: 'right', cellsformat: 'p', width: '10%' },
+            { text: 'Total Material', datafield: 'totalMaterial', cellsalign: 'right', width: '10%' },
+            { text: 'Total Labour', datafield: 'totalLabor', cellsalign: 'right', width: '10%' },
             {
                 text : 'Action',
                 align : 'center',
