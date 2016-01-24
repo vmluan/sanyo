@@ -47,6 +47,11 @@
 							<div id="pagerRegion"><jsp:text /></div><jsp:text /><P /><jsp:text />
 						</div>					
 					</div>
+					<div class="form-group col-md-4">
+						<label>Sum of Region</label>
+						<div id="regionSum" class="row"><jsp:text />
+						</div>
+					</div>					
 					<div class="col-md-4">
 						<div class="form-group col-md-12">
 							<label><jsp:text /></label>

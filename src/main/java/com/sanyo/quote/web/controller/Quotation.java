@@ -578,13 +578,33 @@ public class Quotation extends CommonController {
 			if(location != null){
 				List<Region> regions = regionService.findByLocation(location);
 				for(Region region : regions){
-					List<Encounter> encounters = encounterService.findByRegion(region);
-					for(Encounter encounter : encounters){
-						total += encounter.getAmount();
-					}
+					total += getSumOfRegion(region);
 				}
 			}
 			return total;
+		}
+		@RequestMapping(value = "/getRegionSum", method = RequestMethod.GET)
+		@ResponseBody
+		public String getRegionSum(
+				@RequestParam(value="regionIds", required=true) String locationIds
+				, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
+			Float total = 0f;
+			for(String id : locationIds.split(",")){
+				if(id.equalsIgnoreCase("0"))
+					continue;
+				Region region = regionService.findById(Integer.valueOf(id));
+				total += getSumOfRegion(region);
+			}
+			return total.toString();
+		}
+		private float getSumOfRegion(Region region){
+			Float total = 0f;
+			List<Encounter> encounters = encounterService.findByRegion(region);
+			for(Encounter encounter : encounters){
+				total += encounter.getAmount();
+			}
+			return total;
+			
 		}
 		@RequestMapping(value = "/getAssignedProductOfRegionForDatatables", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 		@ResponseBody

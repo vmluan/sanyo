@@ -435,7 +435,7 @@ var urlResult = pageContext + "/quotation/getAssignedProductOfRegion";
 			});
 */			
 $("#locationSum").jqxNumberInput({ width: '250px', height: '25px', symbol: '$', disabled: true, decimalDigits: 2, digits: 12, max: 999999999999});
-
+$("#regionSum").jqxNumberInput({ width: '250px', height: '25px', symbol: '$', disabled: true, decimalDigits: 2, digits: 12, max: 999999999999});
 var urlLocation = pageContext + "/quotation/getAssignedLocationsJson";
 // prepare the data
 var sourceLocation = {
@@ -522,22 +522,25 @@ $("#jqxWidgetLocation").jqxComboBox({
 			height : 25,
 			checkboxes: true
 		});	
-$("#listRegion").on('checkChange', function (event)
-{
-    if (event.args) {
-    var item = event.args.item;
-	if(item){
-		var value = item.value;
-		var label = item.label;
-		var checked = item.checked;
-		
-		if(checked && label =='All'){
-			$("#listRegion").jqxComboBox('checkAll');
-		}else if(!checked && label =='All')
-			$("#listRegion").jqxComboBox('uncheckAll');
-		}else if(!checked && label !='All'){
-			//$("#listRegion").jqxComboBox('uncheckIndex',0);
+
+$("#listRegion").on('checkChange', function(event) {
+	if (event.args) {
+		var item = event.args.item;
+		if (item) {
+			var value = item.value;
+			var label = item.label;
+			var checked = item.checked;
+
+			if (checked && label == 'All') {
+				$("#listRegion").jqxComboBox('checkAll');
+			} else if (!checked && label == 'All')
+				$("#listRegion").jqxComboBox('uncheckAll');
+		} else if (!checked && label != 'All') {
+			// $("#listRegion").jqxComboBox('uncheckIndex',0);
 		}
+		var regionIDs = getCheckedRegionIds();
+		updateRegionSum(regionIDs);
+
 	}
 });
 $("#jqxWidgetLocation").on('checkChange', function (event)
@@ -573,7 +576,9 @@ $("#jqxWidgetLocation").on('checkChange', function (event)
 				height : 25,
 				checkboxes: true
 			});
-		}			
+		}else{
+			$("#locationSum").val(0);
+		}
 		 }
 		console.log(locationIDs);	
 		
@@ -631,6 +636,26 @@ $("#jqxWidgetLocation").on('checkChange', function (event)
 //			}	
 //		}
 //});
+function updateRegionSum(regionIds){
+	if(regionIds == '')
+		$("#regionSum").val(0);
+	else{
+		var urlLocationSum = pageContext + '/quotation/getRegionSum';
+			$.ajax({
+				type : "GET",
+				data : {
+					regionIds: regionIds
+				},
+				contentType : 'application/json',
+				url : urlLocationSum,
+				success : function(msg) {
+					$("#regionSum").val(msg);
+				},
+				complete : function(xhr, status) {
+				}
+		})
+	}
+}
 function updateLocationSum(locationIds){
 	var urlLocationSum = pageContext + '/quotation/getLocationSum';
 		$.ajax({
