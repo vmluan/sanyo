@@ -467,6 +467,7 @@ function loadAddQuotationGrid() {
 												}
 
 											}
+											$("#listMaker").jqxGrid('begincelledit', 0, "test");
 										});										
 									},
 									initEditor : function(row, cellvalue,
@@ -497,7 +498,15 @@ function loadAddQuotationGrid() {
 									cellbeginedit : function(row) {
 										return false;
 									}
-								} ]
+								},
+								{
+									text : '',
+									datafield : 'test',
+									align : 'center',
+									cellsalign : 'right',
+									editable: true,
+									width : '0%'
+								}  ]
 					});
 
 }

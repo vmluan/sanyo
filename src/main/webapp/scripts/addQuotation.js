@@ -814,11 +814,11 @@ function saveEncounter(row,isUpdate) {
 			$("#list").jqxGrid('updatebounddata');
 
 			//$('#list').jqxGrid('addrow', null, {}, 'first');
-			//$("#list").jqxGrid('begincelledit', 0, "desc");
+			$("#list").jqxGrid('begincelledit', 0, "productGroupCode");
 			var regionIDs=getCheckedRegionIds();
 			var locationIDs=getCheckedLocationIds();
 			//showResultGrid(locationIDs, regionIDs);
-			loadDataTable();
+			reloadDataTable();
 //			var itemLocation = $("#jqxWidgetLocation").jqxComboBox('getSelectedItem');
 			var locationIds = getCheckedLocationIds();
 			updateLocationSum(locationIds);
@@ -849,12 +849,12 @@ var groupsrenderer = function(text, group, expanded, data) {
 			//update Quantity field.
 			var value = args.value.toString();
 			updateQuantity(value);
+			$("#list").jqxGrid('begincelledit', 0, "test");
 		 }else if(datafield == 'nonamePercent' ||
 				 datafield == 'nonameRange'){
 			 //updateMat_w_o_Tax_USD();
 		 }
 	 });
-	 
 function loadAddQuotationGrid() {
 
 	var emptyData =[];
@@ -1222,13 +1222,21 @@ function loadAddQuotationGrid() {
 									width : '10%',
 									cellsrenderer : function(row, column, value) {
 										return '<div class="col-md-12" style="margin-left: -0px;">'
-												+ '<a class="btn btn-app col-md-12" style="margin-left: -0px;">'
+												+ '<a id="addQuotationBtn" class="btn btn-app col-md-12" style="margin-left: -0px;">'
 												+ '<i class="glyphicon glyphicon-plus"></i>'
 												+ '</div>';
 									},
 									cellbeginedit : function(row) {
 										return false;
 									}
+								},
+								{
+									text : '',
+									datafield : 'test',
+									align : 'center',
+									cellsalign : 'right',
+									editable: true,
+									width : '0%'
 								} ]
 					});
 					
@@ -1398,6 +1406,8 @@ function updateMat_w_o_Tax_USD(){
 	}
 }
 function updateItem(row){
+	alert('This function is not supported yet');
+	return;
 	 var encounterId = $('#listResult').jqxGrid('getcellvalue', row, "uid");
 	 saveEncounter(row, true);
 
@@ -1416,6 +1426,7 @@ function deleteItem(encounterId){
 		},
 		complete : function(xhr, status) {
 			// $("#assignRegionButton").prop('disabled', false);
+			reloadDataTable();
 		}
 	});
 }
@@ -1435,10 +1446,7 @@ $("#searchBtn").click(function(){
 //	if(isCompleted)
 //		showResultGrid(locationIDs,regionIDs);
 	//load data table
-	
-	table = loadDataTable();
-	table.rowGrouping({ iGroupingColumnIndex: 1 });
-	table.rowReordering({ bGroupingUsed: true, sURL: pageContext + "/quotation/updateQuotaitonOrder", sRequestType: "GET" });	
+	reloadDataTable();
 /*	
 	 var url = pageContext + '/quotation/getquotationlistdatatables';
 		$.ajax({
@@ -1493,7 +1501,7 @@ function loadDataTable(){
 		"scrollX": true,
 		destroy: true,
         //Default: Page display length
-        "iDisplayLength": 10,
+        "iDisplayLength": 100,
         "iDisplayStart": 0,
 	   "fnRowCallback": function ( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
 			$(nRow).attr( 'data-position', iDisplayIndex);
@@ -1513,10 +1521,10 @@ function loadDataTable(){
 							 { "name": "locationIds", "value": locationIDs }); //push more parameters
 				},		
         "aoColumns": [
-            { "mData": "order" },
+            { "mData": "order" },		
 			{ "mData": "region.regionName" },
 			{ "mData": "region.regionId" },
-			{ "mData": "product.productName" },
+			{ "mData": "product.productName" },				
             { "mData": "product.unit" },
             { "mData": "actualQuantity" },
             { "mData": "unitRate" },
@@ -1539,7 +1547,18 @@ function loadDataTable(){
             { "mData": "subcon_Profit" },
             { "mData": "unit_Price_W_Tax_Labour" }, 
             { "mData": "cost_Mat_Amount_USD" }, 
-            { "mData": "cost_Labour_Amount_USD" }, 
+            { "mData": "cost_Labour_Amount_USD" },
+			{
+				"mData": null,
+				"bSortable": false,
+			    "mRender": function (o) { 
+					var id = o.encounterID;
+						//	return '<button class="btn"  onclick="updateItem('+ id +  ')"' + '>Update</button>'
+						//		+ '<button class="btn" onclick="deleteItem('+ id +  ')"' +'>Delete</button>'
+					return '<button class="editor_edit" onclick="updateItem('+ id +  ')"' + '>Edit</button> / <button class="editor_remove" onclick="deleteItem('+ id +  ')"' +'>Delete</button>'
+							;					
+				}
+			}			
         ]
     } );
 	return table;
@@ -1561,4 +1580,13 @@ function getDiscount(productGroupCode){
 		}
 	}
 	
+}
+/*
+* to reload the data table component.
+*/
+function reloadDataTable(){
+	
+	var table = loadDataTable();
+	table.rowGrouping({ iGroupingColumnIndex: 1 });
+	table.rowReordering({ bGroupingUsed: true, sURL: pageContext + "/quotation/updateQuotaitonOrder", sRequestType: "GET" });	
 }
