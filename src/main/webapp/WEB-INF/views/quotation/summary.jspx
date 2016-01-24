@@ -14,10 +14,342 @@
   -->
 
 <section class="content">
+<style>
+.filterable {
+    margin-top: 15px;
+}
+.filterable .panel-heading .pull-right {
+    margin-top: -20px;
+}
+.filterable .filters input[disabled] {
+    background-color: transparent;
+    border: none;
+    cursor: auto;
+    box-shadow: none;
+    padding: 0;
+    height: auto;
+}
+.filterable .filters input[disabled]::-webkit-input-placeholder {
+    color: #333;
+}
+.filterable .filters input[disabled]::-moz-placeholder {
+    color: #333;
+}
+.filterable .filters input[disabled]:-ms-input-placeholder {
+    color: #333;
+}
+.table-hover-css>tbody>tr:hover
+{
+	background:#428bca;
+	cursor:pointer;
+	font-weight:bold;
+	color:white;
+}
 
-	<div id="productGroupRate">
+.location-work
+{
+	font-weight:bold;
+	font-size:20px;
+	color:red;
+}
+.title-ELECTRICAL
+{
+	text-align:center;
+	font-size:29px;
+	font-weight:bold;
+	padding-left:26%;
+}
+.sum
+{
+	
+    padding-left: 10px;
+    background: yellow;
+    padding-top: 18px;
+    padding-bottom: 18px;
+    margin-left: 0px;
+    width: 100%;
+}
+.title-sum
+{
+margin-left: 0px;
+    width: 100%;
+font-weight: bold;
+    font-size: 18px;
+    width: 100%;
+    background: yellow;
+}
+span > .glyphicon-plus:hover,span >.glyphicon-minus:hover
+{
+	cursor:pointer;
+}
+</style>
+<div id="productGroupRate">
 
-	</div>
+</div>
+
+<div class="">
+<!--create by DuongPhan, date 24/01/2016    ELECTRICAL WORK-->
+    <div class="row">
+        <div class="panel panel-primary filterable">
+            <div class="panel-heading" id="electricel">            
+                <h3 class="panel-title"><span class=""><i class="glyphicon glyphicon-minus" id="change-icon"></i></span> <span class="title-ELECTRICAL">ELECTRICAL WORK</span> </h3>
+                <div class="pull-right">
+                    <button class="btn btn-default btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
+                </div>
+            </div>
+            
+            
+            
+            <table class="table-hover-css"  id="table">
+               <thead>
+               		<tr><b class="location-work">EXTENSION FACTORY</b></tr>
+                    <tr class="filters">
+                        <th><input type="text" class="form-control" placeholder="No."/></th>
+                        <th><input type="text" class="form-control" placeholder="DESCRIPTION"/></th>
+                        <th><input type="text" class="form-control" placeholder="UNIT"/></th>
+                        <th><input type="text" class="form-control" placeholder="QTY"/></th>
+                        <th><input type="text" class="form-control" placeholder="UNIT RATE (US$)"/></th>
+                        <th><input type="text" class="form-control" placeholder="AMOUNT (US$)"/></th>
+                        <th><input type="text" class="form-control" placeholder="REMARK"/></th>
+                        <th><input type="text" class="form-control" placeholder="Foreign Portion (USD)"/></th>
+                        <th><input type="text" class="form-control" placeholder="Labour (US)"/></th>
+                        <th><input type="text" class="form-control" placeholder="Total"/></th>                        
+                    </tr>                    
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td class="col-sm-3">HIGH VOLTAGE SYSTEM</td>
+                        <td>Lot</td>
+                        <td>1</td>
+                        <td></td>
+                        <td> 93,720.13</td>
+                        <td></td>
+                        <td>78,493.46</td>
+                        <td>8,451.13</td>
+                        <td>86,944.59</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>HIGH VOLTAGE SYSTEM</td>
+                        <td>Lot</td>
+                        <td>1</td>
+                        <td></td>
+                        <td> 93,720.13</td>
+                        <td></td>
+                        <td>78,493.46</td>
+                        <td>8,451.13</td>
+                        <td>86,944.59</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>HIGH VOLTAGE SYSTEM</td>
+                        <td>Lot</td>
+                        <td>1</td>
+                        <td></td>
+                        <td> 93,720.13</td>
+                        <td></td>
+                        <td>78,493.46</td>
+                        <td>8,451.13</td>
+                        <td>86,944.59</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>HIGH VOLTAGE SYSTEM</td>
+                        <td>Lot</td>
+                        <td>1</td>
+                        <td></td>
+                        <td> 93,720.13</td>
+                        <td></td>
+                        <td>78,493.46</td>
+                        <td>8,451.13</td>
+                        <td>86,944.59</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>HIGH VOLTAGE SYSTEM</td>
+                        <td>Lot</td>
+                        <td>1</td>
+                        <td></td>
+                        <td> 93,720.13</td>
+                        <td></td>
+                        <td>78,493.46</td>
+                        <td>8,451.13</td>
+                        <td>86,944.59</td>
+                    </tr><tr>
+                        <td>6</td>
+                        <td>HIGH VOLTAGE SYSTEM</td>
+                        <td>Lot</td>
+                        <td>1</td>
+                        <td></td>
+                        <td> 93,720.13</td>
+                        <td></td>
+                        <td>78,493.46</td>
+                        <td>8,451.13</td>
+                        <td>86,944.59</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>HIGH VOLTAGE SYSTEM</td>
+                        <td>Lot</td>
+                        <td>1</td>
+                        <td></td>
+                        <td> 93,720.13</td>
+                        <td></td>
+                        <td>78,493.46</td>
+                        <td>8,451.13</td>
+                        <td>86,944.59</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>HIGH VOLTAGE SYSTEM</td>
+                        <td>Lot</td>
+                        <td>1</td>
+                        <td></td>
+                        <td> 93,720.13</td>
+                        <td></td>
+                        <td>78,493.46</td>
+                        <td>8,451.13</td>
+                        <td>86,944.59</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="row title-sum">
+            	<div class="col-md-4 title-text">TOTAL MAIN FACTORY ELECTRICAL WORKS:</div>
+            	<div class="col-md-2 title-text">AMOUNT (US$)</div>
+            	<div class="col-md-2 title-text">Foreign Portion (USD)</div>
+            	<div class="col-md-2 title-text">Labour (US)</div>
+            	<div class="col-md-2 title-text">Total</div>
+            </div>
+            <div class="row sum">
+            	<div class="col-md-4 title-text"></div>
+            	<div class="col-md-2 title-text">0</div>
+            	<div class="col-md-2 title-text">0</div>
+            	<div class="col-md-2 title-text">0</div>
+            	<div class="col-md-2 title-text">0</div>
+            </div>
+            
+            <table class="table-hover-css" id="table">
+               <thead>
+               		<tr><b class="location-work">OFFICE AREA</b></tr>
+                    <tr class="filters">
+                        <th><input type="text" class="form-control" placeholder="No."/></th>
+                        <th><input type="text" class="form-control" placeholder="DESCRIPTION"/></th>
+                        <th><input type="text" class="form-control" placeholder="UNIT"/></th>
+                        <th><input type="text" class="form-control" placeholder="QTY"/></th>
+                        <th><input type="text" class="form-control" placeholder="UNIT RATE (US$)"/></th>
+                        <th><input type="text" class="form-control" placeholder="AMOUNT (US$)"/></th>
+                        <th><input type="text" class="form-control" placeholder="REMARK"/></th>
+                        <th><input type="text" class="form-control" placeholder="Foreign Portion (USD)"/></th>
+                        <th><input type="text" class="form-control" placeholder="Labour (US)"/></th>
+                        <th><input type="text" class="form-control" placeholder="Total"/></th>                        
+                    </tr>                    
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td class="col-sm-3">SUBMAIN SYSTEM</td>
+                        <td>Lot</td>
+                        <td>1</td>
+                        <td></td>
+                        <td> 16,710.97</td>
+                        <td></td>
+                        <td>10,462.38</td>
+                        <td>4,256.64</td>
+                        <td>14,719.02</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>SUBMAIN SYSTEM</td>
+                        <td>Lot</td>
+                        <td>1</td>
+                        <td></td>
+                        <td> 16,710.97</td>
+                        <td></td>
+                        <td>10,462.38</td>
+                        <td>4,256.64</td>
+                        <td>14,719.02</td>                     
+                    </tr>
+                </tbody> 
+            </table>
+            <div class="row title-sum">
+            	<div class="col-md-4 title-text">TOTAL OFFICE ELECTRICAL WORKS:</div>
+            	<div class="col-md-2 title-text">AMOUNT (US$)</div>
+            	<div class="col-md-2 title-text">Foreign Portion (USD)</div>
+            	<div class="col-md-2 title-text">Labour (US)</div>
+            	<div class="col-md-2 title-text">Total</div>
+            </div>
+            <div class="row sum">
+            	<div class="col-md-4 title-text"></div>
+            	<div class="col-md-2 title-text">0</div>
+            	<div class="col-md-2 title-text">0</div>
+            	<div class="col-md-2 title-text">0</div>
+            	<div class="col-md-2 title-text">0</div>
+            </div>
+            
+            
+            <table class="table-hover-css" id="table">
+               <thead>
+               		<tr><b class="location-work">EXTERNAL AREA (GUARD HOUSE, BIKE PARKING, CAR PARKING,..)</b></tr>
+                    <tr class="filters">
+                        <th><input type="text" class="form-control" placeholder="No."/></th>
+                        <th><input type="text" class="form-control" placeholder="DESCRIPTION"/></th>
+                        <th><input type="text" class="form-control" placeholder="UNIT"/></th>
+                        <th><input type="text" class="form-control" placeholder="QTY"/></th>
+                        <th><input type="text" class="form-control" placeholder="UNIT RATE (US$)"/></th>
+                        <th><input type="text" class="form-control" placeholder="AMOUNT (US$)"/></th>
+                        <th><input type="text" class="form-control" placeholder="REMARK"/></th>
+                        <th><input type="text" class="form-control" placeholder="Foreign Portion (USD)"/></th>
+                        <th><input type="text" class="form-control" placeholder="Labour (US)"/></th>
+                        <th><input type="text" class="form-control" placeholder="Total"/></th>                        
+                    </tr>                    
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>PUBLIC ADDRESS SYSTEM</td>
+                        <td>Lot</td>
+                        <td>1</td>
+                        <td></td>
+                        <td> 670.25</td>
+                        <td></td>
+                        <td>384.40</td>
+                        <td>204.61</td>
+                        <td>589.01</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td class="col-md-3">PUBLIC ADDRESS SYSTEM</td>
+                        <td>Lot</td>
+                        <td>1</td>
+                        <td></td>
+                        <td> 670.25</td>
+                        <td></td>
+                        <td>384.40</td>
+                        <td>204.61</td>
+                        <td>589.01</td>                        
+                    </tr>
+                </tbody> 
+            </table>
+            <div class="row title-sum">
+            	<div class="col-md-4 title-text">TOTAL EXTERNAL AREA ELECTRICAL WORKS:</div>
+            	<div class="col-md-2 title-text">AMOUNT (US$)</div>
+            	<div class="col-md-2 title-text">Foreign Portion (USD)</div>
+            	<div class="col-md-2 title-text">Labour (US)</div>
+            	<div class="col-md-2 title-text">Total</div>
+            </div>
+            <div class="row sum">
+            	<div class="col-md-4 title-text"></div>
+            	<div class="col-md-2 title-text">0</div>
+            	<div class="col-md-2 title-text">0</div>
+            	<div class="col-md-2 title-text">0</div>
+            	<div class="col-md-2 title-text">0</div>
+            </div>
+        </div>
+    </div>
+</div>
+	
+
 </section>
 
 <script>
@@ -25,6 +357,29 @@ var pageContext = "${pageContext.request.contextPath}";
 var projectId = "${projectId}";
 </script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/addSummary.js">
+<jsp:text/>
+</script>
+<script>
+$(document).ready(function() {
+    $('.table-hover-css').dataTable( {
+        "scrollX": true
+    } );
+} );
+$("#change-icon").click(function(){
+	if($(this).attr("class")=="glyphicon glyphicon-plus"){
+		$(this).addClass("glyphicon-minus");
+		$(this).removeClass("glyphicon-plus");
+		$("#electricel").nextAll().show("slow");
+	}
+	else
+	{
+		$(this).addClass("glyphicon-plus");
+		$(this).removeClass("glyphicon-minus");
+		$("#electricel").nextAll().hide("slow");
+	}
+});
+</script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/jstable.js">
 <jsp:text/>
 </script>
 </div>
