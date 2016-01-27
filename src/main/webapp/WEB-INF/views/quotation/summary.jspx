@@ -46,11 +46,17 @@
 	color:white;
 }
 
+.table-hover-css>tbody>tr>td:hover
+{
+	background:#022746;
+}
+
 .location-work
 {
 	font-weight:bold;
 	font-size:20px;
 	color:red;
+	display:block;
 }
 .title-ELECTRICAL
 {
@@ -82,6 +88,41 @@ span > .glyphicon-plus:hover,span >.glyphicon-minus:hover
 {
 	cursor:pointer;
 }
+table {
+    counter-reset: rowNumber;
+}
+
+table tr {
+    counter-increment: rowNumber;
+}
+
+table tr td:first-child::before {
+    content: counter(rowNumber);
+    min-width: 1em;
+    margin-right: 0.5em;
+}
+.text{
+    color:red;
+    font-size:18px;
+    font-weight:bold;
+
+}
+.total_title{
+    color: #Fff;
+    font-weight: bold;
+    font-size: 18px; 
+}
+.row_total{
+    background: #428bca;
+    margin-left: 0px; 
+    margin-right:  0px;
+}
+.values-total
+{
+    font-size: 25px;
+    font-weight: bold;
+    color: #5D0000;
+}
 </style>
 <div id="productGroupRate">
 
@@ -92,17 +133,16 @@ span > .glyphicon-plus:hover,span >.glyphicon-minus:hover
     <div class="row">
         <div class="panel panel-primary filterable">
             <div class="panel-heading" id="electricel">            
-                <h3 class="panel-title"><span class=""><i class="glyphicon glyphicon-minus" id="change-icon"></i></span> <span class="title-ELECTRICAL">ELECTRICAL WORK</span> </h3>
+                <h3 class="panel-title"><span class=""><i class="glyphicon glyphicon-minus" id="change-icon-electrical"></i></span> <span class="title-ELECTRICAL">ELECTRICAL WORK</span> </h3>
                 <div class="pull-right">
                     <button class="btn btn-default btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
                 </div>
             </div>
             
-            
-            
+           <c:forEach items="${electricalLocation}" var="values">
             <table class="table-hover-css"  id="table">
                <thead>
-               		<tr><b class="location-work">EXTENSION FACTORY</b></tr>
+               		<tr><span class=""><i class="glyphicon glyphicon-minus change-icon-child" id="change-icon-child"></i></span><b class="location-work">${values.getLocationName()}</b></tr>
                     <tr class="filters">
                         <th><input type="text" class="form-control" placeholder="No."/></th>
                         <th><input type="text" class="form-control" placeholder="DESCRIPTION"/></th>
@@ -116,122 +156,86 @@ span > .glyphicon-plus:hover,span >.glyphicon-minus:hover
                         <th><input type="text" class="form-control" placeholder="Total"/></th>                        
                     </tr>                    
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td class="col-sm-3">HIGH VOLTAGE SYSTEM</td>
-                        <td>Lot</td>
-                        <td>1</td>
-                        <td></td>
-                        <td> 93,720.13</td>
-                        <td></td>
-                        <td>78,493.46</td>
-                        <td>8,451.13</td>
-                        <td>86,944.59</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>HIGH VOLTAGE SYSTEM</td>
-                        <td>Lot</td>
-                        <td>1</td>
-                        <td></td>
-                        <td> 93,720.13</td>
-                        <td></td>
-                        <td>78,493.46</td>
-                        <td>8,451.13</td>
-                        <td>86,944.59</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>HIGH VOLTAGE SYSTEM</td>
-                        <td>Lot</td>
-                        <td>1</td>
-                        <td></td>
-                        <td> 93,720.13</td>
-                        <td></td>
-                        <td>78,493.46</td>
-                        <td>8,451.13</td>
-                        <td>86,944.59</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>HIGH VOLTAGE SYSTEM</td>
-                        <td>Lot</td>
-                        <td>1</td>
-                        <td></td>
-                        <td> 93,720.13</td>
-                        <td></td>
-                        <td>78,493.46</td>
-                        <td>8,451.13</td>
-                        <td>86,944.59</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>HIGH VOLTAGE SYSTEM</td>
-                        <td>Lot</td>
-                        <td>1</td>
-                        <td></td>
-                        <td> 93,720.13</td>
-                        <td></td>
-                        <td>78,493.46</td>
-                        <td>8,451.13</td>
-                        <td>86,944.59</td>
-                    </tr><tr>
-                        <td>6</td>
-                        <td>HIGH VOLTAGE SYSTEM</td>
-                        <td>Lot</td>
-                        <td>1</td>
-                        <td></td>
-                        <td> 93,720.13</td>
-                        <td></td>
-                        <td>78,493.46</td>
-                        <td>8,451.13</td>
-                        <td>86,944.59</td>
-                    </tr>
-                    <tr>
-                        <td>7</td>
-                        <td>HIGH VOLTAGE SYSTEM</td>
-                        <td>Lot</td>
-                        <td>1</td>
-                        <td></td>
-                        <td> 93,720.13</td>
-                        <td></td>
-                        <td>78,493.46</td>
-                        <td>8,451.13</td>
-                        <td>86,944.59</td>
-                    </tr>
-                    <tr>
-                        <td>8</td>
-                        <td>HIGH VOLTAGE SYSTEM</td>
-                        <td>Lot</td>
-                        <td>1</td>
-                        <td></td>
-                        <td> 93,720.13</td>
-                        <td></td>
-                        <td>78,493.46</td>
-                        <td>8,451.13</td>
-                        <td>86,944.59</td>
-                    </tr>
+                <tbody class="test">
+                <c:forEach items="${electricalRigon}" var="Regionvalues">
+                	<c:if test="${values.getLocationId()==Regionvalues.getLocation().getLocationId()}">
+	                    <c:forEach items="${EncounterElectrical}" var="Encountervalues">
+	                        <c:if test="${Encountervalues.getRegion().getRegionId()==Regionvalues.getRegionId()}">
+	                    <tr>
+	                        <td></td>
+	                        <td class="col-sm-3">${Regionvalues.getRegionName()}</td>
+	                        <td>Lot</td>
+	                        <td>${Encountervalues.getQuantity()}</td>
+	                        <td>${Encountervalues.getUnitRate()}</td>
+	                        <td>${Encountervalues.getAmount()}</td>
+	                        <td>${Encountervalues.getRemark()}</td>
+	                        <td>${Encountervalues.getCost_Mat_Amount_USD()}</td>
+	                        <td>${Encountervalues.getLabour()}</td>
+	                        <td>${myFormatter.format(Encountervalues.getCost_Mat_Amount_USD()+Encountervalues.getLabour())}</td>	                        
+	                    </tr>
+	                    </c:if>
+                   		</c:forEach>
+                    </c:if>
+                   </c:forEach>    
                 </tbody>
             </table>
             <div class="row title-sum">
-            	<div class="col-md-4 title-text">TOTAL MAIN FACTORY ELECTRICAL WORKS:</div>
+            	<div class="col-md-4 title-text">TOTAL ${values.getLocationName()} ELECTRICAL WORKS:</div>
             	<div class="col-md-2 title-text">AMOUNT (US$)</div>
             	<div class="col-md-2 title-text">Foreign Portion (USD)</div>
             	<div class="col-md-2 title-text">Labour (US)</div>
             	<div class="col-md-2 title-text">Total</div>
             </div>
             <div class="row sum">
-            	<div class="col-md-4 title-text"></div>
-            	<div class="col-md-2 title-text">0</div>
-            	<div class="col-md-2 title-text">0</div>
-            	<div class="col-md-2 title-text">0</div>
-            	<div class="col-md-2 title-text">0</div>
+            	<div class="col-md-4 text title-text"></div>
+            	<div class="col-md-2 text title-text amount"></div>
+            	<div class="col-md-2 text title-text portion">0</div>
+            	<div class="col-md-2 text title-text labour">0</div>
+            	<div class="col-md-2 text title-text total">0</div>
+            </div>
+                   	
+               
+  					
+			</c:forEach>
+			 <div class="row row_total">
+                <div class="col-md-4 total_title">
+                    TOTAL ELECTTRICAL WORK
+                </div>
+                <div class="col-md-2 total_title">
+                       Total Amount    
+                </div>
+                <div class="col-md-2 total_title">
+                        Total Foreign Portion (USD)   
+                </div>
+                <div class="col-md-2 total_title">
+                        Total Labour (US)  
+                </div>
+                <div class="col-md-2 total_title">
+                        Total    
+                </div>        
+             </div>
+             <div class="row row_total values-total">
+                <div class="col-md-4 title-text"></div>
+                <div class="col-md-2 title-text total-amount"></div>
+                <div class="col-md-2 title-text total-portion">0</div>
+                <div class="col-md-2 title-text total-labour">0</div>
+                <div class="col-md-2 title-text total-total">0</div>
+            </div>         
+        </div>
+    </div>
+    <div class="row">
+        <div class="panel panel-primary filterable">
+            <div class="panel-heading" id="metricel">            
+                <h3 class="panel-title"><span class=""><i class="glyphicon glyphicon-minus" id="change-icon-metrical"></i></span> <span class="title-ELECTRICAL">METRICAL WORK</span> </h3>
+                <div class="pull-right">
+                    <button class="btn btn-default btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
+                </div>
             </div>
             
-            <table class="table-hover-css" id="table">
+           <c:forEach items="${metricalLocation}" var="values">
+            <table class="table-hover-css"  id="table">
                <thead>
-               		<tr><b class="location-work">OFFICE AREA</b></tr>
+                    <tr><span class=""><i class="glyphicon glyphicon-minus change-icon-child" id="change-icon-child"></i></span><b class="location-work">${values.getLocationName()}</b></tr>
                     <tr class="filters">
                         <th><input type="text" class="form-control" placeholder="No."/></th>
                         <th><input type="text" class="form-control" placeholder="DESCRIPTION"/></th>
@@ -245,112 +249,78 @@ span > .glyphicon-plus:hover,span >.glyphicon-minus:hover
                         <th><input type="text" class="form-control" placeholder="Total"/></th>                        
                     </tr>                    
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td class="col-sm-3">SUBMAIN SYSTEM</td>
-                        <td>Lot</td>
-                        <td>1</td>
-                        <td></td>
-                        <td> 16,710.97</td>
-                        <td></td>
-                        <td>10,462.38</td>
-                        <td>4,256.64</td>
-                        <td>14,719.02</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>SUBMAIN SYSTEM</td>
-                        <td>Lot</td>
-                        <td>1</td>
-                        <td></td>
-                        <td> 16,710.97</td>
-                        <td></td>
-                        <td>10,462.38</td>
-                        <td>4,256.64</td>
-                        <td>14,719.02</td>                     
-                    </tr>
-                </tbody> 
+                <tbody class="test">
+                <c:forEach items="${metricalRigon}" var="Regionvalues">
+                    <c:if test="${values.getLocationId()==Regionvalues.getLocation().getLocationId()}">
+                        <c:forEach items="${EncounterMetrical}" var="Encountervalues">
+                            <c:if test="${Encountervalues.getRegion().getRegionId()==Regionvalues.getRegionId()}">
+                        <tr>
+                            <td></td>
+                            <td class="col-sm-3">${Regionvalues.getRegionName()}</td>
+                            <td>Lot</td>
+                            <td>${Encountervalues.getQuantity()}</td>
+                            <td>${Encountervalues.getUnitRate()}</td>
+                            <td>${Encountervalues.getAmount()}</td>
+                            <td>${Encountervalues.getRemark()}</td>
+                            <td>${Encountervalues.getCost_Mat_Amount_USD()}</td>
+                            <td>${Encountervalues.getLabour()}</td>
+                            <td>${myFormatter.format(Encountervalues.getCost_Mat_Amount_USD()+Encountervalues.getLabour())}</td>                            
+                        </tr>
+                        </c:if>
+                        </c:forEach>
+                    </c:if>
+                   </c:forEach>    
+                </tbody>
             </table>
             <div class="row title-sum">
-            	<div class="col-md-4 title-text">TOTAL OFFICE ELECTRICAL WORKS:</div>
-            	<div class="col-md-2 title-text">AMOUNT (US$)</div>
-            	<div class="col-md-2 title-text">Foreign Portion (USD)</div>
-            	<div class="col-md-2 title-text">Labour (US)</div>
-            	<div class="col-md-2 title-text">Total</div>
+                <div class="col-md-4 title-text">TOTAL ${values.getLocationName()} METRICAL WORKS:</div>
+                <div class="col-md-2 title-text">AMOUNT (US$)</div>
+                <div class="col-md-2 title-text">Foreign Portion (USD)</div>
+                <div class="col-md-2 title-text">Labour (US)</div>
+                <div class="col-md-2 title-text">Total</div>
             </div>
             <div class="row sum">
-            	<div class="col-md-4 title-text"></div>
-            	<div class="col-md-2 title-text">0</div>
-            	<div class="col-md-2 title-text">0</div>
-            	<div class="col-md-2 title-text">0</div>
-            	<div class="col-md-2 title-text">0</div>
+                <div class="col-md-4 text title-text"></div>
+                <div class="col-md-2 text title-text amount-metrical"></div>
+                <div class="col-md-2 text title-text portion-metrical">0</div>
+                <div class="col-md-2 text title-text labour-metrical">0</div>
+                <div class="col-md-2 text title-text total-metrical">0</div>
             </div>
-            
-            
-            <table class="table-hover-css" id="table">
-               <thead>
-               		<tr><b class="location-work">EXTERNAL AREA (GUARD HOUSE, BIKE PARKING, CAR PARKING,..)</b></tr>
-                    <tr class="filters">
-                        <th><input type="text" class="form-control" placeholder="No."/></th>
-                        <th><input type="text" class="form-control" placeholder="DESCRIPTION"/></th>
-                        <th><input type="text" class="form-control" placeholder="UNIT"/></th>
-                        <th><input type="text" class="form-control" placeholder="QTY"/></th>
-                        <th><input type="text" class="form-control" placeholder="UNIT RATE (US$)"/></th>
-                        <th><input type="text" class="form-control" placeholder="AMOUNT (US$)"/></th>
-                        <th><input type="text" class="form-control" placeholder="REMARK"/></th>
-                        <th><input type="text" class="form-control" placeholder="Foreign Portion (USD)"/></th>
-                        <th><input type="text" class="form-control" placeholder="Labour (US)"/></th>
-                        <th><input type="text" class="form-control" placeholder="Total"/></th>                        
-                    </tr>                    
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>PUBLIC ADDRESS SYSTEM</td>
-                        <td>Lot</td>
-                        <td>1</td>
-                        <td></td>
-                        <td> 670.25</td>
-                        <td></td>
-                        <td>384.40</td>
-                        <td>204.61</td>
-                        <td>589.01</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td class="col-md-3">PUBLIC ADDRESS SYSTEM</td>
-                        <td>Lot</td>
-                        <td>1</td>
-                        <td></td>
-                        <td> 670.25</td>
-                        <td></td>
-                        <td>384.40</td>
-                        <td>204.61</td>
-                        <td>589.01</td>                        
-                    </tr>
-                </tbody> 
-            </table>
-            <div class="row title-sum">
-            	<div class="col-md-4 title-text">TOTAL EXTERNAL AREA ELECTRICAL WORKS:</div>
-            	<div class="col-md-2 title-text">AMOUNT (US$)</div>
-            	<div class="col-md-2 title-text">Foreign Portion (USD)</div>
-            	<div class="col-md-2 title-text">Labour (US)</div>
-            	<div class="col-md-2 title-text">Total</div>
-            </div>
-            <div class="row sum">
-            	<div class="col-md-4 title-text"></div>
-            	<div class="col-md-2 title-text">0</div>
-            	<div class="col-md-2 title-text">0</div>
-            	<div class="col-md-2 title-text">0</div>
-            	<div class="col-md-2 title-text">0</div>
-            </div>
+                    
+               
+                    
+            </c:forEach>
+             <div class="row row_total">
+                <div class="col-md-4 total_title">
+                    TOTAL METRICAL WORK
+                </div>
+                <div class="col-md-2 total_title">
+                       Total Amount    
+                </div>
+                <div class="col-md-2 total_title">
+                        Total Foreign Portion (USD)   
+                </div>
+                <div class="col-md-2 total_title">
+                        Total Labour (US)  
+                </div>
+                <div class="col-md-2 total_title">
+                        Total Total    
+                </div>        
+             </div>
+             <div class="row row_total values-total">
+                <div class="col-md-4 title-text"></div>
+                <div class="col-md-2 title-text total-amount-metrical"></div>
+                <div class="col-md-2 title-text total-portion-metrical">0</div>
+                <div class="col-md-2 title-text total-labour-metrical">0</div>
+                <div class="col-md-2 title-text total-metrical">0</div>
+            </div>         
         </div>
     </div>
 </div>
 	
 
 </section>
+
 
 <script>
 var pageContext = "${pageContext.request.contextPath}";
@@ -365,21 +335,53 @@ $(document).ready(function() {
         "scrollX": true
     } );
 } );
-$("#change-icon").click(function(){
+$("#change-icon-electrical").click(function(){
 	if($(this).attr("class")=="glyphicon glyphicon-plus"){
 		$(this).addClass("glyphicon-minus");
 		$(this).removeClass("glyphicon-plus");
-		$("#electricel").nextAll().show("slow");
+		$("#electricel").nextAll().show();
 	}
 	else
 	{
 		$(this).addClass("glyphicon-plus");
 		$(this).removeClass("glyphicon-minus");
-		$("#electricel").nextAll().hide("slow");
+		$("#electricel").nextAll().hide();
+	}
+});
+$("#change-icon-metrical").click(function(){
+    if($(this).attr("class")=="glyphicon glyphicon-plus"){
+        $(this).addClass("glyphicon-minus");
+        $(this).removeClass("glyphicon-plus");
+        $("#metricel").nextAll().show();
+    }
+    else
+    {
+        $(this).addClass("glyphicon-plus");
+        $(this).removeClass("glyphicon-minus");
+        $("#metricel").nextAll().hide();
+    }
+});
+
+$(".change-icon-child").click(function(){
+//alert($(this).attr("class"));
+	if($(this).attr("class")=="glyphicon glyphicon-minus change-icon-child"
+	|| $(this).attr("class")=="glyphicon change-icon-child glyphicon-minus"){
+		$(this).addClass("glyphicon-plus");
+		$(this).removeClass("glyphicon-minus");
+		$(this).parent().next().next().hide().next().hide().next().hide();
+	}
+	else if($(this).attr("class")=="glyphicon change-icon-child glyphicon-plus")
+	{
+		$(this).addClass("glyphicon-minus");
+		$(this).removeClass("glyphicon-plus");
+		$(this).parent().next().next().show().next().show().next().show();
 	}
 });
 </script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/jstable.js">
+<jsp:text/>
+</script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/setTotal.js">
 <jsp:text/>
 </script>
 </div>
