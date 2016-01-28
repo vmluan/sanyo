@@ -14,7 +14,7 @@ import static javax.persistence.GenerationType.IDENTITY;
  * of the product related to ProductGroup will be changed relevantly
  */
 @Entity
-@Table(name = "ProductGroupRate", catalog = "sanyo")
+@Table(name = "productgrouprate", catalog = "sanyo")
 public class ProductGroupRate {
 
     int id;

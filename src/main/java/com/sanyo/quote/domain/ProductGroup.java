@@ -21,7 +21,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  * it represent to 'nhom vat tu';
  */
 @Entity
-@Table(name = "ProductGroup", catalog = "sanyo")
+@Table(name = "productgroup", catalog = "sanyo")
 public class ProductGroup {
 	private Integer groupId;
 	private String groupName;

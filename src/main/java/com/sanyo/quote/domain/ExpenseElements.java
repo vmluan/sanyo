@@ -9,7 +9,7 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name = "expenseElements", catalog = "sanyo")
+@Table(name = "expenseelements", catalog = "sanyo")
 public class ExpenseElements implements Serializable {
     //removed the old design
     //NORMAL,//for normal records in the main table of sheet

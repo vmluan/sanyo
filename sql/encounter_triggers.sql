@@ -20,7 +20,7 @@ DROP TRIGGER IF EXISTS encounterAddTrigger;
 
 		END;
 
-		END; //
+		END; %
 
 		DELIMITER ;
 
@@ -81,7 +81,7 @@ DROP TRIGGER IF EXISTS encounterAddTrigger;
 		DELIMITER ;
 
 
---After insert Encounter
+
 DROP TRIGGER IF EXISTS encounterInsertTrigger;
 		DELIMITER //
 
@@ -97,7 +97,7 @@ DROP TRIGGER IF EXISTS encounterInsertTrigger;
 
 		begin
 
-			-- Update total material and total labour
+
 			select project_id into v_project_id from location l where l.LOCATION_ID in (SELECT LOCATION_ID from region where REGION_ID=NEW.REGION_ID);
 			select product_group_id into v_product_group_id from product p where p.PRODUCT_ID in (SELECT PRODUCT_ID from encounter where PRODUCT_ID=NEW.PRODUCT_ID);
 
@@ -115,7 +115,7 @@ DROP TRIGGER IF EXISTS encounterInsertTrigger;
 		DELIMITER ;
 
 
---after Update Encounter
+
 DROP TRIGGER IF EXISTS encounterUpdateTrigger;
 		DELIMITER //
 

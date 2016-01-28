@@ -23,7 +23,7 @@ import org.eclipse.persistence.sessions.factories.ProjectClassGenerator;
  * 
  */
 @Entity
-@Table(name = "productgroup_Maker", catalog = "sanyo")
+@Table(name = "productgroup_maker", catalog = "sanyo")
 public class ProductGroupMaker implements java.io.Serializable, Cloneable {
 	private Integer id;
 //	private String delivery;
