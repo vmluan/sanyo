@@ -80,6 +80,19 @@ public class ExcelHelper {
 		return cellStyle;
 		
 	}
+	public  XSSFCellStyle getSampleStyleForExpenses(XSSFWorkbook workbook){
+		
+		XSSFCellStyle cellStyle =  getSampleStyleWithBorder(workbook);
+		XSSFFont font = workbook.createFont();
+		font.setFontHeightInPoints((short) 11);
+		font.setFontName("Arial");
+		font.setBold(true);
+		cellStyle.setFont(font);
+		cellStyle.setFillForegroundColor(new XSSFColor(new java.awt.Color(255, 255, 0)));
+		cellStyle.setFillPattern(CellStyle.SOLID_FOREGROUND);
+		return cellStyle;
+		
+	}
 	public  XSSFCellStyle getSampleStyleForTotalWork(XSSFWorkbook workbook){
 		
 		XSSFCellStyle cellStyle =  getSampleStyleWithBorder(workbook);

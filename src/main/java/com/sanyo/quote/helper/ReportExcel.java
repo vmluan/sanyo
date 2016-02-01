@@ -7,6 +7,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -88,8 +90,6 @@ public class ReportExcel extends ExcelHelper{
 		public void setOrderText(String orderText) {
 			this.orderText = orderText;
 		}
-		
-		
 	}
 	private TreeMap<Integer, Integer> summRegionsTree = new TreeMap<Integer, Integer>();
 	
@@ -108,6 +108,24 @@ public class ReportExcel extends ExcelHelper{
 	
 	private TreeMap<Integer, SummaryLocation> elecSummLocationTree = new TreeMap<Integer, SummaryLocation>(); //to support print orderNo of location in ELEC BOQ sheet.
 	private TreeMap<Integer, SummaryLocation> mechSummLocationTree = new TreeMap<Integer, SummaryLocation>(); //to support print orderNo of location in MECH BOQ sheet.
+    private static final TreeMap<Integer, String[]> expensesList;
+    
+    static
+    {
+    	expensesList = new TreeMap<Integer, String[]>();
+    	String [] tempWork = {"Temporary Work", " Cong viec tam"};
+    	expensesList.put(1, tempWork);
+    	String [] tool = {"Tools & Machineries", "Tools & Machineries"};
+    	expensesList.put(2, tool);
+    	String[] trans = {"Transportation", "Transportation"};
+    	expensesList.put(3, trans);
+    	String [] en = {"Engineer Cost, Supervisor", "Engineer Cost, Supervisor"};
+    	expensesList.put(4, en);
+    	String [] site = {"Site Expenses","Site Expenses"};
+    	expensesList.put(5, site);
+    	String [] over = {"Overhead","Overhead"};
+    	expensesList.put(6, over);
+    }
 	public ReportExcel(){
 		if(isClientVersion)
 			this.maxBoQCol = 9;
@@ -142,6 +160,11 @@ public class ReportExcel extends ExcelHelper{
 		Row rowDate = sheet.getRow(0);
 		Cell cellDate = rowDate.getCell(9);
 		cellDate.setCellValue(project.getCreatedDate());
+		
+		Row rowDateVN = sheet.getRow(1);
+		Cell cellDateVN = rowDateVN.getCell(9);
+		cellDateVN.setCellValue(project.getCreatedDate());
+		
 		
 		Cell cellRefNo = sheet.getRow(2).getCell(9);
 		cellRefNo.setCellValue(project.getProjectCode());
@@ -314,6 +337,35 @@ public class ReportExcel extends ExcelHelper{
 		
 		
 	}
+	private void createCellValue(Row row, int cellNo, Object value){
+		Cell cell = row.createCell(cellNo);
+		if(value instanceof String)
+			cell.setCellValue( (String)value);
+		else if(value instanceof Integer)
+			cell.setCellValue( (Integer)value);
+		else if(value instanceof Double)
+			cell.setCellValue( (Double)value);
+	}
+	private void updateExpenses(Project project,XSSFSheet sheet, RowCount summaryCount){
+		Row row = sheet.createRow(summaryCount.getRowCount());
+		String cell1Text = "INDIRECT EXPENSES";
+		if(isVietNamese())
+			cell1Text += " / Chi phi khac";
+		createCellValue(row, 2, cell1Text);
+		updateCellStyleExpenses(row);
+		for(Map.Entry<Integer, String[]> entry : expensesList.entrySet()){
+			summaryCount.addMoreValue(1);
+			Row rowi = sheet.createRow(summaryCount.getRowCount());
+			createCellValue(rowi, 0, entry.getKey());
+			String value = entry.getValue()[0];
+			if(isVietNamese())
+				value = entry.getValue()[1];
+			createCellValue(rowi, 2, value);
+			updateCellStyleExpenses(rowi);
+			
+		}
+	}
+			
 	
 	private void createMakerRows(List<MakerProject> productGroupMakers, XSSFSheet sheet, int rowCount, int order ){
 		boolean hasOrderForCategory = false;
@@ -582,6 +634,14 @@ public class ReportExcel extends ExcelHelper{
 			if(cell == null)
 				cell = row.createCell(i);
 			cell.setCellStyle(getSampleStyleForSubTotal((XSSFWorkbook) row.getSheet().getWorkbook()));
+		}
+	}
+	private void updateCellStyleExpenses(Row row){
+		for(int i=0; i< this.maxSumCol; i++){
+			Cell cell = row.getCell(i);
+			if(cell == null)
+				cell = row.createCell(i);
+			cell.setCellStyle(getSampleStyleForExpenses((XSSFWorkbook)row.getSheet().getWorkbook()));
 		}
 	}
 	//
@@ -1010,6 +1070,8 @@ private void createRegionHeaderRow(Region region, XSSFSheet sheet, RowCount rowC
 		createSummarySheetCommon(sheet, mechSummaryTree, rowCount);
 		rowCount.addMoreValue(1);
 		createSubTotalSummaryAll(8, rowCount, sheet);
+		rowCount.addMoreValue(1);
+		updateExpenses(project, sheet, rowCount);
 	}
 	private void createSummarySheetCommon(XSSFSheet sheet, TreeMap<String, List<SummaryRegion>> tree, RowCount rowCount){
 		Set<String> elecLocations = tree.keySet();

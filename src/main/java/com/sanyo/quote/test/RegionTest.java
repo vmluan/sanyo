@@ -25,6 +25,7 @@ import com.sanyo.quote.service.CategoryService;
 import com.sanyo.quote.service.CurrencyExchRateService;
 import com.sanyo.quote.service.CurrencyService;
 import com.sanyo.quote.service.EncounterService;
+import com.sanyo.quote.service.ExpensesService;
 import com.sanyo.quote.service.GroupService;
 import com.sanyo.quote.service.LocationService;
 import com.sanyo.quote.service.MakerProjectService;
@@ -88,6 +89,7 @@ public class RegionTest {
 		ProductGroupService productGroupService = ctx.getBean("productGroupService", ProductGroupService.class);
 		MakerService makerService = ctx.getBean("makerService", MakerService.class);
 		MakerProjectService makerProjectService = ctx.getBean("makerProjectService", MakerProjectService.class);
+		ExpensesService expensesService = ctx.getBean("expensesService", ExpensesService.class);
 //
 		
 //		RegionTest test = new RegionTest();
@@ -140,12 +142,12 @@ public class RegionTest {
 		reportExcel.setMakerProjectService(makerProjectService);
 		reportExcel.setProjectRevisionService(projectRevisionService);
 		
-		reportExcel.setLanguage(Constants.LANG_VN);
+//		reportExcel.setLanguage(Constants.LANG_VN);
 		String homePath = "";
 //		XSSFWorkbook workbook =  reportExcel.writeExcelReportClientForProject( homePath,project, "template_quotaion_client.xlsx");
-		XSSFWorkbook workbook =  reportExcel.writeExcelReportClientForProject( homePath,project, "template_quotaion_client_vietnamese.xlsx");
+//		XSSFWorkbook workbook =  reportExcel.writeExcelReportClientForProject( homePath,project, "template_quotaion_client_vietnamese.xlsx");
 		
-		
+		System.out.println(expensesService.getSiteExpensesH23(project));
 	}
 
 }

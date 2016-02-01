@@ -23,5 +23,12 @@ public interface ExpensesService {
     Expenses save (Expenses expense);
 
     Page<Expenses> findAllByPage(Pageable pageable);
+    
+    public Float getSiteExpensesH23(Project project);
+    public Float getSiteExpensesG44(Project project);
+    public Float getSiteExpensesG57(Project project);
+    public Float getSiteExpensesH6(Project project);
+    public Float getSiteExpensesG13(Project project);
+    public Float getSiteExpensesH11(Project project);
 
 }
