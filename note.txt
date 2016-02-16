@@ -16,6 +16,11 @@
 -- user : password:nimda
 INSERT INTO `coffee`.`thk_user`(`usercode`,`username`,`password`,`groupid`,`active`) VALUES('01234','admin','ee10c315eba2c75b403ea99136f5b48d',1,1);		
 
+================== Huong dan deploy
+1. Su dung tomcat 6
+2. Java 1.7
+3. Su dung mysql, luu y mysql tren linux phan biet chu hoa, chu thuong
+
 ================== references links
 1. http://stackoverflow.com/questions/49547/making-sure-a-web-page-is-not-cached-across-all-browsers
 2. http://stackoverflow.com/questions/2632359/can-jquery-add-commas-while-user-typing-numbers
