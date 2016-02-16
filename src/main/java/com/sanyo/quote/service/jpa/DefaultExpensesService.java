@@ -99,7 +99,7 @@ public class DefaultExpensesService implements ExpensesService {
 			List<Object[]> list = query.getResultList();
 			for(Object[] objs : list){
 				if(objs != null){
-					float sum = (float) objs[0];
+					float sum = Float.valueOf(objs[0].toString());
 					result += sum;
 					System.out.println("=========== sum = " + sum);
 				}
@@ -126,7 +126,7 @@ public class DefaultExpensesService implements ExpensesService {
 			List<Object[]> list = query.getResultList();
 			for(Object[] objs : list){
 				if(objs != null){
-					float sum = (float) objs[0];
+					float sum = Float.valueOf(objs[0].toString());
 					result += sum;
 					System.out.println("=========== sum = " + sum);
 				}
@@ -150,7 +150,7 @@ public class DefaultExpensesService implements ExpensesService {
 			List<Object[]> list = query.getResultList();
 			for(Object[] objs : list){
 				if(objs != null){
-					float sum = (float) objs[0];
+					float sum = Float.valueOf(objs[0].toString());
 					result += sum;
 					System.out.println("=========== sum = " + sum);
 				}
@@ -173,7 +173,7 @@ public class DefaultExpensesService implements ExpensesService {
 			List<Object[]> list = query.getResultList();
 			for(Object[] objs : list){
 				if(objs != null){
-					float sum = (float) objs[0];
+					float sum = Float.valueOf(objs[0].toString());
 					result += sum;
 					System.out.println("=========== sum = " + sum);
 				}
@@ -196,7 +196,7 @@ public class DefaultExpensesService implements ExpensesService {
 			List<Object[]> list = query.getResultList();
 			for(Object[] objs : list){
 				if(objs != null){
-					float sum = (float) objs[0];
+					float sum = Float.valueOf(objs[0].toString());
 					result += sum;
 					System.out.println("=========== sum = " + sum);
 				}
@@ -219,7 +219,7 @@ public class DefaultExpensesService implements ExpensesService {
 			List<Object[]> list = query.getResultList();
 			for(Object[] objs : list){
 				if(objs != null){
-					float sum = (float) objs[0];
+					float sum = Float.valueOf(objs[0].toString());
 					result += sum;
 					System.out.println("=========== sum = " + sum);
 				}
