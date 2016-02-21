@@ -141,13 +141,15 @@ public class RegionTest {
 		reportExcel.setLocationService(locationService);
 		reportExcel.setMakerProjectService(makerProjectService);
 		reportExcel.setProjectRevisionService(projectRevisionService);
+		reportExcel.setEncounterService(encounterService);
+		reportExcel.setExpensesService(expensesService);
 		
 //		reportExcel.setLanguage(Constants.LANG_VN);
 		String homePath = "";
-//		XSSFWorkbook workbook =  reportExcel.writeExcelReportClientForProject( homePath,project, "template_quotaion_client.xlsx");
+		XSSFWorkbook workbook =  reportExcel.writeExcelReportClientForProject( homePath,project, "template_quotaion_client.xlsx");
 //		XSSFWorkbook workbook =  reportExcel.writeExcelReportClientForProject( homePath,project, "template_quotaion_client_vietnamese.xlsx");
 		
-		System.out.println(expensesService.getSiteExpensesH23(project));
+//		System.out.println(expensesService.getSiteExpensesH23(project));
 	}
 
 }

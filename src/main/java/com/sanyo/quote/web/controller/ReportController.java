@@ -20,6 +20,7 @@ import com.sanyo.quote.helper.Constants;
 import com.sanyo.quote.helper.ReportExcel;
 import com.sanyo.quote.service.CategoryService;
 import com.sanyo.quote.service.EncounterService;
+import com.sanyo.quote.service.ExpensesService;
 import com.sanyo.quote.service.LocationService;
 import com.sanyo.quote.service.MakerProjectService;
 import com.sanyo.quote.service.MakerService;
@@ -65,6 +66,8 @@ public class ReportController {
 	private MakerProjectService makerProjectService;
 	@Autowired
 	private ProjectRevisionService projectRevisionService;
+	@Autowired
+	private ExpensesService expensesService;
 	@RequestMapping(value = "/{id}/report", method = RequestMethod.GET)
 	public void showRegions(@PathVariable("id") Integer id, Model uiModel, HttpServletRequest httpServletRequest, HttpServletResponse response){
 		Project project = projectService.findById(id);
@@ -77,6 +80,7 @@ public class ReportController {
 			reportExcel.setLocationService(locationService);
 			reportExcel.setMakerProjectService(makerProjectService);
 			reportExcel.setProjectRevisionService(projectRevisionService);
+			reportExcel.setExpensesService(expensesService);
 			
 			String lang = httpServletRequest.getParameter("rptLanguage");
 			String rptName = "template_quotaion_client.xlsx";

@@ -7,8 +7,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -19,9 +17,12 @@ import javax.servlet.ServletContext;
 
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFColor;
+import org.apache.poi.xssf.usermodel.XSSFDataFormat;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,7 @@ import com.sanyo.quote.domain.Project;
 import com.sanyo.quote.domain.ProjectRevision;
 import com.sanyo.quote.domain.Region;
 import com.sanyo.quote.service.EncounterService;
+import com.sanyo.quote.service.ExpensesService;
 import com.sanyo.quote.service.LocationService;
 import com.sanyo.quote.service.MakerProjectService;
 import com.sanyo.quote.service.ProjectRevisionService;
@@ -98,6 +100,7 @@ public class ReportExcel extends ExcelHelper{
 	private EncounterService encounterService;
 	private MakerProjectService makerProjectService;
 	private ProjectRevisionService projectRevisionService;
+	private ExpensesService expensesService;
 	private XSSFCellStyle sampleCellStyle;
 	private boolean isClientVersion = true;
 	private int maxBoQCol = 32;
@@ -113,9 +116,9 @@ public class ReportExcel extends ExcelHelper{
     static
     {
     	expensesList = new TreeMap<Integer, String[]>();
-    	String [] tempWork = {"Temporary Work", " Cong viec tam"};
+    	String [] tempWork = {"Temporary Work", " Cong viec tam", "By Main Contractor", "By Main Contractor VN"};
     	expensesList.put(1, tempWork);
-    	String [] tool = {"Tools & Machineries", "Tools & Machineries"};
+    	String [] tool = {"Tools & Machineries", "Tools & Machineries", " Included BOQ", " Included BOQ VN"};
     	expensesList.put(2, tool);
     	String[] trans = {"Transportation", "Transportation"};
     	expensesList.put(3, trans);
@@ -345,6 +348,8 @@ public class ReportExcel extends ExcelHelper{
 			cell.setCellValue( (Integer)value);
 		else if(value instanceof Double)
 			cell.setCellValue( (Double)value);
+		else if(value instanceof Float)
+			cell.setCellValue((Float) value);
 	}
 	private void updateExpenses(Project project,XSSFSheet sheet, RowCount summaryCount){
 		Row row = sheet.createRow(summaryCount.getRowCount());
@@ -352,18 +357,77 @@ public class ReportExcel extends ExcelHelper{
 		if(isVietNamese())
 			cell1Text += " / Chi phi khac";
 		createCellValue(row, 2, cell1Text);
-		updateCellStyleExpenses(row);
+		updateCellStyleExpenses(row, true);
+		ReportDataHelper helper = new ReportDataHelper(expensesService);
+		int startRow = summaryCount.getRowCount();
 		for(Map.Entry<Integer, String[]> entry : expensesList.entrySet()){
 			summaryCount.addMoreValue(1);
 			Row rowi = sheet.createRow(summaryCount.getRowCount());
 			createCellValue(rowi, 0, entry.getKey());
-			String value = entry.getValue()[0];
+			String expensesName = entry.getValue()[0];
 			if(isVietNamese())
-				value = entry.getValue()[1];
-			createCellValue(rowi, 2, value);
-			updateCellStyleExpenses(rowi);
-			
+				expensesName = entry.getValue()[1];
+			createCellValue(rowi, 2, expensesName);
+			if(entry.getValue().length > 2){
+				String expensesValue = entry.getValue()[2];
+				if(isVietNamese())
+					expensesValue = entry.getValue()[3];
+				createCellValue(rowi, 5, expensesValue);
+			}else{
+				//connect to database to get aggregate number
+				Float value = helper.getSiteExpensesSummary(project);
+				System.out.println(value);
+				createCellValue(rowi, 5, value); //will update later
+			}
+			updateCellStyleExpenses(rowi, false);
 		}
+		int endRow = summaryCount.getRowCount() + 1;
+		summaryCount.addMoreValue(2);
+		//aggregated rows - SubTotal
+		Row subTotalRow = sheet.createRow(summaryCount.getRowCount());
+		String subTotal = "SUB TOTAL OF " + cell1Text;
+		createCellValue(subTotalRow, 2, subTotal);
+		
+		String column = "F";
+		String strFormula = "SUBTOTAL(9," + column + startRow + ":" + column + endRow + ")";
+		
+		Cell cell = subTotalRow.createCell(5);
+		writeCellFomula(cell, strFormula);
+		
+		//
+		summaryCount.addMoreValue(1);
+		Row meRow = sheet.createRow(summaryCount.getRowCount());
+		String meText = "Total M&E Works (Excluded VAT)";
+		//String strFormulaME= ="ROUND(SUBTOTAL(9,F6:F67),2)"
+		String strFormulaME= "ROUND(SUBTOTAL(9," + column + 6+ ":" +column + endRow+ "),2)";
+		createCellValue(meRow, 2, meText);
+		Cell meCell = meRow.createCell(5);
+		writeCellFomula(meCell, strFormulaME);
+		
+		// VAT records
+		int totalNo = summaryCount.getRowCount() + 1;
+		summaryCount.addMoreValue(1);
+		Row vatRow = sheet.createRow(summaryCount.getRowCount());
+		String vatFormula = "ROUND(F" + totalNo + "*10%,2)";
+		String vatText = "VAT(10%)";
+		createCellValue(vatRow, 2, vatText);
+		Cell vatCell = vatRow.createCell(5);
+		writeCellFomula(vatCell, vatFormula);
+		
+		//Grand Total
+		int vatNo = summaryCount.getRowCount() + 1;
+		String grandText = "GRAND TOTAL";
+		summaryCount.addMoreValue(1);
+		Row grandRow = sheet.createRow(summaryCount.getRowCount());
+		String grandFormula = "ROUND(SUBTOTAL(9," + column + 6+ ":" +column + vatNo+ "),2)";
+		createCellValue(grandRow, 2, grandText);
+		Cell grandCell = grandRow.createCell(5);
+		writeCellFomula(grandCell, grandFormula);
+		updateStyleForSummaryExpenses(subTotalRow, true, null);
+		updateStyleForSummaryExpenses(meRow, true, new XSSFColor(new java.awt.Color(183, 222, 232)));
+		updateStyleForSummaryExpenses(vatRow, false, null);
+		updateStyleForSummaryExpenses(grandRow, true, null);
+		
 	}
 			
 	
@@ -636,12 +700,12 @@ public class ReportExcel extends ExcelHelper{
 			cell.setCellStyle(getSampleStyleForSubTotal((XSSFWorkbook) row.getSheet().getWorkbook()));
 		}
 	}
-	private void updateCellStyleExpenses(Row row){
+	private void updateCellStyleExpenses(Row row, boolean isBold){
 		for(int i=0; i< this.maxSumCol; i++){
 			Cell cell = row.getCell(i);
 			if(cell == null)
 				cell = row.createCell(i);
-			cell.setCellStyle(getSampleStyleForExpenses((XSSFWorkbook)row.getSheet().getWorkbook()));
+			cell.setCellStyle(getSampleStyleForExpenses((XSSFWorkbook)row.getSheet().getWorkbook(), isBold));
 		}
 	}
 	//
@@ -651,6 +715,20 @@ public class ReportExcel extends ExcelHelper{
 			if(cell == null)
 				cell = row.createCell(i);
 			cell.setCellStyle(getSampleStyleForTotalWork((XSSFWorkbook) row.getSheet().getWorkbook()));
+		}
+	}
+	private void updateStyleForSummaryExpenses(Row row, boolean isBold, XSSFColor fillForegroundColor){
+		for(int i=0; i< 7; i++){
+			Cell cell = row.getCell(i);
+			if(cell == null)
+				cell = row.createCell(i);
+			HorizontalAlignment align = HorizontalAlignment.CENTER;
+			XSSFDataFormat format = null;
+			if(i ==5){
+				align = HorizontalAlignment.RIGHT;
+				format = ((XSSFWorkbook)row.getSheet().getWorkbook()).createDataFormat();
+			}
+			cell.setCellStyle(getSampleStyleForSummaryExpenses((XSSFWorkbook) row.getSheet().getWorkbook(), isBold, fillForegroundColor, align, format));
 		}
 	}
 	private void updateCellStyleBreakDown(Row row){
@@ -1202,6 +1280,14 @@ private void createRegionHeaderRow(Region region, XSSFSheet sheet, RowCount rowC
 
 	public void setProjectRevisionService(ProjectRevisionService projectRevisionService) {
 		this.projectRevisionService = projectRevisionService;
+	}
+
+	public ExpensesService getExpensesService() {
+		return expensesService;
+	}
+
+	public void setExpensesService(ExpensesService expensesService) {
+		this.expensesService = expensesService;
 	}
 
 	public boolean isClientVersion() {
