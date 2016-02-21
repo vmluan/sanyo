@@ -19,4 +19,8 @@ public interface ExpensesRepository extends PagingAndSortingRepository<Expenses,
 
     @Query("SELECT e FROM Expenses e WHERE e.project = :project")
     public List<Expenses> findByProject (@Param("project") Project project);
+    @Query("SELECT e FROM Expenses e WHERE e.project = :project and e.expenseElement = :expenseElement")
+    public List<Expenses> Sum_EXPENSEELEMENTID (@Param("project") Project project, @Param("expenseElement") ExpenseElements expenseElements);
+    @Query("SELECT e FROM Expenses e WHERE e.project = :project and e.expenseElement BETWEEN :expenseElement1 and :expenseElement2")
+    public List<Expenses> SumOfSum_EXPENSEELEMENTID (@Param("project") Project project, @Param("expenseElement1") ExpenseElements expenseElements1, @Param("expenseElement2") ExpenseElements expenseElements2);
 }

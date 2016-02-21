@@ -66,7 +66,14 @@ public class DefaultExpensesService implements ExpensesService {
 	public Expenses save(Expenses expense) {
 		return expensesRepository.save(expense);
 	}
-
+	@Override
+	public List<Expenses> getSumExpensesByProjectID(Project project,ExpenseElements expenseElements) {
+		return expensesRepository.Sum_EXPENSEELEMENTID(project,expenseElements);		
+		}
+	@Override
+	public List<Expenses> getSumOfSumExpensesByProjectID(Project project,ExpenseElements expenseElements1,ExpenseElements expenseElements2) {
+		return expensesRepository.SumOfSum_EXPENSEELEMENTID(project,expenseElements1,expenseElements2);
+	}
 	@Transactional
 	public Page<Expenses> findAllByPage(Pageable pageable) {
 		return expensesRepository.findAll(pageable);

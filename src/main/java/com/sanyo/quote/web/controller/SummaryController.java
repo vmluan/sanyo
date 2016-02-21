@@ -15,17 +15,24 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import com.sanyo.quote.service.ExpensesService;
 import com.sanyo.quote.service.ProjectService;
 import com.sanyo.quote.service.RegionService;
 import com.sanyo.quote.service.EncounterService;
+import com.sanyo.quote.service.SummaryService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sanyo.quote.domain.ExpenseElements;
+import com.sanyo.quote.domain.Expenses;
 import com.sanyo.quote.domain.Project;
 import com.sanyo.quote.domain.Region;
 import com.sanyo.quote.domain.Location;
 import com.sanyo.quote.domain.Encounter;
+import com.sanyo.quote.domain.Summary;
+import com.sanyo.quote.domain.SummaryJson;
+import com.sanyo.quote.service.ExpenseElementsService;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -43,16 +50,39 @@ public class SummaryController {
     @Autowired
     RegionService rigionService;
     @Autowired
+    ExpenseElementsService ExpenseElementsService;
+    @Autowired
     EncounterService encounterService;
+    @Autowired
+    ExpensesService expensesService;
     @Autowired
     ProductGroupRateService productGroupRateService;    
     @Autowired
     LocationService location;
+    @Autowired
+    SummaryService summary;
+    
+    
+    
+    @RequestMapping(value = "/{id}/savesumary2", params = "form",method = RequestMethod.POST)
+    public String postSummaryPage(@RequestBody final SummaryJson summaryjson,@PathVariable("id") Integer projectId,Model uiModel,HttpServletRequest httpServletRequest) {
+    	Project project = projectService.findById(projectId);
+    	Summary summ = summary.findByProject(project);
+    	if(summ==null)
+    		summ = new Summary();
+    	summ.setEngineer(summaryjson.getEngineer());
+    	summ.setJapanese(summaryjson.getJapanese());
+    	summ.setSiteexpenses(summaryjson.getSiteexpenses());
+    	summ.setProfit(summaryjson.getProfit());
+    	summ.setProject(project);
+    	summary.save(summ);
+    	return "quotation/summary";
+    }
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String getSummaryPage(@PathVariable("id") Integer projectId,Model uiModel) {
     	Project project = projectService.findById(projectId);
     	List<Location> getlocation = location.findByProjectOrderByOrderNoDesc(project);
-    	
+    	Summary summar = summary.findByProject(project);
     	List<Region> regionlist = new ArrayList<Region>();
     	for(Location item:getlocation){
     		for(Region values:getRigion(item))
@@ -124,8 +154,6 @@ public class SummaryController {
     			}
     		}
     	}
-    	System.out.println(metricalRigon.size());
-    	System.out.println(electricalRigon.size());
     	
     	List<Encounter> EncounterMetrical = new ArrayList<Encounter>();
     	List<Encounter> EncounterElectrical = new ArrayList<Encounter>();
@@ -162,7 +190,82 @@ public class SummaryController {
 	    		EncounterElectrical.add(encounter);
     		}
 		}
-    	
+    	//Site Expenses = 'M&E Expenses'!H23 - 'M&E Expenses'!G44 - 'M&E Expenses'!G57
+    	//'M&E Expenses'!H23 = SELECT SUM(SUM) FROM expenses WHERE PROJECT_ID = @PROJECT_ID AND (EXPENSEELEMENT_ID BETWEEN 13 AND 29)
+    	//'M&E Expenses'!G44 = SELECT SUM FROM expenses WHERE PROJECT_ID = @PROJECT_ID AND EXPENSEELEMENT_ID = 30
+    	//'M&E Expenses'!G57 = SELECT SUM FROM expenses WHERE PROJECT_ID = @PROJECT_ID AND EXPENSEELEMENT_ID = 38
+    			    	
+    	List<Expenses> H23 = getSumOfSumExpenses(project,ExpenseElementsService.findById(13),ExpenseElementsService.findById(29));
+    	List<Expenses> G44 = getSumExpenses(project,ExpenseElementsService.findById(30));
+    	List<Expenses> G57 = getSumExpenses(project,ExpenseElementsService.findById(38));
+    	float _H23 = 0;
+    	float _G44 = 0;
+    	float _G57 = 0;
+    	for(Expenses values:H23)
+    	{
+    		_H23+=values.getSum();
+    	}
+    	Float count = (float) 0;
+    	for(Expenses values:G44)
+    	{
+    		_G44+=values.getSum();
+    		
+    	}
+    	for(Expenses values:G57)
+    	{
+    		_G57+=values.getSum();
+    		
+    	}
+    	float SiteExpenses = _H23-_G44-_G57;
+    	//Japanese = 'M&E Expenses'!H6 + 'M&E Expenses'!G13 + 'M&E Expenses'!G44 + 'M&E Expenses'!G57
+    	//'M&E Expenses'!H6 = SELECT SUM(SUM) FROM expenses WHERE PROJECT_ID = @PROJECT_ID AND (EXPENSEELEMENT_ID BETWEEN 1 AND 3)
+    	//'M&E Expenses'!G13 = SELECT SUM FROM expenses WHERE PROJECT_ID = @PROJECT_ID AND EXPENSEELEMENT_ID = 4
+    	List<Expenses> H6 = getSumOfSumExpenses(project,ExpenseElementsService.findById(1),ExpenseElementsService.findById(3));
+    	List<Expenses> G13 = getSumExpenses(project,ExpenseElementsService.findById(4));
+    	float _H6 = 0;
+    	float _G13 = 0;
+    	for(Expenses values:H6)
+    	{
+    		_H6+=values.getSum();
+    		
+    	}
+    	for(Expenses values:G13)
+    	{
+    		_G13+=values.getSum();
+    		
+    	}
+    	float Japanese = _H6+_G13+_G44+_G57;
+    	//Engineer = 'M&E Expenses'!H11 - 'M&E Expenses'!G13
+    	//'M&E Expenses'!H11 = SELECT SUM(SUM) FROM expenses WHERE PROJECT_ID = @PROJECT_ID AND (EXPENSEELEMENT_IDBETWEEN 4 AND 12)?
+    	List<Expenses> H11 = getSumOfSumExpenses(project,ExpenseElementsService.findById(4),ExpenseElementsService.findById(12));
+    	float _H11 = 0;
+    	for(Expenses values:H11)
+    	{
+    		_H11+=values.getSum();
+    		
+    	}
+    	float Engineer = _H11-_G13;
+    	//System.out.println(count);
+    	//Set summary
+    	SummaryJson summJ = new SummaryJson();
+    	if(summar.getSummaryid()==null)
+    	{
+    		summJ.setEngineer(0);
+        	summJ.setJapanese(0);
+        	summJ.setProfit(0);
+        	summJ.setSiteexpenses(0);        	
+    	}
+    	else
+    	{
+    		summJ.setEngineer(summar.getEngineer());
+	    	summJ.setJapanese(summar.getJapanese());
+	    	summJ.setProfit(summar.getProfit());
+	    	summJ.setSiteexpenses(summar.getSiteexpenses());	    	
+    	}
+    	uiModel.addAttribute("SiteExpenses",SiteExpenses);
+    	uiModel.addAttribute("Summary",summJ);
+    	uiModel.addAttribute("Japanese",Japanese);
+    	uiModel.addAttribute("Engineer",Engineer);
     	uiModel.addAttribute("myFormatter",myFormatter);
     	uiModel.addAttribute("EncounterMetrical",EncounterMetrical);
     	uiModel.addAttribute("EncounterElectrical",EncounterElectrical);
@@ -172,6 +275,14 @@ public class SummaryController {
     	uiModel.addAttribute("electricalLocation",electricalLocation);
     	uiModel.addAttribute("projectId", projectId);
         return "quotation/summary";
+    }
+    private List<Expenses> getSumExpenses(Project project,ExpenseElements expenelements)
+    {
+    	return expensesService.getSumExpensesByProjectID(project,expenelements);
+    }
+    private List<Expenses> getSumOfSumExpenses(Project project,ExpenseElements expenelements1,ExpenseElements expenelements2)
+    {
+    	return expensesService.getSumOfSumExpensesByProjectID(project,expenelements1,expenelements2);
     }
     private float AmountEncounter(List<Encounter> listencounter)
     {

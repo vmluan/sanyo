@@ -19,7 +19,8 @@ public interface ExpensesService {
     Expenses findByProjectAndElement (Project project, ExpenseElements expenseElements);
 
     List<Expenses> findByProject (Project project);
-
+    List<Expenses> getSumExpensesByProjectID (Project project,ExpenseElements expenseElements);
+    List<Expenses> getSumOfSumExpensesByProjectID (Project project,ExpenseElements expenseElements1,ExpenseElements expenseElements2);
     Expenses save (Expenses expense);
 
     Page<Expenses> findAllByPage(Pageable pageable);

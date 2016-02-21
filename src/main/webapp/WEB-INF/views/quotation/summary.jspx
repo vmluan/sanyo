@@ -15,6 +15,22 @@
 
 <section class="content">
 <style>
+.edithide
+{
+	display:none;
+}
+.editshow
+{
+	display: inherit;
+    text-align: center;
+    padding-left: 13px;
+    color: blue;
+    text-decoration: underline;
+}
+.testE>tr>td
+{
+	padding:10px;
+}
 .filterable {
     margin-top: 15px;
 }
@@ -45,8 +61,14 @@
 	font-weight:bold;
 	color:white;
 }
-
-.table-hover-css>tbody>tr>td:hover
+.table-hoverE>tbody>tr:hover
+{
+	background:#428bca;
+	cursor:pointer;
+	font-weight:bold;
+	color:white;
+}
+.table-hover-css>tbody>tr>td:hover,.table-hoverE>tbody>tr>td:hover
 {
 	background:#022746;
 }
@@ -88,15 +110,15 @@ span > .glyphicon-plus:hover,span >.glyphicon-minus:hover
 {
 	cursor:pointer;
 }
-table {
+.table-hover-css{
     counter-reset: rowNumber;
 }
 
-table tr {
+.table-hover-css tr {
     counter-increment: rowNumber;
 }
 
-table tr td:first-child::before {
+.table-hover-css tr td:first-child::before {
     content: counter(rowNumber);
     min-width: 1em;
     margin-right: 0.5em;
@@ -316,6 +338,124 @@ table tr td:first-child::before {
             </div>         
         </div>
     </div>
+////nhan cong 
+    
+    <div class="row">
+        <div class="panel panel-primary filterable">
+            <div class="panel-heading" id="employee">            
+                <h3 class="panel-title"><span class=""><i class="glyphicon glyphicon-minus" id="change-icon-metrical"></i></span> <span class="title-ELECTRICAL">EMPLOYEE WORK</span> </h3>
+                <div class="pull-right">
+                    <button class="btn btn-default btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
+                </div>
+            </div>
+            
+            <table class="table-hoverE"  id="table">
+               <thead>
+                    <tr class="filters">
+                        <th><input type="text" class="form-control" placeholder="No."/></th>
+                        <th><input type="text" class="form-control" placeholder="DESCRIPTION"/></th>
+                        <th><input type="text" class="form-control" placeholder="UNIT"/></th>
+                        <th><input type="text" class="form-control" placeholder="QTY"/></th>
+                        <th><input type="text" class="form-control" placeholder="UNIT RATE (US$)"/></th>
+                        <th><input type="text" class="form-control" placeholder="AMOUNT (US$)"/></th>
+                        <th><input type="text" class="form-control" placeholder="REMARK"/></th>
+                        <th><input type="text" class="form-control" placeholder="Foreign Portion (USD)"/></th>
+                        <th><input type="text" class="form-control" placeholder="Labour (US)"/></th>
+                        <th><input type="text" class="form-control" placeholder="Total"/></th>                        
+                    </tr>                    
+                </thead>
+                <tbody class="test testE">
+                	<tr>
+                            <td  class="col-sm-1" style="text-align:center">1</td>
+                            <td style="text-align:center" class="col-sm-3">SITE EXPENSES</td>
+                            <td style="text-align:center">Lot</td>
+                            <td style="text-align:center" class="quantity">1</td>
+                            <td style="text-align:center" class="UNITRATE">19,400.00</td>
+                            <td style="text-align:center" class="AMOUNT">19,400.00</td>
+                            <td class="col-sm-2">Excluded Site Office</td>
+                            <td style="text-align:center">Site Expenses</td>
+                            <td style="text-align:center" class="LabourEdit">${Summary.getSiteexpenses()}%<span class="edithide">Edit</span></td>
+                            <td style="text-align:center" class="SiteExpenses totalE">${myFormatter.format(SiteExpenses)}</td>                            
+                      </tr>
+                      <tr>
+                            <td style="text-align:center">2</td>
+                            <td style="text-align:center" class="col-sm-3">ENGINEERING, SUPERVISOR</td>
+                            <td style="text-align:center">Lot</td>
+                            <td style="text-align:center" class="quantity">1</td>
+                            <td style="text-align:center" class="UNITRATE">16,253.90</td>
+                            <td style="text-align:center" class="AMOUNT">16,253.90</td>
+                            <td></td>
+                            <td style="text-align:center">Japanese</td>
+                            <td style="text-align:center" class="LabourEdit">${Summary.getJapanese()}%<span class="edithide">Edit</span></td>
+                            <td style="text-align:center" class="Japanese totalE">${myFormatter.format(Japanese)}</td>                            
+                      </tr>
+                      <tr>
+                            <td style="text-align:center">3</td>
+                            <td style="text-align:center" class="col-sm-3">OVERHEAD PROFIT</td>
+                            <td style="text-align:center">Lot</td>
+                            <td style="text-align:center" class="quantity">1</td>
+                            <td style="text-align:center" class="UNITRATE">19,400.00</td>
+                            <td style="text-align:center" class="AMOUNT">Included</td>
+                            <td></td>
+                            <td style="text-align:center">Engineer</td>
+                            <td style="text-align:center" class="LabourEdit">${Summary.getEngineer()}%<span class="edithide">Edit</span></td>
+                            <td style="text-align:center" class="Engineer totalE">${myFormatter.format(Engineer)}</td>                            
+                      </tr>
+                      <tr>
+                            <td style="text-align:center">4</td>
+                            <td style="text-align:center" class="col-sm-3"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td style="text-align:center">Profit</td>
+                            <td style="text-align:center" class="LabourEdit">${Summary.getProfit()}%<span class="edithide">Edit</span></td>
+                            <td  style="text-align:center" class="Profit">${myFormatter.format(SiteExpenses+Japanese+Engineer)}</td>                            
+                      </tr>
+                </tbody>
+            </table>
+            <!--<div class="row title-sum">
+                <div class="col-md-4 title-text">TOTAL  EMPLOYEE WORK:</div>
+                <div class="col-md-2 title-text">AMOUNT (US$)</div>
+                <div class="col-md-2 title-text">Foreign Portion (USD)</div>
+                <div class="col-md-2 title-text">Labour (US)</div>
+                <div class="col-md-2 title-text">Total</div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 text title-text"></div>
+                <div class="col-md-2 text title-text "></div>
+                <div class="col-md-2 text title-text ">0</div>
+                <div class="col-md-2 text title-text ">0</div>
+                <div class="col-md-2 text title-text ">0</div>
+            </div>
+                    
+             <div class="row row_total">
+                <div class="col-md-4 total_title">
+                    TOTAL EMPLOYEE WORK
+                </div>
+                <div class="col-md-2 total_title">
+                       Total Amount    
+                </div>
+                <div class="col-md-2 total_title">
+                        Total Foreign Portion (USD)   
+                </div>
+                <div class="col-md-2 total_title">
+                        Total Labour (US)  
+                </div>
+                <div class="col-md-2 total_title">
+                        Total Total    
+                </div>        
+             </div>
+             <div class="row row_total values-total">
+                <div class="col-md-4 title-text"></div>
+                <div class="col-md-2 title-text"></div>
+                <div class="col-md-2 title-text">0</div>
+                <div class="col-md-2 title-text">0</div>
+                <div class="col-md-2 title-text">0</div>
+            </div> -->        
+        </div>
+    </div>
 </div>
 	
 
@@ -377,11 +517,24 @@ $(".change-icon-child").click(function(){
 		$(this).parent().next().next().show().next().show().next().show();
 	}
 });
+/////////////save summary
+    		var pageContext = "${pageContext.request.contextPath}";
+        	var projectId = window.location.href;
+        	projectId=projectId.split('=')[1];
+    		
+    		var expenseLis = new Object();
+		    
+    		//console.log(data);
+    		var url = pageContext + '/summary/'+projectId+'/savesumary2?form';
+		    //alert(url);
 </script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/jstable.js">
 <jsp:text/>
 </script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/setTotal.js">
+<jsp:text/>
+</script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/bootbox.min.js">
 <jsp:text/>
 </script>
 </div>
