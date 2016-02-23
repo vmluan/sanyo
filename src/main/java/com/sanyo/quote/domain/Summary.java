@@ -1,4 +1,7 @@
 package com.sanyo.quote.domain;
+/*
+ * table used save "Labour" information of  EMPLOYEE WORK in summary tab.
+ * */
 
 import static javax.persistence.GenerationType.IDENTITY;
 

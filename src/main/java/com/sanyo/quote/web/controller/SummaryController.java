@@ -248,7 +248,7 @@ public class SummaryController {
     	//System.out.println(count);
     	//Set summary
     	SummaryJson summJ = new SummaryJson();
-    	if(summar.getSummaryid()==null)
+    	if(summar==null)
     	{
     		summJ.setEngineer(0);
         	summJ.setJapanese(0);
