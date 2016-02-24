@@ -4,7 +4,6 @@
      xmlns:spring="http://www.springframework.org/tags" version="2.0">
   <jsp:directive.page contentType="text/html;charset=UTF-8" />
   <jsp:output omit-xml-declaration="yes" />
-
   <!--
     Created by IntelliJ IDEA.
     User: VanDuoc
@@ -160,11 +159,11 @@ span > .glyphicon-plus:hover,span >.glyphicon-minus:hover
                     <button class="btn btn-default btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
                 </div>
             </div>
-            
+
            <c:forEach items="${electricalLocation}" var="values">
             <table class="table-hover-css"  id="table">
                <thead>
-               		<tr><span class=""><i class="glyphicon glyphicon-minus change-icon-child" id="change-icon-child"></i></span><b class="location-work">${values.getLocationName()}</b></tr>
+               		<tr><span class=""><i class="glyphicon glyphicon-minus change-icon-child" id="change-icon-child"></i></span><b class="location-work">${values.locationName}</b></tr>
                     <tr class="filters">
                         <th><input type="text" class="form-control" placeholder="No."/></th>
                         <th><input type="text" class="form-control" placeholder="DESCRIPTION"/></th>
@@ -180,20 +179,20 @@ span > .glyphicon-plus:hover,span >.glyphicon-minus:hover
                 </thead>
                 <tbody class="test">
                 <c:forEach items="${electricalRigon}" var="Regionvalues">
-                	<c:if test="${values.getLocationId()==Regionvalues.getLocation().getLocationId()}">
+                	<c:if test="${values.locationId==Regionvalues.location.locationId}">
 	                    <c:forEach items="${EncounterElectrical}" var="Encountervalues">
-	                        <c:if test="${Encountervalues.getRegion().getRegionId()==Regionvalues.getRegionId()}">
+	                        <c:if test="${Encountervalues.region.regionId==Regionvalues.regionId}">
 	                    <tr>
 	                        <td></td>
-	                        <td class="col-sm-3">${Regionvalues.getRegionName()}</td>
+	                        <td class="col-sm-3">${Regionvalues.regionName}</td>
 	                        <td>Lot</td>
-	                        <td>${Encountervalues.getQuantity()}</td>
-	                        <td>${Encountervalues.getUnitRate()}</td>
-	                        <td>${Encountervalues.getAmount()}</td>
-	                        <td>${Encountervalues.getRemark()}</td>
-	                        <td>${Encountervalues.getCost_Mat_Amount_USD()}</td>
-	                        <td>${Encountervalues.getLabour()}</td>
-	                        <td>${myFormatter.format(Encountervalues.getCost_Mat_Amount_USD()+Encountervalues.getLabour())}</td>	                        
+	                        <td>${Encountervalues.quantity}</td>
+	                        <td>${Encountervalues.unitRate}</td>
+	                        <td>${Encountervalues.amount}</td>
+	                        <td>${Encountervalues.remark}</td>
+	                        <td>${Encountervalues.cost_Mat_Amount_USD}</td>
+	                        <td>${Encountervalues.labour}</td>
+	                        <td>${myFormatter.format(Encountervalues.cost_Mat_Amount_USD+Encountervalues.labour)}</td>
 	                    </tr>
 	                    </c:if>
                    		</c:forEach>
@@ -202,7 +201,7 @@ span > .glyphicon-plus:hover,span >.glyphicon-minus:hover
                 </tbody>
             </table>
             <div class="row title-sum">
-            	<div class="col-md-4 title-text">TOTAL ${values.getLocationName()} ELECTRICAL WORKS:</div>
+            	<div class="col-md-4 title-text">TOTAL ${values.locationName} ELECTRICAL WORKS:</div>
             	<div class="col-md-2 title-text">AMOUNT (US$)</div>
             	<div class="col-md-2 title-text">Foreign Portion (USD)</div>
             	<div class="col-md-2 title-text">Labour (US)</div>
@@ -257,7 +256,7 @@ span > .glyphicon-plus:hover,span >.glyphicon-minus:hover
            <c:forEach items="${metricalLocation}" var="values">
             <table class="table-hover-css"  id="table">
                <thead>
-                    <tr><span class=""><i class="glyphicon glyphicon-minus change-icon-child" id="change-icon-child"></i></span><b class="location-work">${values.getLocationName()}</b></tr>
+                    <tr><span class=""><i class="glyphicon glyphicon-minus change-icon-child" id="change-icon-child"></i></span><b class="location-work">${values.locationName}</b></tr>
                     <tr class="filters">
                         <th><input type="text" class="form-control" placeholder="No."/></th>
                         <th><input type="text" class="form-control" placeholder="DESCRIPTION"/></th>
@@ -273,20 +272,20 @@ span > .glyphicon-plus:hover,span >.glyphicon-minus:hover
                 </thead>
                 <tbody class="test">
                 <c:forEach items="${metricalRigon}" var="Regionvalues">
-                    <c:if test="${values.getLocationId()==Regionvalues.getLocation().getLocationId()}">
+                    <c:if test="${values.locationId==Regionvalues.location.locationId}">
                         <c:forEach items="${EncounterMetrical}" var="Encountervalues">
-                            <c:if test="${Encountervalues.getRegion().getRegionId()==Regionvalues.getRegionId()}">
+                            <c:if test="${Encountervalues.region.regionId==Regionvalues.regionId}">
                         <tr>
                             <td></td>
-                            <td class="col-sm-3">${Regionvalues.getRegionName()}</td>
+                            <td class="col-sm-3">${Regionvalues.regionName}</td>
                             <td>Lot</td>
-                            <td>${Encountervalues.getQuantity()}</td>
-                            <td>${Encountervalues.getUnitRate()}</td>
-                            <td>${Encountervalues.getAmount()}</td>
-                            <td>${Encountervalues.getRemark()}</td>
-                            <td>${Encountervalues.getCost_Mat_Amount_USD()}</td>
-                            <td>${Encountervalues.getLabour()}</td>
-                            <td>${myFormatter.format(Encountervalues.getCost_Mat_Amount_USD()+Encountervalues.getLabour())}</td>                            
+                            <td>${Encountervalues.quantity}</td>
+                            <td>${Encountervalues.unitRate}</td>
+                            <td>${Encountervalues.amount}</td>
+                            <td>${Encountervalues.remark}</td>
+                            <td>${Encountervalues.cost_Mat_Amount_USD}</td>
+                            <td>${Encountervalues.labour}</td>
+                            <td>${myFormatter.format(Encountervalues.cost_Mat_Amount_USD+Encountervalues.labour)}</td>
                         </tr>
                         </c:if>
                         </c:forEach>
@@ -295,7 +294,7 @@ span > .glyphicon-plus:hover,span >.glyphicon-minus:hover
                 </tbody>
             </table>
             <div class="row title-sum">
-                <div class="col-md-4 title-text">TOTAL ${values.getLocationName()} METRICAL WORKS:</div>
+                <div class="col-md-4 title-text">TOTAL ${values.locationName} METRICAL WORKS:</div>
                 <div class="col-md-2 title-text">AMOUNT (US$)</div>
                 <div class="col-md-2 title-text">Foreign Portion (USD)</div>
                 <div class="col-md-2 title-text">Labour (US)</div>
@@ -374,7 +373,7 @@ span > .glyphicon-plus:hover,span >.glyphicon-minus:hover
                             <td style="text-align:center" class="AMOUNT">19,400.00</td>
                             <td class="col-sm-2">Excluded Site Office</td>
                             <td style="text-align:center">Site Expenses</td>
-                            <td style="text-align:center" class="LabourEdit">${Summary.getSiteexpenses()}%<span class="edithide">Edit</span></td>
+                            <td style="text-align:center" class="LabourEdit">${Summary.siteexpenses}%<span class="edithide">Edit</span></td>
                             <td style="text-align:center" class="SiteExpenses totalE">${myFormatter.format(SiteExpenses)}</td>                            
                       </tr>
                       <tr>
@@ -386,7 +385,7 @@ span > .glyphicon-plus:hover,span >.glyphicon-minus:hover
                             <td style="text-align:center" class="AMOUNT">16,253.90</td>
                             <td></td>
                             <td style="text-align:center">Japanese</td>
-                            <td style="text-align:center" class="LabourEdit">${Summary.getJapanese()}%<span class="edithide">Edit</span></td>
+                            <td style="text-align:center" class="LabourEdit">${Summary.japanese}%<span class="edithide">Edit</span></td>
                             <td style="text-align:center" class="Japanese totalE">${myFormatter.format(Japanese)}</td>                            
                       </tr>
                       <tr>
@@ -398,7 +397,7 @@ span > .glyphicon-plus:hover,span >.glyphicon-minus:hover
                             <td style="text-align:center" class="AMOUNT">Included</td>
                             <td></td>
                             <td style="text-align:center">Engineer</td>
-                            <td style="text-align:center" class="LabourEdit">${Summary.getEngineer()}%<span class="edithide">Edit</span></td>
+                            <td style="text-align:center" class="LabourEdit">${Summary.engineer}%<span class="edithide">Edit</span></td>
                             <td style="text-align:center" class="Engineer totalE">${myFormatter.format(Engineer)}</td>                            
                       </tr>
                       <tr>
@@ -410,7 +409,7 @@ span > .glyphicon-plus:hover,span >.glyphicon-minus:hover
                             <td></td>
                             <td></td>
                             <td style="text-align:center">Profit</td>
-                            <td style="text-align:center" class="LabourEdit">${Summary.getProfit()}%<span class="edithide">Edit</span></td>
+                            <td style="text-align:center" class="LabourEdit">${Summary.profit}%<span class="edithide">Edit</span></td>
                             <td  style="text-align:center" class="Profit">${myFormatter.format(SiteExpenses+Japanese+Engineer)}</td>                            
                       </tr>
                 </tbody>

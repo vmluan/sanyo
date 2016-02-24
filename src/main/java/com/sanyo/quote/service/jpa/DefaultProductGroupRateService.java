@@ -62,7 +62,7 @@ public class DefaultProductGroupRateService implements ProductGroupRateService {
     public List<ProductGroupRate> findByProjectIdAndProductGroupId(Integer projectId, Integer productGroupId) {
         Project project = projectRepository.findOne(projectId);
         ProductGroup productGroup = productGroupRepository.findOne(productGroupId);
-        return productGroupRateRepository.findByProjectIdAndProductGroup(project,productGroup);
+        return productGroupRateRepository.findByProjectAndProductGroup(project,productGroup);
     }
 
 	@Override

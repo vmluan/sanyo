@@ -17,58 +17,58 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Table(name = "productgrouprate", catalog = "sanyo")
 public class ProductGroupRate {
 
-    int id;
-    float discount; //discount_rate for the GroupProduct
-    float allowance; //Allowance for the GroupProduct
-    float totalMaterial; //This attribute is to support for getting total Material which calculated from encounter trigger easier
-    float totalLabor; //This attribute is to support for getting total Labor which calculated from encounter trigger easier
+    Integer id;
+    Float discount; //discount_rate for the GroupProduct
+    Float allowance; //Allowance for the GroupProduct
+    Float totalMaterial; //This attribute is to support for getting total Material which calculated from encounter trigger easier
+    Float totalLabor; //This attribute is to support for getting total Labor which calculated from encounter trigger easier
     ProductGroup productGroup;
     Project project;
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "product_group_rate_id", unique = true, nullable = false)
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
     @Column(name = "discount_rate", nullable = true)
-    public float getDiscount() {
+    public Float getDiscount() {
         return discount;
     }
 
-    public void setDiscount(float discount) {
+    public void setDiscount(Float discount) {
         this.discount = discount;
     }
 
     @Column(name = "allowance_rate", nullable = true)
-    public float getAllowance() {
+    public Float getAllowance() {
         return allowance;
     }
 
-    public void setAllowance(float allowance) {
+    public void setAllowance(Float allowance) {
         this.allowance = allowance;
     }
 
     @Column(name = "total_material", nullable = true)
-    public float getTotalMaterial() {
+    public Float getTotalMaterial() {
         return totalMaterial;
     }
 
-    public void setTotalMaterial(float totalMaterial) {
+    public void setTotalMaterial(Float totalMaterial) {
         this.totalMaterial = totalMaterial;
     }
 
     @Column(name = "total_labor", nullable = true)
-    public float getTotalLabor() {
+    public Float getTotalLabor() {
         return totalLabor;
     }
 
-    public void setTotalLabor(float totalLabor) {
+    public void setTotalLabor(Float totalLabor) {
         this.totalLabor = totalLabor;
     }
 
