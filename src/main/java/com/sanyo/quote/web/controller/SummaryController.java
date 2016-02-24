@@ -157,7 +157,7 @@ public class SummaryController {
     	
     	List<Encounter> EncounterMetrical = new ArrayList<Encounter>();
     	List<Encounter> EncounterElectrical = new ArrayList<Encounter>();
-    	DecimalFormat myFormatter = new DecimalFormat("###,#####.#####");
+    	//DecimalFormat myFormatter = new DecimalFormat("###,#####.#####"); // Chuong: This will not work on tomcat 6
     	//lấy ra danh sách encounter thuộc metrical 
     	for(Region values:metricalRigon)
 		{
@@ -266,7 +266,7 @@ public class SummaryController {
     	uiModel.addAttribute("Summary",summJ);
     	uiModel.addAttribute("Japanese",Japanese);
     	uiModel.addAttribute("Engineer",Engineer);
-    	uiModel.addAttribute("myFormatter",myFormatter);
+    	//uiModel.addAttribute("myFormatter",myFormatter); Chuong: this will not work on tomcat6
     	uiModel.addAttribute("EncounterMetrical",EncounterMetrical);
     	uiModel.addAttribute("EncounterElectrical",EncounterElectrical);
     	uiModel.addAttribute("metricalRigon",metricalRigon);
