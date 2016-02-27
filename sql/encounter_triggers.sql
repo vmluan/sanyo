@@ -166,10 +166,15 @@ DROP TRIGGER IF EXISTS encounterDeleteTrigger;
 		begin
 
 			-- Update total material and total labour
-			select project_id into v_project_id from location l where l.LOCATION_ID in (SELECT LOCATION_ID from region where REGION_ID=OLD.REGION_ID);
+			select project_id into v_project_id 
+			from location l 
+			where l.LOCATION_ID in (SELECT LOCATION_ID from region where REGION_ID=OLD.REGION_ID);
 			select product_group_id into v_product_group_id from product p where p.PRODUCT_ID in (SELECT PRODUCT_ID from encounter where PRODUCT_ID=OLD.PRODUCT_ID);
 
-			select sum(Cost_Mat_Amount_USD),sum(Cost_Labour_Amount_USD) into encounter_total_material, encounter_total_labour
+			select 
+				CAST(SUM(Cost_Mat_Amount_USD) as DECIMAL(20,5))
+				,CAST(SUM(Cost_Labour_Amount_USD)as DECIMAL(20,5))			
+			into encounter_total_material, encounter_total_labour
 			FROM encounter
 			WHERE PRODUCT_ID in (select PRODUCT_ID from product where product_group_id=v_product_group_id) AND
 			REGION_ID in (select REGION_ID from region r where r.LOCATION_ID in (select LOCATION_ID from location l where l.PROJECT_ID=v_project_id ));
