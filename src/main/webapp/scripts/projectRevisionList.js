@@ -52,7 +52,7 @@ $("#listRevision")
 					// showfilterrow : true,
 					// filterable : true,
 					columnsresize : true,
-					rowsheight : 45,
+					//rowsheight : 45,
 					showpinnedcolumnbackground : false,
 					altrows : true,
 					autorowheight: true,
@@ -96,8 +96,8 @@ $("#listRevision")
 								width : '35%',
 								cellsrenderer : function(row, column, value) {
 									return '<div class="col-md-12">'
-													+ '<button type="button" class="btn bg-olive col-md-5"  onclick="updateRevison('+ value +  ')"' + '>Edit</button>'
-													+ '<button type="button" class="btn btn-danger col-md-1" onclick="deleteRevison('+ value +  ')"' + '>X</button>'
+													+ '<button type="button" class="btn btn-info col-md-8"  onclick="updateRevison('+ value +  ')"' + '>Edit</button>'
+													+ '<button type="button" class="btn btn-danger col-md-2" onclick="deleteRevison('+ value +  ')"' + '>X</button>'
 											+ '</div>'
 											;										
 								}

@@ -44,7 +44,7 @@ $("#listLocation")
 					source : dataAdapter,
 					sortable : true,
 					pageable : true,
-					autoheight : false,
+					autoheight : true,
 					autoloadstate : false,
 					autosavestate : false,
 					columnsresize : true,
@@ -52,7 +52,7 @@ $("#listLocation")
 					// showfilterrow : true,
 					// filterable : true,
 					columnsresize : true,
-					rowsheight : 20,
+					//rowsheight : 20,
 					showpinnedcolumnbackground : false,
 					altrows : true,
 					autorowheight: true,
@@ -167,8 +167,8 @@ $("#listLocation")
 								width : '30%',
 								cellsrenderer : function(row, column, value) {
 									return '<div class="col-md-12">'
-													+ '<button type="button" class="btn bg-olive col-md-5"  onclick="updateLocation('+ value +  ')"' + '>Edit</button>'
-													+ '<button type="button" class="btn btn-danger col-md-1" onclick="deleteLocation('+ value +  ')"' + '>X</button>'
+													+ '<button type="button" class="btn btn-info col-md-8"  onclick="updateLocation('+ value +  ')"' + '>Edit</button>'
+													+ '<button type="button" class="btn btn-danger col-md-2" onclick="deleteLocation('+ value +  ')"' + '>X</button>'
 											+ '</div>'
 											;									
 								}

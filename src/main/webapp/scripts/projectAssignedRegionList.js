@@ -54,8 +54,8 @@ var dataAdapter = new $.jqx.dataAdapter(source);
 								cellsrenderer : function(row, column, value) {
 									if(value < 1010101010)
 										return '<div class="col-md-12">'
-														+ '<button type="button" class="btn bg-olive col-md-5"  onclick="updateRegion('+ value +  ')"' + '>Edit</button>'
-														+ '<button type="button" class="btn btn-danger col-md-1" onclick="deleteRegion('+ value +  ')"' + '>X</button>'
+														+ '<button type="button" class="btn btn-info col-md-8"  onclick="updateRegion('+ value +  ')"' + '>Edit</button>'
+														+ '<button type="button" class="btn btn-danger col-md-2" onclick="deleteRegion('+ value +  ')"' + '>X</button>'
 												+ '</div>'
 												;
 									else
