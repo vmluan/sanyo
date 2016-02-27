@@ -340,7 +340,7 @@ public class ProductController extends CommonController {
 			product.setCategories(categories);
 		}
 		product.setProductName(json.getProductName());
-		
+		product.setProductNameVietnamese(json.getProductNameVietnamese());
 		if(json.getMakerId() != null){
 			Maker maker = makerService.findById(json.getMakerId());
 			if(maker != null)
@@ -421,13 +421,11 @@ public class ProductController extends CommonController {
 				errorMsg = e.getMessage();
 				
 		}catch(Exception e){
-			System.out.println("==================");
-			e.printStackTrace();
+			logger.error(e.getMessage());
 			errorMsg = e.getMessage();
 		}
-		
+		logger.info("=========== result of saving product = " + errorMsg);
 		return errorMsg;
-
     }
 	@ResponseBody
 	@RequestMapping(value = "/{id}", params = "delete", method = RequestMethod.GET)

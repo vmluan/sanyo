@@ -223,7 +223,7 @@
 		product.endDateString = form.endDate.value;
 		product.mat_w_o_Tax_USD = form.mat_w_o_Tax_USD.value;
 		product.mat_w_o_Tax_VND = form.mat_w_o_Tax_VND.value;
-		product.productNameVietnamese = form.productNameVietnamese;
+		product.productNameVietnamese = form.productNameVietnamese.value;
 		
 		//<![CDATA[
 		var rows = $("#jqxWidgetCategory").jqxTreeGrid('getRows');

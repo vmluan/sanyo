@@ -43,7 +43,7 @@ public class Product implements Serializable {
 	private String picLocation;
 	
 	@Column(name = "iscommon")
-	private boolean common = false;
+	private Boolean common = false;
 	
 	@Transient
 	MultipartFile file;
@@ -55,7 +55,7 @@ public class Product implements Serializable {
 	String [] categoriesList;
 	
 	@Column(name="isdeleted")
-	private boolean isDeleted;
+	private Boolean isDeleted;
 	
 	@Column(name="LAST_UPDATED")
 	private Date lastUpdated;
@@ -70,18 +70,18 @@ public class Product implements Serializable {
 	private List<Category> categories;
 
 	@Column(name ="MIN_DISC_WHSLE_PER")
-	private float minDiscountWholeSalePer;
+	private Float minDiscountWholeSalePer;
 	@Column(name ="MAX_DISC_WHSLE_PER")
-	private float maxDiscountWholeSalePer;
+	private Float maxDiscountWholeSalePer;
 	
 	@Column(name ="MIN_DISC_SALE_PER")
-	private float minDiscountSalePer;
+	private Float minDiscountSalePer;
 	
 	@Column(name ="MAX_DISC_SALE_PER")
-	private float maxDiscountSalePer;
+	private Float maxDiscountSalePer;
 	
 	@Column(name="VAT")
-	private float vat;
+	private Float vat;
 	
 	@Column(name="LAST_MODIFIED_BY")
 	private String lastModifiedBy;
@@ -105,13 +105,13 @@ public class Product implements Serializable {
 	private Float labour; //Nhan cong tung hang muc
 
 	@Column(name="Imp_Tax")
-	private float imp_Tax; //Imp Tax
+	private Float imp_Tax; //Imp Tax
 
 	@Column(name="Special_Con_Tax")
-	private float special_Con_Tax; // Special con. Tax
+	private Float special_Con_Tax; // Special con. Tax
 
 	@Column(name="Discount_rate")
-	private float discount_rate; //Discount rate %
+	private Float discount_rate; //Discount rate %
 	
 	private String specification;
 	
@@ -146,19 +146,19 @@ public class Product implements Serializable {
 	
 	private String productNameVietnamese;
 	
-	public void setMinDiscountWholeSalePer(float minDiscountWholeSalePer) {
+	public void setMinDiscountWholeSalePer(Float minDiscountWholeSalePer) {
 		this.minDiscountWholeSalePer = minDiscountWholeSalePer;
 	}
 
-	public void setMaxDiscountWholeSalePer(float maxDiscountWholeSalePer) {
+	public void setMaxDiscountWholeSalePer(Float maxDiscountWholeSalePer) {
 		this.maxDiscountWholeSalePer = maxDiscountWholeSalePer;
 	}
 
-	public void setMinDiscountSalePer(float minDiscountSalePer) {
+	public void setMinDiscountSalePer(Float minDiscountSalePer) {
 		this.minDiscountSalePer = minDiscountSalePer;
 	}
 
-	public void setMaxDiscountSalePer(float maxDiscountSalePer) {
+	public void setMaxDiscountSalePer(Float maxDiscountSalePer) {
 		this.maxDiscountSalePer = maxDiscountSalePer;
 	}
 
@@ -188,11 +188,11 @@ public class Product implements Serializable {
 		this.categories = categories;
 	}
 
-	public boolean isDeleted() {
+	public Boolean isDeleted() {
 		return isDeleted;
 	}
 
-	public void setDeleted(boolean isDeleted) {
+	public void setDeleted(Boolean isDeleted) {
 		this.isDeleted = isDeleted;
 	}
 
@@ -253,11 +253,11 @@ public class Product implements Serializable {
 	}
 
 
-	public boolean isCommon() {
+	public Boolean isCommon() {
 		return common;
 	}
 
-	public void setCommon(boolean common) {
+	public void setCommon(Boolean common) {
 		this.common = common;
 	}
 
@@ -295,19 +295,19 @@ public class Product implements Serializable {
 	}
 	
 
-	public float getMinDiscountWholeSalePer() {
+	public Float getMinDiscountWholeSalePer() {
 		return minDiscountWholeSalePer;
 	}
 
-	public float getMaxDiscountWholeSalePer() {
+	public Float getMaxDiscountWholeSalePer() {
 		return maxDiscountWholeSalePer;
 	}
 
-	public float getMinDiscountSalePer() {
+	public Float getMinDiscountSalePer() {
 		return minDiscountSalePer;
 	}
 
-	public float getMaxDiscountSalePer() {
+	public Float getMaxDiscountSalePer() {
 		return maxDiscountSalePer;
 	}
 //
@@ -335,11 +335,11 @@ public class Product implements Serializable {
 		this.specification = specification;
 	}
 
-	public float getVat() {
+	public Float getVat() {
 		return vat;
 	}
 
-	public void setVat(float vat) {
+	public void setVat(Float vat) {
 		this.vat = vat;
 	}
 
@@ -359,27 +359,27 @@ public class Product implements Serializable {
 		this.mat_w_o_Tax_VND = mat_w_o_Tax_VND;
 	}
 
-	public float getImp_Tax() {
+	public Float getImp_Tax() {
 		return imp_Tax;
 	}
 
-	public void setImp_Tax(float imp_Tax) {
+	public void setImp_Tax(Float imp_Tax) {
 		this.imp_Tax = imp_Tax;
 	}
 
-	public float getSpecial_Con_Tax() {
+	public Float getSpecial_Con_Tax() {
 		return special_Con_Tax;
 	}
 
-	public void setSpecial_Con_Tax(float special_Con_Tax) {
+	public void setSpecial_Con_Tax(Float special_Con_Tax) {
 		this.special_Con_Tax = special_Con_Tax;
 	}
 
-	public float getDiscount_rate() {
+	public Float getDiscount_rate() {
 		return discount_rate;
 	}
 
-	public void setDiscount_rate(float discount_rate) {
+	public void setDiscount_rate(Float discount_rate) {
 		this.discount_rate = discount_rate;
 	}
 

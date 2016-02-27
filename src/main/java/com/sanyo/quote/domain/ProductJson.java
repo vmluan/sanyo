@@ -14,29 +14,29 @@ public class ProductJson {
 	
 	private String picLocation;
 	
-	private boolean common = false;
+	private Boolean common = false;
 	
 	String productPriceWrapper;
 	
-	private boolean isDeleted;
+	private Boolean isDeleted;
 	private Date lastUpdated;
 	private Date deltedDate;
 	private List<CategoryJson> categories;
 
-	private float minDiscountWholeSalePer;
-	private float maxDiscountWholeSalePer;
-	private float minDiscountSalePer;
-	private float maxDiscountSalePer;
-	private float vat;
+	private Float minDiscountWholeSalePer;
+	private Float maxDiscountWholeSalePer;
+	private Float minDiscountSalePer;
+	private Float maxDiscountSalePer;
+	private Float vat;
 	private String lastModifiedBy;
 	private String productCode; //Ma san pham
 	private String unit; // don vi
 	private Float mat_w_o_Tax_USD; //Mat w/o Tax USD
 	private Float mat_w_o_Tax_VND; //Mat w/o Tax VND
 	private Float labour; //Nhan cong tung hang muc
-	private float imp_Tax; //Imp Tax
-	private float special_Con_Tax; // Special con. Tax
-	private float discount_rate; //Discount rate %
+	private Float imp_Tax; //Imp Tax
+	private Float special_Con_Tax; // Special con. Tax
+	private Float discount_rate; //Discount rate %
 	private String specification;
 	private Date startDate;
 	private Date endDate;
@@ -65,10 +65,10 @@ public class ProductJson {
 	public void setPicLocation(String picLocation) {
 		this.picLocation = picLocation;
 	}
-	public boolean isCommon() {
+	public Boolean isCommon() {
 		return common;
 	}
-	public void setCommon(boolean common) {
+	public void setCommon(Boolean common) {
 		this.common = common;
 	}
 	public String getProductPriceWrapper() {
@@ -77,10 +77,10 @@ public class ProductJson {
 	public void setProductPriceWrapper(String productPriceWrapper) {
 		this.productPriceWrapper = productPriceWrapper;
 	}
-	public boolean isDeleted() {
+	public Boolean isDeleted() {
 		return isDeleted;
 	}
-	public void setDeleted(boolean isDeleted) {
+	public void setDeleted(Boolean isDeleted) {
 		this.isDeleted = isDeleted;
 	}
 	public Date getLastUpdated() {
@@ -101,34 +101,34 @@ public class ProductJson {
 	public void setCategories(List<CategoryJson> categories) {
 		this.categories = categories;
 	}
-	public float getMinDiscountWholeSalePer() {
+	public Float getMinDiscountWholeSalePer() {
 		return minDiscountWholeSalePer;
 	}
-	public void setMinDiscountWholeSalePer(float minDiscountWholeSalePer) {
+	public void setMinDiscountWholeSalePer(Float minDiscountWholeSalePer) {
 		this.minDiscountWholeSalePer = minDiscountWholeSalePer;
 	}
-	public float getMaxDiscountWholeSalePer() {
+	public Float getMaxDiscountWholeSalePer() {
 		return maxDiscountWholeSalePer;
 	}
-	public void setMaxDiscountWholeSalePer(float maxDiscountWholeSalePer) {
+	public void setMaxDiscountWholeSalePer(Float maxDiscountWholeSalePer) {
 		this.maxDiscountWholeSalePer = maxDiscountWholeSalePer;
 	}
-	public float getMinDiscountSalePer() {
+	public Float getMinDiscountSalePer() {
 		return minDiscountSalePer;
 	}
-	public void setMinDiscountSalePer(float minDiscountSalePer) {
+	public void setMinDiscountSalePer(Float minDiscountSalePer) {
 		this.minDiscountSalePer = minDiscountSalePer;
 	}
-	public float getMaxDiscountSalePer() {
+	public Float getMaxDiscountSalePer() {
 		return maxDiscountSalePer;
 	}
-	public void setMaxDiscountSalePer(float maxDiscountSalePer) {
+	public void setMaxDiscountSalePer(Float maxDiscountSalePer) {
 		this.maxDiscountSalePer = maxDiscountSalePer;
 	}
-	public float getVat() {
+	public Float getVat() {
 		return vat;
 	}
-	public void setVat(float vat) {
+	public void setVat(Float vat) {
 		this.vat = vat;
 	}
 	public String getLastModifiedBy() {
@@ -167,22 +167,22 @@ public class ProductJson {
 	public void setLabour(Float labour) {
 		this.labour = labour;
 	}
-	public float getImp_Tax() {
+	public Float getImp_Tax() {
 		return imp_Tax;
 	}
-	public void setImp_Tax(float imp_Tax) {
+	public void setImp_Tax(Float imp_Tax) {
 		this.imp_Tax = imp_Tax;
 	}
-	public float getSpecial_Con_Tax() {
+	public Float getSpecial_Con_Tax() {
 		return special_Con_Tax;
 	}
-	public void setSpecial_Con_Tax(float special_Con_Tax) {
+	public void setSpecial_Con_Tax(Float special_Con_Tax) {
 		this.special_Con_Tax = special_Con_Tax;
 	}
-	public float getDiscount_rate() {
+	public Float getDiscount_rate() {
 		return discount_rate;
 	}
-	public void setDiscount_rate(float discount_rate) {
+	public void setDiscount_rate(Float discount_rate) {
 		this.discount_rate = discount_rate;
 	}
 	public String getSpecification() {
@@ -214,10 +214,12 @@ public class ProductJson {
 	}
 	public void setStartDateString(String startDateString) {
 		this.startDateString = startDateString;
-		try {
-			this.startDate = new SimpleDateFormat("MM/dd/yyyy").parse(startDateString);
-		} catch (ParseException e) {
-			e.printStackTrace();
+		if(startDateString != null && !startDateString.trim().equals("")){
+			try {
+				this.startDate = new SimpleDateFormat("MM/dd/yyyy").parse(startDateString);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	public String getEndDateString() {
@@ -225,10 +227,13 @@ public class ProductJson {
 	}
 	public void setEndDateString(String endDateString) {
 		this.endDateString = endDateString;
-		try {
-			this.endDate = new SimpleDateFormat("MM/dd/yyyy").parse(endDateString);
-		} catch (ParseException e) {
-			e.printStackTrace();
+		if(endDateString != null && !endDateString.trim().equals(""))
+		{
+			try {
+				this.endDate = new SimpleDateFormat("MM/dd/yyyy").parse(endDateString);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	public Integer getMakerId() {
