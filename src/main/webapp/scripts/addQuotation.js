@@ -826,7 +826,7 @@ function saveEncounter(row,isUpdate) {
 	encounter.subcon_Profit = data.subcon_Profit;
 	encounter.nonamePercent = data.nonamePercent;
 	encounter.nonameRange = data.nonameRange;
-
+	encounter.unit_Price_W_Tax_Labour = data.unit_Price_W_Tax_Labour;
 	var jsonData = JSON.stringify(encounter);
 	console.log(jsonData);
 	 var url = pageContext + '/quotation/' + projectId + '/addquotation?form';
@@ -1396,8 +1396,8 @@ function updateCostMatAmountVnd(){
 	updateLabour();
 }
 function updateLabour(){
-//labour sau thue = cot 6 * cot 22
-	var unit_Price_W_Tax_Labour = $("#list").jqxGrid('getcellvalue', 0, "unit_Price_W_Tax_Labour"); //cot 22
+//labour sau thue = cot 6 * cot 23
+	var unit_Price_W_Tax_Labour = $("#list").jqxGrid('getcellvalue', 0, "unit_Price_W_Tax_Labour"); //cot 23
 	var quantity = $("#list").jqxGrid('getcellvalue', 0, "actualQuantity"); //cot 6
 	var result = unit_Price_W_Tax_Labour * quantity;
 	$("#list").jqxGrid('setcellvalue', 0, "labour", result);
@@ -1558,7 +1558,7 @@ function loadDataTable(){
             { "mData": "nonameRange" },
             { "mData": "remark" },
             { "mData": "quantity" },
-            { "mData": "labour" },
+            { "mData": "labourAfterTax" },
             { "mData": "mat_w_o_Tax_USD" },
             { "mData": "mat_w_o_Tax_VND" },
             { "mData": "product.labour" },
