@@ -20,7 +20,7 @@ DROP TRIGGER IF EXISTS encounterAddTrigger;
 
 		END;
 
-		END; %
+		END; //
 
 		DELIMITER ;
 
