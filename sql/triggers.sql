@@ -4,8 +4,8 @@
 
 		   -- get projectId, then find all encounter of that project in a cursor. get list of productGroupMaker
 		   -- each encounter in cursor: 
-		   		--get product, then get productGroup
-		   		--check if that productGroup is in the above productGroupMaker list
+		   		-- get product, then get productGroup
+		   		-- check if that productGroup is in the above productGroupMaker list
 		   			-- if yes, it is ok
 		   			-- if no, update encounter set hasMakerDelete to true
 	   					

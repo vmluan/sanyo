@@ -19,9 +19,9 @@
 		      <name>EclipseLink Repo</name>
 		    </repository>
 			<repository>
-				<id>codehaus</id>
-				<url>http://repository.codehaus.org/org/codehaus</url>
-			</repository>		    	 	
+				<id>MVNREPOSITORY</id>
+				<url>http://repo1.maven.org/maven2</url>
+			</repository>
 	 </repositories>
 	<dependencies>
 		<!-- Spring -->
