@@ -1,29 +1,16 @@
 package com.sanyo.quote.domain;
 
-import static javax.persistence.GenerationType.IDENTITY;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.Random;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.persistence.UniqueConstraint;
-import javax.persistence.Version;
-import javax.validation.constraints.NotNull;
-
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.format.annotation.DateTimeFormat;
+import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "project", catalog = "sanyo", uniqueConstraints = {
@@ -40,6 +27,12 @@ public class Project implements java.io.Serializable, Cloneable {
 	private long totalMoney;
 	private Date openTime;
 	private Date closedTime;
+
+	/*
+	status = 0: On going project
+	status = 1:closed project, complete pproject
+	*/
+
 	private ProjectStatus status;
 	
 	//use @Version to implement Optimistic Locking. When 2 or more concurrency update on same records. Exception will be raised
