@@ -34,7 +34,10 @@ public class Project implements java.io.Serializable, Cloneable {
 	*/
 
 	private ProjectStatus status;
+	private ProjectStatus price_new_status; //trạng thái update giá
 	
+	
+
 	//use @Version to implement Optimistic Locking. When 2 or more concurrency update on same records. Exception will be raised
 	// This helps to avoid losing data of previous update.
 	@Version
@@ -166,7 +169,16 @@ public class Project implements java.io.Serializable, Cloneable {
 	public void setStatus(ProjectStatus status) {
 		this.status = status;
 	}
+	
+	@Column(name = "new_price_status")
+	public ProjectStatus getPrice_new_status() {
+		return price_new_status;
+	}
 
+	public void setPrice_new_status(ProjectStatus price_new_status) {
+		this.price_new_status = price_new_status;
+	}
+	
 	public long getVersion() {
 		return version;
 	}
