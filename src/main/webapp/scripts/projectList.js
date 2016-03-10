@@ -143,7 +143,7 @@ $("#list")
 										result =
 												'<div class="col-md-12" style="margin: auto;padding-top: 10px;">'
 												+'<p>'
-													+ '<button id="update_price" class="btn btn-olive btn-primary" onclick="update_price()"><span class="glyphicon spinning"></span>Update</button>';
+													+ '<button id="update_price" class="btn btn-olive btn-primary" onclick="update_price(this)"><span class="glyphicon spinning"></span>Update</button>';
 													/*'<button id="update_price" class="btn bg-olive margin col-md-2"  onclick="update_price()"' + '>Update</button>';*/
 									}
 									else result =
@@ -251,15 +251,17 @@ function closeProject(projectId){
 	
 }
 
-function update_price()
+function update_price(th)
 {
+	//alert($(th).attr("onClick"));
 	bootbox.confirm("Are you sure?", function(result) {
 		if(result==true)
 		{
   //Example.show("Confirm result: "+result);
-  			$("#update_price").children().addClass("glyphicon-refresh");
-  			var projectID = $("#update_price").parent().parent().parent().next().children().children().children().attr("onClick");
+  			$(th).children().addClass("glyphicon-refresh");
+  			var projectID = $(th).parent().parent().parent().next().children().children().children().attr("onClick");
 			projectID = projectID.split("(").pop().split(")")[0];
+			//alert(projectID);
 			if (projectID == "")
 				return;
 			var url = pageContext + '/projects/' + projectID + '?update';
@@ -271,7 +273,7 @@ function update_price()
 					$("#notificationUpdatePrice").slideDown("slow");
 					setTimeout(function(){
 						$("#notificationUpdatePrice").slideUp("slow");
-						$("#update_price").children().removeClass("glyphicon-refresh");
+						$(th).children().removeClass("glyphicon-refresh");
 					},200);
 				},
 				complete : function(xhr, status) {
