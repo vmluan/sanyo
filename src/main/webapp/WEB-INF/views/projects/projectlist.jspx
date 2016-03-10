@@ -27,9 +27,51 @@
 				<!-- fix for small devices only -->
 				<div class="clearfix visible-sm-block"><jsp:text /></div>
 	</div>
-	
+	<style>
+.bb-alert {
+    position: fixed;
+    bottom: 63%;
+    right: 0;
+    margin-bottom: 0;
+    font-size: 1.2em;
+    padding: 1em 1.3em;
+    z-index: 2000;
+}
+.alert-info {
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+}
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+.glyphicon.spinning {
+    animation: spin 1s infinite linear;
+    -webkit-animation: spin2 1s infinite linear;
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg); }
+    to { transform: scale(1) rotate(360deg); }
+}
+
+@-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
+}
+.glyphicon
+{
+	font-family:Glyphicons Halflings !important;
+}
+	</style>
 
         <section class="content">
+		<div id="notificationUpdatePrice" class="bb-alert alert alert-info" style="display: none;">
+        		<span>Update success!</span>
+    		</div>
           <div class="box box-default">
             <!-- left column -->
             <div class="box-body">
@@ -53,14 +95,18 @@
 	<script>
 	var pageContext = "${pageContext.request.contextPath}";
 	var projectStatus = "${projectStatus}";
+	
 	if(projectStatus == 'closed'){
 		activeLink('liClosed');
 	}else{
 		activeLink('liOnGoing');
 	}
 	
-	</script>			
+	</script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/bootbox.min.js">
+<jsp:text/> </script>			
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/projectList.js">
         <jsp:text/>
     </script>
+
 </div>

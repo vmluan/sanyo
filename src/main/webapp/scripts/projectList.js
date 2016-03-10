@@ -131,6 +131,29 @@ $("#list")
 								width : '10%',
 							},
 							{
+								
+								text : 'Price Update',
+								/*datafield : 'revision',*/
+								align : 'center',
+								width : '10%',
+								cellsrenderer : function(row, column, value) {
+									var result = "";
+									//alert(projectStatus);
+									if(projectStatus == 'ongoing'){									
+										result =
+												'<div class="col-md-12" style="margin: auto;padding-top: 10px;">'
+												+'<p>'
+													+ '<button id="update_price" class="btn btn-olive btn-primary" onclick="update_price()"><span class="glyphicon spinning"></span>Update</button>';
+													/*'<button id="update_price" class="btn bg-olive margin col-md-2"  onclick="update_price()"' + '>Update</button>';*/
+									}
+									else result =
+												'<div class="col-md-12">'
+												+'<p>'
+													+ '<button id="" disabled class="btn bg-olive margin col-md-2"' + '>Update</button>';
+									return result;
+									}								
+							},
+							{
 								text : 'Action',
 								align : 'center',
 								datafield : 'projectId',
@@ -221,6 +244,44 @@ function closeProject(projectId){
 		complete : function(xhr, status) {
 
 		}
+
+
 });
+
 	
+}
+
+function update_price()
+{
+	bootbox.confirm("Are you sure?", function(result) {
+		if(result==true)
+		{
+  //Example.show("Confirm result: "+result);
+  			$("#update_price").children().addClass("glyphicon-refresh");
+  			var projectID = $("#update_price").parent().parent().parent().next().children().children().children().attr("onClick");
+			projectID = projectID.split("(").pop().split(")")[0];
+			if (projectID == "")
+				return;
+			var url = pageContext + '/projects/' + projectID + '?update';
+			$.ajax({
+				type : "POST",
+				contentType : 'application/json',
+				url : url,
+				success : function(msg) {
+					$("#notificationUpdatePrice").slideDown("slow");
+					setTimeout(function(){
+						$("#notificationUpdatePrice").slideUp("slow");
+						$("#update_price").children().removeClass("glyphicon-refresh");
+					},200);
+				},
+				complete : function(xhr, status) {
+
+				}
+
+
+			});
+		}
+	});
+	
+	//alert(projectID);
 }

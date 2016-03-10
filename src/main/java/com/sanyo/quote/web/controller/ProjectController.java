@@ -49,6 +49,7 @@ import com.sanyo.quote.domain.Location;
 import com.sanyo.quote.domain.LocationJson;
 import com.sanyo.quote.domain.LocationOrderHist;
 import com.sanyo.quote.domain.MakerProject;
+import com.sanyo.quote.domain.Product;
 import com.sanyo.quote.domain.ProductGroup;
 import com.sanyo.quote.domain.ProductGroupMaker;
 import com.sanyo.quote.domain.ProductGroupRate;
@@ -101,7 +102,6 @@ public class ProjectController extends CommonController {
 	
 	@Autowired
 	private CategoryService categoryService;
-	
 	@Autowired
 	private RegionService regionService;
 	
@@ -153,6 +153,7 @@ public class ProjectController extends CommonController {
 		setHeader(uiModel, "Projects", "List of all projects");
 		setUser(uiModel);
 		String status = request.getParameter("status");
+		String new_price_status = request.getParameter("price_new_status");
 		projectsUrl ="/projects?status=" + status;
 		uiModel.addAttribute("projectStatus", status);
 		if(status != null && status.equalsIgnoreCase(Constants.PROJECT_ONGOING))
@@ -1193,6 +1194,53 @@ public class ProjectController extends CommonController {
 		
 
 	}
+	////post new price update for project when click update in ongoing project
+	@Transactional
+	@RequestMapping(value = "/{id}", params = "update", method = RequestMethod.POST)
+	@ResponseStatus(value = HttpStatus.OK)
+	public void UpdatePriceProject(@PathVariable("id") Integer id, Model uiModel
+			,HttpServletRequest httpServletRequest) throws CloneNotSupportedException{
+		Project project = projectService.findById(id);
+		if(project!=null)		
+		{
+			if(project.getStatus().name()=="ONGOING") //ongoing project
+			{
+				// get all loaction in project
+				List<Location> location = locationService.findByProject(project);
+				for(Location itemLocation:location)
+				{
+					// get all region in location
+					List<Region> region = regionService.findByLocation(itemLocation);
+					for(Region itemRegion:region)
+					{
+						// get all encounter in region
+						List<Encounter> encounter = encounterService.findByRegion(itemRegion);
+						for(Encounter itemEncounter:encounter)
+						{
+							if(itemEncounter.isNeedUpdatePrice()) // 
+							{
+								updateEncounter(itemEncounter.getProduct(),itemEncounter,project.getUsdToVnd()); //update table encounter
+							}
+						}
+					}
+				}
+			}
+		}	
+
+	}
+	private void updateEncounter(Product idproduct,Encounter encounter,Float usdToVnd)
+	{
+		Product product = productService.findById(idproduct.getProductID());
+		encounter.setMat_w_o_Tax_USD(product.getMat_w_o_Tax_USD());
+		encounter.setMat_w_o_Tax_VND(product.getMat_w_o_Tax_VND());
+		encounter.setLabour(product.getLabour());
+		encounter.setUnit_Price_After_Discount(product.getMat_w_o_Tax_VND()/usdToVnd+product.getMat_w_o_Tax_USD());
+		encounter.setUnit_Price_W_Tax_Labour(product.getLabour()*encounter.getSubcon_Profit());
+		encounter.setNeedUpdatePrice(false);
+		encounterService.save(encounter);	
+		
+	}
+	
 	@Transactional
 	@RequestMapping(value = "/revisions/{id}", params = "delete", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK)
