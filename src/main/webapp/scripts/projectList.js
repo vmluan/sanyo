@@ -270,6 +270,11 @@ function update_price(th)
 				contentType : 'application/json',
 				url : url,
 				success : function(msg) {
+					//alert(msg);
+					//if(msg==false)
+					//{
+						$(".price_span").text("update "+msg+" encounter!");
+					//}
 					$("#notificationUpdatePrice").slideDown("slow");
 					setTimeout(function(){
 						$("#notificationUpdatePrice").slideUp("slow");
@@ -277,7 +282,7 @@ function update_price(th)
 					},200);
 				},
 				complete : function(xhr, status) {
-
+					//alert(xhr);
 				}
 
 

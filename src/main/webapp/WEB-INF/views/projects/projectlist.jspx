@@ -70,7 +70,7 @@
 
         <section class="content">
 		<div id="notificationUpdatePrice" class="bb-alert alert alert-info" style="display: none;">
-        		<span>Update success!</span>
+        		<span class="price_span">Update success!</span>
     		</div>
           <div class="box box-default">
             <!-- left column -->

@@ -98,7 +98,7 @@ public class ProjectController extends CommonController {
 		setHeader(uiModel, "Projects", "List of all projects");
 		setUser(uiModel);
 		String status = request.getParameter("status");
-		String new_price_status = request.getParameter("price_new_status");
+		//String new_price_status = request.getParameter("price_new_status");
 		projectsUrl ="/projects?status=" + status;
 		uiModel.addAttribute("projectStatus", status);
 		if(status != null && status.equalsIgnoreCase(Constants.PROJECT_ONGOING))
@@ -1140,11 +1140,15 @@ public class ProjectController extends CommonController {
 
 	}
 	////post new price update for project when click update in ongoing project
-	@Transactional
+	//@Transactional
 	@RequestMapping(value = "/{id}", params = "update", method = RequestMethod.POST)
-	@ResponseStatus(value = HttpStatus.OK)
-	public void UpdatePriceProject(@PathVariable("id") Integer id, Model uiModel
+	//@ResponseStatus(value = HttpStatus.OK)
+	//@ResponseBody
+	public @ResponseBody
+	int UpdatePriceProject(@PathVariable("id") Integer id, Model uiModel
 			,HttpServletRequest httpServletRequest) throws CloneNotSupportedException{
+		//return 1;
+		int sum =0;
 		Project project = projectService.findById(id);
 		if(project!=null)		
 		{
@@ -1165,13 +1169,14 @@ public class ProjectController extends CommonController {
 							if(itemEncounter.isNeedUpdatePrice()) // 
 							{
 								updateEncounter(itemEncounter.getProduct(),itemEncounter,project.getUsdToVnd()); //update table encounter
+								sum+=1;
 							}
 						}
 					}
 				}
 			}
-		}	
-
+		}
+		return sum;
 	}
 	private void updateEncounter(Product idproduct,Encounter encounter,Float usdToVnd)
 	{
