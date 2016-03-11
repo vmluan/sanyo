@@ -1,24 +1,12 @@
 package com.sanyo.quote.web.controller;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.ConstraintViolation;
-import javax.validation.Valid;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
-
+import com.sanyo.quote.domain.*;
+import com.sanyo.quote.domain.Currency;
+import com.sanyo.quote.helper.Constants;
+import com.sanyo.quote.helper.Utilities;
+import com.sanyo.quote.service.*;
+import com.sanyo.quote.web.form.Message;
+import com.sanyo.quote.web.util.UrlUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,56 +19,13 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.sanyo.quote.domain.Category;
-import com.sanyo.quote.domain.Currency;
-import com.sanyo.quote.domain.CurrencyExchRate;
-import com.sanyo.quote.domain.Encounter;
-import com.sanyo.quote.domain.Location;
-import com.sanyo.quote.domain.LocationJson;
-import com.sanyo.quote.domain.LocationOrderHist;
-import com.sanyo.quote.domain.MakerProject;
-import com.sanyo.quote.domain.Product;
-import com.sanyo.quote.domain.ProductGroup;
-import com.sanyo.quote.domain.ProductGroupMaker;
-import com.sanyo.quote.domain.ProductGroupRate;
-import com.sanyo.quote.domain.Project;
-import com.sanyo.quote.domain.ProjectRevision;
-import com.sanyo.quote.domain.ProjectStatus;
-import com.sanyo.quote.domain.Region;
-import com.sanyo.quote.domain.RegionJson;
-import com.sanyo.quote.domain.TreeGrid;
-import com.sanyo.quote.domain.User;
-import com.sanyo.quote.domain.UserJson;
-import com.sanyo.quote.domain.UserRegionRole;
-import com.sanyo.quote.helper.Constants;
-import com.sanyo.quote.helper.Utilities;
-import com.sanyo.quote.service.CategoryService;
-import com.sanyo.quote.service.CurrencyExchRateService;
-import com.sanyo.quote.service.CurrencyService;
-import com.sanyo.quote.service.EncounterService;
-import com.sanyo.quote.service.LocationOrderHistService;
-import com.sanyo.quote.service.LocationService;
-import com.sanyo.quote.service.MakerProjectService;
-import com.sanyo.quote.service.ProductGroupMakerService;
-import com.sanyo.quote.service.ProductGroupRateService;
-import com.sanyo.quote.service.ProductService;
-import com.sanyo.quote.service.ProjectRevisionService;
-import com.sanyo.quote.service.ProjectService;
-import com.sanyo.quote.service.RegionService;
-import com.sanyo.quote.service.UserRegionRoleService;
-import com.sanyo.quote.service.UserService;
-import com.sanyo.quote.web.form.Message;
-import com.sanyo.quote.web.util.UrlUtil;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.*;
+import java.util.*;
 
 @Controller
 @RequestMapping(value = "/projects")
@@ -1070,7 +1015,7 @@ public class ProjectController extends CommonController {
 		System.out.println("============ start getting maker of project ");
 		Project project = projectService.findById(Integer.valueOf(projectId));
 		
-		if(regionId != null){
+		if(regionId != null && regionId != 0){
 			Region region = regionService.findById(regionId);
 			Category assignedCategory = region.getCategory();
 			List<MakerProject> makerProjects = makerProjectService.findByProjectAndCategory(project, assignedCategory);
