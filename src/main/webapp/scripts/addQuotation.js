@@ -877,7 +877,7 @@ var groupsrenderer = function(text, group, expanded, data) {
 			$("#list").jqxGrid('begincelledit', 0, "test");
 		 }else if(datafield == 'nonamePercent' ||
 				 datafield == 'nonameRange'){
-			 //updateMat_w_o_Tax_USD();
+			 updateMat_w_o_Tax_USD();
 		 }
 	 });
 function loadAddQuotationGrid() {
@@ -1328,7 +1328,8 @@ function updateQuantity(qtyManual){
 		default:
 			indicator = 100;
 	}
-	var result = (qtyManual * indicator)/100;
+	var result = (Number(qtyManual) * Number(indicator)) / Number(100);
+	result = getDecimalNumber(result);
 	//update quantity field.
 	$("#list").jqxGrid('setcellvalue', 0, "actualQuantity", result);
 	updatePriceAfterDiscount();
@@ -1343,7 +1344,8 @@ function updatePriceAfterDiscount(){
 	}
 	var mat_w_o_Tax_USD = $("#list").jqxGrid('getcellvalue', 0, "mat_w_o_Tax_USD"); //cot 11
 	var mat_w_o_Tax_VND = $("#list").jqxGrid('getcellvalue', 0, "mat_w_o_Tax_VND"); //cot 12
-	var result = mat_w_o_Tax_USD + mat_w_o_Tax_VND/floatValue;
+	var result = Number(mat_w_o_Tax_USD) + Number(mat_w_o_Tax_VND) / Number(floatValue);
+	result = getDecimalNumber(result);
 	$("#list").jqxGrid('setcellvalue', 0, "unit_Price_After_Discount", result);
 	
 	updateUnitRate();
@@ -1352,7 +1354,8 @@ function updateUnitRate(){
 //unit rate = cot 19 * cot 20 =  Unit price after discount  * Allowance
 	var unit_Price_After_Discount = $("#list").jqxGrid('getcellvalue', 0, "unit_Price_After_Discount");
 	var allowance = $("#list").jqxGrid('getcellvalue', 0, "allowance");
-	var result = unit_Price_After_Discount * allowance/100;
+	var result = Number(unit_Price_After_Discount) * Number(allowance) / Number(100);
+	result = getDecimalNumber(result);
 	$("#list").jqxGrid('setcellvalue', 0, "unitRate", result);
 	updateUnitPriceWTaxProfit();
 }
@@ -1366,8 +1369,13 @@ function updateUnitPriceWTaxProfit() {
 	var impTax = $("#list").jqxGrid('getcellvalue', 0, "imp_Tax")/100;//cot 14
 	var vat = 	$("#list").jqxGrid('getcellvalue', 0, "vat")/100; //cot 16
 	var discountRate = $("#list").jqxGrid('getcellvalue', 0, "discount_rate")/100;
+	unit_Price_After_Discount = Number(unit_Price_After_Discount);
+	specialCon = Number(specialCon);
+	impTax = Number(impTax);
+	vat = Number(vat);
+	discountRate = Number(discountRate);
 	var result = unit_Price_After_Discount*(1+(1+specialCon*(1+impTax))*vat)*discountRate;
-	
+	result = getDecimalNumber(result);
 	$("#list").jqxGrid('setcellvalue', 0, "unit_Price_W_Tax_Profit", result);
 	updateUnitPriceWTaxLabour();
 }
@@ -1375,7 +1383,8 @@ function updateUnitPriceWTaxLabour(){
 // Unit price w Tax - labour =cot 13 * cot 21 
 	var labour = $("#list").jqxGrid('getcellvalue', 0, "labourProduct"); //cot 13
 	var subcon_Profit = $("#list").jqxGrid('getcellvalue', 0, "subcon_Profit") /100;//cot 21
-	var result = labour * subcon_Profit;
+	var result = Number(labour) * Number(subcon_Profit);
+	result = getDecimalNumber(result);
 	$("#list").jqxGrid('setcellvalue', 0, "unit_Price_W_Tax_Labour", result);
 	updateCostMatAmountUsd();
 }
@@ -1383,7 +1392,8 @@ function updateCostMatAmountUsd(){
 // Cost - Mat amount USD =cot 19* cot 10 = Unit price after discount * Q'ty (nhập)
 	var unit_Price_After_Discount = $("#list").jqxGrid('getcellvalue', 0, "unit_Price_After_Discount"); //cot 19
 	var qtyManual = $("#list").jqxGrid('getcellvalue', 0, "quantity"); //cot 10
-	var result = unit_Price_After_Discount * qtyManual;
+	var result = Number(unit_Price_After_Discount) * Number(qtyManual);
+	result = getDecimalNumber(result);
 	$("#list").jqxGrid('setcellvalue', 0, "cost_Mat_Amount_USD", result);
 	updateCostMatAmountVnd();
 }
@@ -1391,7 +1401,8 @@ function updateCostMatAmountVnd(){
 // Cost - Labour amount USD =cot 22* cot 9
 	var unit_Price_W_Tax_Labour = $("#list").jqxGrid('getcellvalue', 0, "unit_Price_W_Tax_Labour"); //cot 22
 	var qtyManual = $("#list").jqxGrid('getcellvalue', 0, "quantity"); //cot 9
-	var result = unit_Price_W_Tax_Labour * qtyManual;
+	var result = Number(unit_Price_W_Tax_Labour) * Number(qtyManual);
+	result = getDecimalNumber(result);
 	$("#list").jqxGrid('setcellvalue', 0, "cost_Labour_Amount_USD", result);
 	updateLabour();
 }
@@ -1399,7 +1410,8 @@ function updateLabour(){
 //labour sau thue = cot 6 * cot 23
 	var unit_Price_W_Tax_Labour = $("#list").jqxGrid('getcellvalue', 0, "unit_Price_W_Tax_Labour"); //cot 23
 	var quantity = $("#list").jqxGrid('getcellvalue', 0, "actualQuantity"); //cot 6
-	var result = unit_Price_W_Tax_Labour * quantity;
+	var result = Number(unit_Price_W_Tax_Labour) * Number(quantity);
+	result = getDecimalNumber(result);
 	$("#list").jqxGrid('setcellvalue', 0, "labour", result);
 	updateAmount();
 }
@@ -1407,7 +1419,8 @@ function updateAmount(){
 	//amount = cot6 * cot 7 = actualQty * unitRate;
 	var quantity = $("#list").jqxGrid('getcellvalue', 0, "actualQuantity"); //cot 6
 	var unitRate = $("#list").jqxGrid('getcellvalue', 0, "unitRate");
-	var result = quantity * unitRate;
+	var result = Number(quantity) * Number(unitRate);
+	result = getDecimalNumber(result);
 	$("#list").jqxGrid('setcellvalue', 0, "amount", result);
 }
 
@@ -1418,6 +1431,38 @@ function updateMat_w_o_Tax_USD(){
 	var range = $("#list").jqxGrid('getcellvalue', 0, "nonameRange"); //cot 5
 	var total = 0;
 	if(range && percent){
+		var url = pageContext + '/quotation/getmat_w_o_tax_usd';
+		var regionIDs = getCheckedRegionIds();
+		var locationIDs = getCheckedLocationIds();
+		if (regionIDs && locationIDs) {
+			var arrRegion = regionIDs.split(',');
+			var arrLocation = locationIDs.split(',');
+			if (arrRegion.length > 1 && arrLocation.length > 1) {
+				alert('Please select 1 region only in order to add new quotation record.');
+				return;
+			}
+		}
+
+		$.ajax({
+			type: "GET",
+			contentType: 'application/json',
+			url: url,
+			data: {
+				percent: percent,
+				range: range,
+				regionId: regionIDs,
+				locationId: locationIDs
+			},
+			success: function (msg) {
+			},
+			complete: function (jqxhr, settings, exception) {
+				//$("#quotation_data_table").html(jqxhr.responseText);
+				var result = getDecimalNumber(jqxhr.responseText);
+				$("#list").jqxGrid('setcellvalue', 0, "mat_w_o_Tax_USD", result); //update mat_w_o_tax_usd
+			}
+		});
+
+		/*
 		var arrs = range.split('-');
 		var start = arrs[0];
 		var end = arrs[1];
@@ -1427,7 +1472,8 @@ function updateMat_w_o_Tax_USD(){
 			total = total + aEValue;
 		}
 		var result = total * percent/100;
-		$("#list").jqxGrid('setcellvalue', 0, "mat_w_o_Tax_USD", result);		
+		 $("#list").jqxGrid('setcellvalue', 0, "mat_w_o_Tax_USD", result);
+		 */
 	}
 }
 function updateItem(row){
