@@ -98,9 +98,6 @@ public class Quotation extends CommonController {
 	@Autowired
 	private EncounterOrderHistService encounterOrderHistService;
 
-	@Autowired
-	private ProductGroupRateService productGroupRateService;
-	
 	@RequestMapping(method = RequestMethod.GET)
 	public String getQuotationPage(@RequestParam(value="projectId", required=true) String projectId,
 			Model uiModel,HttpServletRequest httpServletRequest) {
