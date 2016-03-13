@@ -62,7 +62,7 @@ public class Quotation extends CommonController {
 
 	@Autowired
 	private EncounterOrderHistService encounterOrderHistService;
-	
+
 	@RequestMapping(method = RequestMethod.GET)
 	public String getQuotationPage(@RequestParam(value="projectId", required=true) String projectId,
 			Model uiModel,HttpServletRequest httpServletRequest) {
@@ -138,7 +138,7 @@ public class Quotation extends CommonController {
 	
 	//get all assigned products of a specific project.
 	@RequestMapping(value = "/{id}/addquotation", params = "form", method = RequestMethod.GET)
-	public String showRegions(@PathVariable("id") Integer id, Model uiModel, HttpServletRequest httpServletRequest){
+	public String addQuotation(@PathVariable("id") Integer id, Model uiModel, HttpServletRequest httpServletRequest) {
 		
 		Project project = projectService.findById(id);
 		if(isNeedUpdatePrice(project))
@@ -146,6 +146,7 @@ public class Quotation extends CommonController {
 		uiModel.addAttribute("regionType", httpServletRequest.getParameter("type"));
 		uiModel.addAttribute("project", project);
 		setUser(uiModel);
+
 		return "quotation/create";
 	}
 	private boolean isNeedUpdatePrice(Project project){
@@ -482,7 +483,7 @@ public class Quotation extends CommonController {
 		
 		private void updateUnitRate(Encounter encounter, float allowance){
 			//var result = unit_Price_After_Discount * allowance/100;
-			encounter.setUnitRate(encounter.getUnit_Price_After_Discount()*allowance/100);
+			encounter.setUnitRate(encounter.getUnit_Price_After_Discount() * allowance / 100);
 		}
 		private void updateUnitPriceWTaxProfit(Encounter encounter, float specialCon, float impTax, float discountRate, float vat){
 			//var result = unit_Price_After_Discount*(1+(1+specialCon*(1+impTax))*vat)*discountRate;
@@ -514,10 +515,25 @@ public class Quotation extends CommonController {
 			//var result = quantity * unitRate;
 			float result = encounter.getActualQuantity() * encounter.getUnitRate();
 		}
-		private void updateMat_w_o_Tax_USD(){
+
+	private void updateMat_w_o_Tax_USD() {
 			//update later for range and percent
 		}
-		@RequestMapping(value = "/getLocationSum", method = RequestMethod.GET)
+
+	//get quotation list and display in data table.
+	@RequestMapping(value = "/getquotationlistdatatables", method = RequestMethod.GET)
+	public String getquotationlistdatatables(@RequestParam(value = "projectId", required = false) String projectId,
+											 @RequestParam(value = "locationIds", required = true) String locationIds,
+											 @RequestParam(value = "regionIds", required = true) String regionIds,
+											 Model uiModel, HttpServletRequest httpServletRequest) {
+		if (projectId != null)
+			uiModel.addAttribute("projectId", projectId);
+		uiModel.addAttribute("locationIds", locationIds);
+		uiModel.addAttribute("regionIds", regionIds);
+		return "quotation/createDataTable";
+	}
+
+	@RequestMapping(value = "/getLocationSum", method = RequestMethod.GET)
 		@ResponseBody
 		public String getLocationSum(
 				@RequestParam(value="locationIds", required=true) String locationIds
@@ -547,7 +563,8 @@ public class Quotation extends CommonController {
 			}
 		return total.toString();
 		}
-		private float getSummOfLocation(Location location){
+
+	private float getSummOfLocation(Location location) {
 			Float total = 0f;
 			if(location != null){
 				List<Region> regions = regionService.findByLocation(location);
@@ -557,7 +574,8 @@ public class Quotation extends CommonController {
 			}
 			return total;
 		}
-		@RequestMapping(value = "/getRegionSum", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/getRegionSum", method = RequestMethod.GET)
 		@ResponseBody
 		public String getRegionSum(
 				@RequestParam(value="regionIds", required=true) String locationIds
@@ -571,16 +589,18 @@ public class Quotation extends CommonController {
 			}
 			return total.toString();
 		}
-		private float getSumOfRegion(Region region){
+
+	private float getSumOfRegion(Region region) {
 			Float total = 0f;
 			List<Encounter> encounters = encounterService.findByRegion(region);
 			for(Encounter encounter : encounters){
 				total += encounter.getAmount();
 			}
 			return total;
-			
+
 		}
-		@RequestMapping(value = "/getAssignedProductOfRegionForDatatables", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+
+	@RequestMapping(value = "/getAssignedProductOfRegionForDatatables", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 		@ResponseBody
 		public String getProductsJsonForDataTables(@RequestParam(value="regionId", required=true) String regionId,
 					@RequestParam(value="locationIds", required=false) String locationIds
@@ -592,7 +612,7 @@ public class Quotation extends CommonController {
 				, @RequestParam(value="recordstartindex", required=false) Integer recordstartindex
 				, @RequestParam(value="recordendindex", required=false) Integer recordendindex
 				, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
-			
+
 			String[] regionIds = regionId.split(",");
 			List<Encounter> finalEncounters = new ArrayList<Encounter>();
 			boolean isAllLocation = false;
@@ -629,7 +649,7 @@ public class Quotation extends CommonController {
 								List<Encounter> encounters = encounterService.findByRegion(region);
 								finalEncounters.addAll(encounters);
 							}
-						}	
+						}
 					}else{
 						//find all locations of the project, then find all regions of each location.
 						Project project = projectService.findById(Integer.valueOf(projectId));
@@ -648,21 +668,9 @@ public class Quotation extends CommonController {
 			dataTableObject.setAaData(finalEncounters);
 			dataTableObject.setiTotalRecords(finalEncounters.size());
 			dataTableObject.setiTotalDisplayRecords(finalEncounters.size());
-			
-			String result = Utilities.jSonSerialization(dataTableObject);
+
+		String result = Utilities.jSonSerialization(dataTableObject);
 			return result;
-		}
-		//get quotation list and display in data table.
-		@RequestMapping(value = "/getquotationlistdatatables", method = RequestMethod.GET)
-		public String getquotationlistdatatables(@RequestParam(value="projectId", required=false) String projectId,
-				@RequestParam(value="locationIds", required=true) String locationIds,
-				@RequestParam(value="regionIds", required=true) String regionIds,
-				Model uiModel, HttpServletRequest httpServletRequest){
-			if(projectId !=null)
-				uiModel.addAttribute("projectId", projectId);
-			uiModel.addAttribute("locationIds", locationIds);
-			uiModel.addAttribute("regionIds", regionIds);
-			return "quotation/createDataTable";
 		}
 		//get quotation list and display in data table.
 		@RequestMapping(value = "/updateQuotaitonOrder", method = RequestMethod.GET)
@@ -686,10 +694,34 @@ public class Quotation extends CommonController {
 				
 			}
 
-			
-			
-			
-		}		
+
+		}
+
+	//get mat_w_o_tax_usd based on percent and range
+	@RequestMapping(value = "/getmat_w_o_tax_usd", method = RequestMethod.GET)
+	@ResponseBody
+	public String getmat_w_o_tax_usd(@RequestParam(value = "projectId", required = false) String projectId,
+									 @RequestParam(value = "locationId", required = true) String locationId,
+									 @RequestParam(value = "regionId", required = true) String regionId,
+									 @RequestParam(value = "percent", required = true) String percent,
+									 @RequestParam(value = "range", required = true) String range,
+									 Model uiModel, HttpServletRequest httpServletRequest) {
+		Region region = regionService.findById(Integer.valueOf(regionId));
+		String[] arrRange = range.split("-");
+		int start = Integer.valueOf(arrRange[0]);
+		int end = Integer.valueOf(arrRange[1]);
+		Float total = 0f;
+		List<Encounter> encounters = encounterService.findByRegion(region);
+		for (Encounter encounter : encounters) {
+			if (encounter.getOrder() <= end
+					&& encounter.getOrder() >= start) {
+				total += encounter.getCost_Mat_Amount_USD();
+			}
+		}
+		Float result = Float.valueOf(percent) * total / 100;
+		logger.info("============ mat_w_o_tax_usd = " + result);
+		return result.toString();
+	}
 }
 
 

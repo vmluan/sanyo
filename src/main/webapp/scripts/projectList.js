@@ -138,12 +138,15 @@ $("#list")
 								width : '10%',
 								cellsrenderer : function(row, column, value) {
 									var result = "";
+									//alert(StatusNeedUpdatePrice);
 									//alert(projectStatus);
-									if(projectStatus == 'ongoing'){									
+
+									if(projectStatus == 'ongoing'){
+										disabledButtonUpdate();									
 										result =
 												'<div class="col-md-12" style="margin: auto;padding-top: 10px;">'
 												+'<p>'
-													+ '<button id="update_price" class="btn btn-olive btn-primary" onclick="update_price(this)"><span class="glyphicon spinning"></span>Update</button>';
+													+ '<button id="update_price" class="btn btn-olive btn-primary update_price" onclick="update_price(this)"><span class="glyphicon spinning"></span>Update</button>';
 													/*'<button id="update_price" class="btn bg-olive margin col-md-2"  onclick="update_price()"' + '>Update</button>';*/
 									}
 									else result =
@@ -289,6 +292,52 @@ function update_price(th)
 			});
 		}
 	});
-	
-	//alert(projectID);
+
 }
+$(".jqx-background-reset").scroll(function(event) {
+	alert("lkdf");
+});
+function disabledButtonUpdate(){
+	setTimeout(function(){
+			$(".update_price").each(function(index){
+				index = StatusNeedUpdatePrice.length - index-1;
+				if(StatusNeedUpdatePrice[index]!=true)
+				{
+					$(this).attr("disabled","true");
+					$(this).removeAttr("onClick");
+				}
+			});
+		},0);
+}
+jQuery.fn.onPositionChanged = function (trigger, millis) {
+    if (millis == null) millis = 100;
+    var o = $(this[0]); // our jquery object
+    if (o.length < 1) return o;
+
+    var lastPos = null;
+    var lastOff = null;
+    setInterval(function () {
+        if (o == null || o.length < 1) return o; // abort if element is non existend eny more
+        if (lastPos == null) lastPos = o.position();
+        if (lastOff == null) lastOff = o.offset();
+        var newPos = o.position();
+        var newOff = o.offset();
+        if (lastPos.top != newPos.top || lastPos.left != newPos.left) {
+            $(this).trigger('onPositionChanged', { lastPos: lastPos, newPos: newPos });
+            if (typeof (trigger) == "function") trigger(lastPos, newPos);
+            lastPos = o.position();
+        }
+        if (lastOff.top != newOff.top || lastOff.left != newOff.left) {
+            $(this).trigger('onOffsetChanged', { lastOff: lastOff, newOff: newOff});
+            if (typeof (trigger) == "function") trigger(lastOff, newOff);
+            lastOff= o.offset();
+        }
+    }, millis);
+
+    return o;
+};
+setTimeout(function(){	
+$(".update_price").onPositionChanged(function(){disabledButtonUpdate();});
+},0);
+$(".bg-important").text(projectNeedUpdate);
+$(".notification").text("Có "+projectNeedUpdate+" project cần update giá mới");

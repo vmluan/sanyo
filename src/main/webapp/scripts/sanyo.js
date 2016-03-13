@@ -12,3 +12,7 @@ function activeLink(id){
 	$('#' + id).addClass('active');
 	$(".treeview-menu").css("display", "none");
 }
+function getDecimalNumber(input) {
+	var result = Number(input).toFixed(4);
+	return result;
+}
