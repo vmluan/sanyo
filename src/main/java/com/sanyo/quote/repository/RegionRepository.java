@@ -27,6 +27,6 @@ public interface RegionRepository extends PagingAndSortingRepository<Region, Int
     
     @Query("SELECT distinct r.userRegionRoles FROM Region r JOIN  r.userRegionRoles WHERE r.regionId = :id")
     public List<UserRegionRole> getUserRegionRoles(@Param("id") Integer id);
-    
+
     public List<Region> findByLocation(Location location);
 }

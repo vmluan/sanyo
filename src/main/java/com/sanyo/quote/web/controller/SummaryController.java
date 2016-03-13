@@ -1,12 +1,8 @@
 package com.sanyo.quote.web.controller;
 
-import com.sanyo.quote.domain.EncounterJson;
-import com.sanyo.quote.domain.Maker;
-import com.sanyo.quote.domain.ProductGroupRate;
+import com.sanyo.quote.domain.*;
 import com.sanyo.quote.helper.Utilities;
-import com.sanyo.quote.service.LocationService;
-import com.sanyo.quote.service.ProductGroupRateService;
-
+import com.sanyo.quote.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,28 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import com.sanyo.quote.service.ExpensesService;
-import com.sanyo.quote.service.ProjectService;
-import com.sanyo.quote.service.RegionService;
-import com.sanyo.quote.service.EncounterService;
-import com.sanyo.quote.service.SummaryService;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.sanyo.quote.domain.ExpenseElements;
-import com.sanyo.quote.domain.Expenses;
-import com.sanyo.quote.domain.Project;
-import com.sanyo.quote.domain.Region;
-import com.sanyo.quote.domain.Location;
-import com.sanyo.quote.domain.Encounter;
-import com.sanyo.quote.domain.Summary;
-import com.sanyo.quote.domain.SummaryJson;
-import com.sanyo.quote.service.ExpenseElementsService;
-
-import java.text.DecimalFormat;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 /**
  * Created by Chuong Thai on 10/8/2015.
  */
@@ -48,26 +26,28 @@ public class SummaryController {
     @Autowired
 	private ProjectService projectService;
     @Autowired
-    RegionService rigionService;
+    RegionService regionService;
     @Autowired
-    ExpenseElementsService ExpenseElementsService;
+    ExpenseElementsService expenseElementsService;
     @Autowired
     EncounterService encounterService;
     @Autowired
     ExpensesService expensesService;
     @Autowired
-    ProductGroupRateService productGroupRateService;    
+    ProductGroupRateService productGroupRateService;
+	@Autowired
+	TotalMaterialLabourService totalMaterialLabourService;
+	@Autowired
+    LocationService locationService;
     @Autowired
-    LocationService location;
-    @Autowired
-    SummaryService summary;
+    SummaryService summaryService;
     
     
     
     @RequestMapping(value = "/{id}/savesumary2", params = "form",method = RequestMethod.POST)
     public String postSummaryPage(@RequestBody final SummaryJson summaryjson,@PathVariable("id") Integer projectId,Model uiModel,HttpServletRequest httpServletRequest) {
     	Project project = projectService.findById(projectId);
-    	Summary summ = summary.findByProject(project);
+    	Summary summ = summaryService.findByProject(project);
     	if(summ==null)
     		summ = new Summary();
     	summ.setEngineer(summaryjson.getEngineer());
@@ -75,14 +55,14 @@ public class SummaryController {
     	summ.setSiteexpenses(summaryjson.getSiteexpenses());
     	summ.setProfit(summaryjson.getProfit());
     	summ.setProject(project);
-    	summary.save(summ);
+    	summaryService.save(summ);
     	return "quotation/summary";
     }
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String getSummaryPage(@PathVariable("id") Integer projectId,Model uiModel) {
     	Project project = projectService.findById(projectId);
-    	List<Location> getlocation = location.findByProjectOrderByOrderNoDesc(project);
-    	Summary summar = summary.findByProject(project);
+    	List<Location> getlocation = locationService.findByProjectOrderByOrderNoDesc(project);
+    	Summary summar = summaryService.findByProject(project);
     	List<Region> regionlist = new ArrayList<Region>();
     	for(Location item:getlocation){
     		for(Region values:getRigion(item))
@@ -195,9 +175,9 @@ public class SummaryController {
     	//'M&E Expenses'!G44 = SELECT SUM FROM expenses WHERE PROJECT_ID = @PROJECT_ID AND EXPENSEELEMENT_ID = 30
     	//'M&E Expenses'!G57 = SELECT SUM FROM expenses WHERE PROJECT_ID = @PROJECT_ID AND EXPENSEELEMENT_ID = 38
     			    	
-    	List<Expenses> H23 = getSumOfSumExpenses(project,ExpenseElementsService.findById(13),ExpenseElementsService.findById(29));
-    	List<Expenses> G44 = getSumExpenses(project,ExpenseElementsService.findById(30));
-    	List<Expenses> G57 = getSumExpenses(project,ExpenseElementsService.findById(38));
+    	List<Expenses> H23 = getSumOfSumExpenses(project,expenseElementsService.findById(13),expenseElementsService.findById(29));
+    	List<Expenses> G44 = getSumExpenses(project,expenseElementsService.findById(30));
+    	List<Expenses> G57 = getSumExpenses(project,expenseElementsService.findById(38));
     	float _H23 = 0;
     	float _G44 = 0;
     	float _G57 = 0;
@@ -220,8 +200,8 @@ public class SummaryController {
     	//Japanese = 'M&E Expenses'!H6 + 'M&E Expenses'!G13 + 'M&E Expenses'!G44 + 'M&E Expenses'!G57
     	//'M&E Expenses'!H6 = SELECT SUM(SUM) FROM expenses WHERE PROJECT_ID = @PROJECT_ID AND (EXPENSEELEMENT_ID BETWEEN 1 AND 3)
     	//'M&E Expenses'!G13 = SELECT SUM FROM expenses WHERE PROJECT_ID = @PROJECT_ID AND EXPENSEELEMENT_ID = 4
-    	List<Expenses> H6 = getSumOfSumExpenses(project,ExpenseElementsService.findById(1),ExpenseElementsService.findById(3));
-    	List<Expenses> G13 = getSumExpenses(project,ExpenseElementsService.findById(4));
+    	List<Expenses> H6 = getSumOfSumExpenses(project,expenseElementsService.findById(1),expenseElementsService.findById(3));
+    	List<Expenses> G13 = getSumExpenses(project,expenseElementsService.findById(4));
     	float _H6 = 0;
     	float _G13 = 0;
     	for(Expenses values:H6)
@@ -237,7 +217,7 @@ public class SummaryController {
     	float Japanese = _H6+_G13+_G44+_G57;
     	//Engineer = 'M&E Expenses'!H11 - 'M&E Expenses'!G13
     	//'M&E Expenses'!H11 = SELECT SUM(SUM) FROM expenses WHERE PROJECT_ID = @PROJECT_ID AND (EXPENSEELEMENT_IDBETWEEN 4 AND 12)?
-    	List<Expenses> H11 = getSumOfSumExpenses(project,ExpenseElementsService.findById(4),ExpenseElementsService.findById(12));
+    	List<Expenses> H11 = getSumOfSumExpenses(project,expenseElementsService.findById(4),expenseElementsService.findById(12));
     	float _H11 = 0;
     	for(Expenses values:H11)
     	{
@@ -354,7 +334,7 @@ public class SummaryController {
     }
     private List<Region> getRigion(Location location)
     {
-    	List<Region> getrigion = rigionService.findByLocation(location);
+    	List<Region> getrigion = regionService.findByLocation(location);
     	return getrigion;    	
     }
     @RequestMapping(value = "/getProductGroupRateJson/{id}", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
@@ -371,11 +351,13 @@ public class SummaryController {
             Model uiModel) {
         if (projectId>0) {
             List<ProductGroupRate> productGroupRates = productGroupRateService.findByProjectId(projectId);
+			// List<TotalMaterialLabour> TotalMaterialLabours = TotalMaterialLabourService.findByProjectId(projectId);
             if (productGroupRates != null) {
                 return Utilities.jSonSerialization(productGroupRates);
             }
         }
-        List<ProductGroupRate> productGroupRates = productGroupRateService.findAll();
+		List<ProductGroupRate> productGroupRates = productGroupRateService.findAll();
+		//List<TotalMaterialLabour> totalMaterialLabours = totalMaterialLabourService.findAll();
         String result = Utilities.jSonSerialization(productGroupRates);
         return result;
     }
@@ -383,13 +365,13 @@ public class SummaryController {
     @RequestMapping(value = "/{id}/updateRate", params = "form", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     public void saveEncounters(@RequestBody final ProductGroupRate productGroupRate, @PathVariable("id") Integer id, Model uiModel, HttpServletRequest httpServletRequest){
-        System.out.println("=================================== updaing productGroupRate");
+        System.out.println("=================================== updaing TotalMaterialLabour");
         float discount = productGroupRate.getDiscount();
         float allowance = productGroupRate.getAllowance();
 
-        ProductGroupRate productGroupRate1 = productGroupRateService.findById(id); //Temp object to update value
-        productGroupRate1.setDiscount(discount);
-        productGroupRate1.setAllowance(allowance);
-        productGroupRateService.save(productGroupRate1);
+        TotalMaterialLabour TotalMaterialLabour1 = totalMaterialLabourService.findById(id); //Temp object to update value
+        //TotalMaterialLabour1.setDiscount(discount);
+        //TotalMaterialLabour1.setAllowance(allowance);
+        //TotalMaterialLabourService.save(TotalMaterialLabour1);
     }
 }

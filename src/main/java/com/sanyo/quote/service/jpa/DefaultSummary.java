@@ -1,18 +1,17 @@
 package com.sanyo.quote.service.jpa;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.google.common.collect.Lists;
 import com.sanyo.quote.domain.Project;
 import com.sanyo.quote.domain.Summary;
 import com.sanyo.quote.repository.SummaryRepository;
 import com.sanyo.quote.service.SummaryService;
-@Service("SummaryService")
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+@Service("summaryService")
 @Repository
 @Transactional
 public class DefaultSummary implements SummaryService{

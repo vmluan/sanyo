@@ -1,14 +1,10 @@
 package com.sanyo.quote.service;
 
-import java.util.List;
-
+import com.sanyo.quote.domain.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import com.sanyo.quote.domain.Encounter;
-import com.sanyo.quote.domain.Location;
-import com.sanyo.quote.domain.Region;
-import com.sanyo.quote.domain.UserRegionRole;
+import java.util.List;
 
 public interface RegionService {
 
@@ -27,7 +23,7 @@ public interface RegionService {
 	
 	List<Encounter> getEncounters(Integer id);
 	List<UserRegionRole> getUserRegionRoles( Integer id);
-	
+
 	void delete(Integer id);
 	void delete(Region region);
 	public List<Region> findByLocation(Location location);

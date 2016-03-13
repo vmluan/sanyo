@@ -1,59 +1,21 @@
 package com.sanyo.quote.web.controller;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.sanyo.quote.domain.*;
+import com.sanyo.quote.helper.Constants;
+import com.sanyo.quote.helper.Utilities;
+import com.sanyo.quote.service.*;
+import com.sanyo.quote.web.form.DataTableObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 
-import com.sanyo.quote.domain.Category;
-import com.sanyo.quote.domain.Encounter;
-import com.sanyo.quote.domain.EncounterJson;
-import com.sanyo.quote.domain.EncounterOrderHist;
-import com.sanyo.quote.domain.EncounterStatus;
-import com.sanyo.quote.domain.Location;
-import com.sanyo.quote.domain.Maker;
-import com.sanyo.quote.domain.MakerJson;
-import com.sanyo.quote.domain.MakerProject;
-import com.sanyo.quote.domain.Product;
-import com.sanyo.quote.domain.ProductGroup;
-import com.sanyo.quote.domain.ProductGroupMaker;
-import com.sanyo.quote.domain.ProductGroupRate;
-import com.sanyo.quote.domain.Project;
-import com.sanyo.quote.domain.ProjectStatus;
-import com.sanyo.quote.domain.Region;
-import com.sanyo.quote.helper.Constants;
-import com.sanyo.quote.helper.Utilities;
-import com.sanyo.quote.service.CategoryService;
-import com.sanyo.quote.service.EncounterOrderHistService;
-import com.sanyo.quote.service.EncounterService;
-import com.sanyo.quote.service.LocationService;
-import com.sanyo.quote.service.MakerProjectService;
-import com.sanyo.quote.service.MakerService;
-import com.sanyo.quote.service.ProductGroupMakerService;
-import com.sanyo.quote.service.ProductGroupRateService;
-import com.sanyo.quote.service.ProductGroupService;
-import com.sanyo.quote.service.ProductService;
-import com.sanyo.quote.service.ProjectService;
-import com.sanyo.quote.service.RegionService;
-import com.sanyo.quote.web.form.DataTableObject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.*;
 
 /*
  * Controller for Encounter 
@@ -88,13 +50,16 @@ public class Quotation extends CommonController {
 	
 	@Autowired
 	private CategoryService categoryService;
-	
+
 	@Autowired
 	private MakerProjectService makerProjectService;
 
 	@Autowired
 	private ProductGroupRateService productGroupRateService;
-	
+
+	@Autowired
+	private TotalMaterialLabourService totalMaterialLabourService;
+
 	@Autowired
 	private EncounterOrderHistService encounterOrderHistService;
 	
@@ -297,12 +262,21 @@ public class Quotation extends CommonController {
 			}
 			else{
 				ProductGroupRate productGroupRate = new ProductGroupRate();
+				TotalMaterialLabour totalMaterialLabour = new TotalMaterialLabour();
+				//create a new record in totalmateriallabour to link into productgrouprate for later use
+				//used to save totalMaterial and totalLabour of a revelant productgroup
+				totalMaterialLabourService.save(totalMaterialLabour);
+
+				productGroupRate.setTotalMaterialLabour(totalMaterialLabour);
+				productGroupRate.setDiscount(project.getDiscountRate());
+				productGroupRate.setAllowance(project.getAllowance());
 				productGroupRate.setProductGroup(productGroup);
 				productGroupRate.setProject(project);
-				productGroupRate.setDiscount(project.getDiscountRate()); //Get default Discount rate from project configuration
-				productGroupRate.setAllowance(project.getAllowance()); //Get default Discount rate from project configuration
+
 				productGroupRateService.save(productGroupRate);
 			}
+
+
 		}
 		if(Utilities.isValidInputNumber(encounterJson.getActualQuantity()))
 			encounter.setActualQuantity(Float.valueOf(encounterJson.getActualQuantity()));
