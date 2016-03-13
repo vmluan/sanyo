@@ -60,7 +60,7 @@
 		DELIMITER ;
 
 
-		-- Update discount rate and allowance from summary table (Code table)
+-- 3.Update discount rate and allowance from summary table (Code table)
 
 		DROP TRIGGER IF EXISTS discountAlowanceUpdateTrigger;
 		DELIMITER //
@@ -68,6 +68,7 @@
 		CREATE TRIGGER discountAllowanceUpdateTrigger
 		after UPDATE
 		   ON sanyo.productgrouprate FOR EACH ROW
+
 
 		BEGIN
 			declare  v_discount_rate FLOAT;
@@ -79,14 +80,17 @@
 			-- update discount rate and allowance rate in encounter
 			select discount_rate into v_discount_rate from productgrouprate g where g.product_group_id=NEW.product_group_id AND g.PROJECT_ID=NEW.PROJECT_ID;
 			select allowance_rate into v_allowance_rate from productgrouprate g where g.product_group_id=NEW.product_group_id AND g.PROJECT_ID=NEW.PROJECT_ID;
+			insert into logs set intnumber=v_discount_rate;
 
-
+			SET SQL_SAFE_UPDATES = 0;
 			update encounter
 			SET Discount_rate = v_discount_rate, ALLOWANCE=v_allowance_rate
-			WHERE  PRODUCT_ID in (select PRODUCT_ID from product p where p.product_group_id=NEW.product_group_id)
-			AND PROJECT_ID=NEW.PROJECT_ID;
+			WHERE
+            PRODUCT_ID in (select PRODUCT_ID from product p where p.product_group_id=NEW.product_group_id)
+			AND REGION_ID in (select REGION_ID from region r where r.LOCATION_ID in (select LOCATION_ID from location l where l.PROJECT_ID=NEW.PROJECT_ID));
+
 		END;
 
-		END; //
+		END
 
 		DELIMITER ;
