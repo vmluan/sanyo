@@ -26,27 +26,6 @@ DROP TRIGGER IF EXISTS encounterAddTrigger;
                 declare v_cost_Mat_Amount_USD float;
                 declare v_percent_value float;
 		begin
-                if TRIM(NEW.nonameRange) is not null and TRIM(NEW.nonameRange)  <> '' then
-                    -- slplit range into an array
-                    set v_total_usd =0; -- just for testing
-                    set v_start = 1;
-                    set v_order_no= 0;
-                    
-                    while v_start < length(NEW.nonameRange) do
-                        set v_start = v_start + 1;
-                        select SPLIT_STR(NEW.nonameRange, '-', v_start) into v_order_no;
-                        select  cost_Mat_Amount_USD into v_cost_Mat_Amount_USD
-                        from encounter
-                        where region_id = NEW.region_id
-                        and order_no = v_order_no;
-                        
-                        set v_total = v_total + v_cost_Mat_Amount_USD;
-                    end while;
-                    if v_total > 0 then
-                        set v_percent_value = CAST(NEW.nonamePercent * v_total as DECIMAL(20,5));
-                        set NEW.cost_Mat_Amount_USD = v_percent_value;
-                    end if;
-                end if;
 			select max(order_No) into v_max_orderNo
 			from sanyo.encounter
 			where region_Id=NEW.region_Id;
