@@ -1297,8 +1297,13 @@ function updateProductFields(productId){
 }
 function setDefaultCellValues(productGroupCode){
 	if(productGroupCode){
-		$("#list").jqxGrid('setcellvalue', 0, "discount_rate", getDiscount(productGroupCode));
-		$("#list").jqxGrid('setcellvalue', 0, "allowance", getAllowance(productGroupCode));	
+		var allowanceOfGroup = allowance;
+		var discountRateOfGroup = discountRate;
+		discountRateOfGroup = getDiscount(productGroupCode);
+		allowanceOfGroup = getAllowance(productGroupCode);
+		$("#list").jqxGrid('setcellvalue', 0, "discount_rate", discountRateOfGroup);
+		$("#list").jqxGrid('setcellvalue', 0, "allowance", allowanceOfGroup);
+
 	}else{
 		$("#list").jqxGrid('setcellvalue', 0, "imp_Tax", impTax); 
 		$("#list").jqxGrid('setcellvalue', 0, "special_Con_Tax", specialCon);
@@ -1637,19 +1642,21 @@ function loadDataTable(){
 function getAllowance(productGroupCode){
 	var records = dataAdapterProductGroup.records;
 	for(var i=0; i< records.length; i++){
-		if(records[i].groupCode == productGroupCode){
+		if (records[i].groupCode == productGroupCode && records[i].allowance) {
 			return records[i].allowance;
 		}
 	}
+	return allowance;
 	
 }
 function getDiscount(productGroupCode){
 	var records = dataAdapterProductGroup.records;
 	for(var i=0; i< records.length; i++){
-		if(records[i].groupCode == productGroupCode){
+		if (records[i].groupCode == productGroupCode && records[i].discount) {
 			return records[i].discount;
 		}
 	}
+	return discountRate;
 	
 }
 /*
