@@ -132,12 +132,12 @@ a, a:hover, a:focus {
                         <ul class="dropdown-menu extended inbox">
                             <div class="notify-arrow notify-arrow-red"> <span></span></div>
                            	<li>
-                                <p class="red">Không có thông báo mới</p>
+                                <p class="red notification">Không có thông báo mới</p>
                             </li>
                          
-                            <li>
+                            <!--<li>
                                 <a href="http://phukienthoitrang.xyz/admin/contact">Xem tất cả</a>
-                            </li>
+                            </li>-->
                         </ul>
                     </li>
                 </ul>

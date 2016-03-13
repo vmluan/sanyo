@@ -1,12 +1,24 @@
 package com.sanyo.quote.web.controller;
 
-import com.sanyo.quote.domain.*;
-import com.sanyo.quote.domain.Currency;
-import com.sanyo.quote.helper.Constants;
-import com.sanyo.quote.helper.Utilities;
-import com.sanyo.quote.service.*;
-import com.sanyo.quote.web.form.Message;
-import com.sanyo.quote.web.util.UrlUtil;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.ConstraintViolation;
+import javax.validation.Valid;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +31,56 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.*;
-import java.util.*;
+import com.sanyo.quote.domain.Category;
+import com.sanyo.quote.domain.Currency;
+import com.sanyo.quote.domain.CurrencyExchRate;
+import com.sanyo.quote.domain.Encounter;
+import com.sanyo.quote.domain.Location;
+import com.sanyo.quote.domain.LocationJson;
+import com.sanyo.quote.domain.LocationOrderHist;
+import com.sanyo.quote.domain.MakerProject;
+import com.sanyo.quote.domain.Product;
+import com.sanyo.quote.domain.ProductGroup;
+import com.sanyo.quote.domain.ProductGroupMaker;
+import com.sanyo.quote.domain.ProductGroupRate;
+import com.sanyo.quote.domain.Project;
+import com.sanyo.quote.domain.ProjectRevision;
+import com.sanyo.quote.domain.ProjectStatus;
+import com.sanyo.quote.domain.Region;
+import com.sanyo.quote.domain.RegionJson;
+import com.sanyo.quote.domain.TreeGrid;
+import com.sanyo.quote.domain.User;
+import com.sanyo.quote.domain.UserJson;
+import com.sanyo.quote.domain.UserRegionRole;
+import com.sanyo.quote.helper.Constants;
+import com.sanyo.quote.helper.Utilities;
+import com.sanyo.quote.service.CategoryService;
+import com.sanyo.quote.service.CurrencyExchRateService;
+import com.sanyo.quote.service.CurrencyService;
+import com.sanyo.quote.service.EncounterService;
+import com.sanyo.quote.service.LocationOrderHistService;
+import com.sanyo.quote.service.LocationService;
+import com.sanyo.quote.service.MakerProjectService;
+import com.sanyo.quote.service.ProductGroupMakerService;
+import com.sanyo.quote.service.ProductGroupRateService;
+import com.sanyo.quote.service.ProductService;
+import com.sanyo.quote.service.ProjectRevisionService;
+import com.sanyo.quote.service.ProjectService;
+import com.sanyo.quote.service.RegionService;
+import com.sanyo.quote.service.UserRegionRoleService;
+import com.sanyo.quote.service.UserService;
+import com.sanyo.quote.web.form.Message;
+import com.sanyo.quote.web.util.UrlUtil;
 
 @Controller
 @RequestMapping(value = "/projects")
@@ -98,20 +153,69 @@ public class ProjectController extends CommonController {
 		setHeader(uiModel, "Projects", "List of all projects");
 		setUser(uiModel);
 		String status = request.getParameter("status");
-		//String new_price_status = request.getParameter("price_new_status");
+		//String new_price_status = request.getParameter("needUpdatePrice");
 		projectsUrl ="/projects?status=" + status;
 		uiModel.addAttribute("projectStatus", status);
 		if(status != null && status.equalsIgnoreCase(Constants.PROJECT_ONGOING))
+		{
 			this.currentProjecs = Constants.PROJECT_ONGOING_TEXT;
+			
+		}
 		else if(status != null && status.equalsIgnoreCase(Constants.PROJECT_FINISHED))
-			this.currentProjecs = Constants.PROJECT_FINISHED_TEXT;
-				
+			{
+				this.currentProjecs = Constants.PROJECT_FINISHED_TEXT;
+			}
+		////////count project need update price and update column needUpdatePrice for project;
+		List<Project> project = projectService.findAll();
+		int sum =0 ;
+		ArrayList statusPrice = new ArrayList();
+		for(Project itemProject:project)
+		{
+			if(itemProject.getStatus().name()=="ONGOING")
+			{
+				if(getStatusNeedUpdatePrice(itemProject))
+				{
+					itemProject.setNeedUpdatePrice(true);
+					//projectService.save(itemProject);
+					sum++;
+				}
+				else
+				{
+					itemProject.setNeedUpdatePrice(false);					
+				}
+				projectService.save(itemProject);
+				statusPrice.add(itemProject.isNeedUpdatePrice());
+			}
+		}
+		
+		uiModel.addAttribute("StatusNeedUpdatePrice", statusPrice);
+		uiModel.addAttribute("projectNeedUpdate", sum);
 		resetLinks();
 		addToLinks(currentProjecs, projectsUrl);
 		setBreadCrumb(uiModel, "/", "Home", "/projects", "Projects");
 		return "projects/list";
 	}
-	
+	// find project do not update price
+	private boolean getStatusNeedUpdatePrice(Project idproject)
+	{
+		List<Location> location = locationService.findByProject(idproject);
+		for(Location itemLocation:location)
+		{
+			List<Region> region = regionService.findByLocation(itemLocation);
+			for(Region itemRegion:region)
+			{
+				List<Encounter> encounter = encounterService.findByRegion(itemRegion);
+				for(Encounter itemEncounter:encounter)
+				{
+					if(itemEncounter.isNeedUpdatePrice())
+					{
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
 	// handle screen for updating. Just display form for form edit.
 	@RequestMapping(value = "/{id}", params = "form", method = RequestMethod.GET)
     public String updateForm(@PathVariable("id") Integer id, Model uiModel) {
@@ -1015,7 +1119,7 @@ public class ProjectController extends CommonController {
 		System.out.println("============ start getting maker of project ");
 		Project project = projectService.findById(Integer.valueOf(projectId));
 		
-		if(regionId != null && regionId != 0){
+		if(regionId != null){
 			Region region = regionService.findById(regionId);
 			Category assignedCategory = region.getCategory();
 			List<MakerProject> makerProjects = makerProjectService.findByProjectAndCategory(project, assignedCategory);
@@ -1181,11 +1285,22 @@ public class ProjectController extends CommonController {
 	private void updateEncounter(Product idproduct,Encounter encounter,Float usdToVnd)
 	{
 		Product product = productService.findById(idproduct.getProductID());
-		encounter.setMat_w_o_Tax_USD(product.getMat_w_o_Tax_USD());
-		encounter.setMat_w_o_Tax_VND(product.getMat_w_o_Tax_VND());
-		encounter.setLabour(product.getLabour());
-		encounter.setUnit_Price_After_Discount(product.getMat_w_o_Tax_VND()/usdToVnd+product.getMat_w_o_Tax_USD());
-		encounter.setUnit_Price_W_Tax_Labour(product.getLabour()*encounter.getSubcon_Profit());
+		
+		float USD = 0;
+		float VND =0;
+		float labour = 0 ;
+		if(product.getMat_w_o_Tax_USD()!=null)
+			USD = product.getMat_w_o_Tax_USD();
+		if(product.getMat_w_o_Tax_VND()!=null)
+			VND = product.getMat_w_o_Tax_VND();
+		if(product.getLabour()!=null)
+			labour = product.getLabour();
+		
+		encounter.setMat_w_o_Tax_USD(USD);
+		encounter.setMat_w_o_Tax_VND(VND);
+		encounter.setLabour(labour);
+		encounter.setUnit_Price_After_Discount(VND/usdToVnd+USD);
+		encounter.setUnit_Price_W_Tax_Labour(labour*encounter.getSubcon_Profit());
 		encounter.setNeedUpdatePrice(false);
 		encounterService.save(encounter);	
 		

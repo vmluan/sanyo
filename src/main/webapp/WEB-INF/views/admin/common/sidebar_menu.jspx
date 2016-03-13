@@ -10,7 +10,6 @@
             <li class="active sanyoHead" id="liOnGoing"><a href="${pageContext.request.contextPath}/projects?status=ongoing"><i class="fa fa-link"><jsp:text/></i> <span>Ongoing Projects</span></a></li>
             <li class="sanyoHead" id="liClosed"><a href="${pageContext.request.contextPath}/projects?status=closed"><i class="fa fa-link"><jsp:text/></i> <span>Completed Projects</span></a></li>
             <li class="sanyoHead" id="liProduct"><a href="${pageContext.request.contextPath}/products"><i class="fa fa-link"><jsp:text/></i> <span>Products Maintenance</span></a></li>
-            <li class="sanyoHead" id="liProduct"><a href="${pageContext.request.contextPath}/notification"><i class="fa fa-link"><jsp:text/></i> <span>Notification</span></a></li>
             <!-- li><a href="${pageContext.request.contextPath}/projects"><i class="fa fa-link"><jsp:text/></i> <span>Reports</span></a></li-->
             <li class="treeview sanyoHead" id="liAdmin">
               <a href="#"><i class="fa fa-link"><jsp:text/></i> <span>Admin</span> <i class="fa fa-angle-left pull-right"><jsp:text/></i></a>

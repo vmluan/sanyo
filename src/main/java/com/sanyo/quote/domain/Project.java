@@ -34,7 +34,6 @@ public class Project implements java.io.Serializable, Cloneable {
 	*/
 
 	private ProjectStatus status;
-	//private boolean price_new_status; //trạng thái update giá
 	
 	
 
@@ -168,20 +167,7 @@ public class Project implements java.io.Serializable, Cloneable {
 
 	public void setStatus(ProjectStatus status) {
 		this.status = status;
-	}
-	
-	/*@Column(name = "new_price_status", columnDefinition = "boolean default false")
-	public boolean getPrice_new_status() {
-		return price_new_status;
-	}
-
-	public void setPrice_new_status(boolean price_new_status) {
-		this.price_new_status = price_new_status;
-	}*/
-	
-	public long getVersion() {
-		return version;
-	}
+	}	
 
 	public void setVersion(long version) {
 		this.version = version;
