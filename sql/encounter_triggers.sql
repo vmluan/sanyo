@@ -122,9 +122,9 @@ DROP TRIGGER IF EXISTS encounterInsertTrigger;
 			FROM encounter
 			WHERE PRODUCT_ID in (select PRODUCT_ID from product where product_group_id=v_product_group_id) AND
 			REGION_ID in (select REGION_ID from region r where r.LOCATION_ID in (select LOCATION_ID from location l where l.PROJECT_ID=v_project_id ));
-			update productgrouprate
+			update totalmateriallabour
 			SET total_material = encounter_total_material, total_labor=encounter_total_labour
-			WHERE  product_group_id = v_product_group_id AND PROJECT_ID=v_project_id;
+			WHERE  id in (select total_material_labour_id from productgrouprate where product_group_id=v_product_group_id AND PROJECT_ID=v_project_id);
 		END;
 
 		END; //
@@ -156,9 +156,9 @@ DROP TRIGGER IF EXISTS encounterUpdateTrigger;
 			FROM encounter
 			WHERE PRODUCT_ID in (select PRODUCT_ID from product where product_group_id=v_product_group_id) AND
 			REGION_ID in (select REGION_ID from region r where r.LOCATION_ID in (select LOCATION_ID from location l where l.PROJECT_ID=v_project_id ));
-			update productgrouprate
+			update totalmateriallabour
 			SET total_material = encounter_total_material, total_labor=encounter_total_labour
-			WHERE  product_group_id = v_product_group_id AND PROJECT_ID=v_project_id;
+			WHERE  id in (select total_material_labour_id from productgrouprate where product_group_id=v_product_group_id AND PROJECT_ID=v_project_id);
 		END;
 
 		END; //
@@ -192,9 +192,9 @@ DROP TRIGGER IF EXISTS encounterDeleteTrigger;
 			FROM encounter
 			WHERE PRODUCT_ID in (select PRODUCT_ID from product where product_group_id=v_product_group_id) AND
 			REGION_ID in (select REGION_ID from region r where r.LOCATION_ID in (select LOCATION_ID from location l where l.PROJECT_ID=v_project_id ));
-			update productgrouprate
+			update totalmateriallabour
 			SET total_material = encounter_total_material, total_labor=encounter_total_labour
-			WHERE  product_group_id = v_product_group_id AND PROJECT_ID=v_project_id;
+			WHERE  id in (select total_material_labour_id from productgrouprate where product_group_id=v_product_group_id AND PROJECT_ID=v_project_id);
 		END;
 
 		END; //
