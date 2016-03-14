@@ -369,9 +369,11 @@ public class SummaryController {
         float discount = productGroupRate.getDiscount();
         float allowance = productGroupRate.getAllowance();
 
-        TotalMaterialLabour TotalMaterialLabour1 = totalMaterialLabourService.findById(id); //Temp object to update value
-        //TotalMaterialLabour1.setDiscount(discount);
-        //TotalMaterialLabour1.setAllowance(allowance);
-        //TotalMaterialLabourService.save(TotalMaterialLabour1);
+		ProductGroupRate productGroupRate_instance = productGroupRateService.findById(id);
+		productGroupRate_instance.setDiscount(discount);
+		productGroupRate_instance.setAllowance(allowance);
+
+		productGroupRateService.save(productGroupRate_instance);
+
     }
 }
