@@ -20,10 +20,10 @@ var sourceProductGroupRate = {
         type : 'float'
     }, {
         name : 'totalMaterial',
-        type : 'totalMaterialLabour>totalMaterial'
+        map : 'totalMaterialLabour>totalMaterial'
     }, {
         name : 'totalLabor',
-        type : 'totalMaterialLabour>totalLabour'
+        map : 'totalMaterialLabour>totalLabor'
     }, {
         name : 'productGroupName',
         map : 'productGroup>groupName'
