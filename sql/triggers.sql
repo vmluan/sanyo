@@ -63,7 +63,7 @@
 -- 3.Update discount rate and allowance from productgrouprate table (Code table)
 
 
-		DROP TRIGGER IF EXISTS discountAlowanceUpdateTrigger;
+		DROP TRIGGER IF EXISTS discountAllowanceUpdateTrigger;
 		DELIMITER //
 
 		CREATE TRIGGER discountAllowanceUpdateTrigger
