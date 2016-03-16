@@ -78,7 +78,8 @@
 
 		begin
 
-			-- update discount rate and allowance rate in encounter
+			-- if new.Discount_rate <> OLD.Discount_rate or NEW.ALLOWANCE <> OLD.ALLOWANCE then
+            -- update discount rate and allowance rate in encounter
 			select discount_rate into v_discount_rate from productgrouprate g where g.product_group_id=NEW.product_group_id AND g.PROJECT_ID=NEW.PROJECT_ID;
 			select allowance_rate into v_allowance_rate from productgrouprate g where g.product_group_id=NEW.product_group_id AND g.PROJECT_ID=NEW.PROJECT_ID;
 
@@ -87,6 +88,9 @@
 			WHERE
             PRODUCT_ID in (select PRODUCT_ID from product p where p.product_group_id=NEW.product_group_id)
 			AND REGION_ID in (select REGION_ID from region r where r.LOCATION_ID in (select LOCATION_ID from location l where l.PROJECT_ID=NEW.PROJECT_ID));
+            -- update unit_Price_W_Tax_Profit = unit_Price_After_Discount*(1+(1+specialCon*(1+impTax))*vat)*discountRate;
+            -- update unitRate = Number(mat_w_o_Tax_USD) + Number(mat_w_o_Tax_VND) / (ti gia vnd/usd);
+            -- update amount = Number(quantity) * Number(unitRate)
 
 		END;
 
