@@ -168,7 +168,9 @@ public class ProjectController extends CommonController {
 		////////count project need update price and update column needUpdatePrice for project;
 		int sum =0 ;
 		ArrayList statusPrice = new ArrayList();
+		boolean flag = false;
 		if(Utilities.hasAdminRole()){ //if admin
+			flag = true;
 			List<Project> project = projectService.findAll();		
 			for(Project itemProject:project)
 			{
@@ -189,7 +191,7 @@ public class ProjectController extends CommonController {
 				}
 			}
 		}
-		
+		uiModel.addAttribute("isAdmin",flag);
 		uiModel.addAttribute("StatusNeedUpdatePrice", statusPrice);
 		uiModel.addAttribute("projectNeedUpdate", sum);
 		resetLinks();

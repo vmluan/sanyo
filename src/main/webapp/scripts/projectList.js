@@ -141,7 +141,7 @@ $("#list")
 									//alert(StatusNeedUpdatePrice);
 									//alert(projectStatus);
 
-									if(projectStatus == 'ongoing'){
+									if(projectStatus == 'ongoing' && isAdmin == true){
 										disabledButtonUpdate();									
 										result =
 												'<div class="col-md-12" style="margin: auto;padding-top: 10px;">'
