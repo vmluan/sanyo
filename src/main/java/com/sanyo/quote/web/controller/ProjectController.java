@@ -166,25 +166,27 @@ public class ProjectController extends CommonController {
 				this.currentProjecs = Constants.PROJECT_FINISHED_TEXT;
 			}
 		////////count project need update price and update column needUpdatePrice for project;
-		List<Project> project = projectService.findAll();
 		int sum =0 ;
 		ArrayList statusPrice = new ArrayList();
-		for(Project itemProject:project)
-		{
-			if(itemProject.getStatus().name()=="ONGOING")
+		if(Utilities.hasAdminRole()){ //if admin
+			List<Project> project = projectService.findAll();		
+			for(Project itemProject:project)
 			{
-				if(getStatusNeedUpdatePrice(itemProject))
+				if(itemProject.getStatus().name()=="ONGOING")
 				{
-					itemProject.setNeedUpdatePrice(true);
-					//projectService.save(itemProject);
-					sum++;
+					if(getStatusNeedUpdatePrice(itemProject))
+					{
+						itemProject.setNeedUpdatePrice(true);
+						//projectService.save(itemProject);
+						sum++;
+					}
+					else
+					{
+						itemProject.setNeedUpdatePrice(false);					
+					}
+					projectService.save(itemProject);
+					statusPrice.add(itemProject.isNeedUpdatePrice());
 				}
-				else
-				{
-					itemProject.setNeedUpdatePrice(false);					
-				}
-				projectService.save(itemProject);
-				statusPrice.add(itemProject.isNeedUpdatePrice());
 			}
 		}
 		

@@ -299,13 +299,31 @@ $(".jqx-background-reset").scroll(function(event) {
 });
 function disabledButtonUpdate(){
 	setTimeout(function(){
+
 			$(".update_price").each(function(index){
-				index = StatusNeedUpdatePrice.length - index-1;
-				if(StatusNeedUpdatePrice[index]!=true)
+				if(StatusNeedUpdatePrice!=null)
+				{
+					if(StatusNeedUpdatePrice.length==0)
+					{
+						$(this).attr("disabled","true");
+						$(this).removeAttr("onClick");
+					}
+					else
+					{
+						index = StatusNeedUpdatePrice.length - index-1;
+						if(StatusNeedUpdatePrice[index]!=true)
+						{
+							$(this).attr("disabled","true");
+							$(this).removeAttr("onClick");
+						}
+					}
+				}
+				else
 				{
 					$(this).attr("disabled","true");
 					$(this).removeAttr("onClick");
 				}
+				
 			});
 		},0);
 }
@@ -338,6 +356,6 @@ jQuery.fn.onPositionChanged = function (trigger, millis) {
 };
 setTimeout(function(){	
 $(".update_price").onPositionChanged(function(){disabledButtonUpdate();});
-},0);
+},10);
 $(".bg-important").text(projectNeedUpdate);
 $(".notification").text("Có "+projectNeedUpdate+" project cần update giá mới");
