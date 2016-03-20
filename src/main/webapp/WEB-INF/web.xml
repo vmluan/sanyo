@@ -34,6 +34,14 @@
         <filter-name>springSecurityFilterChain</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+    <filter>
+        <filter-name>privelege</filter-name>
+        <filter-class>com.sanyo.quote.web.controller.PrivilegeFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>privelege</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
     <session-config>
         <session-timeout>30</session-timeout>
         <tracking-mode>COOKIE</tracking-mode>

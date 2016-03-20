@@ -21,6 +21,7 @@ import java.util.TreeMap;
 import javax.servlet.http.HttpServletRequest;
 
 import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.type.TypeReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,15 +76,15 @@ public class Utilities {
 		return jsonString;
 	}
 	
-	public static <T> T jSonDeserialization(String jsonString) {
+	public static <T> T jSonDeserialization(String jsonString, Class<T> tClass) {
 		ObjectMapper objMapper = new ObjectMapper();
 		
 		T object = null;
-		/*try {
-			object = objMapper.readValue(jsonString, new TypeReference<T>(){} );
+		try {
+			object = objMapper.readValue(jsonString, tClass);
 		} catch (Exception ex) {
 			logger.error("Json Serialization : ", ex);
-		}*/
+		}
 		return object;
 	}
 	public static Date parseDate(String dateString){
