@@ -323,7 +323,7 @@ public class SummaryController {
     	float Labour=0;
     	for(Encounter items:listencounter)
     	{
-    		Labour+=items.getLabour();
+    		Labour+=items.getCost_Labour_Amount_USD();
     	}
     	return Labour;
     }
