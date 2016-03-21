@@ -2,6 +2,7 @@ package com.sanyo.quote.repository;
 
 import java.util.List;
 
+import com.sanyo.quote.domain.User;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
@@ -21,5 +22,7 @@ public interface UserRegionRoleRepository extends PagingAndSortingRepository<Use
 	
 //	@Query("SELECT distinct  ur.region.location.project FROM UserRegionRole ur JOIN FETCH ur.user WHERE ur.user.username = :username")
 	public List<Project> findAssignedProjectsByUserName(@Param("username") String username);
+
+	public List<UserRegionRole> findByRegionAndUser(Region region, User user);
 
 }

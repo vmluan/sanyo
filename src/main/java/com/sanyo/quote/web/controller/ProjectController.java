@@ -401,10 +401,10 @@ public class ProjectController extends CommonController {
 				project.setRevisions(tempRevisions);
 				
 				if(status != null && status.equalsIgnoreCase("ongoing")){
-					if(project.getStatus().toString().equals(ProjectStatus.ONGOING))
+					if(project.getStatus().toString().equals(ProjectStatus.ONGOING.toString()))
 						projectTree.put(project.getProjectId(), project);
 				}else if(status != null && status.equalsIgnoreCase("closed")){
-					if(project.getStatus().toString().equals(ProjectStatus.FINISH))
+					if(project.getStatus().toString().equals(ProjectStatus.FINISH.toString()))
 						projectTree.put(project.getProjectId(), project);
 				}
 				logger.info(" ========== project name =" + project.getProjectName());

@@ -237,9 +237,11 @@ public class Quotation extends CommonController {
 	//save encounter
 	@RequestMapping(value = "/{id}/addquotation", params = "form", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK)
-	public void saveEncounters(@RequestBody final EncounterJson encounterJson, @PathVariable("id") Integer id, Model uiModel, HttpServletRequest httpServletRequest){
+	@ResponseBody
+	public String saveEncounters(@RequestBody final EncounterJson encounterJson, @PathVariable("id") Integer id, Model uiModel, HttpServletRequest httpServletRequest){
 		System.out.println("=================================== saving encounter");
 		saveEncounter(encounterJson);
+		return "success";
 	}
 	private void saveEncounter(EncounterJson encounterJson){
 		Encounter encounter;

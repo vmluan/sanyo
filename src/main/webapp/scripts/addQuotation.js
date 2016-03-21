@@ -836,6 +836,11 @@ function saveEncounter(row,isUpdate) {
 		data : jsonData,
 		url : url,
 		success : function(msg) {
+			if(msg == null || msg==""){
+				alert('You do not have privilege on this action');
+				return;
+			}
+			console.log(msg);
 			$("#list").jqxGrid('updatebounddata');
 
 			//$('#list').jqxGrid('addrow', null, {}, 'first');

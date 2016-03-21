@@ -21,9 +21,11 @@ import java.util.TreeMap;
 import javax.servlet.http.HttpServletRequest;
 
 import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.type.TypeReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -75,15 +77,15 @@ public class Utilities {
 		return jsonString;
 	}
 	
-	public static <T> T jSonDeserialization(String jsonString) {
+	public static <T> T jSonDeserialization(String jsonString, Class<T> tClass) {
 		ObjectMapper objMapper = new ObjectMapper();
 		
 		T object = null;
-		/*try {
-			object = objMapper.readValue(jsonString, new TypeReference<T>(){} );
+		try {
+			object = objMapper.readValue(jsonString, tClass);
 		} catch (Exception ex) {
 			logger.error("Json Serialization : ", ex);
-		}*/
+		}
 		return object;
 	}
 	public static Date parseDate(String dateString){
@@ -112,8 +114,13 @@ public class Utilities {
 		return tempDate;
 	}
 	public static User getCurrentUser(){
-		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		return user;
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if(authentication != null && authentication.isAuthenticated()
+				&& !(authentication.getPrincipal() instanceof String) ){
+			User user = (User) authentication.getPrincipal();
+			return user;
+		}
+		return null;
 	}
 	public static boolean hasAdminRole(){
 		User user = getCurrentUser();
