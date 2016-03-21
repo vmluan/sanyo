@@ -40,7 +40,7 @@
     </filter>
     <filter-mapping>
         <filter-name>privelege</filter-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>/quotation/*</url-pattern>
     </filter-mapping>
     <session-config>
         <session-timeout>30</session-timeout>
