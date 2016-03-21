@@ -130,13 +130,13 @@ $("#list")
 								align : 'center',
 								width : '10%',
 							},
-							{
+							/*{
 								
 								text : 'Price Update',
 								/*datafield : 'revision',*/
-								align : 'center',
-								width : '10%',
-								cellsrenderer : function(row, column, value) {
+								//align : 'center',
+								//width : '10%',
+								/*cellsrenderer : function(row, column, value) {
 									var result = "";
 									//alert(StatusNeedUpdatePrice);
 									//alert(projectStatus);
@@ -148,14 +148,14 @@ $("#list")
 												+'<p>'
 													+ '<button id="update_price" class="btn btn-olive btn-primary update_price" onclick="update_price(this)"><span class="glyphicon spinning"></span>Update</button>';
 													/*'<button id="update_price" class="btn bg-olive margin col-md-2"  onclick="update_price()"' + '>Update</button>';*/
-									}
+									/*}
 									else result =
 												'<div class="col-md-12">'
 												+'<p>'
 													+ '<button id="" disabled class="btn bg-olive margin col-md-2"' + '>Update</button>';
 									return result;
-									}								
-							},
+									}*/								
+							//},*/
 							{
 								text : 'Action',
 								align : 'center',
@@ -173,9 +173,13 @@ $("#list")
 													+ '<button class="btn bg-navy margin col-md-3">Marker List</button>'
 													+ '<button class="btn bg-orange margin col-md-2" onclick="cloneProject('+ value +  ')"' + '>Copy</button>';
 									if(projectStatus != 'closed'){
-										result +=												'<button class="btn bg-maroon margin col-md-2" onclick="closeProject('+ value +  ')"' + '>Close</button>'
-									}
-									result +=													'<button class="btn btn-danger margin col-md-1" onclick="deleteProject('+ value +  ')"' + '>X</button>'
+										//alert(StatusNeedUpdatePrice);
+										disabledButtonUpdate();
+										result +=	'<button class="btn bg-maroon margin col-md-2" onclick="closeProject('+ value +  ')"' + '>Close</button>';
+										if(isAdmin == true)
+											result += '<button id="update_price" class="btn btn-olive btn-primary update_price" onclick="update_price(this)"><span class="glyphicon spinning"></span>Price Update</button>';
+									}				//+ '<button class="btn bg-maroon margin col-md-2" onclick="closeProject('+ value +  ')"' + '>Close1</button>';										
+									result +=	'<button class="btn btn-danger margin col-md-1" onclick="deleteProject('+ value +  ')"' + '>X</button>'
 												+ '</p>'
 											+ '</div>';
 									return result;
@@ -262,7 +266,9 @@ function update_price(th)
 		{
   //Example.show("Confirm result: "+result);
   			$(th).children().addClass("glyphicon-refresh");
-  			var projectID = $(th).parent().parent().parent().next().children().children().children().attr("onClick");
+  			//var projectID = $(th).parent().parent().parent().next().children().children().children().attr("onClick");
+			var projectID = $(th).prev().attr("onClick");
+			//console.log(projectID);
 			projectID = projectID.split("(").pop().split(")")[0];
 			//alert(projectID);
 			if (projectID == "")
@@ -294,9 +300,6 @@ function update_price(th)
 	});
 
 }
-$(".jqx-background-reset").scroll(function(event) {
-	alert("lkdf");
-});
 function disabledButtonUpdate(){
 	setTimeout(function(){
 
@@ -354,8 +357,9 @@ jQuery.fn.onPositionChanged = function (trigger, millis) {
 
     return o;
 };
-setTimeout(function(){	
+$("#jqxScrollThumbhorizontalScrollBarlist").onPositionChanged(function(){disabledButtonUpdate();});
+/*setTimeout(function(){	
 $(".update_price").onPositionChanged(function(){disabledButtonUpdate();});
-},10);
+},100);*/
 $(".bg-important").text(projectNeedUpdate);
 $(".notification").text("Có "+projectNeedUpdate+" project cần update giá mới");
