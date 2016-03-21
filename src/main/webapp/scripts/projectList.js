@@ -166,22 +166,23 @@ $("#list")
 									var result = 
 												'<div class="col-md-12">'
 												+'<p>'
-													+ '<button class="btn bg-olive margin col-md-2"  onclick="makeReport('+ value +  ')"' + '>Print</button>'
-													+ '<button class="btn bg-olive margin col-md-2"  onclick="makeReport('+ value + ',' + lang + ')"' + '>Print VN</button>'
-													+ '<button class="btn bg-olive margin col-md-2"  onclick="updateProduct('+ value +  ')"' + '>Basic Info</button>'
-													+ '<button class="btn bg-purple margin col-md-2" onclick="addQuotation('+ value +  ')"' + '>Quotation</button>'
-													+ '<button class="btn bg-navy margin col-md-3">Marker List</button>'
-													+ '<button class="btn bg-orange margin col-md-2" onclick="cloneProject('+ value +  ')"' + '>Copy</button>';
+													+ '<button style="float:none;margin:6px" class="btn bg-olive margin"  onclick="makeReport('+ value +  ')"' + '>Print</button>'
+													+ '<button style="float:none;margin:6px" class="btn bg-olive margin"  onclick="makeReport('+ value + ',' + lang + ')"' + '>Print VN</button>'
+													+ '<button style="float:none;margin:6px" class="btn bg-olive margin"  onclick="updateProduct('+ value +  ')"' + '>Basic Info</button>'
+													+ '<button style="float:none;margin:6px" class="btn bg-purple margin" onclick="addQuotation('+ value +  ')"' + '>Quotation</button>'
+													+ '<button style="float:none;margin:6px" class="btn bg-navy margin">Marker List</button>'
+													+ '<button style="float:none;margin:6px" class="btn bg-orange margin" onclick="cloneProject('+ value +  ')"' + '>Copy</button>';
 									if(projectStatus != 'closed'){
 										//alert(StatusNeedUpdatePrice);
-										disabledButtonUpdate();
-										result +=	'<button class="btn bg-maroon margin col-md-2" onclick="closeProject('+ value +  ')"' + '>Close</button>';
+										disabledButtonUpdate();										
 										if(isAdmin == true)
-											result += '<button id="update_price" class="btn btn-olive btn-primary update_price" onclick="update_price(this)"><span class="glyphicon spinning"></span>Price Update</button>';
-									}				//+ '<button class="btn bg-maroon margin col-md-2" onclick="closeProject('+ value +  ')"' + '>Close1</button>';										
-									result +=	'<button class="btn btn-danger margin col-md-1" onclick="deleteProject('+ value +  ')"' + '>X</button>'
+											result += '<button data-toggle="tooltip" title="price update for project" style="float:none;margin:6px" id="update_price" class="btn btn-olive btn-primary update_price" onclick="update_price(this)"><span class="glyphicon spinning"></span>Price Update</button>';
+											result +=	'<button style="float:none;margin:6px" class="btn bg-maroon margin col-md-2" onclick="closeProject('+ value +  ')"' + '>Close</button>';
+									}				
+								//+ '<button class="btn bg-maroon margin col-md-2" onclick="closeProject('+ value +  ')"' + '>Close1</button>';										
+									result +=	'<button style="float:none;margin:6px" class="btn btn-danger margin col-md-1" onclick="deleteProject('+ value +  ')"' + '>X</button>'
 												+ '</p>'
-											+ '</div>';
+											;
 									return result;
 								}
 							}
@@ -331,7 +332,7 @@ function disabledButtonUpdate(){
 		},0);
 }
 jQuery.fn.onPositionChanged = function (trigger, millis) {
-    if (millis == null) millis = 100;
+    if (millis == null) millis = 10;
     var o = $(this[0]); // our jquery object
     if (o.length < 1) return o;
 
@@ -363,3 +364,4 @@ $(".update_price").onPositionChanged(function(){disabledButtonUpdate();});
 },100);*/
 $(".bg-important").text(projectNeedUpdate);
 $(".notification").text("Có "+projectNeedUpdate+" project cần update giá mới");
+
