@@ -3,6 +3,7 @@ package com.sanyo.quote.domain;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -504,6 +505,7 @@ public class Project implements java.io.Serializable, Cloneable {
 	}
 
 	@Override
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public Project clone() throws CloneNotSupportedException {
 		Project clonedProject = (Project) super.clone();
 		clonedProject.setExpenses(null);

@@ -4,6 +4,18 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
                         http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+    <!-- To enable Method Security Expressions and custom PermissionEvaluator
+    we need to add the following -->
+    <global-method-security pre-post-annotations="enabled">
+        <expression-handler ref="expressionHandler" />
+    </global-method-security>
+
+    <beans:bean id="expressionHandler"
+          class="org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler">
+        <beans:property name="permissionEvaluator" ref="customPermissionEvaluator" />
+    </beans:bean>
+    <beans:bean class="com.sanyo.quote.web.util.CustomPermissionEvaluator" id="customPermissionEvaluator"/>
+
     <http use-expressions="true">
         <form-login login-page="/admin/login" authentication-failure-url="/security/loginfail" default-target-url="/" />
         
@@ -11,13 +23,20 @@
         
 <!--         <intercept-url pattern="/admin/users*" access="permitAll()" /> -->
 		<intercept-url pattern="/security/loginfail" access="permitAll()" />
-		<intercept-url pattern="/resources/styles/aquarius-theme/stylesheets.css" access="permitAll()" />		
+		<intercept-url pattern="/resources/styles/aquarius-theme/stylesheets.css" access="permitAll()" />
 		<intercept-url pattern="/resources/styles/aquarius-theme/**" access="permitAll()" />
-		<intercept-url pattern="/favicon.ico" access="permitAll()" />	
-		<intercept-url pattern="/**" access="hasRole('ROLE_USER')"  />
+		<intercept-url pattern="/favicon.ico" access="permitAll()" />
+
+
+
+        <intercept-url pattern="/**" access="hasRole('ROLE_USER') and isFullyAuthenticated()"  />
+        <intercept-url pattern="/admin/login" access="permitAll()" />
+        <intercept-url pattern="/j_spring_security_logout*" access="permitAll()" />
+        <!-- for projects page -->
+        <intercept-url pattern="/projects*" access="hasRole('ROLE_ADMIN')" method="POST" />
         <logout logout-success-url="/"/>
     </http>
-       
+
     <authentication-manager>
         <authentication-provider user-service-ref="authentificationService">
             <password-encoder hash="md5"></password-encoder>

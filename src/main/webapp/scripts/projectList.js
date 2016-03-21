@@ -213,7 +213,10 @@ function cloneProject(projectId){
 			$("#list").jqxGrid('updatebounddata');
 		},
 		complete : function(xhr, status) {
-
+			if(xhr.status==403)
+				alert('You have no permission to do this action');
+			else
+				alert('There is a problem with your request');
 		}
 });
 	
@@ -232,7 +235,10 @@ function deleteProject(projectId){
 			$("#list").jqxGrid('updatebounddata');
 		},
 		complete : function(xhr, status) {
-
+			if(xhr.status==403)
+				alert('You have no permission to do this action');
+			else
+				alert('There is a problem with your request');
 		}
 });
 	
@@ -250,7 +256,10 @@ function closeProject(projectId){
 			$("#list").jqxGrid('updatebounddata');
 		},
 		complete : function(xhr, status) {
-
+			if(xhr.status==403)
+				alert('You have no permission to do this action');
+			else
+				alert('There is a problem with your request');
 		}
 
 
@@ -293,6 +302,10 @@ function update_price(th)
 				},
 				complete : function(xhr, status) {
 					//alert(xhr);
+					if(xhr.status==403)
+						alert('You have no permission to do this action');
+					else
+						alert('There is a problem with your request');
 				}
 
 

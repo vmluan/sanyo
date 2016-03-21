@@ -47,8 +47,11 @@ public class PrivilegeFilter implements Filter{
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         // check privilege here
+        HttpServletRequest temp = (HttpServletRequest) servletRequest;
+
         MyRequestWrapper myRequestWrapper = null;
         boolean hasPrivilege = true;
+         //filterChain.doFilter(servletRequest,servletResponse);
         try {
             myRequestWrapper = new MyRequestWrapper((HttpServletRequest) servletRequest);
             hasPrivilege = checkPrivilege((HttpServletRequest)servletRequest,(HttpServletResponse)servletResponse,myRequestWrapper);
