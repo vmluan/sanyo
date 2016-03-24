@@ -182,6 +182,22 @@
 	</section>
     <div style="clear: both;"></div>
 	<script>
+	var oldStartDate = $("#startDate").attr("value");
+	function checkoldDate()
+	{
+		var newStartDate = $("#startDate").val(); 
+		var old = oldStartDate.split("/");
+		var newD = newStartDate.split("-");
+		
+		if(old[0].trim()==newD[1].trim())
+			if(old[1].trim()==newD[2].trim())
+				if(old[2].trim()==newD[0].trim())
+					return false;
+					//console.log(newD);
+		return true;
+	}
+	
+
 		var productID = "${product.productID}";
 		var groupID = "${product.productGroup.groupId}";
 		var groupName = "${product.productGroup.groupName}";
@@ -259,7 +275,11 @@
 	$('#endDate').val(getFormattedDateYear($('#endDate').attr("value"))); ///set value date for endDate
 	$('#startDate').val(getFormattedDateYear($('#startDate').attr("value"))); ///set value date for startDate
 	$("#sbmBtn").click(function(){
-		
+		if(!checkoldDate())
+		{
+			alert("Overlapped range.");
+			return false;
+		}
 		var errorMsg = new Array();
 		var form = document.getElementById('newUpdateProductForm');
 		var productCode = form.productCode.value;
