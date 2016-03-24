@@ -109,13 +109,13 @@
 			  <td style="border-top:none"></td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio1" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio1" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio1" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio1" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -131,13 +131,13 @@
 			  <td ></td>
 			  <td ></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio2" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio2" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio2" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio2" type="radio"/></td>
 			  <td style="border-top:none;border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -189,13 +189,13 @@
 			  drawings/documents.</td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio3" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio3" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio3" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio3" type="radio"/></td>
 			  <td style="border-top:none;border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -212,13 +212,13 @@
 			  shop drawings/documents.</font></td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio4" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio4"  type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio4" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio4" type="radio"/></td>
 			  <td style="border-top:none;border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -235,13 +235,13 @@
 			  drawings/documents.</td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio5" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio5" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio5" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio5" type="radio"/></td>
 			  <td style="border-top:none;border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -258,13 +258,13 @@
 			  <td colspan="5">4) Preparation of a operation manual and
 			  maintenance manual.</td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio6" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio6" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio6" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio6" type="radio"/></td>
 			  <td style="border-top:none;border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -281,13 +281,13 @@
 			  <td ></td>
 			  <td ></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio7" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio7" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio7" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio7" type="radio"/></td>
 			  <td style="border-top:none;border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -304,13 +304,13 @@
 			  <td colspan="5">6) Application procedure to the regional
 			  government office.</td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio8" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio8" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio8" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio8" type="radio"/></td>
 			  <td style="border-top:none;border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -362,10 +362,10 @@
 			  <td colspan="3">1) Procurement of equipment.</td>
 			  <td ></td>
 			  <td ></td>
-			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4"><input class="checkbox" type="checkbox"/></td>
-			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4"><input class="checkbox" type="checkbox"/></td>
-			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4"><input class="checkbox" type="checkbox"/></td>
-			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4"><input class="checkbox" type="checkbox"/></td>
+			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4"><input class="checkbox" name="radio9" type="radio"/></td>
+			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4"><input class="checkbox" name="radio9" type="radio"/></td>
+			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4"><input class="checkbox" name="radio9" type="radio"/></td>
+			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4"><input class="checkbox" name="radio9" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -381,13 +381,13 @@
 			  <td colspan="5">2) Domestic transportation (until a specified
 			  warehouse).</td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio10" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio10" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio10" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio10" type="radio"/></td>
 			  <td style="border-top:none;border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -402,13 +402,13 @@
 			  <td colspan="5" width="365" style="width:274pt">3) Specified
 			  warehouse - F. O. B</td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio11" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio11" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio11" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio11" type="radio"/></td>
 			  <td style="border-top:none;border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -424,13 +424,13 @@
 			  <td style="border-top:none"></td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio12" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio12" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio12" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio12" type="radio"/></td>
 			  <td style="border-top:none;border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -448,13 +448,13 @@
 			  <td style="border-top:none"></td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio13" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio13" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio13" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio13" type="radio"/></td>
 			  <td style="border-top:none;border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -470,13 +470,13 @@
 			  <td style="border-top:none"></td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio14" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio14" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio14" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio14" type="radio"/></td>
 			  <td style="border-top:none;border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -494,13 +494,13 @@
 			  <td style="border-top:none"></td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio15" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio15" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio15" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio15" type="radio"/></td>
 			  <td style="border-top:none;border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -518,13 +518,13 @@
 			  <td colspan="5" width="365" style="width:274pt">8) Disposal of
 			  packing materials, arrangement and cleaning.</td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio16" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio16" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio16" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio16" type="radio"/></td>
 			  <td style="border-top:none;border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="20" style="height:15.0pt">
@@ -540,13 +540,13 @@
 			  <td style="border-top:none"></td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio17" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio17" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio17" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio17" type="radio"/></td>
 			  <td style="border-top:none;border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -563,13 +563,13 @@
 			  <td style="border-top:none"></td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio18" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio18" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio18" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio18" type="radio"/></td>
 			  <td style="border-top:none;border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -586,13 +586,13 @@
 			  facilities</td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio19" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio19" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio19" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio19" type="radio"/></td>
 			  <td style="border-top:none;border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -607,13 +607,13 @@
 			  <td colspan="5">12) Observation inspection at equipment
 			  manufacturing plant.</td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio20" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio20" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio20" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio20" type="radio"/></td>
 			  <td style="border-top:none;border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -667,13 +667,13 @@
 			  <td style="border-top:none"></td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio21" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio21" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio21" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio21" type="radio"/></td>
 			  <td style="border-top:none;border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -691,13 +691,13 @@
 			  <td style="border-top:none"></td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio22" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio22" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio22" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio22" type="radio"/></td>
 			  <td style="border-top:none;border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -715,13 +715,13 @@
 			  home leave )</td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio23" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio23" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio23" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio23" type="radio"/></td>
 			  <td style="border-top:none;border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -740,13 +740,13 @@
 			  <td style="border-top:none"></td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio24" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio24" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio24" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio24" type="radio"/></td>
 			  <td style="border-top:none;border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -765,13 +765,13 @@
 			  <td style="border-top:none"></td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio25" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio25" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio25" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio25" type="radio"/></td>
 			  <td style="border-top:none;border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -787,13 +787,13 @@
 			  <td colspan="4">6) Maintenance and control for the above.</td>
 			  <td ></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio26" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio26" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio26" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio26" type="radio"/></td>
 			  <td style="border-top:none;border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -811,13 +811,13 @@
 			  <td style="border-top:none"></td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio27" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio27" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio27" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio27" type="radio"/></td>
 			  <td style="border-top:none;border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -834,13 +834,13 @@
 			  Transportation expenses after airport in local country and seeing off and
 			  meeting.</td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio28" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio28" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio28" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio28" type="radio"/></td>
 			  <td style="border-top:none;border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -916,13 +916,13 @@
 			  country.</td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio29" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio29" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio29" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio29" type="radio"/></td>
 			  <td style="border-top:none;border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -941,13 +941,13 @@
 			  <td style="border-top:none"></td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio30" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio30" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio30" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio30" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -967,13 +967,13 @@
 			  <td style="border-top:none"></td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio31" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio31" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio31" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio31" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -991,13 +991,13 @@
 			  <td style="border-top:none"></td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio32" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio32" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio32" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio32" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -1077,13 +1077,13 @@
 			  <td style="border-top:none"></td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio33" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio33" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio33" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio33" type="radio"/></td>
 			  <td style="border-top:none;border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -1101,13 +1101,13 @@
 			  Export amount collection insurance.</td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio34" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio34" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio34" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio34" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -1125,13 +1125,13 @@
 			  <td style="border-top:none"></td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio35" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio35" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio35" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio35" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -1151,13 +1151,13 @@
 			  <td style="border-top:none"></td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio36" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio36" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio36" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio36" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -1200,13 +1200,13 @@
 			  style="mso-spacerun:yes">   </span>a) Overseas workmen"s labor accident
 			  compensation insurance (legal accident).</td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio37" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio37" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio37" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio37" type="radio"/></td>
 			  <td style="border-top:none;border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -1221,13 +1221,13 @@
 			  Overseas traveler"s accident insurance.</td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio38" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio38" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio38" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio38" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -1243,13 +1243,13 @@
 			  <td colspan="5">3) Workmen"s labor accident compensation
 			  insurance in site.</td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio39" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio39" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio39" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio39" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -1293,13 +1293,13 @@
 			  Fire insurance for temporary facility.</td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio40" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio40" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio40" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio40" type="radio"/></td>
 			  <td style="border-top:none;border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -1317,13 +1317,13 @@
 			  <td style="border-top:none"></td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio41" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio41" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio41" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio41" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -1340,13 +1340,13 @@
 			  Construction and assembly insurance.</td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio42" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio42" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio42" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio42" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -1428,13 +1428,13 @@
 			  <td style="border-top:none"></td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio43" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio43" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio43" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio43" type="radio"/></td>
 			  <td style="border-top:none;border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -1454,13 +1454,13 @@
 			  <td style="border-top:none"></td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio44" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio44" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio44" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio44" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -1504,13 +1504,13 @@
 			  <td style="border-top:none"></td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio45" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio45" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio45" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio45" type="radio"/></td>
 			  <td style="border-top:none;border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -1529,13 +1529,13 @@
 			  <td style="border-top:none"></td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio46" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio46" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio46" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio46" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -1555,13 +1555,13 @@
 			  <td style="border-top:none"></td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio47" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio47" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio47" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio47" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -1605,13 +1605,13 @@
 			  <td style="border-top:none"></td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio48" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio48" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio48" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio48" type="radio"/></td>
 			  <td style="border-top:none;border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -1631,13 +1631,13 @@
 			  <td style="border-top:none"></td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio49" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio49" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio49" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio49" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -1657,13 +1657,13 @@
 			  <td style="border-top:none"></td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio50" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio50" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio50" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio50" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -1683,13 +1683,13 @@
 			  <td style="border-top:none"></td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio51" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio51" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio51" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio51" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -1741,13 +1741,13 @@
 			  contractor</td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio52" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio52" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio52" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio52" type="radio"/></td>
 			  <td style="border-top:none;border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -1764,13 +1764,13 @@
 			  <td style="border-top:none"></td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio53" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio53" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio53" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio53" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -1788,13 +1788,13 @@
 			  <td style="border-top:none"></td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio54" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio54" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio54" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio54" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -1812,13 +1812,13 @@
 			  <td style="border-top:none"></td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio55" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio55" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio55" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio55" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -1837,13 +1837,13 @@
 			  style="mso-spacerun:yes">                                                        
 			  </span>(Main-Con shall be provided space for free of charge)</td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio56" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio56" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio56" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio56" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -1860,13 +1860,13 @@
 			  <td style="border-top:none"></td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio57" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio57" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio57" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio57" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -1885,13 +1885,13 @@
 			  <td style="border-top:none"></td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio58" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio58" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio58" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio58" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -1910,13 +1910,13 @@
 			  <td style="border-top:none"></td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio59" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio59" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio59" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio59" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -1933,13 +1933,13 @@
 			  <td colspan="5">9) Power source for construction, water source
 			  equipment</td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio60" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio60" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio60" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio60" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -1956,13 +1956,13 @@
 			  run)</td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio61" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio61" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio61" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio61" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -1979,13 +1979,13 @@
 			  run)</td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio62" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio62" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio62" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio62" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -2001,13 +2001,13 @@
 			  <td colspan="5">12) Heavy machines for construction.(including
 			  operators)</td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio63" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio63" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio63" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio63" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -2026,13 +2026,13 @@
 			  <td style="border-top:none"></td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="18" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio64" type="radio"/></td>
 			  <td rowspan="18" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio64" type="radio"/></td>
 			  <td rowspan="18" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio64" type="radio"/></td>
 			  <td rowspan="18" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio64" type="radio"/></td>
 			  <td rowspan="18" width="188" style="border-bottom:.5pt solid #A4BED4;
 			  width:141pt"><input class="InputContent"/><br/>
 			    <input class="InputContent"/></td>
@@ -2229,13 +2229,13 @@
 			  <td colspan="4">13) Maintenance and control for the above</td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio65" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio65" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio65" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio65" type="radio"/></td>
 			  <td style="border-top:none;border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -2252,13 +2252,13 @@
 			  <td style="border-top:none"></td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio66" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio66" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio66" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio66" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -2275,13 +2275,13 @@
 			  <td colspan="4">15) Maintenance and control for the above.</td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio67" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio67" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio67" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio67" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -2297,13 +2297,13 @@
 			  <td colspan="5" width="365" style="width:274pt">16) Scaffolding
 			  for construction (including material and construction)</td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio68" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio68" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio68" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio68" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -2320,13 +2320,13 @@
 			  <td style="border-top:none"></td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio69" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio69" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio69" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio69" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -2343,13 +2343,13 @@
 			  <td colspan="4">18) Copying machine, blueprint, copy paper</td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio70" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio70" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio70" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio70" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -2367,13 +2367,13 @@
 			  <td style="border-top:none"></td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio71" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio71" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio71" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio71" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -2390,13 +2390,13 @@
 			  <td colspan="4">20) Acetylene, oxygen for construction.</td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio72" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio72" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio72" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio72" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -2413,13 +2413,13 @@
 			  devices for construction materials and its maintenance and control.<span
 			  style="mso-spacerun:yes">    </span></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio73" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio73" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio73" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio73" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -2435,13 +2435,13 @@
 			  commissioning.</td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio74" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio74" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio74" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio74" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -2458,13 +2458,13 @@
 			  <td style="border-top:none"></td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio75" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio75" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio75" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio75" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -2483,13 +2483,13 @@
 			  <td style="border-top:none"></td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio76" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio76" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio76" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio76" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -2546,13 +2546,13 @@
 			  remained soil.</td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio77" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio77" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio77" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio77" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -2568,13 +2568,13 @@
 			  <td colspan="5">2) Entry setting for carrying equipment and
 			  closing construction.</td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio78" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio78" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio78" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio78" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -2590,13 +2590,13 @@
 			  <td colspan="4">3) Preparation of the above drawing, marking.</td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio79" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio79" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio79" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio79" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -2614,13 +2614,13 @@
 			  equipment.</td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio80" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio80" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio80" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio80" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -2636,13 +2636,13 @@
 			  <td colspan="4">5) Construction of foundation for equipment.</td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio81" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio81" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio81" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio81" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -2659,13 +2659,13 @@
 			  <td colspan="4">6) Preparation of the drawing for the above.</td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio82" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio82" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio82" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio82" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -2682,13 +2682,13 @@
 			  <td colspan="5">7) Opening filling and rough correction at
 			  Concrete structure</td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio83" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio83" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio83" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio83" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -2704,13 +2704,13 @@
 			  <td style="border-top:none"></td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio84" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio84" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio84" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio84" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -2728,13 +2728,13 @@
 			  <td style="border-top:none"></td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio85" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio85" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio85" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio85" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -2752,13 +2752,13 @@
 			  structure</td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio86" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio86" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio86" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio86" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -2775,13 +2775,13 @@
 			  Ceiling/wall Board</td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio87" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio87" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio87" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio87" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -2797,13 +2797,13 @@
 			  <td colspan="5">12) Control Panel &amp; control cabling for
 			  mechanical Systems</td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio88" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio88" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio88" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio88" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -2819,13 +2819,13 @@
 			  <td colspan="4">13) Concrete cover for the underground piping.</td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio89" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio89" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio89" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio89" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -2841,13 +2841,13 @@
 			  <td colspan="5" width="365" style="width:274pt">14) Concrete,
 			  sand, ballast, reinforcing bars for miscellaneous works.</td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio90" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio90" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio90" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio90" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -2862,13 +2862,13 @@
 			  <td colspan="5" width="365" style="width:274pt">15) Protection
 			  cover/sheet after finishing area</td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio91" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio91" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio91" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio91" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -2883,13 +2883,13 @@
 			  <td colspan="5" width="365" style="width:274pt">16) Disposal
 			  industrial Wastes/rubbish</td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio92" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio92" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio92" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio92" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -2905,13 +2905,13 @@
 			  <td colspan="5" width="365" style="width:274pt">17) Temporary
 			  Works</td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio93" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio93" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio93" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio93" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -2927,13 +2927,13 @@
 			  <td colspan="5" width="365" style="width:274pt">18<font
 			  class="font516672">) Any items does not mention in this quotation</font></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio94" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio94" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio94" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio94" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -3015,13 +3015,13 @@
 			  <td style="border-top:none"></td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio95" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio95" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio95" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio95" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">
@@ -3043,13 +3043,13 @@
 			  <td style="border-top:none"></td>
 			  <td style="border-top:none"></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio96" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio96" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio96" type="radio"/></td>
 			  <td rowspan="2" style="border-bottom:.5pt solid #A4BED4;
-			  border-top:none"><input class="checkbox" type="checkbox"/></td>
+			  border-top:none"><input class="checkbox" name="radio96" type="radio"/></td>
 			  <td style="border-left:none"><input class="InputContent"/></td>
 			 </tr>
 			 <tr height="17" style="height:12.75pt">

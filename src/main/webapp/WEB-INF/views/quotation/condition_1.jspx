@@ -185,10 +185,10 @@
 			  </table>
 			  </span></td>
 			  <td colspan="4" rowspan="2"  width="310" style="width:232pt">Minimum
-			  Requirement for duration is ${summonth}  months</td>
+			  Requirement for duration is ${summonth}  months ${CountWeek} weeks ${sumDay} days</td>
 			  <td ></td>
 			  <td ></td>
-			  <td ></td>
+			  <td ></td> 
 			  <td ></td>
 			  <td ></td>
 			 </tr>

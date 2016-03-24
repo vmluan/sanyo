@@ -40,24 +40,14 @@ public class Condition1Controller extends CommonController {
 		Date startDate=project.getStartDate();
 		Date endate = project.getEndDate();
 		
-		int startmonth = startDate.getMonth();
-		int startyear = startDate.getYear();
-		int endmonth = endate.getMonth();
-		int endyear = endate.getYear();
-		int summonth=0;
-		if(startyear==endyear)
-		{
-			summonth=endmonth-startmonth;
-		}
-		else
-			if(startyear < endyear)
-			{
-				int month=12*(endyear-startyear);
-				summonth = (month - startmonth) + endmonth;
-			}
-		
+		CountDate countdate = new CountDate();
+		int sumMonth = countdate.CountMonth(startDate, endate);
+		int sumDay = countdate.CountDay(startDate, endate);
+		int CountWeek = countdate.CountWeek(startDate, endate);
 		uiModel.addAttribute("project", project);
-		uiModel.addAttribute("summonth", summonth);
+		uiModel.addAttribute("summonth", sumMonth);
+		uiModel.addAttribute("sumDay", sumDay);
+		uiModel.addAttribute("CountWeek", CountWeek);
 		return "quotation/condition_1";
 	}
 }
