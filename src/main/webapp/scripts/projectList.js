@@ -215,8 +215,6 @@ function cloneProject(projectId){
 		complete : function(xhr, status) {
 			if(xhr.status==403)
 				alert('You have no permission to do this action');
-			else
-				alert('There is a problem with your request');
 		}
 });
 	
@@ -237,8 +235,6 @@ function deleteProject(projectId){
 		complete : function(xhr, status) {
 			if(xhr.status==403)
 				alert('You have no permission to do this action');
-			else
-				alert('There is a problem with your request');
 		}
 });
 	
@@ -258,8 +254,6 @@ function closeProject(projectId){
 		complete : function(xhr, status) {
 			if(xhr.status==403)
 				alert('You have no permission to do this action');
-			else
-				alert('There is a problem with your request');
 		}
 
 
@@ -304,8 +298,6 @@ function update_price(th)
 					//alert(xhr);
 					if(xhr.status==403)
 						alert('You have no permission to do this action');
-					else
-						alert('There is a problem with your request');
 				}
 
 
