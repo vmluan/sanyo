@@ -23,7 +23,7 @@ DROP TRIGGER IF EXISTS locationAddTrigger;
 		DELIMITER ;
 		
 		
-		
+drop trigger IF EXISTS locationDeleteTrigger;
 	
 		### for udpate trigger
 DROP TRIGGER IF EXISTS locationOrderHistAddTrigger;
