@@ -13,7 +13,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "expenses", catalog = "sanyo")
-public class Expenses implements Serializable {
+public class Expenses implements Serializable, Cloneable {
 	private Integer expenseID;
 	private Project project;
 	private ExpenseElements expenseElement;
@@ -107,5 +107,16 @@ public class Expenses implements Serializable {
 
 	public void setSum(float sum) {
 		Sum = sum;
+	}
+
+	@Override
+	public Object clone() throws CloneNotSupportedException{
+		Expenses clonedObj = (Expenses) super.clone();
+		clonedObj.setExpenseID(null);
+		clonedObj.setProject(null);
+		clonedObj.setExpenseElement(null);
+		ExpenseElements clonedExpenseElem = (ExpenseElements) this.expenseElement.clone();
+		clonedObj.setExpenseElement(clonedExpenseElem);
+		return clonedObj;
 	}
 }

@@ -130,6 +130,9 @@ public class MakerProject implements java.io.Serializable, Cloneable{
 	public MakerProject clone() throws CloneNotSupportedException {
 		// TODO Auto-generated method stub
 		MakerProject clonedObj = (MakerProject) super.clone();
+		clonedObj.setId(null);
+		//ProductGroupMaker productGroupMaker = (ProductGroupMaker) this.productGroupMaker.clone();
+		//clonedObj.setProductGroupMaker(productGroupMaker);
 		return clonedObj;
 	}
 }

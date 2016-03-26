@@ -8,6 +8,9 @@
 package com.sanyo.quote.test;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -146,10 +149,15 @@ public class RegionTest {
 		
 //		reportExcel.setLanguage(Constants.LANG_VN);
 		String homePath = "";
-		XSSFWorkbook workbook =  reportExcel.writeExcelReportClientForProject( homePath,project, "template_quotaion_client.xlsx");
+	//	XSSFWorkbook workbook =  reportExcel.writeExcelReportClientForProject( homePath,project, "template_quotaion_client.xlsx");
 //		XSSFWorkbook workbook =  reportExcel.writeExcelReportClientForProject( homePath,project, "template_quotaion_client_vietnamese.xlsx");
 		
 //		System.out.println(expensesService.getSiteExpensesH23(project));
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd hh:mm:ss");
+		Date date = Calendar.getInstance().getTime();
+		String message = sdf.format(date);
+		System.out.println(message);
 	}
 
 }

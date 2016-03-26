@@ -22,7 +22,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "condition2", catalog = "sanyo")
-public class Condition2 implements Serializable{
+public class Condition2 implements Serializable, Cloneable{
 
 	private Integer conditionid;	
 	
@@ -85,4 +85,11 @@ public class Condition2 implements Serializable{
 		this.contents = contents;
 	}
 
+	@Override
+	public Condition2 clone() throws CloneNotSupportedException {
+		Condition2 clonedObj = (Condition2) super.clone();
+		clonedObj.setConditionid(null);
+		clonedObj.setProject(null);
+		return clonedObj;
+	}
 }

@@ -7,6 +7,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 import java.util.Set;
@@ -513,10 +515,20 @@ public class Project implements java.io.Serializable, Cloneable {
 		clonedProject.setRevisions(null);
 		clonedProject.setMakerProjects(null);
 //		clonedProject.setProductGroupMakers(null);
-		clonedProject.setCreatedDate(new Date());
+		Date date = Calendar.getInstance().getTime();
+		clonedProject.setCreatedDate(date);
+		clonedProject.setLmodDate(date);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmmss.SSS");
+
+		String timeStamp = sdf.format(date);
 		clonedProject.setStatus(ProjectStatus.ONGOING);
-		clonedProject.setProjectCode(clonedProject.getProjectCode() + "_" + new Random().nextInt()%11);
-		clonedProject.setProjectName(clonedProject.getProjectName() + "_" + new Random().nextInt()%11);
+		String projectCode = clonedProject.getProjectCode() + "_" + timeStamp;
+		String projectName = clonedProject.getProjectName() + "_" + timeStamp;
+		projectCode = (projectCode.length() >=200) ?  projectCode.substring(0,199) : projectCode;
+		projectName = (projectName.length() >=200) ? projectName.substring(0,199) : projectName;
+
+		clonedProject.setProjectCode(projectCode);
+		clonedProject.setProjectName(projectName);
 		clonedProject.setProjectId(null);
 		return clonedProject;
 	}
