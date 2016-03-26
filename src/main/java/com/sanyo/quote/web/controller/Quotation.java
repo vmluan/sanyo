@@ -1,6 +1,7 @@
 package com.sanyo.quote.web.controller;
 
 import com.sanyo.quote.domain.*;
+import com.sanyo.quote.domain.Currency;
 import com.sanyo.quote.helper.Constants;
 import com.sanyo.quote.helper.Utilities;
 import com.sanyo.quote.service.*;
@@ -393,11 +394,27 @@ public class Quotation extends CommonController {
 		encounterService.delete(Integer.valueOf(id));
        
 	}
+	private Float convertPrice(Float total, Project project){
+		Currency currency = project.getCurrency();
+		if(currency != null
+				&& currency.getCurrencyCode().equalsIgnoreCase("VND")){
+			// convert usd to vnd
+			total = total * project.getUsdToVnd();
+
+
+		}else if(currency != null
+				&& currency.getCurrencyCode().equalsIgnoreCase("JPY")){
+			// convert usd to jpy
+			total = total * project.getUsdToJpy();
+		}
+		return total;
+	}
 	@RequestMapping(value = "/{id}/getLocationSum", method = RequestMethod.POST)
 	@ResponseBody
 	public String getLocationSum(@PathVariable("id") Integer id, Model uiModel, HttpServletRequest httpServletRequest){
 		Float total = 0f;
 		Location location = locationService.findByIdAndFetchRegionsEagerly(id);
+		Project project = location.getProject();
 		if(location != null){
 			Set<Region> regions = location.getRegions();
 			Iterator<Region> iterator = regions.iterator();
@@ -416,6 +433,8 @@ public class Quotation extends CommonController {
 
 			}
 		}
+	if(total >0)
+		total = convertPrice(total, project);
 	return total.toString();
 	}
 	//function to update price for encounters of specific project.
@@ -536,35 +555,42 @@ public class Quotation extends CommonController {
 	}
 
 	@RequestMapping(value = "/getLocationSum", method = RequestMethod.GET)
-		@ResponseBody
-		public String getLocationSum(
-				@RequestParam(value="locationIds", required=true) String locationIds
-				, @RequestParam(value="projectId", required=true) String projectId
-				, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
-			Float total = 0f;
-			boolean isAllLocation = false;
+	@ResponseBody
+	public String getLocationSum(
+			@RequestParam(value = "locationIds", required = true) String locationIds
+			, @RequestParam(value = "projectId", required = true) String projectId
+			, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
+		Float total = 0f;
+		boolean isAllLocation = false;
+		Project project = projectService.findById(Integer.valueOf(projectId));
 //			for(String id : locationIds.split(",")){
 //				if(id.equalsIgnoreCase("0")){
 //					isAllLocation = true;
 //					break;
 //				}
 //			}
-			if(isAllLocation){
-				Project project = projectService.findById(Integer.valueOf(projectId));
-				List<Location> locations = locationService.findByProject(project);
-				for(Location location : locations){
-					total += getSummOfLocation(location);
-				}
-			}else{
-				for(String id : locationIds.split(",")){
-					if(id.equalsIgnoreCase("0"))
-						continue;
-					Location location = locationService.findById(Integer.valueOf(id));
-					total += getSummOfLocation(location);
-				}
+		if (isAllLocation) {
+
+			List<Location> locations = locationService.findByProject(project);
+			for (Location location : locations) {
+				total += getSummOfLocation(location);
 			}
-		return total.toString();
+		} else {
+			for (String id : locationIds.split(",")) {
+				if (id.equalsIgnoreCase("0"))
+					continue;
+				Location location = locationService.findById(Integer.valueOf(id));
+				total += getSummOfLocation(location);
+			}
 		}
+		Currency currency = project.getCurrency();
+		if (currency != null
+				&& currency.getCurrencyCode().equalsIgnoreCase("VND")) {
+			return String.valueOf((int)Math.ceil(total));
+
+		}
+		return total.toString();
+	}
 
 	private float getSummOfLocation(Location location) {
 			Float total = 0f;
@@ -574,28 +600,42 @@ public class Quotation extends CommonController {
 					total += getSumOfRegion(region);
 				}
 			}
+		if(total > 0)
+			total = convertPrice(total,location.getProject());
 			return total;
 		}
 
 	@RequestMapping(value = "/getRegionSum", method = RequestMethod.GET)
 		@ResponseBody
-		public String getRegionSum(
-				@RequestParam(value="regionIds", required=true) String locationIds
-				, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
-			Float total = 0f;
-			for(String id : locationIds.split(",")){
-				if(id.equalsIgnoreCase("0"))
-					continue;
-				Region region = regionService.findById(Integer.valueOf(id));
-				total += getSumOfRegion(region);
-			}
-			return total.toString();
+	public String getRegionSum(
+			@RequestParam(value = "regionIds", required = true) String locationIds
+			, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
+		Float total = 0f;
+		Project project = null;
+		for (String id : locationIds.split(",")) {
+			if (id.equalsIgnoreCase("0"))
+				continue;
+			Region region = regionService.findById(Integer.valueOf(id));
+			total += getSumOfRegion(region);
+			if(project == null)
+				project = region.getLocation().getProject();
 		}
+		if(total > 0 && project != null)
+			total = convertPrice(total, project);
+
+		Currency currency = project.getCurrency();
+		if (currency != null
+				&& currency.getCurrencyCode().equalsIgnoreCase("VND")) {
+			return String.valueOf((int)Math.ceil(total));
+
+		}
+		return total.toString();
+	}
 
 	private float getSumOfRegion(Region region) {
 			Float total = 0f;
 			List<Encounter> encounters = encounterService.findByRegion(region);
-			for(Encounter encounter : encounters){
+			for(Encounter encounter : encounters) {
 				total += encounter.getAmount();
 			}
 			return total;
