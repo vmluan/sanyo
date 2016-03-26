@@ -141,301 +141,25 @@ var urlResult = pageContext + "/quotation/getAssignedProductOfRegion";
 		loadError : function(xhr, status, error) {
 		}
 	});
-	/*
-	$("#listResult")
-	.jqxGrid(
-			{
-				width : '100%',
-				height : '100%',
-				theme : 'energyblue',
-				rowsheight : 45,
-				source : dataAdapterResult,
-				filterable : true,
-				editable : true,
-				groupable : true,
-			//	groupsrenderer : groupsrenderer,
-				pageable : true,
-				columnsresize : true,
-				//autorowheight: true,
-				showstatusbar: true,
-				statusbarheight: 45,
-				altrows: true,						
-				showaggregates: true,
-				columns : [
-						{
-							text : 'Region',
-							datafield : 'regionName',
-							align : 'center',
-							cellsalign : 'right',
-							width : '15%',
-							cellclassname: cellclass
-						},
-						{
-							text : 'No',
-							datafield : 'order',
-							align : 'center',
-							cellsalign : 'right',
-							cellsformat : 'n',
-							width : '15%',
-							cellclassname: cellclass
-						},
-				        {
-							text : 'Description',
-							datafield : 'productName',
-							align : 'center',
-							cellsalign : 'right',
-							editable: false,
-							width : '15%',
-							cellclassname: cellclass
-						},								
-						{
-							text : 'Unit',
-							datafield : 'unit',
-							align : 'center',
-							cellsalign : 'right',
-							editable: false,
-							width : '15%',
-							cellclassname: cellclass
-						},
-						{
-							text : 'Quantity',
-							datafield : 'actualQuantity',
-							align : 'center',
-							cellsalign : 'right',
-							editable: false,
-							cellsformat : 'n',
-							width : '15%',
-							cellclassname: cellclass
-						},
-						{
-							text : 'Unit Rate',
-							datafield : 'unitRate',
-							align : 'center',
-							cellsalign : 'right',
-							editable: false,
-							cellsformat : 'c2',
-							width : '15%',
-							cellclassname: cellclass
-						},
-						{
-							text : 'Amount',
-							datafield : 'amount',
-							align : 'center',
-							cellsalign : 'right',
-							editable: false,
-							cellsformat : 'c2',
-							width : '15%',
-							aggregates: ['sum'],
-							cellclassname: cellclass
-						},
-						{
-							text : 'Percent',
-							datafield : 'nonamePercent',
-							align : 'center',
-							cellsalign : 'right',
-							cellsformat : 'p2',
-							width : '15%',
-							cellclassname: cellclass
-						},
-						{
-							text : 'Range',
-							datafield : 'nonameRange',
-							align : 'center',
-							cellsalign : 'right',
-							width : '15%',
-							cellclassname: cellclass
-						},								
-						{
-							text : 'Remark',
-							datafield : 'remark',
-							align : 'center',
-							cellsalign : 'right',
-							// cellsformat : 'c0',
-							width : '15%',
-							cellclassname: cellclass
-						},
-						{
-							text : 'Qty',
-							datafield : 'quantity',
-							align : 'center',
-							cellsalign : 'right',
-							cellsformat : 'n',
-							width : '15%',
-							cellclassname: cellclass
-						},								
-						{
-							text : 'Labour',
-							datafield : 'labour',
-							align : 'center',
-							cellsalign : 'right',
-							cellsformat : 'c2',
-							editable: false,
-							width : '15%',
-							cellclassname: cellclass
-						},
-						{
-							text : 'Mat w/o Tax USD',
-							datafield : 'mat_w_o_Tax_USD',
-							align : 'center',
-							cellsalign : 'right',
-							cellsformat : 'c2',
-							editable: false,
-							width : '15%',
-							cellclassname: cellclass
-						},
-						{
-							text : 'Mat w/o Tax VND',
-							datafield : 'mat_w_o_Tax_VND',
-							align : 'center',
-							cellsalign : 'right',
-							cellsformat : 'c2',
-							editable: false,
-							width : '15%',
-							cellclassname: cellclass
-						},
-						{
-							text : 'Labour (database)',
-							datafield : 'labourProduct',
-							align : 'center',
-							cellsalign : 'right',
-							cellsformat : 'c2',
-							editable: false,
-							width : '15%',
-							cellclassname: cellclass
-						},								
-						{
-							text : 'Imp Tax',
-							datafield : 'imp_Tax',
-							align : 'center',
-							cellsalign : 'right',
-							cellsformat : 'p2',
-							editable: false,
-							width : '15%',
-							cellclassname: cellclass
-						},
-						{
-							text : 'Special con. Tax',
-							datafield : 'special_Con_Tax',
-							align : 'center',
-							cellsalign : 'right',
-							cellsformat : 'p2',
-							editable: false,
-							width : '15%',
-							cellclassname: cellclass
-						},
-						{
-							text : 'VAT',
-							datafield : 'vat',
-							align : 'center',
-							cellsalign : 'right',
-							cellsformat : 'p2',
-							editable: false,
-							width : '15%',
-							cellclassname: cellclass
-						},
-						{
-							text : 'Discount rate %',
-							datafield : 'discount_rate',
-							align : 'center',
-							cellsalign : 'right',
-							cellsformat : 'p2',
-							editable: false,
-							width : '15%',
-							cellclassname: cellclass
-						},
-						{
-							text : 'Unit price after discount',
-							datafield : 'unit_Price_After_Discount',
-							align : 'center',
-							cellsalign : 'right',
-							cellsformat : 'p2',
-							editable: false,
-							width : '15%',
-							cellclassname: cellclass
-						},
-						{
-							text : 'Allowance',
-							datafield : 'allowance',
-							align : 'center',
-							cellsalign : 'right',
-							cellsformat : 'p2',
-							editable: false,
-							width : '15%',
-							cellclassname: cellclass
-						},
-						{
-							text : 'Unit price w Tax & profit',
-							datafield : 'unit_Price_W_Tax_Profit',
-							align : 'center',
-							cellsalign : 'right',
-							cellsformat : 'c2',
-							editable: false,
-							width : '15%',
-							cellclassname: cellclass
-						},
-						{
-							text : 'Subcon profit',
-							datafield : 'subcon_Profit',
-							align : 'center',
-							cellsalign : 'right',
-							cellsformat : 'p2',
-							editable: false,
-							width : '15%',
-							cellclassname: cellclass
-						},
-						{
-							text : 'Unit price w Tax – labour',
-							datafield : 'unit_Price_W_Tax_Labour',
-							align : 'center',
-							cellsalign : 'right',
-							// cellsformat : 'c0',
-							editable: false,
-							width : '15%',
-							cellclassname: cellclass
-						},
-						{
-							text : 'Cost - Mat amount USD',
-							datafield : 'cost_Mat_Amount_USD',
-							align : 'center',
-							cellsalign : 'right',
-							// cellsformat : 'c0',
-							editable: false,
-							width : '10%',
-							cellclassname: cellclass
-						},
-						{
-							text : 'Cost - Labour amount USD',
-							datafield : 'cost_Labour_Amount_USD',
-							align : 'center',
-							cellsalign : 'right',
-							cellsformat : 'c2',
-							editable: false,
-							width : '10%',
-							cellclassname: cellclass
-						},
-						{
-							text : 'Action',
-							align : 'center',
-							datafield : 'encounterID',
-							width : '30%',
-						cellsrenderer : function(row, column, value) {
-							return '<div class="col-md-12">'
-										+'<p>'
-											+ '<button class="btn bg-olive margin col-md-4"  onclick="updateItem('+ row +  ')"' + '>Update</button>'
-											+ '<button class="btn btn-danger margin col-md-4" onclick="deleteItem('+ value +  ')"' +'>Delete</button>'
-										+ '</p>'
-									+ '</div>'
-									;
-						},
-							cellbeginedit : function(row) {
-								return false;
-							}
-						} ],
-				groups : [ 'regionName' ]
-			});
-*/			
-$("#locationSum").jqxNumberInput({ width: '250px', height: '25px', symbol: '$', disabled: true, decimalDigits: 2, digits: 12, max: 999999999999});
-$("#regionSum").jqxNumberInput({ width: '250px', height: '25px', symbol: '$', disabled: true, decimalDigits: 2, digits: 12, max: 999999999999});
+// will update currency and format based on vnd or usd.
+if(currency == 'VND'){
+	$("#locationSum").jqxNumberInput({ width: '250px', height: '25px', symbol: 'VND', disabled: true, decimalDigits: 0, digits: 13, max: 999999999999
+		,groupSeparator: "."});
+	$("#regionSum").jqxNumberInput({ width: '250px', height: '25px', symbol: 'VND', disabled: true, decimalDigits: 0, digits: 13, max: 999999999999
+		,groupSeparator: "."});
+
+} else if(currency = 'JPY'){
+	$("#locationSum").jqxNumberInput({ width: '250px', height: '25px', symbol: '$', disabled: true, decimalDigits: 2, digits: 12, max: 999999999999
+		,groupSeparator: "," });
+	$("#regionSum").jqxNumberInput({ width: '250px', height: '25px', symbol: '$', disabled: true, decimalDigits: 2, digits: 12, max: 999999999999
+		,groupSeparator: ","});
+
+}else{
+	$("#locationSum").jqxNumberInput({ width: '250px', height: '25px', symbol: 'JPY', disabled: true, decimalDigits: 2, digits: 12, max: 999999999999
+		,groupSeparator: ","});
+	$("#regionSum").jqxNumberInput({ width: '250px', height: '25px', symbol: 'JPY', disabled: true, decimalDigits: 2, digits: 12, max: 999999999999
+		,groupSeparator: ","});
+}
 var urlLocation = pageContext + "/quotation/getAssignedLocationsJson";
 // prepare the data
 var sourceLocation = {
@@ -836,6 +560,11 @@ function saveEncounter(row,isUpdate) {
 		data : jsonData,
 		url : url,
 		success : function(msg) {
+			if(msg == null || msg==""){
+				alert('You do not have privilege on this action');
+				return;
+			}
+			console.log(msg);
 			$("#list").jqxGrid('updatebounddata');
 
 			//$('#list').jqxGrid('addrow', null, {}, 'first');

@@ -11,6 +11,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +34,8 @@ public class DefaultProjectService implements ProjectService {
 	@Autowired
 	private ProjectRepository projectRepository;
 
+	// filterObject refers to the current object in the collection
+	//@PostAuthorize("hasPermission(filterObject, 'WRITE')")
 	@Transactional(readOnly=true)
 	public List<Project> findAll() {
 		return Lists.newArrayList(projectRepository.findAll());
@@ -44,7 +48,8 @@ public class DefaultProjectService implements ProjectService {
 			project.setCurrencyId(project.getCurrency().getCurrencyId());
 		return project;
 	}
-
+	//@PreAuthorize("hasPermission(#Project, 'ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public Project save(Project Project) {
 		Project project =  projectRepository.save(Project);
 		if(project.getCurrency() != null)
@@ -243,11 +248,13 @@ public class DefaultProjectService implements ProjectService {
 	}
 
 	@Override
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public void delete(Integer id) {
 		projectRepository.delete(id);
 	}
 
 	@Override
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public void delte(Project project) {
 		projectRepository.delete(project);
 		

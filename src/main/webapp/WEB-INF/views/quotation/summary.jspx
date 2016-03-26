@@ -144,6 +144,10 @@ span > .glyphicon-plus:hover,span >.glyphicon-minus:hover
     font-weight: bold;
     color: #5D0000;
 }
+.glyphicon
+{
+	
+}
 </style>
 <div id="productGroupRate">
 
@@ -151,6 +155,7 @@ span > .glyphicon-plus:hover,span >.glyphicon-minus:hover
 
 <div class="">
 <!--create by DuongPhan, date 24/01/2016    ELECTRICAL WORK-->
+    <c:if test = "${electricalLocation.size()>0}">
     <div class="row">
         <div class="panel panel-primary filterable">
             <div class="panel-heading" id="electricel">            
@@ -187,12 +192,12 @@ span > .glyphicon-plus:hover,span >.glyphicon-minus:hover
 	                        <td class="col-sm-3">${Regionvalues.regionName}</td>
 	                        <td>Lot</td>
 	                        <td>${Encountervalues.quantity}</td>
-	                        <td>${Encountervalues.unitRate}</td>
+	                        <td><!--${Encountervalues.unitRate}--></td>
 	                        <td>${Encountervalues.amount}</td>
 	                        <td>${Encountervalues.remark}</td>
 	                        <td>${Encountervalues.cost_Mat_Amount_USD}</td>
 	                        <td>${Encountervalues.labour}</td>
-	                        <td><fmt:formatNumber value="${(Encountervalues.cost_Mat_Amount_USD+Encountervalues.labour)}" type="number" pattern="###,#####.#####" /> </td>
+	                        <td><fmt:formatNumber value="${(Encountervalues.cost_Mat_Amount_USD+Encountervalues.labour)}" type="number" pattern="###.####" /> </td>
 	                    </tr>
 	                    </c:if>
                    		</c:forEach>
@@ -244,6 +249,8 @@ span > .glyphicon-plus:hover,span >.glyphicon-minus:hover
             </div>         
         </div>
     </div>
+    </c:if>
+    <c:if test = "${metricalLocation.size()>0}">
     <div class="row">
         <div class="panel panel-primary filterable">
             <div class="panel-heading" id="metricel">            
@@ -280,7 +287,7 @@ span > .glyphicon-plus:hover,span >.glyphicon-minus:hover
                             <td class="col-sm-3">${Regionvalues.regionName}</td>
                             <td>Lot</td>
                             <td>${Encountervalues.quantity}</td>
-                            <td>${Encountervalues.unitRate}</td>
+                            <td><!--${Encountervalues.unitRate}--></td>
                             <td>${Encountervalues.amount}</td>
                             <td>${Encountervalues.remark}</td>
                             <td>${Encountervalues.cost_Mat_Amount_USD}</td>
@@ -337,6 +344,7 @@ span > .glyphicon-plus:hover,span >.glyphicon-minus:hover
             </div>         
         </div>
     </div>
+    </c:if>
 <!--////nhan cong -->
     
     <div class="row">

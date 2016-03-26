@@ -20,6 +20,7 @@ var dataAdapter = new $.jqx.dataAdapter(source, {
     downloadComplete: function(data, status, xhr) {
     },
     loadComplete: function(data) {
+
     },
     loadError: function(xhr, status, error) {
     }
@@ -44,13 +45,14 @@ $("#jqxgridProductHist").jqxGrid(
 					columntype : 'number',
 					align : 'center',
 					cellsrenderer : function(row, column, value) {
+                        console.log(value);
 						return "<div style='margin:4px;'>"
 								+ (value + 1) + "</div>";
 					}
 				},
                 {text: 'Max W/O Tax USD', datafield: 'max_w_o_tax_usd', width: '20%',cellsformat: 'c0',cellsalign: 'right'},
 				{text: 'Max W/O Tax VND', datafield: 'max_w_o_tax_vnd', width: '20%',cellsformat: 'c0',cellsalign: 'right'},
-                {text: 'Labour', datafield: 'labour', align: 'right', cellsalign: 'right', cellsformat: 'c0', columntype: 'numberinput', width: '15%'},
+                {text: 'Labour', datafield: 'labour', align: 'right', cellsalign: 'right', cellsformat: 'c2', width: '15%'},
 				{text: 'Start Date', datafield: 'issuedDate', align: 'right', cellsalign: 'right', cellsformat: 'MM/dd/yyyy hh:mm:ss',  width: '20%'},
 				{text: 'End Date', datafield: 'expiredDate', align: 'right', cellsalign: 'right', cellsformat: 'MM/dd/yyyy hh:mm:ss', width: '20%'},
 

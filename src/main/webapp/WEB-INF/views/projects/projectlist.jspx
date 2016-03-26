@@ -97,6 +97,7 @@
 	var projectStatus = "${projectStatus}";
 	var StatusNeedUpdatePrice= ${StatusNeedUpdatePrice};
 	var projectNeedUpdate = ${projectNeedUpdate};
+	var isAdmin = ${isAdmin};
 	if(projectStatus == 'closed'){
 		activeLink('liClosed');
 	}else{

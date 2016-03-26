@@ -2,6 +2,7 @@ package com.sanyo.quote.service;
 
 import java.util.List;
 
+import com.sanyo.quote.domain.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
@@ -24,4 +25,5 @@ public interface UserRegionRoleService {
 	List<UserRegionRole> findAssignedRegionsByUserName(String username);
 	List<Project> findAssignedProjectsByUserName(String username);
 	void delete(Integer id);
+	public List<UserRegionRole> findByRegionAndUser(Region region, User user);
 }

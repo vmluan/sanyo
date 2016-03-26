@@ -59,6 +59,8 @@ public class CommonController {
 	}
 	public void setUser(Model uiModel){
 		org.springframework.security.core.userdetails.User user = Utilities.getCurrentUser();
+		if(user == null)
+			return;
 		uiModel.addAttribute("userName", user.getUsername());
 		com.sanyo.quote.domain.User userSanyo = userService.findByUserName(user.getUsername());
 		uiModel.addAttribute("logginUser",userSanyo);

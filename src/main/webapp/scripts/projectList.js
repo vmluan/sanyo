@@ -130,32 +130,32 @@ $("#list")
 								align : 'center',
 								width : '10%',
 							},
-							{
+							/*{
 								
 								text : 'Price Update',
 								/*datafield : 'revision',*/
-								align : 'center',
-								width : '10%',
-								cellsrenderer : function(row, column, value) {
+								//align : 'center',
+								//width : '10%',
+								/*cellsrenderer : function(row, column, value) {
 									var result = "";
 									//alert(StatusNeedUpdatePrice);
 									//alert(projectStatus);
 
-									if(projectStatus == 'ongoing'){
+									if(projectStatus == 'ongoing' && isAdmin == true){
 										disabledButtonUpdate();									
 										result =
 												'<div class="col-md-12" style="margin: auto;padding-top: 10px;">'
 												+'<p>'
 													+ '<button id="update_price" class="btn btn-olive btn-primary update_price" onclick="update_price(this)"><span class="glyphicon spinning"></span>Update</button>';
 													/*'<button id="update_price" class="btn bg-olive margin col-md-2"  onclick="update_price()"' + '>Update</button>';*/
-									}
+									/*}
 									else result =
 												'<div class="col-md-12">'
 												+'<p>'
 													+ '<button id="" disabled class="btn bg-olive margin col-md-2"' + '>Update</button>';
 									return result;
-									}								
-							},
+									}*/								
+							//},*/
 							{
 								text : 'Action',
 								align : 'center',
@@ -166,18 +166,23 @@ $("#list")
 									var result = 
 												'<div class="col-md-12">'
 												+'<p>'
-													+ '<button class="btn bg-olive margin col-md-2"  onclick="makeReport('+ value +  ')"' + '>Print</button>'
-													+ '<button class="btn bg-olive margin col-md-2"  onclick="makeReport('+ value + ',' + lang + ')"' + '>Print VN</button>'
-													+ '<button class="btn bg-olive margin col-md-2"  onclick="updateProduct('+ value +  ')"' + '>Basic Info</button>'
-													+ '<button class="btn bg-purple margin col-md-2" onclick="addQuotation('+ value +  ')"' + '>Quotation</button>'
-													+ '<button class="btn bg-navy margin col-md-3">Marker List</button>'
-													+ '<button class="btn bg-orange margin col-md-2" onclick="cloneProject('+ value +  ')"' + '>Copy</button>';
+													+ '<button style="float:none;margin:6px" class="btn bg-olive margin"  onclick="makeReport('+ value +  ')"' + '>Print</button>'
+													+ '<button style="float:none;margin:6px" class="btn bg-olive margin"  onclick="makeReport('+ value + ',' + lang + ')"' + '>Print VN</button>'
+													+ '<button style="float:none;margin:6px" class="btn bg-olive margin"  onclick="updateProduct('+ value +  ')"' + '>Basic Info</button>'
+													+ '<button style="float:none;margin:6px" class="btn bg-purple margin" onclick="addQuotation('+ value +  ')"' + '>Quotation</button>'
+													+ '<button style="float:none;margin:6px" class="btn bg-navy margin">Marker List</button>'
+													+ '<button style="float:none;margin:6px" class="btn bg-orange margin" onclick="cloneProject('+ value +  ')"' + '>Copy</button>';
 									if(projectStatus != 'closed'){
-										result +=												'<button class="btn bg-maroon margin col-md-2" onclick="closeProject('+ value +  ')"' + '>Close</button>'
-									}
-									result +=													'<button class="btn btn-danger margin col-md-1" onclick="deleteProject('+ value +  ')"' + '>X</button>'
+										//alert(StatusNeedUpdatePrice);
+										disabledButtonUpdate();										
+										if(isAdmin == true)
+											result += '<button data-toggle="tooltip" title="price update for project" style="float:none;margin:6px" id="update_price" class="btn btn-olive btn-primary update_price" onclick="update_price(this)"><span class="glyphicon spinning"></span>Price Update</button>';
+											result +=	'<button style="float:none;margin:6px" class="btn bg-maroon margin col-md-2" onclick="closeProject('+ value +  ')"' + '>Close</button>';
+									}				
+								//+ '<button class="btn bg-maroon margin col-md-2" onclick="closeProject('+ value +  ')"' + '>Close1</button>';										
+									result +=	'<button style="float:none;margin:6px" class="btn btn-danger margin col-md-1" onclick="deleteProject('+ value +  ')"' + '>X</button>'
 												+ '</p>'
-											+ '</div>';
+											;
 									return result;
 								}
 							}
@@ -208,7 +213,8 @@ function cloneProject(projectId){
 			$("#list").jqxGrid('updatebounddata');
 		},
 		complete : function(xhr, status) {
-
+			if(xhr.status==403)
+				alert('You have no permission to do this action');
 		}
 });
 	
@@ -227,7 +233,8 @@ function deleteProject(projectId){
 			$("#list").jqxGrid('updatebounddata');
 		},
 		complete : function(xhr, status) {
-
+			if(xhr.status==403)
+				alert('You have no permission to do this action');
 		}
 });
 	
@@ -245,7 +252,8 @@ function closeProject(projectId){
 			$("#list").jqxGrid('updatebounddata');
 		},
 		complete : function(xhr, status) {
-
+			if(xhr.status==403)
+				alert('You have no permission to do this action');
 		}
 
 
@@ -262,7 +270,9 @@ function update_price(th)
 		{
   //Example.show("Confirm result: "+result);
   			$(th).children().addClass("glyphicon-refresh");
-  			var projectID = $(th).parent().parent().parent().next().children().children().children().attr("onClick");
+  			//var projectID = $(th).parent().parent().parent().next().children().children().children().attr("onClick");
+			var projectID = $(th).prev().attr("onClick");
+			//console.log(projectID);
 			projectID = projectID.split("(").pop().split(")")[0];
 			//alert(projectID);
 			if (projectID == "")
@@ -286,6 +296,8 @@ function update_price(th)
 				},
 				complete : function(xhr, status) {
 					//alert(xhr);
+					if(xhr.status==403)
+						alert('You have no permission to do this action');
 				}
 
 
@@ -294,23 +306,38 @@ function update_price(th)
 	});
 
 }
-$(".jqx-background-reset").scroll(function(event) {
-	alert("lkdf");
-});
 function disabledButtonUpdate(){
 	setTimeout(function(){
+
 			$(".update_price").each(function(index){
-				index = StatusNeedUpdatePrice.length - index-1;
-				if(StatusNeedUpdatePrice[index]!=true)
+				if(StatusNeedUpdatePrice!=null)
+				{
+					if(StatusNeedUpdatePrice.length==0)
+					{
+						$(this).attr("disabled","true");
+						$(this).removeAttr("onClick");
+					}
+					else
+					{
+						index = StatusNeedUpdatePrice.length - index-1;
+						if(StatusNeedUpdatePrice[index]!=true)
+						{
+							$(this).attr("disabled","true");
+							$(this).removeAttr("onClick");
+						}
+					}
+				}
+				else
 				{
 					$(this).attr("disabled","true");
 					$(this).removeAttr("onClick");
 				}
+				
 			});
 		},0);
 }
 jQuery.fn.onPositionChanged = function (trigger, millis) {
-    if (millis == null) millis = 100;
+    if (millis == null) millis = 10;
     var o = $(this[0]); // our jquery object
     if (o.length < 1) return o;
 
@@ -336,8 +363,10 @@ jQuery.fn.onPositionChanged = function (trigger, millis) {
 
     return o;
 };
-setTimeout(function(){	
+$("#jqxScrollThumbhorizontalScrollBarlist").onPositionChanged(function(){disabledButtonUpdate();});
+/*setTimeout(function(){	
 $(".update_price").onPositionChanged(function(){disabledButtonUpdate();});
-},0);
+},100);*/
 $(".bg-important").text(projectNeedUpdate);
 $(".notification").text("Có "+projectNeedUpdate+" project cần update giá mới");
+

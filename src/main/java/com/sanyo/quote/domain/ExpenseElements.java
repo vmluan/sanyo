@@ -10,7 +10,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "expenseelements", catalog = "sanyo")
-public class ExpenseElements implements Serializable {
+public class ExpenseElements implements Serializable, Cloneable{
     //removed the old design
     //NORMAL,//for normal records in the main table of sheet
     //SUB_TITLE, //for Sub-title records in the main table of sheet
@@ -58,5 +58,11 @@ public class ExpenseElements implements Serializable {
 
     public void setDefaultRate(float defaultRate) {
         this.defaultRate = defaultRate;
+    }
+    @Override
+    public Object clone() throws CloneNotSupportedException{
+        ExpenseElements obj = (ExpenseElements) super.clone();
+        obj.setExpenseElementID(null);
+        return obj;
     }
 }

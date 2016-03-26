@@ -101,5 +101,22 @@
 
 		END; //
 
+		-- delete project
 		DELIMITER ;
+        
+		DROP TRIGGER IF EXISTS deleteProjectTrigger;
+		DELIMITER //
+
+		CREATE TRIGGER deleteProjectTrigger
+		before DELETE
+		   ON sanyo.project FOR EACH ROW
+		   BEGIN
+		  		BEGIN
+		  			DELETE from sanyo.productgrouprate
+		  			WHERE project_id = OLD.project_id;
+
+		  			DELETE from sanyo.condition2
+		  			WHERE project_id = OLD.project_id;
+		  		END;
+		   END; //
 
