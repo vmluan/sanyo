@@ -18,7 +18,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "revision", catalog = "sanyo")
-public class ProjectRevision implements java.io.Serializable{
+public class ProjectRevision implements java.io.Serializable, Cloneable{
 	private Integer revisionId;
 	@DateTimeFormat(pattern = "MM/dd/yyyy")
 	private Date date;
@@ -75,6 +75,13 @@ public class ProjectRevision implements java.io.Serializable{
 	}
 	public void setLmodDate(Date lmodDate) {
 		this.lmodDate = lmodDate;
+	}
+
+	@Override
+	public Object clone() throws CloneNotSupportedException{
+		ProjectRevision obj = (ProjectRevision) super.clone();
+		obj.setRevisionId(null);
+		return obj;
 	}
 
 }

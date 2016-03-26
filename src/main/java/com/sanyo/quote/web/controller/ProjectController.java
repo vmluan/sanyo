@@ -844,6 +844,14 @@ public class ProjectController extends CommonController {
 			makerProjectService.save(clonedMP);
 		}
 	}
+	public void cloneRevisions(Project sourceProject, Project clonedProject) throws  CloneNotSupportedException{
+		List<ProjectRevision> projectRevisions = projectRevisionService.findRevisions(sourceProject);
+		for(ProjectRevision projectRevision : projectRevisions){
+			ProjectRevision clonedObj = (ProjectRevision) projectRevision.clone();
+			clonedObj.setProject(clonedProject);
+			projectRevisionService.save(clonedObj);
+		}
+	}
 	//method to show form for creating new revision
 	@RequestMapping(value = "/{id}/revisions", params = "form", method = RequestMethod.GET)
     public String callCreateProjectRevisions(@PathVariable("id") Integer id, Model uiModel) {
@@ -1158,6 +1166,7 @@ public class ProjectController extends CommonController {
 		//cloneProductGroupMakers(project.getProjectId(), clonedProject);
 		this.cloneLocation(project.getProjectId(), clonedProject);
 		this.cloneCondition2(project, clonedProject);
+		this.cloneRevisions(project, clonedProject);
 
 	}
 	public void cloneLocation(Integer projectId, Project clonedProject) throws CloneNotSupportedException{
