@@ -22,6 +22,6 @@ public interface ProjectRevisionService {
 	void delete(Integer id);
 	void delete(ProjectRevision projectRevision);
 	List<ProjectRevision> findRevisions(Project project);
-	
+	List<ProjectRevision> findByProjectOrderByDateAsc(Project project);
 	ProjectRevision findLatestRevision(Project project);
 }

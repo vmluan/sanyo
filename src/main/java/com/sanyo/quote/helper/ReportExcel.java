@@ -180,18 +180,23 @@ public class ReportExcel extends ExcelHelper{
 		
 		List<ProjectRevision> revisions = projectRevisionService.findRevisions(project);
 		
+		int num = 20;
+		boolean isDateCreated = false;
 		for(ProjectRevision revision : revisions){
 			RowCount rowCount2 = new RowCount();
-			rowCount2.setRowCount(20);
+			rowCount2.setRowCount(num);
 			Row row = sheet.createRow(rowCount2.getRowCount());
 			Cell date = row.createCell(2);
 			date.setCellValue("Date : ");
-			
-			Cell cellRvsDate = row.createCell(3);
-			cellRvsDate.setCellValue(Utilities.formatDate(revision.getDate()));
+			if(isDateCreated){
+				Cell cellRvsDate = row.createCell(3);
+				cellRvsDate.setCellValue(Utilities.formatDate(revision.getDate()));
+				isDateCreated = true;
+			}
 			
 			Cell cellRvsNo = row.createCell(6);
 			cellRvsNo.setCellValue(revision.getRevisionNo());
+			num ++;
 		}
 		
 		Cell cellPeriodVald = sheet.getRow(27).getCell(6);
@@ -224,20 +229,25 @@ public class ReportExcel extends ExcelHelper{
 			Cell cellClient = sheet.getRow(15).getCell(3);
 			cellClient.setCellValue(project.getCustomerName());
 			
-			List<ProjectRevision> revisions = projectRevisionService.findRevisions(project);
+			List<ProjectRevision> revisions = projectRevisionService.findByProjectOrderByDateAsc(project);
 			
+			int rountCount = 18;
+			boolean isDateCreated = false;
 			for(ProjectRevision revision : revisions){
 				RowCount rowCount2 = new RowCount();
-				rowCount2.setRowCount(18);
+				rowCount2.setRowCount(rountCount);
 				Row row = sheet.createRow(rowCount2.getRowCount());
-				Cell date = row.createCell(2);
-				date.setCellValue("Date : ");
-				
+				if(!isDateCreated){
+					Cell date = row.createCell(2);
+					date.setCellValue("Date : ");
+					isDateCreated = true;
+				}
 				Cell cellRvsDate = row.createCell(3);
 				cellRvsDate.setCellValue(Utilities.formatDate(revision.getDate()));
 				
 				Cell cellRvsNo = row.createCell(6);
 				cellRvsNo.setCellValue(revision.getRevisionNo());
+				rountCount++;
 			}
 			
 			Cell cellPeriodVald = sheet.getRow(25).getCell(6);
@@ -853,6 +863,8 @@ private void createRegionHeaderRow(Region region, XSSFSheet sheet, RowCount rowC
 				}else if(i==5){
 					//product quantity
 					writeCellValue(cell, encounter.getQuantity());
+					XSSFCellStyle style = getCellStyleForNumber(sheet.getWorkbook());
+					cell.setCellStyle(style);
 				}else if(i==6){
 					//unit rate
 					writeCellValue(cell, encounter.getUnitRate());
