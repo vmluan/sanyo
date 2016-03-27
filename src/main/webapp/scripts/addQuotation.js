@@ -148,16 +148,16 @@ if(currency == 'VND'){
 	$("#regionSum").jqxNumberInput({ width: '250px', height: '25px', symbol: 'VND', disabled: true, decimalDigits: 0, digits: 13, max: 999999999999
 		,groupSeparator: ","});
 
-} else if(currency = 'JPY'){
-	$("#locationSum").jqxNumberInput({ width: '250px', height: '25px', symbol: '$', disabled: true, decimalDigits: 2, digits: 12, max: 999999999999
+} else if(currency == 'JPY'){
+	$("#locationSum").jqxNumberInput({ width: '250px', height: '25px', symbol: 'JPY', disabled: true, decimalDigits: 2, digits: 12, max: 999999999999
 		,groupSeparator: "." });
-	$("#regionSum").jqxNumberInput({ width: '250px', height: '25px', symbol: '$', disabled: true, decimalDigits: 2, digits: 12, max: 999999999999
+	$("#regionSum").jqxNumberInput({ width: '250px', height: '25px', symbol: 'JPY', disabled: true, decimalDigits: 2, digits: 12, max: 999999999999
 		,groupSeparator: "."});
 
 }else{
-	$("#locationSum").jqxNumberInput({ width: '250px', height: '25px', symbol: 'JPY', disabled: true, decimalDigits: 2, digits: 12, max: 999999999999
+	$("#locationSum").jqxNumberInput({ width: '250px', height: '25px', symbol: '$', disabled: true, decimalDigits: 2, digits: 12, max: 999999999999
 		,groupSeparator: "."});
-	$("#regionSum").jqxNumberInput({ width: '250px', height: '25px', symbol: 'JPY', disabled: true, decimalDigits: 2, digits: 12, max: 999999999999
+	$("#regionSum").jqxNumberInput({ width: '250px', height: '25px', symbol: '$', disabled: true, decimalDigits: 2, digits: 12, max: 999999999999
 		,groupSeparator: "."});
 }
 var urlLocation = pageContext + "/quotation/getAssignedLocationsJson";

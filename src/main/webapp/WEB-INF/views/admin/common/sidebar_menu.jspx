@@ -8,17 +8,19 @@
             <li class="header">HEADER</li>
             <!-- Optionally, you can add icons to the links -->
             <li class="active sanyoHead" id="liOnGoing"><a href="${pageContext.request.contextPath}/projects?status=ongoing"><i class="fa fa-link"><jsp:text/></i> <span>Ongoing Projects</span></a></li>
-            <li class="sanyoHead" id="liClosed"><a href="${pageContext.request.contextPath}/projects?status=closed"><i class="fa fa-link"><jsp:text/></i> <span>Completed Projects</span></a></li>
-            <li class="sanyoHead" id="liProduct"><a href="${pageContext.request.contextPath}/products"><i class="fa fa-link"><jsp:text/></i> <span>Products Maintenance</span></a></li>
-            <!-- li><a href="${pageContext.request.contextPath}/projects"><i class="fa fa-link"><jsp:text/></i> <span>Reports</span></a></li-->
-            <li class="treeview sanyoHead" id="liAdmin">
-              <a href="#"><i class="fa fa-link"><jsp:text/></i> <span>Admin</span> <i class="fa fa-angle-left pull-right"><jsp:text/></i></a>
-              <ul class="treeview-menu">
-                <li id="liUser"><a href="${pageContext.request.contextPath}/admin/users">User Maintenance</a></li>
-                <li id="liRole"><a href="${pageContext.request.contextPath}/admin/roles">Role Maintenance</a></li>
-                <li id="liCategory"><a href="${pageContext.request.contextPath}/admin/categories">Category Maintenance</a></li>
-                <li id="liCurrency"><a href="${pageContext.request.contextPath}/currency">Currency Exchange Rates</a></li>
-              </ul>
-            </li>
+           <c:if test="${isAdminrole}">
+                <li class="sanyoHead" id="liClosed"><a href="${pageContext.request.contextPath}/projects?status=closed"><i class="fa fa-link"><jsp:text/></i> <span>Completed Projects</span></a></li>
+                <li class="sanyoHead" id="liProduct"><a href="${pageContext.request.contextPath}/products"><i class="fa fa-link"><jsp:text/></i> <span>Products Maintenance</span></a></li>
+                <!-- li><a href="${pageContext.request.contextPath}/projects"><i class="fa fa-link"><jsp:text/></i> <span>Reports</span></a></li-->
+                <li class="treeview sanyoHead" id="liAdmin">
+                  <a href="#"><i class="fa fa-link"><jsp:text/></i> <span>Admin</span> <i class="fa fa-angle-left pull-right"><jsp:text/></i></a>
+                  <ul class="treeview-menu">
+                    <li id="liUser"><a href="${pageContext.request.contextPath}/admin/users">User Maintenance</a></li>
+                    <li id="liRole"><a href="${pageContext.request.contextPath}/admin/roles">Role Maintenance</a></li>
+                    <li id="liCategory"><a href="${pageContext.request.contextPath}/admin/categories">Category Maintenance</a></li>
+                    <li id="liCurrency"><a href="${pageContext.request.contextPath}/currency">Currency Exchange Rates</a></li>
+                  </ul>
+                </li>
+           </c:if>
           </ul><!-- /.sidebar-menu -->
 </html>   

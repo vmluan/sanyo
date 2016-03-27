@@ -2,6 +2,7 @@ package com.sanyo.quote.web.controller;
 
 import com.sanyo.quote.domain.*;
 import com.sanyo.quote.domain.Currency;
+import com.sanyo.quote.domain.User;
 import com.sanyo.quote.helper.Constants;
 import com.sanyo.quote.helper.Utilities;
 import com.sanyo.quote.service.*;
@@ -10,6 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -63,12 +67,17 @@ public class Quotation extends CommonController {
 
 	@Autowired
 	private EncounterOrderHistService encounterOrderHistService;
+	@Autowired
+	private UserRegionRoleService userRegionRoleService;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String getQuotationPage(@RequestParam(value="projectId", required=true) String projectId,
 			Model uiModel,HttpServletRequest httpServletRequest) {
 		Project project = projectService.findById(Integer.valueOf(projectId));
 		uiModel.addAttribute("projectId", projectId);
+		uiModel.addAttribute("hasPrivilegeElec", hasPrivilege(project, Constants.ELECT_BOQ));
+		uiModel.addAttribute("hasPrivilegeMec", hasPrivilege(project, Constants.MECH_BOQ));
+		uiModel.addAttribute("hasAdminRole", hasAdminRole());
 		String status = "";
 		String currentProjecs = "";
 		if(project.getStatus().equals(ProjectStatus.ONGOING)){
@@ -146,9 +155,66 @@ public class Quotation extends CommonController {
 			uiModel.addAttribute("needUpdatePrice", true);
 		uiModel.addAttribute("regionType", httpServletRequest.getParameter("type"));
 		uiModel.addAttribute("project", project);
+		uiModel.addAttribute("hasPrivilegeElec", hasPrivilege(project, Constants.ELECT_BOQ));
+		uiModel.addAttribute("hasPrivilegeMec", hasPrivilege(project, Constants.MECH_BOQ));
+		uiModel.addAttribute("currency", project.getCurrency().getCurrencyCode());
 		setUser(uiModel);
 
 		return "quotation/create";
+	}
+	private com.sanyo.quote.domain.User getLoggedInUser(){
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if(authentication != null && authentication.isAuthenticated()){
+			if(!authentication.getPrincipal().toString().equalsIgnoreCase("anonymousUser")){
+				org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
+				logger.info("========= preHandle. username = " + user.getUsername());
+				com.sanyo.quote.domain.User userSanyo = userService.findByUserName(user.getUsername());
+				return userSanyo;
+			}
+		}
+		return null;
+	}
+	private boolean hasAdminRole(){
+		com.sanyo.quote.domain.User userSanyo = getLoggedInUser();
+		List<Group> rolesList = userSanyo.getGrouplist();
+		for(Group role : rolesList){
+			if("ROLE_ADMIN".equalsIgnoreCase(role.getGroupName())){
+				return true;
+			}
+		}
+		return false;
+	}
+	private boolean hasPrivilege(Project project, String boq){
+		com.sanyo.quote.domain.User userSanyo = getLoggedInUser();
+		List<Group> rolesList = userSanyo.getGrouplist();
+		for(Group role : rolesList){
+			if("ROLE_ADMIN".equalsIgnoreCase(role.getGroupName())){
+				return true;
+			}
+		}
+		List<Location> locations = locationService.findByProject(project);
+		for(Location location : locations){
+			List<Region> regions = regionService.findByLocation(location);
+			for(Region region : regions){
+				List<UserRegionRole> userRegionRoleList = userRegionRoleService.findByRegionAndUser(region,userSanyo);
+				if(userRegionRoleList != null && !userRegionRoleList.isEmpty()){
+					for(UserRegionRole userRegionRole : userRegionRoleList){
+						String roleName = userRegionRole.getRoleName();
+						if((roleName.equalsIgnoreCase("EDIT") || roleName.equalsIgnoreCase("VIEW"))
+								&& region.getCategory().getParentCategory() != null
+								&& region.getCategory().getParentCategory().getName().equalsIgnoreCase(boq)
+								){
+							return true;
+						}else{
+							return false;
+						}
+					}
+				}else{
+					return false;
+				}
+			}
+		}
+		return false;
 	}
 	private boolean isNeedUpdatePrice(Project project){
 		List<Location> locations = locationService.findByProject(project);
@@ -791,7 +857,7 @@ public class Quotation extends CommonController {
 		for(Encounter encounter : encounters){
 			float amount = encounter.getAmount();
 			float cost_mat_amount_usd = encounter.getCost_Mat_Amount_USD();
-			encounter.setAmount((int)Math.ceil(amount * rate));
+			encounter.setAmount((int) Math.ceil(amount * rate));
 			//encounter.setCost_Mat_Amount_USD((int)Math.ceil(cost_mat_amount_usd * rate));
 
 		}
