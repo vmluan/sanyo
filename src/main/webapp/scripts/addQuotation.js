@@ -1,164 +1,164 @@
 var cellclass = function (row, column, value, data) {
-    var val = $('#listResult').jqxGrid('getcellvalue', row, "hasMakerDeleted");
-    if (val == true) {
-        return "yellowCell";
-    }
+	var val = $('#listResult').jqxGrid('getcellvalue', row, "hasMakerDeleted");
+	if (val == true) {
+		return "yellowCell";
+	}
 }
 
 var urlResult = pageContext + "/quotation/getAssignedProductOfRegion";
 
-	var sourceResult = {
-		datatype : "json",
-		datafields : [ {
-			name : 'productName',
-			map : 'product>productName'
-		}, {
-			name : 'productCode',
-			map : 'product>productCode'
-		}, {
-			name : 'regionName',
-			map : 'region>regionName'
-		}, {
-			name : 'order',
-			type : 'string'
-		}, {
-			name : 'unitRate',
-			type : 'string'
-		}, {
-			name : 'quantity',
-			type : 'string'
-		}, {
-			name : 'encounterID',
-			type : 'number'
-		}, {
-			name : 'actualQuantity',
-			type : 'string'
-		}, {
-			name : 'amount',
-			type : 'string'
+var sourceResult = {
+	datatype : "json",
+	datafields : [ {
+		name : 'productName',
+		map : 'product>productName'
+	}, {
+		name : 'productCode',
+		map : 'product>productCode'
+	}, {
+		name : 'regionName',
+		map : 'region>regionName'
+	}, {
+		name : 'order',
+		type : 'string'
+	}, {
+		name : 'unitRate',
+		type : 'string'
+	}, {
+		name : 'quantity',
+		type : 'string'
+	}, {
+		name : 'encounterID',
+		type : 'number'
+	}, {
+		name : 'actualQuantity',
+		type : 'string'
+	}, {
+		name : 'amount',
+		type : 'string'
 
-		}, {
-			name : 'remark',
-			type : 'string'
+	}, {
+		name : 'remark',
+		type : 'string'
 
-		}, {
-			name : 'mat_w_o_Tax_USD',
-			type : 'string'
+	}, {
+		name : 'mat_w_o_Tax_USD',
+		type : 'string'
 
-		}, {
-			name : 'mat_w_o_Tax_VND',
-			type : 'string'
+	}, {
+		name : 'mat_w_o_Tax_VND',
+		type : 'string'
 
-		}, {
-			name : 'labour',
-			type : 'string'
+	}, {
+		name : 'labour',
+		type : 'string'
 
-		}, {
-			name : 'imp_Tax',
-			type : 'string'
+	}, {
+		name : 'imp_Tax',
+		type : 'string'
 
-		}, {
-			name : 'special_Con_Tax',
-			type : 'string'
+	}, {
+		name : 'special_Con_Tax',
+		type : 'string'
 
-		}, {
-			name : 'discount_rate',
-			type : 'string'
+	}, {
+		name : 'discount_rate',
+		type : 'string'
 
-		}, {
-			name : 'encounterTime',
-			type : 'string'
+	}, {
+		name : 'encounterTime',
+		type : 'string'
 
-		}, {
-			name : 'vat',
-			type : 'string'
+	}, {
+		name : 'vat',
+		type : 'string'
 
-		}, {
-			name : 'unit_Price_After_Discount',
-			type : 'string'
+	}, {
+		name : 'unit_Price_After_Discount',
+		type : 'string'
 
-		}, {
-			name : 'allowance',
-			type : 'string'
+	}, {
+		name : 'allowance',
+		type : 'string'
 
-		}, {
-			name : 'unit_Price_W_Tax_Profit',
-			type : 'string'
+	}, {
+		name : 'unit_Price_W_Tax_Profit',
+		type : 'string'
 
-		}, {
-			name : 'subcon_Profit',
-			type : 'string'
+	}, {
+		name : 'subcon_Profit',
+		type : 'string'
 
-		}, {
-			name : 'unit_Price_W_Tax_Labour',
-			type : 'string'
+	}, {
+		name : 'unit_Price_W_Tax_Labour',
+		type : 'string'
 
-		}, {
-			name : 'cost_Mat_Amount_USD',
-			type : 'string'
+	}, {
+		name : 'cost_Mat_Amount_USD',
+		type : 'string'
 
-		}, {
-			name : 'cost_Labour_Amount_USD',
-			type : 'string'
+	}, {
+		name : 'cost_Labour_Amount_USD',
+		type : 'string'
 
-		}, {
-			name : 'nonamePercent',
-			type : 'string'
+	}, {
+		name : 'nonamePercent',
+		type : 'string'
 
-		}, {
-			name : 'nonameRange',
-			type : 'string'
+	}, {
+		name : 'nonameRange',
+		type : 'string'
 
-		} , {
-			name : 'unit',
-			map : 'product>unit'
+	} , {
+		name : 'unit',
+		map : 'product>unit'
 
-		}, {
-			name: 'labourProduct',
-			map: 'product>labour'
-		}, {
-			name: 'hasMakerDeleted',
-			type: 'bool'
-		}
-		
-		],
-	    sortcolumn: 'order',
-	    sortdirection: 'asc',
-		id : 'encounterID',
-		url : urlResult,
-		data : {
-			regionId : 0,
-			locationIds: -1,
-			projectId: projectId
-		}
-	};
+	}, {
+		name: 'labourProduct',
+		map: 'product>labour'
+	}, {
+		name: 'hasMakerDeleted',
+		type: 'bool'
+	}
 
-	var dataAdapterResult = new $.jqx.dataAdapter(sourceResult, {
-		downloadComplete : function(data, status, xhr) {
-		},
-		loadComplete : function(data) {
-		},
-		loadError : function(xhr, status, error) {
-		}
-	});
+	],
+	sortcolumn: 'order',
+	sortdirection: 'asc',
+	id : 'encounterID',
+	url : urlResult,
+	data : {
+		regionId : 0,
+		locationIds: -1,
+		projectId: projectId
+	}
+};
+
+var dataAdapterResult = new $.jqx.dataAdapter(sourceResult, {
+	downloadComplete : function(data, status, xhr) {
+	},
+	loadComplete : function(data) {
+	},
+	loadError : function(xhr, status, error) {
+	}
+});
 // will update currency and format based on vnd or usd.
 if(currency == 'VND'){
 	$("#locationSum").jqxNumberInput({ width: '250px', height: '25px', symbol: 'VND', disabled: true, decimalDigits: 0, digits: 13, max: 999999999999
-		,groupSeparator: "."});
+		,groupSeparator: ","});
 	$("#regionSum").jqxNumberInput({ width: '250px', height: '25px', symbol: 'VND', disabled: true, decimalDigits: 0, digits: 13, max: 999999999999
-		,groupSeparator: "."});
+		,groupSeparator: ","});
 
 } else if(currency = 'JPY'){
 	$("#locationSum").jqxNumberInput({ width: '250px', height: '25px', symbol: '$', disabled: true, decimalDigits: 2, digits: 12, max: 999999999999
-		,groupSeparator: "," });
+		,groupSeparator: "." });
 	$("#regionSum").jqxNumberInput({ width: '250px', height: '25px', symbol: '$', disabled: true, decimalDigits: 2, digits: 12, max: 999999999999
-		,groupSeparator: ","});
+		,groupSeparator: "."});
 
 }else{
 	$("#locationSum").jqxNumberInput({ width: '250px', height: '25px', symbol: 'JPY', disabled: true, decimalDigits: 2, digits: 12, max: 999999999999
-		,groupSeparator: ","});
+		,groupSeparator: "."});
 	$("#regionSum").jqxNumberInput({ width: '250px', height: '25px', symbol: 'JPY', disabled: true, decimalDigits: 2, digits: 12, max: 999999999999
-		,groupSeparator: ","});
+		,groupSeparator: "."});
 }
 var urlLocation = pageContext + "/quotation/getAssignedLocationsJson";
 // prepare the data
@@ -202,50 +202,50 @@ $("#jqxWidgetLocation").jqxComboBox({
 	checkboxes: true,
 	height : 25
 });
-	// prepare the data for region
-	var urlRegion = pageContext + "/projects/getAssginedRegionsOfLocationJson";	
-	var sourceRegion = {
-		datatype : "json",
-		datafields : [ {
-			name : 'regionId',
-			type : 'number'
-		}, {
-			name : 'regionName',
-			type : 'string'
-		}, {
-			name : 'regionDesc',
-			type : 'string'
-		}, {
-			name : 'locationName',
-			map : 'location>locationName'
-		} ],
+// prepare the data for region
+var urlRegion = pageContext + "/projects/getAssginedRegionsOfLocationJson";
+var sourceRegion = {
+	datatype : "json",
+	datafields : [ {
+		name : 'regionId',
+		type : 'number'
+	}, {
+		name : 'regionName',
+		type : 'string'
+	}, {
+		name : 'regionDesc',
+		type : 'string'
+	}, {
+		name : 'locationName',
+		map : 'location>locationName'
+	} ],
 //		sortcolumn: 'regionName',
 //		sortdirection: 'asc',
-		id : 'regionId',
-		url : urlRegion,
-		data : {
-			locationId : 0,
-			projectId: projectId,
-			regionType: regionType
-		}
-	};
-	var dataAdapterRegion = new $.jqx.dataAdapter(sourceRegion, {
-		downloadComplete : function(data, status, xhr) {
-		},
-		loadComplete : function(data) {
-		},
-		loadError : function(xhr, status, error) {
-		}
-	});
-		$("#listRegion").jqxComboBox({
-			// checkboxes : true,
-			source : dataAdapterRegion,
-			displayMember : "regionName",
-			valueMember : "regionId",
-			width : '100%',
-			height : 25,
-			checkboxes: true
-		});	
+	id : 'regionId',
+	url : urlRegion,
+	data : {
+		locationId : 0,
+		projectId: projectId,
+		regionType: regionType
+	}
+};
+var dataAdapterRegion = new $.jqx.dataAdapter(sourceRegion, {
+	downloadComplete : function(data, status, xhr) {
+	},
+	loadComplete : function(data) {
+	},
+	loadError : function(xhr, status, error) {
+	}
+});
+$("#listRegion").jqxComboBox({
+	// checkboxes : true,
+	source : dataAdapterRegion,
+	displayMember : "regionName",
+	valueMember : "regionId",
+	width : '100%',
+	height : 25,
+	checkboxes: true
+});
 
 $("#listRegion").on('checkChange', function(event) {
 	if (event.args) {
@@ -269,46 +269,46 @@ $("#listRegion").on('checkChange', function(event) {
 });
 $("#jqxWidgetLocation").on('checkChange', function (event)
 {
-    if (event.args) {
-    var item = event.args.item;
-	if(item){
-		var value = item.value;
-		var label = item.label;
-		var checked = item.checked;
-		
-		if(checked && label =='All'){
-			$("#jqxWidgetLocation").jqxComboBox('checkAll');
-		}else if(!checked && label =='All')
-			$("#jqxWidgetLocation").jqxComboBox('uncheckAll');
-		else if(!checked && label !='All'){
-			console.log(checked );
-			console.log(label);
-			//$("#jqxWidgetLocation").jqxComboBox('uncheckIndex',0);
+	if (event.args) {
+		var item = event.args.item;
+		if(item){
+			var value = item.value;
+			var label = item.label;
+			var checked = item.checked;
+
+			if(checked && label =='All'){
+				$("#jqxWidgetLocation").jqxComboBox('checkAll');
+			}else if(!checked && label =='All')
+				$("#jqxWidgetLocation").jqxComboBox('uncheckAll');
+			else if(!checked && label !='All'){
+				console.log(checked );
+				console.log(label);
+				//$("#jqxWidgetLocation").jqxComboBox('uncheckIndex',0);
+			}
+			var locationIDs=getCheckedLocationIds();
+			if(locationIDs != ''){
+				updateLocationSum(locationIDs);
+				//load regions of checked locations.
+				sourceRegion.data.locationId = locationIDs;
+				dataAdapterRegion = new $.jqx.dataAdapter(sourceRegion);
+				$("#listRegion").jqxComboBox({
+					// checkboxes : true,
+					source : dataAdapterRegion,
+					displayMember : "regionName",
+					valueMember : "regionId",
+					width : '100%',
+					height : 25,
+					checkboxes: true
+				});
+			}else{
+				$("#locationSum").val(0);
+			}
 		}
-		var locationIDs=getCheckedLocationIds();
-		 if(locationIDs != ''){
-			 updateLocationSum(locationIDs);
-			//load regions of checked locations.
-			sourceRegion.data.locationId = locationIDs;
-			dataAdapterRegion = new $.jqx.dataAdapter(sourceRegion);
-			$("#listRegion").jqxComboBox({
-				// checkboxes : true,
-				source : dataAdapterRegion,
-				displayMember : "regionName",
-				valueMember : "regionId",
-				width : '100%',
-				height : 25,
-				checkboxes: true
-			});
-		}else{
-			$("#locationSum").val(0);
-		}
-		 }
-		console.log(locationIDs);	
-		
+		console.log(locationIDs);
+
 	}
 
-});		
+});
 //$('#jqxWidgetLocation').on('select', function(event) {
 //	// load region section.
 //	var args = event.args;
@@ -331,7 +331,7 @@ $("#jqxWidgetLocation").on('checkChange', function (event)
 //				width : '100%',
 //				height : 25
 //			});
-//		}	
+//		}
 //	//update locationSum
 //	if(value)
 //		updateLocationSum(value);
@@ -353,11 +353,11 @@ $("#jqxWidgetLocation").on('checkChange', function (event)
 //					$('#list').jqxGrid('updatebounddata');
 //				else
 //					loadAddQuotationGrid();
-//				
+//
 //				var isCompleted = $("#listResult").jqxGrid('isBindingCompleted');
 //				if(isCompleted)
 //					showResultGrid(value);
-//			}	
+//			}
 //		}
 //});
 function updateRegionSum(regionIds){
@@ -365,60 +365,60 @@ function updateRegionSum(regionIds){
 		$("#regionSum").val(0);
 	else{
 		var urlLocationSum = pageContext + '/quotation/getRegionSum';
-			$.ajax({
-				type : "GET",
-				data : {
-					regionIds: regionIds
-				},
-				contentType : 'application/json',
-				url : urlLocationSum,
-				success : function(msg) {
-					$("#regionSum").val(msg);
-				},
-				complete : function(xhr, status) {
-				}
+		$.ajax({
+			type : "GET",
+			data : {
+				regionIds: regionIds
+			},
+			contentType : 'application/json',
+			url : urlLocationSum,
+			success : function(msg) {
+				$("#regionSum").val(msg);
+			},
+			complete : function(xhr, status) {
+			}
 		})
 	}
 }
 function updateLocationSum(locationIds){
 	var urlLocationSum = pageContext + '/quotation/getLocationSum';
-		$.ajax({
-			type : "GET",
-			data : {
-				locationIds: locationIds,
-				projectId: projectId
-			},
-			contentType : 'application/json',
-			url : urlLocationSum,
-			success : function(msg) {
-				$("#locationSum").val(msg);
-			},
-			complete : function(xhr, status) {
+	$.ajax({
+		type : "GET",
+		data : {
+			locationIds: locationIds,
+			projectId: projectId
+		},
+		contentType : 'application/json',
+		url : urlLocationSum,
+		success : function(msg) {
+			$("#locationSum").val(msg);
+		},
+		complete : function(xhr, status) {
 
-			}
+		}
 	});
 }
 
 function getUrlProducts(productGroupId){
 	var urlProducts = pageContext + "/productgroups/getProductsOfGroupjson";
 	var sourceProducts = {
-			datatype : "json",
-			datafields : [ {
-				name : 'productName',
-				type : 'string'
-			}, {
-				name : 'productPrice',
-				type : 'float'
-			}, {
-				name : 'picLocation',
-				type : 'string'
-			}, {
-				name : 'productCode',
-				type : 'string'
-			}, {
-				name : 'productID',
-				type : 'number'
-			} 
+		datatype : "json",
+		datafields : [ {
+			name : 'productName',
+			type : 'string'
+		}, {
+			name : 'productPrice',
+			type : 'float'
+		}, {
+			name : 'picLocation',
+			type : 'string'
+		}, {
+			name : 'productCode',
+			type : 'string'
+		}, {
+			name : 'productID',
+			type : 'number'
+		}
 			, {
 				name : 'mat_w_o_Tax_USD',
 				type : 'string'
@@ -431,18 +431,18 @@ function getUrlProducts(productGroupId){
 			}, {
 				name : 'labour',
 				type : 'string'
-			}	
-			],
-		    sortcolumn: 'productName',
-		    sortdirection: 'asc',
-			id : 'productID',
-			url : urlProducts,
-			data : {
-				productGroupId : productGroupId,
-				regionId: 0
 			}
-		};
-	
+		],
+		sortcolumn: 'productName',
+		sortdirection: 'asc',
+		id : 'productID',
+		url : urlProducts,
+		data : {
+			productGroupId : productGroupId,
+			regionId: 0
+		}
+	};
+
 	return sourceProducts;
 }
 function getProductAdapter(sourceProducts){
@@ -510,22 +510,22 @@ function addItem(row) {
 
 }
 function saveEncounter(row,isUpdate) {
-	var item = $("#listRegion").jqxComboBox('getSelectedItem'); 
-	
+	var item = $("#listRegion").jqxComboBox('getSelectedItem');
+
 	var encounter = new Object();
 	var data;
 	if(isUpdate){
 		//data = $('#listResult').jqxGrid('getrowdata', row);
-		}
+	}
 	else{
 		data = $('#list').jqxGrid('getrowdata', row);
 		encounter.productCode = data.productCode;
 		encounter.productId = data.productId;
 	}
-	
+
 	encounter.regionId = item.value;
 	encounter.regionName = item.label;
-	
+
 //	encounter.productName = data.productName;
 	encounter.order = data.order;
 	encounter.encounterID = data.encounterID;
@@ -553,7 +553,7 @@ function saveEncounter(row,isUpdate) {
 	encounter.unit_Price_W_Tax_Labour = data.unit_Price_W_Tax_Labour;
 	var jsonData = JSON.stringify(encounter);
 	console.log(jsonData);
-	 var url = pageContext + '/quotation/' + projectId + '/addquotation?form';
+	var url = pageContext + '/quotation/' + projectId + '/addquotation?form';
 	$.ajax({
 		type : "POST",
 		contentType : 'application/json',
@@ -576,6 +576,8 @@ function saveEncounter(row,isUpdate) {
 //			var itemLocation = $("#jqxWidgetLocation").jqxComboBox('getSelectedItem');
 			var locationIds = getCheckedLocationIds();
 			updateLocationSum(locationIds);
+			var regionIDs = getCheckedRegionIds();
+			updateRegionSum(regionIDs);
 		},
 		complete : function(xhr, status) {
 			// $("#assignRegionButton").prop('disabled', false);
@@ -589,26 +591,26 @@ var toThemeProperty = function(className) {
 
 var groupsrenderer = function(text, group, expanded, data) {
 	return '<div class="' + toThemeProperty('jqx-grid-groups-row')
-			+ '" style="position: absolute;"><span>' + text + '</span>';
+		+ '" style="position: absolute;"><span>' + text + '</span>';
 }
 
-	 $('#list').on('bindingcomplete', function (event) {
-		 $('#list').jqxGrid('addrow', null, {}, 'first');
-		 setDefaultCellValues();
-	 });
-	 $('#list').on('cellvaluechanged', function (event) {
-		 var args = event.args;
-		 var datafield = args.datafield;
-		 if(datafield == 'quantity'){
-			//update Quantity field.
-			var value = args.value.toString();
-			updateQuantity(value);
-			$("#list").jqxGrid('begincelledit', 0, "test");
-		 }else if(datafield == 'nonamePercent' ||
-				 datafield == 'nonameRange'){
-			 updateMat_w_o_Tax_USD();
-		 }
-	 });
+$('#list').on('bindingcomplete', function (event) {
+	$('#list').jqxGrid('addrow', null, {}, 'first');
+	setDefaultCellValues();
+});
+$('#list').on('cellvaluechanged', function (event) {
+	var args = event.args;
+	var datafield = args.datafield;
+	if(datafield == 'quantity'){
+		//update Quantity field.
+		var value = args.value.toString();
+		updateQuantity(value);
+		$("#list").jqxGrid('begincelledit', 0, "test");
+	}else if(datafield == 'nonamePercent' ||
+		datafield == 'nonameRange'){
+		updateMat_w_o_Tax_USD();
+	}
+});
 function loadAddQuotationGrid() {
 
 	var emptyData =[];
@@ -628,372 +630,372 @@ function loadAddQuotationGrid() {
 	});
 	// initialize jqxGrid
 	$("#list")
-			.jqxGrid(
-					{
-						width : '100%',
-						height : 100,
-						theme : 'energyblue',
-						rowsheight : 45,
-						source : dataAdapter2,
-						filterable : true,
-						editable : true,
-						editmode: 'click',
-						// autorowheight: true,
-						ready: function()
-						{
-							setDefaultCellValues();
-							$("#list").jqxGrid('sortby', 'order', 'asc');
-							
-						},						
-						columns : [
-									{
-										text : 'Ma nhom vat tu',
-										datafield : 'productGroupCode',
-										align : 'center',
-										cellsalign : 'right',
-										// cellsformat : 'c0',
-										width : '15%',
-										columntype : 'combobox',
-										createeditor : function(row, column, editor) {
-											// assign a new data source to the
-											// combobox.
-											var itemRegion = $("#listRegion").jqxComboBox('getSelectedItem');
-											if(itemRegion){
-												sourceProductGroup.data.regionId = itemRegion.value;
-												dataAdapterProductGroup = new $.jqx.dataAdapter(sourceProductGroup);
-											}
-											editor.jqxComboBox({
-												autoDropDownHeight : true,
-												source : dataAdapterProductGroup,
-												displayMember : "groupCode",
-												valueMember : "groupId",
-												promptText : "Please Choose:"
-											});
-											editor.on('select', function(event) {
-												var args = event.args;
-													if (args) {
-														var index = args.index;
-														var item = args.item;
-														if(item){
-															// get item's label and value.
-															var label = item.label;
-															var value = item.value;
-															//set value to hidden field
-															$("#list").jqxGrid('setcellvalue', 0, "groupId", value);
-															//update project combobox.
-															var sourceProducts2 = getUrlProducts(value);
-															var itemRegion = $("#listRegion").jqxComboBox('getSelectedItem');
-															if(itemRegion){
-																var regionId = itemRegion.value;
-																sourceProducts2.data.regionId = regionId; //set region id
-																dataAdapterProducts = getProductAdapter(sourceProducts2);
-															}
-															setDefaultCellValues(label);
-														}
-														
-													}
-											});												
+		.jqxGrid(
+		{
+			width : '100%',
+			height : 100,
+			theme : 'energyblue',
+			rowsheight : 45,
+			source : dataAdapter2,
+			filterable : true,
+			editable : true,
+			editmode: 'click',
+			// autorowheight: true,
+			ready: function()
+			{
+				setDefaultCellValues();
+				$("#list").jqxGrid('sortby', 'order', 'asc');
 
-										},
-										geteditorvalue : function(row, cellvalue,
-												editor) {
-											// return the editor's value.
-											var item = editor
-													.jqxComboBox('getSelectedItem');
-											if (item) {
-												return item.label;
-											}
-										}
-									},
-								{ text: 'Group Id', datafield: 'groupId', width: 0, hidden: true },
-								{
-									text : 'No',
-									datafield : 'order',
-									align : 'center',
-									cellsalign : 'right',
-									cellsformat : 'n',
-									width : '15%'
-								},
-								{
-									text : 'Search by Code',
-									datafield : 'productCode',
-									align : 'center',
-									cellsalign : 'right',
-									// cellsformat : 'c0',
-									width : '15%',
-									columntype : 'combobox',
-									createeditor : function(row, column, editor) {
-										// assign a new data source to the
-										// combobox.
-										editor.jqxComboBox({
-											autoDropDownHeight : true,
-											source : dataAdapterProducts,
-											displayMember : "productCode",
-											valueMember : "productID",
-											promptText : "Please Choose:"
-										});
-										editor.on('select', function(event) {
-											var args = event.args;
-												if (args) {
-													var index = args.index;
-													var item = args.item;
-													if(item){
-														// get item's label and value.
-														var label = item.label;
-														var value = item.value;
-														//set value to hidden field
-														$("#list").jqxGrid('setcellvalue', 0, "productId", value);
-														//update Description field
-														updateProductFields(value);
-													}
-												}
-										});											
-									},
-									geteditorvalue : function(row, cellvalue,
-											editor) {
-										// return the editor's value.
-										var item = editor
-												.jqxComboBox('getSelectedItem');
-										if (item) {
-											return item.label;
-										}
+			},
+			columns : [
+				{
+					text : 'Ma nhom vat tu',
+					datafield : 'productGroupCode',
+					align : 'center',
+					cellsalign : 'right',
+					// cellsformat : 'c0',
+					width : '15%',
+					columntype : 'combobox',
+					createeditor : function(row, column, editor) {
+						// assign a new data source to the
+						// combobox.
+						var itemRegion = $("#listRegion").jqxComboBox('getSelectedItem');
+						if(itemRegion){
+							sourceProductGroup.data.regionId = itemRegion.value;
+							dataAdapterProductGroup = new $.jqx.dataAdapter(sourceProductGroup);
+						}
+						editor.jqxComboBox({
+							autoDropDownHeight : true,
+							source : dataAdapterProductGroup,
+							displayMember : "groupCode",
+							valueMember : "groupId",
+							promptText : "Please Choose:"
+						});
+						editor.on('select', function(event) {
+							var args = event.args;
+							if (args) {
+								var index = args.index;
+								var item = args.item;
+								if(item){
+									// get item's label and value.
+									var label = item.label;
+									var value = item.value;
+									//set value to hidden field
+									$("#list").jqxGrid('setcellvalue', 0, "groupId", value);
+									//update project combobox.
+									var sourceProducts2 = getUrlProducts(value);
+									var itemRegion = $("#listRegion").jqxComboBox('getSelectedItem');
+									if(itemRegion){
+										var regionId = itemRegion.value;
+										sourceProducts2.data.regionId = regionId; //set region id
+										dataAdapterProducts = getProductAdapter(sourceProducts2);
 									}
+									setDefaultCellValues(label);
+								}
 
-								},
-								{ text: 'Product Id', datafield: 'productId', width: 0, hidden: true },
-						        {
-									text : 'Description',
-									datafield : 'productName',
-									align : 'center',
-									cellsalign : 'right',
-									editable: false,
-									width : '15%'
-								},								
-								{
-									text : 'Unit',
-									datafield : 'unit',
-									align : 'center',
-									cellsalign : 'right',
-									editable: false,
-									width : '15%'
-								},
-								{
-									text : 'Quantity',
-									datafield : 'actualQuantity',
-									align : 'center',
-									cellsalign : 'right',
-									editable: false,
-									cellsformat : 'n',
-									width : '15%'
-								},
-								{
-									text : 'Unit Rate',
-									datafield : 'unitRate',
-									align : 'center',
-									cellsalign : 'right',
-									editable: false,
-									width : '15%'
-								},
-								{
-									text : 'Amount',
-									datafield : 'amount',
-									align : 'center',
-									cellsalign : 'right',
-									editable: false,
-									cellsformat : 'c2',
-									width : '15%'
-								},
-								{
-									text : 'Percent',
-									datafield : 'nonamePercent',
-									align : 'center',
-									cellsalign : 'right',
-									cellsformat : 'p2',
-									width : '15%'
-								},
-								{
-									text : 'Range',
-									datafield : 'nonameRange',
-									align : 'center',
-									cellsalign : 'right',
-									width : '15%'
-								},								
-								{
-									text : 'Remark',
-									datafield : 'remark',
-									align : 'center',
-									cellsalign : 'right',
-									// cellsformat : 'c0',
-									width : '15%'
-								},
-								{
-									text : 'Qty',
-									datafield : 'quantity',
-									align : 'center',
-									cellsalign : 'right',
-									cellsformat : 'n',
-									width : '15%'
-								},								
-								{
-									text : 'Labour',
-									datafield : 'labour',
-									align : 'center',
-									cellsalign : 'right',
-									cellsformat : 'c2',
-									editable: false,
-									width : '15%'
-								},
-								{
-									text : 'Mat w/o Tax USD',
-									datafield : 'mat_w_o_Tax_USD',
-									align : 'center',
-									cellsalign : 'right',
-									cellsformat : 'c2',
-									editable: false,
-									width : '15%'
-								},
-								{
-									text : 'Mat w/o Tax VND',
-									datafield : 'mat_w_o_Tax_VND',
-									align : 'center',
-									cellsalign : 'right',
-									cellsformat : 'c2',
-									editable: false,
-									width : '15%'
-								},
-								{
-									text : 'Labour (database)',
-									datafield : 'labourProduct',
-									align : 'center',
-									cellsalign : 'right',
-									cellsformat : 'c2',
-									editable: false,
-									width : '15%'
-								},								
-								{
-									text : 'Imp Tax',
-									datafield : 'imp_Tax',
-									align : 'center',
-									cellsalign : 'right',
-									cellsformat : 'p2',
-									editable: false,
-									width : '15%'
-								},
-								{
-									text : 'Special con. Tax',
-									datafield : 'special_Con_Tax',
-									align : 'center',
-									cellsalign : 'right',
-									cellsformat : 'p2',
-									editable: false,
-									width : '15%'
-								},
-								{
-									text : 'VAT',
-									datafield : 'vat',
-									align : 'center',
-									cellsalign : 'right',
-									cellsformat : 'p2',
-									editable: false,
-									width : '15%'
-								},
-								{
-									text : 'Discount rate %',
-									datafield : 'discount_rate',
-									align : 'center',
-									cellsalign : 'right',
-									cellsformat : 'p2',
-									editable: false,
-									width : '15%'
-								},
-								{
-									text : 'Unit price after discount',
-									datafield : 'unit_Price_After_Discount',
-									align : 'center',
-									cellsalign : 'right',
-									cellsformat : 'c0',
-									editable: false,
-									width : '15%'
-								},
-								{
-									text : 'Allowance',
-									datafield : 'allowance',
-									align : 'center',
-									cellsalign : 'right',
-									cellsformat : 'p2',
-									editable: false,
-									width : '15%'
-								},
-								{
-									text : 'Unit price w Tax & profit',
-									datafield : 'unit_Price_W_Tax_Profit',
-									align : 'center',
-									cellsalign : 'right',
-									cellsformat : 'c2',
-									editable: false,
-									width : '15%'
-								},
-								{
-									text : 'Subcon profit',
-									datafield : 'subcon_Profit',
-									align : 'center',
-									cellsalign : 'right',
-									cellsformat : 'p2',
-									editable: false,
-									width : '15%'
-								},
-								{
-									text : 'Unit price w Tax – labour',
-									datafield : 'unit_Price_W_Tax_Labour',
-									align : 'center',
-									cellsalign : 'right',
-									cellsformat : 'c2',
-									editable: false,
-									width : '15%'
-								},
-								{
-									text : 'Cost - Mat amount USD',
-									datafield : 'cost_Mat_Amount_USD',
-									align : 'center',
-									cellsalign : 'right',
-									cellsformat : 'c2',
-									editable: false,
-									width : '10%'
-								},
-								{
-									text : 'Cost - Labour amount USD',
-									datafield : 'cost_Labour_Amount_USD',
-									align : 'center',
-									cellsalign : 'right',
-									cellsformat : 'c2',
-									editable: false,
-									width : '10%'
-								},
-								{
-									text : 'Action',
-									align : 'center',
-									datafield : 'buttonAdd',
-									width : '10%',
-									cellsrenderer : function(row, column, value) {
-										return '<div class="col-md-12" style="margin-left: -0px;">'
-												+ '<a id="addQuotationBtn" class="btn btn-app col-md-12" style="margin-left: -0px;">'
-												+ '<i class="glyphicon glyphicon-plus"></i>'
-												+ '</div>';
-									},
-									cellbeginedit : function(row) {
-										return false;
-									}
-								},
-								{
-									text : '',
-									datafield : 'test',
-									align : 'center',
-									cellsalign : 'right',
-									editable: true,
-									width : '0%'
-								} ]
-					});
-					
+							}
+						});
+
+					},
+					geteditorvalue : function(row, cellvalue,
+											  editor) {
+						// return the editor's value.
+						var item = editor
+							.jqxComboBox('getSelectedItem');
+						if (item) {
+							return item.label;
+						}
+					}
+				},
+				{ text: 'Group Id', datafield: 'groupId', width: 0, hidden: true },
+				{
+					text : 'No',
+					datafield : 'order',
+					align : 'center',
+					cellsalign : 'right',
+					cellsformat : 'n',
+					width : '15%'
+				},
+				{
+					text : 'Search by Code',
+					datafield : 'productCode',
+					align : 'center',
+					cellsalign : 'right',
+					// cellsformat : 'c0',
+					width : '15%',
+					columntype : 'combobox',
+					createeditor : function(row, column, editor) {
+						// assign a new data source to the
+						// combobox.
+						editor.jqxComboBox({
+							autoDropDownHeight : true,
+							source : dataAdapterProducts,
+							displayMember : "productCode",
+							valueMember : "productID",
+							promptText : "Please Choose:"
+						});
+						editor.on('select', function(event) {
+							var args = event.args;
+							if (args) {
+								var index = args.index;
+								var item = args.item;
+								if(item){
+									// get item's label and value.
+									var label = item.label;
+									var value = item.value;
+									//set value to hidden field
+									$("#list").jqxGrid('setcellvalue', 0, "productId", value);
+									//update Description field
+									updateProductFields(value);
+								}
+							}
+						});
+					},
+					geteditorvalue : function(row, cellvalue,
+											  editor) {
+						// return the editor's value.
+						var item = editor
+							.jqxComboBox('getSelectedItem');
+						if (item) {
+							return item.label;
+						}
+					}
+
+				},
+				{ text: 'Product Id', datafield: 'productId', width: 0, hidden: true },
+				{
+					text : 'Description',
+					datafield : 'productName',
+					align : 'center',
+					cellsalign : 'right',
+					editable: false,
+					width : '15%'
+				},
+				{
+					text : 'Unit',
+					datafield : 'unit',
+					align : 'center',
+					cellsalign : 'right',
+					editable: false,
+					width : '15%'
+				},
+				{
+					text : 'Quantity',
+					datafield : 'actualQuantity',
+					align : 'center',
+					cellsalign : 'right',
+					editable: false,
+					cellsformat : 'n',
+					width : '15%'
+				},
+				{
+					text : 'Unit Rate',
+					datafield : 'unitRate',
+					align : 'center',
+					cellsalign : 'right',
+					editable: false,
+					width : '15%'
+				},
+				{
+					text : 'Amount',
+					datafield : 'amount',
+					align : 'center',
+					cellsalign : 'right',
+					editable: false,
+					cellsformat : 'c2',
+					width : '15%'
+				},
+				{
+					text : 'Percent',
+					datafield : 'nonamePercent',
+					align : 'center',
+					cellsalign : 'right',
+					cellsformat : 'p2',
+					width : '15%'
+				},
+				{
+					text : 'Range',
+					datafield : 'nonameRange',
+					align : 'center',
+					cellsalign : 'right',
+					width : '15%'
+				},
+				{
+					text : 'Remark',
+					datafield : 'remark',
+					align : 'center',
+					cellsalign : 'right',
+					// cellsformat : 'c0',
+					width : '15%'
+				},
+				{
+					text : 'Qty',
+					datafield : 'quantity',
+					align : 'center',
+					cellsalign : 'right',
+					cellsformat : 'n',
+					width : '15%'
+				},
+				{
+					text : 'Labour',
+					datafield : 'labour',
+					align : 'center',
+					cellsalign : 'right',
+					cellsformat : 'c2',
+					editable: false,
+					width : '15%'
+				},
+				{
+					text : 'Mat w/o Tax USD',
+					datafield : 'mat_w_o_Tax_USD',
+					align : 'center',
+					cellsalign : 'right',
+					cellsformat : 'c2',
+					editable: false,
+					width : '15%'
+				},
+				{
+					text : 'Mat w/o Tax VND',
+					datafield : 'mat_w_o_Tax_VND',
+					align : 'center',
+					cellsalign : 'right',
+					cellsformat : 'c2',
+					editable: false,
+					width : '15%'
+				},
+				{
+					text : 'Labour (database)',
+					datafield : 'labourProduct',
+					align : 'center',
+					cellsalign : 'right',
+					cellsformat : 'c2',
+					editable: false,
+					width : '15%'
+				},
+				{
+					text : 'Imp Tax',
+					datafield : 'imp_Tax',
+					align : 'center',
+					cellsalign : 'right',
+					cellsformat : 'p2',
+					editable: false,
+					width : '15%'
+				},
+				{
+					text : 'Special con. Tax',
+					datafield : 'special_Con_Tax',
+					align : 'center',
+					cellsalign : 'right',
+					cellsformat : 'p2',
+					editable: false,
+					width : '15%'
+				},
+				{
+					text : 'VAT',
+					datafield : 'vat',
+					align : 'center',
+					cellsalign : 'right',
+					cellsformat : 'p2',
+					editable: false,
+					width : '15%'
+				},
+				{
+					text : 'Discount rate %',
+					datafield : 'discount_rate',
+					align : 'center',
+					cellsalign : 'right',
+					cellsformat : 'p2',
+					editable: false,
+					width : '15%'
+				},
+				{
+					text : 'Unit price after discount',
+					datafield : 'unit_Price_After_Discount',
+					align : 'center',
+					cellsalign : 'right',
+					cellsformat : 'c0',
+					editable: false,
+					width : '15%'
+				},
+				{
+					text : 'Allowance',
+					datafield : 'allowance',
+					align : 'center',
+					cellsalign : 'right',
+					cellsformat : 'p2',
+					editable: false,
+					width : '15%'
+				},
+				{
+					text : 'Unit price w Tax & profit',
+					datafield : 'unit_Price_W_Tax_Profit',
+					align : 'center',
+					cellsalign : 'right',
+					cellsformat : 'c2',
+					editable: false,
+					width : '15%'
+				},
+				{
+					text : 'Subcon profit',
+					datafield : 'subcon_Profit',
+					align : 'center',
+					cellsalign : 'right',
+					cellsformat : 'p2',
+					editable: false,
+					width : '15%'
+				},
+				{
+					text : 'Unit price w Tax – labour',
+					datafield : 'unit_Price_W_Tax_Labour',
+					align : 'center',
+					cellsalign : 'right',
+					cellsformat : 'c2',
+					editable: false,
+					width : '15%'
+				},
+				{
+					text : 'Cost - Mat amount USD',
+					datafield : 'cost_Mat_Amount_USD',
+					align : 'center',
+					cellsalign : 'right',
+					cellsformat : 'c2',
+					editable: false,
+					width : '10%'
+				},
+				{
+					text : 'Cost - Labour amount USD',
+					datafield : 'cost_Labour_Amount_USD',
+					align : 'center',
+					cellsalign : 'right',
+					cellsformat : 'c2',
+					editable: false,
+					width : '10%'
+				},
+				{
+					text : 'Action',
+					align : 'center',
+					datafield : 'buttonAdd',
+					width : '10%',
+					cellsrenderer : function(row, column, value) {
+						return '<div class="col-md-12" style="margin-left: -0px;">'
+							+ '<a id="addQuotationBtn" class="btn btn-app col-md-12" style="margin-left: -0px;">'
+							+ '<i class="glyphicon glyphicon-plus"></i>'
+							+ '</div>';
+					},
+					cellbeginedit : function(row) {
+						return false;
+					}
+				},
+				{
+					text : '',
+					datafield : 'test',
+					align : 'center',
+					cellsalign : 'right',
+					editable: true,
+					width : '0%'
+				} ]
+		});
+
 }
 $('#list').on('cellclick', function (event) {
 	var field = event.args.datafield;
@@ -1001,7 +1003,7 @@ $('#list').on('cellclick', function (event) {
 	if(field == 'buttonAdd'){
 		addItem(index);
 	}
- });
+});
 function showResultGrid(locationIds, regionIds) {
 	var isCompleted = $("#listResult").jqxGrid('isBindingCompleted');
 	console.log(isCompleted);
@@ -1021,7 +1023,7 @@ function updateProductFields(productId){
 			$("#list").jqxGrid('setcellvalue', 0, "mat_w_o_Tax_USD", record.mat_w_o_Tax_USD); //update mat_w_o_Tax_USD
 			$("#list").jqxGrid('setcellvalue', 0, "mat_w_o_Tax_VND", record.mat_w_o_Tax_VND); //update mat_w_o_Tax_VND
 			return;
-			}
+		}
 	}
 }
 function setDefaultCellValues(productGroupCode){
@@ -1034,10 +1036,10 @@ function setDefaultCellValues(productGroupCode){
 		$("#list").jqxGrid('setcellvalue', 0, "allowance", allowanceOfGroup);
 
 	}else{
-		$("#list").jqxGrid('setcellvalue', 0, "imp_Tax", impTax); 
+		$("#list").jqxGrid('setcellvalue', 0, "imp_Tax", impTax);
 		$("#list").jqxGrid('setcellvalue', 0, "special_Con_Tax", specialCon);
 		$("#list").jqxGrid('setcellvalue', 0, "vat", vat);
-		$("#list").jqxGrid('setcellvalue', 0, "subcon_Profit", subcon_Profit);	
+		$("#list").jqxGrid('setcellvalue', 0, "subcon_Profit", subcon_Profit);
 	}
 
 }
@@ -1045,7 +1047,7 @@ function updateQuantity(qtyManual){
 	//Q'ty = Q'ty(nhập) * hao hut% bênsheet Summary(Q'ty sub-main, E-Q'ty other ,M-Q'ty)
 	var indicator = 0;
 	var productGroupCode = $("#list").jqxGrid('getcellvalue', 0, "productGroupCode");
-	
+
 	switch(productGroupCode){
 		case '131':
 			//sub-main
@@ -1055,7 +1057,7 @@ function updateQuantity(qtyManual){
 			//E-qty
 			indicator = eQtyOther;
 			break;
-		case '111M-1','111M-2','111M-3','111-5','191-3','194-10','195-2','195-3':	
+		case '111M-1','111M-2','111M-3','111-5','191-3','194-10','195-2','195-3':
 			//Mech-qty
 			indicator = mQtymQty;
 			break;
@@ -1081,7 +1083,7 @@ function updatePriceAfterDiscount(){
 	var result = Number(mat_w_o_Tax_USD) + Number(mat_w_o_Tax_VND) / Number(floatValue);
 	result = getDecimalNumber(result);
 	$("#list").jqxGrid('setcellvalue', 0, "unit_Price_After_Discount", result);
-	
+
 	updateUnitRate();
 }
 function updateUnitRate(){
@@ -1096,7 +1098,7 @@ function updateUnitRate(){
 function updateUnitPriceWTaxProfit() {
 	//congthuc =cột 19*(1+(1+cột 16*(1+cot15))*cột 17)*cot18
 	//=  Unit price after discount * (1+(1+[Special con. Tax]*(1+[Imp Tax]))*[VAT ])*[Discount rate %]
-	//var result = 
+	//var result =
 	var unit_Price_After_Discount = $("#list").jqxGrid('getcellvalue', 0, "unit_Price_After_Discount"); //cot 18
 	//cot 15 = specialCon
 	var specialCon = $("#list").jqxGrid('getcellvalue', 0, "special_Con_Tax")/100; //cot 15
@@ -1114,7 +1116,7 @@ function updateUnitPriceWTaxProfit() {
 	updateUnitPriceWTaxLabour();
 }
 function updateUnitPriceWTaxLabour(){
-// Unit price w Tax - labour =cot 13 * cot 21 
+// Unit price w Tax - labour =cot 13 * cot 21
 	var labour = $("#list").jqxGrid('getcellvalue', 0, "labourProduct"); //cot 13
 	var subcon_Profit = $("#list").jqxGrid('getcellvalue', 0, "subcon_Profit") /100;//cot 21
 	var result = Number(labour) * Number(subcon_Profit);
@@ -1197,15 +1199,15 @@ function updateMat_w_o_Tax_USD(){
 		});
 
 		/*
-		var arrs = range.split('-');
-		var start = arrs[0];
-		var end = arrs[1];
-		
-		for(var i=start; i<= end; i++){
-			var aEValue = $("#listResult").jqxGrid('getcellvalue', i, "cost_Mat_Amount_USD"); //cot 5
-			total = total + aEValue;
-		}
-		var result = total * percent/100;
+		 var arrs = range.split('-');
+		 var start = arrs[0];
+		 var end = arrs[1];
+
+		 for(var i=start; i<= end; i++){
+		 var aEValue = $("#listResult").jqxGrid('getcellvalue', i, "cost_Mat_Amount_USD"); //cot 5
+		 total = total + aEValue;
+		 }
+		 var result = total * percent/100;
 		 $("#list").jqxGrid('setcellvalue', 0, "mat_w_o_Tax_USD", result);
 		 */
 	}
@@ -1213,13 +1215,13 @@ function updateMat_w_o_Tax_USD(){
 function updateItem(row){
 	alert('This function is not supported yet');
 	return;
-	 var encounterId = $('#listResult').jqxGrid('getcellvalue', row, "uid");
-	 saveEncounter(row, true);
+	var encounterId = $('#listResult').jqxGrid('getcellvalue', row, "uid");
+	saveEncounter(row, true);
 
 }
 function deleteItem(encounterId){
-     var result = confirm('Do you want to delete this record?');
-    if (result == false)
+	var result = confirm('Do you want to delete this record?');
+	if (result == false)
 		return;
 	var url = pageContext + '/quotation/'+ encounterId + '?delete';
 	$.ajax({
@@ -1237,8 +1239,8 @@ function deleteItem(encounterId){
 }
 $("#searchBtn").click(function(){
 	$("#example").show();
-    console.log("The Search was clicked.");
-    var checkedItems = $("#listRegion").jqxComboBox('getCheckedItems');
+	console.log("The Search was clicked.");
+	var checkedItems = $("#listRegion").jqxComboBox('getCheckedItems');
 	var regionIDs=getCheckedRegionIds();
 	var locationIDs=getCheckedLocationIds();
 	var row1 = $('#list').jqxGrid('getrows');
@@ -1246,34 +1248,34 @@ $("#searchBtn").click(function(){
 		$('#list').jqxGrid('updatebounddata');
 	else
 		loadAddQuotationGrid();
-	
+
 //	var isCompleted = $("#listResult").jqxGrid('isBindingCompleted');
 //	if(isCompleted)
 //		showResultGrid(locationIDs,regionIDs);
 	//load data table
 	reloadDataTable();
-/*	
+	/*
 	 var url = pageContext + '/quotation/getquotationlistdatatables';
-		$.ajax({
-			type : "GET",
-			contentType : 'application/json',
-			url : url,
-			data: {
-				projectId : projectId,
-				locationIds : locationIDs,
-				regionIds : regionIDs
-			},
-			success : function(msg) {
-			},
-			complete : function( jqxhr, settings, exception ) {
-				 $("#quotation_data_table").html(jqxhr.responseText);
-			}
-		});
-		*/
+	 $.ajax({
+	 type : "GET",
+	 contentType : 'application/json',
+	 url : url,
+	 data: {
+	 projectId : projectId,
+	 locationIds : locationIDs,
+	 regionIds : regionIDs
+	 },
+	 success : function(msg) {
+	 },
+	 complete : function( jqxhr, settings, exception ) {
+	 $("#quotation_data_table").html(jqxhr.responseText);
+	 }
+	 });
+	 */
 });
 function getCheckedLocationIds(){
 	var checkedItemsLocation = $("#jqxWidgetLocation").jqxComboBox(
-			'getCheckedItems');
+		'getCheckedItems');
 	var locationIDs = '';
 	$.each(checkedItemsLocation, function(index) {
 		locationIDs += this.value + ",";
@@ -1285,87 +1287,114 @@ function getCheckedLocationIds(){
 	return locationIDs;
 }
 function getCheckedRegionIds(){
-    var checkedItems = $("#listRegion").jqxComboBox('getCheckedItems');
+	var checkedItems = $("#listRegion").jqxComboBox('getCheckedItems');
 	var regionIDs='';
-	  $.each(checkedItems, function (index) {
-		  regionIDs += this.value + ",";
-	  });
-	  if(regionIDs != ''){
-		  regionIDs = regionIDs.substr(0, regionIDs.length-1);
-	  }
-	  return regionIDs;
+	$.each(checkedItems, function (index) {
+		regionIDs += this.value + ",";
+	});
+	if(regionIDs != ''){
+		regionIDs = regionIDs.substr(0, regionIDs.length-1);
+	}
+	return regionIDs;
+}
+function getRenderUsd(){
+	var result = $.fn.dataTable.render.number( ',', '.', 2, '$ ' );
+	return result;
+}
+function getRenderVnd(){
+	var result = $.fn.dataTable.render.number( ',', '.', 0, 'VND ' );
+	return result;
+}
+function getRenderNumberBasedOnCurrency(){
+	var result = getRenderUsd();
+	if(currency == 'VND'){
+		result = getRenderVnd();
+	}else if(currency == 'JPY'){
+		result = $.fn.dataTable.render.number( ',', '.', 2, 'JPY ' );
+	}else{
+		// USD is default
+	}
+	return result;
 }
 function loadDataTable(){
 	var regionIDs=getCheckedRegionIds();
 	var locationIDs=getCheckedLocationIds();
-	
-	var table = $("#example").dataTable( {
-		  "columnDefs": [
-		                 { "visible": false, "targets": 2 }
-		               ],		
+
+	var table;
+	table = $("#example").dataTable({
+		"language": {
+			"decimal": ",",
+			"thousands": "."
+		},
+		"columnDefs": [
+			{"visible": false, "targets": 2},
+			{type: 'formatted-num', targets: 7}
+		],
 		"scrollX": true,
 		destroy: true,
-        //Default: Page display length
-        "iDisplayLength": 100,
-        "iDisplayStart": 0,
-	   "fnRowCallback": function ( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
-			$(nRow).attr( 'data-position', iDisplayIndex);
+		//Default: Page display length
+		"iDisplayLength": 100,
+		"iDisplayStart": 0,
+		"fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+			$(nRow).attr('data-position', iDisplayIndex);
 			//$(nRow).attr( 'data-row-id', iDisplayIndex);
 			//$(nRow).attr( 'id', aData.order);
 			nRow.setAttribute('id', aData.encounterID);  //Initialize row id for every row
 			//$(nRow).find('.attr-setting-order' ).val(iDisplayIndex);
 			var hasMakerDeleted = aData.hasMakerDeleted;
-			if(hasMakerDeleted == true){
-				$(nRow).css({"background-color":"red"})
+			if (hasMakerDeleted == true) {
+				$(nRow).css({"background-color": "red"})
 			}
 		},
 		"sPaginationType": "full_numbers",
-        "sAjaxSource": pageContext +"/quotation/getAssignedProductOfRegionForDatatables",
-		"fnServerParams": function ( aoData ) {
-				aoData.push( { "name": "regionId", "value": regionIDs },
-							 { "name": "locationIds", "value": locationIDs }); //push more parameters
-				},		
-        "aoColumns": [
-            { "mData": "order" },		
-			{ "mData": "region.regionName" },
-			{ "mData": "region.regionId" },
-			{ "mData": "product.productName" },				
-            { "mData": "product.unit" },
-            { "mData": "actualQuantity" },
-            { "mData": "unitRate" },
-            { "mData": "amount" },
-            { "mData": "nonamePercent" },
-            { "mData": "nonameRange" },
-            { "mData": "remark" },
-            { "mData": "quantity" },
-            { "mData": "labourAfterTax" },
-            { "mData": "mat_w_o_Tax_USD" },
-            { "mData": "mat_w_o_Tax_VND" },
-            { "mData": "product.labour" },
-            { "mData": "imp_Tax" },
-            { "mData": "special_Con_Tax" },
-            { "mData": "vat" },
-            { "mData": "discount_rate" },
-            { "mData": "unit_Price_After_Discount" },
-            { "mData": "allowance" },
-            { "mData": "unit_Price_W_Tax_Profit" },
-            { "mData": "subcon_Profit" },
-            { "mData": "unit_Price_W_Tax_Labour" }, 
-            { "mData": "cost_Mat_Amount_USD" }, 
-            { "mData": "cost_Labour_Amount_USD" },
+		"sAjaxSource": pageContext + "/quotation/getAssignedProductOfRegionForDatatables",
+		"fnServerParams": function (aoData) {
+			aoData.push({"name": "regionId", "value": regionIDs},
+				{"name": "locationIds", "value": locationIDs}); //push more parameters
+		},
+		"aoColumns": [
+			{"mData": "order"},
+			{"mData": "region.regionName"},
+			{"mData": "region.regionId"},
+			{"mData": "product.productName"},
+			{"mData": "product.unit"},
+			{"mData": "actualQuantity"},
+			{"mData": "unitRate", render: getRenderUsd()},
+			{"mData": "amount"
+				,render: getRenderNumberBasedOnCurrency()
+			},
+			{"mData": "nonamePercent"},
+			{"mData": "nonameRange"},
+			{"mData": "remark"},
+			{"mData": "quantity"},
+			{"mData": "labourAfterTax", render: getRenderUsd()},
+			{"mData": "mat_w_o_Tax_USD", render: getRenderUsd()},
+			{"mData": "mat_w_o_Tax_VND", render:getRenderVnd()},
+			{"mData": "product.labour", render: getRenderUsd()},
+			{"mData": "imp_Tax"},
+			{"mData": "special_Con_Tax"},
+			{"mData": "vat"},
+			{"mData": "discount_rate"},
+			{"mData": "unit_Price_After_Discount", render: getRenderUsd()},
+			{"mData": "allowance"},
+			{"mData": "unit_Price_W_Tax_Profit", render: getRenderUsd()},
+			{"mData": "subcon_Profit"},
+			{"mData": "unit_Price_W_Tax_Labour", render: getRenderUsd()},
+			{"mData": "cost_Mat_Amount_USD", render: getRenderUsd()},
+			{"mData": "cost_Labour_Amount_USD", render: getRenderUsd()},
 			{
 				"mData": null,
 				"bSortable": false,
-			    "mRender": function (o) { 
+				"mRender": function (o) {
 					var id = o.encounterID;
-						//	return '<button class="btn"  onclick="updateItem('+ id +  ')"' + '>Update</button>'
-						//		+ '<button class="btn" onclick="deleteItem('+ id +  ')"' +'>Delete</button>'
-					return '<button class="editor_edit" onclick="updateItem('+ id +  ')"' + '>Edit</button> / <button class="editor_remove" onclick="deleteItem('+ id +  ')"' +'>Delete</button>'
-							;					
+					//	return '<button class="btn"  onclick="updateItem('+ id +  ')"' + '>Update</button>'
+					//		+ '<button class="btn" onclick="deleteItem('+ id +  ')"' +'>Delete</button>'
+					return '<button class="editor_edit" onclick="updateItem(' + id + ')"' + '>Edit</button> / <button class="editor_remove" onclick="deleteItem(' + id + ')"' + '>Delete</button>'
+						;
 				}
-			}			
-        ]
-    } );
+			}
+		]
+	});
 	return table;
 }
 function getAllowance(productGroupCode){
@@ -1376,7 +1405,7 @@ function getAllowance(productGroupCode){
 		}
 	}
 	return allowance;
-	
+
 }
 function getDiscount(productGroupCode){
 	var records = dataAdapterProductGroup.records;
@@ -1386,14 +1415,14 @@ function getDiscount(productGroupCode){
 		}
 	}
 	return discountRate;
-	
+
 }
 /*
-* to reload the data table component.
-*/
+ * to reload the data table component.
+ */
 function reloadDataTable(){
-	
+
 	var table = loadDataTable();
 	table.rowGrouping({ iGroupingColumnIndex: 1 });
-	table.rowReordering({ bGroupingUsed: true, sURL: pageContext + "/quotation/updateQuotaitonOrder", sRequestType: "GET" });	
+	table.rowReordering({ bGroupingUsed: true, sURL: pageContext + "/quotation/updateQuotaitonOrder", sRequestType: "GET" });
 }

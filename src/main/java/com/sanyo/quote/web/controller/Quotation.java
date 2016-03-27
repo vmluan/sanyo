@@ -409,7 +409,7 @@ public class Quotation extends CommonController {
 		}
 		return total;
 	}
-	@RequestMapping(value = "/{id}/getLocationSum", method = RequestMethod.POST)
+	/*@RequestMapping(value = "/{id}/getLocationSum", method = RequestMethod.POST)
 	@ResponseBody
 	public String getLocationSum(@PathVariable("id") Integer id, Model uiModel, HttpServletRequest httpServletRequest){
 		Float total = 0f;
@@ -436,7 +436,7 @@ public class Quotation extends CommonController {
 	if(total >0)
 		total = convertPrice(total, project);
 	return total.toString();
-	}
+	}*/
 	//function to update price for encounters of specific project.
 		@ResponseBody
 		@RequestMapping(value = "/{id}", params = "updatePrice", method = RequestMethod.POST)
@@ -600,8 +600,6 @@ public class Quotation extends CommonController {
 					total += getSumOfRegion(region);
 				}
 			}
-		if(total > 0)
-			total = convertPrice(total,location.getProject());
 			return total;
 		}
 
@@ -620,9 +618,6 @@ public class Quotation extends CommonController {
 			if(project == null)
 				project = region.getLocation().getProject();
 		}
-		if(total > 0 && project != null)
-			total = convertPrice(total, project);
-
 		Currency currency = project.getCurrency();
 		if (currency != null
 				&& currency.getCurrencyCode().equalsIgnoreCase("VND")) {
@@ -635,8 +630,13 @@ public class Quotation extends CommonController {
 	private float getSumOfRegion(Region region) {
 			Float total = 0f;
 			List<Encounter> encounters = encounterService.findByRegion(region);
+			Project project = null;
 			for(Encounter encounter : encounters) {
-				total += encounter.getAmount();
+				float amount = encounter.getAmount();
+				if(project == null)
+					project = encounter.getRegion().getLocation().getProject();
+				amount = (float)Math.ceil(convertPrice(amount, project));
+				total += amount;
 			}
 			return total;
 
@@ -659,6 +659,7 @@ public class Quotation extends CommonController {
 			List<Encounter> finalEncounters = new ArrayList<Encounter>();
 			boolean isAllLocation = false;
 			boolean isAllRegion = false;
+
 //			for(String id : regionIds){
 //				if(id.equalsIgnoreCase("0")){
 //					isAllRegion = true;
@@ -672,6 +673,7 @@ public class Quotation extends CommonController {
 					Region region = regionService.findById(Integer.valueOf(id));
 					List<Encounter> encounters = encounterService.findByRegion(region);
 					finalEncounters.addAll(encounters);
+					updatePriceBasedOnCurrency(finalEncounters, region.getLocation().getProject());
 				}
 			}else{
 				if(locationIds !=null){
@@ -682,16 +684,21 @@ public class Quotation extends CommonController {
 //						}
 //					}
 					if(!isAllLocation){
+						Project project = null;
 						for(String id : locationIds.split(",")){
 							if(id.equalsIgnoreCase("0"))
 								continue;
 							Location location = locationService.findById(Integer.valueOf(id));
+							if(project == null)
+								project = location.getProject();
 							List<Region> regions = regionService.findByLocation(location);
 							for(Region region : regions){
 								List<Encounter> encounters = encounterService.findByRegion(region);
 								finalEncounters.addAll(encounters);
 							}
 						}
+						if(project != null)
+							updatePriceBasedOnCurrency(finalEncounters,project);
 					}else{
 						//find all locations of the project, then find all regions of each location.
 						Project project = projectService.findById(Integer.valueOf(projectId));
@@ -703,9 +710,11 @@ public class Quotation extends CommonController {
 								finalEncounters.addAll(encounters);
 							}
 						}
+						updatePriceBasedOnCurrency(finalEncounters,project);
 					}
 				}
 			}
+
 			DataTableObject<Encounter> dataTableObject = new DataTableObject<Encounter>();
 			dataTableObject.setAaData(finalEncounters);
 			dataTableObject.setiTotalRecords(finalEncounters.size());
@@ -725,9 +734,9 @@ public class Quotation extends CommonController {
 			if(encounter.getOrder() == fromPosition.intValue()){
 				encounter.setOrder(toPosition);
 				encounter.setDataTableChange(true);
-				
+
 				encounterService.save(encounter);
-				
+
 				EncounterOrderHist encounterOrderHist = new EncounterOrderHist();
 				encounterOrderHist.setEncounterId(encounterId);
 				encounterOrderHist.setFromPos(fromPosition.intValue());
@@ -763,6 +772,29 @@ public class Quotation extends CommonController {
 		Float result = Float.valueOf(percent) * total / 100;
 		logger.info("============ mat_w_o_tax_usd = " + result);
 		return result.toString();
+	}
+	//default currency is USD.
+	//if user use VND, we should convert price first, then display value in VND.
+	private void updatePriceBasedOnCurrency(List<Encounter> encounters, Project project){
+		Currency currency = project.getCurrency();
+		float rate = 0f;
+		if (currency != null
+				&& currency.getCurrencyCode().equalsIgnoreCase("VND")) {
+			rate = project.getUsdToVnd();
+		}else if (currency != null
+				&& currency.getCurrencyCode().equalsIgnoreCase("VND")) {
+			rate = project.getUsdToJpy();
+		}
+		if(rate == 0f)
+			return;
+
+		for(Encounter encounter : encounters){
+			float amount = encounter.getAmount();
+			float cost_mat_amount_usd = encounter.getCost_Mat_Amount_USD();
+			encounter.setAmount((int)Math.ceil(amount * rate));
+			//encounter.setCost_Mat_Amount_USD((int)Math.ceil(cost_mat_amount_usd * rate));
+
+		}
 	}
 }
 
