@@ -22,6 +22,28 @@
     
     <spring:eval expression="project.projectId == null ? labelProjectNew:labelProjectUpdate" var="formTitle"/>       
         <!-- Main content -->
+     <style>
+     	.bb-alert {
+    position: fixed;
+    bottom: 63%;
+    right: 0;
+    margin-bottom: 0;
+    font-size: 1.2em;
+    padding: 1em 1.3em;
+    z-index: 2000;
+	}
+	.alert-info {
+	    color: #31708f;
+	    background-color: #d9edf7;
+	    border-color: #bce8f1;
+	}
+	.alert {
+	    padding: 15px;
+	    margin-bottom: 20px;
+	    border: 1px solid transparent;
+	    border-radius: 4px;
+	}
+     </style>
         <section class="content">
           <div class="box box-default">
             <!-- left column -->
@@ -33,6 +55,18 @@
                   <h3 class="box-title">${formTitle}</h3>
                 </div><!-- /.box-header -->
                 <!-- form start -->
+                <div class="row" id="evelop-buttonAction" style="text-align: center;">
+                	<!--<button style="float:none;margin:6px" class="btn bg-olive margin" onclick="makeReport(1)">Print</button>
+                	<button style="float:none;margin:6px" class="btn bg-olive margin" onclick="makeReport(1)">Print</button>
+                	<button style="float:none;margin:6px" class="btn bg-olive margin" onclick="updateProduct(1)">Print</button>
+                	<button style="float:none;margin:6px" class="btn bg-olive margin" onclick="addQuotation(1)">Print</button>
+                	<button style="float:none;margin:6px" class="btn bg-olive margin" onclick="makeReport(1)">Print</button>
+                	<button style="float:none;margin:6px" class="btn bg-olive margin" onclick="makeReport(1)">Print</button>-->
+                </div>
+                <div id="notificationUpdatePrice" class="bb-alert alert alert-info" style="display: none;">
+        		<span class="price_span">Update success!</span>
+    			</div>
+
                 <form:form modelAttribute="project" id="projectUpdateForm" method="post">
                   <div class="col-md-12">
 					<c:if test="${not empty message}">
@@ -762,6 +796,20 @@ function getCheckedItems(obj){
 var projectId=${project.projectId};
 var pageContext = "${pageContext.request.contextPath}";
 </script>
+<script>
+
+	var pageContext = "${pageContext.request.contextPath}";
+	var projectStatus = "${projectStatus}";
+	var projectId = (${project.projectId});
+	var isAdmin =${isAdmin};
+	var StatusNeedUpdatePrice= ${StatusNeedUpdatePrice};
+	//alert(projectStatus);
+</script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/actionforBasicInfor.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/bootbox.min.js">
+<jsp:text/> </script>	
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/projectRevisionList.js">
         <jsp:text/>
     </script>

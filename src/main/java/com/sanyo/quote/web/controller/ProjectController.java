@@ -136,7 +136,7 @@ public class ProjectController extends CommonController {
 	private ProductGroupRateService productGroupRateService;
 	
 	private Validator validator;
-	
+	private String Flagstatus ="";
 	private String projectsUrl="/projects?status=ongoing";
 	
 	public ProjectController(){
@@ -155,6 +155,7 @@ public class ProjectController extends CommonController {
 		String status = request.getParameter("status");
 		//String new_price_status = request.getParameter("needUpdatePrice");
 		projectsUrl ="/projects?status=" + status;
+		Flagstatus = status;
 		uiModel.addAttribute("projectStatus", status);
 		if(status != null && status.equalsIgnoreCase(Constants.PROJECT_ONGOING))
 		{
@@ -225,16 +226,41 @@ public class ProjectController extends CommonController {
     public String updateForm(@PathVariable("id") Integer id, Model uiModel) {
 		Project project = projectService.findById(id);
         uiModel.addAttribute("project", project);
-        
+        //project.getProjectId();
         setHeader(uiModel, "Project Detail", "Contains detail information including regions and assigned users");
         setUser(uiModel);
         initialize(uiModel);
         
+        int sum =0 ;
+		ArrayList statusPrice = new ArrayList();
+		boolean flag = false;
+		if(Utilities.hasAdminRole()){ //if admin
+			flag = true;
+				if(project.getStatus().name()=="ONGOING")
+				{
+					if(getStatusNeedUpdatePrice(project))
+					{
+						project.setNeedUpdatePrice(true);
+						//projectService.save(itemProject);
+						sum++;
+					}
+					else
+					{
+						project.setNeedUpdatePrice(false);					
+					}
+					projectService.save(project);
+					statusPrice.add(project.isNeedUpdatePrice());
+				}
+		}
+		
         resetLinks();
         addToLinks(currentProjecs, projectsUrl);
         addToLinks("Project Detail", "");
         setBreadCrumb(uiModel, projectsUrl, "Projects", "", "Project Detail");
-        
+		uiModel.addAttribute("projectStatus", Flagstatus);
+		uiModel.addAttribute("isAdmin",flag);
+		uiModel.addAttribute("StatusNeedUpdatePrice", statusPrice);
+		uiModel.addAttribute("projectNeedUpdate", sum);
         return "projects/update";
 	}
 	
