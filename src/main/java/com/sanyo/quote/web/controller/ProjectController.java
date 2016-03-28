@@ -19,6 +19,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+import com.sanyo.quote.domain.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,27 +42,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.sanyo.quote.domain.Category;
-import com.sanyo.quote.domain.Currency;
-import com.sanyo.quote.domain.CurrencyExchRate;
-import com.sanyo.quote.domain.Encounter;
-import com.sanyo.quote.domain.Location;
-import com.sanyo.quote.domain.LocationJson;
-import com.sanyo.quote.domain.LocationOrderHist;
-import com.sanyo.quote.domain.MakerProject;
-import com.sanyo.quote.domain.Product;
-import com.sanyo.quote.domain.ProductGroup;
-import com.sanyo.quote.domain.ProductGroupMaker;
-import com.sanyo.quote.domain.ProductGroupRate;
-import com.sanyo.quote.domain.Project;
-import com.sanyo.quote.domain.ProjectRevision;
-import com.sanyo.quote.domain.ProjectStatus;
-import com.sanyo.quote.domain.Region;
-import com.sanyo.quote.domain.RegionJson;
-import com.sanyo.quote.domain.TreeGrid;
-import com.sanyo.quote.domain.User;
-import com.sanyo.quote.domain.UserJson;
-import com.sanyo.quote.domain.UserRegionRole;
 import com.sanyo.quote.helper.Constants;
 import com.sanyo.quote.helper.Utilities;
 import com.sanyo.quote.service.CategoryService;
@@ -77,6 +57,7 @@ import com.sanyo.quote.service.ProductService;
 import com.sanyo.quote.service.ProjectRevisionService;
 import com.sanyo.quote.service.ProjectService;
 import com.sanyo.quote.service.RegionService;
+import com.sanyo.quote.service.condition2service;
 import com.sanyo.quote.service.UserRegionRoleService;
 import com.sanyo.quote.service.UserService;
 import com.sanyo.quote.web.form.Message;
@@ -134,6 +115,9 @@ public class ProjectController extends CommonController {
 	
 	@Autowired
 	private ProductGroupRateService productGroupRateService;
+
+	@Autowired
+	private condition2service condition2service;
 	
 	private Validator validator;
 	private String Flagstatus ="";
@@ -844,6 +828,56 @@ public class ProjectController extends CommonController {
 		}
 		return null;
 	}
+	//	@RequestMapping(value = "/getProductGroupMakersJson", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+//	@ResponseBody
+//	public String getProductGroupMakersJsGon(@RequestParam(value="projectId", required=true) String projectId,
+//			@RequestParam(value="filterscount", required=false) String filterscount
+//			, @RequestParam(value="groupscount", required=false) String groupscount
+//			, @RequestParam(value="pagenum", required=false) Integer pagenum
+//			, @RequestParam(value="pagesize", required=false) Integer pagesize
+//			, @RequestParam(value="recordstartindex", required=false) Integer recordstartindex
+//			, @RequestParam(value="recordendindex", required=false) Integer recordendindex
+//			, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
+//
+//		String regionType =  httpServletRequest.getParameter("regionType");
+//		System.out.println("============ start getting product group makers ");
+//		Project project = projectService.findByIdAndFetchMakers(Integer.valueOf(projectId));
+//		Set<ProductGroupMaker> productGroupMakers = project.getProductGroupMakers();
+//		Set<ProductGroup> productGroups = new HashSet<ProductGroup>();
+//		Iterator<ProductGroupMaker> iterator = productGroupMakers.iterator();
+//		while(iterator.hasNext()){
+//			ProductGroupMaker productGroupMaker = iterator.next();
+//			Category category = productGroupMaker.getCategory().getParentCategory();
+//			if(regionType.equalsIgnoreCase(Constants.ELEC_TYPE)){
+//				if(category.getName().equalsIgnoreCase(Constants.ELECT_BOQ)){
+//					ProductGroup productGroup = productGroupMaker.getProductGroup();
+//					productGroups.add(productGroup);
+//				}
+//			}else if(regionType.equalsIgnoreCase(Constants.MECH_TYPE)){
+//				if(category.getName().equalsIgnoreCase(Constants.MECH_BOQ)){
+//					ProductGroup productGroup = productGroupMaker.getProductGroup();
+//					productGroups.add(productGroup);
+//				}
+//			}
+//		}
+//		String result = Utilities.jSonSerialization(productGroups);
+//		return result;
+	public void cloneMakerProject(Project sourecProject, Project clonedProject) throws CloneNotSupportedException{
+		List<MakerProject> makerProjects = makerProjectService.findByProject(sourecProject);
+		for(MakerProject makerProject : makerProjects){
+			MakerProject clonedMP = makerProject.clone();
+			clonedMP.setProject(clonedProject);
+			makerProjectService.save(clonedMP);
+		}
+	}
+	public void cloneRevisions(Project sourceProject, Project clonedProject) throws  CloneNotSupportedException{
+		List<ProjectRevision> projectRevisions = projectRevisionService.findRevisions(sourceProject);
+		for(ProjectRevision projectRevision : projectRevisions){
+			ProjectRevision clonedObj = (ProjectRevision) projectRevision.clone();
+			clonedObj.setProject(clonedProject);
+			projectRevisionService.save(clonedObj);
+		}
+	}
 	//method to show form for creating new revision
 	@RequestMapping(value = "/{id}/revisions", params = "form", method = RequestMethod.GET)
     public String callCreateProjectRevisions(@PathVariable("id") Integer id, Model uiModel) {
@@ -851,22 +885,22 @@ public class ProjectController extends CommonController {
 		Project project = projectService.findById(id);
 		projectRevision.setProject(project);
         uiModel.addAttribute("projectRevision", projectRevision);
-        
+
         setHeader(uiModel, "Revision", "Create a new revision");
         setUser(uiModel);
-        
+
         resetLinks();
         addToLinks(currentProjecs, projectsUrl);
         addToLinks("Project Detail", "/projects/" + id + "?form");
         addToLinks("New Revision", "");
         setBreadCrumb(uiModel, projectsUrl, "Projects", "", "Create Revision");
-        
+
 		return "projects/revisions/create";
-		
+
 	}
 	//method to save form revision to database.
 	@RequestMapping(value = "/{id}/revisions", params = "form", method = RequestMethod.POST)
-	public String saveProjectRevisions(@ModelAttribute("projectRevision") ProjectRevision projectRevision, @PathVariable Integer id, Model uiModel, 
+	public String saveProjectRevisions(@ModelAttribute("projectRevision") ProjectRevision projectRevision, @PathVariable Integer id, Model uiModel,
     		HttpServletRequest httpServletRequest, RedirectAttributes redirectAttributes, Locale locale, BindingResult bindingResult){
 		logger.info("Saving Revision");
         if (bindingResult.hasErrors()) {
@@ -889,10 +923,10 @@ public class ProjectController extends CommonController {
 	public String  callEditProjectRevisions(@PathVariable("id") Integer id, Model uiModel, HttpServletRequest httpServletRequest){
 		ProjectRevision projectRevision = projectRevisionService.findById(id);
         uiModel.addAttribute("projectRevision", projectRevision);
-        
+
         setHeader(uiModel, "Revision", "Update revision");
         setUser(uiModel);
-        
+
         resetLinks();
         addToLinks(currentProjecs, projectsUrl);
         addToLinks("Project Detail", "/projects/" + id + "?form");
@@ -900,6 +934,7 @@ public class ProjectController extends CommonController {
         setBreadCrumb(uiModel, "/projects/" + projectRevision.getProject().getProjectId() + "?form", "Update Project", "", "Update Revision");
 		return "projects/revisions/update";
 	}
+
 	@RequestMapping(value = "/revisions/{id}", params = "form", method = RequestMethod.POST)
 	public String  saveEditProjectRevisions(@ModelAttribute("projectRevision") ProjectRevision projectRevision, @PathVariable Integer id
 			, Model uiModel, HttpServletRequest httpServletRequest,RedirectAttributes redirectAttributes
@@ -908,7 +943,7 @@ public class ProjectController extends CommonController {
 			uiModel.addAttribute("message", new Message("error", messageSource.getMessage("revision_save_fail", new Object[]{}, locale)));
             uiModel.addAttribute("projectRevision", projectRevision);
             return "projects/revisions/update";
-	        }  
+	        }
 		ProjectRevision exisingRevision = projectRevisionService.findById(id);
 		projectRevision.setRevisionId(id);
 		projectRevision.setProject(exisingRevision.getProject());
@@ -919,7 +954,7 @@ public class ProjectController extends CommonController {
         uiModel.addAttribute("message", new Message("success", messageSource.getMessage("revision_save_success", new Object[]{}, locale)));
 		return "projects/revisions/update";
 	}
-	
+
 	@RequestMapping(value = "/getRevisionsJson", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String getRevisionJson(@RequestParam(value="projectId", required=true) String projectId,
@@ -935,7 +970,6 @@ public class ProjectController extends CommonController {
 		String result = Utilities.jSonSerialization(projectRevisions);
 		return result;
 	}
-	
 	//method to show form for creating new location
 	@RequestMapping(value = "/{id}/locations", params = "form", method = RequestMethod.GET)
     public String callCreateLocation(@PathVariable("id") Integer id, Model uiModel) {
@@ -943,22 +977,23 @@ public class ProjectController extends CommonController {
 		Project project = projectService.findById(id);
 		location.setProject(project);
         uiModel.addAttribute("location", location);
-        
+
         setHeader(uiModel, "Location", "Create a new Location");
         setUser(uiModel);
-        
+
         resetLinks();
         addToLinks(currentProjecs, projectsUrl);
         addToLinks("Project Detail", "/projects/" + id + "?form");
         addToLinks("Update Location", "");
         setBreadCrumb(uiModel, "/projects", "Projects", "", "Create Location");
-        
+
 		return "projects/locations/create";
-		
+
 	}
+
 	//method to save form of new location to database.
 	@RequestMapping(value = "/{id}/locations", params = "form", method = RequestMethod.POST)
-	public String saveLocation(@ModelAttribute("location") Location location, @PathVariable Integer id, Model uiModel, 
+	public String saveLocation(@ModelAttribute("location") Location location, @PathVariable Integer id, Model uiModel,
     		HttpServletRequest httpServletRequest, RedirectAttributes redirectAttributes, Locale locale, BindingResult bindingResult){
 		logger.info("Saving new Location");
         if (bindingResult.hasErrors()) {
@@ -976,21 +1011,20 @@ public class ProjectController extends CommonController {
 //		return "redirect:/projects/locations/" + UrlUtil.encodeUrlPathSegment(location.getLocationId().toString(), httpServletRequest) + "?form";
 		return "redirect:/projects/" +project.getProjectId() +"/locations/?form";
 	}
-	
 	@RequestMapping(value = "/locations/{id}", params = "form", method = RequestMethod.GET)
 	public String  callEditLocation(@PathVariable("id") Integer id, Model uiModel, HttpServletRequest httpServletRequest){
 		Location location = locationService.findById(id);
         uiModel.addAttribute("location", location);
-        
+
         setHeader(uiModel, "Location", "Update location");
         setUser(uiModel);
-        
+
         resetLinks();
         addToLinks(currentProjecs, projectsUrl);
         addToLinks("Project Detail", "/projects/" + id + "?form");
         addToLinks("New Location", "");
         setBreadCrumb(uiModel, "/projects/" + location.getProject().getProjectId() + "?form", "Update Project", "", "Update Location");
-        
+
 		return "projects/locations/update";
 	}
 	@RequestMapping(value = "/locations/{id}", params = "form", method = RequestMethod.POST)
@@ -1001,11 +1035,11 @@ public class ProjectController extends CommonController {
 			uiModel.addAttribute("message", new Message("error", messageSource.getMessage("location_save_fail", new Object[]{}, locale)));
             uiModel.addAttribute("location", location);
             return "projects/location/update";
-	        }  
+	        }
 		Location exitingLocation = locationService.findById(id);
 		location.setLocationId(id);
 		location.setProject(exitingLocation.getProject());
-		
+
 		location = locationService.save(location);
         uiModel.addAttribute("location", location);
         setBreadCrumb(uiModel, "/projects/" + location.getProject().getProjectId() + "?form", "Update Project", "", "Update Location");
@@ -1070,7 +1104,7 @@ public class ProjectController extends CommonController {
 		locationAll.setLocationName("All");
 		locationAll.setLocationId(0);
 		Set<Location> locations = project.getLocations();
-		
+
 		TreeMap<Integer, Location> tree = new TreeMap<Integer, Location>();
 		if(locations.size() > 0){
 			tree.put(locationAll.getLocationId(), locationAll);
@@ -1085,42 +1119,9 @@ public class ProjectController extends CommonController {
 		String result = Utilities.jSonSerialization(list);
 		return result;
 	}
-//	@RequestMapping(value = "/getProductGroupMakersJson", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
-//	@ResponseBody
-//	public String getProductGroupMakersJsGon(@RequestParam(value="projectId", required=true) String projectId,
-//			@RequestParam(value="filterscount", required=false) String filterscount
-//			, @RequestParam(value="groupscount", required=false) String groupscount
-//			, @RequestParam(value="pagenum", required=false) Integer pagenum
-//			, @RequestParam(value="pagesize", required=false) Integer pagesize
-//			, @RequestParam(value="recordstartindex", required=false) Integer recordstartindex
-//			, @RequestParam(value="recordendindex", required=false) Integer recordendindex
-//			, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
-//		
-//		String regionType =  httpServletRequest.getParameter("regionType");
-//		System.out.println("============ start getting product group makers ");
-//		Project project = projectService.findByIdAndFetchMakers(Integer.valueOf(projectId));
-//		Set<ProductGroupMaker> productGroupMakers = project.getProductGroupMakers();
-//		Set<ProductGroup> productGroups = new HashSet<ProductGroup>();
-//		Iterator<ProductGroupMaker> iterator = productGroupMakers.iterator();
-//		while(iterator.hasNext()){
-//			ProductGroupMaker productGroupMaker = iterator.next();
-//			Category category = productGroupMaker.getCategory().getParentCategory();
-//			if(regionType.equalsIgnoreCase(Constants.ELEC_TYPE)){
-//				if(category.getName().equalsIgnoreCase(Constants.ELECT_BOQ)){
-//					ProductGroup productGroup = productGroupMaker.getProductGroup();
-//					productGroups.add(productGroup);
-//				}
-//			}else if(regionType.equalsIgnoreCase(Constants.MECH_TYPE)){
-//				if(category.getName().equalsIgnoreCase(Constants.MECH_BOQ)){
-//					ProductGroup productGroup = productGroupMaker.getProductGroup();
-//					productGroups.add(productGroup);
-//				}				
-//			}
-//		}
-//		String result = Utilities.jSonSerialization(productGroups);
-//		return result;
+
 //	}
-	
+
 	private void setRatesForProductGroup(ProductGroup productGroup){
 		List<ProductGroupRate> productGroupRates = productGroupRateService.findByProductGroup(productGroup);
 		if(productGroupRates != null && productGroupRates.size()>0){
@@ -1129,7 +1130,7 @@ public class ProjectController extends CommonController {
 			productGroup.setDiscount(rate.getDiscount());
 		}
 	}
-	
+
 	/*
 	 * get list of product group that are assigned to the project. it is defined in Maker sheet
 	 */
@@ -1144,11 +1145,11 @@ public class ProjectController extends CommonController {
 			, @RequestParam(value="recordstartindex", required=false) Integer recordstartindex
 			, @RequestParam(value="recordendindex", required=false) Integer recordendindex
 			, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
-		
+
 		String regionType =  httpServletRequest.getParameter("regionType");
 		System.out.println("============ start getting maker of project ");
 		Project project = projectService.findById(Integer.valueOf(projectId));
-		
+
 		if(regionId != null){
 			Region region = regionService.findById(regionId);
 			Category assignedCategory = region.getCategory();
@@ -1168,29 +1169,30 @@ public class ProjectController extends CommonController {
 						ProductGroup productGroup = productGroupMaker.getProductGroup();
 						setRatesForProductGroup(productGroup);
 						productGroups.add(productGroup);
-					}				
+					}
 				}
 			}
 			String result = Utilities.jSonSerialization(productGroups);
 			return result;
 		}
-		
+
 		return "[]";
 
 	}
-
 	@RequestMapping(value = "/{id}", params = "clone", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK)
 	public void cloneProject(@PathVariable("id") Integer id, Model uiModel
 			,HttpServletRequest httpServletRequest) throws CloneNotSupportedException{
 		Project project = projectService.findById(id);
-		
+
 		Project clonedProject = project.clone();
 		clonedProject.setProjectId(null);
 		clonedProject = projectService.save(clonedProject);
 		cloneMakerProject(project, clonedProject);
-		cloneProductGroupMakers(project.getProjectId(), clonedProject);
+		//cloneProductGroupMakers(project.getProjectId(), clonedProject);
 		this.cloneLocation(project.getProjectId(), clonedProject);
+		this.cloneCondition2(project, clonedProject);
+		this.cloneRevisions(project, clonedProject);
 
 	}
 	public void cloneLocation(Integer projectId, Project clonedProject) throws CloneNotSupportedException{
@@ -1209,14 +1211,14 @@ public class ProjectController extends CommonController {
 		Set<Region> clonedRegions = Utilities.cloneRegions(regions);
 		for(Region region : clonedRegions){
 			Integer regionId = region.getRegionId();
-			
+
 			region.setRegionId(null);
 			region.setLocation(clonedLocation);
 			region = regionService.save(region);
 			this.cloneUserRegionRole(regionId, region);
 			this.cloneEncounters(regionId, region);
 		}
-		
+
 	}
 	public void cloneEncounters(Integer regionId, Region clonedRegion) throws CloneNotSupportedException{
 		List<Encounter> encounters = regionService.getEncounters(regionId);
@@ -1244,13 +1246,14 @@ public class ProjectController extends CommonController {
 			userRegionRoleService.save(role);
 		}
 	}
-	public void cloneMakerProject(Project sourecProject, Project clonedProject) throws CloneNotSupportedException{
-		List<MakerProject> makerProjects = makerProjectService.findByProject(sourecProject);
-		for(MakerProject makerProject : makerProjects){
-			MakerProject clonedMP = makerProject.clone();
-			clonedMP.setProject(clonedProject);
-			makerProjectService.save(clonedMP);
+	public void cloneCondition2(Project sourceProject, Project clonedProject) throws  CloneNotSupportedException{
+		Condition2 condition2 = condition2service.findByProject(sourceProject);
+		if(condition2 != null) {
+			Condition2 clonedObj = (Condition2) condition2.clone();
+			clonedObj.setProject(clonedProject);
+			clonedObj = condition2service.save(clonedObj);
 		}
+
 	}
 	@Transactional
 	@RequestMapping(value = "/{id}", params = "delete", method = RequestMethod.POST)

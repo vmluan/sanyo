@@ -64,6 +64,9 @@ public class CommonController {
 		uiModel.addAttribute("userName", user.getUsername());
 		com.sanyo.quote.domain.User userSanyo = userService.findByUserName(user.getUsername());
 		uiModel.addAttribute("logginUser",userSanyo);
+		boolean isAdminrole = Utilities.hasAdminRole();
+		uiModel.addAttribute("isAdminrole",isAdminrole);
+
 	}
 	public void throwOverlappedDateException(String message) throws Exception{
 		Exception e = new Exception(message);

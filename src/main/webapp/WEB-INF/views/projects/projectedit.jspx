@@ -384,7 +384,6 @@
 							</div>
 							<div id="pagerLocation"><jsp:text /></div><jsp:text /><P /><jsp:text />
 							<p />
-							<a href="${pageContext.request.contextPath}/projects/${project.projectId}/locations/?form" class="btn btn-primary btn-xs">${labelProjecLocationAdd}</a>
 						</section>
 					</div>				
 				
@@ -408,7 +407,6 @@
 							</div>
 							<div id="pagerRevision"><jsp:text /></div><jsp:text /><P /><jsp:text />
 							<p />
-							<a href="${pageContext.request.contextPath}/projects/${project.projectId}/revisions/?form" class="btn btn-primary btn-xs">${labelProjecRevisiontAdd}</a>
 						</section>
 					</div>				
 				

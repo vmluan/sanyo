@@ -1,6 +1,8 @@
 package com.sanyo.quote.web.controller;
 
 import com.sanyo.quote.domain.*;
+import com.sanyo.quote.domain.Currency;
+import com.sanyo.quote.domain.User;
 import com.sanyo.quote.helper.Constants;
 import com.sanyo.quote.helper.Utilities;
 import com.sanyo.quote.service.*;
@@ -9,6 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -62,12 +67,17 @@ public class Quotation extends CommonController {
 
 	@Autowired
 	private EncounterOrderHistService encounterOrderHistService;
+	@Autowired
+	private UserRegionRoleService userRegionRoleService;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String getQuotationPage(@RequestParam(value="projectId", required=true) String projectId,
 			Model uiModel,HttpServletRequest httpServletRequest) {
 		Project project = projectService.findById(Integer.valueOf(projectId));
 		uiModel.addAttribute("projectId", projectId);
+		uiModel.addAttribute("hasPrivilegeElec", hasPrivilege(project, Constants.ELECT_BOQ));
+		uiModel.addAttribute("hasPrivilegeMec", hasPrivilege(project, Constants.MECH_BOQ));
+		uiModel.addAttribute("hasAdminRole", hasAdminRole());
 		String status = "";
 		String currentProjecs = "";
 		if(project.getStatus().equals(ProjectStatus.ONGOING)){
@@ -145,9 +155,66 @@ public class Quotation extends CommonController {
 			uiModel.addAttribute("needUpdatePrice", true);
 		uiModel.addAttribute("regionType", httpServletRequest.getParameter("type"));
 		uiModel.addAttribute("project", project);
+		uiModel.addAttribute("hasPrivilegeElec", hasPrivilege(project, Constants.ELECT_BOQ));
+		uiModel.addAttribute("hasPrivilegeMec", hasPrivilege(project, Constants.MECH_BOQ));
+		uiModel.addAttribute("currency", project.getCurrency().getCurrencyCode());
 		setUser(uiModel);
 
 		return "quotation/create";
+	}
+	private com.sanyo.quote.domain.User getLoggedInUser(){
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if(authentication != null && authentication.isAuthenticated()){
+			if(!authentication.getPrincipal().toString().equalsIgnoreCase("anonymousUser")){
+				org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
+				logger.info("========= preHandle. username = " + user.getUsername());
+				com.sanyo.quote.domain.User userSanyo = userService.findByUserName(user.getUsername());
+				return userSanyo;
+			}
+		}
+		return null;
+	}
+	private boolean hasAdminRole(){
+		com.sanyo.quote.domain.User userSanyo = getLoggedInUser();
+		List<Group> rolesList = userSanyo.getGrouplist();
+		for(Group role : rolesList){
+			if("ROLE_ADMIN".equalsIgnoreCase(role.getGroupName())){
+				return true;
+			}
+		}
+		return false;
+	}
+	private boolean hasPrivilege(Project project, String boq){
+		com.sanyo.quote.domain.User userSanyo = getLoggedInUser();
+		List<Group> rolesList = userSanyo.getGrouplist();
+		for(Group role : rolesList){
+			if("ROLE_ADMIN".equalsIgnoreCase(role.getGroupName())){
+				return true;
+			}
+		}
+		List<Location> locations = locationService.findByProject(project);
+		for(Location location : locations){
+			List<Region> regions = regionService.findByLocation(location);
+			for(Region region : regions){
+				List<UserRegionRole> userRegionRoleList = userRegionRoleService.findByRegionAndUser(region,userSanyo);
+				if(userRegionRoleList != null && !userRegionRoleList.isEmpty()){
+					for(UserRegionRole userRegionRole : userRegionRoleList){
+						String roleName = userRegionRole.getRoleName();
+						if((roleName.equalsIgnoreCase("EDIT") || roleName.equalsIgnoreCase("VIEW"))
+								&& region.getCategory().getParentCategory() != null
+								&& region.getCategory().getParentCategory().getName().equalsIgnoreCase(boq)
+								){
+							return true;
+						}else{
+							return false;
+						}
+					}
+				}else{
+					return false;
+				}
+			}
+		}
+		return false;
 	}
 	private boolean isNeedUpdatePrice(Project project){
 		List<Location> locations = locationService.findByProject(project);
@@ -393,11 +460,27 @@ public class Quotation extends CommonController {
 		encounterService.delete(Integer.valueOf(id));
        
 	}
-	@RequestMapping(value = "/{id}/getLocationSum", method = RequestMethod.POST)
+	private Float convertPrice(Float total, Project project){
+		Currency currency = project.getCurrency();
+		if(currency != null
+				&& currency.getCurrencyCode().equalsIgnoreCase("VND")){
+			// convert usd to vnd
+			total = total * project.getUsdToVnd();
+
+
+		}else if(currency != null
+				&& currency.getCurrencyCode().equalsIgnoreCase("JPY")){
+			// convert usd to jpy
+			total = total * project.getUsdToJpy();
+		}
+		return total;
+	}
+	/*@RequestMapping(value = "/{id}/getLocationSum", method = RequestMethod.POST)
 	@ResponseBody
 	public String getLocationSum(@PathVariable("id") Integer id, Model uiModel, HttpServletRequest httpServletRequest){
 		Float total = 0f;
 		Location location = locationService.findByIdAndFetchRegionsEagerly(id);
+		Project project = location.getProject();
 		if(location != null){
 			Set<Region> regions = location.getRegions();
 			Iterator<Region> iterator = regions.iterator();
@@ -416,8 +499,10 @@ public class Quotation extends CommonController {
 
 			}
 		}
+	if(total >0)
+		total = convertPrice(total, project);
 	return total.toString();
-	}
+	}*/
 	//function to update price for encounters of specific project.
 		@ResponseBody
 		@RequestMapping(value = "/{id}", params = "updatePrice", method = RequestMethod.POST)
@@ -536,35 +621,42 @@ public class Quotation extends CommonController {
 	}
 
 	@RequestMapping(value = "/getLocationSum", method = RequestMethod.GET)
-		@ResponseBody
-		public String getLocationSum(
-				@RequestParam(value="locationIds", required=true) String locationIds
-				, @RequestParam(value="projectId", required=true) String projectId
-				, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
-			Float total = 0f;
-			boolean isAllLocation = false;
+	@ResponseBody
+	public String getLocationSum(
+			@RequestParam(value = "locationIds", required = true) String locationIds
+			, @RequestParam(value = "projectId", required = true) String projectId
+			, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
+		Float total = 0f;
+		boolean isAllLocation = false;
+		Project project = projectService.findById(Integer.valueOf(projectId));
 //			for(String id : locationIds.split(",")){
 //				if(id.equalsIgnoreCase("0")){
 //					isAllLocation = true;
 //					break;
 //				}
 //			}
-			if(isAllLocation){
-				Project project = projectService.findById(Integer.valueOf(projectId));
-				List<Location> locations = locationService.findByProject(project);
-				for(Location location : locations){
-					total += getSummOfLocation(location);
-				}
-			}else{
-				for(String id : locationIds.split(",")){
-					if(id.equalsIgnoreCase("0"))
-						continue;
-					Location location = locationService.findById(Integer.valueOf(id));
-					total += getSummOfLocation(location);
-				}
+		if (isAllLocation) {
+
+			List<Location> locations = locationService.findByProject(project);
+			for (Location location : locations) {
+				total += getSummOfLocation(location);
 			}
-		return total.toString();
+		} else {
+			for (String id : locationIds.split(",")) {
+				if (id.equalsIgnoreCase("0"))
+					continue;
+				Location location = locationService.findById(Integer.valueOf(id));
+				total += getSummOfLocation(location);
+			}
 		}
+		Currency currency = project.getCurrency();
+		if (currency != null
+				&& currency.getCurrencyCode().equalsIgnoreCase("VND")) {
+			return String.valueOf((int)Math.ceil(total));
+
+		}
+		return total.toString();
+	}
 
 	private float getSummOfLocation(Location location) {
 			Float total = 0f;
@@ -579,24 +671,38 @@ public class Quotation extends CommonController {
 
 	@RequestMapping(value = "/getRegionSum", method = RequestMethod.GET)
 		@ResponseBody
-		public String getRegionSum(
-				@RequestParam(value="regionIds", required=true) String locationIds
-				, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
-			Float total = 0f;
-			for(String id : locationIds.split(",")){
-				if(id.equalsIgnoreCase("0"))
-					continue;
-				Region region = regionService.findById(Integer.valueOf(id));
-				total += getSumOfRegion(region);
-			}
-			return total.toString();
+	public String getRegionSum(
+			@RequestParam(value = "regionIds", required = true) String locationIds
+			, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
+		Float total = 0f;
+		Project project = null;
+		for (String id : locationIds.split(",")) {
+			if (id.equalsIgnoreCase("0"))
+				continue;
+			Region region = regionService.findById(Integer.valueOf(id));
+			total += getSumOfRegion(region);
+			if(project == null)
+				project = region.getLocation().getProject();
 		}
+		Currency currency = project.getCurrency();
+		if (currency != null
+				&& currency.getCurrencyCode().equalsIgnoreCase("VND")) {
+			return String.valueOf((int)Math.ceil(total));
+
+		}
+		return total.toString();
+	}
 
 	private float getSumOfRegion(Region region) {
 			Float total = 0f;
 			List<Encounter> encounters = encounterService.findByRegion(region);
-			for(Encounter encounter : encounters){
-				total += encounter.getAmount();
+			Project project = null;
+			for(Encounter encounter : encounters) {
+				float amount = encounter.getAmount();
+				if(project == null)
+					project = encounter.getRegion().getLocation().getProject();
+				amount = (float)Math.ceil(convertPrice(amount, project));
+				total += amount;
 			}
 			return total;
 
@@ -619,6 +725,7 @@ public class Quotation extends CommonController {
 			List<Encounter> finalEncounters = new ArrayList<Encounter>();
 			boolean isAllLocation = false;
 			boolean isAllRegion = false;
+
 //			for(String id : regionIds){
 //				if(id.equalsIgnoreCase("0")){
 //					isAllRegion = true;
@@ -632,6 +739,7 @@ public class Quotation extends CommonController {
 					Region region = regionService.findById(Integer.valueOf(id));
 					List<Encounter> encounters = encounterService.findByRegion(region);
 					finalEncounters.addAll(encounters);
+					updatePriceBasedOnCurrency(finalEncounters, region.getLocation().getProject());
 				}
 			}else{
 				if(locationIds !=null){
@@ -642,16 +750,21 @@ public class Quotation extends CommonController {
 //						}
 //					}
 					if(!isAllLocation){
+						Project project = null;
 						for(String id : locationIds.split(",")){
 							if(id.equalsIgnoreCase("0"))
 								continue;
 							Location location = locationService.findById(Integer.valueOf(id));
+							if(project == null)
+								project = location.getProject();
 							List<Region> regions = regionService.findByLocation(location);
 							for(Region region : regions){
 								List<Encounter> encounters = encounterService.findByRegion(region);
 								finalEncounters.addAll(encounters);
 							}
 						}
+						if(project != null)
+							updatePriceBasedOnCurrency(finalEncounters,project);
 					}else{
 						//find all locations of the project, then find all regions of each location.
 						Project project = projectService.findById(Integer.valueOf(projectId));
@@ -663,9 +776,11 @@ public class Quotation extends CommonController {
 								finalEncounters.addAll(encounters);
 							}
 						}
+						updatePriceBasedOnCurrency(finalEncounters,project);
 					}
 				}
 			}
+
 			DataTableObject<Encounter> dataTableObject = new DataTableObject<Encounter>();
 			dataTableObject.setAaData(finalEncounters);
 			dataTableObject.setiTotalRecords(finalEncounters.size());
@@ -685,9 +800,9 @@ public class Quotation extends CommonController {
 			if(encounter.getOrder() == fromPosition.intValue()){
 				encounter.setOrder(toPosition);
 				encounter.setDataTableChange(true);
-				
+
 				encounterService.save(encounter);
-				
+
 				EncounterOrderHist encounterOrderHist = new EncounterOrderHist();
 				encounterOrderHist.setEncounterId(encounterId);
 				encounterOrderHist.setFromPos(fromPosition.intValue());
@@ -723,6 +838,29 @@ public class Quotation extends CommonController {
 		Float result = Float.valueOf(percent) * total / 100;
 		logger.info("============ mat_w_o_tax_usd = " + result);
 		return result.toString();
+	}
+	//default currency is USD.
+	//if user use VND, we should convert price first, then display value in VND.
+	private void updatePriceBasedOnCurrency(List<Encounter> encounters, Project project){
+		Currency currency = project.getCurrency();
+		float rate = 0f;
+		if (currency != null
+				&& currency.getCurrencyCode().equalsIgnoreCase("VND")) {
+			rate = project.getUsdToVnd();
+		}else if (currency != null
+				&& currency.getCurrencyCode().equalsIgnoreCase("VND")) {
+			rate = project.getUsdToJpy();
+		}
+		if(rate == 0f)
+			return;
+
+		for(Encounter encounter : encounters){
+			float amount = encounter.getAmount();
+			float cost_mat_amount_usd = encounter.getCost_Mat_Amount_USD();
+			encounter.setAmount((int) Math.ceil(amount * rate));
+			//encounter.setCost_Mat_Amount_USD((int)Math.ceil(cost_mat_amount_usd * rate));
+
+		}
 	}
 }
 

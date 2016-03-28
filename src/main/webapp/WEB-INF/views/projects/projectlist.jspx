@@ -11,22 +11,24 @@
     <c:if test="${not empty message}">
         <div id="message" class="${message.type}">${message.message}</div>
     </c:if>
-	<div class="row">
-				<div class="col-md-3 col-sm-6 col-xs-12">
-				  <div class="info-box">
-					<span class="info-box-icon bg-aqua">
-							<i class="ion ion-ios-gear-outline"><jsp:text /></i>
-					</span>
-					<div class="info-box-content">
-					  <span class="info-box-text"><![CDATA[&nbsp;]]></span>
-					  <span class="info-box-number"><a href="?form">${labelProjectAdd}</a></span>
-					</div><!-- /.info-box-content -->
-				  </div><!-- /.info-box -->
-				</div><!-- /.col -->
+	<c:if test="${isAdmin}">
+		<div class="row">
+					<div class="col-md-3 col-sm-6 col-xs-12">
+					  <div class="info-box">
+						<span class="info-box-icon bg-aqua">
+								<i class="ion ion-ios-gear-outline"><jsp:text /></i>
+						</span>
+						<div class="info-box-content">
+						  <span class="info-box-text"><![CDATA[&nbsp;]]></span>
+						  <span class="info-box-number"><a href="?form">${labelProjectAdd}</a></span>
+						</div><!-- /.info-box-content -->
+					  </div><!-- /.info-box -->
+					</div><!-- /.col -->
 
-				<!-- fix for small devices only -->
-				<div class="clearfix visible-sm-block"><jsp:text /></div>
-	</div>
+					<!-- fix for small devices only -->
+					<div class="clearfix visible-sm-block"><jsp:text /></div>
+		</div>
+	</c:if>
 	<style>
 .bb-alert {
     position: fixed;

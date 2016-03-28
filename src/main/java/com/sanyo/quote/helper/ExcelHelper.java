@@ -192,6 +192,11 @@ public class ExcelHelper {
 		return cellStyle;
 		
 	}
+	public XSSFCellStyle getCellStyleForNumber(XSSFWorkbook workbook){
+		XSSFCellStyle style = (XSSFCellStyle) workbook.createCellStyle();
+		style.setDataFormat(workbook.createDataFormat().getFormat("0"));
+		return style;
+	}
 	
 
 }

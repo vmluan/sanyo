@@ -67,5 +67,10 @@ public class DefaultProjectRevisionService implements ProjectRevisionService {
 		return revisions.get(0);
 	}
 
+	@Override
+	public List<ProjectRevision> findByProjectOrderByDateAsc(Project project) {
+		return ProjectRevisionRepository.findByProjectOrderByDateAsc(project);
+	}
+
 	
 }

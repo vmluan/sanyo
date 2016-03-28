@@ -170,6 +170,9 @@
 	var mQtymQty = "${project.mQty}";
 	var pageContext = "${pageContext.request.contextPath}";
 	var exchangeRate = "${project.usdToVnd}";
+	var currency = "abc";
+	var hasPrivilegeElec = "${hasPrivilegeElec}";
+	var hasPrivilegeMec = "${hasPrivilegeMec}";
 	
 	function uppdatePrice(){
 		 var url = pageContext + '/quotation/' + projectId + '?updatePrice';
