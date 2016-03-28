@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!--
   Created by IntelliJ IDEA.
   User: Van Duoc
@@ -404,7 +404,7 @@
 			 <tr height="24" style="mso-height-source:userset;height:18.0pt">
 			  <td height="24"  style="height:18.0pt"></td>
 			  <td  colspan="8">Our quotation cost are based on<font
-			  class="font626907"> the drawing submited November 2011,</font><font
+			  class="font626907"> the drawing submited ${Escalation},</font><font
 			  class="font526907"> excluding the expectation for escalation.</font></td>
 			  <td ></td>
 			  <td ></td>
