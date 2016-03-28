@@ -170,7 +170,7 @@
 	var mQtymQty = "${project.mQty}";
 	var pageContext = "${pageContext.request.contextPath}";
 	var exchangeRate = "${project.usdToVnd}";
-	var currency = "abc";
+	var currency = "${currency}";
 	var hasPrivilegeElec = "${hasPrivilegeElec}";
 	var hasPrivilegeMec = "${hasPrivilegeMec}";
 	
