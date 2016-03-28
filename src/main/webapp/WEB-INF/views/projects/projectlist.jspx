@@ -11,7 +11,7 @@
     <c:if test="${not empty message}">
         <div id="message" class="${message.type}">${message.message}</div>
     </c:if>
-	<c:if test="isAdmin">
+	<c:if test="${isAdmin}">
 		<div class="row">
 					<div class="col-md-3 col-sm-6 col-xs-12">
 					  <div class="info-box">
