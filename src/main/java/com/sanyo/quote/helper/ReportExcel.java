@@ -5,13 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.*;
 
 import javax.servlet.ServletContext;
 
@@ -265,6 +259,12 @@ public class ReportExcel extends ExcelHelper{
 		Cell cellStartDate = sheet.getRow(10).getCell(2);
 		Cell cellEndDate = sheet.getRow(11).getCell(2);
 		Cell cellDuration = sheet.getRow(10).getCell(5);
+		Cell cellEsca = sheet.getRow(26).getCell(1);
+		ProjectRevision projectRevision = projectRevisionService.findLatestRevision(project);
+		Date date = null;
+		if(projectRevision != null)
+			date = projectRevision.getDate();
+
 		if(isVietNamese()){
 			cellStartDate = sheet.getRow(11).getCell(3);
 			cellStartDate.setCellValue(Utilities.formatDate(project.getStartDate())); //set vietnamese later
@@ -277,6 +277,9 @@ public class ReportExcel extends ExcelHelper{
 			cellStartDate.setCellValue(Utilities.formatDate(project.getStartDate()));
 			cellEndDate.setCellValue(Utilities.formatDate(project.getEndDate()));
 			cellDuration.setCellValue("Minimum Requirement for duration is " + project.getDuration());
+			cellEsca.setCellValue("Our quotation cost are based on the drawing submited "
+					+ Utilities.getDateFormatInMonYear(date)
+					+", excluding the expectation for escalation.");
 		}
 		
 		
