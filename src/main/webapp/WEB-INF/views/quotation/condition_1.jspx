@@ -302,9 +302,9 @@
 			 <tr  height="24" style="mso-height-source:userset;height:18.0pt">
 			  <td height="24"  style="height:18.0pt"></td>
 			  <td  colspan="3"><span
-			  style="mso-spacerun:yes"> </span>&#9632;US$<span
-			  style="mso-spacerun:yes">     </span>&#9633;VND<span
-			  style="mso-spacerun:yes">     </span>&#9633;Japanese Yen</td>
+			  style="mso-spacerun:yes"> </span><c:choose><c:when test="${project.currencyId==1}">&#9632;US$</c:when><c:otherwise>&#9633;US$</c:otherwise></c:choose> <span
+			  style="mso-spacerun:yes">     </span><c:choose><c:when test="${project.currencyId==2}">&#9632;VND</c:when><c:otherwise>&#9633;VND</c:otherwise></c:choose><span
+			  style="mso-spacerun:yes">     </span><c:choose><c:when test="${project.currencyId==3}">&#9632;Japanese Yen</c:when><c:otherwise>&#9633;Japanese Yen</c:otherwise></c:choose></td>
 			  <td ></td>
 			  <td ></td>
 			  <td ></td>
