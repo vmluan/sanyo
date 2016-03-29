@@ -19,6 +19,7 @@ import java.util.List;
 
 import com.sanyo.quote.domain.Project;
 import com.sanyo.quote.domain.ProjectRevision;
+import com.sanyo.quote.helper.Utilities;
 import com.sanyo.quote.service.ProjectRevisionService;
 import com.sanyo.quote.service.ProjectService;
 
@@ -61,7 +62,6 @@ public class Condition1Controller extends CommonController {
 		
 		Date startDate=project.getStartDate();
 		Date endate = project.getEndDate();
-		
 		CountDate countdate = new CountDate();
 		int sumMonth = countdate.CountMonth(startDate, endate);
 		int sumDay = countdate.CountDay(startDate, endate);
@@ -70,24 +70,8 @@ public class Condition1Controller extends CommonController {
 		uiModel.addAttribute("summonth", sumMonth);
 		uiModel.addAttribute("sumDay", sumDay);
 		uiModel.addAttribute("CountWeek", CountWeek);
-		uiModel.addAttribute("Escalation",convertDate(maxDay));
+		uiModel.addAttribute("Escalation",Utilities.getDateFormatInMonYear(maxDay));
 		
 		return "quotation/condition_1";
-	}
-    private String convertDate(Date date)
-    {
-    	//Date today;
-    	if(date==null)
-    		return "null";
-    	String dateOut;
-    	DateFormat dateFormatter;
-    	Locale currentLocale = Locale.US;
-    	
-    	dateFormatter = DateFormat.getDateInstance(DateFormat.MONTH_FIELD, currentLocale);
-    	//today = new Date();
-    	dateOut = dateFormatter.format(date);
-    	String month = dateOut.split(" ")[0];
-    	String year = dateOut.split(" ")[2];
-    	return month+" "+year;
-    }
+	}   
 }
