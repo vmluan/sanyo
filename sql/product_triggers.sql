@@ -1,10 +1,9 @@
 DROP FUNCTION IF EXISTS checkOverlap;
-DELIMITER $$
 CREATE FUNCTION checkOverlap(p_product_id  Int,
                                               p_start_date date,
                                               p_end_date date)
   RETURNS bool
-  LANGUAGE SQL -- This element is optional and will be omitted from subsequent examples
+  LANGUAGE SQL
   
 BEGIN
                 DECLARE exit_loop BOOLEAN; 
@@ -26,13 +25,10 @@ else
     return false;
 end if;
 END;
-$$
-DELIMITER ;
 
 
-### trigger
+
 		DROP TRIGGER IF EXISTS productUpdateTrigger;
-		DELIMITER //
 
 		CREATE TRIGGER productUpdateTrigger
 		before update
@@ -41,7 +37,7 @@ DELIMITER ;
 		BEGIN
 			DECLARE is_overlapped BOOLEAN ; 
                 declare msg varchar(255);
-            ## do not allow to update past product
+           
             if NEW.startDate < OLD.startDate || NEW.endDate < OLD.startDate then
             	set msg = concat('Time range is the past. Please select date after ',  date(OLD.startDate));
                 signal sqlstate '46000' set message_text = msg;
@@ -51,8 +47,7 @@ DELIMITER ;
                 set msg = 'Overlapped range.';
                 signal sqlstate '45000' set message_text = msg;
             else
-				if NEW.startDate <> OLD.startDate || NEW.endDate <> OLD.endDate then
-					#### insert data to labour_price 
+				if NEW.startDate <> OLD.startDate || NEW.endDate <> OLD.endDate then					
 					INSERT INTO `sanyo`.`labour_price`
 					(
 					`EXPIRED_DATE`,
@@ -77,7 +72,7 @@ DELIMITER ;
 					0,
 					null,
 					OLD.PRODUCT_ID);
-                end if;
+         end if;
 				if NEW.TAX_USD <=> OLD.TAX_USD || NEW.TAX_VND <=> OLD.TAX_VND 
 					|| NEW.LABOUR <> OLD.LABOUR
 				then
@@ -87,11 +82,16 @@ DELIMITER ;
 					where product_id = NEW.product_id
 					and ENCOUNTER_TIME between OLD.startDate and OLD.endDate;
 				END;	
-				end if;                
+				end if;
+        IF OLD.endDate <=> NULL THEN
+            begin 
+					  update sanyo.labour_price
+					  set  EXPIRED_DATE = NEW.startDate
+				  	where product_id = NEW.PRODUCT_ID;
+				    END;
+         END IF;                
              end if; 
              
 
-		END; //
-
-		DELIMITER ;	
+		END;
         

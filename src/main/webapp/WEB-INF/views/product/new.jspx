@@ -277,7 +277,7 @@
 	$("#sbmBtn").click(function(){
 		if(!checkoldDate())
 		{
-			alert("Overlapped range.");
+			alert("Overlapped StartDate.");
 			return false;
 		}
 		var errorMsg = new Array();
