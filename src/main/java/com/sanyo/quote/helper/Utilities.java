@@ -8,15 +8,10 @@
 
 package com.sanyo.quote.helper;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -299,6 +294,22 @@ public class Utilities {
 			treeGrids.add(treeGrid);
 		}
 		return treeGrids;
+	}
+	public static String getDateFormatInMonYear(Date date)
+	{
+		//Date today;
+		if(date==null)
+			return "null";
+		String dateOut;
+		DateFormat dateFormatter;
+		Locale currentLocale = Locale.US;
+
+		dateFormatter = DateFormat.getDateInstance(DateFormat.MONTH_FIELD, currentLocale);
+		//today = new Date();
+		dateOut = dateFormatter.format(date);
+		String month = dateOut.split(" ")[0];
+		String year = dateOut.split(" ")[2];
+		return month+" "+year;
 	}
 
 }
