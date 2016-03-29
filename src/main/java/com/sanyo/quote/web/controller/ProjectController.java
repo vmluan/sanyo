@@ -122,7 +122,6 @@ public class ProjectController extends CommonController {
 	private Validator validator;
 	private String Flagstatus ="";
 	private String projectsUrl="/projects?status=ongoing";
-	
 	public ProjectController(){
 		ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
         validator = validatorFactory.getValidator();
@@ -153,9 +152,9 @@ public class ProjectController extends CommonController {
 		////////count project need update price and update column needUpdatePrice for project;
 		int sum =0 ;
 		ArrayList statusPrice = new ArrayList();
-		boolean flag = false;
+		boolean flagIsAdmin = false;
 		if(Utilities.hasAdminRole()){ //if admin
-			flag = true;
+			flagIsAdmin = true;
 			List<Project> project = projectService.findAll();		
 			for(Project itemProject:project)
 			{
@@ -176,7 +175,7 @@ public class ProjectController extends CommonController {
 				}
 			}
 		}
-		uiModel.addAttribute("isAdmin",flag);
+		uiModel.addAttribute("isAdmin",flagIsAdmin);
 		uiModel.addAttribute("StatusNeedUpdatePrice", statusPrice);
 		uiModel.addAttribute("projectNeedUpdate", sum);
 		resetLinks();
@@ -216,10 +215,9 @@ public class ProjectController extends CommonController {
         initialize(uiModel);
         
         int sum =0 ;
-		ArrayList statusPrice = new ArrayList();
-		boolean flag = false;
+		boolean flagIsAdmin = false;
 		if(Utilities.hasAdminRole()){ //if admin
-			flag = true;
+			flagIsAdmin = true;
 				if(project.getStatus().name()=="ONGOING")
 				{
 					if(getStatusNeedUpdatePrice(project))
@@ -233,7 +231,6 @@ public class ProjectController extends CommonController {
 						project.setNeedUpdatePrice(false);					
 					}
 					projectService.save(project);
-					statusPrice.add(project.isNeedUpdatePrice());
 				}
 		}
 		
@@ -242,8 +239,8 @@ public class ProjectController extends CommonController {
         addToLinks("Project Detail", "");
         setBreadCrumb(uiModel, projectsUrl, "Projects", "", "Project Detail");
 		uiModel.addAttribute("projectStatus", Flagstatus);
-		uiModel.addAttribute("isAdmin",flag);
-		uiModel.addAttribute("StatusNeedUpdatePrice", statusPrice);
+		uiModel.addAttribute("isAdmin",flagIsAdmin);
+		uiModel.addAttribute("StatusNeedUpdatePrice", project.isNeedUpdatePrice());
 		uiModel.addAttribute("projectNeedUpdate", sum);
         return "projects/update";
 	}
@@ -333,7 +330,11 @@ public class ProjectController extends CommonController {
     		HttpServletRequest httpServletRequest, RedirectAttributes redirectAttributes, Locale locale, BindingResult bindingResult) {
 		logger.info("Updating project");
 		 Set<ConstraintViolation<Project>> violations = validator.validate(project);
-	     
+		 boolean flagIsAdmin = false;
+			if(Utilities.hasAdminRole()){ //if admin
+				flagIsAdmin = true;
+			}
+				
 	    for (ConstraintViolation<Project> violation : violations)
 	    {
 	        String propertyPath = violation.getPropertyPath().toString();
@@ -354,6 +355,8 @@ public class ProjectController extends CommonController {
         project.setProjectId(id);
         uiModel.addAttribute("message", new Message("success", messageSource.getMessage("project_save_success", new Object[]{}, locale)));        
         uiModel.addAttribute("project", project);
+        uiModel.addAttribute("StatusNeedUpdatePrice",project.isNeedUpdatePrice());
+        uiModel.addAttribute("isAdmin",flagIsAdmin);
         project.setLmodDate(new Date());
         project.setLastModifiedBy(Utilities.getCurrentUser().getUsername());
         project.setCurrency(currencyService.findById(project.getCurrencyId()));
