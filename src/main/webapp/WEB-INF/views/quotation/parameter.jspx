@@ -19,7 +19,7 @@
 
     <section class="content">
         <form:form modelAttribute="project" id="projectParameterForm" method="post">
-            <table width="587" style="border-collapse:collapse;table-layout:fixed;width:440pt">
+            <table style="border-collapse:collapse;table-layout:fixed">
 			 <tr height="23" style="mso-height-source:userset;height:17.25pt">
 			  <td height="23" width="64" style="height:17.25pt;width:48pt"></td>
 			  <td width="324" style="width:243pt"></td>
@@ -43,7 +43,7 @@
 			 </tr>
 			 <tr height="30" style="mso-height-source:userset;height:22.5pt">
 			  <td height="30" style="height:22.5pt"></td>
-			  <td colspan="2" style="border-right:.5pt solid #A4BED4">Exchange
+			  <td colspan="2" style="none">Exchange
 			  Rate for VND to US$</td>
 			  <td style="border-left:none"><span
 			  style="mso-spacerun:yes">   </span><form:input path="vndToUsd" class="form-control" readonly="true"/></td>
@@ -51,7 +51,7 @@
 			 </tr>
 			 <tr height="30" style="mso-height-source:userset;height:22.5pt">
 			  <td height="30" style="height:22.5pt"></td>
-			  <td colspan="2" style="border-right:.5pt solid #A4BED4">Exchange
+			  <td colspan="2" style="none">Exchange
 			  Rate for US$ to VND</td>
 			  <td style="border-top:none;border-left:none"><span
 			  style="mso-spacerun:yes">   </span><form:input path="usdToVnd" class="form-control" readonly="true"/></td>
@@ -59,7 +59,7 @@
 			 </tr>
 			 <tr height="35" style="mso-height-source:userset;height:26.25pt">
 			  <td height="35" style="height:26.25pt"></td>
-			  <td colspan="2" style="border-right:.5pt solid #A4BED4">Exchange
+			  <td colspan="2" style="none">Exchange
 			  Rate for EU to US$ <font class="font516670">Internal use</font></td>
 			  <td align="right" style="border-top:none;border-left:none"><form:input path="exUsd" class="form-control" readonly="true"/>
 			  </td>
@@ -67,7 +67,7 @@
 			 </tr>
 			 <tr height="30" style="mso-height-source:userset;height:22.5pt">
 			  <td height="30" style="height:22.5pt"></td>
-			  <td colspan="2" style="border-right:.5pt solid #A4BED4">Exchange
+			  <td colspan="2" style="none">Exchange
 			  Rate for JP Yen to US$ <font class="font516670">Internal use</font></td>
 			  <td style="border-top:none;border-left:none"><span
 			  style="mso-spacerun:yes">    </span><form:input path="jpyToUsd" class="form-control" readonly="true"/></td>
@@ -75,7 +75,7 @@
 			 </tr>
 			 <tr height="30" style="mso-height-source:userset;height:22.5pt">
 			  <td height="30" style="height:22.5pt"></td>
-			  <td colspan="2" style="border-right:.5pt solid #A4BED4">Exchange
+			  <td colspan="2" style="none">Exchange
 			  Rate for US$ Yen to JP Yen <font class="font516670">Internal use</font></td>
 			  <td align="right" style="border-top:none;border-left:none"><form:input path="usdToJpy" class="form-control" readonly="true"/></td>
 			  <td ></td>
