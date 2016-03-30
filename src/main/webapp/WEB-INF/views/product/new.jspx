@@ -277,7 +277,7 @@
 	$("#sbmBtn").click(function(){
 		if(!checkoldDate())
 		{
-			alert("Overlapped StartDate.");
+			alert("StartDate larger than "+$('#startDate').attr("value"));
 			return false;
 		}
 		var errorMsg = new Array();

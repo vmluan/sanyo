@@ -80,6 +80,31 @@
     <spring:message code="duration" var="duration" text="Duration"/>
 
     <section class="content">
+<style>
+     	.bb-alert {
+    position: fixed;
+    bottom: 63%;
+    right: 0;
+    margin-bottom: 0;
+    font-size: 1.2em;
+    padding: 1em 1.3em;
+    z-index: 2000;
+	}
+	.alert-info {
+	    color: #31708f;
+	    background-color: #d9edf7;
+	    border-color: #bce8f1;
+	}
+	.alert {
+	    padding: 15px;
+	    margin-bottom: 20px;
+	    border: 1px solid transparent;
+	    border-radius: 4px;
+	}
+     </style>
+	<div id="notificationUpdatePrice" class="bb-alert alert alert-info" style="display: none;">
+        	<span class="price_span">Update success!</span>
+    	</div>
         <form:form modelAttribute="expensesJson" id="projectUpdateForm" method="post">
             <!-- table made by: http://tableizer.journalistopia.com/tableizer.php -->
             Total: US$<input id="total" />
@@ -176,6 +201,7 @@
         var projectId = "${projectId}";
         var expensesJson = "${expensesJson}";
         $("#addExpenseBtn").click(function(){
+	$(this).attr('disabled','disabled');
             saveExpensesList();
 
         });

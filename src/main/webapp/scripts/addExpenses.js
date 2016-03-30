@@ -324,11 +324,14 @@ function saveExpensesList() {
         data : jsonData,
         url : url,
         success : function(msg) {
-            //$("#list").jqxGrid('updatebounddata');
-            //$("#listResult").jqxGrid('updatebounddata');
-            // $('#list').jqxGrid('addrow', null, {}, 'first');
-
-            //$("#list").jqxGrid('begincelledit', 0, "categoryName");
+            $(".price_span").text("save success!");
+                    //}
+                    $("#notificationUpdatePrice").slideDown("slow");
+                    setTimeout(function(){
+                        $("#notificationUpdatePrice").slideUp("slow");
+                        $(th).children().removeClass("glyphicon-refresh");
+                    },200);
+            $('#addExpenseBtn').removeAttr('disabled');
         },
         complete : function(xhr, status) {
             // $("#assignRegionButton").prop('disabled', false);
