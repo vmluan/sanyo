@@ -145,18 +145,14 @@ public class CommonInterceptor extends HandlerInterceptorAdapter{
 		HttpServletRequest request, HttpServletResponse response, 
 		Object handler, ModelAndView modelAndView)
 		throws Exception {
-/*		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-	if(authentication != null && authentication.isAuthenticated()){
-		if(!authentication.getPrincipal().toString().equalsIgnoreCase("anonymousUser")){
-			org.springframework.security.core.userdetails.User user = (User) authentication.getPrincipal();
-
-			logger.info("========= postHandle. username = "+ user.getUsername());
-
-			com.sanyo.quote.domain.User userSanyo = userService.findByUserName(user.getUsername());
-			modelAndView.addObject("user",userSanyo);
-		}
-	}
-		*/
-		// do nothing;
+		// call common function
+		org.springframework.security.core.userdetails.User user = Utilities.getCurrentUser();
+		if(user == null)
+			return;
+		request.setAttribute("userName", user.getUsername());
+		com.sanyo.quote.domain.User userSanyo = userService.findByUserName(user.getUsername());
+		request.setAttribute("logginUser", userSanyo);
+		boolean isAdminrole = Utilities.hasAdminRole();
+		request.setAttribute("isAdminrole",isAdminrole);
 	}
 }

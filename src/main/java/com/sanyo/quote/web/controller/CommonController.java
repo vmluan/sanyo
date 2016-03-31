@@ -58,14 +58,14 @@ public class CommonController {
 		uiModel.addAttribute("pageDesc", pageDesc);
 	}
 	public void setUser(Model uiModel){
-		org.springframework.security.core.userdetails.User user = Utilities.getCurrentUser();
+/*		org.springframework.security.core.userdetails.User user = Utilities.getCurrentUser();
 		if(user == null)
 			return;
 		uiModel.addAttribute("userName", user.getUsername());
 		com.sanyo.quote.domain.User userSanyo = userService.findByUserName(user.getUsername());
 		uiModel.addAttribute("logginUser",userSanyo);
 		boolean isAdminrole = Utilities.hasAdminRole();
-		uiModel.addAttribute("isAdminrole",isAdminrole);
+		uiModel.addAttribute("isAdminrole",isAdminrole);*/
 
 	}
 	public void throwOverlappedDateException(String message) throws Exception{

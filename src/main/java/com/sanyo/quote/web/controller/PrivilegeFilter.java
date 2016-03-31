@@ -61,7 +61,16 @@ public class PrivilegeFilter implements Filter{
             e.printStackTrace();
         }
         if(hasPrivilege && myRequestWrapper != null){
+            // call common function like commonController in previous code
+         /*   myRequestWrapper.setAttribute("isAdminrole", Utilities.hasAdminRole());
+            org.springframework.security.core.userdetails.User user = Utilities.getCurrentUser();
+            myRequestWrapper.setAttribute("userName", user.getUsername());
+            com.sanyo.quote.domain.User userSanyo = userService.findByUserName(user.getUsername());
+            myRequestWrapper.setAttribute("logginUser",userSanyo);*/
+
             filterChain.doFilter(myRequestWrapper,servletResponse);
+
+
         }else{
             return;
         }
