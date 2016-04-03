@@ -9,6 +9,8 @@ import java.util.*;
 
 import javax.servlet.ServletContext;
 
+import com.sanyo.quote.domain.*;
+import com.sanyo.quote.service.*;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
@@ -22,18 +24,6 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.sanyo.quote.domain.Encounter;
-import com.sanyo.quote.domain.Location;
-import com.sanyo.quote.domain.MakerProject;
-import com.sanyo.quote.domain.Project;
-import com.sanyo.quote.domain.ProjectRevision;
-import com.sanyo.quote.domain.Region;
-import com.sanyo.quote.service.EncounterService;
-import com.sanyo.quote.service.ExpensesService;
-import com.sanyo.quote.service.LocationService;
-import com.sanyo.quote.service.MakerProjectService;
-import com.sanyo.quote.service.ProjectRevisionService;
-import com.sanyo.quote.service.ProjectService;
 @Component
 public class ReportExcel extends ExcelHelper{
 	@Autowired
@@ -95,6 +85,16 @@ public class ReportExcel extends ExcelHelper{
 	private MakerProjectService makerProjectService;
 	private ProjectRevisionService projectRevisionService;
 	private ExpensesService expensesService;
+
+	public condition2service getCondition() {
+		return condition2service;
+	}
+
+	public void setCondition(condition2service condition) {
+		this.condition2service = condition;
+	}
+
+	private condition2service condition2service;
 	private XSSFCellStyle sampleCellStyle;
 	private boolean isClientVersion = true;
 	private int maxBoQCol = 32;
@@ -133,7 +133,7 @@ public class ReportExcel extends ExcelHelper{
 		try {
 			System.out.println("=============== real path = " + homePath);
 			file = new FileInputStream(new File(homePath + "/report/" + fileName));
-//			file = new FileInputStream(new File(fileName)); //for testing at local only
+			//file = new FileInputStream(new File(fileName)); //for testing at local only
 			return file;
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -296,9 +296,106 @@ public class ReportExcel extends ExcelHelper{
 			}else if(currencyCode.equalsIgnoreCase("JPY")){
 				textPayment = "□US$     □VND     ■Japanese Yen";
 			}
-			
+
 		}
 		cellPayment.setCellValue(textPayment);
+	}
+	private void updateRadioButton(Row rowi, int key, boolean value){
+		//update Cell
+		Cell cellA = rowi.getCell(6); //1
+		Cell cellB = rowi.getCell(7);//2
+		Cell cellC = rowi.getCell(8);//3
+		Cell cellD = rowi.getCell(9);//4
+	/*	cellA.setCellValue(" ");
+		cellB.setCellValue(" ");
+		cellC.setCellValue(" ");
+		cellD.setCellValue(" ");*/
+		if(value){
+			if(key %4==0){ //update column A
+				cellA.setCellValue("●");
+			}else if(key %4 ==1){
+				cellB.setCellValue("●");
+
+			}else if(key%4 ==2){
+				cellC.setCellValue("●");
+			}else{
+				cellD.setCellValue("●");
+			}
+		}
+	}
+	private void updateCondition2Content(Row rowi, int key, String value){
+		Cell cellContent = rowi.getCell(10);
+		cellContent.setCellValue(value);
+
+	}
+	private void updateCheckboxesCondition2(Project project,XSSFSheet sheet){
+		int line = 0;
+		int start = 0;
+		int current = 3;
+		Condition2 condition2 = condition2service.findByProject(project);
+		if(condition2 == null)
+			return;
+		String checkboxes = condition2.getCheckboxs();
+		String contents = condition2.getContents();
+		String[] arrCheckboxes;
+		String[] arrContents = null;
+		if(contents != null)
+			arrContents = contents.split(",");
+		if(checkboxes != null) {
+			arrCheckboxes = checkboxes.split(",");
+			int contentCount =0;
+			for (int i = 8; i < 258; i++) {
+
+				Row rowi = sheet.getRow(i);
+				Cell cell1 = rowi.getCell(1);
+				String cell1Value = cell1.getStringCellValue();
+
+				if (cell1Value != null) {
+
+					cell1Value = cell1Value.trim();
+
+
+					if(cell1Value.startsWith("luan1")){ // check box for english text
+
+						for (int k = start; k <= current; k++) {
+							String[] elemCheckbox = arrCheckboxes[k].split("-");
+							Integer keyCheckbox = Integer.valueOf(elemCheckbox[0]);
+							boolean valueCheckbox = Boolean.valueOf(elemCheckbox[1]);
+							if(valueCheckbox)
+								updateRadioButton(rowi,keyCheckbox,valueCheckbox);
+
+						}
+						start = current + 1;
+						current += 4;
+					}
+
+					if(cell1Value.startsWith("luan1") || cell1Value.startsWith("luan2")){
+						//update content
+						String valueContent = null;
+						if(arrContents != null){
+							String[] elemContent = arrContents[contentCount].split("-");
+							if(elemContent.length >1) {
+								Integer keyContent = Integer.valueOf(elemContent[0]);
+								valueContent = String.valueOf(elemContent[1]);
+								if (valueContent != null)
+									updateCondition2Content(rowi, keyContent, valueContent);
+							}
+						}
+					contentCount++;
+					}
+
+					int index = cell1Value.indexOf("luan");
+					if(index >-1) {
+						String newValue = cell1Value.replace("luan1", "");
+						newValue = newValue.replace("luan2", "");
+						newValue = newValue.replace("luan3", "");
+						cell1.setCellValue(newValue);
+					}
+					//i++;
+				}
+				line++;
+			}
+		}
 	}
 	private void updateCondition2(Project project,XSSFWorkbook workbook){
 		XSSFSheet sheet = workbook.getSheetAt(2);
@@ -310,6 +407,7 @@ public class ReportExcel extends ExcelHelper{
 			
 		}
 		clientName.setCellValue(project.getCustomerName());
+		updateCheckboxesCondition2(project,sheet);
 	}
 	private void updateMaker(Project project,XSSFSheet sheet,ProjectService projectService, String parentCategoryName){
 		List<MakerProject> makerProjects = makerProjectService.findByProject(project);

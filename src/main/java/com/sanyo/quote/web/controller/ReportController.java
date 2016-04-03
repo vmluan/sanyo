@@ -30,6 +30,7 @@ import com.sanyo.quote.service.ProductService;
 import com.sanyo.quote.service.ProjectRevisionService;
 import com.sanyo.quote.service.ProjectService;
 import com.sanyo.quote.service.RegionService;
+import com.sanyo.quote.service.condition2service;
 
 @Controller
 @RequestMapping(value = "/reports")
@@ -68,11 +69,13 @@ public class ReportController {
 	private ProjectRevisionService projectRevisionService;
 	@Autowired
 	private ExpensesService expensesService;
+	@Autowired
+	private condition2service condition2service;
 	@RequestMapping(value = "/{id}/report", method = RequestMethod.GET)
 	public void showRegions(@PathVariable("id") Integer id, Model uiModel, HttpServletRequest httpServletRequest, HttpServletResponse response){
 		Project project = projectService.findById(id);
 		if(project != null){
-			response.setHeader("Content-disposition", "attachment; filename=" +project.getProjectName() +".xlsx");
+			response.setHeader("Content-disposition", "attachment; filename=" + project.getProjectName() + ".xlsx");
 			response.setContentType("application/vnd.ms-excel");
 			ReportExcel reportExcel = new ReportExcel();
 			reportExcel.setEncounterService(encounterService);
@@ -81,6 +84,7 @@ public class ReportController {
 			reportExcel.setMakerProjectService(makerProjectService);
 			reportExcel.setProjectRevisionService(projectRevisionService);
 			reportExcel.setExpensesService(expensesService);
+			reportExcel.setCondition(condition2service);
 			
 			String lang = httpServletRequest.getParameter("rptLanguage");
 			String rptName = "template_quotaion_client.xlsx";
