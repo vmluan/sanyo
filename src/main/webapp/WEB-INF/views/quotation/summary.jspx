@@ -155,7 +155,7 @@ span > .glyphicon-plus:hover,span >.glyphicon-minus:hover
 
 <div class="">
 <!--create by DuongPhan, date 24/01/2016    ELECTRICAL WORK-->
-    <c:if test = "${electricalLocation.size()>0}">
+    <c:if test = "${not empty electricalLocation}">
     <div class="row">
         <div class="panel panel-primary filterable">
             <div class="panel-heading" id="electricel">            
@@ -250,7 +250,7 @@ span > .glyphicon-plus:hover,span >.glyphicon-minus:hover
         </div>
     </div>
     </c:if>
-    <c:if test = "${metricalLocation.size()>0}">
+    <c:if test = "${not empty metricalLocation}">
     <div class="row">
         <div class="panel panel-primary filterable">
             <div class="panel-heading" id="metricel">            
