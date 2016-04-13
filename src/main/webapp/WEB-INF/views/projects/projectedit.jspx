@@ -437,9 +437,9 @@
 								<button id="assignRegionButton" type="botton" class="btn btn-primary">Assign System</button>
 								<p/>
 							</div>
-							<div class="col-md-10">				
+							<div class="col-md-10">
 								<div class="form-group">							
-									<div id='treeGrid'><jsp:text /></div> 
+									<div id='treeGrid'><jsp:text /></div>
 								</div>					
 							</div>
 							 <div class="col-md-2">			
@@ -589,6 +589,8 @@ var url = "${pageContext.request.contextPath}/admin/categories/getListJson";
             {
                 width: '100%',
 				//height: 300,
+				autoRowHeight: false,
+				altRows: true,
 				theme: 'energyblue',
                 source: dataAdapter,
 				editable: true,
