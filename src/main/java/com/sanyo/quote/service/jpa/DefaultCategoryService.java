@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +25,7 @@ public class DefaultCategoryService implements CategoryService {
 	private CategoryRepository categoryRepository;
 
 	@Transactional(readOnly=true)
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public List<Category> findAll() {
 		return Lists.newArrayList(categoryRepository.findAll());
 	}
@@ -33,6 +35,7 @@ public class DefaultCategoryService implements CategoryService {
 		return categoryRepository.findOne(id);
 	}
 
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public Category save(Category category) {
 		return categoryRepository.save(category);
 	}

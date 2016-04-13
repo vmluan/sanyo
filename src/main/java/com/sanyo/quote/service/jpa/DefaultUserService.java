@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +25,7 @@ public class DefaultUserService implements UserService {
 	private UserRepository userRepository;
 
 	@Transactional(readOnly=true)
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public List<User> findAll() {
 		return Lists.newArrayList(userRepository.findAll());
 	}
@@ -33,6 +35,7 @@ public class DefaultUserService implements UserService {
 		return userRepository.findOne(id);
 	}
 
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public User save(User User) {
 		return userRepository.save(User);
 	}
@@ -48,6 +51,7 @@ public class DefaultUserService implements UserService {
 	}
 
 	@Override
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public void delete(Integer id) {
 		userRepository.delete(id);
 		
