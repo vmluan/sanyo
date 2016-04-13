@@ -128,7 +128,9 @@
 					<div class="form-group">
 	                    <c:forEach items="${allGroups }" var="group">
 	                        <div class="checkbox">
-							<form:checkbox path="groupIDs"  value="${group.groupid }" class="control-label"/>${group.groupName }
+								<c:if test="${(group.groupName != 'ROLE_ADMIN') || isAdminrole}">
+									<form:checkbox path="groupIDs"  value="${group.groupid }" class="control-label"/>${group.groupName }
+								</c:if>
 							</div>
 	                    </c:forEach>
 						
