@@ -145,7 +145,13 @@ function deleteUser(userid) {
 		contentType : 'application/json',
 		url : url,
 		success : function(msg) {
-			alert('delete successfully.');
+			$(".delete_span").text("deleted successfully");
+			//}
+			$("#notificationUpdatePrice").slideDown("slow");
+			setTimeout(function(){
+				$("#notificationUpdatePrice").slideUp("slow");
+				$(th).children().removeClass("glyphicon-refresh");
+			},200);
 			$("#list").jqxGrid('updatebounddata');
 		},
 		complete : function(xhr, status) {
