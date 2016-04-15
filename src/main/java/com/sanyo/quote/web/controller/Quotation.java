@@ -2,7 +2,6 @@ package com.sanyo.quote.web.controller;
 
 import com.sanyo.quote.domain.*;
 import com.sanyo.quote.domain.Currency;
-import com.sanyo.quote.domain.User;
 import com.sanyo.quote.helper.Constants;
 import com.sanyo.quote.helper.Utilities;
 import com.sanyo.quote.service.*;
@@ -13,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -846,10 +844,10 @@ public class Quotation extends CommonController {
 		float rate = 0f;
 		if (currency != null
 				&& currency.getCurrencyCode().equalsIgnoreCase("VND")) {
-			rate = project.getUsdToVnd();
+			rate = project.getUsdToVnd()!=null?project.getUsdToVnd():0;
 		}else if (currency != null
 				&& currency.getCurrencyCode().equalsIgnoreCase("VND")) {
-			rate = project.getUsdToJpy();
+			rate = project.getUsdToJpy()!=null?project.getUsdToJpy():0;
 		}
 		if(rate == 0f)
 			return;
