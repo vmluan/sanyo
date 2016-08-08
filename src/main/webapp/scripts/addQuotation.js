@@ -403,7 +403,12 @@ function getUrlProducts(productGroupId){
 	var urlProducts = pageContext + "/productgroups/getProductsOfGroupjson";
 	var sourceProducts = {
 		datatype : "json",
-		datafields : [ {
+		datafields : [
+		{
+			name: 'productLabel',
+			type : 'string'
+		}
+		,{
 			name : 'productName',
 			type : 'string'
 		}, {
@@ -730,7 +735,7 @@ function loadAddQuotationGrid() {
 						editor.jqxComboBox({
 							autoDropDownHeight : true,
 							source : dataAdapterProducts,
-							displayMember : "productCode",
+							displayMember : "productLabel",
 							valueMember : "productID",
 							promptText : "Please Choose:"
 						});

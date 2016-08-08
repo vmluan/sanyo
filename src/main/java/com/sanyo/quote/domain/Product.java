@@ -145,6 +145,9 @@ public class Product implements Serializable {
 	private Set<LabourPrice> labourPrices;
 	
 	private String productNameVietnamese;
+
+	@Transient
+	private String productLabel;
 	
 	public void setMinDiscountWholeSalePer(Float minDiscountWholeSalePer) {
 		this.minDiscountWholeSalePer = minDiscountWholeSalePer;
@@ -437,6 +440,14 @@ public class Product implements Serializable {
 
 	public void setProductNameVietnamese(String productNameVietnamese) {
 		this.productNameVietnamese = productNameVietnamese;
+	}
+
+	public String getProductLabel() {
+		return this.productName  + " - " + this.productCode;
+	}
+
+	public void setProductLabel(String productLabel) {
+		this.productLabel = productLabel;
 	}
 
 	@Override
