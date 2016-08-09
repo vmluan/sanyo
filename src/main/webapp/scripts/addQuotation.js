@@ -192,6 +192,75 @@ var dataAdapterLocation = new $.jqx.dataAdapter(sourceLocation, {
 	loadError : function(xhr, status, error) {
 	}
 });
+//get all regions of project. Then it will be used in all session later of that project in Add Quotation page.
+var urlAllRegions=pageContext + "/quotation/getAllAssignedRegionsJson";
+var sourceAllRegions = {
+	datatype : "json",
+	datafields : [ {
+		name : 'regionId',
+		type : 'number'
+	}, {
+		name : 'regionName',
+		type : 'string'
+	}, {
+		name : 'regionDesc',
+		type : 'string'
+	}, {
+		name : 'locationName',
+		map : 'location>locationName'
+	}, {
+		name : 'locationId',
+		map : 'location>locationId'
+	} ],
+	id : 'regionId',
+	url : urlAllRegions,
+	data : {
+		projectId: projectId,
+		regionType: regionType
+	}
+};
+var dataAdapterAllRegions = new $.jqx.dataAdapter(sourceAllRegions, {autoBind : true,
+	downloadComplete : function(data, status, xhr) {
+	},
+	loadComplete : function(data) {
+	},
+	loadError : function(xhr, status, error) {
+	}
+});
+
+function updateRegionSearchList(locationIds){
+	var records = dataAdapterAllRegions.records;
+	var result = new Array();
+	if(locationIds) {
+		var locationArray = locationIds.split(',');
+		for(var i=0; i<locationArray.length; i++){
+			if(locationArray[i]=='0') {
+				result =  records;
+				break;
+			}
+			for(var j=0; j< records.length; j++){
+				var record = records[j];
+				if(record.locationId == locationArray[i]){
+					var hasExisted = false;
+					for(var k=0; k<result.length;k++){
+						if(result[k].regionId == record.regionId) {
+							hasExisted = true;
+							break;
+						}
+					}
+					if(!hasExisted){
+						result.push(record);
+					}
+				}
+
+			}
+		}
+	}else{
+		result = []; // to remove data from Region List.
+	}
+	console.log(result);
+	$("#listRegion").jqxComboBox({source: result});
+};
 // Create a jqxComboBox
 $("#jqxWidgetLocation").jqxComboBox({
 	// checkboxes : true,
@@ -289,7 +358,7 @@ $("#jqxWidgetLocation").on('checkChange', function (event)
 			if(locationIDs != ''){
 				updateLocationSum(locationIDs);
 				//load regions of checked locations.
-				sourceRegion.data.locationId = locationIDs;
+/*				sourceRegion.data.locationId = locationIDs;
 				dataAdapterRegion = new $.jqx.dataAdapter(sourceRegion);
 				$("#listRegion").jqxComboBox({
 					// checkboxes : true,
@@ -299,9 +368,11 @@ $("#jqxWidgetLocation").on('checkChange', function (event)
 					width : '100%',
 					height : 25,
 					checkboxes: true
-				});
+				});*/
+				updateRegionSearchList(locationIDs);
 			}else{
 				$("#locationSum").val(0);
+				updateRegionSearchList(null);
 			}
 		}
 		console.log(locationIDs);

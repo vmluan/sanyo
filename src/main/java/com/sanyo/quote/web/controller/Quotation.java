@@ -860,6 +860,60 @@ public class Quotation extends CommonController {
 
 		}
 	}
+	/*
+	 * to generate json with Location and Regions in detail. Then GUI will reuse it without connecting server every
+	 * user selecting different location.
+	 */
+	@RequestMapping(value = "/getAllAssignedRegionsJson", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public String getAllAssignedRegionsJson(@RequestParam(value="projectId", required=true) String projectId
+			, @RequestParam(value="regionType", required=false) String regionType
+			, @RequestParam(value="filterscount", required=false) String filterscount
+			, @RequestParam(value="groupscount", required=false) String groupscount
+			, @RequestParam(value="pagenum", required=false) Integer pagenum
+			, @RequestParam(value="pagesize", required=false) Integer pagesize
+			, @RequestParam(value="recordstartindex", required=false) Integer recordstartindex
+			, @RequestParam(value="recordendindex", required=false) Integer recordendindex
+			, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
+		Project project = projectService.findById(Integer.valueOf(projectId));
+		Region  all = new Region();
+		all.setRegionName("All");
+		all.setRegionId(0);
+		
+		List<Location> locations = locationService.findByProjectOrderByOrderNoAsc(project);
+		List<Region> selectedRegions = new ArrayList<Region>();
+		if(regionType != null && (regionType.equalsIgnoreCase(Constants.ELEC_TYPE)
+									|| regionType.equalsIgnoreCase(Constants.MECH_TYPE))
+				){
+			for(Location location : locations){
+				List<Region> regions = regionService.findByLocation(location);
+				for(Region region : regions){
+					Category category = region.getCategory().getParentCategory();
+					if((category.getName().equalsIgnoreCase(Constants.MECH_BOQ)
+							&& regionType.equalsIgnoreCase(Constants.MECH_TYPE))
+							||(category.getName().equalsIgnoreCase(Constants.ELECT_BOQ)
+							&& regionType.equalsIgnoreCase(Constants.ELEC_TYPE)
+							)){
+						selectedRegions.add(region);
+						//break;
+					}
+				}
+			}
+		}else{
+			//find all
+		}
+		
+		
+		Collections.sort(selectedRegions, new Comparator<Region>() {
+			@Override
+			public int compare(Region o1, Region o2) {
+				return o1.getRegionName().compareToIgnoreCase(o2.getRegionName());
+			}
+		});
+		selectedRegions.add(0, all);
+		String result = Utilities.jSonSerialization(selectedRegions);
+		return result;
+	}
 }
 
 
