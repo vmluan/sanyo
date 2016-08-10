@@ -56,8 +56,8 @@
                 </div><!-- /.box-header -->
                 <!-- form start -->
                 <div class="row" id="evelop-buttonAction" style="text-align: center;">
-			<!--<button style="float:none;margin:6px" class="btn bg-olive margin"  onclick="makeReport(${project.projectId})">Print</button>
-			<button style="float:none;margin:6px" class="btn bg-olive margin"  onclick="makeReport(${project.projectId},'VN')">Print VN</button>
+			<!--<button style="float:none;margin:6px" class="btn bg-olive margin"  onclick="makeReport(${project.projectId})">Print (En)</button>
+			<button style="float:none;margin:6px" class="btn bg-olive margin"  onclick="makeReport(${project.projectId},'VN')">Print (VN)</butglishton>
 			<button style="float:none;margin:6px" class="btn bg-purple margin" onclick="addQuotation(${project.projectId})">Quotation</button>
 			<button style="float:none;margin:6px" class="btn bg-navy margin">Marker List</button>
 			<button style="float:none;margin:6px" class="btn bg-orange margin" onclick="cloneProject(${project.projectId})">Copy</button>
