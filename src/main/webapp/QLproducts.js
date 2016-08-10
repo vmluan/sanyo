@@ -3,6 +3,14 @@ var url = pageContext + "/products/getproductsjson";
 var source =
         {
             datatype: "json",
+            updaterow: function (rowid, rowdata, commit) {
+                // synchronize with the server - send update command
+                // call commit with parameter true if the synchronization with the server is successful
+                // and with parameter false if the synchronization failder.
+               console.log('update record');
+                UpdateProduct(rowdata);
+                commit(true);
+            },
             datafields: [
                 {name: 'productName', type: 'string'},
                 {name: 'productPrice', type: 'float'},
@@ -19,7 +27,7 @@ var source =
             url: url,
         	data : {
         		productGroupCode : $("#productGroupCode").val(),
-        		makerId : makerId,
+        		makerId : makerId
         	}
         };
 var cellsrenderer = function(row, columnfield, value, defaulthtml, columnproperties, rowdata) {
@@ -53,8 +61,8 @@ $("#jqxgridProducts").jqxGrid(
             columnsreorder: true,
             showfilterrow: true,
             filterable: true,
-            columnsresize: true,
             autorowheight: true,
+            editable: true,
             columns: [
 				{
 					text : '#',
@@ -70,14 +78,17 @@ $("#jqxgridProducts").jqxGrid(
 				{text: 'Specification', datafield: 'specification', width: '20%'},
 				{text: 'Name', datafield: 'productName', width: '20%'},
 				{text: 'Unit', datafield: 'unit', width: '10%'},
-                {text: 'Labour', datafield: 'labour', align: 'right', cellsalign: 'right', cellsformat: 'c0', columntype: 'numberinput', width: '10%'},
-				{text: 'Max USD', datafield: 'mat_w_o_Tax_USD', align: 'right', cellsalign: 'right', cellsformat: 'c0', columntype: 'numberinput', width: '10%'},
-				{text: 'Max VND', datafield: 'mat_w_o_Tax_VND', align: 'right', cellsalign: 'right', cellsformat: 'c0', columntype: 'numberinput', width: '10%'},
+                {text: 'Labour USD', datafield: 'labour', align: 'right', cellsalign: 'right', cellsformat: 'c0', columntype: 'numberinput', width: '13%'},
+				{text: 'Max USD', datafield: 'mat_w_o_Tax_USD', align: 'right', cellsalign: 'right', cellsformat: 'c0', columntype: 'numberinput', width: '00%',hidden: true },
+				{text: 'Unit price VND', datafield: 'mat_w_o_Tax_VND', align: 'right', cellsalign: 'right', cellsformat: 'c0', columntype: 'numberinput', width: '17%'},
                 {text: 'Action', datafield: 'Action', width: '15%',
                     cellsrenderer: function(row, column, value) {
                         return '<input type ="button" value="Edit" onClick = "updateProduct(' + row + ')"></input>'
-                                + '<input type ="button" value="Delete" onClick = "deleteProduct(' + row + ')"></input>'
-                                ;
+                            + '<input type ="button" value="Delete" onClick = "deleteProduct(' + row + ')"></input>'
+                            ;
+                    },
+                    cellbeginedit : function(row) {
+                        return false;
                     }
                 }				
 
@@ -136,33 +147,47 @@ function deleteProduct() {
 ;
 // events
 $("#jqxgridProducts").on('cellbeginedit', function(event) {
+    // event arguments.
+    var args = event.args;
+    // column data field.
+    var dataField = event.args.datafield;
+    if(dataField=='Action')
+        return;
 
 });
 $("#jqxgridProducts").on('cellendedit', function(event) {
 
 });
 
-function checkAddProduct() {
-    var price = $("#productPriceWrapper").val().trim();
-    var name = $("#productName").val();
-    var common = document.getElementById("common_check").checked;
-    alert("common: " + common);
-    if (price == "" || name == "") {
-        alert("Vui lòng nhập đủ tên và giá sản phẩm mới !");
-        return false;
-    }
+function UpdateProduct(data){
+    var url = pageContext + '/products/' + data.uid + '?form';
 
+    var product = new Object();
+    product.productID = data.uid;
+    product.productCode = data.productCode;
+    product.productName = data.productName;
+    product.specification = data.specification;
+    product.labour = data.labour;
+    product.unit = data.unit;
+    //product.mat_w_o_Tax_USD = data.mat_w_o_Tax_USD;
+    product.mat_w_o_Tax_VND = data.mat_w_o_Tax_VND;
+
+    var jsonData = JSON.stringify(product);
     $.ajax({
-        type: 'POST',
-        url: "http://localhost:8080/products?form",
-        data: {
-            price: price,
-            name: name,
-            common: common,
-            file: $("#file").val()
+        type: "POST",
+        contentType : 'application/json',
+        data: jsonData,
+        url: url,
+        success: function(msg){
+            if(msg){
+                alert('There was a problem with your submit: ' + msg)
+            }else{
+               // alert('Update successfully');
+            }
+
         },
-        success: function(msg) {
-            alert(msg);
+        error: function(msg){
+            alert('There was a problem with your submit')
         }
     });
 }
