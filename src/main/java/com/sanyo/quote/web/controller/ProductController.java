@@ -583,6 +583,7 @@ public class ProductController extends CommonController {
                     product.setStartDate(new Date());
                     product.setMaker(maker);
                     product.setProductGroup(pg);
+					product.setLastUpdated(new Date());
 	                  Iterator<Cell> cellIterator = row.cellIterator();
 	                  while (cellIterator.hasNext()) {
 	                      Cell cell = cellIterator.next();

@@ -21,7 +21,8 @@ var source =
 				{name: 'mat_w_o_Tax_USD', type: 'string'},
 				{name: 'mat_w_o_Tax_VND', type: 'string'},
 				{name: 'specification', type: 'string'},
-				{name: 'unit', type: 'string'}
+				{name: 'unit', type: 'string'},
+                {name: 'lastUpdated', type:'date'}
 				
             ],
             id: 'productID',
@@ -78,11 +79,12 @@ $("#jqxgridProducts").jqxGrid(
 				},
 				{text: 'Specification', datafield: 'specification', width: '20%'},
 				{text: 'Name', datafield: 'productName', width: '20%'},
-				{text: 'Unit', datafield: 'unit', width: '10%'},
-                {text: 'Labour USD', datafield: 'labour', align: 'right', cellsalign: 'right', cellsformat: 'c0', columntype: 'numberinput', width: '13%'},
-				{text: 'Max USD', datafield: 'mat_w_o_Tax_USD', align: 'right', cellsalign: 'right', cellsformat: 'c0', columntype: 'numberinput', width: '00%',hidden: true },
-				{text: 'Unit price VND', datafield: 'mat_w_o_Tax_VND', align: 'right', cellsalign: 'right', cellsformat: 'c0', columntype: 'numberinput', width: '17%'},
-                {text: 'Action', datafield: 'Action', width: '15%',
+				{text: 'Unit', datafield: 'unit', width: '5%'},
+                {text: 'Labour USD', datafield: 'labour', align: 'right', cellsalign: 'right', cellsformat: 'c0', columntype: 'numberinput', width: '8%'},
+				{text: 'Max USD', datafield: 'mat_w_o_Tax_USD', align: 'right', cellsalign: 'right', cellsformat: 'c0', columntype: 'numberinput', width: '0%',hidden: true },
+				{text: 'Unit price VND', datafield: 'mat_w_o_Tax_VND', align: 'right', cellsalign: 'right', cellsformat: 'f', columntype: 'numberinput', width: '15%'},
+                {text: 'Last Updated', datafield: 'lastUpdated', width: '12%',cellsformat: 'MM/dd/yyyy'},
+                {text: 'Action', datafield: 'Action', width: '12%',
                     cellsrenderer: function(row, column, value) {
                         return '<input type ="button" value="Edit" onClick = "updateProduct(' + row + ')"></input>'
                             + '<input type ="button" value="Delete" onClick = "deleteProduct(' + row + ')"></input>'
