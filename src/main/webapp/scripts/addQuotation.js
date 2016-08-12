@@ -793,7 +793,7 @@ function loadAddQuotationGrid() {
 					width : '15%'
 				},
 				{
-					text : 'Search by Code',
+					text : 'Search by Name',
 					datafield : 'productCode',
 					align : 'center',
 					cellsalign : 'right',
