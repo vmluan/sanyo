@@ -16,3 +16,9 @@ function getDecimalNumber(input) {
 	var result = Number(input).toFixed(4);
 	return result;
 }
+
+//following are common methods used for jqxgrid components
+function getSelectedItemComboBox( combobox){
+	var item = combobox.jqxComboBox('getSelectedItem');
+	return item;
+}

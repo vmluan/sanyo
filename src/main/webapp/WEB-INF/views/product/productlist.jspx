@@ -26,13 +26,14 @@
                   <h3 class="box-title">Search</h3>
                 </div><!-- /.box-header -->
                   <div class="col-md-12">
-					  <div class="col-md-2">
+					  <div class="col-md-3">
 						<div class="form-group">
 							<label>Code</label>
-	 						<input id="productGroupCode" class="form-control"/>
+	 						<!--<input id="productGroupCode" class="form-control"/>-->
+							<div id="codeCheckbox"><jsp:text /></div>
 						</div>
 					</div>
-					<div class="col-md-2">
+					<div class="col-md-3">
 						<div class="form-group">
 							<label>Maker List</label>
 							<div id="makerListDiv"><jsp:text /></div>
@@ -46,7 +47,7 @@
 					  </div>							
 					</div>					
 				</div>				
-				<div class="col-md-6">			
+				<div class="col-md-4">
 							<form:form modelAttribute="fileBean" action="${pageContext.request.contextPath}/products/uploadFile" id="userUpdateForm" method="post" enctype="multipart/form-data">
 								<div class="form-group col-md-12 btn" >
 									<input type="button" onclick="submitForm(this)" value="Import" class="btn btn-primary btn pull-right" />
@@ -147,27 +148,30 @@ var dataAdapterMaker = new $.jqx.dataAdapter(sourceMaker, {
 });
 var makerId = '';
 $("#productGroupCode").change(function() {
-	console.log($("#productGroupCode").val());
-	sourceMaker.data.productGroudCode = $("#productGroupCode").val();
-	
-	dataAdapterMaker = new $.jqx.dataAdapter(sourceMaker);	
+	updateMaker($("#productGroupCode").val());
+});
+
+function updateMaker(productCode){
+	sourceMaker.data.productGroudCode = productCode;
+
+	dataAdapterMaker = new $.jqx.dataAdapter(sourceMaker);
 	$("#makerListDiv").jqxDropDownList({
 		height : '32',
 		source : dataAdapterMaker,
 		width : '100%',
 		selectedIndex : 0,
 		displayMember : "name",
-		valueMember : "id",	
+		valueMember : "id",
 		promptText : "Please Choose:"
 	});
-});	
+}
 
-$("#searchBtn").click(function() {
-	var selectedMaker = $("#makerListDiv").jqxDropDownList('getSelectedItem');
-	makerId = selectedMaker.value;
-	$.getScript('${pageContext.request.contextPath}/resources/QLproducts.js', function(){});	
-	//$("#makerListDiv").jqxDropDownList('clear');
-});	
+/*$("#searchBtn").click(function() {
+	 var selectedMaker = $("#makerListDiv").jqxDropDownList('getSelectedItem');
+	 makerId = selectedMaker.value;
+	 $.getScript('${pageContext.request.contextPath}/resources/QLproducts.js', function(){});
+	 //$("#makerListDiv").jqxDropDownList('clear');
+	 });	*/
 
 function submitForm(form){
 	if( document.getElementById("file").files.length == 0 ){

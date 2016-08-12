@@ -128,7 +128,9 @@
     <script type="text/javascript" src="/resources/jqwidgets/jqxdropdownlist.js"><jsp:text/></script>
     <script type="text/javascript" src="/resources/jqwidgets/jqxdragdrop.js"><jsp:text/></script>
     <script type="text/javascript" src="/resources/jqwidgets/jqxcombobox.js"><jsp:text/></script>
-
+    <script type="text/javascript" src="/resources/sanyo.js">
+        <jsp:text/>
+    </script>
     <script type="text/javascript" src="/resources/QLproducts.js">
         <jsp:text/>
     </script>		

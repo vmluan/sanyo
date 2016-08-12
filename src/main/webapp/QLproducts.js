@@ -1,4 +1,5 @@
 var url = pageContext + "/products/getproductsjson";
+var productCode='';
 // prepare the data
 var source =
         {
@@ -26,7 +27,7 @@ var source =
             id: 'productID',
             url: url,
         	data : {
-        		productGroupCode : $("#productGroupCode").val(),
+        		productGroupCode : productCode,
         		makerId : makerId
         	}
         };
@@ -191,3 +192,64 @@ function UpdateProduct(data){
         }
     });
 }
+
+//for code checboxes
+var codeUrl = pageContext + '/productgroups/getproductGroupJson';
+var codeSource = {
+    datatype : "json",
+    datafields : [ {
+        name : 'groupId',
+        type : 'string'
+    }, {
+        name : 'groupName',
+        type : 'string'
+    }, {
+        name : 'groupCode',
+        type : 'string'
+    } ],
+    sortcolumn : 'groupCode',
+    sortdirection : 'asc',
+    id : 'groupId',
+    url : codeUrl
+};
+var codeAdapter = new $.jqx.dataAdapter(codeSource, { autoBind :true,
+    downloadComplete: function(data, status, xhr) {
+    },
+    loadComplete: function(data) {
+    },
+    loadError: function(xhr, status, error) {
+    }
+});
+$("#codeCheckbox").jqxComboBox({
+    autoDropDownHeight : true,
+    source : codeAdapter,
+    displayMember : "groupCode",
+    valueMember : "groupCode",
+    promptText : "Please Choose:"
+});
+$("#codeCheckbox").on('select', function(event) {
+    var args = event.args;
+    if (args) {
+        var index = args.index;
+        var item = args.item;
+        if(item){
+            // get item's label and value.
+            var label = item.label;
+            var value = item.value;
+            updateMaker(value); // this method is defined in productList.jspx
+        }
+    }
+});
+
+$("#searchBtn").click(function() {
+    var selectedMaker = $("#makerListDiv").jqxDropDownList('getSelectedItem');
+    makerId = selectedMaker.value;
+
+    var codeItem = getSelectedItemComboBox($("#codeCheckbox"));
+    if(codeItem){
+        source.data.productGroupCode=codeItem.value;
+    }
+    source.data.makerId=makerId;
+    $("#jqxgridProducts").jqxGrid('updatebounddata');
+
+});
