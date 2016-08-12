@@ -87,7 +87,11 @@ public class Quotation extends CommonController {
 			currentProjecs = Constants.PROJECT_FINISHED_TEXT;
 		}
 		String projectsUrl ="/projects?status=" + status;
-		
+		uiModel.addAttribute("projectStatus", status);
+
+		boolean isAdminrole = Utilities.hasAdminRole();
+		uiModel.addAttribute("isAdmin", isAdminrole);
+
 		resetLinks();
 		addToLinks(currentProjecs, projectsUrl);
 		addToLinks("Quotation", "");

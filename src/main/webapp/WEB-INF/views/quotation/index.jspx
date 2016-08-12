@@ -134,6 +134,15 @@
 
 ]]>
 
+<script type="text/javascript">
+    var projectId=${projectId};
+    var projectStatus=${projectStatus};
+    var isAdmin=${isAdmin};
+</script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/actionforBasicInfor.js">
+        <jsp:text/>
+    </script>
+
 </section><!-- /.content -->
 
 </div>
