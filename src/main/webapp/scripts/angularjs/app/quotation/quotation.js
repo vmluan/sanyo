@@ -31,12 +31,25 @@ myapp.controller('quotationController', function ($scope) {
             if(sortable){
                 var newList = ui.item.sortable.resort.$modelValue;
                 var toIndex;
+                var regionList = new Array();
                 //find toIndex
                 for (x in newList){
                     var newItem = newList[x];
                     if(item.encounterID == newItem.encounterID)
                         toIndex = x;
+                    //check if multitple regions are seleteced. If yes, prevent user to re-order.
+                    var existingRegion = false;
+                    for(y in regionList){
+                        if(regionList[y].regionId == newItem.region.regionId){
+                            existingRegion = true;
+                            alert("Please select one Region only in order to use Drag and Drop feature correctly.")
+                            return;
+                        }
+
+                    }
+                    regionList.push(newItem.region);
                 }
+                console.log(regionList);
                 if(fromIndex != toIndex){
                     console.log('moved', item, fromIndex, toIndex);
 
