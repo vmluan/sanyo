@@ -1,3 +1,19 @@
 .yellowCell {
      background-color: yellow;
  }
+
+<!--for demo -->
+.item, .placeholder {
+    padding: 2px;
+    width: 50px;
+    height: 20px;
+    border: 1px solid #333;
+    background: #EEE;
+}
+.placeholder {
+    background: #AEF;
+}
+.sanyo-panel-body {
+    overflow: scroll;
+    height: 100%;
+}

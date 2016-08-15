@@ -1153,7 +1153,7 @@ public class ProjectController extends CommonController {
 		System.out.println("============ start getting maker of project ");
 		Project project = projectService.findById(Integer.valueOf(projectId));
 
-		if(regionId != null){
+		if(regionId != null && regionId >0){
 			Region region = regionService.findById(regionId);
 			Category assignedCategory = region.getCategory();
 			List<MakerProject> makerProjects = makerProjectService.findByProjectAndCategory(project, assignedCategory);
@@ -1356,6 +1356,46 @@ public class ProjectController extends CommonController {
     public void deleteLocation(@PathVariable("id") Integer id, Model uiModel) {
 		locationService.delete(id);
 		
+	}
+	/*
+ * get list of product group that are assigned to the project. it is defined in Maker sheet
+ * get all list of product group once. then it is used in GUI to increase performance
+ */
+	@RequestMapping(value = "/getAllMakerProject", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public String getAllMakerProjectJson(@RequestParam(value="projectId", required=true) String projectId,
+											 @RequestParam(value="filterscount", required=false) String filterscount
+			, @RequestParam(value="groupscount", required=false) String groupscount
+			, @RequestParam(value="pagenum", required=false) Integer pagenum
+			, @RequestParam(value="pagesize", required=false) Integer pagesize
+			, @RequestParam(value="recordstartindex", required=false) Integer recordstartindex
+			, @RequestParam(value="recordendindex", required=false) Integer recordendindex
+			, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
+
+		String regionType =  httpServletRequest.getParameter("regionType");
+		if(regionType == null || regionType.equalsIgnoreCase(""))
+			return "[]";
+		Project project = projectService.findById(Integer.valueOf(projectId));
+
+		List<MakerProject> makerProjects =  makerProjectService.findByProject(project);
+		List<MakerProject> assignedMakerProjects = new ArrayList<MakerProject>();
+		for(MakerProject makerProject : makerProjects){
+			makerProject.getProject().setRevisions(null);
+			ProductGroupMaker productGroupMaker = makerProject.getProductGroupMaker();
+			Category category = makerProject.getCategory().getParentCategory();
+			if (regionType.equalsIgnoreCase(Constants.ELEC_TYPE)) {
+				if (category.getName().equalsIgnoreCase(Constants.ELECT_BOQ)) {
+					ProductGroup productGroup = productGroupMaker.getProductGroup();
+					assignedMakerProjects.add(makerProject);
+				}
+			} else if (regionType.equalsIgnoreCase(Constants.MECH_TYPE)) {
+				if (category.getName().equalsIgnoreCase(Constants.MECH_BOQ)) {
+					ProductGroup productGroup = productGroupMaker.getProductGroup();
+					assignedMakerProjects.add(makerProject);
+				}
+			}
+		}
+	return Utilities.jSonSerialization(assignedMakerProjects);
 	}
 }
 

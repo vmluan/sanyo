@@ -299,7 +299,13 @@ public class Quotation extends CommonController {
 				}
 			}
 		}
-		
+		Collections.sort(finalEncounters, new Comparator<Encounter>() {
+			@Override
+			public int compare(Encounter o1, Encounter o2) {
+				//ascending order
+				return o1.getOrder() - o2.getOrder();
+			}
+		});
 		String result = Utilities.jSonSerialization(finalEncounters);
 		return result;
 	}
@@ -917,6 +923,26 @@ public class Quotation extends CommonController {
 		selectedRegions.add(0, all);
 		String result = Utilities.jSonSerialization(selectedRegions);
 		return result;
+	}
+
+	/*
+	new method to update new order of an encounter. Assume that User re-order the list, we need to have a loop to update every item that has been re-ordered.
+	 */
+	@RequestMapping(value = "/updateQuotaitonOrderAngularJS", method = RequestMethod.GET)
+	@ResponseBody
+	public String updateQuotaitonOrderAngularJS(@RequestParam(value="id", required=true) Integer encounterId,
+									 @RequestParam(value="newPosition", required=true) Integer newPosition,
+									 Model uiModel, HttpServletRequest httpServletRequest){
+		Encounter encounter = encounterService.findById(encounterId);
+		if(encounter.getOrder() != newPosition.intValue()){
+			encounter.setOrder(newPosition);
+			encounterService.save(encounter);
+
+			List<Encounter> encounters = encounterService.findAll();
+			String results = Utilities.jSonSerialization(encounters);
+			return results;
+		}
+		return  "[]";
 	}
 }
 

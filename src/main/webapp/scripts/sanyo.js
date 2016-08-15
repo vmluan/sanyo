@@ -22,3 +22,20 @@ function getSelectedItemComboBox( combobox){
 	var item = combobox.jqxComboBox('getSelectedItem');
 	return item;
 }
+/*
+common function used to get json output by GET method
+ */
+function makeGetRequestJson(url,jsonData, handleData){
+	$.ajax({
+		type : "GET",
+		data : jsonData,
+		contentType : 'application/json',
+		url : url,
+		success : function(msg) {
+			handleData(msg);
+		},
+		complete : function(xhr, status) {
+
+		}
+	});
+}

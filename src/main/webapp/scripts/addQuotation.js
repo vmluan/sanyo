@@ -261,6 +261,8 @@ function updateRegionSearchList(locationIds){
 	console.log(result);
 	$("#listRegion").jqxComboBox({source: result});
 };
+
+
 // Create a jqxComboBox
 $("#jqxWidgetLocation").jqxComboBox({
 	// checkboxes : true,
@@ -539,7 +541,20 @@ function getProductAdapter(sourceProducts){
 var sourceProducts = getUrlProducts();
 var dataAdapterProducts = getProductAdapter(sourceProducts);
 
-
+// get all ProductGroup assigned to the project
+var urlAllMakerProject = pageContext + "/projects/getAllMakerProject";
+var makerProjectData = {projectId : projectId, regionType: regionType};
+var allMakerProjectObjs;
+function handleProjectMakers(output){
+	allMakerProjectObjs = output;
+}
+makeGetRequestJson(urlAllMakerProject,makerProjectData,handleProjectMakers);
+// will write new code to update ProductGroup dropdown list by using data from allMakerProjectObjs object
+function updateProductGroupDropDown(regionId){
+	 // get result
+	var result = [];
+	return result;
+}
 var urlProductGroup = pageContext + "/projects/getProductGroupMakersJson";
 //prepare the data
 var sourceProductGroup = {
@@ -1315,7 +1330,6 @@ function deleteItem(encounterId){
 }
 $("#searchBtn").click(function(){
 	$("#example").show();
-	console.log("The Search was clicked.");
 	var checkedItems = $("#listRegion").jqxComboBox('getCheckedItems');
 	var regionIDs=getCheckedRegionIds();
 	var locationIDs=getCheckedLocationIds();
@@ -1325,30 +1339,16 @@ $("#searchBtn").click(function(){
 	else
 		loadAddQuotationGrid();
 
-//	var isCompleted = $("#listResult").jqxGrid('isBindingCompleted');
-//	if(isCompleted)
-//		showResultGrid(locationIDs,regionIDs);
-	//load data table
-	reloadDataTable();
-	/*
-	 var url = pageContext + '/quotation/getquotationlistdatatables';
-	 $.ajax({
-	 type : "GET",
-	 contentType : 'application/json',
-	 url : url,
-	 data: {
-	 projectId : projectId,
-	 locationIds : locationIDs,
-	 regionIds : regionIDs
-	 },
-	 success : function(msg) {
-	 },
-	 complete : function( jqxhr, settings, exception ) {
-	 $("#quotation_data_table").html(jqxhr.responseText);
-	 }
-	 });
-	 */
+//	reloadDataTable(); // luan disable on 8/14/2016 to use angularjs instead of using datatable.
+	var url = pageContext + "/quotation/getAssignedProductOfRegion";
+	var jsonData = {regionId: regionIDs,
+					locationIds: locationIDs};
+	makeGetRequestJson(url,jsonData,updateAngularJSList);
+	//updateAngularJSList is declare in /angularjs/app/quotation folder
 });
+
+
+
 function getCheckedLocationIds(){
 	var checkedItemsLocation = $("#jqxWidgetLocation").jqxComboBox(
 		'getCheckedItems');

@@ -12,6 +12,7 @@
 <head>
    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sanyo.css"
           type="text/css" />
+
 </head>
   <body class="hold-transition skin-blue sidebar-mini">
         <section class="content"><jsp:text/>
@@ -19,5 +20,4 @@
 		<tiles:insertAttribute name="body"/> 
         </section><!-- /.content -->
   </body>
-
 </html>
