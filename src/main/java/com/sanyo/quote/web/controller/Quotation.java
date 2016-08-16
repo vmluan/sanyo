@@ -719,7 +719,13 @@ public class Quotation extends CommonController {
 				float amount = encounter.getAmount();
 				if(project == null)
 					project = encounter.getRegion().getLocation().getProject();
-				amount = (float)Math.ceil(convertPrice(amount, project));
+				Currency currency = project.getCurrency();
+				if(currency != null
+						&& currency.getCurrencyCode() != null
+						&& currency.getCurrencyCode().equalsIgnoreCase("USD")){
+					//do nothing
+				}else
+					amount = (float)Math.ceil(convertPrice(amount, project));
 				total += amount;
 			}
 			return total;
