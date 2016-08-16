@@ -471,15 +471,23 @@ public class Quotation extends CommonController {
 	private Float convertPrice(Float total, Project project){
 		Currency currency = project.getCurrency();
 		if(currency != null
+				&& currency.getCurrencyCode() != null
 				&& currency.getCurrencyCode().equalsIgnoreCase("VND")){
 			// convert usd to vnd
-			total = total * project.getUsdToVnd();
+			Float value = project.getUsdToVnd();
+			if(value == null)
+				value =0f;
+			total = total * value;
 
 
 		}else if(currency != null
+				&& currency.getCurrencyCode() !=null
 				&& currency.getCurrencyCode().equalsIgnoreCase("JPY")){
 			// convert usd to jpy
-			total = total * project.getUsdToJpy();
+			Float value = project.getUsdToJpy();
+			if(value == null)
+				value =0f;
+			total = total * value;
 		}
 		return total;
 	}
