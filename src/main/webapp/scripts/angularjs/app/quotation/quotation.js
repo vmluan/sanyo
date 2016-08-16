@@ -57,6 +57,8 @@ myapp.controller('quotationController', function ($scope) {
                     if(item.encounterID == newItem.encounterID)
                         toIndex = x;
                     //check if multitple regions are seleteced. If yes, prevent user to re-order.
+                    if(regionList.length ==0)
+                        regionList.push(newItem.region);
                     for(y in regionList){
                         if(regionList[y].regionId == newItem.region.regionId){
                         }else{
@@ -64,11 +66,10 @@ myapp.controller('quotationController', function ($scope) {
                         }
 
                     }
-                    if(regionList.length >1){
-                        alert("Please select one Region only in order to use Drag and Drop feature correctly.")
-                        return;
-                    }
-
+                }
+                if(regionList.length >1){
+                    alert("Please select one Region only in order to use Drag and Drop feature correctly.")
+                    return;
                 }
                 console.log(regionList);
                 if(fromIndex != toIndex){
