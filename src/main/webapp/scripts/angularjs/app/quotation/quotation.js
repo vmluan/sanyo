@@ -21,6 +21,25 @@ function updateAngularJSList(result){
 }*/
 var myapp = angular.module('myapp', ['ui']);
 myapp.controller('quotationController', function ($scope) {
+    $scope.deleteItem =  function(encounterId){
+        var result = confirm('Do you want to delete this record?');
+        if (result == false)
+            return;
+        var url = pageContext + '/quotation/'+ encounterId + '?delete';
+        $.ajax({
+            type : "POST",
+            contentType : 'application/json',
+            url : url,
+            success : function(msg) {
+                $("#listResult").jqxGrid('updatebounddata');
+            },
+            complete : function(xhr, status) {
+                // $("#assignRegionButton").prop('disabled', false);
+                reloadDataTable();
+            }
+        });
+    }
+
     $scope.list=[];
     $scope.sortableOptionsA = {
 
@@ -38,16 +57,18 @@ myapp.controller('quotationController', function ($scope) {
                     if(item.encounterID == newItem.encounterID)
                         toIndex = x;
                     //check if multitple regions are seleteced. If yes, prevent user to re-order.
-                    var existingRegion = false;
                     for(y in regionList){
                         if(regionList[y].regionId == newItem.region.regionId){
-                            existingRegion = true;
-                            alert("Please select one Region only in order to use Drag and Drop feature correctly.")
-                            return;
+                        }else{
+                            regionList.push(newItem.region);
                         }
 
                     }
-                    regionList.push(newItem.region);
+                    if(regionList.length >1){
+                        alert("Please select one Region only in order to use Drag and Drop feature correctly.")
+                        return;
+                    }
+
                 }
                 console.log(regionList);
                 if(fromIndex != toIndex){
@@ -62,12 +83,16 @@ myapp.controller('quotationController', function ($scope) {
                         startPos=toIndex;
                         endPos=fromIndex;
                     }
+                    var jsonData='';
                     for(i=startPos;i<=endPos;i++){
                         var changedItem = newList[i];
                         var encounterId = changedItem.encounterID;
                         var newPos = +i + +1;
-                        updateEncounterOrder(encounterId,newPos);
+                        var data = "encounterId_" + encounterId + "|newOrder_" + newPos;
+                        jsonData = jsonData + "," + data;
                     }
+                    jsonData = jsonData.substring(1);
+                    updateEncounterOrder(jsonData);
                 }
 
             }
@@ -103,9 +128,9 @@ function updateAngularJSList(result){
         scope.list = result;
     });
 }
-function updateEncounterOrder(encounterId, newOrder){
-    var jsonData = {id:encounterId,newPosition:newOrder};
-    var url = pageContext + '/quotation/updateQuotaitonOrderAngularJS';
+function updateEncounterOrder(data){
+    var jsonData = {params:data};
+    var url = pageContext + '/quotation/updateQuotationListOrderByAngularJS';
     makeGetRequestJson(url,jsonData,handleAfterUpdateingOrder);
 }
 function handleAfterUpdateingOrder(result){

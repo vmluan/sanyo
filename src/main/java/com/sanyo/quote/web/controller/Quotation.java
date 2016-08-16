@@ -944,6 +944,48 @@ public class Quotation extends CommonController {
 		}
 		return  "[]";
 	}
+	/*
+new method to update new order of an encounter. Assume that User re-order the list, a list of encounter will be passed to this method.
+ */
+	@RequestMapping(value = "/updateQuotationListOrderByAngularJS", method = RequestMethod.GET)
+	@ResponseBody
+	public String updateQuotationListOrderByAngularJS(@RequestParam(value="params", required=true) String params,
+												Model uiModel, HttpServletRequest httpServletRequest){
+		// sample params is: encounterId_1|newOrder_2,encounter_2|newOrder_1
+
+		StringTokenizer stringTokenizer = new StringTokenizer(params, ",");
+		while (stringTokenizer.hasMoreElements()){
+			String elem = (String) stringTokenizer.nextElement();
+			System.out.println(elem);
+			StringTokenizer stringTokenizer2 = new StringTokenizer(elem, "|");
+			while(stringTokenizer2.hasMoreElements()){
+
+				String elemtEncounter = (String )stringTokenizer2.nextElement();
+				String elemtOrder = (String) stringTokenizer2.nextElement();
+
+				StringTokenizer stringTokenizer3 = new StringTokenizer(elemtEncounter, "_");
+				StringTokenizer stringTokenizer4 = new StringTokenizer(elemtOrder, "_");
+				String encounterId = null, newPosition = null;
+				while(stringTokenizer3.hasMoreElements()){
+					stringTokenizer3.nextElement();
+					encounterId = (String)stringTokenizer3.nextElement();
+				}
+				while(stringTokenizer4.hasMoreElements()){
+					stringTokenizer4.nextElement();
+					newPosition = (String) stringTokenizer4.nextElement();
+				}
+				// update every encounter
+				if(encounterId != null && newPosition != null) {
+					Encounter encounter = encounterService.findById(Integer.valueOf(encounterId));
+					if (encounter.getOrder() != Integer.valueOf(newPosition)) {
+						encounter.setOrder(Integer.valueOf(newPosition));
+						encounterService.save(encounter);
+					}
+				}
+			}
+		}
+		return  "[]";
+	}
 }
 
 
