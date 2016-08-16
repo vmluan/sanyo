@@ -139,3 +139,22 @@ function handleAfterUpdateingOrder(result){
     $("#searchBtn").click();
 
 }
+function deleteItem(encounterId){
+    var result = confirm('Do you want to delete this record?');
+    if (result == false)
+        return;
+    var url = pageContext + '/quotation/'+ encounterId + '?delete';
+    $.ajax({
+        type : "POST",
+        contentType : 'application/json',
+        url : url,
+        success : function(msg) {
+
+        },
+        complete : function(xhr, status) {
+            // $("#assignRegionButton").prop('disabled', false);
+            //	reloadDataTable();
+            $("#searchBtn").click();
+        }
+    });
+}

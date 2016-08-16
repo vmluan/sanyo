@@ -1,9 +1,4 @@
-var cellclass = function (row, column, value, data) {
-	var val = $('#listResult').jqxGrid('getcellvalue', row, "hasMakerDeleted");
-	if (val == true) {
-		return "yellowCell";
-	}
-}
+
 
 var urlResult = pageContext + "/quotation/getAssignedProductOfRegion";
 
@@ -382,57 +377,6 @@ $("#jqxWidgetLocation").on('checkChange', function (event)
 	}
 
 });
-//$('#jqxWidgetLocation').on('select', function(event) {
-//	// load region section.
-//	var args = event.args;
-//	if (args) {
-//		// index represents the item's index.
-//		var index = args.index;
-//		var item = args.item;
-//		if(item)
-//		{
-//		// get item's label and value.
-//			var label = item.label;
-//			var value = item.value;
-//			sourceRegion.data.locationId = value;
-//			dataAdapterRegion = new $.jqx.dataAdapter(sourceRegion);
-//			$("#listRegion").jqxComboBox({
-//				// checkboxes : true,
-//				source : dataAdapterRegion,
-//				displayMember : "regionName",
-//				valueMember : "regionId",
-//				width : '100%',
-//				height : 25
-//			});
-//		}
-//	//update locationSum
-//	if(value)
-//		updateLocationSum(value);
-//	}
-//
-//});
-//$('#listRegion').on('select', function(event) {
-//	console.log('select region');
-//	var args = event.args;
-//		if (args) {
-//			var index = args.index;
-//			var item = args.item;
-//			if(item){
-//				// get item's label and value.
-//				var label = item.label;
-//				var value = item.value;
-//				var rows1 = $('#list').jqxGrid('getrows');
-//				if(rows1)
-//					$('#list').jqxGrid('updatebounddata');
-//				else
-//					loadAddQuotationGrid();
-//
-//				var isCompleted = $("#listResult").jqxGrid('isBindingCompleted');
-//				if(isCompleted)
-//					showResultGrid(value);
-//			}
-//		}
-//});
 function updateRegionSum(regionIds){
 	if(regionIds == '')
 		$("#regionSum").val(0);
@@ -662,13 +606,13 @@ function saveEncounter(row,isUpdate) {
 			$("#list").jqxGrid('begincelledit', 0, "productGroupCode");
 			var regionIDs=getCheckedRegionIds();
 			var locationIDs=getCheckedLocationIds();
-			//showResultGrid(locationIDs, regionIDs);
-			reloadDataTable();
+			//reloadDataTable();
 //			var itemLocation = $("#jqxWidgetLocation").jqxComboBox('getSelectedItem');
 			var locationIds = getCheckedLocationIds();
 			updateLocationSum(locationIds);
 			var regionIDs = getCheckedRegionIds();
 			updateRegionSum(regionIDs);
+			$("#searchBtn").click();
 		},
 		complete : function(xhr, status) {
 			// $("#assignRegionButton").prop('disabled', false);
@@ -1095,14 +1039,7 @@ $('#list').on('cellclick', function (event) {
 		addItem(index);
 	}
 });
-function showResultGrid(locationIds, regionIds) {
-	var isCompleted = $("#listResult").jqxGrid('isBindingCompleted');
-	console.log(isCompleted);
-	sourceResult.data.locationIds =locationIds;
-	sourceResult.data.regionId =regionIds;
-	dataAdapterResult = new $.jqx.dataAdapter(sourceResult);
-	$("#listResult").jqxGrid('updatebounddata');
-}
+
 function updateProductFields(productId){
 	var records = dataAdapterProducts.records;
 	for(var i=0; i< records.length; i++){
@@ -1310,7 +1247,7 @@ function updateItem(row){
 	saveEncounter(row, true);
 
 }
-function deleteItem(encounterId){
+/*function deleteItem(encounterId){
 	var result = confirm('Do you want to delete this record?');
 	if (result == false)
 		return;
@@ -1320,16 +1257,16 @@ function deleteItem(encounterId){
 		contentType : 'application/json',
 		url : url,
 		success : function(msg) {
-			$("#listResult").jqxGrid('updatebounddata');
+
 		},
 		complete : function(xhr, status) {
 			// $("#assignRegionButton").prop('disabled', false);
-			reloadDataTable();
+		//	reloadDataTable();
+			$("#searchBtn").click();
 		}
 	});
-}
+}*/
 $("#searchBtn").click(function(){
-	$("#example").show();
 	var checkedItems = $("#listRegion").jqxComboBox('getCheckedItems');
 	var regionIDs=getCheckedRegionIds();
 	var locationIDs=getCheckedLocationIds();
@@ -1392,87 +1329,6 @@ function getRenderNumberBasedOnCurrency(){
 	}
 	return result;
 }
-function loadDataTable(){
-	var regionIDs=getCheckedRegionIds();
-	var locationIDs=getCheckedLocationIds();
-
-	var table;
-	table = $("#example").dataTable({
-		"language": {
-			"decimal": ",",
-			"thousands": "."
-		},
-		"columnDefs": [
-			{"visible": false, "targets": 2},
-			{type: 'formatted-num', targets: 7}
-		],
-		"scrollX": true,
-		destroy: true,
-		//Default: Page display length
-		"iDisplayLength": 100,
-		"iDisplayStart": 0,
-		"fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-			$(nRow).attr('data-position', iDisplayIndex);
-			//$(nRow).attr( 'data-row-id', iDisplayIndex);
-			//$(nRow).attr( 'id', aData.order);
-			nRow.setAttribute('id', aData.encounterID);  //Initialize row id for every row
-			//$(nRow).find('.attr-setting-order' ).val(iDisplayIndex);
-			var hasMakerDeleted = aData.hasMakerDeleted;
-			if (hasMakerDeleted == true) {
-				$(nRow).css({"background-color": "red"})
-			}
-		},
-		"sPaginationType": "full_numbers",
-		"sAjaxSource": pageContext + "/quotation/getAssignedProductOfRegionForDatatables",
-		"fnServerParams": function (aoData) {
-			aoData.push({"name": "regionId", "value": regionIDs},
-				{"name": "locationIds", "value": locationIDs}); //push more parameters
-		},
-		"aoColumns": [
-			{"mData": "order"},
-			{"mData": "region.regionName"},
-			{"mData": "region.regionId"},
-			{"mData": "product.productName"},
-			{"mData": "product.unit"},
-			{"mData": "actualQuantity"},
-			{"mData": "unitRate", render: getRenderUsd()},
-			{"mData": "amount"
-				,render: getRenderNumberBasedOnCurrency()
-			},
-			{"mData": "nonamePercent"},
-			{"mData": "nonameRange"},
-			{"mData": "remark"},
-			{"mData": "quantity"},
-			{"mData": "labourAfterTax", render: getRenderUsd()},
-			{"mData": "mat_w_o_Tax_USD", render: getRenderUsd()},
-			{"mData": "mat_w_o_Tax_VND", render:getRenderVnd()},
-			{"mData": "product.labour", render: getRenderUsd()},
-			{"mData": "imp_Tax"},
-			{"mData": "special_Con_Tax"},
-			{"mData": "vat"},
-			{"mData": "discount_rate"},
-			{"mData": "unit_Price_After_Discount", render: getRenderUsd()},
-			{"mData": "allowance"},
-			{"mData": "unit_Price_W_Tax_Profit", render: getRenderUsd()},
-			{"mData": "subcon_Profit"},
-			{"mData": "unit_Price_W_Tax_Labour", render: getRenderUsd()},
-			{"mData": "cost_Mat_Amount_USD", render: getRenderUsd()},
-			{"mData": "cost_Labour_Amount_USD", render: getRenderUsd()},
-			{
-				"mData": null,
-				"bSortable": false,
-				"mRender": function (o) {
-					var id = o.encounterID;
-					//	return '<button class="btn"  onclick="updateItem('+ id +  ')"' + '>Update</button>'
-					//		+ '<button class="btn" onclick="deleteItem('+ id +  ')"' +'>Delete</button>'
-					return '<button class="editor_edit" onclick="updateItem(' + id + ')"' + '>Edit</button> / <button class="editor_remove" onclick="deleteItem(' + id + ')"' + '>Delete</button>'
-						;
-				}
-			}
-		]
-	});
-	return table;
-}
 function getAllowance(productGroupCode){
 	var records = dataAdapterProductGroup.records;
 	for(var i=0; i< records.length; i++){
@@ -1492,13 +1348,4 @@ function getDiscount(productGroupCode){
 	}
 	return discountRate;
 
-}
-/*
- * to reload the data table component.
- */
-function reloadDataTable(){
-
-	var table = loadDataTable();
-	table.rowGrouping({ iGroupingColumnIndex: 1 });
-	table.rowReordering({ bGroupingUsed: true, sURL: pageContext + "/quotation/updateQuotaitonOrder", sRequestType: "GET" });
 }

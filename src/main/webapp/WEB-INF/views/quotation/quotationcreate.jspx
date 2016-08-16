@@ -68,96 +68,12 @@
 							<div id="pager"><jsp:text /></div><jsp:text /><P /><jsp:text />
 							<p />
 						</div>
-					</div>			
-					<div class="col-md-12">
-						<div class="form-group">
-							<label>List of added items</label>
-							<div id="listResult" class="row"><jsp:text />
-							</div>
-							<div id="pagerResult"><jsp:text /></div><jsp:text /><P /><jsp:text />
-							<p />
-						</div>
-					</div>					
+					</div>
 				</div>
 				<!-- /.box -->
 			</div>
 
 		</div>
-	<!--
-		<div class="box box-default" id="quotation_data_table">
-<table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
-
-<![CDATA[	
-	<thead>
-		<tr>
-			<th>No</th>
-			<th>Region</th>
-			<th>Region ID</th>
-			<th>Description</th>
-			<th>Unit</th>
-			<th>Quantity</th>
-			<th>Unit Rate</th>
-			<th>Amount</th>
-			<th>Percent</th>
-			<th>Range</th>
-			<th>Remark</th>
-			<th>Qty</th>
-			<th>Labour</th>
-			<th>Mat w/o Tax USD</th>
-			<th>Mat w/o Tax VND</th>
-			<th>Labour (database)</th>
-			<th>Imp Tax</th>
-			<th>Special con. Tax</th>
-			<th>VAT</th>
-			<th>Discount rate %</th>
-			<th>Unit price after discount</th>
-			<th>Allowance</th>
-			<th>Unit price w Tax & profit</th>
-			<th>Subcon profit</th>
-			<th>Unit price w Tax – labour</th>
-			<th>Cost - Mat amount USD</th>
-			<th>Cost - Labour amount USD</th>
-			<th>Action</th>			
-		</tr>
-	</thead>
-	<tfoot>
-		<tr>
-			<th>No</th>
-			<th>Region</th>
-			<th>Region ID</th>
-			<th>Description</th>
-			<th>Unit</th>
-			<th>Quantity</th>
-			<th>Unit Rate</th>
-			<th>Amount</th>
-			<th>Percent</th>
-			<th>Range</th>
-			<th>Remark</th>
-			<th>Qty</th>
-			<th>Labour</th>
-			<th>Mat w/o Tax USD</th>
-			<th>Mat w/o Tax VND</th>
-			<th>Labour (database)</th>
-			<th>Imp Tax</th>
-			<th>Special con. Tax</th>
-			<th>VAT</th>
-			<th>Discount rate %</th>
-			<th>Unit price after discount</th>
-			<th>Allowance</th>
-			<th>Unit price w Tax & profit</th>
-			<th>Subcon profit</th>
-			<th>Unit price w Tax – labour</th>
-			<th>Cost - Mat amount USD</th>
-			<th>Cost - Labour amount USD</th>
-			<th>Action</th>			
-		</tr>
-		</tr>
-
-	</tfoot>
-]]>	
-</table>		
-		</div>
-		-->
 </section>
 
 	<!-- following code is for demo of using angular js to build drag and drop feature -->
@@ -207,7 +123,7 @@
 			<td>{{item.product.unit}}</td>
 			<td>{{item.actualQuantity}}</td>
 			<td>{{item.unitRate}}</td>
-			<td>{{item.amount|currency:"VND ":0}}</td>
+			<td>{{item.amount|currency:"USD ":0}}</td>
 			<td>{{item.nonamePercent}}</td>
 			<td>{{item.nonameRange}}</td>
 			<td>{{item.remark}}</td>
@@ -227,7 +143,7 @@
 			<td>{{item.unit_Price_W_Tax_Labour}}</td>
 			<td>{{item.cost_Mat_Amount_USD}}</td>
 			<td>{{item.cost_Labour_Amount_USD}}</td>
-			<td></td>
+			<td><button onclick="deleteItem({{item.encounterID}})">Delete</button></td>
 
 		</tr>
 		</tbody>
@@ -268,19 +184,6 @@
 				}
 			});
 	}
-</script>
-<script type="text/javascript">
-	$("#example").hide();
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-17838786-6']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
 </script>
 
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/angularjs/lib/angular.min.js">

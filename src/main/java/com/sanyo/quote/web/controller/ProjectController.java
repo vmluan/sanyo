@@ -1177,6 +1177,9 @@ public class ProjectController extends CommonController {
 			}
 			String result = Utilities.jSonSerialization(productGroups);
 			return result;
+		} else if(regionId ==0){
+			//do not allow user to add encounter for multiple Regions at the same time.
+
 		}
 
 		return "[]";
