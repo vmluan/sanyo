@@ -198,7 +198,7 @@ public class Quotation extends CommonController {
 		for(Location location : locations){
 			List<Region> regions = regionService.findByLocation(location);
 			for(Region region : regions){
-				List<UserRegionRole> userRegionRoleList = userRegionRoleService.findByRegionAndUser(region,userSanyo);
+				List<UserRegionRole> userRegionRoleList = userRegionRoleService.findByRegionAndUser(region, userSanyo);
 				if(userRegionRoleList != null && !userRegionRoleList.isEmpty()){
 					for(UserRegionRole userRegionRole : userRegionRoleList){
 						String roleName = userRegionRole.getRoleName();
@@ -692,12 +692,14 @@ public class Quotation extends CommonController {
 			if(project == null)
 				project = region.getLocation().getProject();
 		}
-		Currency currency = project.getCurrency();
-		if (currency != null
-				&& currency.getCurrencyCode().equalsIgnoreCase("VND")) {
-			return String.valueOf((int)Math.ceil(total));
-
+		if(project != null){
+			Currency currency = project.getCurrency();
+			if (currency != null
+					&& currency.getCurrencyCode().equalsIgnoreCase("VND")) {
+				return String.valueOf((int)Math.ceil(total));
+			}
 		}
+
 		return total.toString();
 	}
 
