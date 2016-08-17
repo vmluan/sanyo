@@ -670,8 +670,16 @@ public class Quotation extends CommonController {
 				&& currency.getCurrencyCode().equalsIgnoreCase("VND")) {
 			return String.valueOf((int)Math.ceil(total));
 
+		}else{
+			//round up 2 decimal number
+			return roundOffTo2DecPlaces(total);
+
 		}
-		return total.toString();
+		//return total.toString();
+	}
+	private String roundOffTo2DecPlaces(float val)
+	{
+		return String.format("%.2f", val);
 	}
 
 	private float getSummOfLocation(Location location) {
@@ -707,8 +715,8 @@ public class Quotation extends CommonController {
 				return String.valueOf((int)Math.ceil(total));
 			}
 		}
-
-		return total.toString();
+		return roundOffTo2DecPlaces(total);
+		//return total.toString();
 	}
 
 	private float getSumOfRegion(Region region) {

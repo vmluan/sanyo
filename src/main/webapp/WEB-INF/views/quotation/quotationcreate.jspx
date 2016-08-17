@@ -115,8 +115,8 @@
 		</thead>
 		<tbody ui-sortable="sortableOptionsA"  ng:model="list" sortable>
 		<tr ng:repeat="item in list" class="item" style="cursor: move;">
-			<!--<td>{{$index}}</td> -->
-			<td>{{item.order}}</td>
+			<td>{{$index + 1}}</td>
+			<!--<td>{{item.order}}</td>-->
 			<td>{{item.region.regionName}}</td>
 			<td>{{item.region.regionId}}</td>
 			<td>{{item.product.productName}}</td>
