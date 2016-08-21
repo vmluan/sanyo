@@ -545,8 +545,27 @@ function addItem(row) {
 
 }
 function saveEncounter(row,isUpdate) {
-	var item = $("#listRegion").jqxComboBox('getSelectedItem');
+	//var item = $("#listRegion").jqxComboBox('getSelectedItem');
+	var regionIds = getCheckedRegionIds();
+	if(regionIds && regionIds.indexOf(",") > 0){
+		var list = regionIds.split(',');
+		var count = 0;
+		for(var i=0; i<list.length; i++){
+			if(list[i] > 0)
+				count++;
+		}
+		if(count >1)
+			alert("Please select a single Region in order to add a new record.");
+	}
 
+	var items = $("#listRegion").jqxComboBox('getCheckedItems');
+	var item='';
+	for( var i=0; i< items.length; i++){
+		if(items[i].value >0){
+			item = items[i];
+		}
+	}
+	console.log(item);
 	var encounter = new Object();
 	var data;
 	if(isUpdate){
@@ -1037,6 +1056,18 @@ $('#list').on('cellclick', function (event) {
 	var index = event.args.rowindex;
 	if(field == 'buttonAdd'){
 		addItem(index);
+	}
+	// As we do not support to add an encounter for multiple Regions, Raise a message to let user know this logic
+	var regionIds = getCheckedRegionIds();
+	if(regionIds && regionIds.indexOf(",") > 0){
+		var list = regionIds.split(',');
+		var count = 0;
+		for(var i=0; i<list.length; i++){
+			if(list[i] > 0)
+				count++;
+		}
+		if(count >1)
+			alert("Please select a single Region in order to add a new record.");
 	}
 });
 
