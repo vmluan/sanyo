@@ -323,13 +323,28 @@ $("#listRegion").on('checkChange', function(event) {
 
 			if (checked && label == 'All') {
 				$("#listRegion").jqxComboBox('checkAll');
-			} else if (!checked && label == 'All')
+				var regionIDs = getCheckedRegionIds();
+				updateRegionSum(regionIDs);
+			} else if (!checked && label == 'All') {
 				$("#listRegion").jqxComboBox('uncheckAll');
-		} else if (!checked && label != 'All') {
-			// $("#listRegion").jqxComboBox('uncheckIndex',0);
+				var regionIDs = getCheckedRegionIds();
+				updateRegionSum(regionIDs);
+			}
+			else if (!checked && label != 'All') { //uncheck a button that is not ALl
+				// $("#listRegion").jqxComboBox('uncheckIndex',0);
+				if(!checkedAll()){
+					var regionIDs = getCheckedRegionIds();
+					updateRegionSum(regionIDs);
+				}
+			}else if(checked && label != 'All'){ //check item that is not All
+				if(!checkedAll()){ //All is not checked
+					var regionIDs = getCheckedRegionIds();
+					updateRegionSum(regionIDs);
+				}
+			}
+
 		}
-		var regionIDs = getCheckedRegionIds();
-		updateRegionSum(regionIDs);
+
 
 	}
 });
@@ -543,6 +558,17 @@ function addItem(row) {
 	// call server action to add new row.
 	saveEncounter(row);
 
+}
+function checkedAll(){
+	var regionIds = getCheckedRegionIds();
+	if(regionIds && regionIds.indexOf(",") > 0){
+		var list = regionIds.split(',');
+		for(var i=0; i<list.length; i++){
+			if(list[i] == 0)
+				return true;
+		}
+	}
+	return false;
 }
 function saveEncounter(row,isUpdate) {
 	//var item = $("#listRegion").jqxComboBox('getSelectedItem');
