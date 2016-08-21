@@ -58,7 +58,7 @@
 							<div class="form-group">
 								<button type="button" class="btn btn-primary" id="searchBtn">Search</button>
 							</div>	
-						</div>						
+						</div>
 					</div>
 					
 					<div class="col-md-12">
@@ -79,75 +79,52 @@
 	<!-- following code is for demo of using angular js to build drag and drop feature -->
 	<![CDATA[
 	<div>
-	<div id ="angularjsResult" ng:controller="quotationController" class="sanyo-panel-body">
-		<table style="width:auto;" class="table table-bordered">
-		<thead>
-		<tr>
-			<th>No</th>
-			<th>Region</th>
-			<th>Region ID</th>
-			<th>Description</th>
-			<th>Unit</th>
-			<th>Quantity</th>
-			<th>Unit Rate</th>
-			<th>Amount</th>
-			<th>Percent</th>
-			<th>Range</th>
-			<th>Remark</th>
-			<th>Qty</th>
-			<th>Labour</th>
-			<th>Mat w/o Tax USD</th>
-			<th>Mat w/o Tax VND</th>
-			<th>Labour (database)</th>
-			<th>Imp Tax</th>
-			<th>Special con. Tax</th>
-			<th>VAT</th>
-			<th>Discount rate %</th>
-			<th>Unit price after discount</th>
-			<th>Allowance</th>
-			<th>Unit price w Tax & profit</th>
-			<th>Subcon profit</th>
-			<th>Unit price w Tax – labour</th>
-			<th>Cost - Mat amount USD</th>
-			<th>Cost - Labour amount USD</th>
-			<th>Action</th>
-		</tr>
-		</thead>
-		<tbody ui-sortable="sortableOptionsA"  ng:model="list" sortable>
-		<tr ng:repeat="item in list" class="item" style="cursor: move;">
-			<td>{{$index + 1}}</td>
-			<!--<td>{{item.order}}</td>-->
-			<td>{{item.region.regionName}}</td>
-			<td>{{item.region.regionId}}</td>
-			<td>{{item.product.productName}}</td>
-			<td>{{item.product.unit}}</td>
-			<td>{{item.actualQuantity}}</td>
-			<td>{{item.unitRate}}</td>
-			<td>{{item.amount|currency:"USD ":0}}</td>
-			<td>{{item.nonamePercent}}</td>
-			<td>{{item.nonameRange}}</td>
-			<td>{{item.remark}}</td>
-			<td>{{item.quantity}}</td>
-			<td>{{item.labourAfterTax}}</td>
-			<td>{{item.mat_w_o_Tax_USD |currency:"USD$":0}}</td>
-			<td>{{item.mat_w_o_Tax_VND |currency:"VND ":0}}</td>
-			<td>{{item.product.labour}}</td>
-			<td>{{item.imp_Tax}}</td>
-			<td>{{item.special_Con_Tax}}</td>
-			<td>{{item.vat}}</td>
-			<td>{{item.discount_rate}}</td>
-			<td>{{item.unit_Price_After_Discount}}</td>
-			<td>{{item.allowance}}</td>
-			<td>{{item.unit_Price_W_Tax_Profit}}</td>
-			<td>{{item.subcon_Profit}}</td>
-			<td>{{item.unit_Price_W_Tax_Labour}}</td>
-			<td>{{item.cost_Mat_Amount_USD}}</td>
-			<td>{{item.cost_Labour_Amount_USD}}</td>
-			<td><button onclick="deleteItem({{item.encounterID}})">Delete</button></td>
 
-		</tr>
-		</tbody>
-		<!--{{list}} -->
+
+
+	<div id ="angularjsResult" ng:controller="quotationController" class="sanyo-panel-body">
+	  <!--<div ng-dropdown-multiselect="" options="example1data" selected-model="example1model"></div>-->
+
+		<button type="button" class="btn btn-primary" id="saveOrdersBtn">Save Orders</button>
+
+	  <table style="width:auto;" class="table table-bordered">
+		<thead>
+		  <tr>
+			<th>No</th>
+			<th ng-repeat="c in ordered_columns">{{ c.title }}
+			</th>
+			<th>Action</th>
+		  </tr>
+		  <tbody ui-sortable="sortableOptionsA"  ng:model="list" sortable id="resultListSortable">
+			<tr ng-repeat="item in list" style="cursor: move;" name={{item.encounterID}}>
+			  <td>{{$index + 1}}</td>
+			  <td ng-repeat="c in ordered_columns">
+				<div ng-switch on="c.hasSubKey">
+					<div ng-switch-when="true">
+					{{item[c.key][c.subKey]}}
+					</div>
+					<div ng-switch-default>
+					{{item[c.key]}}
+					</div>
+				</div>
+			  </td>
+			  <td><button onclick="deleteItem({{item.encounterID}})">Delete</button></td>
+			</tr>
+		  </tbody>
+	  </table>
+<!--	  		 <div class="form-group">
+			<div class="col-sm-2 col-md-2" style="height: 150px;background-color: aliceblue;overflow-y: auto;">
+			  <p>Hide / Show</p>
+			  <div ng-repeat="c in all_columns">
+				<label>
+				  <input type="checkbox" ng-model="c.checked"> {{ c.title }}
+				</label>
+			  </div>
+			</div>
+
+			<div id="divSelctedCols" class="row"><jsp:text />
+
+		  </div>-->
 		<hr>
 	</div>
 	</div>
@@ -185,13 +162,18 @@
 			});
 	}
 </script>
-
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/angularjs/lib/angular.min.js">
 		<jsp:text/>
 	</script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/angularjs/lib/angular-ui.min.js">
 		<jsp:text/>
 	</script>
+
+
+<!--	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/angularjs/lib/angularjs-dropdown-multiselect.js">
+		<jsp:text/>
+	</script>-->
+
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/angularjs/app/quotation/quotation.js">
 		<jsp:text/>
 	</script>
