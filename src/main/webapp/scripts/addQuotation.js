@@ -226,6 +226,10 @@ var dataAdapterAllRegions = new $.jqx.dataAdapter(sourceAllRegions, {autoBind : 
 function updateRegionSearchList(locationIds){
 	var records = dataAdapterAllRegions.records;
 	var result = new Array();
+	var all = new Object();
+	all.regionId=0;
+	all.regionName='All';
+	result.push(all);
 	if(locationIds) {
 		var locationArray = locationIds.split(',');
 		for(var i=0; i<locationArray.length; i++){
@@ -352,37 +356,43 @@ $("#listRegion").on('checkChange', function(event) {
 
 	}
 });
+var handleCheckLocationChange = true;
 $("#jqxWidgetLocation").on('checkChange', function (event)
 {
+	if (!handleCheckLocationChange)
+		return;
 	if (event.args) {
 		var item = event.args.item;
 		if(item){
 			var value = item.value;
 			var label = item.label;
 			var checked = item.checked;
-
-			if(checked && label =='All'){
-				$("#jqxWidgetLocation").jqxComboBox('checkAll');
-			}else if(!checked && label =='All')
-				$("#jqxWidgetLocation").jqxComboBox('uncheckAll');
-			else if(!checked && label !='All'){
-				//$("#jqxWidgetLocation").jqxComboBox('uncheckIndex',0);
+			if (event.args.label != 'All') {
+				handleCheckLocationChange = false;
+				$("#jqxWidgetLocation").jqxComboBox('checkIndex', 0);
+				var checkedItems = $("#jqxWidgetLocation").jqxComboBox('getCheckedItems');
+				var items = $("#jqxWidgetLocation").jqxComboBox('getItems');
+				if (checkedItems.length == 1) {
+					$("#jqxWidgetLocation").jqxComboBox('uncheckIndex', 0);
+				}
+				else if (items.length != checkedItems.length) {
+					$("#jqxWidgetLocation").jqxComboBox('indeterminateIndex', 0);
+				}
+				handleCheckLocationChange = true;
+			}
+			else { // All
+				handleCheckLocationChange = false;
+				if (event.args.checked) {
+					$("#jqxWidgetLocation").jqxComboBox('checkAll');
+				}
+				else {
+					$("#jqxWidgetLocation").jqxComboBox('uncheckAll');
+				}
+				handleCheckLocationChange = true;
 			}
 			var locationIDs=getCheckedLocationIds();
 			if(locationIDs != ''){
 				updateLocationSum(locationIDs);
-				//load regions of checked locations.
-/*				sourceRegion.data.locationId = locationIDs;
-				dataAdapterRegion = new $.jqx.dataAdapter(sourceRegion);
-				$("#listRegion").jqxComboBox({
-					// checkboxes : true,
-					source : dataAdapterRegion,
-					displayMember : "regionName",
-					valueMember : "regionId",
-					width : '100%',
-					height : 25,
-					checkboxes: true
-				});*/
 				updateRegionSearchList(locationIDs);
 			}else{
 				$("#locationSum").val(0);
