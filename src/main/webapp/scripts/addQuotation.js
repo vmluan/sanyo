@@ -1101,6 +1101,10 @@ $('#list').on('cellclick', function (event) {
 		var list = regionIds.split(',');
 		var count = 0;
 		for(var i=0; i<list.length; i++){
+			if (list[i]==0){
+				alert("Please select a single Region in order to add a new record.");
+				return;
+			}
 			if(list[i] > 0)
 				count++;
 		}
@@ -1377,6 +1381,7 @@ function getCheckedRegionIds(){
 	if(regionIDs != ''){
 		regionIDs = regionIDs.substr(0, regionIDs.length-1);
 	}
+
 	return regionIDs;
 }
 function getRenderUsd(){
