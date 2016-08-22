@@ -312,37 +312,41 @@ $("#listRegion").jqxComboBox({
 	height : 25,
 	checkboxes: true
 });
-
+var handleCheckChange = true;
 $("#listRegion").on('checkChange', function(event) {
+	if (!handleCheckChange)
+		return;
 	if (event.args) {
 		var item = event.args.item;
 		if (item) {
 			var value = item.value;
 			var label = item.label;
 			var checked = item.checked;
-
-			if (checked && label == 'All') {
-				$("#listRegion").jqxComboBox('checkAll');
-				var regionIDs = getCheckedRegionIds();
-				updateRegionSum(regionIDs);
-			} else if (!checked && label == 'All') {
-				$("#listRegion").jqxComboBox('uncheckAll');
-				var regionIDs = getCheckedRegionIds();
-				updateRegionSum(regionIDs);
-			}
-			else if (!checked && label != 'All') { //uncheck a button that is not ALl
-				// $("#listRegion").jqxComboBox('uncheckIndex',0);
-				if(!checkedAll()){
-					var regionIDs = getCheckedRegionIds();
-					updateRegionSum(regionIDs);
+			if (event.args.label != 'All') {
+				handleCheckChange = false;
+				$("#listRegion").jqxComboBox('checkIndex', 0);
+				var checkedItems = $("#listRegion").jqxComboBox('getCheckedItems');
+				var items = $("#listRegion").jqxComboBox('getItems');
+				if (checkedItems.length == 1) {
+					$("#listRegion").jqxComboBox('uncheckIndex', 0);
 				}
-			}else if(checked && label != 'All'){ //check item that is not All
-				if(!checkedAll()){ //All is not checked
-					var regionIDs = getCheckedRegionIds();
-					updateRegionSum(regionIDs);
+				else if (items.length != checkedItems.length) {
+					$("#listRegion").jqxComboBox('indeterminateIndex', 0);
 				}
+				handleCheckChange = true;
 			}
-
+			else { // All
+				handleCheckChange = false;
+				if (event.args.checked) {
+					$("#listRegion").jqxComboBox('checkAll');
+				}
+				else {
+					$("#listRegion").jqxComboBox('uncheckAll');
+				}
+				handleCheckChange = true;
+			}
+			var regionIDs = getCheckedRegionIds();
+			updateRegionSum(regionIDs);
 		}
 
 
@@ -362,8 +366,6 @@ $("#jqxWidgetLocation").on('checkChange', function (event)
 			}else if(!checked && label =='All')
 				$("#jqxWidgetLocation").jqxComboBox('uncheckAll');
 			else if(!checked && label !='All'){
-				console.log(checked );
-				console.log(label);
 				//$("#jqxWidgetLocation").jqxComboBox('uncheckIndex',0);
 			}
 			var locationIDs=getCheckedLocationIds();
