@@ -1381,6 +1381,7 @@ function getCheckedRegionIds(){
 	if(regionIDs != ''){
 		regionIDs = regionIDs.substr(0, regionIDs.length-1);
 	}
+
 	return regionIDs;
 }
 function getRenderUsd(){
