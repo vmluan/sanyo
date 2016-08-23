@@ -352,7 +352,11 @@ $("#listRegion").on('checkChange', function(event) {
 			var regionIDs = getCheckedRegionIds();
 			updateRegionSum(regionIDs);
 		}
-
+		var row1 = $('#list').jqxGrid('getrows');
+		if(row1)
+			$('#list').jqxGrid('updatebounddata');
+		else
+			loadAddQuotationGrid();
 
 	}
 });
