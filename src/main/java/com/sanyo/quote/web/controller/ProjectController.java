@@ -24,6 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.GrantedAuthority;
@@ -287,18 +288,21 @@ public class ProjectController extends CommonController {
     public String createForm(Model uiModel) {
 		Project project = new Project();
         uiModel.addAttribute("project", project);
-        
-        setHeader(uiModel, "Create new project", "");
-        setUser(uiModel);
-        initialize(uiModel);
-        loadDefaultCurrencies(project, uiModel);
-        
-        resetLinks();
-        addToLinks(currentProjecs, projectsUrl);
-        addToLinks("New Project", "");
-        setBreadCrumb(uiModel, projectsUrl, "Projects", "", "New Project");
-        
+        reloadCreateForm(uiModel,project);
+
+
         return "projects/create";
+	}
+	private void reloadCreateForm(Model uiModel, Project project){
+		setHeader(uiModel, "Create new project", "");
+		setUser(uiModel);
+		initialize(uiModel);
+		loadDefaultCurrencies(project, uiModel);
+
+		resetLinks();
+		addToLinks(currentProjecs, projectsUrl);
+		addToLinks("New Project", "");
+		setBreadCrumb(uiModel, projectsUrl, "Projects", "", "New Project");
 	}
 	//create new project, save to database
 	@RequestMapping(params = "form", method = RequestMethod.POST)
@@ -318,7 +322,22 @@ public class ProjectController extends CommonController {
         project.setLmodDate(date);
         project.setStatus(ProjectStatus.ONGOING);
         project.setCurrency(currencyService.findById(project.getCurrencyId()));
-        projectService.save(project);
+		try {
+			projectService.save(project);
+		}catch(DataIntegrityViolationException e){
+			String message = e.getMostSpecificCause().getMessage();
+			uiModel.addAttribute("message", new Message("error", message));
+			uiModel.addAttribute("project", project);
+			reloadCreateForm(uiModel,project);
+			return "projects/create";
+		}
+		catch (Exception e){
+			e.printStackTrace();
+			uiModel.addAttribute("message", new Message("error", e.getMessage()));
+			uiModel.addAttribute("project", project);
+			reloadCreateForm(uiModel,project);
+			return "projects/create";
+		}
         redirectAttributes.addFlashAttribute("message", new Message("success", messageSource.getMessage("project_save_success", new Object[]{}, locale)));
         return "redirect:/projects/" + UrlUtil.encodeUrlPathSegment(project.getProjectId().toString(), httpServletRequest) + "?form";
     }
@@ -351,22 +370,41 @@ public class ProjectController extends CommonController {
 	        }
 		Project existingProject = projectService.findById(id);
 		project.setStatus(existingProject.getStatus());
-        uiModel.asMap().clear();
-        project.setProjectId(id);
-        uiModel.addAttribute("message", new Message("success", messageSource.getMessage("project_save_success", new Object[]{}, locale)));        
-        uiModel.addAttribute("project", project);
-        uiModel.addAttribute("StatusNeedUpdatePrice",project.isNeedUpdatePrice());
-        uiModel.addAttribute("isAdmin",flagIsAdmin);
+		uiModel.asMap().clear();
+		project.setProjectId(id);
+		uiModel.addAttribute("message", new Message("success", messageSource.getMessage("project_save_success", new Object[]{}, locale)));
+		uiModel.addAttribute("project", project);
+		uiModel.addAttribute("StatusNeedUpdatePrice", project.isNeedUpdatePrice());
+        uiModel.addAttribute("isAdmin", flagIsAdmin);
         project.setLmodDate(new Date());
         project.setLastModifiedBy(Utilities.getCurrentUser().getUsername());
         project.setCurrency(currencyService.findById(project.getCurrencyId()));
         keepCurrentStatuses(existingProject, project);
-        projectService.save(project);
-        initialize(uiModel);
-        setBreadCrumb(uiModel, projectsUrl, "Projects", "", "Project Detail");
-        setHeader(uiModel, "Project Detail", "Contains detail information including regions and assigned users");
+		try {
+			projectService.save(project);
+		}catch(DataIntegrityViolationException e){
+			String message = e.getMostSpecificCause().getMessage();
+			uiModel.addAttribute("message", new Message("error", message));
+			uiModel.addAttribute("project", project);
+			reloadUpdateForm(uiModel,project);
+
+			return "projects/update";
+		}catch (Exception e){
+			e.printStackTrace();
+			uiModel.addAttribute("message", new Message("error", e.getMessage()));
+			uiModel.addAttribute("project", project);
+			reloadUpdateForm(uiModel,project);
+			return "projects/update";
+		}
+        reloadUpdateForm(uiModel,project);
         return "projects/update";
     }
+	private void reloadUpdateForm(Model uiModel, Project project){
+		initialize(uiModel);
+		setBreadCrumb(uiModel, projectsUrl, "Projects", "", "Project Detail");
+		setHeader(uiModel, "Project Detail", "Contains detail information including regions and assigned users");
+
+	}
 	private void keepCurrentStatuses(Project existingProject, Project newProject){
 		newProject.setCreatedBy(existingProject.getCreatedBy());
 		newProject.setCreatedDate(existingProject.getCreatedDate());
