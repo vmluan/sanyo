@@ -124,12 +124,12 @@
 <!-- 								<form:input path="productPriceWrapper" class="form-control" /> -->
 <!-- 							</div> -->
 <!-- 						</div> -->
-						<div class="col-md-6">
+<!--						<div class="col-md-6">
 							<div class="form-group">
 								<form:label path="productPriceWrapper">Category</form:label>
 								<div id='jqxWidgetCategory'><jsp:text /></div>
 							</div>
-						</div>
+						</div>-->
 						<div class="col-md-6">
 							<div class="form-group">
 								<form:label path="productPriceWrapper">Nhom Vat Tu</form:label>
@@ -207,9 +207,9 @@
 	</script>
 
 
-   <script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/productCategory.js">
+<!--   <script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/productCategory.js">
         <jsp:text/>
-	</script>
+	</script>-->
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/productGroup.js">
         <jsp:text/>
     </script>
@@ -316,7 +316,7 @@
 		product.productNameVietnamese = form.productNameVietnamese.value;
 		
 		//<![CDATA[
-		var rows = $("#jqxWidgetCategory").jqxTreeGrid('getRows');
+/*		var rows = $("#jqxWidgetCategory").jqxTreeGrid('getRows');
 		var categories = new Array();
 		for(var i=0; i<rows.length; i++){
 			var temp = getCheckedItems(rows[i]);
@@ -325,7 +325,7 @@
 		if(categories.length <1){
 			errorMsg.push('Please select 1 Region at least.' + '\r\n');
 		}
-		product.categories = categories;
+		product.categories = categories;*/
 		
 		var row = $("#jqxWidgetPG").jqxComboBox('getSelectedItem');
 		if(row){
@@ -408,15 +408,6 @@
 			//load assigned product group and categories
 		}	
 	}
-	function updateCategories(){
-		if(productID){
-		<c:forEach var="category" items ="${categories}">
-			var categoryID = "${category.categoryId}"
-			$("#jqxWidgetCategory").jqxTreeGrid('checkRow', categoryID);
-		   
-		</c:forEach>
-		}
-	}
 	function updateMaker(){
 		if(productID){
 			$("#jqxWidgetMaker").jqxDropDownList('selectItem',selectedMakerID);
@@ -425,7 +416,6 @@
 	}	
 	setTimeout(function(){ 
 		updatePG();
-		updateCategories();
 		updateMaker();
 		}, 1000);
 

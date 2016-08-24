@@ -56,3 +56,26 @@ http://docs.spring.io/spring-framework/docs/2.5.6/api/org/springframework/web/se
 
 
 https://www.jqwidgets.com/jquery-widgets-demo/demos/jqxgrid/index.htm?(arctic)#demos/jqxgrid/everpresentrowcustomwidgets.htm
+
+
+===== Explain the model relation ======
+1. Why product need to belong a Category?
+2. What happens if product does not belong to any Category?
+3. Can we remove Category from product edit page?
+
+back to Quotation page, We need to add Maker List first, then add Encounter later.
+- Add Maker list:
+	+ We have to select a System. It is Region assigned in the project.
+	==> We have a new table: maker_project. It stores project_id, maker_id, and category_id
+	+ We have to select a 'Ma nhom vat tu' (productGroup)
+	+ We have to select a Maker
+	==> There is a relation between ProductGroup and Maker. That's why we have a new table: productgroup_maker
+- Add quotation:
+	+ After a maker added, based on that new records, we can find productGroup for an assigned region.
+		+ from region on gui, find all related makert_id from maker_project table
+		+ for each maker_id, find all assigned product_group_id
+		+ finally we get a list of assigned productGroups.
+	+So we do not need to have an relation between category and product. We can remove it from product edit page.
+
+
+
