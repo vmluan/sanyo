@@ -275,11 +275,14 @@
 	$('#endDate').val(getFormattedDateYear($('#endDate').attr("value"))); ///set value date for endDate
 	$('#startDate').val(getFormattedDateYear($('#startDate').attr("value"))); ///set value date for startDate
 	$("#sbmBtn").click(function(){
-		if(!checkoldDate())
-		{
-			alert("StartDate larger than "+$('#startDate').attr("value"));
-			return false;
-		}
+		//Luan - not sure why there is following code to checkoldDate below. That is not correct i think
+		// Imagine that user want to update product name, price without changing start date or end date. It is a normal behavior
+		// But the code below DOES NOT allow user to do that update.
+//		if(!checkoldDate())
+//		{
+//			alert("StartDate larger than "+$('#startDate').attr("value"));
+//			return false;
+//		}
 		var errorMsg = new Array();
 		var form = document.getElementById('newUpdateProductForm');
 		var productCode = form.productCode.value;
@@ -290,11 +293,11 @@
 			alert("please enter startDate!");
 			return false;
 		}
-		if(form.endDate.value=="")
+/*		if(form.endDate.value=="")
 		{
 			alert("please enter endDate!");
 			return false;
-		}
+		}*/
 		if(checkDate(form.startDate.value,form.endDate.value)==false)
 		{
 			alert("startDate can't be larger than endDate!");
@@ -310,7 +313,8 @@
 		product.labour = form.labour.value;
 		product.unit = form.unit.value;
 		product.startDateString = getFormattedDate(form.startDate.value);
-		product.endDateString = getFormattedDate(form.endDate.value);
+		if(form.endDate.value!="")
+			product.endDateString = getFormattedDate(form.endDate.value);
 		product.mat_w_o_Tax_USD = form.mat_w_o_Tax_USD.value;
 		product.mat_w_o_Tax_VND = form.mat_w_o_Tax_VND.value;
 		product.productNameVietnamese = form.productNameVietnamese.value;
@@ -374,7 +378,7 @@
 							window.location.href= pageContext + '/products';
 						}
 	 					$("#messageNotification").jqxNotification("open");
-//	 					$("#jqxWidgetAssignedUsers").jqxGrid('updatebounddata');
+	 					$("#jqxgridProductHist").jqxGrid('updatebounddata');
 				   }
 
 			   },
