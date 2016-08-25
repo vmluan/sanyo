@@ -818,15 +818,17 @@ var pageContext = "${pageContext.request.contextPath}";
     </script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/projectLocationList.js">
         <jsp:text/>
-    </script>		
+    </script>
+
+	<script>
+		createButtonAction(projectId,"vn", 'basic');
+	</script>
 	</c:if>
 	
 	
 	<script>
 
-	createButtonAction(projectId,"vn", 'basic');
-
-	$("#startDateDiv").jqxDateTimeInput({ 
+	$("#startDateDiv").jqxDateTimeInput({
 		width: '200px', 
 		height: '32px', 
 		formatString: 'MM/yyyy'
