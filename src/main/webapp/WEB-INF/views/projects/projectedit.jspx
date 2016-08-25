@@ -823,6 +823,9 @@ var pageContext = "${pageContext.request.contextPath}";
 	
 	
 	<script>
+
+	createButtonAction(projectId,"vn", 'basic');
+
 	$("#startDateDiv").jqxDateTimeInput({ 
 		width: '200px', 
 		height: '32px', 

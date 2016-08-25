@@ -143,6 +143,9 @@
         <jsp:text/>
     </script>
 
+    <script type="text/javascript">
+    createButtonAction(projectId,"vn", "quotation");
+    </script>
 </section><!-- /.content -->
 
 </div>

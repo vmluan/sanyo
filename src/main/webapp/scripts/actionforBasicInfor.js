@@ -8,7 +8,7 @@ function makeReport(id, lang) {
 		url += '?rptLanguage='+ lang;
 	window.location.href = url;
 }
-function updateProduct(id) {
+function updateProject(id) {
 	window.location.href = pageContext + '/projects/' + id + '?form';
 }
 function addQuotation(projectId){
@@ -182,20 +182,28 @@ $(".update_price").onPositionChanged(function(){disabledButtonUpdate();});
 },100);*/
 //$(".bg-important").text(projectNeedUpdate);
 //$(".notification").text("Có "+projectNeedUpdate+" project cần update giá mới");
-function createButtonAction(value,lang)
+
+/*
+ page: is used to location the 'quotation' page or 'basic information' page
+ 		These 2 pages are required different menu
+ */
+function createButtonAction(value,lang,page)
 {
 	var lang = "'VN'";
-	var result = 
+	var result =
 													'<button style="float:none;margin:6px" class="btn bg-olive margin"  onclick="makeReport('+ value +  ')"' + '>Print (En)</button>'
-													+ '<button style="float:none;margin:6px" class="btn bg-olive margin"  onclick="makeReport('+ value + ',' + lang + ')"' + '>Print (VN)</button>'
-													+ '<button style="float:none;margin:6px" class="btn bg-purple margin" onclick="addQuotation('+ value +  ')"' + '>Quotation</button>'
-													+ '<button style="float:none;margin:6px" class="btn bg-navy margin">Marker List</button>'
+													+ '<button style="float:none;margin:6px" class="btn bg-olive margin"  onclick="makeReport('+ value + ',' + lang + ')"' + '>Print (VN)</button>';
+	if (page == "quotation")
+													result += '<button style="float:none;margin:6px" class="btn bg-navy margin" onclick="updateProjectß('+value+')' + '>Basic info</button>';
+	else
+													result += '<button style="float:none;margin:6px" class="btn bg-purple margin" onclick="addQuotation('+ value +  ')"' + '>Quotation</button>';
+
+													result += '<button style="float:none;margin:6px" class="btn bg-navy margin">Marker List</button>'
 													+ '<button style="float:none;margin:6px" class="btn bg-orange margin" onclick="cloneProject('+ value +  ')"' + '>Copy</button>';
 	if(projectStatus != 'closed'){
 										//alert(StatusNeedUpdatePrice);
 																			
 										if(isAdmin == true)
-											result += '<button data-toggle="tooltip" title="price update for project" style="float:none;margin:6px" id="update_price" class="btn btn-olive btn-primary update_price" onclick="update_price(this)"><span class="glyphicon spinning"></span>Price Update</button>';
 											result +=	'<button style="float:none;margin:6px" class="btn bg-maroon margin" onclick="closeProject('+ value +  ')"' + '>Close</button>';
 									}				
 								//+ '<button class="btn bg-maroon margin col-md-2" onclick="closeProject('+ value +  ')"' + '>Close1</button>';										
@@ -203,5 +211,4 @@ function createButtonAction(value,lang)
 
 	$("#evelop-buttonAction").append(result);
 }
-disabledButtonUpdate();	
-createButtonAction(projectId,"vn");
+disabledButtonUpdate();
