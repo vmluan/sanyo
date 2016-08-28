@@ -196,6 +196,17 @@ public class UserController extends CommonController {
             resetGroups(user, uiModel);
             return "users/update";
         }
+		User currentUser = userService.findById(Integer.valueOf(id));
+		if (currentUser != null
+				&& currentUser.getUsername() != null
+				&& !currentUser.getUsername().equalsIgnoreCase(user.getUsername())) {
+			//raise exception
+			uiModel.addAttribute("message", "You cannot change the user name");
+			uiModel.addAttribute("user", user);
+			resetGroups(user, uiModel);
+			return "users/update";
+
+		}
 		logger.info("Updating user");
         uiModel.asMap().clear();
         user.setUserid(id);
