@@ -128,9 +128,7 @@
     <!-- script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/demos.js">
         <jsp:text/>
     </script-->
-    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/sanyo.js">
-        <jsp:text/>
-    </script>
+
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/jqwidgets/jqxgrid.columnsresize.js"><jsp:text/></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/jqwidgets/jqxgrid.grouping.js"><jsp:text/></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/jqwidgets/jqxlistbox.js"><jsp:text/></script>
@@ -143,7 +141,10 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/jqwidgets/jqxdatetimeinput.js"><jsp:text/></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/jqwidgets/jqxcalendar.js"><jsp:text/></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/jqwidgets/globalization/globalize.js"><jsp:text/></script>
-     
+
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/sanyo.js">
+        <jsp:text/>
+    </script>
 
   </head>
 

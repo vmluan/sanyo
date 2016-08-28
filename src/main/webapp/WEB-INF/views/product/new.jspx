@@ -100,7 +100,10 @@
 								<form:label path="startDate">
 									Start Date
 								</form:label>
-								<form:input path="startDate" type="Date" id="startDate"  class="form-control" placeholder="mm/dd/yyyy"/> 
+								<!--<form:input path="startDate" type="Date" id="startDate"  class="form-control" placeholder="mm/dd/yyyy"/> -->
+								<form:hidden path="startDate" class="form-control" />
+								<div id='startDateDiv'><jsp:text/></div>
+
 							</div>
 							<div>
 								<form:errors path="startDate" cssClass="error" />
@@ -111,7 +114,10 @@
 								<form:label path="endDate">
 									End Date
 								</form:label>
-								<form:input path="endDate" type="Date" id="endDate" class="form-control" placeholder="mm/dd/yyyy"/> 
+								<!--<form:input path="endDate" type="Date" id="endDate" class="form-control" placeholder="mm/dd/yyyy"/> -->
+								<form:hidden path="endDate" class="form-control" />
+								<div id='endDateDiv'><jsp:text/></div>
+
 							</div>
 							<div>
 								<form:errors path="endDate" cssClass="error" />
@@ -288,6 +294,8 @@
 		var productCode = form.productCode.value;
 		var productName = form.productName.value;
 		var specification = form.specification.value;
+		form.startDate.value = $("#startDateDiv").val();
+		form.endDate.value = $("#endDateDiv").val();
 		if(form.startDate.value=="")
 		{
 			alert("please enter startDate!");
@@ -427,6 +435,11 @@
 if(document.getElementById('startdatePicker').value=="mm/dd/yyyy")
 document.getElementById('startdatePicker').valueAsDate = new Date();
 document.getElementById('enddatePicker').valueAsDate = new Date();*/
+
+	getDatePicker($("#startDateDiv"), '200px', '32px', 'MM/dd/yyyy'); // method is defined in sanyo.js
+	getDatePicker($("#endDateDiv"), '200px', '32px', 'MM/dd/yyyy'); // method is defined in sanyo.js
+	$("#startDateDiv").val($("#startDate").val());
+	$("#endDateDiv").val($("#endDate").val());
     </script>
     
 

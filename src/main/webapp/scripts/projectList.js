@@ -170,7 +170,7 @@ $("#list")
 													+ '<button style="float:none;margin:6px" class="btn bg-olive margin"  onclick="makeReport('+ value + ',' + lang + ')"' + '>Print (VN)</button>'
 													+ '<button style="float:none;margin:6px" class="btn bg-olive margin"  onclick="updateProduct('+ value +  ')"' + '>Basic Info</button>'
 													+ '<button style="float:none;margin:6px" class="btn bg-purple margin" onclick="addQuotation('+ value +  ')"' + '>Quotation</button>'
-													+ '<button style="float:none;margin:6px" class="btn bg-navy margin">Marker List</button>'
+													+ '<button style="float:none;margin:6px" class="btn bg-navy margin" onclick="addMaker('+ value +  ')"' + '>Marker List</button>'
 													+ '<button style="float:none;margin:6px" class="btn bg-orange margin" onclick="cloneProject('+ value +  ')"' + '>Copy</button>';
 									if(projectStatus != 'closed'){
 										//alert(StatusNeedUpdatePrice);
@@ -199,8 +199,27 @@ function makeReport(id, lang) {
 function updateProduct(id) {
 	window.location.href = pageContext + '/projects/' + id + '?form';
 }
-function addQuotation(projectId){
-	window.location.href = pageContext + '/quotation?projectId=' + projectId;
+function addQuotation(projectId, defaultTab){
+	var url = pageContext + '/quotation?projectId=' + projectId ;
+
+	if(defaultTab != undefined){
+		url = url + "&defautTab=" + defautTab;
+	}else{
+		//defaul is Add quotation for ELEC
+		url = url + "&defautTab=" + 'quotationElec';
+	}
+	window.location.href = url;
+}
+function addMaker(projectId, defaultTab){
+	var url = pageContext + '/quotation?projectId=' + projectId ;
+
+	if(defaultTab != undefined){
+		url = url + "&defautTab=" + defautTab;
+	}else{
+		//defaul is Add quotation for ELEC
+		url = url + "&defautTab=" + 'makerElec';
+	}
+	window.location.href = url;
 }
 function cloneProject(projectId){
 	var url = pageContext + '/projects/' + projectId + '?clone';

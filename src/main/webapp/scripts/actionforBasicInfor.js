@@ -198,7 +198,7 @@ function createButtonAction(value,lang,page)
 	else
 													result += '<button style="float:none;margin:6px" class="btn bg-purple margin" onclick="addQuotation('+ value +  ')"' + '>Quotation</button>';
 
-													result += '<button style="float:none;margin:6px" class="btn bg-navy margin">Marker List</button>'
+													result += '<button style="float:none;margin:6px" class="btn bg-navy margin" onclick="addMaker('+ value +  ')"' + '>Marker List</button>'
 													+ '<button style="float:none;margin:6px" class="btn bg-orange margin" onclick="cloneProject('+ value +  ')"' + '>Copy</button>';
 	if(projectStatus != 'closed'){
 										//alert(StatusNeedUpdatePrice);

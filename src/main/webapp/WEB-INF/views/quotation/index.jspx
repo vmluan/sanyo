@@ -2,7 +2,7 @@
      xmlns:c="http://java.sun.com/jsp/jstl/core" 
      xmlns:spring="http://www.springframework.org/tags"
      xmlns:form="http://www.springframework.org/tags/form"
-     version="2.0">
+     version="2.0" onload="loadDefaultTab();">
 <section class="content">
     <div class="row" id="evelop-buttonAction" style="text-align: center;">
         <!--<button style="float:none;margin:6px" class="btn bg-olive margin"  onclick="makeReport(${project.projectId})">Print (En)</button>
@@ -14,25 +14,25 @@
         <button style="float:none;margin:6px" class="btn bg-maroon margin" onclick="closeProject(${project.projectId})">Close</button>
         <button style="float:none;margin:6px" class="btn btn-danger margin" onclick="deleteProject(${project.projectId})">X</button>-->
     </div>
-<div class="nav-tabs-custom">
+<div class="nav-tabs-custom" >
                 <ul class="nav nav-tabs pull-right">
                     <c:if test="${hasAdminRole}">
-                        <li class="abc"><a
+                        <li class="abc"><a id="addMakerMech"
                                 href="${pageContext.request.contextPath}/quotation/${projectId }/addmakerlist?form&amp;type=mech"
                                 data-target="#tab_1-1" data-toggle="tab" aria-expanded="false">Mechanical Maker</a></li>
                     </c:if>
                     <c:if test="${hasPrivilegeMec}">
-                        <li class="abc"><a
+                        <li class="abc"><a id="addQuotationMech"
                                 href="${pageContext.request.contextPath}/quotation/${projectId }/addquotation?form&amp;type=mech"
                                 data-target="#tab_1-2" data-toggle="tab" aria-expanded="false">Mechanical BOQ</a></li>
                     </c:if>
                     <c:if test="${hasAdminRole}">
-                        <li class="abc"><a
+                        <li class="abc"><a id="addMakerElec"
                                 href="${pageContext.request.contextPath}/quotation/${projectId }/addmakerlist?form&amp;type=elec"
                                 data-target="#tab_1-3" data-toggle="tab" aria-expanded="false">Electrical Maker</a></li>
                     </c:if>
                     <c:if test="${hasPrivilegeElec}">
-                        <li class="abc"><a
+                        <li class="abc" ><a id="addQuotationElec"
                                 href="${pageContext.request.contextPath}/quotation/${projectId }/addquotation?form&amp;type=elec"
                                 data-target="#tab_1-4" data-toggle="tab" aria-expanded="false">Electrical BOQ</a></li>
                     </c:if>
@@ -138,6 +138,17 @@
     var projectId=${projectId};
     var projectStatus="${projectStatus}";
     var isAdmin=${isAdmin};
+    var defautTab = '${defautTab}';
+    if(defautTab == 'quotationElec')
+        $("#addQuotationElec").click();
+    else if(defautTab == 'quotationMech')
+        $("#addQuotationMech").click();
+    else if(defautTab == 'makerElec')
+        $("#addMakerElec").click();
+    else if(defautTab == 'makerMech')
+        $("#addMakerElec").click();
+    else
+        $("#addQuotationElec").click();
 </script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/actionforBasicInfor.js">
         <jsp:text/>

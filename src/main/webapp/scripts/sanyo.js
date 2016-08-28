@@ -39,3 +39,15 @@ function makeGetRequestJson(url,jsonData, handleData){
 		}
 	});
 }
+
+function getDatePicker(obj,dateFormat,width, height, dateFormat){
+	var width = '200px';
+	var height = '32px';
+	var format = 'MM/dd/yyyy';
+	obj.jqxDateTimeInput({
+		width: width,
+		height: height,
+		formatString: format
+	});
+
+}

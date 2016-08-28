@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<div xmlns:jsp="http://java.sun.com/JSP/Page" 
-     xmlns:c="http://java.sun.com/jsp/jstl/core" 
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:c="http://java.sun.com/jsp/jstl/core"
      xmlns:spring="http://www.springframework.org/tags"
      xmlns:form="http://www.springframework.org/tags/form"
      version="2.0">
@@ -12,15 +12,15 @@
     <spring:message code="label_project_revision_no" var="labelRevisionNo" text="Revision No" />
     <spring:message code="label_project_revision_date" var="labelDate" text="Date" />
     <spring:message code="label_project_revision_desc" var="labelDesc" text="Description" />
-    
-    <spring:eval expression="projectRevision.revisionId == null ? labelNew:labelUpdate" var="formTitle"/>       
+
+    <spring:eval expression="projectRevision.revisionId == null ? labelNew:labelUpdate" var="formTitle"/>
         <!-- Main content -->
         <section class="content">
           <div class="box box-default">
             <!-- left column -->
             <div class="box-body">
               <!-- general form elements -->
-			  
+
               <div class="row">
                 <div class="box-header with-border">
                   <h3 class="box-title">${formTitle}</h3>
@@ -30,29 +30,30 @@
                   <div class="col-md-12">
 					<c:if test="${not empty message}">
 						<div id="message" class="${message.type}">${message.message}</div>
-					</c:if>	                  
-                  </div>                
+					</c:if>
+                  </div>
                   <div class="col-md-6">
 					<div class="form-group">
 						<form:label path="revisionNo">
-							${labelRevisionNo}* 
+							${labelRevisionNo}*
 						</form:label>
-						<form:input path="revisionNo" class="form-control"/> 
+						<form:input path="revisionNo" class="form-control"/>
 					</div>
 					<div>
 						<form:errors path="revisionNo" cssClass="error" />
-					</div>					
+					</div>
 				</div>
 				<div class="col-md-6">
 					<div class="form-group">
 						<form:label path="date">
 							${labelDate}
 						</form:label>
-						<form:input path="date" class="form-control" placeholder="mm/dd/yyyy"/>
+						<form:hidden path="date" class="form-control" />
+						<div id='dateDiv'><jsp:text/></div>
 					</div>
 					<div>
 						<form:errors path="date" cssClass="error" />
-					</div>					
+					</div>
 				</div>
 				<div class="col-md-6">
 					<div class="form-group">
@@ -63,13 +64,13 @@
 					</div>
 					<div>
 						<form:errors path="revisionDesc" cssClass="error" />
-					</div>					
-				</div>				
+					</div>
+				</div>
 				<div class="col-md-12">
 					<button type="button" class="btn btn-primary" onclick="goBack(${projectRevision.project.projectId});">Back</button>
-					&amp;nbsp;&amp;nbsp;                  
-                    <button type="submit" class="btn btn-primary">Submit</button>
-				</div>				
+					&amp;nbsp;&amp;nbsp;
+                    <button type="submit" class="btn btn-primary"  onclick="submitForm(this.form)">Submit</button>
+				</div>
 
 			<!-- /.box-body -->
 
@@ -79,4 +80,26 @@
 			</div>
 		</div>
 	</section>
+	<script>
+/*
+		$("#dateDiv").jqxDateTimeInput({
+			width: '200px',
+			height: '32px',
+			formatString: 'MM/dd/yyyy'
+		});
+*/
+	   getDatePicker($("#dateDiv"), '200px', '32px', 'MM/dd/yyyy'); // method is defined in sanyo.js
+		function submitForm(form){
+/*			if($("#revisionNo").value == undefined
+			|| $("#revisionNo").val() == undefined
+			|| $("#revisionNo").val().trim() == '')
+			{
+				alert('Region No is not empty');
+				return;
+			}*/
+			form.date.value=$("#dateDiv").val();
+			form.submit();
+		}
+		$("#dateDiv").val($("#date").val());
+	</script>
 </div>

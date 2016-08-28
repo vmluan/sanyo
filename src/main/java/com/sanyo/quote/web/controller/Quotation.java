@@ -76,6 +76,7 @@ public class Quotation extends CommonController {
 		uiModel.addAttribute("hasPrivilegeElec", hasPrivilege(project, Constants.ELECT_BOQ));
 		uiModel.addAttribute("hasPrivilegeMec", hasPrivilege(project, Constants.MECH_BOQ));
 		uiModel.addAttribute("hasAdminRole", hasAdminRole());
+		uiModel.addAttribute("defautTab", httpServletRequest.getParameter("defautTab"));
 		String status = "";
 		String currentProjecs = "";
 		if(project.getStatus().equals(ProjectStatus.ONGOING)){
