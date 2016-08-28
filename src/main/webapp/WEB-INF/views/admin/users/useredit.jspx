@@ -63,7 +63,7 @@
 						<form:label path="username">
 							${labelUserUserName}* 
 						</form:label>
-						<form:input path="username" class="form-control"/> 
+						<form:input path="username" class="form-control" readonly="false"/>
 					</div>
 					<div>
 						<form:errors path="username" cssClass="error" />
