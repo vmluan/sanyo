@@ -491,6 +491,8 @@ public class ProjectController extends CommonController {
 		
 		System.out.println("start getting assinged regions");
 		Project project = projectService.findByIdAndFetchLocationsEagerly(Integer.valueOf(projectId));
+		if(project == null) // incase there is no location added yet. or no region added yet.
+			return "[]";
 		
 		List<TreeGrid> treeGrids = new ArrayList<TreeGrid>();
 		Set<Location> locations = project.getLocations();
@@ -755,12 +757,13 @@ public class ProjectController extends CommonController {
 						Location existingLocation = null;
 						
 						for(Location location : locations){
-							if(location.getLocationName().equalsIgnoreCase(locationJson.getLocationName().trim())){
+						//	if(location.getLocationName().equalsIgnoreCase(locationJson.getLocationName().trim())){
+							if(location.getLocationId() == locationJson.getLocationId()){
 								existingLocation = location;
 							}
 						}
 						if(existingLocation != null)
-							saveNewRegion(regionJson, existingLocation);					
+							saveNewRegion(regionJson, existingLocation);
 					}
 				}
 				

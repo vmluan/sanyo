@@ -10,7 +10,16 @@ public class RegionJson implements Serializable{
 	private Integer regionId;
 	private String regionName;
 	private String locationName;
-	
+	private Integer locationId;
+
+	public Integer getLocationId() {
+		return locationId;
+	}
+
+	public void setLocationId(Integer locationId) {
+		this.locationId = locationId;
+	}
+
 	private List<UserJson> users;
 	private List<LocationJson> locations;
 
@@ -53,4 +62,5 @@ public class RegionJson implements Serializable{
 	public void setLocations(List<LocationJson> locations) {
 		this.locations = locations;
 	}
+
 }

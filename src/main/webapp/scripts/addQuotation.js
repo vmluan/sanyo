@@ -820,7 +820,7 @@ function loadAddQuotationGrid() {
 					align : 'center',
 					cellsalign : 'right',
 					// cellsformat : 'c0',
-					width : '15%',
+					width : '30%',
 					columntype : 'combobox',
 					createeditor : function(row, column, editor) {
 						// assign a new data source to the
@@ -867,7 +867,8 @@ function loadAddQuotationGrid() {
 					align : 'center',
 					cellsalign : 'right',
 					editable: false,
-					width : '15%'
+					width : '15%',
+					hidden: true
 				},
 				{
 					text : 'Unit',

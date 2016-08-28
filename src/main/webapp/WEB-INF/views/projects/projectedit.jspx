@@ -609,7 +609,7 @@ var url = "${pageContext.request.contextPath}/admin/categories/getListJson";
 					   text: 'Select Location', dataField: 'location', width: '20%', columnType: "custom",
 					   createEditor: function (row, cellvalue, editor, cellText, width, height) {
 						   // construct the editor. 
-						   editor.jqxDropDownList({height: '25', source: dataAdapterLocationJson.records,displayMember: "locationName", valueMember: "locationName"
+						   editor.jqxDropDownList({height: '25', source: dataAdapterLocationJson.records,displayMember: "locationName", valueMember: "locationId"
 							   , width: '100%', height: '100%',selectedIndex: 0, autoOpen: true,autoDropDownHeight : true,
 							   checkboxes: true});
 							editor.on('checkChange', function (event)
@@ -619,10 +619,25 @@ var url = "${pageContext.request.contextPath}/admin/categories/getListJson";
 									var value = item.value;
 									var label = item.label;
 									var checked = item.checked;
-									if(checked && value =='All'){
+									if(checked && value ==0){
 										editor.jqxDropDownList('checkAll');
-									}else if(!checked && value =='All')
+									}else if(!checked && value ==0)
 										editor.jqxDropDownList('uncheckAll');
+
+									// get checked items and set key to locationids
+									var items = editor.jqxDropDownList('getCheckedItems');
+									var selectedIds = '';
+									if(items){
+										for(var a=0; a<items.length;a++){
+											var locationItem = items[a];
+											if(locationItem.value >0)
+												selectedIds = selectedIds + ',' + locationItem.value;
+										}
+									}
+									if(selectedIds.length >1)
+										selectedIds =selectedIds.substr(1);
+									$("#treeGrid").jqxTreeGrid('setCellValue', row, 'locationId', selectedIds);
+
 								}
 							})
 					   },
@@ -631,11 +646,22 @@ var url = "${pageContext.request.contextPath}/admin/categories/getListJson";
 						   editor.jqxDropDownList('selectItem', cellvalue);
 					   },
 					   getEditorValue: function (row, cellvalue, editor) {
-						   // return the editor's value.
-						   //return 'Please choose';
-						   return editor.val();
+						  // return editor.val();
+						   var items = editor.jqxDropDownList('getCheckedItems');
+						   var selectedIds = '';
+						   if(items){
+							   for(var a=0; a<items.length;a++){
+								   var locationItem = items[a];
+								   if(locationItem.value >0)
+								   		selectedIds = selectedIds + ',' + locationItem.label;
+							   }
+						   }
+						   if(selectedIds.length >1)
+						   		selectedIds =selectedIds.substr(1);
+						   return selectedIds;
 					   }
-				   },                  
+				   },
+					{ text: 'Test', dataField: 'locationId', width: '20%', hidden: true },
 				  {
 
 					   text: 'Select User', dataField: 'user', width: '20%', columnType: "custom",
@@ -775,9 +801,11 @@ function getCheckedItems(obj){
 				if(record.location && record.location!= 'Please Choose'){
 					var locations = new Array();
 					var locationArr = record.location.split(',');
+					var locationIds = record.locationId.split(',');
 					for(var k=0; k< locationArr.length; k++){
 						var location = new Object();
 						location.locationName = locationArr[k];
+						location.locationId = locationIds[k];
 						locations.push(location);
 					}
 					//regionObj.locationName=record.location;
