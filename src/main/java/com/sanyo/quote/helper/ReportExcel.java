@@ -333,8 +333,26 @@ public class ReportExcel extends ExcelHelper{
 		int start = 0;
 		int current = 3;
 		Condition2 condition2 = condition2service.findByProject(project);
-		if(condition2 == null)
+		if (condition2 == null) {
+			// remove hard texts from the excel template file
+			for (int i = 8; i < 258; i++) {
+				Row rowi = sheet.getRow(i);
+				if (rowi == null)
+					rowi = sheet.createRow(i);
+				Cell cell1 = rowi.getCell(1);
+				if (cell1 == null)
+					cell1 = rowi.createCell(1);
+				String cell1Value = cell1.getStringCellValue();
+				int index = cell1Value.indexOf("luan");
+				if (index > -1) {
+					String newValue = cell1Value.replace("luan1", "");
+					newValue = newValue.replace("luan2", "");
+					newValue = newValue.replace("luan3", "");
+					cell1.setCellValue(newValue);
+				}
+			}
 			return;
+		}
 		String checkboxes = condition2.getCheckboxs();
 		String contents = condition2.getContents();
 		String[] arrCheckboxes;
@@ -1285,6 +1303,9 @@ private void createRegionHeaderRow(Region region, XSSFSheet sheet, RowCount rowC
 			for(SummaryRegion summaryRegion : summaryRegions){
 				numOfRegion ++;
 				Row regionRow = sheet.getRow(rowCount.getRowCount());
+				if (regionRow == null)
+					regionRow = sheet.createRow(rowCount.getRowCount());
+
 				rowCount.addMoreValue(1);
 				Cell cell1 = regionRow.createCell(1);
 				cell1.setCellValue(numOfRegion);
