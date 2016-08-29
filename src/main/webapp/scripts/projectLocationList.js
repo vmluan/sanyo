@@ -166,11 +166,18 @@ $("#listLocation")
 								align : 'center',
 								width : '30%',
 								cellsrenderer : function(row, column, value) {
-									return '<div class="col-md-12">'
-													+ '<button type="button" class="btn btn-info col-md-8"  onclick="updateLocation('+ value +  ')"' + '>Edit</button>'
-													+ '<button type="button" class="btn btn-danger col-md-2" onclick="deleteLocation('+ value +  ')"' + '>X</button>'
+									if (projectStatus2 == 'ONGOING') {
+										return '<div class="col-md-12">'
+											+ '<button type="button" class="btn btn-info col-md-8"  onclick="updateLocation(' + value + ')"' + '>Edit</button>'
+											+ '<button type="button" class="btn btn-danger col-md-2" onclick="deleteLocation(' + value + ')"' + '>X</button>'
 											+ '</div>'
-											;									
+											;
+									} else {
+										// hide the Action field
+										$('#listLocation').jqxGrid('hidecolumn', 'locationId');
+										$("#listLocation").jqxGrid('setcolumnproperty', 'locationDesc', 'width', 'auto');
+										$("#listLocation").jqxGrid('setcolumnproperty', 'locationName', 'width', 'auto');
+									}
 								}
 							}
 							]

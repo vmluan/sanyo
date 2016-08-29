@@ -287,7 +287,8 @@ public class ProjectController extends CommonController {
 	@RequestMapping(params = "form", method = RequestMethod.GET)
     public String createForm(Model uiModel) {
 		Project project = new Project();
-        uiModel.addAttribute("project", project);
+		project.setStatus(ProjectStatus.ONGOING);
+		uiModel.addAttribute("project", project);
         reloadCreateForm(uiModel,project);
 
 

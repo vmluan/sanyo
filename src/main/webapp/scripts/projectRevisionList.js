@@ -95,11 +95,20 @@ $("#listRevision")
 								align : 'center',
 								width : '35%',
 								cellsrenderer : function(row, column, value) {
-									return '<div class="col-md-12">'
-													+ '<button type="button" class="btn btn-info col-md-8"  onclick="updateRevison('+ value +  ')"' + '>Edit</button>'
-													+ '<button type="button" class="btn btn-danger col-md-2" onclick="deleteRevison('+ value +  ')"' + '>X</button>'
+									if (projectStatus2 == 'ONGOING') {
+										return '<div class="col-md-12">'
+											+ '<button type="button" class="btn btn-info col-md-8"  onclick="updateRevison(' + value + ')"' + '>Edit</button>'
+											+ '<button type="button" class="btn btn-danger col-md-2" onclick="deleteRevison(' + value + ')"' + '>X</button>'
 											+ '</div>'
-											;										
+											;
+									} else {
+										// hide the Action field
+										$('#listRevision').jqxGrid('hidecolumn', 'revisionId');
+										$("#listRevision").jqxGrid('setcolumnproperty', 'revisionDesc', 'width', 'auto');
+										$("#listRevision").jqxGrid('setcolumnproperty', 'date', 'width', 'auto');
+										$("#listRevision").jqxGrid('setcolumnproperty', 'revisionNo', 'width', 'auto');
+
+									}
 								}
 							}
 							]

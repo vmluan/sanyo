@@ -52,14 +52,19 @@ var dataAdapter = new $.jqx.dataAdapter(source);
 								align : 'center',
 								width : '25%',
 								cellsrenderer : function(row, column, value) {
-									if(value < 1010101010)
-										return '<div class="col-md-12">'
-														+ '<button type="button" class="btn btn-info col-md-8"  onclick="updateRegion('+ value +  ')"' + '>Edit</button>'
-														+ '<button type="button" class="btn btn-danger col-md-2" onclick="deleteRegion('+ value +  ')"' + '>X</button>'
+									if (projectStatus2 == 'ONGOING') {
+										if (value < 1010101010)
+											return '<div class="col-md-12">'
+												+ '<button type="button" class="btn btn-info col-md-8"  onclick="updateRegion(' + value + ')"' + '>Edit</button>'
+												+ '<button type="button" class="btn btn-danger col-md-2" onclick="deleteRegion(' + value + ')"' + '>X</button>'
 												+ '</div>'
 												;
-									else
-										return '';
+										else
+											return '';
+									} else {
+										// hide the Action field
+
+									}
 								}
 							}							
                 ]

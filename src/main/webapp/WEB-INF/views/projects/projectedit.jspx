@@ -360,12 +360,15 @@
 						<form:errors path="description" cssClass="error" />
 					</div>					
 				</div>	
-				 -->			
-				<div class="col-md-12">
-                  <div class="form-group">
-                    <button type="button" class="btn btn-primary" onclick="submitForm(this.form)">Submit</button>
-                  </div>					
-				</div>
+				 -->
+					<c:if test="${project.status == 'ONGOING'}">
+						<div class="col-md-12">
+							<div class="form-group">
+								<button type="button" class="btn btn-primary" onclick="submitForm(this.form)">Submit
+								</button>
+							</div>
+						</div>
+					</c:if>
 			<c:if test="${project.projectId > 0}">		
 				<div class="col-md-6">				
 					<div class="box box-primary">
@@ -380,8 +383,12 @@
 						</div>
 
 						<section class="content">
-							<a href="${pageContext.request.contextPath}/projects/${project.projectId}/locations/?form" class="btn btn-primary btn-xs">${labelProjecLocationAdd}</a>
-							<p />
+							<c:if test="${project.status == 'ONGOING'}">
+								<a href="${pageContext.request.contextPath}/projects/${project.projectId}/locations/?form"
+								   class="btn btn-primary btn-xs">${labelProjecLocationAdd}</a>
+
+								<p/>
+							</c:if>
 							<div id="listLocation" class="row"><jsp:text />
 							</div>
 							<div id="pagerLocation"><jsp:text /></div><jsp:text /><P /><jsp:text />
@@ -403,8 +410,12 @@
 						</div>
 
 						<section class="content">
-							<a href="${pageContext.request.contextPath}/projects/${project.projectId}/revisions/?form" class="btn btn-primary btn-xs">${labelProjecRevisiontAdd}</a>
-							<p />
+							<c:if test="${project.status == 'ONGOING'}">
+								<a href="${pageContext.request.contextPath}/projects/${project.projectId}/revisions/?form"
+								   class="btn btn-primary btn-xs">${labelProjecRevisiontAdd}</a>
+
+								<p/>
+							</c:if>
 							<div id="listRevision" class="row"><jsp:text />
 							</div>
 							<div id="pagerRevision"><jsp:text /></div><jsp:text /><P /><jsp:text />
@@ -429,24 +440,31 @@
 							</div>
 							<div id="pager"><jsp:text /></div><jsp:text /><P /><jsp:text />
 							<p/>
-							
-							
-							<div class="col-md-12">
-							Want to assign more Systems?
-								<p/>
-								<button id="assignRegionButton" type="botton" class="btn btn-primary">Assign System</button>
-								<p/>
-							</div>
+
+							<c:if test="${project.status == 'ONGOING'}">
+								<div class="col-md-12">
+									Want to assign more Systems?
+									<p/>
+									<button id="assignRegionButton" type="botton"
+											class="btn btn-primary">Assign System
+									</button>
+									<p/>
+								</div>
+							</c:if>
 							<div class="col-md-10">
 								<div class="form-group">							
 									<div id='treeGrid'><jsp:text /></div>
 								</div>					
 							</div>
-							 <div class="col-md-2">			
-								  <div class="form-group">
-									<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/admin/categories?form';">Add System</button>
-								  </div>				
-							</div>					
+							<c:if test="${project.status == 'ONGOING'}">
+								<div class="col-md-2">
+									<div class="form-group">
+										<button type="button" class="btn btn-primary"
+												onclick="location.href='${pageContext.request.contextPath}/admin/categories?form';">Add System
+										</button>
+									</div>
+								</div>
+							</c:if>
 							<div id="messageNotification" style="z-index: 30000000; display: none">
 									Assign System successfully.
 									<jsp:text />
@@ -829,10 +847,11 @@ var pageContext = "${pageContext.request.contextPath}";
 <script>
 
 	var pageContext = "${pageContext.request.contextPath}";
-	var projectStatus = "${projectStatus}";
+	var projectStatus = "${projectStatus}"; // i dont know where this code is used.
 	var projectId = (${project.projectId});
 	var isAdmin =${isAdmin};
 	var StatusNeedUpdatePrice = ${StatusNeedUpdatePrice};
+	var projectStatus2 = "${project.status}";
 </script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/scripts/actionforBasicInfor.js">
         <jsp:text/>
@@ -869,6 +888,10 @@ var pageContext = "${pageContext.request.contextPath}";
 	}
 	$("#startDateDiv").val($("#startDate").val());
 	$("#endDateDiv").val($("#endDate").val());
+	if (projectStatus2 != 'ONGOING') {
+		$('#list').jqxTreeGrid('hideColumn', 'id');
+		$("#list").jqxTreeGrid('setColumnProperty', 'name', 'width', 'auto');
+	}
 	</script>
 	</section>	
 </div>
