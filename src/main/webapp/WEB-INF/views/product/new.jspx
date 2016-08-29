@@ -114,7 +114,6 @@
 								<form:label path="endDate">
 									End Date
 								</form:label>
-								<!--<form:input path="endDate" type="Date" id="endDate" class="form-control" placeholder="mm/dd/yyyy"/> -->
 								<form:hidden path="endDate" class="form-control" />
 								<div id='endDateDiv'><jsp:text/></div>
 
@@ -278,8 +277,8 @@
 					return false;
 		else return true;*/
 	}
-	$('#endDate').val(getFormattedDateYear($('#endDate').attr("value"))); ///set value date for endDate
-	$('#startDate').val(getFormattedDateYear($('#startDate').attr("value"))); ///set value date for startDate
+	//	$('#endDate').val(getFormattedDateYear($('#endDate').attr("value"))); ///set value date for endDate
+	//	$('#startDate').val(getFormattedDateYear($('#startDate').attr("value"))); ///set value date for startDate
 	$("#sbmBtn").click(function(){
 		//Luan - not sure why there is following code to checkoldDate below. That is not correct i think
 		// Imagine that user want to update product name, price without changing start date or end date. It is a normal behavior

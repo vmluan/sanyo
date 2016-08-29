@@ -957,7 +957,9 @@ public class ProjectController extends CommonController {
 		projectRevision.setLmodDate(new Date());
 		projectRevision = projectRevisionService.save(projectRevision);
 		uiModel.asMap().clear();
-		setBreadCrumb(uiModel, "/projects/" + id + "?form", "Update Project", "", "Update Revision");
+		setBreadCrumb(uiModel, "/projects/" + id + "?form", "" +
+				"" +
+				" Project", "", "Update Revision");
 		setHeader(uiModel, "Revision", "Detail of revision");
 		redirectAttributes.addFlashAttribute("message", new Message("success", messageSource.getMessage("revision_save_success", new Object[]{}, locale)));
 //		return "redirect:/projects/revisions/" + UrlUtil.encodeUrlPathSegment(projectRevision.getRevisionId().toString(), httpServletRequest) + "?form";

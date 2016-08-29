@@ -42,6 +42,7 @@ DELIMITER ;
 			DECLARE is_overlapped BOOLEAN ;
                 declare msg varchar(255);
                 declare p_end_date date;
+                declare usdToVnd FLOAT;
             ## do not allow to update past product
             if NEW.startDate < OLD.startDate || NEW.endDate < OLD.startDate then
             	set msg = concat('Time range is the past. Please select date after ',  date(OLD.startDate));
@@ -89,17 +90,36 @@ DELIMITER ;
 					null,
 					OLD.PRODUCT_ID);
                 end if;
-				if NEW.TAX_USD <=> OLD.TAX_USD || NEW.TAX_VND <=> OLD.TAX_VND
+
+    end if;
+		if NEW.TAX_USD <=> OLD.TAX_USD || NEW.TAX_VND <=> OLD.TAX_VND
 					|| NEW.LABOUR <> OLD.LABOUR
 				then
 				begin
-					update sanyo.encounter
-					set needUpdatePrice = 1
-					where product_id = NEW.product_id
-					and ENCOUNTER_TIME between OLD.startDate and OLD.endDate;
+					update sanyo.encounter a, sanyo.region b, sanyo.location l, sanyo.project p
+					set
+					  -- a.needUpdatePrice = 1,
+						a.TAX_USD = NEW.TAX_USD
+						, a.TAX_VND = NEW.TAX_VND
+						, a.LABOUR = NEW.LABOUR
+						,a.Unit_Price_After_Discount = NEW.TAX_VND / p.usdToVnd + NEW.TAX_USD
+						, a.UNIT_RATE = ((NEW.TAX_VND / p.usdToVnd + NEW.TAX_USD)* p.allowance) /100
+						, a.Unit_Price_W_Tax_Profit =  ( NEW.TAX_VND / p.usdToVnd + NEW.TAX_USD)*(1+(1+(p.specialTax/100)*(1+p.impTax/100))*(p.vat/100))*(p.discountRate/100)
+						-- unit_Price_After_Discount*(1+(1+specialCon*(1+impTax))*vat)*discountRate;
+						, a.Unit_Price_W_Tax_Labour = NEW.LABOUR* a.Subcon_Profit/100
+						, a.Cost_Mat_Amount_USD =(NEW.TAX_VND / p.usdToVnd + NEW.TAX_USD)*a.quantity
+						, a.Cost_Labour_Amount_USD = (NEW.LABOUR* a.Subcon_Profit/100) * a.quantity
+						, a.labourAfterTax = (NEW.LABOUR* a.Subcon_Profit/100) * a.ACTUAL_QUANTITY
+						, a.amount = (((NEW.TAX_VND / p.usdToVnd + NEW.TAX_USD)* p.allowance) /100) * a.ACTUAL_QUANTITY
+					where a.product_id = NEW.product_id
+					and a.ENCOUNTER_TIME between OLD.startDate and OLD.endDate
+					and a.region_id = b.region_id
+					and b.location_id = l.location_id
+					and l.project_id = p.project_id
+					and p.status=0 -- still open
+						;
 				END;
-				end if;
-             end if;
+		end if;
 
 
 		END; //
