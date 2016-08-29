@@ -3166,7 +3166,7 @@
     	{
     		var pageContext = "${pageContext.request.contextPath}";
         	var projectId = window.location.href;
-        	projectId=projectId.split('=')[1];
+			projectId = projectId.split('projectId=')[1];
     		
     		var expenseLis = new Object();
 
