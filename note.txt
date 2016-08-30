@@ -79,3 +79,13 @@ back to Quotation page, We need to add Maker List first, then add Encounter late
 
 
 
+======Explain how product trigger work ========
+1. Do not allow user to update past product. It mean does not allow user to:
+	- Update NEW.start_date < OLD.start_date
+	- Update NEW.end_date < old.start_date.
+	
+2. Allow user to update NEW.end_date < OLD.end_date with condition NEW.end_date > new.start_date
+2. When user update one of following fields: TAX_VND, TAX_USD,  LABOUR, insert new record into labour_price to keep history changes.
+If user make some price change in a day, just store the latest update. This is to avoid overlapping date time.
+Update the current row in product.
+	- Also update encounter table.
