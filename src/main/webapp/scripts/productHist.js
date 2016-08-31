@@ -53,8 +53,22 @@ $("#jqxgridProductHist").jqxGrid(
                 {text: 'Max W/O Tax USD', datafield: 'max_w_o_tax_usd', width: '20%',cellsformat: 'c0',cellsalign: 'right'},
 				{text: 'Max W/O Tax VND', datafield: 'max_w_o_tax_vnd', width: '20%',cellsformat: 'c0',cellsalign: 'right'},
                 {text: 'Labour', datafield: 'labour', align: 'right', cellsalign: 'right', cellsformat: 'c2', width: '15%'},
-				{text: 'Start Date', datafield: 'issuedDate', align: 'right', cellsalign: 'right', cellsformat: 'MM/dd/yyyy hh:mm:ss',  width: '20%'},
-				{text: 'End Date', datafield: 'expiredDate', align: 'right', cellsalign: 'right', cellsformat: 'MM/dd/yyyy hh:mm:ss', width: '20%'},
+                {
+                    text: 'Start Date',
+                    datafield: 'issuedDate',
+                    align: 'right',
+                    cellsalign: 'right',
+                    cellsformat: 'MM/dd/yyyy',
+                    width: '20%'
+                },
+                {
+                    text: 'End Date',
+                    datafield: 'expiredDate',
+                    align: 'right',
+                    cellsalign: 'right',
+                    cellsformat: 'MM/dd/yyyy',
+                    width: '20%'
+                },
 
             ]
         });
