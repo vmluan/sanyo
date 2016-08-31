@@ -39,63 +39,140 @@ DELIMITER ;
 		   ON sanyo.product FOR EACH ROW
 
 		BEGIN
+
+
+
 			DECLARE is_overlapped BOOLEAN ;
                 declare msg varchar(255);
                 declare p_end_date date;
                 declare usdToVnd FLOAT;
+                declare v_count int(11);
+                declare isUpdate boolean;
+
+								set  isUpdate = FALSE;
+                -- start date and end date must not be null
+            if new.startDate is NULL || new.endDate is NULL THEN
+             	set msg = 'Start Date and End Date must not be empty';
+                signal sqlstate '46000' set message_text = msg;
+            end if;
             ## do not allow to update past product
             if NEW.startDate < OLD.startDate || NEW.endDate < OLD.startDate then
             	set msg = concat('Time range is the past. Please select date after ',  date(OLD.startDate));
+                signal sqlstate '46000' set message_text = msg;
+            end if;
+            if new.startDate > new.endDate THEN
+            	set msg = 'End Date must be after Start Date ';
                 signal sqlstate '46000' set message_text = msg;
             end if;
             select checkOverlap(old.product_id, new.startDate, new.endDate) into is_overlapped;
             if is_overlapped is true then
                 set msg = 'Overlapped range.';
                 signal sqlstate '45000' set message_text = msg;
-            else
-				if NEW.startDate <> OLD.startDate || NEW.endDate <> OLD.endDate then
 
-					set p_end_date = OLD.endDate;
-					if p_end_date is null THEN
-					 	set p_end_date = now();
-					end if;
-					## make sure end_date greater than or equal start_date
-					## otherwise, set end_date = start_date
-					if p_end_date < OLD.startDate THEN
-						set p_end_date = OLD.startDate;
-					end if;
-					#### insert data to labour_price
-					INSERT INTO `sanyo`.`labour_price`
-					(
-					`EXPIRED_DATE`,
-					`IN_PRICE`,
-					`ISSUED_DATE`,
-					`labour`,
-					`max_w_o_tax_usd`,
-					`max_w_o_tax_vnd`,
-					`OUT_SALE_PRICE`,
-					`OUT_WHLSE_PRICE`,
-					`PRICE_TYPE`,
-					`PRODUCT_ID`)
-					VALUES
-					(
-					p_end_date,
-					0,
-					date(OLD.startDate),
-					OLD.labour,
-					OLD.TAX_USD,
-					OLD.TAX_VND,
-					0,
-					0,
-					null,
-					OLD.PRODUCT_ID);
-                end if;
+            end if;
+				if NEW.startDate > OLD.startDate then -- case of updating start date
 
+							set p_end_date = date(subdate(NEW.startDate,1));
+
+							## make sure end_date greater than or equal start_date
+							## otherwise, set end_date = start_date
+							if p_end_date < OLD.startDate THEN
+								set p_end_date = OLD.startDate;
+							end if;
+							if date(NEW.startDate) > date (p_end_date) THEN
+									set  isUpdate = TRUE;
+							end if;
+							if isUpdate is true then
+									#### insert data to labour_price when start time changed. We ONLY keep the latest change for a day.
+									#### If users make some price changes a days without changing start date, DO NOT store that history.
+									INSERT INTO `sanyo`.`labour_price`
+									(
+									`EXPIRED_DATE`,
+									`IN_PRICE`,
+									`ISSUED_DATE`,
+									`labour`,
+									`max_w_o_tax_usd`,
+									`max_w_o_tax_vnd`,
+									`OUT_SALE_PRICE`,
+									`OUT_WHLSE_PRICE`,
+									`PRICE_TYPE`,
+									`PRODUCT_ID`)
+									VALUES
+									(
+									p_end_date,
+									0,
+									date(OLD.startDate),
+									OLD.labour,
+									OLD.TAX_USD,
+									OLD.TAX_VND,
+									0,
+									0,
+									null,
+									OLD.PRODUCT_ID);
+
+							end if;
     end if;
-		if NEW.TAX_USD <=> OLD.TAX_USD || NEW.TAX_VND <=> OLD.TAX_VND
-					|| NEW.LABOUR <> OLD.LABOUR
+
+
+		if  (NEW.TAX_USD != OLD.TAX_USD
+					|| NEW.TAX_VND != OLD.TAX_VND
+					|| NEW.LABOUR != OLD.LABOUR)
 				then
 				begin
+
+				-- Do not add new record to labour_price table as we dont keep those changes unless user changes date time.
+
+					-- check if there is a record exists in labour_price between old.startDate and old.endDate.
+					-- if not, insert new record
+					-- if yes, just update those 3 fields.
+
+
+/*
+					select count(*) into v_count
+					from `sanyo`.`labour_price`
+					where PRODUCT_ID = OLD.PRODUCT_ID
+					AND ISSUED_DATE = date(OLD.startDate)
+					AND EXPIRED_DATE = date(OLD.endDate);
+
+
+
+
+					if v_count = 0 then
+							INSERT INTO `sanyo`.`labour_price`
+							(
+							`EXPIRED_DATE`,
+							`IN_PRICE`,
+							`ISSUED_DATE`,
+							`labour`,
+							`max_w_o_tax_usd`,
+							`max_w_o_tax_vnd`,
+							`OUT_SALE_PRICE`,
+							`OUT_WHLSE_PRICE`,
+							`PRICE_TYPE`,
+							`PRODUCT_ID`)
+							VALUES
+							(
+							date(now()),
+							0,
+							date(OLD.startDate),
+							OLD.labour,
+							OLD.TAX_USD,
+							OLD.TAX_VND,
+							0,
+							0,
+							null,
+							OLD.PRODUCT_ID);
+					else
+							update `sanyo`.`labour_price`
+							set labour = OLD.labour
+									, max_w_o_tax_usd = OLD.TAX_USD
+									, max_w_o_tax_vnd = OLD.TAX_VND
+							where PRODUCT_ID = OLD.PRODUCT_ID
+							AND ISSUED_DATE = date(OLD.startDate)
+							AND EXPIRED_DATE = date(OLD.endDate);
+
+					end if;
+*/
 					update sanyo.encounter a, sanyo.region b, sanyo.location l, sanyo.project p
 					set
 					  -- a.needUpdatePrice = 1,
