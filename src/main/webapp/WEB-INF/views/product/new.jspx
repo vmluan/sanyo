@@ -385,7 +385,11 @@
 							window.location.href= pageContext + '/products';
 						}
 	 					$("#messageNotification").jqxNotification("open");
-	 					$("#jqxgridProductHist").jqxGrid('updatebounddata');
+					   //$("#jqxgridProductHist").jqxGrid('updatebounddata');
+					   setTimeout(function () {
+						   location.reload();
+					   }, 1000);
+
 				   }
 
 			   },
