@@ -80,7 +80,7 @@
               <!-- general form elements -->
 			  
               <div class="row">
-                <div class="box-header with-border">
+				  <div class="box-header with-border" style="padding-top: 0px;padding-bottom: 0px;">
                   <h3 class="box-title">Projects list</h3>
                 </div><!-- /.box-header -->
                   <div class="col-md-12">
