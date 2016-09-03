@@ -119,15 +119,18 @@ DELIMITER ;
 					|| NEW.LABOUR != OLD.LABOUR)
 				then
 				begin
-
-				-- Do not add new record to labour_price table as we dont keep those changes unless user changes date time.
+                if date(now()) > date(NEW.startDate) then
+					set NEW.startDate = date(now());
+                end if;
+				if date(now()) > date(OLD.startDate) then
+				-- Do not add new record to labour_price table as we dont keep those changes unless user changes date time or startDate < current system date.
 
 					-- check if there is a record exists in labour_price between old.startDate and old.endDate.
 					-- if not, insert new record
 					-- if yes, just update those 3 fields.
 
 
-/*
+
 					select count(*) into v_count
 					from `sanyo`.`labour_price`
 					where PRODUCT_ID = OLD.PRODUCT_ID
@@ -154,7 +157,7 @@ DELIMITER ;
 							(
 							date(now()),
 							0,
-							date(OLD.startDate),
+							date(subdate(OLD.startDate,1)),
 							OLD.labour,
 							OLD.TAX_USD,
 							OLD.TAX_VND,
@@ -172,29 +175,29 @@ DELIMITER ;
 							AND EXPIRED_DATE = date(OLD.endDate);
 
 					end if;
-*/
-					update sanyo.encounter a, sanyo.region b, sanyo.location l, sanyo.project p
-					set
-					  -- a.needUpdatePrice = 1,
-						a.TAX_USD = NEW.TAX_USD
-						, a.TAX_VND = NEW.TAX_VND
-						, a.LABOUR = NEW.LABOUR
-						,a.Unit_Price_After_Discount = NEW.TAX_VND / p.usdToVnd + NEW.TAX_USD
-						, a.UNIT_RATE = ((NEW.TAX_VND / p.usdToVnd + NEW.TAX_USD)* p.allowance) /100
-						, a.Unit_Price_W_Tax_Profit =  ( NEW.TAX_VND / p.usdToVnd + NEW.TAX_USD)*(1+(1+(p.specialTax/100)*(1+p.impTax/100))*(p.vat/100))*(p.discountRate/100)
-						-- unit_Price_After_Discount*(1+(1+specialCon*(1+impTax))*vat)*discountRate;
-						, a.Unit_Price_W_Tax_Labour = NEW.LABOUR* a.Subcon_Profit/100
-						, a.Cost_Mat_Amount_USD =(NEW.TAX_VND / p.usdToVnd + NEW.TAX_USD)*a.quantity
-						, a.Cost_Labour_Amount_USD = (NEW.LABOUR* a.Subcon_Profit/100) * a.quantity
-						, a.labourAfterTax = (NEW.LABOUR* a.Subcon_Profit/100) * a.ACTUAL_QUANTITY
-						, a.amount = (((NEW.TAX_VND / p.usdToVnd + NEW.TAX_USD)* p.allowance) /100) * a.ACTUAL_QUANTITY
-					where a.product_id = NEW.product_id
-					and a.ENCOUNTER_TIME between OLD.startDate and OLD.endDate
-					and a.region_id = b.region_id
-					and b.location_id = l.location_id
-					and l.project_id = p.project_id
-					and p.status=0 -- still open
-						;
+				end if;
+				update sanyo.encounter a, sanyo.region b, sanyo.location l, sanyo.project p
+				set
+				  -- a.needUpdatePrice = 1,
+					a.TAX_USD = NEW.TAX_USD
+					, a.TAX_VND = NEW.TAX_VND
+					, a.LABOUR = NEW.LABOUR
+					,a.Unit_Price_After_Discount = NEW.TAX_VND / p.usdToVnd + NEW.TAX_USD
+					, a.UNIT_RATE = ((NEW.TAX_VND / p.usdToVnd + NEW.TAX_USD)* p.allowance) /100
+					, a.Unit_Price_W_Tax_Profit =  ( NEW.TAX_VND / p.usdToVnd + NEW.TAX_USD)*(1+(1+(p.specialTax/100)*(1+p.impTax/100))*(p.vat/100))*(p.discountRate/100)
+					-- unit_Price_After_Discount*(1+(1+specialCon*(1+impTax))*vat)*discountRate;
+					, a.Unit_Price_W_Tax_Labour = NEW.LABOUR* a.Subcon_Profit/100
+					, a.Cost_Mat_Amount_USD =(NEW.TAX_VND / p.usdToVnd + NEW.TAX_USD)*a.quantity
+					, a.Cost_Labour_Amount_USD = (NEW.LABOUR* a.Subcon_Profit/100) * a.quantity
+					, a.labourAfterTax = (NEW.LABOUR* a.Subcon_Profit/100) * a.ACTUAL_QUANTITY
+					, a.amount = (((NEW.TAX_VND / p.usdToVnd + NEW.TAX_USD)* p.allowance) /100) * a.ACTUAL_QUANTITY
+				where a.product_id = NEW.product_id
+				and a.ENCOUNTER_TIME between OLD.startDate and OLD.endDate
+				and a.region_id = b.region_id
+				and b.location_id = l.location_id
+				and l.project_id = p.project_id
+				and p.status=0 -- still open
+				;
 				END;
 		end if;
 
