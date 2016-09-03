@@ -13,8 +13,7 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <title>SANYO</title>
-   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sanyo.css"
-          type="text/css" />
+
           
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
@@ -47,11 +46,12 @@
     <style type="text/css">
         .jqx-grid-header
         {
-            //height: 50px !important;
 			font-size: 15px !important;
 			font-weight: bold !important;
         }
     </style>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sanyo.css"
+          type="text/css"/>
    <!-- REQUIRED JS SCRIPTS -->
 	<script>
 		var pageContext = "${pageContext.request.contextPath}";
@@ -179,12 +179,12 @@
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        <section class="content-header">
+          <section class="content-header" style="padding-top: 5px;">
           <h1>
             ${pageHeader }
             <small>${pageDesc }</small>
           </h1>
-          <ol class="breadcrumb">
+              <ol class="breadcrumb" style="padding-top: 0px;">
           	<c:forEach items="${links }" var="link">
 				<c:if test="${link.homeLink }">
 					<li><a href="${pageContext.request.contextPath}${link.linkUrl }"><i class="fa fa-dashboard"><jsp:text/></i> ${link.linkName }</a></li>
@@ -197,7 +197,8 @@
         </section>
 
         <!-- Main content -->
-        <section class="content"><jsp:text/>
+          <section class="content" style="padding-top: 0px;padding-bottom: 0px;">
+              <jsp:text/>
 
           <!-- Your Page Content Here -->
 		<tiles:insertAttribute name="body"/> 

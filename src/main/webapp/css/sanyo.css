@@ -2,7 +2,6 @@
      background-color: yellow;
  }
 
-<!--for demo -->
 .item, .placeholder {
     padding: 2px;
     width: 50px;
@@ -19,4 +18,9 @@
 }
 .error{
     color: red;
+}
+
+.content {
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
 }
