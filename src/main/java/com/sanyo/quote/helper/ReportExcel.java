@@ -365,7 +365,11 @@ public class ReportExcel extends ExcelHelper{
 			for (int i = 8; i < 258; i++) {
 
 				Row rowi = sheet.getRow(i);
+				if (rowi == null)
+					rowi = sheet.createRow(i);
 				Cell cell1 = rowi.getCell(1);
+				if (cell1 == null)
+					cell1 = rowi.createCell(1);
 				String cell1Value = cell1.getStringCellValue();
 
 				if (cell1Value != null) {
