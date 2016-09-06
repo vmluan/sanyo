@@ -176,11 +176,10 @@ $("#list")
 										//alert(StatusNeedUpdatePrice);
 										disabledButtonUpdate();										
 										if(isAdmin == true)
-											result += '<button data-toggle="tooltip" title="price update for project" style="float:none;margin:6px" id="update_price" class="btn btn-olive btn-primary update_price" onclick="update_price(this)"><span class="glyphicon spinning"></span>Price Update</button>';
 											result +=	'<button style="float:none;margin:6px" class="btn bg-maroon margin col-md-2" onclick="closeProject('+ value +  ')"' + '>Close</button>';
 									}				
 								//+ '<button class="btn bg-maroon margin col-md-2" onclick="closeProject('+ value +  ')"' + '>Close1</button>';										
-									result +=	'<button style="float:none;margin:6px" class="btn btn-danger margin col-md-1" onclick="deleteProject('+ value +  ')"' + '>X</button>'
+									result +=	'<button style="float:none;margin:6px" class="btn btn-danger margin col-md-2" onclick="deleteProject('+ value +  ')"' + '>Delete</button>'
 												+ '</p>'
 											;
 									return result;
