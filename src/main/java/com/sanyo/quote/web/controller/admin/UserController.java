@@ -18,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -152,8 +153,8 @@ public class UserController extends CommonController {
     public String updateForm(@PathVariable("id") Integer id, Model uiModel) {
 		User user = userService.findById(id);
         uiModel.addAttribute("user", user);
-        resetGroups(user,uiModel);
-        setBreadCrumb(uiModel, "/admin/users", "Users", "", "Update User");
+		resetGroups(user, uiModel);
+		setBreadCrumb(uiModel, "/admin/users", "Users", "", "Update User");
         setUser(uiModel);
         addUserHomeLink();
         addToLinks("Update User", "/admin/users");
@@ -164,8 +165,8 @@ public class UserController extends CommonController {
     public String createForm(Model uiModel) {
 		User user = new User();
         uiModel.addAttribute("user", user);
-        resetGroups(user,uiModel);
-        setPageHeader(uiModel, "Create User", "");
+		resetGroups(user, uiModel);
+		setPageHeader(uiModel, "Create User", "");
         setBreadCrumb(uiModel, "/admin/users", "Users", "", "Create User");
         setUser(uiModel);
         addUserHomeLink();
@@ -227,8 +228,22 @@ public class UserController extends CommonController {
         uiModel.addAttribute("user", user);
         resetGroups(user,uiModel);
         setPageHeader(uiModel, "Update User", "");
-        userService.save(user);
-        return "users/update";
+		try {
+			userService.save(user);
+		} catch (DataIntegrityViolationException e) {
+			String message = e.getMostSpecificCause().getMessage();
+			uiModel.addAttribute("message", new Message("error", message));
+			uiModel.addAttribute("user", user);
+			resetGroups(user, uiModel);
+			return "users/update";
+		} catch (Exception e) {
+			String message = e.getMessage();
+			uiModel.addAttribute("message", new Message("error", message));
+			uiModel.addAttribute("user", user);
+			resetGroups(user, uiModel);
+			return "users/update";
+		}
+		return "users/update";
 //        return "redirect:/admin/users/" + UrlUtil.encodeUrlPathSegment(user.getUserid().toString(), httpServletRequest);
     }
 	//create new user, save to database
@@ -257,9 +272,23 @@ public class UserController extends CommonController {
         setPageHeader(uiModel, "Create new User", "");
         setBreadcrumbLink(uiModel, "/users", "");
         setGroupList(user);
-        userService.save(user);
-        return "redirect:/admin/users/" + UrlUtil.encodeUrlPathSegment(user.getUserid().toString(), httpServletRequest);
-    }
+		try {
+			userService.save(user);
+		} catch (DataIntegrityViolationException e) {
+			String message = e.getMostSpecificCause().getMessage();
+			uiModel.addAttribute("message", new Message("error", message));
+			uiModel.addAttribute("user", user);
+			resetGroups(user, uiModel);
+			return "users/create";
+		} catch (Exception e) {
+			String message = e.getMessage();
+			uiModel.addAttribute("message", new Message("error", message));
+			uiModel.addAttribute("user", user);
+			resetGroups(user, uiModel);
+			return "users/create";
+		}
+		return "redirect:/admin/users/" + UrlUtil.encodeUrlPathSegment(user.getUserid().toString(), httpServletRequest);
+	}
 	@RequestMapping(value = "/getListJson", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String getProductsJson(@RequestParam(value="filterscount", required=false) String filterscount

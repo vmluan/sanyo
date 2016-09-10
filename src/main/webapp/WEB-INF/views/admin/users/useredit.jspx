@@ -57,6 +57,11 @@
                 </div><!-- /.box-header -->
                 <!-- form start -->
                 <form:form modelAttribute="user" id="userUpdateForm" method="post" enctype="multipart/form-data">
+					<div class="col-md-12">
+						<c:if test="${not empty message}">
+							<div id="message" class="${message.type}">${message.message}</div>
+						</c:if>
+					</div>
                   <div class="col-md-6">
 					<div class="form-group">
 						<form:label path="username">
@@ -64,10 +69,10 @@
 						</form:label>
 						<c:choose>
 							<c:when test="${user.userid >0}">
-								<form:input path="username" class="form-control" readonly="true"/>
+								<form:input path="username" class="form-control" readonly="true" autocomplete="off"/>
 							</c:when>
 							<c:otherwise>
-								<form:input path="username" class="form-control"/>
+								<form:input path="username" class="form-control" autocomplete="off"/>
 							</c:otherwise>
 						</c:choose>
 
@@ -81,7 +86,7 @@
 						<form:label path="password">
 							${labelUserPassword}*
 						</form:label>
-						<form:input path="password" type="password" class="form-control"/>
+						<form:input path="password" type="password" class="form-control" autocomplete="off"/>
 					</div>
 					<div>
 						<form:errors path="password" cssClass="error" />
