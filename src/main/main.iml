@@ -9,6 +9,10 @@
         <webroots>
           <root url="file://$MODULE_DIR$/webapp" relative="/" />
         </webroots>
+        <sourceRoots>
+          <root url="file://$MODULE_DIR$/java" />
+          <root url="file://$MODULE_DIR$/resources" />
+        </sourceRoots>
       </configuration>
     </facet>
     <facet type="Spring" name="Spring">

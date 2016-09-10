@@ -129,6 +129,7 @@ public class RegionTest {
 //		System.out.println(products.size());
 		
 		Project project = projectService.findAll().get(0);
+		project = projectService.findById(8);
 //		ReportExcel reportExcel = new ReportExcel();
 //		reportExcel.setEncounterService(encounterService);
 //		reportExcel.setProjectService(projectService);
@@ -149,7 +150,7 @@ public class RegionTest {
 		
 //		reportExcel.setLanguage(Constants.LANG_VN);
 		String homePath = "";
-	//	XSSFWorkbook workbook =  reportExcel.writeExcelReportClientForProject( homePath,project, "template_quotaion_client.xlsx");
+		XSSFWorkbook workbook = reportExcel.writeExcelReportClientForProject(homePath, project, "template_quotaion_client.xlsx");
 //		XSSFWorkbook workbook =  reportExcel.writeExcelReportClientForProject( homePath,project, "template_quotaion_client_vietnamese.xlsx");
 		
 //		System.out.println(expensesService.getSiteExpensesH23(project));
@@ -158,6 +159,9 @@ public class RegionTest {
 		Date date = Calendar.getInstance().getTime();
 		String message = sdf.format(date);
 		System.out.println(message);
+
+		Project tempProject = projectService.findByIdAndFetchLocationsEagerly(Integer.valueOf(10));
+		int a = 1;
 	}
 
 }

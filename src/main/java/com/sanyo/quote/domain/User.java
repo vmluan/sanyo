@@ -45,7 +45,10 @@ public class User implements java.io.Serializable {
 	@NotEmpty
 	@Column(name = "username", length = 30,unique = true, nullable = false)
 	private String username;
-	
+
+	@NotEmpty
+	@Column(name = "fullname", length = 200, unique = false, nullable = false)
+	private String fullName;
 
 	@NotEmpty
 //	 @Size(min = 6, max = 15, message = "Your password must between 6 and 15 characters")
@@ -263,7 +266,15 @@ public class User implements java.io.Serializable {
 		this.createdby = createdby;
 	}
 
-//	public Blob getAvatarBlob() {
+	public String getFullName() {
+		return fullName;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+
+	//	public Blob getAvatarBlob() {
 //		return avatarBlob;
 //	}
 //

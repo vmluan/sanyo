@@ -110,6 +110,7 @@ public class StartupContextListener extends ContextLoaderListener{
 			
 				
 				User user = new User();
+				user.setFullName(" David " + i);
 				user.setUsername(userName);
 				user.setUsercode("01234");
 				user.setPassword("ee10c315eba2c75b403ea99136f5b48d"); // admin in reserve,

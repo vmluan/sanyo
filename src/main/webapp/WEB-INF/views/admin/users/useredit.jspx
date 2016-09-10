@@ -26,8 +26,10 @@
     <spring:message code="label_user_confirm_password" var="labelUserConfirm"/>
     <spring:message code="date_format_pattern" var="dateFormatPattern"/>
     <spring:message code="label_user_edituser" var="labelEditUser"/>
-    
-    <spring:eval expression="user.userid == null ? labelUserNew:labelUserUpdate" var="formTitle"/>       
+
+	<spring:eval expression="user.userid == null ? labelUserNew:labelUserUpdate" var="formTitle"/>
+
+	<spring:eval expression="user.userid == null ? labelUserNew:labelUserUpdate" var="formTitle"/>
 	<script type="text/javascript">
 	  var loadFile = function(event) {
 		    var imgPrev = document.getElementById('imgPrev');
@@ -48,7 +50,7 @@
             <!-- left column -->
             <div class="box-body">
               <!-- general form elements -->
-			  
+
               <div class="row">
                 <div class="box-header with-border">
                   <h3 class="box-title">${formTitle}</h3>
@@ -56,51 +58,75 @@
                 <!-- form start -->
                 <form:form modelAttribute="user" id="userUpdateForm" method="post" enctype="multipart/form-data">
                   <div class="col-md-6">
-					<c:if test="${not empty message}">
-						<div id="message" class="${message.type}">${message.message}</div>
-					</c:if>					
 					<div class="form-group">
 						<form:label path="username">
-							${labelUserUserName}* 
+							${labelUserUserName}*
 						</form:label>
-						<form:input path="username" class="form-control" readonly="true"/>
+						<c:choose>
+							<c:when test="${user.userid >0}">
+								<form:input path="username" class="form-control" readonly="true"/>
+							</c:when>
+							<c:otherwise>
+								<form:input path="username" class="form-control"/>
+							</c:otherwise>
+						</c:choose>
+
 					</div>
 					<div>
 						<form:errors path="username" cssClass="error" />
-					</div>					
+					</div>
 				</div>
 				<div class="col-md-6">
 					<div class="form-group">
 						<form:label path="password">
-							${labelUserPassword}* 
+							${labelUserPassword}*
 						</form:label>
 						<form:input path="password" type="password" class="form-control"/>
 					</div>
 					<div>
 						<form:errors path="password" cssClass="error" />
-					</div>					
+					</div>
 				</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<form:label path="fullName">
+								Full Name*
+							</form:label>
+							<c:choose>
+								<c:when test="${user.userid >0}">
+									<form:input path="fullName" class="form-control"/>
+								</c:when>
+								<c:otherwise>
+									<form:input path="fullName" class="form-control"/>
+								</c:otherwise>
+							</c:choose>
+
+						</div>
+						<div>
+							<form:errors path="fullName" cssClass="error"/>
+						</div>
+					</div>
 				<div class="col-md-6">
 					<div class="form-group">
 						<form:label path="email">
-							${labelUserEmail}* 
+							${labelUserEmail}*
 						</form:label>
 						<form:input path="email" class="form-control" />
 					</div>
 					<div>
 						<form:errors path="email" cssClass="error" />
-					</div>					
+					</div>
 				</div>
 				<div class="col-md-6">
 					<div class="form-group">
 						<form:label path="mobile">
-							${labelMobile}* 
+							${labelMobile}*
 						</form:label>
-						<form:input path="mobile" class="form-control" />					
+						<form:input path="mobile" class="form-control"/>
 					</div>
 					<div>
-						<form:errors path="Mobile" cssClass="error" />
-					</div>				
+						<form:errors path="mobile" cssClass="error"/>
+					</div>
 				</div>
 				<div class="col-md-6">
 					<div class="form-group">
@@ -111,20 +137,21 @@
 					</div>
 					<div>
 						<form:errors path="description" cssClass="error" />
-					</div>  
+					</div>
 				</div>
-				<div class="col-md-6">					
-					
-					<div class="form-group">
+					<div class="col-md-6">
+
+						<div class="form-group">
 						<label for="imgUpload">Avatar: </label>
 						<input type="file" name="file" id="imgUpload" accept="image/*" onchange="loadFile(event)" style="display:none" class="form-control" />
-						<img width="96px" height="96px" id="imgPrev" src="#" alt="your image" onClick="changeFile();" class="profile-user-img"/>					
+							<img width="96px" height="96px" id="imgPrev" src="#" alt="your image"
+								 onClick="changeFile();" class="profile-user-img"/>
 					</div>
-                  </div>				
+					</div>
 				<div class="col-md-6">
 					<div class="form-group">
 						<label>Roles: </label>
-					</div>	
+					</div>
 					<div class="form-group">
 	                    <c:forEach items="${allGroups }" var="group">
 	                        <div class="checkbox">
@@ -133,8 +160,8 @@
 								</c:if>
 							</div>
 	                    </c:forEach>
-						
-					</div>				
+
+					</div>
 				</div>
 				<div class="col-md-6">
                   <div class="form-group">
@@ -152,9 +179,18 @@
 	</section>
 
 <script type="text/javascript">
+	var userId = "${user.userid}";
 	if("${user.avatar}"){
 		var imgPrev = document.getElementById('imgPrev');
 		imgPrev.src = "../../images/profile/" + "${user.avatar}";
 	}
+	/*	$( document ).ready(function() {
+	 if(!userId){
+	 document.getElementById('username').value="";
+	 document.getElementById('password').value="";
+	 }
+	 });*/
+
+
 </script>
 </div>
