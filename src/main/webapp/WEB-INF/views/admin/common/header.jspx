@@ -152,16 +152,34 @@ a, a:hover, a:focus {
                 <!-- Menu Toggle Button -->
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <!-- The user image in the navbar-->
-                  <img src="${pageContext.request.contextPath}/resources/images/profile/${logginUser.avatar}" class="user-image" alt="User Image"/>
+                    <c:choose>
+                        <c:when test="${empty logginUser.avatar}">
+                            <img src="${pageContext.request.contextPath}/resources/images/profile/sample-profile.png"
+                                 class="user-image" alt="User Image"/>
+                        </c:when>
+                        <c:otherwise>
+                            <img src="${pageContext.request.contextPath}/resources/images/profile/${logginUser.avatar}"
+                                 class="user-image" alt="User Image"/>
+                        </c:otherwise>
+                    </c:choose>
                   <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                  <span class="hidden-xs">${logginUser.username }</span>
+                    <span class="hidden-xs">${logginUser.fullName }</span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- The user image in the menu -->
                   <li class="user-header">
-                    <img src="${pageContext.request.contextPath}/resources/images/profile/${logginUser.avatar}" class="img-circle" alt="User Image"/>
+                      <c:choose>
+                          <c:when test="${empty logginUser.avatar}">
+                              <img src="${pageContext.request.contextPath}/resources/images/profile/sample-profile.png"
+                                   class="img-circle" alt="User Image"/>
+                          </c:when>
+                          <c:otherwise>
+                              <img src="${pageContext.request.contextPath}/resources/images/profile/${logginUser.avatar}"
+                                   class="img-circle" alt="User Image"/>
+                          </c:otherwise>
+                      </c:choose>
                     <p>
-                      ${logginUser.username }
+                        ${logginUser.fullName }
                     </p>
                   </li>
                   <!-- Menu Footer-->
