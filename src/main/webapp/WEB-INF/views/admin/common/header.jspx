@@ -164,6 +164,7 @@ a, a:hover, a:focus {
                     </c:choose>
                   <!-- hidden-xs hides the username on small devices so only the image appears. -->
                     <span class="hidden-xs">${logginUser.fullName }</span>
+
                 </a>
                 <ul class="dropdown-menu">
                   <!-- The user image in the menu -->
@@ -180,6 +181,7 @@ a, a:hover, a:focus {
                       </c:choose>
                     <p>
                         ${logginUser.fullName }
+                        <div>${logginUser.username }</div>
                     </p>
                   </li>
                   <!-- Menu Footer-->
