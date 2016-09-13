@@ -115,7 +115,7 @@ a, a:hover, a:focus {
         <!-- Header Navbar -->
         <nav class="navbar navbar-static-top" role="navigation">
           <!-- Sidebar toggle button-->
-          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button" id="sanyoSidebarToggle">
             <span class="sr-only">Toggle navigation</span>
           </a>
           
@@ -187,7 +187,8 @@ a, a:hover, a:focus {
                   <!-- Menu Footer-->
                   <li class="user-footer">
                     <div class="pull-left">
-                      <a href="/admin/users/${logginUser.userid }?form" class="btn btn-default btn-flat">Profile</a>
+                        <a href="${pageContext.request.contextPath}/admin/users/${logginUser.userid }?form"
+                           class="btn btn-default btn-flat">Profile</a>
                     </div>
                     <div class="pull-right">
                       <a href="${pageContext.request.contextPath}/j_spring_security_logout" class="btn btn-default btn-flat">Sign out</a>
