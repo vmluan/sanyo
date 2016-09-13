@@ -18,7 +18,7 @@
                     <li id="liUser"><a href="${pageContext.request.contextPath}/admin/users">User Maintenance</a></li>
                     <li id="liRole"><a href="${pageContext.request.contextPath}/admin/roles">Role Maintenance</a></li>
                     <li id="liCategory"><a href="${pageContext.request.contextPath}/admin/categories">Category Maintenance</a></li>
-                    <li id="liCurrency"><a href="${pageContext.request.contextPath}/currency">Currency Exchange Rates</a></li>
+                      <!--<li id="liCurrency"><a href="${pageContext.request.contextPath}/currency">Currency Exchange Rates</a></li>-->
                   </ul>
                 </li>
            </c:if>
