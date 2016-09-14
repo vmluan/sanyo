@@ -67,9 +67,17 @@ public class PrivilegeFilter implements Filter{
             myRequestWrapper.setAttribute("userName", user.getUsername());
             com.sanyo.quote.domain.User userSanyo = userService.findByUserName(user.getUsername());
             myRequestWrapper.setAttribute("logginUser",userSanyo);*/
+            try {
+                filterChain.doFilter(myRequestWrapper, servletResponse);
+            } catch (Exception ex) {
 
-            filterChain.doFilter(myRequestWrapper,servletResponse);
+                logger.error("Error : {}", ex); //log it
+                servletRequest.setAttribute("errorMessage", ex);
 
+                servletRequest.getRequestDispatcher("exception/error")
+                        .forward(servletRequest, servletResponse);
+
+            }
 
         }else{
             return;

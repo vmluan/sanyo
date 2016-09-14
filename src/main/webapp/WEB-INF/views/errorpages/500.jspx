@@ -1,0 +1,14 @@
+<!--
+  Created by IntelliJ IDEA.
+  User: luan
+  Date: 9/13/16
+  Time: 10:15 PM
+  To change this template use File | Settings | File Templates.
+-->
+<div class="box box-default" style="margin-bottom: 5px;">
+    <!-- left column -->
+    <div class="box-body">
+        <h2 style="color: red;">There is exception with your request. Please contact Support Team for supporting.</h2>
+    </div>
+
+</div>
